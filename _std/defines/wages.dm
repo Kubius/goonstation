@@ -5,7 +5,7 @@
 // e.g. miner
 #define PAY_TRADESMAN 300
 /// e.g. scientist
-#define PAY_DOCTORATE 480
+#define PAY_DOCTORATE 450
 /// e.g. head
 #define PAY_IMPORTANT 900
 /// e.g. captain
