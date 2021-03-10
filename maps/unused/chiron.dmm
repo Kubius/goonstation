@@ -80,9 +80,6 @@
 /obj/machinery/door/airlock/pyro/external,
 /turf/simulated/floor/grey,
 /area)
-"aS" = (
-/turf/simulated/floor/carpet/blue/fancy/innercorner/sw_triple,
-/area)
 "aT" = (
 /obj/machinery/shieldgenerator/meteorshield,
 /obj/item/storage/wall/fire{
@@ -444,8 +441,8 @@
 /turf/simulated/floor/blue/checker,
 /area)
 "dF" = (
-/turf/simulated/floor/carpet/blue/fancy/innercorner/nw_se,
-/area)
+/turf/simulated/wall/asteroid/dark,
+/area/space)
 "dG" = (
 /obj/machinery/conveyor_switch{
 	id = "qmin";
@@ -925,7 +922,10 @@
 /turf/simulated/floor/grass/leafy,
 /area)
 "hF" = (
-/turf/simulated/floor/carpet/blue/fancy/edge/sw,
+/obj/submachine/chef_sink/chem_sink{
+	dir = 1
+	},
+/turf/simulated/floor/dirt,
 /area)
 "hL" = (
 /obj/reagent_dispensers/watertank/fountain,
@@ -1017,7 +1017,9 @@
 /turf/simulated/floor/grey,
 /area)
 "iB" = (
-/turf/simulated/floor/carpet/blue/fancy/edge/west,
+/turf/simulated/floor/grasstodirt{
+	dir = 9
+	},
 /area)
 "iH" = (
 /turf/simulated/floor/blue,
@@ -1796,7 +1798,12 @@
 /turf/simulated/floor/grime,
 /area)
 "oz" = (
-/turf/simulated/floor/carpet/blue/fancy/edge/north,
+/obj/railing/orange{
+	dir = 4
+	},
+/turf/simulated/floor/grasstodirt{
+	dir = 4
+	},
 /area)
 "oD" = (
 /obj/grille/catwalk{
@@ -1903,6 +1910,10 @@
 	},
 /turf/simulated/floor/wood,
 /area)
+"pv" = (
+/obj/machinery/disposal,
+/turf/simulated/floor/dirt,
+/area)
 "pw" = (
 /obj/wingrille_spawn/auto,
 /obj/cable{
@@ -2004,9 +2015,7 @@
 /turf/simulated/floor/plating/jen,
 /area)
 "qA" = (
-/turf/simulated/floor/stairs/dark{
-	dir = 1
-	},
+/turf/simulated/floor/dirt,
 /area)
 "qB" = (
 /obj/machinery/door/airlock/pyro/glass,
@@ -2178,7 +2187,14 @@
 	},
 /area)
 "rZ" = (
-/turf/simulated/floor/carpet/blue/fancy/innercorner/ne_triple,
+/obj/grille/catwalk/jen/side{
+	dir = 1
+	},
+/obj/machinery/light/small{
+	dir = 1;
+	pixel_y = 21
+	},
+/turf/simulated/floor/plating/jen,
 /area)
 "sc" = (
 /obj/stool/bed,
@@ -2421,6 +2437,13 @@
 /turf/simulated/floor/green/side{
 	dir = 10
 	},
+/area)
+"tZ" = (
+/obj/submachine/chicken_incubator,
+/obj/item/reagent_containers/food/snacks/ingredient/egg{
+	rand_pos = 0
+	},
+/turf/simulated/floor/grass/leafy,
 /area)
 "ub" = (
 /obj/decal/cleanable/dirt/jen,
@@ -2701,11 +2724,7 @@
 /area)
 "wa" = (
 /obj/grille/catwalk/jen/side{
-	dir = 1
-	},
-/obj/machinery/light/small{
-	dir = 1;
-	pixel_y = 21
+	dir = 5
 	},
 /turf/simulated/floor/plating/jen,
 /area)
@@ -3420,7 +3439,9 @@
 /turf/simulated/floor/plating,
 /area)
 "BO" = (
-/turf/simulated/floor/carpet/blue/fancy/edge/south,
+/turf/simulated/floor/grasstodirt{
+	dir = 5
+	},
 /area)
 "BQ" = (
 /turf/simulated/floor/engine/caution/east,
@@ -3545,10 +3566,8 @@
 /turf/simulated/floor/wood,
 /area)
 "CZ" = (
-/obj/grille/catwalk/jen/side{
-	dir = 5
-	},
-/turf/simulated/floor/plating/jen,
+/obj/submachine/chicken_incubator,
+/turf/simulated/floor/grass/leafy,
 /area)
 "Dc" = (
 /obj/disposalpipe/segment/transport,
@@ -4041,8 +4060,14 @@
 /turf/simulated/floor,
 /area)
 "He" = (
-/obj/machinery/door/airlock/pyro/glass,
-/turf/simulated/floor/black/side,
+/obj/table/reinforced/auto,
+/obj/machinery/cashreg,
+/obj/machinery/door/airlock/pyro/glass/windoor,
+/obj/access_spawn/hydro,
+/obj/decal/tile_edge/line/green{
+	icon_state = "line1"
+	},
+/turf/simulated/floor/dirt,
 /area)
 "Hk" = (
 /obj/machinery/door/airlock/pyro{
@@ -4252,6 +4277,13 @@
 "IS" = (
 /turf/simulated/floor/circuit,
 /area/station/turret_protected/ai)
+"IV" = (
+/obj/submachine/chicken_feed_grinder,
+/obj/item/reagent_containers/food/snacks/plant/corn{
+	doants = 0
+	},
+/turf/simulated/floor/dirt,
+/area)
 "IW" = (
 /obj/table/reinforced/bar/auto{
 	name = "wooden table"
@@ -4733,7 +4765,12 @@
 /turf/simulated/floor/carpet/red/standard/edge/ne,
 /area)
 "Nb" = (
-/turf/simulated/floor/carpet/blue/fancy/edge/se,
+/obj/railing/orange{
+	dir = 1
+	},
+/turf/simulated/floor/grasstodirt{
+	dir = 1
+	},
 /area)
 "Nh" = (
 /turf/simulated/floor/green/corner{
@@ -4850,7 +4887,22 @@
 /turf/simulated/floor/plating,
 /area)
 "Oy" = (
-/turf/simulated/floor/carpet/blue/fancy/edge/ne,
+/obj/railing/orange{
+	dir = 4
+	},
+/obj/table/reinforced/auto,
+/obj/item/reagent_containers/food/snacks/chicken_feed_bag{
+	rand_pos = 1
+	},
+/obj/item/reagent_containers/food/snacks/chicken_feed_bag{
+	rand_pos = 1
+	},
+/obj/item/reagent_containers/food/snacks/chicken_feed_bag{
+	rand_pos = 1
+	},
+/turf/simulated/floor/grasstodirt{
+	dir = 4
+	},
 /area)
 "OB" = (
 /obj/stool/chair/pew/fancy/right{
@@ -5053,7 +5105,8 @@
 	},
 /area)
 "Qn" = (
-/turf/simulated/floor/carpet/blue/fancy/edge/east,
+/obj/chicken_nesting_box,
+/turf/simulated/floor/grass/leafy,
 /area)
 "Qo" = (
 /obj/shrub,
@@ -5616,7 +5669,12 @@
 /turf/simulated/floor/plating/airless/asteroid/dark,
 /area)
 "Wf" = (
-/turf/simulated/floor/carpet/blue/fancy/edge/nw,
+/obj/railing/orange{
+	dir = 8
+	},
+/turf/simulated/floor/grasstodirt{
+	dir = 8
+	},
 /area)
 "Wk" = (
 /obj/cable{
@@ -5845,6 +5903,12 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plating,
+/area)
+"XQ" = (
+/obj/stool/chair/green{
+	dir = 8
+	},
+/turf/simulated/floor/dirt,
 /area)
 "XV" = (
 /obj/table/reinforced/auto,
@@ -52102,7 +52166,7 @@ dp
 qx
 Lg
 AM
-AM
+Cn
 Cn
 Cn
 Cn
@@ -52163,7 +52227,7 @@ Et
 Cn
 Cn
 Cn
-YX
+xL
 xL
 xL
 xL
@@ -52398,15 +52462,15 @@ Ps
 Ps
 Ps
 ML
-ML
-ML
+dF
+dF
 dp
 qx
 Lg
-Lg
 AM
 AM
 AM
+Cm
 AM
 AM
 OR
@@ -52700,16 +52764,16 @@ Ps
 Ps
 Ps
 ML
-ML
-AM
-wa
+dF
+dF
+dp
 qx
 Lg
-Lg
-jY
-jY
-Lg
-Yp
+AM
+CZ
+Qn
+Nb
+IV
 AM
 YX
 Ry
@@ -53002,17 +53066,17 @@ Ps
 Ps
 Ps
 ML
+ML
+ML
+dp
+qx
+Lg
 AM
-AM
-CZ
-jH
-Yt
-Yt
-Yt
-Yt
-Yt
-mW
-wu
+iV
+iV
+Nb
+qA
+YX
 tA
 MT
 lD
@@ -53306,15 +53370,15 @@ Ps
 ML
 ML
 AM
-ML
+rZ
+qx
 Lg
-Lg
 AM
-AM
-AM
-AM
-AM
-AM
+iV
+iV
+Nb
+qA
+YX
 Cn
 jp
 Cn
@@ -53605,14 +53669,14 @@ Ps
 Ps
 Ps
 Ps
-Ps
 ML
-ML
-ML
-ML
-Lg
 AM
-pK
+AM
+wa
+jH
+mW
+HH
+Wf
 Wf
 iB
 hF
@@ -53907,18 +53971,18 @@ Ps
 Ps
 Ps
 Ps
-Ps
 ML
 ML
-ML
+AM
 ML
 Lg
+Lg
 AM
-pK
+Oy
 oz
-aS
+oz
 BO
-pK
+pv
 YX
 jp
 Cn
@@ -54216,10 +54280,10 @@ ML
 ML
 Lg
 AM
-pK
-oz
-dF
-BO
+iV
+iV
+iV
+Nb
 qA
 He
 jp
@@ -54518,11 +54582,11 @@ ML
 ML
 Lg
 AM
-pK
-oz
-rZ
-BO
-pK
+Qn
+iV
+iV
+Nb
+XQ
 YX
 jp
 Cn
@@ -54820,9 +54884,9 @@ ML
 AM
 Eq
 AM
-pK
-Oy
-Qn
+tZ
+iV
+iV
 Nb
 YX
 YX
@@ -55125,7 +55189,7 @@ AM
 YX
 YX
 YX
-YX
+Ux
 YX
 Cn
 jp
