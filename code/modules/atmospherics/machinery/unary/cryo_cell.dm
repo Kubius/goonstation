@@ -1,5 +1,5 @@
 /obj/machinery/atmospherics/unary/cryo_cell
-	name = "cryo cell"
+	name = "cryogenic healing pod"
 	icon = 'icons/obj/Cryogenic2.dmi'
 	icon_state = "celltop-P"
 	density = 1
@@ -67,10 +67,12 @@
 				if (!ishuman(occupant))
 					src.go_out() // stop turning into cyborgs thanks
 				if (occupant.health < occupant.max_health || occupant.bioHolder.HasEffect("premature_clone"))
+
 					process_occupant()
 				else
-					src.go_out()
-					playsound(src.loc, "sound/machines/ding.ogg", 50, 1)
+					if(occupant.mind)
+						src.go_out()
+						playsound(src.loc, "sound/machines/ding.ogg", 50, 1)
 
 		if(air_contents)
 			ARCHIVED(temperature) = air_contents.temperature

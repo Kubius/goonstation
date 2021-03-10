@@ -25,6 +25,7 @@
 	module_research = list("tools" = 5, "science" = 1)
 	rand_pos = 1
 	inventory_counter_enabled = 1
+	move_triggered = 1
 	var/list/banned_reagents = list("vomit",
 	"blackpowder",
 	"blood",
@@ -156,7 +157,7 @@
 		user.lastattacked = target
 
 		for (var/a = 0, a < reagents_per_dist, a++)
-			SPAWN_DBG (0)
+			SPAWN_DBG(0)
 				if (disposed)
 					return
 				if (!src.reagents)
@@ -168,14 +169,14 @@
 				var/turf/my_target = pick(the_targets)
 				W.spray_at(my_target, R, try_connect_fluid = 1)
 
-		if (istype(usr.loc, /turf/space))
+		if (istype(user.loc, /turf/space))
 			user.inertia_dir = get_dir(target, user)
 			step(user, user.inertia_dir)
-		else if( usr.buckled && !usr.buckled.anchored )
+		else if( user.buckled && !user.buckled.anchored )
 			var/wooshdir = get_dir( target, user )
 			SPAWN_DBG(0)
-				for( var/i = 1, (usr && usr.buckled && !usr.buckled.anchored && i <= rand(3,5)), i++ )
-					step( usr.buckled, wooshdir )
+				for( var/i = 1, (user?.buckled && !user.buckled.anchored && i <= rand(3,5)), i++ )
+					step( user.buckled, wooshdir )
 					sleep( rand(1,3) )
 
 	else

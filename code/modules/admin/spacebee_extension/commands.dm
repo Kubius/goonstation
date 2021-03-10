@@ -55,7 +55,7 @@
 	help_message = "Creates a command report on a given server."
 	argument_types = list(/datum/command_argument/string="headline", /datum/command_argument/the_rest="body")
 	execute(user, headline, body)
-		for (var/obj/machinery/communications_dish/C in by_type[/obj/machinery/communications_dish])
+		for_by_tcl(C, /obj/machinery/communications_dish)
 			C.add_centcom_report("[command_name()] Update", body)
 		body = discord_emojify(body)
 		headline = discord_emojify(headline)
@@ -235,3 +235,37 @@
 			new type(to_send)
 		shippingmarket.receive_crate(to_send)
 		system.reply("Crate sent.")
+
+/datum/spacebee_extension_command/logs
+	name = "logs"
+	server_targeting = COMMAND_TARGETING_SINGLE_SERVER
+	help_message = "Returns a link to the weblog of requested server. You really are lazy."
+	execute(user)
+		var/ircmsg[] = new()
+		ircmsg["key"] = "Loggo"
+		ircmsg["name"] = "Lazy Admin Logs"
+		// ircmsg["msg"] = "Logs for this round can be found here: https://mini.xkeeper.net/ss13/admin/log-get.php?id=[config.server_id]&date=[roundLog_date]"
+		ircmsg["msg"] = "Logs for this round can be found here: https://mini.xkeeper.net/ss13/admin/log-viewer.php?server=[config.server_id]&redownload=1&view=[roundLog_date].html"
+		ircbot.export("help", ircmsg)
+
+/datum/spacebee_extension_command/state_based/confirmation/mob_targeting/rename
+	name = "rename"
+	help_message = "Rename a given ckey's mob."
+	action_name = "rename"
+	argument_types = list(/datum/command_argument/string="ckey", /datum/command_argument/the_rest="new_name")
+	var/new_name = null
+
+	prepare(user, ckey, new_name)
+		. = ..()
+		src.new_name = new_name
+
+	perform_action(user, mob/target)
+		if(isnull(src.new_name))
+			return FALSE
+		message_admins("<span class='alert'>Admin [user] (Discord) renamed [key_name(target)] to [src.new_name]!</span>")
+		logTheThing("admin", "[user] (Discord)", target, "renamed [constructTarget(target,"admin")] to [src.new_name]!")
+		logTheThing("diary", "[user] (Discord)", target, "renamed [constructTarget(target,"diary")] to [src.new_name]!", "admin")
+		target.real_name = src.new_name
+		target.name = src.new_name
+		target.choose_name(1, null, target.real_name, force_instead=TRUE)
+		return TRUE

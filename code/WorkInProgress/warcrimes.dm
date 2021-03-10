@@ -29,6 +29,7 @@ var/fartcount = 0
 	on = 1
 	put_out(var/mob/user as mob, var/message as text)
 		// how about we do literally nothing instead?
+		// please stop doing the thing you keep doing.
 
 /obj/item/clothing/shoes/thong
 	name = "garbage flip-flops"
@@ -66,6 +67,31 @@ var/fartcount = 0
 
 
 
+/obj/machinery/vending/meat //MEAT VENDING MACHINE
+	name = "Meat4cash"
+	desc = "An exotic meat vendor."
+	icon_state = "steak"
+	icon_panel = "standard-panel"
+	icon_off = "monkey-off"
+	icon_broken = "monkey-broken"
+	icon_fallen = "monkey-fallen"
+	pay = 1
+	acceptcard = 1
+	slogan_list = list("It's meat you can buy!",
+	"Trade your money for meat!",
+	"Buy the meat! It's meat!",
+	"Why not buy the meat?",
+	"Please, please buy meat.")
+
+	light_r = 0.9
+	light_g = 0.1
+	light_b = 0.1
+
+	create_products()
+		..()
+		product_list += new/datum/data/vending_product(/obj/item/reagent_containers/food/snacks/ingredient/meat, 20, cost=PAY_UNTRAINED/5)
+
+		product_list += new/datum/data/vending_product(/obj/item/reagent_containers/food/snacks/ingredient/meat/humanmeat, 2, cost=PAY_UNTRAINED, hidden=1)
 
 
 
@@ -104,6 +130,7 @@ var/fartcount = 0
 /area/grillnasium/grill_chamber/john_talk = list("You better know what you've started.","This is where it happens.")
 
 
+
 // bus driver
 /mob/living/carbon/human/john
 	real_name = "John Bill"
@@ -113,40 +140,42 @@ var/fartcount = 0
 	var/greeted_murray = 0
 	var/list/snacks = null
 	var/gotsmokes = 0
+	var/nude = 0
 
-
+	nude
+		nude = 1
 
 	New()
 		..()
 		START_TRACKING_CAT(TR_CAT_JOHNBILLS)
-		SPAWN_DBG(0)
-			bioHolder.mobAppearance.customization_first = "Tramp"
-			bioHolder.mobAppearance.customization_first_color = "#281400"
-			bioHolder.mobAppearance.customization_second = "Pompadour"
-			bioHolder.mobAppearance.customization_second_color = "#241200"
-			bioHolder.mobAppearance.customization_third = "Tramp: Beard Stains"
-			bioHolder.mobAppearance.customization_third_color = "#663300"
-			bioHolder.age = 63
-			bioHolder.bloodType = "A+"
-			bioHolder.mobAppearance.gender = "male"
-			bioHolder.mobAppearance.underwear = "briefs"
-			bioHolder.mobAppearance.u_color = "#996633"
+		if(nude)
+			return
+		src.equip_new_if_possible(/obj/item/clothing/shoes/thong, slot_shoes)
+		src.equip_new_if_possible(/obj/item/clothing/under/color/orange, slot_w_uniform)
+		src.equip_new_if_possible(/obj/item/clothing/mask/cigarette/john, slot_wear_mask)
+		src.equip_new_if_possible(/obj/item/clothing/suit/labcoat, slot_wear_suit)
+		src.equip_new_if_possible(/obj/item/clothing/head/paper_hat/john, slot_head)
 
-			SPAWN_DBG(1 SECOND)
-				bioHolder.mobAppearance.UpdateMob()
-
-			src.equip_new_if_possible(/obj/item/clothing/shoes/thong, slot_shoes)
-			src.equip_new_if_possible(/obj/item/clothing/under/color/orange, slot_w_uniform)
-			src.equip_new_if_possible(/obj/item/clothing/mask/cigarette/john, slot_wear_mask)
-			src.equip_new_if_possible(/obj/item/clothing/suit/labcoat, slot_wear_suit)
-			src.equip_new_if_possible(/obj/item/clothing/head/paper_hat/john, slot_head)
-
-			var/obj/item/implant/access/infinite/shittybill/implant = new /obj/item/implant/access/infinite/shittybill(src)
-			implant.implanted(src, src)
+		var/obj/item/implant/access/infinite/shittybill/implant = new /obj/item/implant/access/infinite/shittybill(src)
+		implant.implanted(src, src)
 
 	disposing()
 		STOP_TRACKING_CAT(TR_CAT_JOHNBILLS)
 		..()
+
+	initializeBioholder()
+		bioHolder.mobAppearance.customization_first = "Tramp"
+		bioHolder.mobAppearance.customization_first_color = "#281400"
+		bioHolder.mobAppearance.customization_second = "Pompadour"
+		bioHolder.mobAppearance.customization_second_color = "#241200"
+		bioHolder.mobAppearance.customization_third = "Tramp: Beard Stains"
+		bioHolder.mobAppearance.customization_third_color = "#663300"
+		bioHolder.age = 63
+		bioHolder.bloodType = "A+"
+		bioHolder.mobAppearance.gender = "male"
+		bioHolder.mobAppearance.underwear = "briefs"
+		bioHolder.mobAppearance.u_color = "#996633"
+		. = ..()
 
 	// John Bill always goes to the afterlife bar.
 	death(gibbed)
@@ -204,7 +233,7 @@ var/fartcount = 0
 			if(prob(15))
 				snacktime()
 			var/area/A = get_area(src)
-			if(prob(talk_prob) || A.john_talk)
+			if(prob(talk_prob) || A?.john_talk)
 				src.speak()
 
 	proc/snacktime()
@@ -220,8 +249,15 @@ var/fartcount = 0
 					src.visible_message("<span class='alert'>[src] horks up a lump from his stomach... </span>")
 			snacc.Eat(src,src,1)
 
+	proc/pacify()
+		src.a_intent = INTENT_HELP
+		src.target = null
+		src.ai_state = 0
+		src.ai_target = null
 
 	proc/speak()
+		if(nude)
+			return // nude john is for looking at, not listening to.
 		SPAWN_DBG(0)
 			var/list/grills = list()
 
@@ -235,7 +271,7 @@ var/fartcount = 0
 			var/area/A = get_area(src)
 			var/list/alive_mobs = list()
 			var/list/dead_mobs = list()
-			if (A.population && A.population.len)
+			if (A && A.population && A.population.len)
 				for(var/mob/living/M in oview(5,src))
 					if(!isdead(M))
 						alive_mobs += M
@@ -274,7 +310,7 @@ var/fartcount = 0
 					else
 						say("Anyone gonna fire up \the [G]?")
 
-			else if(prob(40) && dead_mobs && dead_mobs.len > 0) //SpyGuy for undefined var/len (what the heck)
+			else if(prob(40) && length(dead_mobs))
 				var/mob/M = pick(dead_mobs)
 				say("[JOHN_PICK("deadguy")] [M.name]...")
 			else if (alive_mobs.len > 0)
@@ -282,7 +318,7 @@ var/fartcount = 0
 					greeted_murray = 1
 					say("[JOHN_PICK("greetings")] Murray! How's it [JOHN_PICK("verbs")]?")
 					SPAWN_DBG(rand(20,40))
-						if (murray && murray.on && !murray.idle)
+						if (murray?.on && !murray.idle)
 							murray.speak("Hi, John! It's [JOHN_PICK("murraycompliment")] to see you here, of all places.")
 
 				else
@@ -382,10 +418,7 @@ var/fartcount = 0
 			SPAWN_DBG(1 DECI SECOND)
 				say("Oh? [W] eh?")
 				say(pick("No kiddin' fer me?","I guess I could go fer a quick one yeah!","Oh dang dang dang! Haven't had one of these babies in a while!","Well I never get tired of those!","You're offering this to me? Don't mind if i do, [JOHN_PICK("people")]"))
-				src.a_intent = INTENT_HELP // pacify a juicer with food, obviously
-				src.target = null
-				src.ai_state = 0
-				src.ai_target = null
+				pacify()
 
 				if (istype(W, /obj/item/clothing/mask/cigarette/cigarillo/juicer))
 					gotsmokes = 1
@@ -432,10 +465,11 @@ var/fartcount = 0
 			return
 		..()
 
-	was_harmed(var/mob/M as mob, var/obj/item/weapon = 0, var/special = 0)
+	was_harmed(var/mob/M as mob, var/obj/item/weapon = 0, var/special = 0, var/intent = null)
+		. = ..()
 		if (special) //vamp or ling
 			src.target = M
-			src.ai_state = 2
+			src.ai_state = AI_ATTACKING
 			src.ai_threatened = world.timeofday
 			src.ai_target = M
 			src.a_intent = INTENT_HARM
@@ -536,7 +570,7 @@ var/bombini_saved = 0
 /obj/machinery/computer/shuttle_bus/Topic(href, href_list)
 	if(..())
 		return
-	if ((usr.contents.Find(src) || (in_range(src, usr) && istype(src.loc, /turf))) || (issilicon(usr)))
+	if ((usr.contents.Find(src) || (in_interact_range(src, usr) && istype(src.loc, /turf))) || (issilicon(usr)))
 		src.add_dialog(usr)
 
 		if (href_list["send"])
@@ -654,7 +688,7 @@ var/bombini_saved = 0
 
 	johnbus_active = 0
 
-	for(var/obj/machinery/computer/shuttle_bus/C in machine_registry[MACHINES_TURRETS])
+	for(var/obj/machinery/computer/shuttle_bus/C in machine_registry[MACHINES_SHUTTLECOMPS])
 
 		C.visible_message("<span class='alert'>John's Juicin' Bus has Moved!</span>")
 
@@ -785,6 +819,8 @@ Urs' Hauntdog critter
 		if (H.reagents)
 			H.reagents.add_reagent("ectoplasm", 10)
 		H.update_icon()
+		H.AddComponent(/datum/component/consume/foodheal, H.heal_amt)
+
 
 		qdel(src)
 
@@ -804,7 +840,7 @@ Urs' Hauntdog critter
 		if(act == "scream" && src.emote_check(voluntary, 50))
 			var/turf/T = get_turf(src)
 			var/hogg = pick("sound/voice/hagg_vorbis.ogg","sound/voice/hogg_vorbis.ogg","sound/voice/hogg_vorbis_the.ogg","sound/voice/hogg_vorbis_screams.ogg","sound/voice/hogg_with_scream.ogg","sound/voice/hoooagh2.ogg","sound/voice/hoooagh.ogg",)
-			playsound(T, hogg, 60, 1)
+			playsound(T, hogg, 60, 1, channel=VOLUME_CHANNEL_EMOTE)
 			return "<span class='emote'><b>[src]</b> screeeams!</span>"
 		return null
 
@@ -847,3 +883,19 @@ Urs' Hauntdog critter
 							"NSS Horizon",
 							"???")
 
+
+/mob/living/carbon/human/geneticist
+	is_npc = 1
+	uses_mobai = 1
+	real_name = "Juicer Gene"
+	gender = NEUTER
+	max_health = 50
+
+	New()
+		..()
+		src.ai = new /datum/aiHolder/human/geneticist(src)
+		src.equip_new_if_possible(/obj/item/clothing/shoes/dress_shoes, slot_shoes)
+		src.equip_new_if_possible(/obj/item/clothing/under/rank/geneticist, slot_w_uniform)
+		src.equip_new_if_possible(/obj/item/clothing/suit/labcoat/pathology, slot_wear_suit)
+		if(prob(50))
+			src.equip_new_if_possible(/obj/item/clothing/glasses/regular, slot_glasses)

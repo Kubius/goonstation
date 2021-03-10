@@ -12,7 +12,7 @@
 	nodes.Add(A)
 
 /datum/mechanicsMessage/proc/hasNode(var/atom/A)
-	return nodes.Find(A)
+	return (A in nodes)
 
 /datum/mechanicsMessage/proc/isTrue() //Thanks for not having bools , byond.
 	if(istext(signal))
@@ -293,30 +293,25 @@
 		return 0
 	if(length(src.configs))
 		var/selected_config = input("Select a config to modify!", "Config", null) as null|anything in src.configs
-		if(selected_config && in_range(parent, user))
+		if(selected_config && in_interact_range(parent, user))
 			switch(selected_config)
 				if(SET_SEND)
 					var/inp = input(user,"Please enter Signal:","Signal setting","1") as text
-					if(!in_range(parent, user) || user.stat)
-						return 0
-					inp = trim(adminscrub(inp), 1)
+					if(!in_interact_range(parent, user) || user.stat)
+						return
+					inp = trim(strip_html_tags(inp))
 					if(length(inp))
 						defaultSignal = inp
 						boutput(user, "Signal set to [inp]")
-					return COMSIGBIT_ATTACKBY_COMPLETE
 				if(DC_ALL)
 					WipeConnections()
 					if(istype(parent, /atom))
 						var/atom/AP = parent
 						boutput(user, "<span class='notice'>You disconnect [AP.name].</span>")
-					return COMSIGBIT_ATTACKBY_COMPLETE
 				else
 					//must be a custom config specific to the device, so let the device handle it
 					var/path = src.configs[selected_config]
-					var/ret = call(parent, path)(W, user)
-					if(ret) ret = COMSIGBIT_ATTACKBY_COMPLETE
-					return ret
-	return 0
+					call(parent, path)(W, user)
 
 //If it's a multi-tool, let the user configure the device.
 /datum/component/mechanics_holder/proc/compatible()

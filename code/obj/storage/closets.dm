@@ -75,8 +75,10 @@
 							/obj/item/device/light/flashlight,
 							/obj/item/clothing/shoes/galoshes,
 							/obj/item/reagent_containers/glass/bottle/cleaner,
+							/obj/item/storage/box/body_bag,
 							/obj/item/caution = 6,
-							/obj/item/clothing/gloves/long)
+							/obj/item/clothing/gloves/long,
+							/obj/item/handheld_vacuum)
 
 /obj/storage/closet/law
 	name = "\improper Legal closet"
@@ -368,7 +370,7 @@
 #ifdef HALLOWEEN
 			if (halloween_mode && prob(5)) //remove the prob() if you want, it's just a little broken if dudes are constantly teleporting
 				var/list/obj/storage/myPals = list()
-				for (var/obj/storage/O in by_type[/obj/storage])
+				for_by_tcl(O, /obj/storage)
 					LAGCHECK(LAG_LOW)
 					if (O.z != src.z || O.open || !O.can_open())
 						continue
@@ -508,11 +510,26 @@
 /obj/storage/closet/medicalclothes
 	name = "medical clothing locker"
 	icon = 'icons/obj/large_storage.dmi'
-	icon_closed = "medicalclothes"
-	icon_state = "medicalclothes"
+	icon_closed = "medical_clothes"
+	icon_state = "medical_clothes"
 	icon_opened = "secure_white-open"
 	desc = "A handy medical locker for storing your doctoring apparel."
 	spawn_contents = list(/obj/item/clothing/head/nursehat = 1,
 					/obj/item/clothing/suit/nursedress = 1,
 					/obj/item/clothing/head/headmirror = 1,
 					/obj/item/clothing/suit/labcoat/medical = 2)
+
+/obj/storage/closet/command/ruined //replacements for azones and mining level flavor
+	name = "Dented command locker"
+	desc = "This thing looks ransacked."
+	icon = 'icons/obj/large_storage.dmi'
+	icon_state = "dented_c"
+	icon_closed = "dented_c"
+	icon_opened = "dented_c-open"
+	spawn_contents = list()
+
+/obj/storage/closet/command/ruined/hos //rejoice HoS players
+	name = "Dented Head of Security's locker"
+	desc = "A banged up Head of Security locker. Looks like somebody took the law into their own hands."
+	spawn_contents = list(/obj/item/clothing/shoes/brown,
+	/obj/item/paper/iou)
