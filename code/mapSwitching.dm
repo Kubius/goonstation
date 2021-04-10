@@ -571,6 +571,9 @@ var/global/datum/mapSwitchHandler/mapSwitcher
 		dat += "<A href='[topicLink("all_yes", "all_yes",list("client" = "\ref[C]"))]'>MAKE THEM ALL YES</A><BR>"
 		dat += "<A href='[topicLink("all_no", "all_no",list("client" = "\ref[C]"))]'>MAKE THEM ALL NO</A>"
 
+		if(SERVER_NUMBER == 2 || ASS_JAM)
+			dat += "<B>Alternate maps may not be feature-complete.</B>"
+
 		return dat.Join()
 
 	proc/show_window(var/client/C)
