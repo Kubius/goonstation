@@ -27,6 +27,7 @@
 	var/light_style = "disposal" // for the lights and stuff
 	var/image/handle_image = null
 	var/destination_tag = null
+	var/mail_only = 0 // prevents certain things (mainly people) from entering the chute, barring special conditions
 	mats = 20			// whats the point of letting people build trunk pipes if they cant build new disposals?
 	deconstruct_flags = DECON_WRENCH | DECON_CROWBAR | DECON_WELDER | DECON_SCREWDRIVER
 	power_usage = 100
@@ -115,7 +116,7 @@
 		if(istype(G))	// handle grabbed mob
 			if (ismob(G.affecting))
 				var/mob/GM = G.affecting
-				if (istype(src, /obj/machinery/disposal/mail) && !GM.canRideMailchutes())
+				if (src.mail_only && !GM.canRideMailchutes())
 					boutput(user, "<span class='alert'>That won't fit!</span>")
 					return
 				GM.set_loc(src)
@@ -143,7 +144,7 @@
 		if (!istype(target) || target.buckled || get_dist(user, src) > 1 || get_dist(user, target) > 1 || is_incapacitated(user) || isAI(user) || isAI(target) || isghostcritter(user))
 			return
 
-		if (istype(src, /obj/machinery/disposal/mail) && isliving(target))
+		if (src.mail_only && isliving(target))
 			//Is this mob allowed to ride mailchutes?
 			if (!target.canRideMailchutes())
 				boutput(user, "<span class='alert'>That won't fit!</span>")
@@ -182,7 +183,7 @@
 	hitby(atom/movable/MO, datum/thrown_thing/thr)
 		// This feature interferes with mail delivery, i.e. objects bouncing back into the chute.
 		// Leaves people wondering where the stuff is, assuming they received a PDA alert at all.
-		if (istype(src, /obj/machinery/disposal/mail))
+		if (src.mail_only)
 			return ..()
 
 		if(isitem(MO))

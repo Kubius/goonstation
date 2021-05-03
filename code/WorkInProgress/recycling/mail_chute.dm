@@ -5,6 +5,7 @@
 	icon_state = "mailchute"
 	desc = "A pneumatic mail-delivery chute."
 	icon_style = "mail"
+	mail_only = 1
 	var/mail_tag = null
 	//var/destination_tag = null // dropped to parent /obj/machinery/disposal
 	var/list/destinations = list()
@@ -105,7 +106,7 @@
 			return
 
 		flushing = 1
-		if (istype(src, /obj/machinery/disposal/mail)) flick("mailchute-flush", src)
+		if (istype(src,/obj/machinery/disposal/mail)) flick("mailchute-flush", src)
 		else flick("disposal-flush", src)
 
 		var/obj/disposalholder/H = unpool(/obj/disposalholder)	// virtual holder object which actually
@@ -163,7 +164,7 @@
 	colosseum
 		flush()
 			flushing = 1
-			if (istype(src, /obj/machinery/disposal/mail)) flick("mailchute-flush", src)
+			if (istype(src,/obj/machinery/disposal/mail)) flick("mailchute-flush", src)
 			else flick("disposal-flush", src)
 
 			var/obj/disposalholder/H = unpool(/obj/disposalholder)	// virtual holder object which actually
@@ -190,6 +191,192 @@
 
 /obj/machinery/disposal/mail/autoname
 	autoname = 1
+
+	// Please keep the destinations identical to /obj/machinery/disposal/mail/small/autoname.
+	janitor
+		name = "Janitor"
+		mail_tag = "janitor"
+		mailgroup = "janitor"
+		message = 1
+	kitchen
+		name = "Kitchen"
+		mail_tag = "kitchen"
+		mailgroup = MGD_KITCHEN
+		message = 1
+	hydroponics
+		name = "Hydroponics"
+		mail_tag = "hydroponics"
+		mailgroup = MGD_BOTANY
+		message = 1
+	security
+		name = "Security"
+		mail_tag = "security"
+		mailgroup = MGD_SECURITY
+		message = 1
+
+		brig
+			name = "Brig"
+			mail_tag = "brig"
+		detective
+			name = "Detective"
+			mail_tag = "detective"
+		armory
+			name = "Armory"
+			mail_tag = "armory"
+
+	bridge
+		name = "Bridge"
+		mail_tag = "bridge"
+		mailgroup = MGD_COMMAND
+		message = 1
+	chapel
+		name = "Chapel"
+		mail_tag = "chapel"
+		mailgroup = MGD_SPIRITUALAFFAIRS
+		message = 1
+	engineering
+		name = "Engineering"
+		mail_tag = "engineering"
+		mailgroup = MGO_ENGINEER
+		message = 1
+	mechanics
+		name = "Mechanics"
+		mail_tag = "mechanics"
+		mailgroup = MGO_MECHANIC
+		message = 1
+	mining
+		name = "Mining"
+		mail_tag = "mining"
+		mailgroup = MGO_MINING
+		message = 1
+	qm
+		name = "QM"
+		mail_tag = "QM"
+		mailgroup = MGD_CARGO
+		message = 1
+
+		refinery
+			name = "Refinery"
+			mail_tag = "refinery"
+
+	research
+		name = "Research"
+		mail_tag = "research"
+		mailgroup = MGD_SCIENCE
+		message = 1
+
+		telescience
+			name = "Telescience"
+			mail_tag = "telescience"
+		chemistry
+			name = "Chemistry"
+			mail_tag = "chemistry"
+		testchamber
+			name = "Test Chamber"
+			mail_tag = "testchamber"
+
+	medbay
+		name = "Medbay"
+		mail_tag = "medbay"
+		mailgroup = MGD_MEDBAY
+		mailgroup2 = MGD_MEDRESEACH
+		message = 1
+
+		robotics
+			name = "Robotics"
+			mail_tag = "robotics"
+			mailgroup = MGD_MEDRESEACH
+			mailgroup2 = null
+		genetics
+			name = "Genetics"
+			mail_tag = "genetics"
+			mailgroup = MGD_MEDRESEACH
+			mailgroup2 = null
+		pathology
+			name = "Pathology"
+			mail_tag = "pathology"
+		morgue
+			name = "Morgue"
+			mail_tag = "morgue"
+		booth
+			name = "Medical Booth"
+			mail_tag = "medical booth"
+
+	checkpoint
+		name = "Don't spawn me"
+		mailgroup = MGD_SECURITY
+		mailgroup2 = MGD_COMMAND
+		message = 1
+
+		arrivals
+			name = "Arrivals Checkpoint"
+			mail_tag = "arrivals checkpoint"
+		escape
+			name = "Escape Hallway Checkpoint"
+			mail_tag = "escape checkpoint"
+		customs
+			name = "Customs Checkpoint"
+			mail_tag = "customs checkpoint"
+		sec_foyer
+			name = "Security Foyer Checkpoint"
+			mail_tag = "sec foyer checkpoint"
+		podbay
+			name = "Pod Bay Checkpoint"
+			mail_tag = "podbay checkpoint"
+		chapel
+			name = "Chapel Checkpoint"
+			mail_tag = "chapel checkpoint"
+		cargo
+			name = "Cargo Checkpoint"
+			mail_tag = "cargo checkpoint"
+		west
+			name = "West Hallway Checkpoint"
+			mail_tag = "west hallway checkpoint"
+		east
+			name = "East Hallway Checkpoint"
+			mail_tag = "east hallway checkpoint"
+
+	public
+		name = "Don't spawn me"
+
+		crew
+			name = "Crew Quarters"
+			mail_tag = "crew"
+		crewA
+			name = "Crew A"
+			mail_tag = "crewA"
+		crewB
+			name = "Crew B"
+			mail_tag = "crewB"
+		arcade
+			name = "Arcade"
+			mail_tag = "arcade"
+		market
+			name = "Market"
+			mail_tag = "market"
+		cafeteria
+			name = "Cafeteria"
+			mail_tag = "cafeteria"
+		arrivals
+			name = "Arrivals"
+			mail_tag = "arrivals hallway"
+		escape
+			name = "Escape"
+			mail_tag = "escape hallway"
+		medbay_lobby
+			name = "Medbay Lobby"
+			mail_tag = "medbay lobby"
+		podbay
+			name = "Pod Bay"
+			mail_tag = "podbay"
+
+/obj/machinery/disposal/mail/autoname/transit
+	mail_only = 0
+
+	// Permits copy-paste of other chute variants' lists.
+	New()
+		..()
+		src.name = "Routed Transit: [src.name]"
 
 	// Please keep the destinations identical to /obj/machinery/disposal/mail/small/autoname.
 	janitor
