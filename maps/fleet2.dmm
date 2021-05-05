@@ -270,13 +270,9 @@
 	},
 /area/station/science/teleporter)
 "aX" = (
-/obj/machinery/door/airlock/pyro/external,
-/obj/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/turf/simulated/floor/grey,
+/obj/disposalpipe/segment/mail/vertical,
+/obj/foamedmetal,
+/turf/simulated/floor/metalfoam,
 /area/space)
 "aZ" = (
 /obj/cable{
@@ -308,17 +304,8 @@
 	},
 /area/station/turret_protected/Zeta)
 "bf" = (
-/obj/rack,
-/obj/item/clothing/suit/space/engineer,
-/obj/item/clothing/shoes/magnetic,
-/obj/item/clothing/mask/breath,
-/obj/item/clothing/head/helmet/space/engineer,
-/obj/item/tank/air,
-/obj/item/device/light/flashlight,
-/obj/item/storage/toolbox/mechanical,
-/obj/item/storage/belt/utility,
-/obj/item/extinguisher,
-/turf/simulated/floor/grey,
+/obj/disposalpipe/segment/mail/vertical,
+/turf/simulated/floor/metalfoam,
 /area/space)
 "bg" = (
 /obj/table/wood/auto,
@@ -366,10 +353,11 @@
 	name = "Tenebrae Command Center"
 	})
 "bn" = (
-/obj/landmark/start{
-	name = "Miner"
+/obj/lattice{
+	dir = 8;
+	icon_state = "lattice-dir"
 	},
-/turf/simulated/floor/orangeblack,
+/turf/simulated/floor/metalfoam,
 /area/space)
 "bo" = (
 /obj/machinery/light{
@@ -681,28 +669,19 @@
 /turf/simulated/floor/plating,
 /area/station/science/teleporter)
 "cm" = (
-/obj/storage/crate,
-/obj/item/fuel_pellet/cerenkite,
-/obj/item/fuel_pellet/cerenkite,
-/obj/item/fuel_pellet/cerenkite,
-/obj/item/fuel_pellet/cerenkite,
-/obj/item/fuel_pellet/cerenkite,
-/obj/item/fuel_pellet/cerenkite,
-/obj/machinery/light_switch/east,
-/turf/simulated/floor/yellowblack{
-	dir = 1
+/obj/lattice{
+	dir = 4;
+	icon_state = "lattice-dir"
 	},
+/obj/disposalpipe/segment/mail/vertical,
+/turf/simulated/floor/metalfoam,
 /area/space)
 "cn" = (
-/obj/machinery/conveyor{
-	dir = 4
-	},
-/obj/machinery/light/small{
-	dir = 1;
-	pixel_y = 21
-	},
-/turf/simulated/floor/grey,
-/area/space)
+/obj/wingrille_spawn/auto,
+/turf/simulated/floor/plating,
+/area/station/engine/engineering{
+	name = "Maru Primary Zone"
+	})
 "co" = (
 /obj/stool/chair/yellow{
 	dir = 1
@@ -922,11 +901,10 @@
 	name = "Routing Buoy"
 	})
 "df" = (
-/obj/cable{
-	icon_state = "2-4"
-	},
-/turf/simulated/floor,
-/area/space)
+/turf/simulated/wall/auto/reinforced/supernorn,
+/area/station/engine/engineering{
+	name = "Maru Primary Zone"
+	})
 "dg" = (
 /obj/machinery/door/airlock/pyro/external{
 	dir = 4
@@ -952,10 +930,8 @@
 	name = "Dionysus Cryocore"
 	})
 "di" = (
-/obj/disposalpipe/segment/transport{
-	icon_state = "pipe-c"
-	},
-/turf/space,
+/obj/lattice,
+/turf/simulated/floor/metalfoam,
 /area/space)
 "dj" = (
 /obj/cable{
@@ -1009,10 +985,12 @@
 /turf/simulated/floor/caution/north,
 /area/station/hangar)
 "dq" = (
-/obj/disposalpipe/segment/bent/south,
-/turf/simulated/floor/orangeblack/side{
-	dir = 1
+/obj/lattice{
+	dir = 8;
+	icon_state = "lattice-dir"
 	},
+/obj/disposalpipe/segment/mail/vertical,
+/turf/simulated/floor/metalfoam,
 /area/space)
 "ds" = (
 /obj/machinery/door/airlock/pyro/glass/command{
@@ -1084,18 +1062,23 @@
 	name = "Dionysus Primary Zone"
 	})
 "dB" = (
-/obj/machinery/manufacturer/hangar,
-/turf/simulated/floor/orangeblack/side{
-	dir = 8
-	},
-/area/space)
+/obj/stool/bench/blue/auto,
+/turf/simulated/floor/sanitary/white,
+/area/station/engine/engineering{
+	name = "Maru Primary Zone"
+	})
 "dC" = (
-/obj/cable{
-	icon_state = "1-4"
+/obj/submachine/chef_sink/chem_sink{
+	pixel_y = 16
 	},
-/obj/disposalpipe/segment/horizontal,
-/turf/simulated/floor/plating,
-/area/space)
+/obj/machinery/light/small{
+	dir = 4;
+	pixel_x = 12
+	},
+/turf/simulated/floor/sanitary/white,
+/area/station/engine/engineering{
+	name = "Maru Primary Zone"
+	})
 "dD" = (
 /obj/cable{
 	icon_state = "1-2"
@@ -1147,16 +1130,15 @@
 	},
 /area/station/quartermaster/office)
 "dJ" = (
-/obj/item/storage/toilet{
-	dir = 4;
-	tag = ""
-	},
+/obj/item/storage/toilet,
 /obj/machinery/light/small{
-	dir = 8;
-	pixel_x = -12
+	dir = 4;
+	pixel_x = 12
 	},
 /turf/simulated/floor/sanitary/white,
-/area/space)
+/area/station/engine/engineering{
+	name = "Maru Primary Zone"
+	})
 "dK" = (
 /obj/rack,
 /obj/item/clothing/suit/space/emerg,
@@ -1179,10 +1161,6 @@
 /obj/machinery/vending/cola/red,
 /turf/simulated/floor/grey/side,
 /area/station/hallway)
-"dO" = (
-/obj/machinery/oreaccumulator,
-/turf/simulated/floor/plating/airless,
-/area/space)
 "dP" = (
 /obj/lattice{
 	dir = 10;
@@ -1262,16 +1240,8 @@
 /turf/space,
 /area/shuttle/merchant_shuttle/left_station/cogmap)
 "ef" = (
-/obj/disposalpipe/segment/horizontal,
-/obj/cable{
-	d1 = 2;
-	d2 = 8;
-	icon_state = "2-8"
-	},
-/turf/simulated/floor/orangeblack/side{
-	dir = 9
-	},
-/area/space)
+/turf/simulated/wall/auto/reinforced/supernorn,
+/area/station/mining/refinery)
 "eh" = (
 /obj/disposalpipe/junction/left/south,
 /turf/simulated/floor/caution/north,
@@ -1279,19 +1249,8 @@
 	name = "Dionysus Primary Zone"
 	})
 "ej" = (
-/obj/machinery/manufacturer/mechanic,
-/obj/machinery/light{
-	dir = 4;
-	layer = 9.1;
-	pixel_x = 10
-	},
-/obj/machinery/phone/wall{
-	pixel_y = 32
-	},
-/turf/simulated/floor/yellow/side{
-	dir = 5
-	},
-/area/space)
+/turf/space,
+/area/mining/magnet)
 "ek" = (
 /obj/machinery/door/airlock/pyro/external,
 /obj/forcefield/energyshield/perma/doorlink{
@@ -1305,7 +1264,10 @@
 	})
 "el" = (
 /obj/machinery/conveyor{
-	dir = 4
+	dir = 4;
+	id = "tenebelt";
+	name = "Tenebrae disposal belt";
+	operating = 1
 	},
 /turf/simulated/floor/grey,
 /area/station/science/construction{
@@ -1350,12 +1312,10 @@
 /turf/simulated/floor/metalfoam,
 /area/space)
 "eq" = (
-/obj/machinery/shuttle/engine/heater{
-	dir = 4;
-	icon_state = "alt_heater-L"
-	},
-/turf/simulated/wall/auto/supernorn,
-/area/space)
+/obj/wingrille_spawn/auto,
+/obj/disposalpipe/segment/mail/vertical,
+/turf/simulated/floor/plating,
+/area/station/engine/elect)
 "er" = (
 /obj/machinery/light{
 	dir = 8;
@@ -1385,19 +1345,17 @@
 	},
 /area/station/science/tenebrae)
 "eu" = (
-/obj/grille/catwalk{
-	dir = 4
-	},
+/obj/machinery/light/small,
+/obj/machinery/power/apc/autoname_west,
 /obj/cable{
-	icon_state = "4-8"
+	icon_state = "0-4"
 	},
-/obj/cable{
-	d1 = 1;
-	d2 = 4;
-	icon_state = "1-4"
-	},
-/turf/simulated/floor/black,
-/area/space)
+/obj/table/auto,
+/obj/towelbin,
+/turf/simulated/floor/sanitary/white,
+/area/station/engine/engineering{
+	name = "Maru Primary Zone"
+	})
 "ev" = (
 /obj/grille/catwalk{
 	dir = 4
@@ -1448,11 +1406,13 @@
 /turf/simulated/floor/white,
 /area/station/science/tenebrae)
 "eB" = (
-/obj/machinery/door/airlock/pyro{
-	name = "Vessel Restroom"
+/obj/cable{
+	icon_state = "2-8"
 	},
 /turf/simulated/floor/sanitary/white,
-/area/space)
+/area/station/engine/engineering{
+	name = "Maru Primary Zone"
+	})
 "eC" = (
 /obj/disposalpipe/trunk/south,
 /obj/machinery/conveyor{
@@ -1490,10 +1450,10 @@
 	name = "Dionysus Primary Zone"
 	})
 "eK" = (
-/obj/disposalpipe/segment/mail/vertical,
-/obj/foamedmetal,
-/turf/simulated/floor/metalfoam,
-/area/space)
+/turf/simulated/floor/sanitary/white,
+/area/station/engine/engineering{
+	name = "Maru Primary Zone"
+	})
 "eL" = (
 /obj/decal/poster/wallsign/stencil/left/c,
 /obj/decal/poster/wallsign/stencil/right/l,
@@ -1509,11 +1469,13 @@
 	},
 /area/station/science/tenebrae)
 "eO" = (
-/obj/disposalpipe/segment/horizontal,
-/turf/simulated/floor/orangeblack/side{
-	dir = 1
+/obj/machinery/door/unpowered/wood/pyro{
+	dir = 4
 	},
-/area/space)
+/turf/simulated/floor/sanitary/white,
+/area/station/engine/engineering{
+	name = "Maru Primary Zone"
+	})
 "eP" = (
 /obj/decal/poster/wallsign/stencil/left/e{
 	pixel_x = -6
@@ -1550,32 +1512,32 @@
 /turf/simulated/floor/white,
 /area/station/science/tenebrae)
 "eS" = (
-/obj/table/reinforced/auto,
-/obj/item/paper_bin,
-/obj/item/pen,
-/obj/item/hand_labeler,
-/obj/item/hand_labeler,
-/obj/machinery/camera{
-	c_tag = "autotag";
+/obj/machinery/shower{
 	dir = 4;
-	name = "autoname - SS13";
-	pixel_x = -10;
-	tag = ""
+	pixel_x = 8;
+	pixel_y = 8
 	},
-/turf/simulated/floor/orangeblack,
-/area/space)
+/obj/machinery/drainage,
+/turf/simulated/floor/sanitary/white,
+/area/station/engine/engineering{
+	name = "Maru Primary Zone"
+	})
 "eT" = (
 /obj/decal/poster/wallsign/stencil/right/s,
 /obj/decal/poster/wallsign/stencil/left/u,
 /turf/simulated/wall/auto/reinforced/supernorn,
 /area/station/communications)
 "eX" = (
-/obj/machinery/manufacturer/medical,
-/obj/machinery/phone/wall{
-	pixel_y = 32
+/obj/machinery/door/airlock/pyro{
+	name = "Vessel Restroom"
 	},
-/turf/simulated/floor/orangeblack,
-/area/space)
+/obj/cable{
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/sanitary/white,
+/area/station/engine/engineering{
+	name = "Maru Primary Zone"
+	})
 "eY" = (
 /obj/submachine/seed_vendor,
 /obj/machinery/light{
@@ -1586,16 +1548,16 @@
 /turf/simulated/floor/green/side,
 /area/station/hydroponics/bay)
 "eZ" = (
-/obj/machinery/portable_reclaimer,
-/obj/cable{
-	d2 = 2;
-	icon_state = "0-2"
+/obj/machinery/rkit,
+/obj/machinery/light{
+	dir = 8;
+	layer = 9.1;
+	pixel_x = -10
 	},
-/obj/machinery/power/apc/autoname_north,
-/turf/simulated/floor/orangeblack/side{
-	dir = 5
+/turf/simulated/floor/yellow/side{
+	dir = 8
 	},
-/area/space)
+/area/station/engine/elect)
 "fa" = (
 /obj/machinery/shuttle/engine/heater{
 	icon_state = "alt_heater"
@@ -1603,36 +1565,18 @@
 /turf/simulated/wall/auto/reinforced/supernorn,
 /area/station/turret_protected/Zeta)
 "fb" = (
-/obj/cable{
-	icon_state = "0-2"
-	},
-/obj/machinery/power/solar{
-	id = "maru";
-	name = "Maru solar panel"
-	},
-/turf/simulated/floor/airless{
-	icon_state = "solarbase";
-	name = "solar paneling"
-	},
-/area/space)
+/obj/disposalpipe/segment/mail/bent/north,
+/turf/simulated/floor,
+/area/station/engine/elect)
 "fd" = (
-/obj/grille/catwalk{
-	dir = 4
-	},
 /obj/cable{
-	d2 = 8;
-	icon_state = "0-8"
+	icon_state = "1-2"
 	},
-/obj/cable{
-	d2 = 4;
-	icon_state = "0-4"
-	},
-/obj/cable,
-/obj/cable{
-	icon_state = "0-2"
-	},
-/turf/space,
-/area/space)
+/obj/disposalpipe/segment/mail/bent/south,
+/turf/simulated/floor,
+/area/station/engine/engineering{
+	name = "Maru Primary Zone"
+	})
 "ff" = (
 /obj/cable{
 	icon_state = "1-2"
@@ -1660,22 +1604,23 @@
 /turf/simulated/floor/plating/airless,
 /area/space)
 "fi" = (
-/obj/machinery/light,
-/obj/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
+/obj/disposalpipe/trunk/mail/south,
+/obj/disposaloutlet/transit,
+/obj/machinery/light{
+	dir = 1;
+	layer = 9.1;
+	pixel_y = 21
 	},
-/obj/machinery/portable_atmospherics/canister/air/large,
-/turf/simulated/floor/orangeblack/side,
-/area/space)
+/turf/simulated/floor/black,
+/area/station/engine/engineering{
+	name = "Maru Primary Zone"
+	})
 "fj" = (
-/obj/disposalpipe/segment/transport,
-/obj/disposalpipe/segment/transport{
-	dir = 4
-	},
-/turf/space,
-/area/space)
+/obj/machinery/light/small/floor,
+/turf/simulated/floor/caution/north,
+/area/station/hangar/engine{
+	name = "Maru Hangar"
+	})
 "fk" = (
 /obj/machinery/light{
 	dir = 1;
@@ -1752,31 +1697,30 @@
 	},
 /area/station/science/tenebrae)
 "fv" = (
-/obj/disposalpipe/segment/mail/vertical,
-/turf/simulated/floor/metalfoam,
-/area/space)
+/obj/reagent_dispensers/fueltank,
+/obj/machinery/light_switch/east,
+/turf/simulated/floor/caution/north,
+/area/station/hangar/engine{
+	name = "Maru Hangar"
+	})
 "fw" = (
-/obj/lattice{
-	dir = 8;
-	icon_state = "lattice-dir"
-	},
-/turf/simulated/floor/metalfoam,
-/area/space)
+/turf/simulated/floor/caution/north,
+/area/station/mining/refinery)
 "fy" = (
-/obj/machinery/conveyor{
-	name = "cargo belt - south";
-	operating = 1
-	},
-/turf/simulated/floor/plating,
-/area/space)
+/obj/item/slag_shovel,
+/turf/simulated/floor/caution/north,
+/area/station/mining/refinery)
 "fz" = (
-/obj/lattice{
+/obj/storage/secure/closet/engineering/mining,
+/obj/machinery/light{
 	dir = 4;
-	icon_state = "lattice-dir"
+	layer = 9.1;
+	pixel_x = 10
 	},
-/obj/disposalpipe/segment/mail/vertical,
-/turf/simulated/floor/metalfoam,
-/area/space)
+/turf/simulated/floor/orangeblack/side{
+	dir = 4
+	},
+/area/station/mining/refinery)
 "fA" = (
 /obj/stool/chair/office{
 	dir = 8
@@ -1793,11 +1737,16 @@
 	name = "Dionysus Solar Array"
 	})
 "fC" = (
-/obj/wingrille_spawn/auto,
-/turf/simulated/floor/plating,
-/area/station/engine/engineering{
-	name = "Maru Primary Zone"
-	})
+/obj/machinery/light{
+	dir = 1;
+	layer = 9.1;
+	pixel_y = 21
+	},
+/obj/machinery/power/rtg,
+/turf/simulated/floor/yellowblack{
+	dir = 1
+	},
+/area/station/bridge)
 "fD" = (
 /obj/cable{
 	icon_state = "0-2"
@@ -1812,19 +1761,30 @@
 	name = "Dionysus Maintenance"
 	})
 "fE" = (
-/turf/simulated/wall/auto/reinforced/supernorn,
-/area/station/engine/engineering{
-	name = "Maru Primary Zone"
-	})
-"fH" = (
-/obj/machinery/camera{
-	c_tag = "autotag";
-	dir = 0;
-	name = "autoname - SS13";
-	pixel_y = 20
+/obj/cable{
+	icon_state = "0-2"
 	},
-/turf/simulated/floor/plating,
-/area/space)
+/obj/machinery/power/rtg,
+/turf/simulated/floor/yellowblack{
+	dir = 1
+	},
+/area/station/bridge)
+"fH" = (
+/obj/storage/crate,
+/obj/item/fuel_pellet/cerenkite,
+/obj/item/fuel_pellet/cerenkite,
+/obj/item/fuel_pellet/cerenkite,
+/obj/item/fuel_pellet/cerenkite,
+/obj/item/fuel_pellet/cerenkite,
+/obj/item/fuel_pellet/cerenkite,
+/obj/machinery/phone/wall{
+	pixel_x = 24;
+	pixel_y = 4
+	},
+/turf/simulated/floor/yellowblack{
+	dir = 1
+	},
+/area/station/bridge)
 "fI" = (
 /obj/machinery/manufacturer/uniform,
 /obj/item/storage/wall/fire{
@@ -1876,29 +1836,18 @@
 	},
 /area/station/science/tenebrae)
 "fR" = (
-/obj/table/reinforced/auto,
-/obj/item/storage/toolbox/emergency,
-/obj/item/paper/book/materials,
-/obj/decal/xmas_lights/ephemeral{
-	pixel_y = 32
+/turf/simulated/floor/caution/corner/misc{
+	dir = 5
 	},
-/obj/item/device/matanalyzer{
-	rand_pos = 0
-	},
-/turf/simulated/floor/orangeblack/side{
-	dir = 8
-	},
-/area/space)
+/area/station/engine/engineering{
+	name = "Maru Primary Zone"
+	})
 "fS" = (
-/obj/cable{
-	d1 = 2;
-	d2 = 8;
-	icon_state = "2-8"
-	},
-/turf/simulated/floor/orangeblack/side{
-	dir = 8
-	},
-/area/space)
+/obj/disposalpipe/segment/mail/bent/north,
+/turf/simulated/floor/caution/north,
+/area/station/engine/engineering{
+	name = "Maru Primary Zone"
+	})
 "fT" = (
 /obj/cable{
 	icon_state = "1-2"
@@ -1906,87 +1855,45 @@
 /turf/simulated/floor/engine,
 /area/station/science/teleporter)
 "fY" = (
-/obj/machinery/computer/magnet,
-/obj/machinery/light{
-	dir = 1;
-	layer = 9.1;
-	pixel_y = 21
-	},
-/obj/cable{
-	icon_state = "0-2"
-	},
-/obj/cable,
-/turf/simulated/floor,
-/area/space)
+/obj/disposalpipe/junction/left/south,
+/turf/simulated/floor/caution/north,
+/area/station/engine/engineering{
+	name = "Maru Primary Zone"
+	})
 "fZ" = (
 /obj/machinery/light/small/floor,
 /turf/simulated/floor/grey,
 /area/station/maintenance)
 "ge" = (
-/obj/table/reinforced/auto,
-/obj/machinery/cell_charger,
-/obj/item/cell/supercell/charged,
-/obj/item/cell/supercell/charged,
-/obj/decal/xmas_lights/ephemeral{
-	pixel_y = 32
-	},
-/turf/simulated/floor/orangeblack/side{
-	dir = 4
-	},
-/area/space)
+/obj/disposalpipe/junction/left/north,
+/turf/simulated/floor/caution/north,
+/area/station/engine/engineering{
+	name = "Maru Primary Zone"
+	})
 "gh" = (
-/turf/simulated/wall/auto/reinforced/supernorn/yellow,
-/area/space)
+/obj/table/reinforced/auto,
+/obj/item/shipcomponent/mainweapon/rockdrills,
+/obj/item/shipcomponent/mainweapon/rockdrills,
+/turf/simulated/floor,
+/area/station/hangar/engine{
+	name = "Maru Hangar"
+	})
 "gj" = (
-/obj/grille/catwalk{
-	dir = 9;
-	icon_state = "catwalk_cross"
-	},
-/obj/cable{
-	d1 = 2;
-	d2 = 4;
-	icon_state = "2-4"
-	},
-/turf/simulated/floor/airless/plating/catwalk{
-	dir = 9
-	},
-/area/space)
+/obj/machinery/nanofab/mining,
+/turf/simulated/floor,
+/area/station/mining/refinery)
 "gk" = (
-/obj/rack,
-/obj/item/clothing/mask/breath,
-/obj/item/tank/jetpack,
-/obj/item/clothing/suit/space/engineer,
-/obj/item/clothing/head/helmet/space/engineer,
-/obj/item/device/gps,
-/obj/item/storage/belt/mining,
-/obj/machinery/light{
-	dir = 1;
-	layer = 9.1;
-	pixel_y = 21
-	},
 /turf/simulated/floor/orangeblack/side{
-	dir = 8
-	},
-/area/space)
-"gl" = (
-/obj/stool/chair/yellow{
 	dir = 4
 	},
-/obj/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
+/area/station/mining/refinery)
+"gl" = (
+/obj/decal/tile_edge/line/yellow{
+	dir = 1;
+	icon_state = "line1"
 	},
-/obj/cable{
-	d1 = 2;
-	d2 = 4;
-	icon_state = "2-4"
-	},
-/obj/decal/xmas_lights/ephemeral{
-	pixel_y = 32
-	},
-/turf/simulated/floor,
-/area/space)
+/turf/simulated/floor/black,
+/area/station/bridge)
 "gn" = (
 /obj/cable{
 	d1 = 4;
@@ -2003,45 +1910,46 @@
 	name = "Net Center"
 	})
 "gq" = (
-/obj/machinery/light,
-/turf/simulated/floor/shuttlebay,
-/area/space)
-"gr" = (
-/obj/rack,
-/obj/item/clothing/suit/space/engineer,
-/obj/item/clothing/shoes/magnetic,
-/obj/item/clothing/mask/breath,
-/obj/item/clothing/head/helmet/space/engineer,
-/obj/item/tank/air,
-/obj/item/device/light/flashlight,
-/obj/item/storage/toolbox/mechanical,
-/obj/item/storage/belt/utility,
-/obj/item/extinguisher,
-/obj/machinery/camera{
-	c_tag = "autotag";
-	dir = 10;
-	name = "autoname - SS13";
-	tag = ""
+/obj/cable{
+	icon_state = "1-2"
 	},
-/turf/simulated/floor/grey,
-/area/space)
-"gs" = (
-/obj/machinery/drone_recharger,
-/turf/space,
-/area/space)
-"gt" = (
 /obj/decal/tile_edge/line/yellow{
 	dir = 8;
 	icon_state = "line1"
 	},
-/obj/grille/catwalk{
-	dir = 4
+/obj/item/item_box/gold_star{
+	item_amount = 20;
+	pixel_x = -8;
+	pixel_y = 6
 	},
+/turf/simulated/floor/black,
+/area/station/bridge)
+"gr" = (
 /obj/cable{
 	icon_state = "1-2"
 	},
-/turf/simulated/floor/black,
-/area/space)
+/turf/simulated/floor/yellowblack,
+/area/station/bridge)
+"gs" = (
+/obj/cable{
+	icon_state = "0-2"
+	},
+/obj/machinery/power/apc/autoname_east,
+/obj/storage/crate/rcd,
+/turf/simulated/floor/yellowblack,
+/area/station/bridge)
+"gt" = (
+/obj/disposalpipe/segment/horizontal,
+/obj/cable{
+	icon_state = "4-8"
+	},
+/obj/cable{
+	icon_state = "2-4"
+	},
+/turf/simulated/floor,
+/area/station/hangar/engine{
+	name = "Maru Hangar"
+	})
 "gu" = (
 /obj/reagent_dispensers/watertank/fountain,
 /turf/simulated/floor/purplewhite{
@@ -2049,18 +1957,17 @@
 	},
 /area/station/science/tenebrae)
 "gv" = (
-/obj/machinery/computer/barcode{
-	destinations = list("Catering","Disposal","Engineering","Export","Medbay","Mining","Pod Bay","Research","Security","QM");
-	dir = 8
-	},
 /obj/cable{
-	d2 = 8;
-	icon_state = "0-8"
+	icon_state = "4-8"
 	},
-/turf/simulated/floor/orangeblack/side{
-	dir = 4
+/obj/disposalpipe/segment/bent/south,
+/obj/cable{
+	icon_state = "1-2"
 	},
-/area/space)
+/turf/simulated/floor,
+/area/station/hangar/engine{
+	name = "Maru Hangar"
+	})
 "gx" = (
 /obj/disposalpipe/segment/mail/vertical,
 /obj/disposalpipe/segment/horizontal,
@@ -2110,13 +2017,16 @@
 /turf/simulated/floor/airless/plating/catwalk{
 	dir = 9
 	},
-/area/space)
+/area/mining/magnet)
 "gB" = (
-/obj/stool/chair/yellow{
-	dir = 8
+/obj/cable{
+	icon_state = "4-8"
+	},
+/obj/cable{
+	icon_state = "2-4"
 	},
 /turf/simulated/floor,
-/area/space)
+/area/station/mining/refinery)
 "gC" = (
 /obj/submachine/chem_extractor{
 	dir = 8
@@ -2161,7 +2071,7 @@
 /turf/simulated/floor/airless/plating/catwalk{
 	dir = 5
 	},
-/area/space)
+/area/mining/magnet)
 "gF" = (
 /obj/disposalpipe/segment/mail/vertical,
 /obj/disposalpipe/segment/horizontal,
@@ -2169,45 +2079,37 @@
 /turf/simulated/floor/plating,
 /area/station/hydroponics/bay)
 "gG" = (
-/obj/table/reinforced/auto,
-/obj/machinery/camera{
-	c_tag = "autotag";
-	dir = 4;
-	name = "autoname - SS13";
-	pixel_x = -10;
-	tag = ""
-	},
-/obj/machinery/coffeemaker,
-/obj/mug_rack{
-	pixel_x = -26
-	},
-/turf/simulated/floor/orangeblack/side{
-	dir = 8
-	},
-/area/space)
-"gH" = (
-/obj/stool/chair/yellow{
-	dir = 1
-	},
 /obj/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
+	icon_state = "4-8"
 	},
 /turf/simulated/floor,
-/area/space)
-"gJ" = (
-/obj/rack,
-/obj/item/clothing/mask/breath,
-/obj/item/tank/jetpack,
-/obj/item/clothing/suit/space/engineer,
-/obj/item/clothing/head/helmet/space/engineer,
-/obj/item/device/gps,
-/obj/item/storage/belt/mining,
-/turf/simulated/floor/orangeblack/corner{
-	dir = 4
+/area/station/mining/refinery)
+"gH" = (
+/obj/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
 	},
-/area/space)
+/turf/simulated/floor/black,
+/area/station/bridge)
+"gJ" = (
+/obj/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/cable{
+	icon_state = "2-4"
+	},
+/obj/cable{
+	icon_state = "1-4"
+	},
+/obj/decal/tile_edge/line/yellow{
+	dir = 8;
+	icon_state = "line1"
+	},
+/turf/simulated/floor/black,
+/area/station/bridge)
 "gK" = (
 /obj/machinery/light{
 	dir = 1;
@@ -2222,51 +2124,37 @@
 	})
 "gL" = (
 /obj/cable{
-	d1 = 2;
+	icon_state = "1-4"
+	},
+/obj/cable{
+	d1 = 4;
 	d2 = 8;
-	icon_state = "2-8"
+	icon_state = "4-8"
 	},
-/obj/cable{
-	icon_state = "1-2"
-	},
-/turf/simulated/floor/plating,
-/area/space)
+/turf/simulated/floor/yellow,
+/area/station/bridge)
 "gM" = (
-/obj/rack,
-/obj/item/clothing/mask/breath,
-/obj/item/tank/jetpack,
-/obj/item/clothing/suit/space/engineer,
-/obj/item/clothing/head/helmet/space/engineer,
-/obj/item/device/gps,
-/obj/item/storage/belt/mining,
-/obj/machinery/phone/wall{
-	pixel_y = 32
-	},
-/turf/simulated/floor/orangeblack/side{
-	dir = 1
-	},
-/area/space)
-"gN" = (
-/obj/rack,
-/obj/item/clothing/mask/breath,
-/obj/item/tank/jetpack,
-/obj/item/clothing/suit/space/engineer,
-/obj/item/clothing/head/helmet/space/engineer,
-/obj/item/device/gps,
-/obj/item/storage/belt/mining,
-/turf/simulated/floor/orangeblack/corner{
-	dir = 1
-	},
-/area/space)
-"gO" = (
-/obj/wingrille_spawn/auto,
 /obj/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
 	},
-/turf/simulated/floor/plating,
-/area/space)
+/obj/cable{
+	icon_state = "1-4"
+	},
+/turf/simulated/floor/yellow,
+/area/station/bridge)
+"gN" = (
+/obj/machinery/power/apc/autoname_east,
+/obj/cable,
+/turf/simulated/floor/yellow/side{
+	dir = 4
+	},
+/area/station/engine/elect)
+"gO" = (
+/obj/disposalpipe/segment/vertical,
+/turf/simulated/wall/auto/reinforced/supernorn,
+/area/station/quartermaster/office)
 "gP" = (
 /obj/decal/poster/wallsign/stencil/right/n{
 	pixel_x = 16
@@ -2274,18 +2162,23 @@
 /turf/simulated/wall/auto/reinforced/supernorn,
 /area/station/communications)
 "gR" = (
-/obj/cable{
-	d1 = 2;
-	d2 = 4;
-	icon_state = "2-4"
+/obj/table/reinforced/auto,
+/obj/item/shipcomponent/sensor/mining{
+	pixel_x = -2
 	},
-/obj/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
+/obj/item/shipcomponent/sensor/mining{
+	pixel_x = -2
 	},
-/turf/simulated/floor,
-/area/space)
+/obj/item/shipcomponent/secondary_system/cargo{
+	pixel_x = 5
+	},
+/obj/item/shipcomponent/secondary_system/cargo{
+	pixel_x = 5
+	},
+/turf/simulated/floor/orangeblack/side,
+/area/station/hangar/engine{
+	name = "Maru Hangar"
+	})
 "gS" = (
 /obj/disposalpipe/segment/bent/north,
 /obj/cable{
@@ -2300,13 +2193,13 @@
 	},
 /area/station/science/tenebrae)
 "gX" = (
-/obj/wingrille_spawn/auto,
 /obj/cable{
-	d2 = 8;
-	icon_state = "0-8"
+	icon_state = "1-2"
 	},
-/turf/simulated/floor/plating,
-/area/space)
+/turf/simulated/floor,
+/area/station/hangar/engine{
+	name = "Maru Hangar"
+	})
 "gZ" = (
 /obj/disposalpipe/segment/mail/horizontal,
 /turf/simulated/floor/grey,
@@ -2319,38 +2212,14 @@
 /turf/space,
 /area/space)
 "hc" = (
-/obj/grille/catwalk{
-	dir = 9;
-	icon_state = "catwalk_cross"
+/obj/disposalpipe/segment/vertical,
+/obj/cable{
+	icon_state = "1-2"
 	},
-/obj/landmark/magnet_shield,
-/obj/securearea{
-	desc = "A warning that demarcates where the magnetic area begins.";
-	dir = 1;
-	icon_state = "magwarning";
-	name = "Magnet Area Boundary"
-	},
-/obj/securearea{
-	desc = "A warning that demarcates where the magnetic area begins.";
-	dir = 4;
-	icon_state = "magwarning";
-	name = "Magnet Area Boundary"
-	},
-/obj/securearea{
-	desc = "A warning that demarcates where the magnetic area begins.";
-	dir = 9;
-	icon_state = "magwarning";
-	name = "Magnet Area Boundary"
-	},
-/obj/securearea{
-	desc = "A warning sign. I guess this area is dangerous.";
-	icon_state = "magwarning2";
-	name = "ACTIVE MAGNET AREA"
-	},
-/turf/simulated/floor/airless/plating/catwalk{
-	dir = 9
-	},
-/area/mining/magnet)
+/turf/simulated/floor,
+/area/station/hangar/engine{
+	name = "Maru Hangar"
+	})
 "hd" = (
 /obj/disposalpipe/switch_junction/left/west,
 /obj/machinery/light,
@@ -2403,7 +2272,7 @@
 "hk" = (
 /obj/wingrille_spawn/auto,
 /turf/simulated/floor/plating,
-/area/space)
+/area/station/mining/refinery)
 "hl" = (
 /obj/stool/chair/office/blue{
 	dir = 8
@@ -2435,7 +2304,7 @@
 	icon_state = "alt_heater-R"
 	},
 /turf/simulated/wall/auto/reinforced/supernorn,
-/area/space)
+/area/station/mining/refinery)
 "hq" = (
 /obj/machinery/door/airlock/pyro/glass{
 	dir = 8
@@ -2444,13 +2313,9 @@
 /turf/simulated/floor/darkblue/checker,
 /area/station/science/artifact)
 "hr" = (
-/obj/table/reinforced/auto,
-/obj/machinery/recharger,
-/obj/item/cargotele,
-/turf/simulated/floor/orangeblack/side{
-	dir = 8
-	},
-/area/space)
+/obj/machinery/processor,
+/turf/simulated/floor/orangeblack/side,
+/area/station/mining/refinery)
 "hs" = (
 /turf/simulated/wall/auto/reinforced/supernorn,
 /area/station/bridge/hos)
@@ -2525,13 +2390,10 @@
 /turf/simulated/floor/grey,
 /area/station/maintenance)
 "hE" = (
-/obj/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/turf/simulated/floor,
-/area/space)
+/obj/machinery/manufacturer/mining,
+/obj/machinery/light,
+/turf/simulated/floor/orangeblack/side,
+/area/station/mining/refinery)
 "hF" = (
 /obj/table/auto,
 /obj/item/game_kit{
@@ -2584,28 +2446,30 @@
 	},
 /area/station/hallway)
 "hP" = (
-/obj/table/auto,
-/obj/item/sheet/steel{
-	amount = 50
-	},
-/obj/item/sheet/steel{
-	amount = 50
-	},
-/obj/item/sheet/glass/reinforced{
-	amount = 50
-	},
-/obj/item/sheet/glass{
-	amount = 50
-	},
-/obj/item/storage/box/cablesbox,
-/turf/simulated/floor/grey,
-/area/space)
+/obj/machinery/portable_reclaimer,
+/turf/simulated/floor/orangeblack/side,
+/area/station/mining/refinery)
 "hQ" = (
-/turf/simulated/floor,
-/area/space)
+/obj/cable{
+	icon_state = "0-4"
+	},
+/obj/machinery/power/data_terminal,
+/obj/machinery/shield_generator,
+/turf/simulated/floor/black,
+/area/station/bridge)
 "hR" = (
-/turf/simulated/floor/orangeblack/corner,
-/area/space)
+/obj/cable{
+	icon_state = "1-8"
+	},
+/obj/decal/tile_edge/line/yellow{
+	dir = 8;
+	icon_state = "line1"
+	},
+/obj/stool/chair/office/yellow{
+	dir = 4
+	},
+/turf/simulated/floor/black,
+/area/station/bridge)
 "hT" = (
 /obj/disposalpipe/switch_junction/left/north{
 	mail_tag = "buoy";
@@ -2625,24 +2489,30 @@
 	name = "Tenebrae Maintenance"
 	})
 "hX" = (
-/obj/machinery/conveyor_switch{
-	id = "qmout";
-	layer = 4;
-	pixel_y = 28
+/turf/simulated/floor/yellowblack{
+	dir = 1
 	},
-/turf/simulated/floor/orangeblack/side{
-	dir = 9
-	},
-/area/space)
+/area/station/bridge)
 "hY" = (
-/obj/machinery/door/airlock/pyro/glass/windoor{
-	dir = 8
+/obj/stool/bed,
+/obj/item/storage/wall{
+	desc = "It's a big box that comes in useful when the inevitable depressurization occurs.";
+	dir = 8;
+	name = "breach response cabinet";
+	pixel_x = 32;
+	spawn_contents = list(/obj/item/chem_grenade/metalfoam,/obj/item/chem_grenade/metalfoam,/obj/item/chem_grenade/metalfoam,/obj/item/tank/emergency_oxygen,/obj/item/tank/emergency_oxygen)
 	},
-/obj/access_spawn/mining,
-/turf/simulated/floor/orangeblack/side{
-	dir = 4
+/obj/landmark/start{
+	name = "Chief Engineer"
 	},
-/area/space)
+/obj/item/clothing/suit/bedsheet{
+	bcolor = "yellow";
+	icon_state = "bedsheet-yellow"
+	},
+/turf/simulated/floor/yellowblack{
+	dir = 1
+	},
+/area/station/bridge)
 "hZ" = (
 /obj/wingrille_spawn/auto,
 /obj/disposalpipe/segment/mail/vertical,
@@ -2772,19 +2642,22 @@
 /obj/decal/tile_edge/stripe/extra_big{
 	dir = 8
 	},
+/obj/machinery/light{
+	dir = 1;
+	layer = 9.1;
+	pixel_y = 21
+	},
 /turf/simulated/floor/orangeblack/side{
 	dir = 1
 	},
 /area/station/mining/refinery)
 "iv" = (
-/obj/machinery/door/airlock/pyro/glass/engineering{
-	dir = 4;
-	name = "Maru Hangar";
-	req_access = null
+/obj/cable{
+	icon_state = "1-2"
 	},
-/obj/access_spawn/mining,
-/turf/simulated/floor/orangeblack,
-/area/space)
+/obj/disposalpipe/segment/bent/west,
+/turf/simulated/floor,
+/area/station/engine/elect)
 "iw" = (
 /obj/cable{
 	icon_state = "1-2"
@@ -2840,19 +2713,22 @@
 	icon_state = "alt_heater-M"
 	},
 /turf/simulated/wall/auto/reinforced/supernorn,
-/area/space)
+/area/station/mining/refinery)
 "iI" = (
-/obj/machinery/disposal,
-/obj/disposalpipe/trunk/south,
-/obj/machinery/light{
-	dir = 8;
-	layer = 9.1;
-	pixel_x = -10
+/obj/machinery/door/airlock/pyro/glass/engineering{
+	name = "Maru Equipment";
+	req_access = null
 	},
-/turf/simulated/floor/orangeblack/side{
-	dir = 8
+/obj/access_spawn/engineering_storage,
+/obj/cable{
+	icon_state = "1-2"
 	},
-/area/space)
+/turf/simulated/floor/caution/corner/misc{
+	dir = 10
+	},
+/area/station/engine/storage{
+	name = "Maru Equipment"
+	})
 "iK" = (
 /obj/grille/catwalk{
 	dir = 10
@@ -2908,10 +2784,13 @@
 	name = "Dionysus Primary Zone"
 	})
 "iR" = (
-/obj/machinery/manufacturer/general,
-/obj/machinery/light_switch/west,
-/turf/simulated/floor/plating,
-/area/space)
+/obj/cable{
+	icon_state = "1-2"
+	},
+/turf/simulated/wall/auto/reinforced/supernorn,
+/area/station/maintenance/storage{
+	name = "Maru Power Room"
+	})
 "iS" = (
 /obj/machinery/door/airlock/pyro{
 	name = "Vessel Restroom"
@@ -2919,17 +2798,13 @@
 /turf/simulated/floor/sanitary/white,
 /area/station/hallway)
 "iV" = (
-/obj/cable{
-	d1 = 2;
-	d2 = 8;
-	icon_state = "2-8"
+/obj/storage/crate,
+/obj/machinery/light/small{
+	dir = 8;
+	pixel_x = -12
 	},
-/obj/disposalpipe/segment/vertical,
-/obj/cable{
-	icon_state = "2-4"
-	},
-/turf/simulated/floor,
-/area/space)
+/turf/simulated/floor/plating/airless,
+/area/station/mining/refinery)
 "iX" = (
 /obj/wingrille_spawn/auto,
 /turf/simulated/floor/plating,
@@ -2937,14 +2812,20 @@
 	name = "Dionysus Hangar"
 	})
 "iY" = (
-/turf/simulated/floor/orangeblack/corner{
-	dir = 1
+/obj/machinery/light,
+/obj/decal/tile_edge/line/yellow{
+	dir = 9;
+	icon_state = "line1"
 	},
-/area/space)
+/obj/machinery/computer3/generic/communications,
+/turf/simulated/floor/yellowblack,
+/area/station/bridge)
 "iZ" = (
-/obj/machinery/ore_cloud_storage_container,
-/turf/simulated/floor/orangeblack/side,
-/area/space)
+/obj/machinery/computer/announcement{
+	name = "Maru Announcement Computer"
+	},
+/turf/simulated/floor/yellowblack,
+/area/station/bridge)
 "jb" = (
 /obj/machinery/macrofab/emergency_pod{
 	color = "#DDDDDD";
@@ -2960,10 +2841,12 @@
 	name = "Dionysus Hangar"
 	})
 "jd" = (
-/turf/simulated/floor/orangeblack/corner{
-	dir = 8
-	},
-/area/space)
+/obj/storage/secure/closet/command/chief_engineer,
+/obj/item/clothing/suit/rad,
+/obj/item/clothing/head/rad_hood,
+/obj/machinery/light_switch/east,
+/turf/simulated/floor/yellowblack,
+/area/station/bridge)
 "jf" = (
 /obj/disposalpipe/segment/mail/bent/west,
 /obj/foamedmetal,
@@ -3017,14 +2900,12 @@
 /turf/simulated/floor/purplewhite,
 /area/station/science/tenebrae)
 "jr" = (
-/obj/machinery/light{
-	dir = 4;
-	layer = 9.1;
-	pixel_x = 10
-	},
-/obj/machinery/manufacturer/robotics,
-/turf/simulated/floor/orangeblack,
-/area/space)
+/obj/storage/secure/closet/engineering/engineer,
+/obj/item/clothing/ears/earmuffs,
+/turf/simulated/floor/black,
+/area/station/engine/storage{
+	name = "Maru Equipment"
+	})
 "ju" = (
 /obj/storage/secure/closet/fridge/kitchen,
 /obj/item/reagent_containers/food/drinks/milk,
@@ -3032,45 +2913,58 @@
 /turf/simulated/floor/specialroom/cafeteria,
 /area/station/crew_quarters/kitchen)
 "jv" = (
-/obj/grille/catwalk{
-	dir = 4
+/obj/storage/secure/closet/engineering/engineer,
+/obj/item/clothing/ears/earmuffs,
+/obj/machinery/light{
+	dir = 1;
+	layer = 9.1;
+	pixel_y = 21
 	},
-/obj/landmark/magnet_shield,
-/obj/securearea{
-	desc = "A warning that demarcates where the magnetic area begins.";
-	dir = 4;
-	icon_state = "magwarning";
-	name = "Magnet Area Boundary"
-	},
-/turf/simulated/floor/airless/plating/catwalk{
-	dir = 4
-	},
-/area/mining/magnet)
+/turf/simulated/floor/black,
+/area/station/engine/storage{
+	name = "Maru Equipment"
+	})
 "jw" = (
 /obj/cable{
-	d1 = 2;
-	d2 = 4;
-	icon_state = "2-4"
-	},
-/obj/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/machinery/bot/medbot,
-/turf/simulated/floor,
-/area/space)
+/turf/simulated/floor/caution/west,
+/area/station/engine/storage{
+	name = "Maru Equipment"
+	})
 "jy" = (
-/obj/machinery/mass_driver{
-	dir = 1;
-	id = "kondaru_qmfetch"
+/obj/table/auto,
+/obj/item/storage/toolbox/electrical{
+	pixel_y = 7
 	},
-/turf/simulated/floor/delivery,
-/area/space)
+/obj/item/storage/toolbox/electrical{
+	pixel_y = 1
+	},
+/obj/item/clothing/gloves/yellow{
+	pixel_x = 2;
+	pixel_y = -6
+	},
+/obj/item/clothing/gloves/yellow{
+	pixel_x = -1;
+	pixel_y = -3
+	},
+/obj/item/device/multitool{
+	pixel_x = -7
+	},
+/obj/item/device/multitool{
+	pixel_x = 6
+	},
+/obj/machinery/light_switch/east,
+/turf/simulated/floor,
+/area/station/engine/storage{
+	name = "Maru Equipment"
+	})
 "jz" = (
-/obj/machinery/processor,
-/turf/simulated/floor/orangeblack,
-/area/space)
+/obj/cable{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor,
+/area/station/quartermaster/office)
 "jA" = (
 /obj/machinery/light/small{
 	dir = 4;
@@ -3119,48 +3013,29 @@
 /turf/simulated/floor/purple/side,
 /area/station/science/tenebrae)
 "jI" = (
-/obj/machinery/atmospherics/pipe/simple,
-/turf/simulated/floor,
-/area/space)
+/obj/rack,
+/obj/item/clothing/suit/space/engineer,
+/obj/item/clothing/shoes/magnetic,
+/obj/item/clothing/mask/breath,
+/obj/item/clothing/head/helmet/space/engineer,
+/obj/item/tank/air,
+/obj/item/device/light/flashlight,
+/obj/item/storage/toolbox/mechanical,
+/obj/item/storage/belt/utility,
+/turf/simulated/floor/black,
+/area/station/engine/storage{
+	name = "Maru Equipment"
+	})
 "jK" = (
-/obj/grille/catwalk{
-	dir = 5;
-	icon_state = "catwalk_cross"
-	},
-/obj/landmark/magnet_shield,
-/obj/securearea{
-	desc = "A warning that demarcates where the magnetic area begins.";
-	icon_state = "magwarning";
-	name = "Magnet Area Boundary"
-	},
-/obj/securearea{
-	desc = "A warning that demarcates where the magnetic area begins.";
-	dir = 4;
-	icon_state = "magwarning";
-	name = "Magnet Area Boundary"
-	},
-/obj/securearea{
-	desc = "A warning that demarcates where the magnetic area begins.";
-	dir = 5;
-	icon_state = "magwarning";
-	name = "Magnet Area Boundary"
-	},
-/obj/securearea{
-	desc = "A warning sign. I guess this area is dangerous.";
-	icon_state = "magwarning2";
-	name = "ACTIVE MAGNET AREA"
-	},
-/turf/simulated/floor/airless/plating/catwalk{
-	dir = 5
-	},
-/area/mining/magnet)
+/turf/simulated/floor/caution/corner/nw,
+/area/station/engine/storage{
+	name = "Maru Equipment"
+	})
 "jL" = (
-/obj/cable{
-	icon_state = "1-2"
-	},
-/obj/landmark/gps_waypoint,
-/turf/simulated/floor,
-/area/space)
+/turf/simulated/floor/caution/north,
+/area/station/engine/storage{
+	name = "Maru Equipment"
+	})
 "jM" = (
 /obj/machinery/turret,
 /turf/simulated/floor/greenblack,
@@ -3179,21 +3054,41 @@
 	name = "Maru Primary Zone"
 	})
 "jQ" = (
-/obj/disposalpipe/segment/transport{
-	dir = 1;
-	icon_state = "pipe-c"
-	},
-/turf/simulated/floor,
-/area/space)
-"jR" = (
-/obj/disposalpipe/segment/horizontal,
 /obj/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
+	icon_state = "1-4"
 	},
-/turf/simulated/floor/yellow,
-/area/space)
+/turf/simulated/floor/caution/corner/misc{
+	dir = 9
+	},
+/area/station/engine/storage{
+	name = "Maru Equipment"
+	})
+"jR" = (
+/obj/table/auto,
+/obj/item/storage/box/cablesbox{
+	pixel_x = 7;
+	pixel_y = 6
+	},
+/obj/item/chem_grenade/metalfoam{
+	pixel_x = -9;
+	pixel_y = 10
+	},
+/obj/item/chem_grenade/metalfoam{
+	pixel_x = -9;
+	pixel_y = 7
+	},
+/obj/item/chem_grenade/metalfoam{
+	pixel_x = -9;
+	pixel_y = 4
+	},
+/obj/cable{
+	icon_state = "0-8"
+	},
+/obj/machinery/power/apc/autoname_east,
+/turf/simulated/floor,
+/area/station/engine/storage{
+	name = "Maru Equipment"
+	})
 "jT" = (
 /obj/cable{
 	icon_state = "4-8"
@@ -3207,26 +3102,17 @@
 	name = "Maru Hangar"
 	})
 "jU" = (
-/obj/decal/tile_edge/line/yellow{
-	dir = 8;
-	icon_state = "line1"
-	},
-/obj/grille/catwalk{
-	dir = 4
+/obj/disposalpipe/segment/bent/north,
+/obj/cable{
+	icon_state = "1-2"
 	},
 /obj/cable{
-	d1 = 1;
-	d2 = 4;
-	icon_state = "1-4"
+	icon_state = "1-8"
 	},
-/obj/cable{
-	d1 = 2;
-	d2 = 4;
-	icon_state = "2-4"
-	},
-/obj/stool/chair/yellow,
-/turf/simulated/floor/black,
-/area/space)
+/turf/simulated/floor/orangeblack,
+/area/station/maintenance/storage{
+	name = "Maru Power Room"
+	})
 "jV" = (
 /obj/grille/catwalk{
 	dir = 6;
@@ -3286,14 +3172,14 @@
 /turf/simulated/floor/grass,
 /area/station/hydroponics/bay)
 "kl" = (
-/obj/machinery/conveyor{
-	id = "qmbelthell"
+/obj/disposalpipe/segment/bent/west,
+/obj/cable{
+	icon_state = "4-8"
 	},
-/obj/disposalpipe/segment/transport{
-	dir = 4
-	},
-/turf/simulated/floor/caution/westeast,
-/area/space)
+/turf/simulated/floor/black/grime,
+/area/station/maintenance/storage{
+	name = "Maru Power Room"
+	})
 "km" = (
 /turf/simulated/wall/auto/reinforced/supernorn,
 /area/station/communications)
@@ -3341,25 +3227,32 @@
 /area/station/crew_quarters/tenebrae)
 "ks" = (
 /obj/machinery/smelter,
+/obj/machinery/light{
+	dir = 8;
+	layer = 9.1;
+	pixel_x = -10
+	},
 /turf/simulated/floor/airless/engine,
 /area/station/mining/refinery)
 "kt" = (
-/obj/machinery/manufacturer/gas,
-/obj/machinery/camera{
-	c_tag = "autotag";
-	dir = 4;
-	name = "autoname - SS13";
-	pixel_x = -10;
-	tag = ""
+/obj/cable{
+	icon_state = "1-8"
 	},
-/turf/simulated/floor/orangeblack/side{
-	dir = 8
+/obj/cable{
+	icon_state = "4-8"
 	},
-/area/space)
+/turf/simulated/floor/black/grime,
+/area/station/maintenance/storage{
+	name = "Maru Power Room"
+	})
 "ku" = (
-/obj/lattice,
-/turf/simulated/floor/metalfoam,
-/area/space)
+/obj/cable{
+	icon_state = "1-8"
+	},
+/turf/simulated/floor/black/grime,
+/area/station/maintenance/storage{
+	name = "Maru Power Room"
+	})
 "kv" = (
 /obj/cable{
 	icon_state = "4-8"
@@ -3380,17 +3273,20 @@
 /turf/simulated/floor,
 /area/station/mining/refinery)
 "kx" = (
-/obj/machinery/light/small{
-	dir = 4;
-	pixel_x = 12
+/obj/cable{
+	icon_state = "1-8"
 	},
-/turf/simulated/floor/grey,
-/area/space)
+/turf/simulated/floor,
+/area/station/quartermaster/office)
 "kA" = (
 /turf/simulated/floor,
 /area/station/mining/refinery)
 "kB" = (
-/obj/machinery/conveyor,
+/obj/machinery/conveyor{
+	id = "tenebelt";
+	name = "Tenebrae disposal belt";
+	operating = 1
+	},
 /turf/simulated/floor/grey,
 /area/station/science/construction{
 	name = "Tenebrae Maintenance"
@@ -3400,10 +3296,11 @@
 /turf/simulated/floor/grey,
 /area/station/crew_quarters/tenebrae)
 "kF" = (
+/obj/storage/secure/closet/engineering/mining,
 /turf/simulated/floor/orangeblack/side{
 	dir = 4
 	},
-/area/space)
+/area/station/mining/refinery)
 "kG" = (
 /obj/cable{
 	icon_state = "4-8"
@@ -3416,7 +3313,7 @@
 	icon_state = "alt_heater-L"
 	},
 /turf/simulated/wall/auto/reinforced/supernorn,
-/area/space)
+/area/station/mining/refinery)
 "kJ" = (
 /obj/lattice{
 	dir = 4;
@@ -3458,15 +3355,10 @@
 	name = "Dionysus Cryocore"
 	})
 "kN" = (
-/obj/table/auto,
-/obj/item/shipcomponent/sensor/mining,
-/obj/item/shipcomponent/sensor/mining,
-/obj/item/shipcomponent/mainweapon/mining,
-/obj/item/shipcomponent/mainweapon/mining,
-/turf/simulated/floor/orangeblack/side{
-	dir = 8
-	},
-/area/space)
+/turf/simulated/floor/caution/corner/sw,
+/area/station/engine/storage{
+	name = "Maru Equipment"
+	})
 "kS" = (
 /obj/disposalpipe/segment/bent/south,
 /turf/simulated/floor/plating,
@@ -3474,56 +3366,85 @@
 	name = "Tenebrae Maintenance"
 	})
 "kU" = (
-/obj/submachine/chef_sink/chem_sink{
-	dir = 1
-	},
-/turf/simulated/floor/grey,
-/area/space)
+/turf/simulated/floor/caution/south,
+/area/station/engine/storage{
+	name = "Maru Equipment"
+	})
 "kX" = (
-/obj/disposalpipe/segment/bent/west,
-/obj/cable{
-	icon_state = "4-8"
+/turf/simulated/floor/caution/corner/misc{
+	dir = 10
 	},
-/obj/cable{
-	d1 = 2;
-	d2 = 4;
-	icon_state = "2-4"
-	},
-/turf/simulated/floor/orangeblack/side{
-	dir = 8
-	},
-/area/space)
+/area/station/engine/storage{
+	name = "Maru Equipment"
+	})
 "kY" = (
 /turf/simulated/floor/grass,
 /area/station/hydroponics/bay)
 "kZ" = (
-/obj/disposalpipe/junction/right/east,
+/obj/table/auto,
+/obj/item/sheet/steel/reinforced/fullstack{
+	pixel_x = 7;
+	pixel_y = 14
+	},
+/obj/item/sheet/steel/reinforced/fullstack{
+	pixel_x = 7;
+	pixel_y = 14
+	},
+/obj/item/sheet/steel/fullstack{
+	pixel_x = -5;
+	pixel_y = 14
+	},
+/obj/item/sheet/steel/fullstack{
+	pixel_x = -5;
+	pixel_y = 14
+	},
+/obj/item/sheet/glass/fullstack{
+	pixel_x = 7;
+	pixel_y = 4
+	},
+/obj/item/sheet/glass/fullstack{
+	pixel_x = 7;
+	pixel_y = 4
+	},
+/obj/item/sheet/glass/reinforced/fullstack{
+	pixel_x = -5;
+	pixel_y = 4
+	},
+/obj/item/sheet/glass/reinforced/fullstack{
+	pixel_x = -5;
+	pixel_y = 4
+	},
+/obj/machinery/light{
+	dir = 4;
+	layer = 9.1;
+	pixel_x = 10
+	},
+/turf/simulated/floor,
+/area/station/engine/storage{
+	name = "Maru Equipment"
+	})
+"la" = (
+/obj/cable{
+	icon_state = "1-8"
+	},
 /obj/cable{
 	icon_state = "1-2"
 	},
-/turf/simulated/floor/orangeblack/side{
-	dir = 1
-	},
-/area/space)
-"la" = (
 /obj/cable{
-	icon_state = "4-8"
-	},
-/obj/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4"
 	},
-/turf/simulated/floor/orangeblack/corner,
-/area/space)
+/turf/simulated/floor/orangeblack,
+/area/station/maintenance/storage{
+	name = "Maru Power Room"
+	})
 "lb" = (
 /obj/cable{
-	icon_state = "4-8"
+	icon_state = "2-8"
 	},
-/turf/simulated/floor/orangeblack/side{
-	dir = 4
-	},
-/area/space)
+/turf/simulated/floor/orangeblack,
+/area/station/maintenance/storage{
+	name = "Maru Power Room"
+	})
 "lc" = (
 /obj/grille/catwalk{
 	icon_state = "catwalk_cross"
@@ -3565,52 +3486,38 @@
 	name = "Net Center"
 	})
 "lg" = (
-/obj/cable{
-	d1 = 2;
-	d2 = 8;
-	icon_state = "2-8"
-	},
-/obj/cable{
-	d1 = 2;
-	d2 = 4;
-	icon_state = "2-4"
-	},
-/obj/submachine/cargopad{
-	name = "Mining Pad"
-	},
-/turf/simulated/floor/grey,
-/area/space)
-"li" = (
-/obj/rack,
-/obj/item/clothing/mask/breath,
-/obj/item/tank/jetpack,
-/obj/item/clothing/suit/space/engineer,
-/obj/item/clothing/head/helmet/space/engineer,
-/obj/item/device/gps,
-/obj/item/storage/belt/mining,
-/obj/machinery/light_switch/north,
-/turf/simulated/floor/orangeblack,
-/area/space)
-"lk" = (
-/obj/cable{
-	icon_state = "4-8"
-	},
-/turf/simulated/floor/orangeblack/side{
-	dir = 8
-	},
-/area/space)
-"ll" = (
-/obj/machinery/shield_generator,
-/obj/grille/catwalk{
-	dir = 4
-	},
-/obj/machinery/power/data_terminal,
-/obj/cable{
-	d2 = 4;
-	icon_state = "0-4"
-	},
+/obj/machinery/disposal_pipedispenser/mobile,
 /turf/simulated/floor/black,
-/area/space)
+/area/station/engine/storage{
+	name = "Maru Equipment"
+	})
+"li" = (
+/obj/machinery/portable_atmospherics/canister/oxygen,
+/turf/simulated/floor/black,
+/area/station/engine/storage{
+	name = "Maru Equipment"
+	})
+"lk" = (
+/obj/storage/crate,
+/obj/item/electronics/frame/collector_control,
+/obj/item/electronics/frame/collector_control,
+/obj/item/electronics/frame/collector_control,
+/obj/item/electronics/frame/collector_array,
+/obj/item/electronics/frame/collector_array,
+/obj/item/electronics/frame/collector_array,
+/obj/item/electronics/frame/collector_array,
+/obj/item/electronics/frame/collector_array,
+/obj/item/electronics/frame/collector_array,
+/obj/item/electronics/soldering,
+/turf/simulated/floor/black,
+/area/station/engine/storage{
+	name = "Maru Equipment"
+	})
+"ll" = (
+/turf/simulated/floor/caution/west,
+/area/station/engine/storage{
+	name = "Maru Equipment"
+	})
 "lm" = (
 /obj/cable{
 	icon_state = "2-8"
@@ -3655,26 +3562,25 @@
 /turf/simulated/floor/black,
 /area/station/hallway)
 "lr" = (
-/obj/cable{
-	d1 = 1;
-	d2 = 8;
-	icon_state = "1-8"
+/obj/item/rods/steel/fullstack{
+	pixel_x = 10;
+	pixel_y = 7
 	},
-/turf/simulated/floor/orangeblack/corner{
-	dir = 1
+/obj/stool/chair/yellow{
+	dir = 8
 	},
-/area/space)
+/turf/simulated/floor,
+/area/station/engine/storage{
+	name = "Maru Equipment"
+	})
 "lt" = (
-/obj/machinery/light{
-	dir = 4;
-	layer = 9.1;
-	pixel_x = 10
+/obj/cable{
+	icon_state = "1-2"
 	},
-/obj/machinery/portable_reclaimer,
-/turf/simulated/floor/orangeblack/side{
-	dir = 4
-	},
-/area/space)
+/turf/simulated/floor/orangeblack,
+/area/station/maintenance/storage{
+	name = "Maru Power Room"
+	})
 "lu" = (
 /obj/table/auto,
 /obj/item/wrench{
@@ -3722,26 +3628,33 @@
 	name = "Tenebrae Command Center"
 	})
 "lz" = (
-/obj/lattice{
-	dir = 8;
-	icon_state = "lattice-dir"
+/obj/machinery/conveyor{
+	dir = 4;
+	id = "marubelt";
+	name = "Maru disposal belt";
+	operating = 1
 	},
-/obj/disposalpipe/segment/mail/vertical,
-/turf/simulated/floor/metalfoam,
-/area/space)
+/obj/machinery/light/small,
+/turf/simulated/floor/black/grime,
+/area/station/maintenance/storage{
+	name = "Maru Power Room"
+	})
 "lA" = (
+/obj/machinery/light,
+/turf/simulated/floor/orangeblack/side,
+/area/station/quartermaster/office)
+"lC" = (
 /obj/machinery/conveyor{
 	dir = 1;
 	id = "qmin"
 	},
+/obj/machinery/light{
+	dir = 4;
+	layer = 9.1;
+	pixel_x = 10
+	},
 /turf/simulated/floor/caution/westeast,
-/area/space)
-"lC" = (
-/obj/stool/bench/blue/auto,
-/turf/simulated/floor/sanitary/white,
-/area/station/engine/engineering{
-	name = "Maru Primary Zone"
-	})
+/area/station/quartermaster/office)
 "lD" = (
 /obj/machinery/manufacturer/uniform,
 /turf/simulated/floor/grey,
@@ -3758,11 +3671,18 @@
 	},
 /area/station/ranch)
 "lG" = (
-/obj/machinery/atmospherics/pipe/simple{
-	dir = 5
+/obj/machinery/emitter{
+	dir = 8
 	},
-/turf/simulated/floor,
-/area/space)
+/obj/machinery/light{
+	dir = 8;
+	layer = 9.1;
+	pixel_x = -10
+	},
+/turf/simulated/floor/black,
+/area/station/engine/storage{
+	name = "Maru Equipment"
+	})
 "lH" = (
 /obj/disposalpipe/segment/mail/bent/south,
 /obj/foamedmetal,
@@ -3797,16 +3717,11 @@
 /turf/simulated/floor/caution/misc,
 /area/station/quartermaster/office)
 "lM" = (
-/obj/cable{
-	icon_state = "1-2"
-	},
-/obj/machinery/atmospherics/unary/outlet_injector{
-	dir = 8;
-	icon_state = "on";
-	on = 1
-	},
-/turf/simulated/floor,
-/area/space)
+/obj/machinery/the_singularitygen,
+/turf/simulated/floor/black,
+/area/station/engine/storage{
+	name = "Maru Equipment"
+	})
 "lN" = (
 /obj/machinery/door_control/podbay{
 	id = "deeobay";
@@ -3827,8 +3742,19 @@
 /turf/simulated/wall/auto/reinforced/supernorn,
 /area/station/maintenance)
 "lQ" = (
-/turf/simulated/floor/grey,
-/area/space)
+/obj/decal/tile_edge/stripe/extra_big{
+	dir = 4
+	},
+/obj/machinery/door/airlock/pyro/external{
+	dir = 8
+	},
+/obj/access_spawn/engineering_storage,
+/turf/simulated/floor/caution/corner/misc{
+	dir = 10
+	},
+/area/station/maintenance/storage{
+	name = "Maru Power Room"
+	})
 "lR" = (
 /obj/machinery/manufacturer/robotics,
 /obj/machinery/light{
@@ -3841,18 +3767,18 @@
 	},
 /area/station/quartermaster/office)
 "lS" = (
-/obj/machinery/dispenser,
-/obj/machinery/light{
-	dir = 4;
-	layer = 9.1;
-	pixel_x = 10
-	},
-/turf/simulated/floor/grey,
-/area/space)
+/obj/machinery/field_generator,
+/turf/simulated/floor/black,
+/area/station/engine/storage{
+	name = "Maru Equipment"
+	})
 "lU" = (
-/obj/machinery/cargo_router/kd_qm_inner,
-/turf/simulated/floor/bot,
-/area/space)
+/obj/machinery/field_generator,
+/obj/machinery/light,
+/turf/simulated/floor/black,
+/area/station/engine/storage{
+	name = "Maru Equipment"
+	})
 "lV" = (
 /obj/cable{
 	icon_state = "2-8"
@@ -3938,10 +3864,6 @@
 	dir = 4
 	},
 /area/station/engine/elect)
-"mp" = (
-/obj/machinery/vehicle/pod_smooth/industrial,
-/turf/simulated/floor/shuttlebay,
-/area/space)
 "mq" = (
 /obj/cable{
 	d1 = 1;
@@ -3967,16 +3889,6 @@
 	},
 /turf/simulated/floor/caution/westeast,
 /area/station/science/artifact)
-"mu" = (
-/obj/machinery/vending/mechanics,
-/obj/machinery/power/apc/autoname_north,
-/obj/cable{
-	icon_state = "0-2"
-	},
-/turf/simulated/floor/yellow/side{
-	dir = 1
-	},
-/area/space)
 "mx" = (
 /obj/disposalpipe/segment/mail/horizontal,
 /turf/simulated/floor/metalfoam,
@@ -4020,9 +3932,6 @@
 /area/station/science/bot_storage{
 	name = "Net Center"
 	})
-"mD" = (
-/turf/simulated/floor/sanitary/white,
-/area/space)
 "mE" = (
 /obj/machinery/shuttle/engine/heater{
 	dir = 4;
@@ -4117,46 +4026,11 @@
 	dir = 9
 	},
 /area/station/mining/refinery)
-"mW" = (
-/obj/stool/chair/yellow,
-/obj/landmark/start{
-	name = "Miner"
-	},
-/obj/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/turf/simulated/floor/orangeblack/side{
-	dir = 8
-	},
-/area/space)
-"mX" = (
-/obj/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/machinery/camera{
-	c_tag = "autotag";
-	dir = 10;
-	name = "autoname - SS13";
-	tag = ""
-	},
-/obj/storage/closet/welding_supply,
-/turf/simulated/floor/orangeblack/side,
-/area/space)
 "mY" = (
 /obj/decal/poster/wallsign/stencil/left/e,
 /obj/decal/poster/wallsign/stencil/right/r,
 /turf/simulated/wall/auto/reinforced/supernorn,
 /area/station/communications)
-"mZ" = (
-/obj/cable{
-	icon_state = "1-8"
-	},
-/turf/simulated/floor,
-/area/space)
 "nb" = (
 /obj/stool/chair/yellow{
 	dir = 4
@@ -4171,28 +4045,6 @@
 	icon_state = "solarbase";
 	name = "solar paneling"
 	},
-/area/space)
-"nd" = (
-/obj/stool/chair/yellow,
-/obj/landmark/start{
-	name = "Miner"
-	},
-/turf/simulated/floor,
-/area/space)
-"ne" = (
-/turf/simulated/floor/orangeblack/side{
-	dir = 1
-	},
-/area/space)
-"ng" = (
-/obj/lattice{
-	dir = 5;
-	icon_state = "lattice-dir-b"
-	},
-/obj/disposalpipe/segment/transport{
-	dir = 4
-	},
-/turf/space,
 /area/space)
 "nh" = (
 /obj/cable{
@@ -4209,25 +4061,6 @@
 /area/station/science/construction{
 	name = "Tenebrae Maintenance"
 	})
-"nj" = (
-/obj/machinery/manufacturer/mining,
-/turf/simulated/floor/orangeblack,
-/area/space)
-"nk" = (
-/turf/simulated/floor/orangeblack/corner{
-	dir = 4
-	},
-/area/space)
-"nl" = (
-/obj/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/turf/simulated/floor/orangeblack/side{
-	dir = 1
-	},
-/area/space)
 "nm" = (
 /obj/submachine/chem_extractor{
 	dir = 4;
@@ -4243,19 +4076,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance)
-"np" = (
-/obj/machinery/camera{
-	c_tag = "autotag";
-	dir = 8;
-	name = "autoname - SS13";
-	pixel_x = 10;
-	tag = ""
-	},
-/obj/machinery/manufacturer/mining,
-/turf/simulated/floor/orangeblack/side{
-	dir = 4
-	},
-/area/space)
 "nq" = (
 /obj/machinery/macrofab/emergency_pod{
 	dir = 1
@@ -4289,13 +4109,6 @@
 /area/station/crew_quarters/cafeteria{
 	name = "Dionysus Primary Zone"
 	})
-"nt" = (
-/obj/disposalpipe/segment/vertical,
-/obj/cable{
-	icon_state = "1-2"
-	},
-/turf/simulated/floor/orangeblack/side,
-/area/space)
 "nu" = (
 /obj/machinery/conveyor{
 	dir = 8;
@@ -4343,18 +4156,6 @@
 /obj/access_spawn/head_of_personnel,
 /turf/simulated/floor/wood,
 /area/station/bridge/hos)
-"nC" = (
-/obj/machinery/conveyor{
-	dir = 1;
-	id = "qmin"
-	},
-/obj/machinery/light{
-	dir = 8;
-	layer = 9.1;
-	pixel_x = -10
-	},
-/turf/simulated/floor/caution/westeast,
-/area/space)
 "nD" = (
 /obj/stool/bed,
 /obj/landmark/start{
@@ -4366,38 +4167,12 @@
 	},
 /turf/simulated/floor/grey,
 /area/station/crew_quarters)
-"nE" = (
-/obj/cable{
-	icon_state = "1-2"
-	},
-/turf/simulated/floor,
-/area/space)
-"nF" = (
-/obj/machinery/disposal/small/north{
-	pixel_y = 32
-	},
-/obj/disposalpipe/trunk/south,
-/turf/simulated/floor/orangeblack/side{
-	dir = 1
-	},
-/area/space)
 "nG" = (
 /obj/disposalpipe/segment/bent/south,
 /turf/simulated/floor/plating,
 /area/station/maintenance/southeast{
 	name = "Dionysus Maintenance"
 	})
-"nH" = (
-/obj/machinery/door/airlock/pyro/glass/engineering{
-	name = "Mining";
-	req_access = null
-	},
-/obj/access_spawn/mining,
-/obj/cable{
-	icon_state = "1-2"
-	},
-/turf/simulated/floor/orangeblack,
-/area/space)
 "nI" = (
 /obj/cable{
 	icon_state = "1-2"
@@ -4413,34 +4188,6 @@
 /area/station/crew_quarters/utility{
 	name = "Dionysus Cryocore"
 	})
-"nL" = (
-/obj/item/device/radio/beacon,
-/turf/simulated/floor/grey,
-/area/space)
-"nM" = (
-/obj/machinery/conveyor{
-	id = "qmsend"
-	},
-/obj/machinery/door_control{
-	id = "mports_door";
-	name = "Cargo Export";
-	pixel_x = 24
-	},
-/obj/machinery/camera{
-	c_tag = "autotag";
-	dir = 8;
-	name = "autoname - SS13";
-	pixel_x = 10;
-	tag = ""
-	},
-/obj/machinery/driver_button{
-	id = "manualshipping";
-	name = "Export Driver Override";
-	pixel_x = 24;
-	pixel_y = -9
-	},
-/turf/simulated/floor/caution/westeast,
-/area/space)
 "nO" = (
 /obj/table/auto,
 /obj/item/storage/toolbox/mechanical{
@@ -4505,6 +4252,11 @@
 	},
 /area/station/engine/elect)
 "nW" = (
+/obj/machinery/light{
+	dir = 8;
+	layer = 9.1;
+	pixel_x = -10
+	},
 /turf/simulated/floor/yellow/side{
 	dir = 8
 	},
@@ -4544,20 +4296,6 @@
 	dir = 5
 	},
 /area/station/science/tenebrae)
-"od" = (
-/obj/cable{
-	d2 = 2;
-	icon_state = "0-2"
-	},
-/obj/machinery/power/solar{
-	id = "maru";
-	name = "Maru solar panel"
-	},
-/turf/simulated/floor/airless{
-	icon_state = "solarbase";
-	name = "solar paneling"
-	},
-/area/space)
 "og" = (
 /obj/cable{
 	icon_state = "1-2"
@@ -4703,7 +4441,7 @@
 	})
 "oA" = (
 /turf/simulated/floor/orangeblack,
-/area/space)
+/area/station/mining/refinery)
 "oB" = (
 /obj/grille/catwalk{
 	dir = 10
@@ -4734,25 +4472,6 @@
 	},
 /turf/simulated/floor/black,
 /area/station/bridge)
-"oH" = (
-/obj/grille/catwalk{
-	dir = 4
-	},
-/obj/cable{
-	icon_state = "4-8"
-	},
-/obj/cable{
-	d1 = 1;
-	d2 = 4;
-	icon_state = "1-4"
-	},
-/obj/cable{
-	d1 = 2;
-	d2 = 4;
-	icon_state = "2-4"
-	},
-/turf/simulated/floor/black,
-/area/space)
 "oI" = (
 /obj/disposalpipe/switch_junction/left/west{
 	mail_tag = "meridian";
@@ -4765,16 +4484,6 @@
 	dir = 8
 	},
 /area/station/hallway)
-"oK" = (
-/obj/table/reinforced/auto,
-/obj/item/storage/firstaid/regular,
-/obj/machinery/light/emergency,
-/obj/machinery/power/apc/autoname_west,
-/obj/cable,
-/turf/simulated/floor/orangeblack/side{
-	dir = 10
-	},
-/area/space)
 "oL" = (
 /obj/grille/catwalk{
 	dir = 4
@@ -4795,63 +4504,12 @@
 /area/station/solar/small_backup3{
 	name = "Tenebrae Solar Array"
 	})
-"oM" = (
-/obj/disposalpipe/segment/bent/south,
-/obj/cable{
-	d1 = 2;
-	d2 = 8;
-	icon_state = "2-8"
-	},
-/turf/simulated/floor/yellow/side{
-	dir = 9
-	},
-/area/space)
-"oO" = (
-/obj/table/reinforced/auto,
-/obj/machinery/computer/security/wooden_tv/small{
-	pixel_y = 8
-	},
-/turf/simulated/floor/orangeblack/corner{
-	dir = 8
-	},
-/area/space)
 "oP" = (
 /obj/wingrille_spawn/auto,
 /turf/simulated/floor/plating,
 /area/station/crew_quarters/cafeteria{
 	name = "Dionysus Primary Zone"
 	})
-"oQ" = (
-/obj/submachine/chef_sink/chem_sink{
-	pixel_y = 16
-	},
-/obj/machinery/light/small{
-	dir = 4;
-	pixel_x = 12
-	},
-/turf/simulated/floor/sanitary/white,
-/area/station/engine/engineering{
-	name = "Maru Primary Zone"
-	})
-"oR" = (
-/obj/stool/chair/yellow{
-	dir = 8
-	},
-/obj/landmark/start{
-	name = "Miner"
-	},
-/turf/simulated/floor,
-/area/space)
-"oS" = (
-/obj/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/turf/simulated/floor/orangeblack/corner{
-	dir = 1
-	},
-/area/space)
 "oT" = (
 /obj/cable{
 	icon_state = "0-8"
@@ -4892,40 +4550,6 @@
 /area/station/science/construction{
 	name = "Tenebrae Maintenance"
 	})
-"pb" = (
-/obj/machinery/firealarm{
-	dir = 4;
-	pixel_x = 26;
-	pixel_y = 1
-	},
-/obj/machinery/processor,
-/turf/simulated/floor/orangeblack/side{
-	dir = 4
-	},
-/area/space)
-"pc" = (
-/obj/machinery/power/furnace,
-/obj/cable{
-	d2 = 8;
-	icon_state = "0-8"
-	},
-/turf/simulated/floor/plating,
-/area/space)
-"pd" = (
-/obj/decal/tile_edge/line/yellow{
-	dir = 8;
-	icon_state = "line1"
-	},
-/obj/cable{
-	icon_state = "1-2"
-	},
-/obj/cable{
-	d1 = 2;
-	d2 = 8;
-	icon_state = "2-8"
-	},
-/turf/simulated/floor/black,
-/area/space)
 "pe" = (
 /turf/simulated/floor/plating,
 /area/station/science/construction{
@@ -4937,25 +4561,6 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/airless/plating/catwalk,
-/area/space)
-"ph" = (
-/obj/stool/chair/yellow{
-	dir = 4
-	},
-/obj/disposalpipe/segment/bent/north,
-/obj/cable{
-	d1 = 1;
-	d2 = 4;
-	icon_state = "1-4"
-	},
-/obj/cable{
-	d1 = 2;
-	d2 = 4;
-	icon_state = "2-4"
-	},
-/turf/simulated/floor/yellow/side{
-	dir = 10
-	},
 /area/space)
 "pi" = (
 /obj/cable{
@@ -4977,36 +4582,6 @@
 /area/station/engine/engineering{
 	name = "Maru Primary Zone"
 	})
-"pl" = (
-/obj/decal/poster/wallsign/stencil/left/r{
-	pixel_x = -4
-	},
-/obj/decal/poster/wallsign/stencil/right/u{
-	pixel_x = 10
-	},
-/turf/simulated/wall/auto/reinforced/supernorn,
-/area/space)
-"pm" = (
-/obj/cable{
-	d2 = 2;
-	icon_state = "0-2"
-	},
-/obj/cable{
-	d2 = 8;
-	icon_state = "0-8"
-	},
-/obj/grille/catwalk{
-	dir = 5
-	},
-/obj/cable{
-	d2 = 4;
-	icon_state = "0-4"
-	},
-/turf/simulated/floor/airless/plating/catwalk{
-	dir = 4;
-	icon_state = "catwalk_cross"
-	},
-/area/space)
 "pn" = (
 /obj/stool/bed,
 /obj/landmark/start{
@@ -5036,21 +4611,6 @@
 	dir = 1
 	},
 /area/station/science/tenebrae)
-"pq" = (
-/obj/grille/catwalk{
-	dir = 4
-	},
-/obj/cable{
-	d2 = 8;
-	icon_state = "0-8"
-	},
-/obj/cable{
-	d2 = 4;
-	icon_state = "0-4"
-	},
-/obj/cable,
-/turf/space,
-/area/space)
 "pr" = (
 /obj/machinery/shuttle/engine/heater{
 	dir = 4;
@@ -5058,18 +4618,15 @@
 	},
 /turf/simulated/wall/auto/reinforced/supernorn,
 /area/station/crew_quarters/tenebrae)
-"ps" = (
-/obj/machinery/conveyor_switch{
-	id = "qmin";
-	layer = 4
-	},
-/turf/simulated/floor/bot,
-/area/space)
 "pt" = (
-/obj/machinery/conveyor,
 /obj/machinery/light/small{
 	dir = 4;
 	pixel_x = 12
+	},
+/obj/machinery/conveyor{
+	id = "tenebelt";
+	name = "Tenebrae disposal belt";
+	operating = 1
 	},
 /turf/simulated/floor/grey,
 /area/station/science/construction{
@@ -5123,14 +4680,6 @@
 /area/station/crew_quarters/cafeteria{
 	name = "Dionysus Primary Zone"
 	})
-"pD" = (
-/obj/cable{
-	d1 = 1;
-	d2 = 4;
-	icon_state = "1-4"
-	},
-/turf/simulated/floor,
-/area/space)
 "pE" = (
 /obj/machinery/light{
 	dir = 4;
@@ -5173,44 +4722,15 @@
 	},
 /turf/space,
 /area/space)
-"pK" = (
-/turf/simulated/floor/orangeblack/side{
-	dir = 6
-	},
-/area/space)
-"pL" = (
-/obj/cable{
-	icon_state = "4-8"
-	},
-/turf/simulated/floor,
-/area/space)
 "pM" = (
 /obj/disposalpipe/trunk/north,
 /obj/machinery/disposal,
 /turf/simulated/floor/wood/two,
 /area/station/bridge/hos)
-"pN" = (
-/obj/cable{
-	icon_state = "4-8"
-	},
-/obj/cable{
-	icon_state = "2-8"
-	},
-/turf/simulated/floor,
-/area/space)
 "pO" = (
 /obj/storage/secure/closet/command/hop,
 /turf/simulated/floor/wood/two,
 /area/station/bridge/hos)
-"pP" = (
-/obj/cable{
-	icon_state = "4-8"
-	},
-/obj/machinery/conveyor{
-	id = "qmsend"
-	},
-/turf/simulated/floor/caution/westeast,
-/area/space)
 "pR" = (
 /obj/table/auto,
 /obj/item/deconstructor{
@@ -5238,33 +4758,6 @@
 	dir = 8
 	},
 /area/station/engine/elect)
-"pV" = (
-/obj/rack,
-/obj/item/clothing/suit/space/engineer,
-/obj/item/clothing/shoes/magnetic,
-/obj/item/clothing/mask/breath,
-/obj/item/clothing/head/helmet/space/engineer,
-/obj/item/tank/air,
-/obj/item/device/light/flashlight,
-/obj/item/storage/toolbox/mechanical,
-/obj/item/storage/belt/utility,
-/obj/machinery/power/apc/autoname_west,
-/obj/cable,
-/obj/machinery/light_switch/west{
-	pixel_y = -10
-	},
-/turf/simulated/floor/grey,
-/area/space)
-"pX" = (
-/obj/machinery/light/small,
-/obj/machinery/conveyor{
-	dir = 4;
-	id = "marubelt";
-	name = "Maru disposal belt";
-	operating = 1
-	},
-/turf/simulated/floor/grey,
-/area/space)
 "pZ" = (
 /obj/grille/catwalk{
 	icon_state = "catwalk_cross"
@@ -5379,7 +4872,7 @@
 /turf/simulated/floor/airless/plating/catwalk{
 	dir = 10
 	},
-/area/space)
+/area/mining/magnet)
 "qp" = (
 /obj/cable{
 	icon_state = "2-8"
@@ -5441,12 +4934,15 @@
 	name = "Maru Primary Zone"
 	})
 "qB" = (
-/obj/machinery/conveyor{
-	dir = 4
-	},
 /obj/machinery/light/small{
 	dir = 1;
 	pixel_y = 21
+	},
+/obj/machinery/conveyor{
+	dir = 4;
+	id = "tenebelt";
+	name = "Tenebrae disposal belt";
+	operating = 1
 	},
 /turf/simulated/floor/grey,
 /area/station/science/construction{
@@ -5560,17 +5056,6 @@
 	},
 /turf/space,
 /area/space)
-"qW" = (
-/obj/machinery/computer/supplycomp{
-	dir = 4
-	},
-/obj/cable{
-	d2 = 4;
-	icon_state = "0-4"
-	},
-/obj/machinery/power/data_terminal,
-/turf/simulated/floor/orangeblack,
-/area/space)
 "qX" = (
 /turf/simulated/floor/delivery,
 /area/station/quartermaster/office)
@@ -5605,20 +5090,6 @@
 	},
 /obj/machinery/light/runway_light,
 /turf/space,
-/area/space)
-"re" = (
-/obj/storage/crate,
-/obj/item/raw_material/cotton,
-/obj/item/raw_material/cotton,
-/obj/item/raw_material/cotton,
-/obj/item/raw_material/cotton,
-/obj/item/raw_material/cotton,
-/obj/item/raw_material/cotton,
-/obj/item/raw_material/fabric,
-/obj/item/raw_material/fabric,
-/obj/item/raw_material/fabric,
-/obj/item/raw_material/fabric,
-/turf/simulated/floor/plating,
 /area/space)
 "rg" = (
 /obj/machinery/door/unpowered/wood/pyro{
@@ -5688,7 +5159,7 @@
 /turf/simulated/floor/airless/plating/catwalk{
 	dir = 4
 	},
-/area/space)
+/area/station/mining/refinery)
 "rx" = (
 /obj/item/storage/wall/emergency{
 	pixel_y = 32
@@ -5703,10 +5174,6 @@
 /area/station/engine/engineering{
 	name = "Maru Primary Zone"
 	})
-"rz" = (
-/obj/grille/catwalk,
-/turf/simulated/floor/airless/plating/catwalk,
-/area/space)
 "rC" = (
 /obj/wingrille_spawn/auto,
 /turf/simulated/floor/plating,
@@ -5734,8 +5201,13 @@
 	})
 "rG" = (
 /obj/submachine/cargopad/magnet,
+/obj/machinery/light{
+	dir = 4;
+	layer = 9.1;
+	pixel_x = 10
+	},
 /turf/simulated/floor/plating/airless,
-/area/space)
+/area/station/mining/refinery)
 "rH" = (
 /obj/machinery/r_door_control/podbay{
 	id = "tenebay";
@@ -5747,7 +5219,7 @@
 	})
 "rL" = (
 /turf/simulated/floor/plating/airless,
-/area/space)
+/area/station/mining/refinery)
 "rM" = (
 /obj/cable{
 	icon_state = "1-4"
@@ -5764,33 +5236,28 @@
 	},
 /obj/grille/catwalk,
 /turf/simulated/floor/airless/plating/catwalk,
-/area/space)
-"rO" = (
-/obj/table/reinforced/auto,
-/obj/machinery/light,
-/obj/machinery/recharger,
-/obj/machinery/light_switch/west,
-/turf/simulated/floor/orangeblack/side{
-	dir = 10
-	},
-/area/space)
+/area/mining/magnet)
 "rR" = (
 /obj/cable{
 	icon_state = "1-8"
 	},
 /turf/simulated/floor/carpet/blue/fancy/edge/sw,
 /area/station/bridge)
-"rS" = (
-/obj/machinery/nanofab/refining,
-/turf/simulated/floor,
-/area/space)
 "rV" = (
 /obj/machinery/vending/cigarette,
 /turf/simulated/floor/purplewhite,
 /area/station/science/tenebrae)
 "rW" = (
-/obj/machinery/conveyor,
-/obj/machinery/door/poddoor/pyro,
+/obj/machinery/conveyor{
+	id = "tenebelt";
+	name = "Tenebrae disposal belt";
+	operating = 1
+	},
+/obj/machinery/door/poddoor/pyro{
+	autoclose = 1;
+	id = "tene_crusher";
+	name = "Tenebrae Crusher Door"
+	},
 /turf/simulated/floor/grey,
 /area/station/science/construction{
 	name = "Tenebrae Maintenance"
@@ -5800,10 +5267,6 @@
 /obj/window_blinds/cog2/left,
 /turf/simulated/floor/plating,
 /area/station/crew_quarters/tenebrae)
-"rY" = (
-/obj/machinery/nanofab/mining,
-/turf/simulated/floor,
-/area/space)
 "rZ" = (
 /obj/grille/catwalk{
 	dir = 9;
@@ -5819,33 +5282,6 @@
 	dir = 9
 	},
 /area/space)
-"sa" = (
-/obj/table/auto,
-/obj/item/sheet/steel{
-	amount = 50
-	},
-/obj/item/sheet/glass{
-	amount = 50
-	},
-/obj/item/storage/box/cablesbox,
-/obj/machinery/light/small{
-	dir = 1;
-	pixel_y = 21
-	},
-/obj/item/extinguisher,
-/turf/simulated/floor/plating,
-/area/space)
-"sb" = (
-/obj/machinery/light{
-	dir = 4;
-	layer = 9.1;
-	pixel_x = 10
-	},
-/obj/machinery/manufacturer/mining,
-/turf/simulated/floor/orangeblack/side{
-	dir = 4
-	},
-/area/space)
 "sc" = (
 /obj/item/storage/toilet,
 /obj/machinery/light/small{
@@ -5854,18 +5290,6 @@
 	},
 /turf/simulated/floor/sanitary/white,
 /area/station/hallway)
-"sd" = (
-/obj/disposalpipe/segment/vertical,
-/obj/cable{
-	icon_state = "1-2"
-	},
-/obj/cable{
-	d1 = 2;
-	d2 = 8;
-	icon_state = "2-8"
-	},
-/turf/simulated/floor,
-/area/space)
 "se" = (
 /obj/cable{
 	d1 = 4;
@@ -5875,13 +5299,6 @@
 /obj/disposalpipe/segment/bent/east,
 /turf/simulated/floor/wood,
 /area/station/bridge/hos)
-"sf" = (
-/obj/machinery/conveyor{
-	id = "qmout"
-	},
-/obj/machinery/light_switch/west,
-/turf/simulated/floor/orangeblack,
-/area/space)
 "si" = (
 /obj/blind_switch/area/west,
 /obj/machinery/vending/snack,
@@ -5898,30 +5315,6 @@
 /area/station/solar/small_backup3{
 	name = "Tenebrae Solar Array"
 	})
-"sm" = (
-/obj/machinery/door_control{
-	id = "imports_door";
-	name = "Import Door Control";
-	pixel_x = -26
-	},
-/obj/machinery/conveyor{
-	dir = 1;
-	id = "qmin"
-	},
-/turf/simulated/floor/caution/westeast,
-/area/space)
-"so" = (
-/obj/machinery/macrofab/emergency_pod{
-	color = "#DDDDDD";
-	createdObject = /obj/machinery/vehicle/miniputt/indyputt/armed;
-	desc = "A sophisticated machine that fabricates robust industrial pods from a nearby reserve of supplies.";
-	dir = 1;
-	fabTime = 150;
-	name = "IndyPutt Fabricator";
-	override_dir = 4
-	},
-/turf/simulated/floor/shuttlebay,
-/area/space)
 "sq" = (
 /obj/machinery/conveyor{
 	dir = 1;
@@ -5929,13 +5322,6 @@
 	},
 /turf/simulated/floor/caution/westeast,
 /area/station/quartermaster/office)
-"sr" = (
-/obj/machinery/conveyor{
-	dir = 8;
-	id = "qmin"
-	},
-/turf/simulated/floor/caution/northsouth,
-/area/space)
 "st" = (
 /obj/table/auto,
 /obj/item/sheet/steel{
@@ -5951,22 +5337,6 @@
 /area/station/hangar/science{
 	name = "Tenebrae Hangar"
 	})
-"su" = (
-/obj/table/reinforced/auto,
-/obj/item/hand_labeler,
-/obj/item/hand_labeler,
-/turf/simulated/floor/grey,
-/area/space)
-"sx" = (
-/obj/item/storage/toilet,
-/obj/machinery/light/small{
-	dir = 4;
-	pixel_x = 12
-	},
-/turf/simulated/floor/sanitary/white,
-/area/station/engine/engineering{
-	name = "Maru Primary Zone"
-	})
 "sy" = (
 /obj/machinery/door/airlock/pyro{
 	name = "Vessel Quarters"
@@ -5978,30 +5348,6 @@
 /area/station/hangar/catering{
 	name = "Dionysus Hangar"
 	})
-"sz" = (
-/obj/machinery/light,
-/obj/table/reinforced/auto,
-/obj/item/paper_bin,
-/obj/item/pen,
-/turf/simulated/floor/grey,
-/area/space)
-"sB" = (
-/obj/machinery/door/poddoor/blast{
-	icon_state = "bdoorsingle1";
-	id = "qm_dock"
-	},
-/obj/machinery/conveyor{
-	dir = 4;
-	name = "cargo belt - east";
-	operating = 1
-	},
-/obj/forcefield/energyshield/perma/doorlink{
-	desc = "A door-linked force field that prevents gasses from passing through it.";
-	name = "Door-linked Atmospheric Forcefield";
-	powerlevel = 1
-	},
-/turf/simulated/floor/plating,
-/area/space)
 "sC" = (
 /obj/decal/poster/wallsign/stencil/left/m{
 	pixel_x = -4
@@ -6011,24 +5357,6 @@
 	},
 /turf/simulated/wall/auto/reinforced/supernorn,
 /area/station/communications)
-"sD" = (
-/obj/machinery/conveyor_switch{
-	id = "qmsend";
-	layer = 4
-	},
-/turf/simulated/floor/bot,
-/area/space)
-"sE" = (
-/obj/stool/bed,
-/obj/item/clothing/suit/bedsheet{
-	bcolor = "yellow";
-	icon_state = "bedsheet-yellow"
-	},
-/obj/landmark/start{
-	name = "Engineer"
-	},
-/turf/simulated/floor/grey,
-/area/space)
 "sF" = (
 /turf/simulated/floor/grey/side{
 	dir = 4
@@ -6046,12 +5374,6 @@
 	},
 /turf/simulated/floor/wood/two,
 /area/station/bridge/hos)
-"sL" = (
-/obj/machinery/conveyor{
-	id = "qmsend"
-	},
-/turf/simulated/floor/caution/westeast,
-/area/space)
 "sM" = (
 /obj/table/reinforced/bar/auto,
 /obj/item/decoration/ashtray{
@@ -6062,20 +5384,6 @@
 /area/station/crew_quarters/cafeteria{
 	name = "Dionysus Primary Zone"
 	})
-"sN" = (
-/obj/item/plank,
-/obj/item/plank,
-/obj/item/plank,
-/obj/item/plank,
-/obj/item/plank,
-/obj/storage/crate,
-/obj/machinery/light{
-	dir = 4;
-	layer = 9.1;
-	pixel_x = 10
-	},
-/turf/simulated/floor/plating,
-/area/space)
 "sP" = (
 /obj/disposalpipe/junction/left/north,
 /turf/simulated/floor/caution/north,
@@ -6216,24 +5524,9 @@
 	dir = 10
 	},
 /area/station/science/teleporter)
-"tn" = (
-/obj/machinery/portable_reclaimer,
-/turf/simulated/floor/yellow/side{
-	dir = 4
-	},
-/area/space)
 "to" = (
 /turf/simulated/wall/auto/reinforced/supernorn,
 /area/station/quartermaster/office)
-"tp" = (
-/obj/cable{
-	icon_state = "1-2"
-	},
-/obj/landmark/start{
-	name = "Miner"
-	},
-/turf/simulated/floor/orangeblack,
-/area/space)
 "tq" = (
 /obj/lattice{
 	dir = 1;
@@ -6313,6 +5606,7 @@
 	})
 "tG" = (
 /obj/machinery/vending/pda,
+/obj/machinery/light,
 /turf/simulated/floor/orangeblack/side,
 /area/station/hangar/engine{
 	name = "Maru Hangar"
@@ -6332,16 +5626,6 @@
 /obj/machinery/light,
 /turf/simulated/floor/wood/two,
 /area/station/bridge/hos)
-"tM" = (
-/obj/submachine/chef_sink/chem_sink{
-	pixel_y = 16
-	},
-/turf/simulated/floor/sanitary/white,
-/area/space)
-"tO" = (
-/obj/machinery/manufacturer/general,
-/turf/simulated/floor/orangeblack,
-/area/space)
 "tQ" = (
 /obj/cable{
 	icon_state = "1-2"
@@ -6456,10 +5740,6 @@
 /area/station/engine/storage{
 	name = "Maru Equipment"
 	})
-"uj" = (
-/obj/reagent_dispensers/fueltank,
-/turf/simulated/floor/plating,
-/area/space)
 "uk" = (
 /obj/machinery/light{
 	dir = 4;
@@ -6479,14 +5759,6 @@
 /obj/wingrille_spawn/auto/crystal,
 /turf/simulated/floor/plating,
 /area/station/turret_protected/Zeta)
-"up" = (
-/obj/disposalpipe/trunk/south,
-/obj/machinery/conveyor{
-	dir = 4
-	},
-/obj/disposaloutlet/east,
-/turf/simulated/floor/grey,
-/area/space)
 "ut" = (
 /obj/machinery/vending/coffee,
 /obj/machinery/light_switch/west,
@@ -6571,7 +5843,7 @@
 	tag = ""
 	},
 /turf/simulated/floor/plating/airless,
-/area/space)
+/area/station/mining/refinery)
 "uH" = (
 /turf/simulated/floor/carpet/blue/fancy/edge/se,
 /area/station/bridge/hos)
@@ -6595,7 +5867,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plating/airless,
-/area/space)
+/area/station/mining/refinery)
 "uN" = (
 /obj/cable{
 	icon_state = "1-8"
@@ -6613,13 +5885,6 @@
 	},
 /turf/simulated/floor/orangeblack,
 /area/station/quartermaster/office)
-"uR" = (
-/obj/lattice{
-	dir = 10;
-	icon_state = "lattice-dir-b"
-	},
-/turf/space,
-/area/space)
 "uS" = (
 /obj/machinery/macrofab/emergency_pod{
 	color = "#DDDDDD";
@@ -6642,7 +5907,7 @@
 "uV" = (
 /obj/landmark/magnet_center,
 /turf/space,
-/area/space)
+/area/mining/magnet)
 "uW" = (
 /obj/item/storage/wall{
 	desc = "It's a big box that comes in useful when the inevitable depressurization occurs.";
@@ -6680,20 +5945,6 @@
 /area/station/solar/small_backup3{
 	name = "Tenebrae Solar Array"
 	})
-"vb" = (
-/obj/cable,
-/obj/cable{
-	d2 = 8;
-	icon_state = "0-8"
-	},
-/obj/grille/catwalk{
-	dir = 5
-	},
-/turf/simulated/floor/airless/plating/catwalk{
-	dir = 4;
-	icon_state = "catwalk_cross"
-	},
-/area/space)
 "vf" = (
 /obj/disposalpipe/segment/horizontal,
 /obj/machinery/computer/ordercomp,
@@ -6701,52 +5952,11 @@
 /area/station/engine/engineering{
 	name = "Maru Primary Zone"
 	})
-"vg" = (
-/obj/wingrille_spawn/auto,
-/obj/cable{
-	icon_state = "0-2"
-	},
-/turf/simulated/floor/plating,
-/area/space)
 "vh" = (
 /turf/simulated/floor/specialroom/cafeteria,
 /area/station/crew_quarters/cafeteria{
 	name = "Dionysus Primary Zone"
 	})
-"vk" = (
-/obj/cable,
-/obj/machinery/power/solar{
-	id = "maru";
-	name = "Maru solar panel"
-	},
-/turf/simulated/floor/airless{
-	icon_state = "solarbase";
-	name = "solar paneling"
-	},
-/area/space)
-"vm" = (
-/obj/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/obj/disposalpipe/segment/horizontal,
-/obj/item/device/radio/beacon,
-/turf/simulated/floor,
-/area/space)
-"vn" = (
-/obj/machinery/door/airlock/pyro/engineering{
-	name = "Mining"
-	},
-/obj/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/obj/access_spawn/mining,
-/obj/firedoor_spawn,
-/turf/simulated/floor,
-/area/space)
 "vo" = (
 /obj/cable{
 	icon_state = "1-2"
@@ -6772,19 +5982,6 @@
 	dir = 1
 	},
 /area/station/crew_quarters/tenebrae)
-"vr" = (
-/obj/machinery/macrofab{
-	createdObject = /obj/item/tank/emergency_oxygen;
-	desc = "A sophisticated machine that fabricates and pressurizes oxygen tanks.";
-	name = "Tank Fabricator";
-	pixel_y = -4
-	},
-/obj/decal/tile_edge/line/blue,
-/turf/simulated/floor/grey,
-/area/space)
-"vt" = (
-/turf/simulated/floor/engine,
-/area/space)
 "vv" = (
 /obj/cable{
 	icon_state = "1-2"
@@ -6792,10 +5989,12 @@
 /turf/simulated/floor/purpleblack,
 /area/station/science/chemistry)
 "vx" = (
+/obj/disposalpipe/segment/vertical,
 /obj/machinery/door_control{
+	id = "tene_crusher";
+	name = "Tenebrae Crusher Door";
 	pixel_x = 24
 	},
-/obj/disposalpipe/segment/vertical,
 /turf/simulated/floor/plating,
 /area/station/science/construction{
 	name = "Tenebrae Maintenance"
@@ -6814,39 +6013,13 @@
 /turf/simulated/floor/airless/plating/catwalk{
 	dir = 4
 	},
-/area/space)
-"vB" = (
-/obj/table/wood/round/auto,
-/obj/item/kitchen/food_box/donut_box{
-	pixel_y = 6
-	},
-/turf/simulated/floor/grey,
-/area/space)
-"vD" = (
-/obj/decal/tile_edge/stripe/extra_big{
-	dir = 8
-	},
-/turf/simulated/floor/orangeblack/side{
-	dir = 1
-	},
-/area/space)
+/area/mining/magnet)
 "vF" = (
 /obj/cable{
 	icon_state = "2-8"
 	},
 /turf/simulated/floor/carpet/blue/fancy/edge/nw,
 /area/station/bridge)
-"vH" = (
-/obj/stool/bed,
-/obj/landmark/start{
-	name = "Engineer"
-	},
-/obj/item/clothing/suit/bedsheet{
-	bcolor = "yellow";
-	icon_state = "bedsheet-yellow"
-	},
-/turf/simulated/floor/grey,
-/area/space)
 "vI" = (
 /obj/rack,
 /obj/item/clothing/suit/space/emerg,
@@ -6911,9 +6084,6 @@
 /area/station/hangar/engine{
 	name = "Maru Hangar"
 	})
-"vO" = (
-/turf/simulated/wall/auto/reinforced/supernorn,
-/area/station/mining/refinery)
 "vU" = (
 /obj/grille/catwalk{
 	icon_state = "catwalk_cross"
@@ -6939,25 +6109,6 @@
 /obj/disposalpipe/segment/bent/south,
 /turf/simulated/floor/grey,
 /area/station/crew_quarters)
-"vW" = (
-/obj/machinery/conveyor{
-	dir = 1;
-	id = "qmin"
-	},
-/obj/machinery/door/poddoor/blast{
-	dir = 4;
-	doordir = "single";
-	icon_state = "bdoorsingle1";
-	id = "imports_door";
-	name = "Cargo Import"
-	},
-/obj/plasticflaps,
-/turf/simulated/floor/caution/westeast,
-/area/space)
-"vX" = (
-/obj/wingrille_spawn/auto,
-/turf/simulated/floor/plating,
-/area/station/mining/refinery)
 "wa" = (
 /obj/item/storage/wall/emergency{
 	pixel_y = 32
@@ -6986,21 +6137,6 @@
 /area/station/solar/small_backup3{
 	name = "Tenebrae Solar Array"
 	})
-"wc" = (
-/turf/simulated/wall/auto/supernorn,
-/area/space)
-"we" = (
-/obj/machinery/door/airlock/pyro/glass{
-	name = "Cargo Dock"
-	},
-/obj/access_spawn/cargo,
-/obj/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/turf/simulated/floor,
-/area/space)
 "wf" = (
 /turf/simulated/floor/caution/north,
 /area/station/hangar/catering{
@@ -7022,13 +6158,6 @@
 /area/station/science/research_director{
 	name = "Tenebrae Command Center"
 	})
-"wh" = (
-/obj/decal/poster/wallsign/stencil/left/m,
-/obj/decal/poster/wallsign/stencil/right/a{
-	pixel_x = 13
-	},
-/turf/simulated/wall/auto/reinforced/supernorn,
-/area/space)
 "wi" = (
 /obj/machinery/computer/arcade,
 /turf/simulated/floor/engine/caution/corner{
@@ -7045,20 +6174,6 @@
 	},
 /turf/simulated/floor/grey/side,
 /area/station/hallway)
-"wp" = (
-/obj/machinery/conveyor{
-	id = "qmsend"
-	},
-/obj/machinery/door/poddoor/blast{
-	dir = 4;
-	doordir = "single";
-	icon_state = "bdoorsingle1";
-	id = "mports_door";
-	name = "Cargo Export"
-	},
-/obj/plasticflaps,
-/turf/simulated/floor/caution/westeast,
-/area/space)
 "wq" = (
 /obj/machinery/shuttle/engine/heater{
 	dir = 4;
@@ -7071,6 +6186,11 @@
 "wt" = (
 /obj/disposalpipe/trunk/east,
 /obj/machinery/disposal,
+/obj/machinery/light{
+	dir = 8;
+	layer = 9.1;
+	pixel_x = -10
+	},
 /turf/simulated/floor/yellow/side{
 	dir = 8
 	},
@@ -7089,41 +6209,11 @@
 /obj/disposalpipe/segment/mail/horizontal,
 /turf/simulated/wall/auto/reinforced/supernorn,
 /area/station/quartermaster/office)
-"wx" = (
-/obj/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/machinery/light,
-/obj/stool/chair{
-	dir = 8
-	},
-/turf/simulated/floor/orangeblack/side,
-/area/space)
-"wy" = (
-/obj/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/turf/space,
-/area/space)
 "wz" = (
 /obj/wingrille_spawn/auto,
 /obj/disposalpipe/segment/mail/bent/west,
 /turf/simulated/floor/plating,
 /area/station/quartermaster/office)
-"wB" = (
-/obj/machinery/shuttle/engine/heater{
-	dir = 4;
-	icon_state = "alt_heater-R"
-	},
-/turf/simulated/wall/auto/reinforced/supernorn,
-/area/station/mining/refinery)
-"wD" = (
-/turf/simulated/floor/caution/east,
-/area/space)
 "wF" = (
 /obj/grille/catwalk{
 	dir = 5
@@ -7142,11 +6232,6 @@
 /area/station/solar/small_backup3{
 	name = "Tenebrae Solar Array"
 	})
-"wH" = (
-/obj/table/reinforced/auto,
-/obj/machinery/recharger,
-/turf/simulated/floor/orangeblack,
-/area/space)
 "wI" = (
 /obj/lattice{
 	dir = 8;
@@ -7171,17 +6256,16 @@
 	},
 /turf/simulated/floor/grey,
 /area/station/maintenance)
-"wM" = (
-/obj/machinery/conveyor{
-	dir = 4
-	},
-/turf/simulated/floor/grey,
-/area/space)
 "wN" = (
 /obj/table/reinforced/auto,
-/obj/machinery/recharger,
+/obj/machinery/recharger{
+	pixel_x = -7
+	},
+/obj/machinery/recharger{
+	pixel_x = 8
+	},
 /turf/simulated/floor/plating/airless,
-/area/space)
+/area/station/mining/refinery)
 "wP" = (
 /obj/cable{
 	icon_state = "2-8"
@@ -7208,17 +6292,6 @@
 	},
 /turf/simulated/floor,
 /area/station/quartermaster/office)
-"wV" = (
-/obj/machinery/camera{
-	c_tag = "autotag";
-	dir = 6;
-	name = "autoname - SS13";
-	pixel_y = 20;
-	tag = ""
-	},
-/obj/machinery/nanofab/refining,
-/turf/simulated/floor/engine,
-/area/space)
 "wW" = (
 /obj/machinery/light/small{
 	dir = 4;
@@ -7259,16 +6332,6 @@
 /obj/machinery/air_vendor,
 /turf/simulated/floor/grey,
 /area/station/crew_quarters)
-"xc" = (
-/obj/machinery/disposal/small/north{
-	pixel_y = 32
-	},
-/obj/disposalpipe/trunk/east,
-/obj/cable{
-	icon_state = "4-8"
-	},
-/turf/simulated/floor/yellow,
-/area/space)
 "xd" = (
 /obj/disposalpipe/junction/left/north,
 /turf/simulated/floor/caution/north,
@@ -7309,14 +6372,6 @@
 /area/station/hangar/science{
 	name = "Tenebrae Hangar"
 	})
-"xn" = (
-/obj/wingrille_spawn/auto,
-/obj/cable{
-	icon_state = "0-2"
-	},
-/obj/cable,
-/turf/simulated/floor/plating,
-/area/space)
 "xo" = (
 /obj/stool/chair/office{
 	dir = 4
@@ -7370,24 +6425,6 @@
 /area/station/crew_quarters/cafeteria{
 	name = "Dionysus Primary Zone"
 	})
-"xG" = (
-/obj/machinery/dispenser,
-/obj/decal/xmas_lights/ephemeral{
-	pixel_y = 32
-	},
-/turf/simulated/floor/orangeblack/side{
-	dir = 9
-	},
-/area/space)
-"xH" = (
-/obj/storage/secure/closet/engineering/mining,
-/obj/decal/xmas_lights/ephemeral{
-	pixel_y = 32
-	},
-/turf/simulated/floor/orangeblack/side{
-	dir = 1
-	},
-/area/space)
 "xI" = (
 /obj/table/auto,
 /obj/item/sheet/steel{
@@ -7403,12 +6440,6 @@
 	},
 /turf/simulated/floor/grey,
 /area/station/maintenance)
-"xJ" = (
-/obj/storage/secure/closet/engineering/mining,
-/turf/simulated/floor/orangeblack/side{
-	dir = 1
-	},
-/area/space)
 "xK" = (
 /obj/disposalpipe/segment/horizontal,
 /obj/cable{
@@ -7423,20 +6454,6 @@
 /area/station/science/construction{
 	name = "Tenebrae Maintenance"
 	})
-"xL" = (
-/obj/storage/secure/closet/engineering/mining,
-/obj/machinery/power/apc/autoname_east,
-/obj/cable{
-	d2 = 2;
-	icon_state = "0-2"
-	},
-/obj/decal/xmas_lights/ephemeral{
-	pixel_y = 32
-	},
-/turf/simulated/floor/orangeblack/side{
-	dir = 5
-	},
-/area/space)
 "xM" = (
 /obj/disposalpipe/switch_junction/right/north{
 	mail_tag = "tenebrae";
@@ -7446,13 +6463,6 @@
 /area/station/routing/depot{
 	name = "Routing Buoy"
 	})
-"xN" = (
-/obj/cable{
-	icon_state = "1-2"
-	},
-/obj/disposalpipe/segment/vertical,
-/turf/simulated/floor/stairs,
-/area/space)
 "xO" = (
 /obj/table/reinforced/bar/auto,
 /obj/item/device/radio/beacon,
@@ -7465,20 +6475,10 @@
 /obj/machinery/conveyor,
 /turf/simulated/floor/grey,
 /area/station/maintenance)
-"xU" = (
-/obj/machinery/smelter,
-/turf/simulated/floor/engine,
-/area/space)
 "xW" = (
 /obj/wingrille_spawn/auto,
 /turf/simulated/floor/plating,
 /area/station/ranch)
-"xY" = (
-/obj/decal/tile_edge/stripe/extra_big{
-	dir = 8
-	},
-/turf/simulated/floor,
-/area/space)
 "xZ" = (
 /obj/machinery/glass_recycler,
 /turf/simulated/wall/auto/reinforced/supernorn,
@@ -7532,11 +6532,6 @@
 	},
 /turf/simulated/floor/darkblue/checker,
 /area/station/science/artifact)
-"yg" = (
-/obj/storage/crate,
-/obj/item/clothing/head/merchant_hat,
-/turf/simulated/floor/plating,
-/area/space)
 "yh" = (
 /obj/machinery/light{
 	dir = 4;
@@ -7557,27 +6552,6 @@
 /obj/disposalpipe/segment/mail/vertical,
 /turf/simulated/floor,
 /area/station/science/tenebrae)
-"yl" = (
-/obj/storage/secure/closet/engineering/mechanic,
-/obj/item/deconstructor,
-/obj/machinery/light{
-	dir = 8;
-	layer = 9.1;
-	pixel_x = -10
-	},
-/turf/simulated/floor/yellow/side{
-	dir = 8
-	},
-/area/space)
-"ym" = (
-/obj/lattice,
-/obj/machinery/conveyor{
-	dir = 4;
-	name = "cargo belt - east";
-	operating = 1
-	},
-/turf/space,
-/area/space)
 "yn" = (
 /obj/machinery/light/small{
 	dir = 4;
@@ -7589,52 +6563,11 @@
 /obj/stool/bed,
 /turf/simulated/floor/grey,
 /area/station/crew_quarters)
-"yq" = (
-/obj/table/auto,
-/obj/item/shipcomponent/secondary_system/orescoop,
-/obj/item/shipcomponent/communications/mining,
-/turf/simulated/floor/caution/east,
-/area/space)
 "ys" = (
 /turf/simulated/floor/shuttlebay,
 /area/station/hangar/catering{
 	name = "Dionysus Hangar"
 	})
-"yt" = (
-/obj/machinery/conveyor{
-	dir = 8;
-	id = "qmin"
-	},
-/obj/machinery/camera{
-	c_tag = "autotag";
-	dir = 0;
-	name = "autoname - SS13";
-	pixel_y = 20
-	},
-/obj/machinery/door_control{
-	id = "qm_dock";
-	name = "Import Hatch Override";
-	pixel_x = -2;
-	pixel_y = 28
-	},
-/obj/machinery/door_control{
-	id = "manualshipping";
-	name = "Export Hatch Override";
-	pixel_x = 9;
-	pixel_y = 28
-	},
-/turf/simulated/floor/caution/northsouth,
-/area/space)
-"yu" = (
-/obj/decal/tile_edge/line/yellow{
-	dir = 1;
-	icon_state = "line1"
-	},
-/obj/grille/catwalk{
-	dir = 4
-	},
-/turf/simulated/floor/black,
-/area/space)
 "yv" = (
 /obj/table/reinforced/auto,
 /obj/item/reagent_containers/food/snacks/chicken_feed_bag{
@@ -7650,12 +6583,6 @@
 	dir = 4
 	},
 /area/station/ranch)
-"yw" = (
-/obj/stool/chair/yellow{
-	dir = 4
-	},
-/turf/simulated/floor,
-/area/space)
 "yx" = (
 /obj/cable{
 	icon_state = "1-4"
@@ -7667,24 +6594,6 @@
 /area/station/crew_quarters/cafeteria{
 	name = "Dionysus Primary Zone"
 	})
-"yy" = (
-/obj/disposalpipe/segment/vertical,
-/obj/cable{
-	icon_state = "2-4"
-	},
-/turf/simulated/floor,
-/area/space)
-"yz" = (
-/obj/disposaloutlet/east,
-/obj/disposalpipe/trunk/east,
-/obj/machinery/conveyor{
-	dir = 4;
-	id = "marubelt";
-	name = "Maru disposal belt";
-	operating = 1
-	},
-/turf/simulated/floor/grey,
-/area/space)
 "yC" = (
 /obj/machinery/mass_driver{
 	desc = "A device that launches objects, like ANCIENT BOMBS, for example, on it at great velocity when activated.";
@@ -7700,28 +6609,9 @@
 /obj/machinery/light/small,
 /turf/simulated/floor/grey,
 /area/station/crew_quarters)
-"yG" = (
-/obj/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/turf/simulated/floor/stairs,
-/area/space)
 "yH" = (
 /turf/simulated/floor/darkblue/checker,
 /area/station/science/artifact)
-"yI" = (
-/turf/simulated/floor/plating,
-/area/space)
-"yJ" = (
-/obj/cable{
-	icon_state = "1-2"
-	},
-/turf/simulated/floor/yellow/side{
-	dir = 5
-	},
-/area/space)
 "yK" = (
 /obj/cable{
 	icon_state = "1-2"
@@ -7729,10 +6619,6 @@
 /obj/disposalpipe/segment/mail/horizontal,
 /turf/simulated/floor/grey,
 /area/station/hallway)
-"yL" = (
-/obj/machinery/launcher_loader/south,
-/turf/simulated/floor/caution/westeast,
-/area/space)
 "yM" = (
 /obj/machinery/door/airlock/pyro{
 	name = "Vessel Restroom"
@@ -7741,16 +6627,6 @@
 /area/station/crew_quarters/cafeteria{
 	name = "Dionysus Primary Zone"
 	})
-"yO" = (
-/obj/cable{
-	d1 = 1;
-	d2 = 4;
-	icon_state = "1-4"
-	},
-/turf/simulated/floor/orangeblack/side{
-	dir = 10
-	},
-/area/space)
 "yP" = (
 /obj/machinery/vending/mechanics,
 /turf/simulated/floor/yellow/side{
@@ -7871,24 +6747,6 @@
 /area/station/maintenance/southeast{
 	name = "Dionysus Maintenance"
 	})
-"zk" = (
-/obj/table/wood/round/auto,
-/obj/machinery/glass_recycler{
-	density = 1;
-	glass_amt = 10;
-	pixel_y = 8
-	},
-/obj/item/storage/box/cutlery{
-	pixel_x = -6;
-	pixel_y = -6
-	},
-/obj/cable{
-	d2 = 4;
-	icon_state = "0-4"
-	},
-/obj/machinery/power/apc/autoname_north,
-/turf/simulated/floor/grey,
-/area/space)
 "zl" = (
 /obj/disposalpipe/segment/horizontal,
 /obj/cable{
@@ -7917,15 +6775,6 @@
 /area/station/maintenance/southeast{
 	name = "Dionysus Maintenance"
 	})
-"zp" = (
-/obj/machinery/portable_reclaimer,
-/obj/machinery/door_control{
-	id = "maru_crusher";
-	name = "Maru Crusher Door";
-	pixel_x = -24
-	},
-/turf/simulated/floor/plating,
-/area/space)
 "zq" = (
 /turf/simulated/floor/sanitary/white,
 /area/station/crew_quarters/cafeteria{
@@ -7936,6 +6785,10 @@
 /obj/machinery/power/smes{
 	chargelevel = 15000;
 	output = 10000
+	},
+/obj/machinery/light/small{
+	dir = 8;
+	pixel_x = -12
 	},
 /turf/simulated/floor/orangeblack,
 /area/station/maintenance/storage{
@@ -7976,19 +6829,6 @@
 	icon_state = "lattice-dir-b"
 	},
 /turf/space,
-/area/space)
-"zx" = (
-/obj/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/cable{
-	d1 = 1;
-	d2 = 4;
-	icon_state = "1-4"
-	},
-/turf/simulated/floor/orangeblack/side,
 /area/space)
 "zy" = (
 /obj/cable{
@@ -8047,12 +6887,6 @@
 	icon_state = "catwalk_cross"
 	},
 /area/space)
-"zI" = (
-/obj/machinery/door/airlock/pyro/external{
-	dir = 4
-	},
-/turf/simulated/floor/grey,
-/area/space)
 "zM" = (
 /obj/disposalpipe/segment/vertical,
 /obj/cable{
@@ -8067,57 +6901,6 @@
 /area/station/maintenance/storage{
 	name = "Maru Power Room"
 	})
-"zN" = (
-/obj/cable,
-/obj/cable{
-	d2 = 2;
-	icon_state = "0-2"
-	},
-/obj/cable{
-	d2 = 8;
-	icon_state = "0-8"
-	},
-/obj/cable{
-	d2 = 4;
-	icon_state = "0-4"
-	},
-/obj/grille/catwalk{
-	dir = 1;
-	icon_state = "catwalk_cross"
-	},
-/turf/simulated/floor/airless/plating/catwalk{
-	dir = 5;
-	icon_state = "catwalk_cross"
-	},
-/area/space)
-"zP" = (
-/obj/stool/bed,
-/obj/machinery/light/small{
-	dir = 1;
-	pixel_y = 21
-	},
-/obj/item/clothing/suit/bedsheet{
-	bcolor = "yellow";
-	icon_state = "bedsheet-yellow"
-	},
-/obj/landmark/start{
-	name = "Engineer"
-	},
-/obj/item/storage/wall/emergency{
-	dir = 8;
-	pixel_x = 32
-	},
-/obj/machinery/light_switch/north,
-/turf/simulated/floor/grey,
-/area/space)
-"zQ" = (
-/obj/disposalpipe/segment/transport,
-/turf/space,
-/area/space)
-"zS" = (
-/obj/machinery/launcher_loader/west,
-/turf/simulated/floor/plating,
-/area/space)
 "zU" = (
 /obj/machinery/power/furnace,
 /obj/cable{
@@ -8164,21 +6947,14 @@
 /obj/cable{
 	icon_state = "1-2"
 	},
+/obj/machinery/light/small{
+	dir = 1;
+	pixel_y = 21
+	},
 /turf/simulated/floor/black/grime,
 /area/station/maintenance/storage{
 	name = "Maru Power Room"
 	})
-"Ab" = (
-/obj/grille/catwalk,
-/obj/landmark/magnet_shield,
-/obj/securearea{
-	desc = "A warning that demarcates where the magnetic area begins.";
-	dir = 1;
-	icon_state = "magwarning";
-	name = "Magnet Area Boundary"
-	},
-/turf/simulated/floor/airless/plating/catwalk,
-/area/mining/magnet)
 "Ad" = (
 /obj/stool/chair{
 	dir = 8
@@ -8233,24 +7009,6 @@
 	dir = 1
 	},
 /area/station/quartermaster/office)
-"Aj" = (
-/obj/stool/chair{
-	dir = 8
-	},
-/obj/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/obj/cable{
-	icon_state = "1-8"
-	},
-/obj/machinery/light/small{
-	dir = 1;
-	pixel_y = 21
-	},
-/turf/simulated/floor/grey,
-/area/space)
 "Al" = (
 /obj/disposalpipe/switch_junction/left/east{
 	mail_tag = list("asclepius","buoy","dionysus","maru","meridian","tenebrae");
@@ -8315,6 +7073,10 @@
 /area/space)
 "Aw" = (
 /obj/machinery/vending/standard,
+/obj/machinery/light/small{
+	dir = 4;
+	pixel_x = 12
+	},
 /turf/simulated/floor/black/grime,
 /area/station/maintenance/storage{
 	name = "Maru Power Room"
@@ -8332,9 +7094,6 @@
 /obj/window_blinds/cog2/middle,
 /turf/simulated/floor/plating,
 /area/station/crew_quarters)
-"Az" = (
-/turf/space,
-/area/mining/magnet)
 "AA" = (
 /turf/simulated/floor/purpleblack{
 	dir = 4
@@ -8380,17 +7139,6 @@
 /area/station/crew_quarters/cafeteria{
 	name = "Dionysus Primary Zone"
 	})
-"AG" = (
-/obj/stool/chair/yellow{
-	dir = 1
-	},
-/obj/machinery/light{
-	dir = 4;
-	layer = 9.1;
-	pixel_x = 10
-	},
-/turf/simulated/floor/caution/northsouth,
-/area/space)
 "AH" = (
 /obj/machinery/power/terminal,
 /obj/cable,
@@ -8426,14 +7174,6 @@
 	},
 /turf/space,
 /area/space)
-"AN" = (
-/obj/machinery/conveyor{
-	id = "qmout"
-	},
-/obj/machinery/door/window/southleft,
-/obj/access_spawn/cargo,
-/turf/simulated/floor/orangeblack,
-/area/space)
 "AO" = (
 /turf/simulated/floor,
 /area/station/communications)
@@ -8456,25 +7196,6 @@
 	},
 /turf/simulated/floor/white,
 /area/station/science/tenebrae)
-"AU" = (
-/obj/machinery/portable_atmospherics/canister/oxygen,
-/turf/simulated/floor/orangeblack/side{
-	dir = 8
-	},
-/area/space)
-"AW" = (
-/obj/cable{
-	d1 = 1;
-	d2 = 4;
-	icon_state = "1-4"
-	},
-/obj/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/turf/simulated/floor,
-/area/space)
 "AX" = (
 /obj/table/auto,
 /obj/machinery/cell_charger,
@@ -8500,13 +7221,6 @@
 /area/station/crew_quarters/cafeteria{
 	name = "Dionysus Primary Zone"
 	})
-"Bd" = (
-/obj/cable{
-	icon_state = "1-8"
-	},
-/obj/machinery/vending/medical_public,
-/turf/simulated/floor/orangeblack/side,
-/area/space)
 "Bf" = (
 /obj/cable{
 	icon_state = "1-4"
@@ -8527,26 +7241,6 @@
 "Bj" = (
 /turf/simulated/floor/caution/east,
 /area/station/science/chemistry)
-"Bk" = (
-/obj/cable{
-	icon_state = "4-8"
-	},
-/obj/cable{
-	d1 = 1;
-	d2 = 4;
-	icon_state = "1-4"
-	},
-/turf/simulated/floor/orangeblack/side{
-	dir = 4
-	},
-/area/space)
-"Bl" = (
-/obj/machinery/power/apc/autoname_north,
-/obj/cable{
-	icon_state = "0-2"
-	},
-/turf/simulated/floor/plating,
-/area/space)
 "Bm" = (
 /turf/simulated/floor/engine,
 /area/station/science/teleporter)
@@ -8559,10 +7253,6 @@
 	dir = 5
 	},
 /area/station/hallway)
-"Bp" = (
-/obj/machinery/nanofab/mining,
-/turf/simulated/floor/airless/caution/north,
-/area/space)
 "Bq" = (
 /obj/item/storage/toilet{
 	dir = 8
@@ -8580,9 +7270,6 @@
 	},
 /turf/simulated/wall/auto/reinforced/supernorn,
 /area/station/science/teleporter)
-"Bs" = (
-/turf/simulated/floor/airless/caution/north,
-/area/space)
 "Bt" = (
 /obj/decal/poster/wallsign/stencil/right/e,
 /obj/decal/poster/wallsign/stencil/left/n,
@@ -8619,28 +7306,6 @@
 	},
 /turf/simulated/floor/carpet/grime,
 /area/station/crew_quarters/baroffice)
-"Bw" = (
-/obj/item/slag_shovel,
-/turf/simulated/floor/airless/caution/north,
-/area/space)
-"Bx" = (
-/turf/simulated/floor/airless/caution/corner/misc{
-	dir = 9;
-	icon_state = "floor_hazard_corners"
-	},
-/area/space)
-"By" = (
-/obj/cable{
-	d1 = 1;
-	d2 = 4;
-	icon_state = "1-4"
-	},
-/obj/cable{
-	icon_state = "1-8"
-	},
-/obj/disposalpipe/segment/bent/west,
-/turf/simulated/floor/plating,
-/area/space)
 "BC" = (
 /obj/grille/catwalk{
 	dir = 1;
@@ -8658,28 +7323,6 @@
 /area/station/solar/south{
 	name = "Dionysus Solar Array"
 	})
-"BD" = (
-/obj/storage/crate{
-	desc = "Whoa! What will they think of next?";
-	name = "Boxes in a Box"
-	},
-/obj/item/storage/box,
-/obj/item/storage/box,
-/obj/item/storage/box,
-/obj/item/storage/box,
-/obj/machinery/light{
-	dir = 8;
-	layer = 9.1;
-	pixel_x = -10
-	},
-/turf/simulated/floor/plating,
-/area/space)
-"BF" = (
-/obj/cable{
-	icon_state = "2-4"
-	},
-/turf/simulated/floor/plating,
-/area/space)
 "BG" = (
 /obj/disposalpipe/segment/mail/bent/south,
 /obj/cable{
@@ -8753,12 +7396,6 @@
 /obj/disposalpipe/segment/mail/horizontal,
 /turf/simulated/floor/grey,
 /area/station/crew_quarters/tenebrae)
-"BP" = (
-/obj/cable{
-	icon_state = "4-8"
-	},
-/turf/simulated/floor/plating,
-/area/space)
 "BQ" = (
 /obj/submachine/chef_sink/chem_sink{
 	pixel_y = 16
@@ -8801,21 +7438,6 @@
 	dir = 5
 	},
 /area/station/hallway)
-"BV" = (
-/obj/landmark/magnet_shield,
-/obj/securearea{
-	desc = "A warning that demarcates where the magnetic area begins.";
-	icon_state = "magwarning";
-	name = "Magnet Area Boundary"
-	},
-/obj/grille/catwalk{
-	dir = 9
-	},
-/turf/simulated/floor/airless/plating/catwalk{
-	dir = 8;
-	icon_state = "catwalk_cross"
-	},
-/area/mining/magnet)
 "BX" = (
 /obj/shrub,
 /turf/simulated/floor/wood/two,
@@ -8826,24 +7448,6 @@
 	},
 /turf/simulated/floor/caution/westeast,
 /area/station/crew_quarters/tenebrae)
-"BZ" = (
-/obj/machinery/conveyor{
-	dir = 1;
-	id = "qmin"
-	},
-/obj/cable{
-	icon_state = "4-8"
-	},
-/turf/simulated/floor/caution/westeast,
-/area/space)
-"Cb" = (
-/obj/cable{
-	d1 = 1;
-	d2 = 4;
-	icon_state = "1-4"
-	},
-/turf/simulated/floor/plating,
-/area/space)
 "Cd" = (
 /obj/wingrille_spawn/auto,
 /turf/simulated/floor/plating,
@@ -8865,14 +7469,6 @@
 	},
 /turf/simulated/floor/caution/north,
 /area/station/science/chemistry)
-"Ci" = (
-/obj/machinery/cargo_router{
-	default_direction = 2;
-	destinations = list("Export" = 8, "Storage" = 4);
-	name = "Maru Cargo Router"
-	},
-/turf/simulated/floor/plating,
-/area/space)
 "Cj" = (
 /turf/simulated/floor/orangeblack/side,
 /area/station/quartermaster/office)
@@ -8887,11 +7483,6 @@
 	},
 /turf/simulated/floor,
 /area/station/quartermaster/office)
-"Co" = (
-/obj/wingrille_spawn/auto,
-/obj/disposalpipe/segment/mail/vertical,
-/turf/simulated/floor/plating,
-/area/station/engine/elect)
 "Cp" = (
 /obj/cable{
 	d1 = 4;
@@ -8912,17 +7503,6 @@
 /area/station/solar/small_backup3{
 	name = "Tenebrae Solar Array"
 	})
-"Cv" = (
-/obj/cable{
-	d1 = 1;
-	d2 = 8;
-	icon_state = "1-8"
-	},
-/obj/cable{
-	icon_state = "4-8"
-	},
-/turf/simulated/floor/plating,
-/area/space)
 "Cw" = (
 /obj/cable{
 	icon_state = "4-8"
@@ -8931,23 +7511,6 @@
 /area/station/crew_quarters/cafeteria{
 	name = "Dionysus Primary Zone"
 	})
-"Cx" = (
-/obj/cable{
-	icon_state = "2-8"
-	},
-/turf/simulated/floor/plating,
-/area/space)
-"Cz" = (
-/obj/machinery/light{
-	dir = 4;
-	layer = 9.1;
-	pixel_x = 10
-	},
-/obj/machinery/mass_driver{
-	id = "manualshipping"
-	},
-/turf/simulated/floor/caution/westeast,
-/area/space)
 "CA" = (
 /obj/cable{
 	icon_state = "1-2"
@@ -9009,21 +7572,6 @@
 /obj/machinery/power/data_terminal,
 /turf/simulated/floor/plating,
 /area/station/engine/elect)
-"CJ" = (
-/obj/submachine/cargopad/qm,
-/turf/simulated/floor,
-/area/space)
-"CK" = (
-/obj/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/obj/machinery/door/airlock/pyro{
-	name = "Vessel Quarters"
-	},
-/turf/simulated/floor/grey,
-/area/space)
 "CL" = (
 /obj/cable{
 	icon_state = "0-8"
@@ -9059,12 +7607,6 @@
 	},
 /turf/simulated/floor,
 /area/station/quartermaster/office)
-"CQ" = (
-/obj/table/reinforced/auto,
-/obj/machinery/recharger,
-/obj/item/cargotele,
-/turf/simulated/floor/orangeblack,
-/area/space)
 "CR" = (
 /obj/cable{
 	icon_state = "1-2"
@@ -9072,24 +7614,6 @@
 /obj/disposalpipe/segment/vertical,
 /turf/simulated/floor,
 /area/station/hallway)
-"CT" = (
-/obj/grille/catwalk{
-	dir = 4
-	},
-/obj/cable{
-	d2 = 2;
-	icon_state = "0-2"
-	},
-/obj/cable{
-	d2 = 8;
-	icon_state = "0-8"
-	},
-/obj/cable{
-	d2 = 4;
-	icon_state = "0-4"
-	},
-/turf/space,
-/area/space)
 "CU" = (
 /obj/machinery/vehicle/pod_smooth/industrial,
 /turf/simulated/floor/shuttlebay,
@@ -9104,18 +7628,6 @@
 /turf/simulated/floor/orangeblack,
 /area/station/maintenance/storage{
 	name = "Maru Power Room"
-	})
-"CW" = (
-/obj/machinery/light/small,
-/obj/machinery/power/apc/autoname_west,
-/obj/cable{
-	icon_state = "0-4"
-	},
-/obj/table/auto,
-/obj/towelbin,
-/turf/simulated/floor/sanitary/white,
-/area/station/engine/engineering{
-	name = "Maru Primary Zone"
 	})
 "CX" = (
 /obj/cable{
@@ -9150,17 +7662,6 @@
 	},
 /turf/simulated/floor/stairs,
 /area/station/science/tenebrae)
-"Db" = (
-/obj/grille/catwalk{
-	dir = 4
-	},
-/obj/storage/crate/rcd,
-/obj/machinery/phone/wall{
-	pixel_x = 24;
-	pixel_y = 4
-	},
-/turf/simulated/floor/black,
-/area/space)
 "Dc" = (
 /obj/cable{
 	icon_state = "4-8"
@@ -9209,45 +7710,6 @@
 /area/station/maintenance/storage{
 	name = "Maru Power Room"
 	})
-"Dh" = (
-/obj/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/obj/machinery/camera{
-	c_tag = "autotag";
-	dir = 4;
-	name = "autoname - SS13";
-	pixel_x = -10;
-	tag = ""
-	},
-/turf/simulated/floor/grey,
-/area/space)
-"Di" = (
-/obj/machinery/shuttle/engine/heater{
-	dir = 4;
-	icon_state = "alt_heater-R"
-	},
-/turf/simulated/wall/auto/supernorn,
-/area/space)
-"Dj" = (
-/obj/machinery/door/airlock/pyro/glass/engineering{
-	dir = 4;
-	name = "Mining"
-	},
-/obj/access_spawn/mining,
-/obj/firedoor_spawn,
-/obj/cable{
-	d1 = 1;
-	d2 = 4;
-	icon_state = "1-4"
-	},
-/obj/cable{
-	icon_state = "2-4"
-	},
-/turf/simulated/floor/orangeblack,
-/area/space)
 "Dl" = (
 /obj/rack,
 /obj/item/clothing/suit/space/emerg,
@@ -9277,13 +7739,6 @@
 	},
 /turf/simulated/floor/black,
 /area/station/science/tenebrae)
-"Dq" = (
-/obj/machinery/door/airlock/pyro/glass/windoor,
-/obj/table/reinforced/auto,
-/obj/machinery/cashreg,
-/obj/access_spawn/cargo,
-/turf/simulated/floor/orangeblack,
-/area/space)
 "Ds" = (
 /turf/simulated/wall/auto/reinforced/supernorn,
 /area/station/hangar)
@@ -9320,43 +7775,6 @@
 /obj/storage/secure/closet/research/uniform,
 /turf/simulated/floor/grey,
 /area/station/crew_quarters/tenebrae)
-"DA" = (
-/obj/disposalpipe/segment/horizontal,
-/obj/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/cable{
-	d1 = 1;
-	d2 = 4;
-	icon_state = "1-4"
-	},
-/turf/simulated/floor/yellow/side{
-	dir = 6
-	},
-/area/space)
-"DB" = (
-/obj/machinery/light/small{
-	dir = 1;
-	pixel_y = 21
-	},
-/obj/machinery/camera{
-	c_tag = "autotag";
-	dir = 0;
-	name = "autoname - SS13";
-	pixel_y = 20
-	},
-/obj/machinery/power/solar_control{
-	id = "maru";
-	name = "Maru solar panel control"
-	},
-/obj/cable{
-	d2 = 2;
-	icon_state = "0-2"
-	},
-/turf/simulated/floor/plating,
-/area/space)
 "DC" = (
 /obj/disposalpipe/segment/mail/horizontal,
 /turf/simulated/wall/auto/reinforced/supernorn,
@@ -9368,41 +7786,11 @@
 	},
 /turf/simulated/floor,
 /area/station/hallway)
-"DF" = (
-/obj/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/turf/simulated/floor/orangeblack/side{
-	dir = 8
-	},
-/area/space)
-"DG" = (
-/obj/landmark/gps_waypoint,
-/obj/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/obj/cable{
-	icon_state = "1-8"
-	},
-/turf/simulated/floor,
-/area/space)
 "DH" = (
 /obj/machinery/conveyor,
 /obj/machinery/door/poddoor/pyro,
 /turf/simulated/floor/grey,
 /area/station/maintenance)
-"DI" = (
-/obj/wingrille_spawn/auto,
-/obj/cable{
-	d2 = 4;
-	icon_state = "0-4"
-	},
-/turf/simulated/floor/plating,
-/area/space)
 "DJ" = (
 /obj/machinery/chemicompiler_stationary,
 /turf/simulated/floor/delivery,
@@ -9418,19 +7806,6 @@
 	dir = 1
 	},
 /area/station/science/tenebrae)
-"DM" = (
-/obj/wingrille_spawn/auto,
-/obj/cable,
-/obj/cable{
-	d2 = 8;
-	icon_state = "0-8"
-	},
-/turf/simulated/floor/plating,
-/area/space)
-"DN" = (
-/obj/decal/poster/wallsign/space,
-/turf/simulated/wall/auto/reinforced/supernorn,
-/area/space)
 "DO" = (
 /obj/disposalpipe/junction/right/south,
 /obj/cable{
@@ -9483,45 +7858,6 @@
 /area/station/crew_quarters/cafeteria{
 	name = "Dionysus Primary Zone"
 	})
-"DV" = (
-/obj/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/grille/catwalk{
-	dir = 4
-	},
-/turf/space,
-/area/space)
-"DW" = (
-/obj/machinery/conveyor{
-	dir = 1;
-	id = "qmin"
-	},
-/obj/machinery/door/poddoor/pyro{
-	id = "qm_dock";
-	name = "Import Hatch"
-	},
-/obj/forcefield/energyshield/perma/doorlink{
-	desc = "A door-linked force field that prevents gasses from passing through it.";
-	name = "Door-linked Atmospheric Forcefield";
-	powerlevel = 1
-	},
-/turf/simulated/floor/caution/northsouth,
-/area/space)
-"DX" = (
-/obj/cable{
-	icon_state = "2-8"
-	},
-/turf/simulated/floor/sanitary/white,
-/area/station/engine/engineering{
-	name = "Maru Primary Zone"
-	})
-"DY" = (
-/obj/machinery/door/airlock/pyro/external,
-/turf/simulated/floor/grey,
-/area/space)
 "DZ" = (
 /obj/item/storage/wall/emergency{
 	pixel_y = 32
@@ -9530,11 +7866,6 @@
 	dir = 1
 	},
 /area/station/science/tenebrae)
-"Ea" = (
-/obj/wingrille_spawn/auto,
-/obj/cable,
-/turf/simulated/floor/plating,
-/area/space)
 "Ec" = (
 /obj/machinery/computer3/terminal/zeta{
 	setup_os_string = "ZETA_MAINFRAME"
@@ -9545,21 +7876,6 @@
 	},
 /turf/simulated/floor/darkblue/checker,
 /area/station/science/artifact)
-"Ed" = (
-/obj/machinery/door/poddoor/pyro{
-	id = "manualshipping";
-	name = "Export Driver Hatch"
-	},
-/obj/machinery/mass_driver{
-	id = "manualshipping"
-	},
-/obj/forcefield/energyshield/perma/doorlink{
-	desc = "A door-linked force field that prevents gasses from passing through it.";
-	name = "Door-linked Atmospheric Forcefield";
-	powerlevel = 1
-	},
-/turf/simulated/floor/caution/northsouth,
-/area/space)
 "Ee" = (
 /obj/machinery/shuttle/engine/heater{
 	dir = 4;
@@ -9577,28 +7893,6 @@
 	},
 /turf/simulated/floor/grass/leafy,
 /area/station/ranch)
-"Eg" = (
-/obj/machinery/door/airlock/pyro/command{
-	dir = 4;
-	name = "Maru Command";
-	req_access = null
-	},
-/obj/access_spawn/engineering_chief,
-/obj/grille/catwalk{
-	dir = 5
-	},
-/obj/cable{
-	icon_state = "4-8"
-	},
-/obj/forcefield/energyshield/perma/doorlink{
-	desc = "A door-linked force field that prevents gasses from passing through it.";
-	name = "Door-linked Atmospheric Forcefield";
-	powerlevel = 1
-	},
-/turf/simulated/floor/yellowblack{
-	dir = 4
-	},
-/area/space)
 "Ei" = (
 /obj/stool/chair{
 	dir = 4
@@ -9646,6 +7940,7 @@
 	icon_state = "0-8"
 	},
 /obj/machinery/power/data_terminal,
+/obj/machinery/light,
 /turf/simulated/floor/plating,
 /area/station/engine/elect)
 "Es" = (
@@ -9670,10 +7965,6 @@
 /obj/foamedmetal,
 /turf/simulated/floor/metalfoam,
 /area/space)
-"Ev" = (
-/obj/machinery/nanofab/mining,
-/turf/simulated/floor/orangeblack,
-/area/space)
 "Ew" = (
 /obj/disposalpipe/segment/mail/vertical,
 /obj/disposalpipe/segment/horizontal,
@@ -9695,15 +7986,6 @@
 	dir = 1
 	},
 /area/station/quartermaster/office)
-"EA" = (
-/obj/machinery/shower{
-	dir = 4;
-	pixel_x = 8;
-	pixel_y = 6
-	},
-/obj/machinery/light/small,
-/turf/simulated/floor/sanitary/white,
-/area/space)
 "EE" = (
 /obj/machinery/door/airlock/pyro/glass,
 /obj/disposalpipe/junction/middle/east,
@@ -9740,13 +8022,6 @@
 /area/station/crew_quarters/cafeteria{
 	name = "Dionysus Primary Zone"
 	})
-"EL" = (
-/obj/machinery/mass_driver{
-	dir = 8;
-	id = "qm_dock_out"
-	},
-/turf/simulated/floor/plating,
-/area/space)
 "EM" = (
 /obj/cable{
 	d1 = 1;
@@ -9848,11 +8123,6 @@
 /area/station/maintenance/storage{
 	name = "Maru Power Room"
 	})
-"Fc" = (
-/turf/simulated/floor/sanitary/white,
-/area/station/engine/engineering{
-	name = "Maru Primary Zone"
-	})
 "Fd" = (
 /obj/cable{
 	icon_state = "1-4"
@@ -9937,34 +8207,6 @@
 	dir = 1
 	},
 /area/station/science/teleporter)
-"Fm" = (
-/obj/table/auto,
-/obj/item/wrench,
-/obj/item/extinguisher,
-/obj/item/crowbar,
-/obj/item/clothing/shoes/magnetic,
-/obj/machinery/camera{
-	c_tag = "autotag";
-	dir = 1;
-	name = "autoname - SS13"
-	},
-/turf/simulated/floor/orangeblack/side{
-	dir = 10
-	},
-/area/space)
-"Fo" = (
-/obj/disposalpipe/segment/mail/bent/east,
-/obj/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/turf/simulated/floor/orangeblack/side,
-/area/space)
-"Fq" = (
-/obj/disposalpipe/segment/mail/horizontal,
-/turf/simulated/floor/orangeblack/side,
-/area/space)
 "Fr" = (
 /obj/storage/secure/closet/kitchen,
 /obj/item/storage/box/plates,
@@ -9980,11 +8222,6 @@
 	},
 /turf/simulated/floor/specialroom/cafeteria,
 /area/station/crew_quarters/kitchen)
-"Fs" = (
-/obj/stool/chair/yellow,
-/obj/disposalpipe/segment/mail/horizontal,
-/turf/simulated/floor/orangeblack/side,
-/area/space)
 "Ft" = (
 /obj/disposalpipe/segment/mail/bent/west,
 /obj/machinery/door/airlock/pyro,
@@ -10003,75 +8240,6 @@
 /area/station/hangar/engine{
 	name = "Maru Hangar"
 	})
-"Fx" = (
-/obj/machinery/disposal/mail/autoname/mining,
-/obj/disposalpipe/trunk/mail/west,
-/obj/machinery/light_switch/east{
-	pixel_y = -6
-	},
-/obj/machinery/firealarm{
-	dir = 4;
-	pixel_x = 24;
-	pixel_y = 8
-	},
-/obj/machinery/light,
-/turf/simulated/floor/orangeblack/side{
-	dir = 6
-	},
-/area/space)
-"FB" = (
-/obj/stool/chair/office/yellow{
-	dir = 8
-	},
-/obj/landmark/start{
-	name = "Quartermaster"
-	},
-/obj/cable{
-	d1 = 1;
-	d2 = 4;
-	icon_state = "1-4"
-	},
-/obj/cable{
-	icon_state = "4-8"
-	},
-/turf/simulated/floor/orangeblack/side{
-	dir = 8
-	},
-/area/space)
-"FC" = (
-/obj/storage/secure/closet/engineering/mining,
-/turf/simulated/floor/orangeblack/side{
-	dir = 10
-	},
-/area/space)
-"FD" = (
-/obj/cable,
-/obj/cable{
-	d2 = 2;
-	icon_state = "0-2"
-	},
-/obj/cable{
-	d2 = 4;
-	icon_state = "0-4"
-	},
-/obj/grille/catwalk{
-	dir = 9
-	},
-/turf/simulated/floor/airless/plating/catwalk{
-	dir = 8;
-	icon_state = "catwalk_cross"
-	},
-/area/space)
-"FF" = (
-/obj/cable{
-	icon_state = "1-2"
-	},
-/obj/disposalpipe/segment/vertical,
-/obj/machinery/door/airlock/pyro/maintenance{
-	name = "Vessel Power Room"
-	},
-/turf/simulated/floor,
-/area/space)
 "FH" = (
 /obj/stool/chair{
 	dir = 8;
@@ -10079,14 +8247,6 @@
 	},
 /turf/simulated/floor/carpet/grime,
 /area/station/crew_quarters/baroffice)
-"FJ" = (
-/obj/machinery/door/unpowered/wood/pyro{
-	dir = 4
-	},
-/turf/simulated/floor/sanitary/white,
-/area/station/engine/engineering{
-	name = "Maru Primary Zone"
-	})
 "FK" = (
 /obj/decal/poster/wallsign/stencil/left/e,
 /obj/decal/poster/wallsign/stencil/right/v{
@@ -10106,21 +8266,6 @@
 /obj/machinery/manufacturer/uniform,
 /turf/simulated/floor/grey,
 /area/station/crew_quarters/tenebrae)
-"FS" = (
-/obj/machinery/shower{
-	dir = 4;
-	pixel_x = 8;
-	pixel_y = 8
-	},
-/obj/machinery/drainage,
-/turf/simulated/floor/sanitary/white,
-/area/station/engine/engineering{
-	name = "Maru Primary Zone"
-	})
-"FT" = (
-/obj/storage/secure/closet/engineering/mining,
-/turf/simulated/floor/orangeblack/side,
-/area/space)
 "FU" = (
 /obj/lattice{
 	dir = 5;
@@ -10145,21 +8290,6 @@
 /area/station/crew_quarters/cafeteria{
 	name = "Dionysus Primary Zone"
 	})
-"FZ" = (
-/obj/machinery/shuttle/engine/propulsion{
-	dir = 4;
-	icon_state = "alt_propulsion"
-	},
-/obj/lattice{
-	dir = 4;
-	icon_state = "lattice-dir"
-	},
-/obj/lattice{
-	dir = 4;
-	icon_state = "lattice-dir"
-	},
-/turf/space,
-/area/space)
 "Ga" = (
 /obj/disposalpipe/segment/horizontal,
 /obj/machinery/light,
@@ -10188,21 +8318,6 @@
 /area/station/science/bot_storage{
 	name = "Net Center"
 	})
-"Gd" = (
-/obj/rack,
-/obj/item/clothing/suit/space/emerg,
-/obj/item/clothing/head/emerg,
-/obj/item/clothing/mask/breath,
-/obj/item/tank/air,
-/obj/item/device/light/flashlight,
-/obj/item/storage/belt/utility,
-/obj/item/storage/toolbox/mechanical,
-/obj/machinery/light/small{
-	dir = 4;
-	pixel_x = 12
-	},
-/turf/simulated/floor/grey,
-/area/space)
 "Gf" = (
 /obj/table/reinforced/auto,
 /obj/item/storage/firstaid/regular{
@@ -10267,40 +8382,13 @@
 /obj/disposalpipe/segment/mail/bent/west,
 /turf/simulated/floor/grey,
 /area/station/crew_quarters/tenebrae)
-"Gp" = (
-/obj/machinery/light{
-	dir = 1;
-	layer = 9.1;
-	pixel_y = 21
-	},
-/obj/storage/secure/closet/engineering/mining,
-/turf/simulated/floor/orangeblack,
-/area/space)
 "Gq" = (
-/obj/machinery/light{
-	dir = 1;
-	layer = 9.1;
-	pixel_y = 21
-	},
 /obj/machinery/light_switch/north,
 /obj/machinery/vending/medical_public,
 /turf/simulated/floor/caution/east,
 /area/station/engine/engineering{
 	name = "Maru Primary Zone"
 	})
-"Gs" = (
-/obj/machinery/portable_atmospherics/canister/oxygen,
-/turf/simulated/floor/orangeblack/side{
-	dir = 6
-	},
-/area/space)
-"Gt" = (
-/obj/machinery/conveyor{
-	dir = 1;
-	id = "qmin"
-	},
-/turf/simulated/floor/airless/plating,
-/area/space)
 "Gu" = (
 /obj/disposalpipe/segment/horizontal,
 /obj/cable{
@@ -10343,28 +8431,6 @@
 	},
 /turf/simulated/wall/auto/reinforced/supernorn,
 /area/station/communications)
-"GC" = (
-/obj/machinery/shuttle/engine/heater{
-	dir = 4;
-	icon_state = "alt_heater-M"
-	},
-/turf/simulated/wall/auto/reinforced/supernorn,
-/area/station/mining/refinery)
-"GE" = (
-/obj/machinery/door/airlock/pyro{
-	name = "Vessel Restroom"
-	},
-/obj/cable{
-	icon_state = "1-2"
-	},
-/turf/simulated/floor/sanitary/white,
-/area/station/engine/engineering{
-	name = "Maru Primary Zone"
-	})
-"GG" = (
-/obj/storage/secure/closet/engineering/mining,
-/turf/simulated/floor/orangeblack,
-/area/space)
 "GH" = (
 /obj/grille/catwalk,
 /obj/cable{
@@ -10384,25 +8450,12 @@
 /area/station/hangar/catering{
 	name = "Dionysus Hangar"
 	})
-"GJ" = (
-/obj/storage/secure/closet/engineering/mining,
-/turf/simulated/floor/orangeblack/side{
-	dir = 4
-	},
-/area/station/mining/refinery)
 "GK" = (
 /obj/disposalpipe/segment/mail,
 /turf/simulated/wall/auto/reinforced/supernorn,
 /area/station/routing/depot{
 	name = "Routing Buoy"
 	})
-"GL" = (
-/obj/machinery/shuttle/engine/heater{
-	dir = 4;
-	icon_state = "alt_heater-L"
-	},
-/turf/simulated/wall/auto/reinforced/supernorn,
-/area/station/mining/refinery)
 "GN" = (
 /obj/machinery/door/airlock/pyro/command{
 	dir = 4;
@@ -10418,21 +8471,15 @@
 /area/station/science/research_director{
 	name = "Tenebrae Command Center"
 	})
-"GR" = (
-/obj/grille/catwalk,
-/obj/landmark/magnet_shield,
-/obj/securearea{
-	desc = "A warning that demarcates where the magnetic area begins.";
-	icon_state = "magwarning";
-	name = "Magnet Area Boundary"
-	},
-/turf/simulated/floor/airless/plating/catwalk,
-/area/mining/magnet)
 "GS" = (
 /obj/table/auto,
 /obj/machinery/cell_charger,
 /obj/item/cell/charged,
 /obj/item/cell/charged,
+/obj/machinery/light/small{
+	dir = 8;
+	pixel_x = -12
+	},
 /turf/simulated/floor/orangeblack,
 /area/station/maintenance/storage{
 	name = "Maru Power Room"
@@ -10643,10 +8690,6 @@
 /area/station/crew_quarters/cafeteria{
 	name = "Dionysus Primary Zone"
 	})
-"Hq" = (
-/obj/disposalpipe/segment/mail/bent/north,
-/turf/simulated/floor,
-/area/station/engine/elect)
 "Hr" = (
 /obj/table/wood/auto,
 /obj/machinery/light/lamp{
@@ -10666,15 +8709,6 @@
 	},
 /turf/simulated/floor/caution/misc,
 /area/station/science/artifact)
-"Ht" = (
-/obj/machinery/door/airlock/pyro/glass/engineering{
-	dir = 4;
-	name = "Mining Door";
-	req_access = null
-	},
-/obj/access_spawn/mining,
-/turf/simulated/floor,
-/area/space)
 "Hu" = (
 /obj/cable{
 	icon_state = "1-2"
@@ -10682,15 +8716,6 @@
 /turf/simulated/floor/orangeblack/side,
 /area/station/hangar/catering{
 	name = "Dionysus Hangar"
-	})
-"Hv" = (
-/obj/cable{
-	icon_state = "1-2"
-	},
-/obj/disposalpipe/segment/mail/bent/south,
-/turf/simulated/floor,
-/area/station/engine/engineering{
-	name = "Maru Primary Zone"
 	})
 "Hw" = (
 /turf/simulated/floor/grey,
@@ -10704,23 +8729,6 @@
 	},
 /turf/simulated/floor/wood,
 /area/station/bridge/hos)
-"Hy" = (
-/obj/disposalpipe/trunk/mail/south,
-/obj/disposaloutlet/transit,
-/turf/simulated/floor/black,
-/area/station/engine/engineering{
-	name = "Maru Primary Zone"
-	})
-"HA" = (
-/obj/machinery/light{
-	dir = 8;
-	layer = 9.1;
-	pixel_x = -10
-	},
-/turf/simulated/floor/caution/north,
-/area/station/hangar/engine{
-	name = "Maru Hangar"
-	})
 "HB" = (
 /obj/stool/bed,
 /obj/cable{
@@ -10773,42 +8781,12 @@
 	dir = 8
 	},
 /area/station/science/teleporter)
-"HH" = (
-/obj/machinery/door_control/podbay{
-	id = "marubay";
-	name = "Maru pod bay door control";
-	pixel_x = -24
-	},
-/obj/machinery/portable_atmospherics/canister/oxygen,
-/turf/simulated/floor/orangeblack/side{
-	dir = 8
-	},
-/area/space)
 "HI" = (
 /obj/lattice{
 	dir = 9;
 	icon_state = "lattice-dir-b"
 	},
 /turf/space,
-/area/space)
-"HJ" = (
-/obj/table/auto,
-/obj/item/storage/toolbox/mechanical,
-/obj/item/storage/belt/utility,
-/obj/item/electronics/soldering,
-/obj/item/clothing/gloves/yellow,
-/obj/item/device/t_scanner,
-/obj/item/device/multitool,
-/obj/machinery/camera{
-	c_tag = "autotag";
-	dir = 6;
-	name = "autoname - SS13";
-	pixel_y = 20;
-	tag = ""
-	},
-/turf/simulated/floor/yellow/side{
-	dir = 1
-	},
 /area/space)
 "HK" = (
 /obj/grille/catwalk{
@@ -10821,16 +8799,6 @@
 /area/station/solar/small_backup3{
 	name = "Tenebrae Solar Array"
 	})
-"HN" = (
-/obj/reagent_dispensers/fueltank,
-/obj/machinery/light_switch/east,
-/turf/simulated/floor/caution/north,
-/area/station/hangar/engine{
-	name = "Maru Hangar"
-	})
-"HQ" = (
-/turf/simulated/floor/caution/north,
-/area/station/mining/refinery)
 "HR" = (
 /obj/machinery/door/airlock/pyro/external,
 /obj/access_spawn/maint,
@@ -10887,18 +8855,6 @@
 	},
 /turf/simulated/floor/specialroom/cafeteria,
 /area/station/crew_quarters/kitchen)
-"HY" = (
-/obj/machinery/door/airlock/pyro/glass/engineering{
-	name = "Mining";
-	req_access = null
-	},
-/obj/access_spawn/mining,
-/turf/simulated/floor,
-/area/space)
-"HZ" = (
-/obj/item/slag_shovel,
-/turf/simulated/floor/caution/north,
-/area/station/mining/refinery)
 "Ia" = (
 /obj/machinery/conveyor_switch{
 	id = "qmin";
@@ -10911,7 +8867,7 @@
 "Ib" = (
 /obj/machinery/ore_cloud_storage_container,
 /turf/simulated/floor/plating/airless,
-/area/space)
+/area/station/mining/refinery)
 "Ic" = (
 /obj/machinery/door/airlock/pyro/external{
 	dir = 4
@@ -10951,17 +8907,6 @@
 /area/station/crew_quarters/utility{
 	name = "Dionysus Cryocore"
 	})
-"In" = (
-/obj/machinery/light{
-	dir = 1;
-	layer = 9.1;
-	pixel_y = 21
-	},
-/obj/machinery/power/rtg,
-/turf/simulated/floor/yellowblack{
-	dir = 1
-	},
-/area/station/bridge)
 "Io" = (
 /obj/submachine/cargopad/hydroponic,
 /turf/simulated/floor/grey,
@@ -11065,58 +9010,12 @@
 /obj/disposalpipe/segment/mail/bent/south,
 /turf/simulated/floor/specialroom/cafeteria,
 /area/station/crew_quarters/kitchen)
-"IG" = (
-/obj/cable{
-	icon_state = "0-2"
-	},
-/obj/machinery/power/rtg,
-/turf/simulated/floor/yellowblack{
-	dir = 1
-	},
-/area/station/bridge)
-"IH" = (
-/obj/storage/crate,
-/obj/item/fuel_pellet/cerenkite,
-/obj/item/fuel_pellet/cerenkite,
-/obj/item/fuel_pellet/cerenkite,
-/obj/item/fuel_pellet/cerenkite,
-/obj/item/fuel_pellet/cerenkite,
-/obj/item/fuel_pellet/cerenkite,
-/obj/machinery/phone/wall{
-	pixel_x = 24;
-	pixel_y = 4
-	},
-/turf/simulated/floor/yellowblack{
-	dir = 1
-	},
-/area/station/bridge)
 "II" = (
 /obj/disposalpipe/segment/mail/vertical,
 /turf/simulated/wall/auto/reinforced/supernorn,
 /area/station/routing/depot{
 	name = "Routing Buoy"
 	})
-"IK" = (
-/obj/cable{
-	icon_state = "1-2"
-	},
-/turf/simulated/floor/orangeblack,
-/area/space)
-"IN" = (
-/obj/machinery/door/poddoor/pyro{
-	autoclose = 1;
-	dir = 4;
-	id = "maru_crusher";
-	name = "Maru Crusher Door"
-	},
-/obj/machinery/conveyor{
-	dir = 4;
-	id = "marubelt";
-	name = "Maru disposal belt";
-	operating = 1
-	},
-/turf/simulated/floor/grey,
-/area/space)
 "IP" = (
 /obj/storage/closet/janitor,
 /turf/simulated/floor/darkblue,
@@ -11166,13 +9065,6 @@
 /area/station/crew_quarters/utility{
 	name = "Dionysus Cryocore"
 	})
-"IX" = (
-/obj/machinery/r_door_control/podbay{
-	id = "marubay";
-	name = "Maru pod bay door control"
-	},
-/turf/simulated/wall/auto/reinforced/supernorn,
-/area/space)
 "IY" = (
 /obj/cable,
 /obj/machinery/power/apc/autoname_west,
@@ -11239,31 +9131,13 @@
 /turf/simulated/floor/airless/plating/catwalk{
 	dir = 6
 	},
-/area/space)
+/area/mining/magnet)
 "Je" = (
 /obj/wingrille_spawn/auto,
 /turf/simulated/floor/plating,
 /area/station/science/construction{
 	name = "Tenebrae Maintenance"
 	})
-"Jg" = (
-/obj/cable,
-/obj/cable{
-	d2 = 2;
-	icon_state = "0-2"
-	},
-/obj/cable{
-	d2 = 8;
-	icon_state = "0-8"
-	},
-/obj/grille/catwalk{
-	dir = 5
-	},
-/turf/simulated/floor/airless/plating/catwalk{
-	dir = 4;
-	icon_state = "catwalk_cross"
-	},
-/area/space)
 "Jh" = (
 /obj/machinery/networked/test_apparatus/xraymachine,
 /obj/machinery/power/data_terminal,
@@ -11275,13 +9149,6 @@
 	},
 /turf/simulated/floor/darkblue/checker,
 /area/station/science/artifact)
-"Jj" = (
-/obj/lattice{
-	dir = 1;
-	icon_state = "lattice-dir-b"
-	},
-/turf/space,
-/area/space)
 "Jk" = (
 /obj/machinery/manufacturer/mining,
 /turf/simulated/floor/orangeblack/side,
@@ -11306,22 +9173,10 @@
 /area/station/crew_quarters/cafeteria{
 	name = "Dionysus Primary Zone"
 	})
-"Jp" = (
-/obj/machinery/light/small,
-/obj/machinery/vending/standard,
-/turf/simulated/floor/grey,
-/area/space)
 "Jq" = (
 /obj/disposalpipe/junction/left/south,
 /turf/simulated/floor/caution/north,
 /area/station/hallway)
-"Js" = (
-/turf/simulated/floor/caution/corner/misc{
-	dir = 5
-	},
-/area/station/engine/engineering{
-	name = "Maru Primary Zone"
-	})
 "Jt" = (
 /obj/machinery/light/small{
 	dir = 8;
@@ -11341,12 +9196,6 @@
 /area/station/routing/depot{
 	name = "Routing Buoy"
 	})
-"Jw" = (
-/obj/disposalpipe/segment/mail/bent/north,
-/turf/simulated/floor/caution/north,
-/area/station/engine/engineering{
-	name = "Maru Primary Zone"
-	})
 "Jx" = (
 /obj/machinery/shuttle/engine/heater{
 	dir = 4;
@@ -11355,12 +9204,6 @@
 /turf/simulated/wall/auto/reinforced/supernorn,
 /area/station/crew_quarters/utility{
 	name = "Dionysus Cryocore"
-	})
-"Jy" = (
-/obj/disposalpipe/junction/left/south,
-/turf/simulated/floor/caution/north,
-/area/station/engine/engineering{
-	name = "Maru Primary Zone"
 	})
 "JA" = (
 /obj/stool/chair{
@@ -11395,9 +9238,6 @@
 /area/station/science/research_director{
 	name = "Tenebrae Command Center"
 	})
-"JF" = (
-/turf/simulated/floor/orangeblack/side,
-/area/space)
 "JG" = (
 /obj/machinery/light/small{
 	dir = 8;
@@ -11409,13 +9249,6 @@
 /obj/machinery/power/furnace,
 /turf/simulated/floor/grey,
 /area/station/maintenance)
-"JH" = (
-/obj/machinery/shuttle/engine/heater{
-	dir = 4;
-	icon_state = "alt_heater-M"
-	},
-/turf/simulated/wall/auto/supernorn,
-/area/space)
 "JI" = (
 /obj/grille/catwalk,
 /obj/cable{
@@ -11424,12 +9257,6 @@
 /turf/simulated/floor/airless/plating/catwalk,
 /area/station/solar/small_backup3{
 	name = "Tenebrae Solar Array"
-	})
-"JJ" = (
-/obj/disposalpipe/junction/left/north,
-/turf/simulated/floor/caution/north,
-/area/station/engine/engineering{
-	name = "Maru Primary Zone"
 	})
 "JK" = (
 /turf/simulated/floor/wood/two,
@@ -11447,17 +9274,6 @@
 	dir = 1
 	},
 /area/station/science/tenebrae)
-"JT" = (
-/obj/stool/chair{
-	dir = 8
-	},
-/obj/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/turf/simulated/floor/grey,
-/area/space)
 "JU" = (
 /obj/machinery/door/airlock/pyro/glass,
 /obj/disposalpipe/segment/mail/vertical,
@@ -11467,13 +9283,6 @@
 /obj/access_spawn/research,
 /turf/simulated/floor/darkblue,
 /area/station/science/artifact)
-"JX" = (
-/obj/machinery/door/airlock/pyro/glass{
-	name = "Cargo Dock"
-	},
-/obj/access_spawn/cargo,
-/turf/simulated/floor,
-/area/space)
 "JY" = (
 /obj/grille/catwalk{
 	dir = 6;
@@ -11494,18 +9303,6 @@
 /obj/machinery/power/apc/autoname_west,
 /turf/simulated/floor/grey,
 /area/station/maintenance)
-"Kb" = (
-/obj/machinery/light/small,
-/turf/simulated/floor/grey,
-/area/space)
-"Kc" = (
-/obj/table/reinforced/auto,
-/obj/item/shipcomponent/mainweapon/rockdrills,
-/obj/item/shipcomponent/mainweapon/rockdrills,
-/turf/simulated/floor,
-/area/station/hangar/engine{
-	name = "Maru Hangar"
-	})
 "Ke" = (
 /obj/item/storage/wall{
 	dir = 4;
@@ -11582,17 +9379,6 @@
 /area/station/maintenance/storage{
 	name = "Maru Power Room"
 	})
-"Kr" = (
-/obj/lattice{
-	dir = 6;
-	icon_state = "lattice-dir-b"
-	},
-/obj/disposalpipe/segment/transport{
-	dir = 1;
-	icon_state = "pipe-c"
-	},
-/turf/space,
-/area/space)
 "Ks" = (
 /obj/disposalpipe/segment/mail/bent/north,
 /obj/wingrille_spawn/auto,
@@ -11620,16 +9406,6 @@
 	},
 /turf/simulated/floor/wood/two,
 /area/station/bridge/hos)
-"Kx" = (
-/obj/machinery/power/rtg,
-/obj/cable{
-	d2 = 2;
-	icon_state = "0-2"
-	},
-/turf/simulated/floor/yellowblack{
-	dir = 1
-	},
-/area/space)
 "Ky" = (
 /obj/rack,
 /obj/item/clothing/suit/space/emerg,
@@ -11672,10 +9448,6 @@
 /area/station/science/construction{
 	name = "Tenebrae Maintenance"
 	})
-"KD" = (
-/obj/machinery/nanofab/mining,
-/turf/simulated/floor,
-/area/station/mining/refinery)
 "KF" = (
 /obj/rack,
 /obj/item/mop,
@@ -11736,19 +9508,6 @@
 /obj/disposalpipe/segment/bent/south,
 /turf/simulated/floor/grey,
 /area/station/crew_quarters/tenebrae)
-"KP" = (
-/obj/machinery/light{
-	dir = 1;
-	layer = 9.1;
-	pixel_y = 21
-	},
-/obj/machinery/conveyor{
-	dir = 4;
-	name = "cargo belt - east";
-	operating = 1
-	},
-/turf/simulated/floor/plating,
-/area/space)
 "KQ" = (
 /obj/machinery/portable_atmospherics/canister/air/large,
 /obj/cable{
@@ -11756,64 +9515,21 @@
 	},
 /turf/simulated/floor/purplewhite,
 /area/station/science/teleporter)
-"KS" = (
-/obj/grille/catwalk{
-	icon_state = "catwalk_cross"
-	},
-/obj/cable{
-	d2 = 8;
-	icon_state = "0-4"
-	},
-/obj/machinery/power/tracker{
-	id = "maru";
-	name = "Maru solar tracker"
-	},
-/turf/simulated/floor/airless/plating/catwalk{
-	dir = 5;
-	icon_state = "catwalk_cross"
-	},
-/area/space)
 "KT" = (
 /obj/machinery/computer/security/wooden_tv,
 /turf/simulated/floor/specialroom/arcade,
 /area/station/janitor{
 	name = "Dionysus Janitorial"
 	})
-"KU" = (
-/turf/simulated/floor/orangeblack/side{
-	dir = 4
-	},
-/area/station/mining/refinery)
 "KW" = (
 /obj/storage/secure/closet/civilian/hydro,
 /obj/item/bee_egg_carton,
 /obj/item/bee_egg_carton,
 /turf/simulated/floor/grass,
 /area/station/hydroponics/bay)
-"KY" = (
-/obj/machinery/light/small/floor,
-/turf/simulated/floor/grey,
-/area/space)
 "KZ" = (
 /turf/simulated/wall/auto/reinforced/supernorn,
 /area/station/ranch)
-"La" = (
-/obj/disposalpipe/segment/horizontal,
-/obj/machinery/light{
-	dir = 1;
-	layer = 9.1;
-	pixel_y = 21
-	},
-/turf/simulated/floor/orangeblack/side{
-	dir = 1
-	},
-/area/space)
-"Lb" = (
-/obj/stool/chair{
-	dir = 1
-	},
-/turf/simulated/floor/grey,
-/area/space)
 "Ld" = (
 /obj/cable{
 	icon_state = "1-2"
@@ -11881,9 +9597,6 @@
 /area/station/science/research_director{
 	name = "Tenebrae Command Center"
 	})
-"Li" = (
-/turf/simulated/floor/orangeblack,
-/area/station/mining/refinery)
 "Lk" = (
 /obj/lattice{
 	dir = 9;
@@ -11892,14 +9605,6 @@
 /obj/machinery/light/runway_light/delay3,
 /turf/space,
 /area/space)
-"Ll" = (
-/obj/grille/catwalk{
-	dir = 4
-	},
-/turf/simulated/floor/airless/plating/catwalk{
-	dir = 4
-	},
-/area/station/mining/refinery)
 "Lm" = (
 /obj/submachine/foodprocessor,
 /turf/simulated/floor/specialroom/cafeteria,
@@ -11913,21 +9618,6 @@
 	},
 /turf/simulated/floor/grey,
 /area/station/maintenance)
-"Lp" = (
-/obj/decal/tile_edge/line/yellow{
-	dir = 1;
-	icon_state = "line1"
-	},
-/turf/simulated/floor/black,
-/area/station/bridge)
-"Lq" = (
-/obj/lattice{
-	dir = 4;
-	icon_state = "lattice-dir"
-	},
-/obj/disposalpipe/segment/transport,
-/turf/space,
-/area/space)
 "Lr" = (
 /turf/simulated/floor/shuttlebay,
 /area/station/hangar)
@@ -12049,15 +9739,6 @@
 /area/station/maintenance/storage{
 	name = "Maru Power Room"
 	})
-"LS" = (
-/obj/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/obj/grille/catwalk,
-/turf/simulated/floor/airless/plating/catwalk,
-/area/space)
 "LT" = (
 /obj/machinery/door/airlock/pyro/external,
 /obj/cable{
@@ -12067,21 +9748,6 @@
 /area/station/maintenance/storage{
 	name = "Maru Power Room"
 	})
-"LU" = (
-/obj/machinery/light/small{
-	dir = 8;
-	pixel_x = -12
-	},
-/obj/disposalpipe/segment/bent/north,
-/obj/cable{
-	icon_state = "0-2"
-	},
-/obj/cable{
-	icon_state = "0-8"
-	},
-/obj/machinery/power/solar_control,
-/turf/simulated/floor/grey,
-/area/space)
 "LV" = (
 /obj/grille/catwalk{
 	dir = 5;
@@ -12102,21 +9768,6 @@
 /obj/machinery/drainage,
 /turf/simulated/floor/sanitary/white,
 /area/station/hallway)
-"LY" = (
-/obj/cable{
-	icon_state = "1-2"
-	},
-/obj/decal/tile_edge/line/yellow{
-	dir = 8;
-	icon_state = "line1"
-	},
-/obj/item/item_box/gold_star{
-	item_amount = 20;
-	pixel_x = -8;
-	pixel_y = 6
-	},
-/turf/simulated/floor/black,
-/area/station/bridge)
 "Mb" = (
 /obj/submachine/chef_sink/chem_sink{
 	pixel_y = 16
@@ -12177,10 +9828,6 @@
 /area/station/maintenance/southeast{
 	name = "Dionysus Maintenance"
 	})
-"Mj" = (
-/obj/disposalpipe/segment/bent/south,
-/turf/simulated/floor/plating,
-/area/space)
 "Mk" = (
 /obj/cable{
 	icon_state = "0-2"
@@ -12202,16 +9849,6 @@
 	},
 /turf/simulated/floor/white,
 /area/station/science/teleporter)
-"Mm" = (
-/obj/machinery/crusher,
-/obj/machinery/conveyor{
-	dir = 4;
-	id = "marubelt";
-	name = "Maru disposal belt";
-	operating = 1
-	},
-/turf/simulated/floor/grey,
-/area/space)
 "Mn" = (
 /obj/cable{
 	icon_state = "1-2"
@@ -12235,21 +9872,6 @@
 /area/station/crew_quarters/cafeteria{
 	name = "Dionysus Primary Zone"
 	})
-"Mq" = (
-/obj/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/obj/machinery/camera{
-	c_tag = "autotag";
-	dir = 4;
-	name = "autoname - SS13";
-	pixel_x = -10;
-	tag = ""
-	},
-/turf/simulated/floor,
-/area/space)
 "Ms" = (
 /obj/grille/catwalk{
 	dir = 10;
@@ -12309,30 +9931,12 @@
 	dir = 1
 	},
 /area/station/hallway)
-"MA" = (
-/obj/machinery/conveyor,
-/turf/simulated/floor/grey,
-/area/space)
-"MB" = (
-/obj/cable{
-	icon_state = "1-2"
-	},
-/turf/simulated/floor/yellowblack,
-/area/station/bridge)
 "MC" = (
 /obj/cable{
 	icon_state = "1-8"
 	},
 /turf/simulated/floor/carpet/grime,
 /area/station/crew_quarters/baroffice)
-"MD" = (
-/obj/cable{
-	icon_state = "0-2"
-	},
-/obj/machinery/power/apc/autoname_east,
-/obj/storage/crate/rcd,
-/turf/simulated/floor/yellowblack,
-/area/station/bridge)
 "ME" = (
 /obj/stool/bench/blue/auto,
 /turf/simulated/floor/sanitary/white,
@@ -12351,18 +9955,6 @@
 /turf/simulated/floor/plating,
 /area/station/routing/depot{
 	name = "Routing Buoy"
-	})
-"MI" = (
-/obj/disposalpipe/segment/horizontal,
-/obj/cable{
-	icon_state = "4-8"
-	},
-/obj/cable{
-	icon_state = "2-4"
-	},
-/turf/simulated/floor,
-/area/station/hangar/engine{
-	name = "Maru Hangar"
 	})
 "MK" = (
 /obj/cable{
@@ -12394,22 +9986,6 @@
 	dir = 6
 	},
 /area/station/hallway)
-"MO" = (
-/obj/machinery/vending/snack,
-/turf/simulated/floor/grey,
-/area/space)
-"MQ" = (
-/obj/cable{
-	icon_state = "4-8"
-	},
-/obj/disposalpipe/segment/bent/south,
-/obj/cable{
-	icon_state = "1-2"
-	},
-/turf/simulated/floor,
-/area/station/hangar/engine{
-	name = "Maru Hangar"
-	})
 "MR" = (
 /obj/machinery/vending/standard,
 /obj/machinery/light_switch/west,
@@ -12417,32 +9993,6 @@
 /area/station/science/construction{
 	name = "Tenebrae Maintenance"
 	})
-"MS" = (
-/obj/cable{
-	icon_state = "4-8"
-	},
-/obj/cable{
-	icon_state = "2-4"
-	},
-/turf/simulated/floor,
-/area/station/mining/refinery)
-"MT" = (
-/obj/machinery/door/airlock/pyro/glass/engineering{
-	name = "Reprod Lab";
-	req_access = null
-	},
-/obj/access_spawn/engineering_mechanic,
-/obj/cable{
-	icon_state = "1-2"
-	},
-/turf/simulated/floor/yellow,
-/area/space)
-"MV" = (
-/obj/cable{
-	icon_state = "4-8"
-	},
-/turf/simulated/floor,
-/area/station/mining/refinery)
 "MY" = (
 /obj/machinery/light/small{
 	dir = 4;
@@ -12506,17 +10056,6 @@
 	icon_state = "catwalk_cross"
 	},
 /area/space)
-"Nl" = (
-/obj/grille/catwalk{
-	dir = 4
-	},
-/obj/warp_beacon/mining{
-	name = "Maru beacon"
-	},
-/turf/simulated/floor/airless/plating/catwalk{
-	dir = 4
-	},
-/area/space)
 "Nm" = (
 /obj/disposalpipe/segment/vertical,
 /obj/cable{
@@ -12539,10 +10078,6 @@
 /area/station/maintenance/southeast{
 	name = "Dionysus Maintenance"
 	})
-"No" = (
-/obj/submachine/cargopad/magnet,
-/turf/simulated/floor/plating/airless,
-/area/station/mining/refinery)
 "Np" = (
 /obj/stool/chair/office/blue{
 	dir = 4
@@ -12569,24 +10104,6 @@
 /obj/disposalpipe/segment/mail/bent/north,
 /turf/simulated/floor/specialroom/cafeteria,
 /area/station/crew_quarters/kitchen)
-"Nt" = (
-/obj/wingrille_spawn/auto,
-/obj/cable{
-	icon_state = "4-8"
-	},
-/turf/simulated/floor/plating,
-/area/space)
-"Nu" = (
-/obj/machinery/vehicle/miniputt/indyputt/armed,
-/turf/simulated/floor/shuttlebay,
-/area/space)
-"Ny" = (
-/obj/machinery/disposal/transport{
-	name = "Erebus transportation unit"
-	},
-/obj/disposalpipe/trunk/south,
-/turf/simulated/floor/delivery/caution,
-/area/space)
 "Nz" = (
 /obj/grille/catwalk{
 	dir = 4
@@ -12607,9 +10124,6 @@
 /area/station/solar/south{
 	name = "Dionysus Solar Array"
 	})
-"NA" = (
-/turf/simulated/floor/plating/airless,
-/area/station/mining/refinery)
 "NB" = (
 /obj/machinery/manufacturer/qm,
 /obj/machinery/recharger/wall/sticky{
@@ -12642,18 +10156,6 @@
 	dir = 1
 	},
 /area/station/science/chemistry)
-"NK" = (
-/obj/machinery/power/terminal,
-/obj/cable,
-/obj/stool/chair{
-	dir = 1
-	},
-/obj/item/storage/wall/fire{
-	dir = 4;
-	pixel_x = -32
-	},
-/turf/simulated/floor/grey,
-/area/space)
 "NO" = (
 /obj/machinery/door/airlock/pyro/glass,
 /obj/disposalpipe/segment/vertical,
@@ -12671,46 +10173,6 @@
 /area/station/science/construction{
 	name = "Tenebrae Maintenance"
 	})
-"NQ" = (
-/obj/landmark/magnet_shield,
-/obj/securearea{
-	desc = "A warning that demarcates where the magnetic area begins.";
-	dir = 1;
-	icon_state = "magwarning";
-	name = "Magnet Area Boundary"
-	},
-/obj/grille/catwalk,
-/turf/simulated/floor/airless/plating/catwalk,
-/area/mining/magnet)
-"NR" = (
-/obj/machinery/door_control{
-	pixel_x = 24
-	},
-/obj/disposalpipe/segment/vertical,
-/turf/simulated/floor/plating,
-/area/space)
-"NS" = (
-/obj/machinery/portable_atmospherics/canister/oxygen,
-/obj/machinery/light{
-	dir = 8;
-	layer = 9.1;
-	pixel_x = -10
-	},
-/turf/simulated/floor/grey,
-/area/space)
-"NT" = (
-/obj/machinery/conveyor,
-/obj/machinery/door/poddoor/pyro,
-/turf/simulated/floor/grey,
-/area/space)
-"NU" = (
-/obj/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/turf/simulated/floor/black,
-/area/station/bridge)
 "NW" = (
 /obj/stool/bed,
 /obj/landmark/start{
@@ -12780,24 +10242,6 @@
 /area/station/maintenance/southeast{
 	name = "Dionysus Maintenance"
 	})
-"Og" = (
-/obj/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/cable{
-	icon_state = "2-4"
-	},
-/obj/cable{
-	icon_state = "1-4"
-	},
-/obj/decal/tile_edge/line/yellow{
-	dir = 8;
-	icon_state = "line1"
-	},
-/turf/simulated/floor/black,
-/area/station/bridge)
 "Oh" = (
 /obj/storage/closet/wardrobe/black/formalwear,
 /obj/machinery/phone/wall{
@@ -12811,11 +10255,6 @@
 	dir = 8
 	},
 /area/station/science/teleporter)
-"Ok" = (
-/turf/simulated/floor/orangeblack/side{
-	dir = 8
-	},
-/area/space)
 "Ol" = (
 /obj/machinery/conveyor,
 /obj/machinery/crusher,
@@ -12837,29 +10276,6 @@
 	},
 /turf/simulated/floor/grey/side,
 /area/station/hallway)
-"Oq" = (
-/obj/table/auto,
-/obj/item/storage/toolbox/mechanical,
-/obj/item/storage/belt/utility,
-/obj/item/electronics/soldering,
-/obj/item/clothing/gloves/yellow,
-/obj/item/device/t_scanner,
-/obj/item/device/multitool,
-/turf/simulated/floor/yellow/side{
-	dir = 1
-	},
-/area/space)
-"Or" = (
-/obj/cable{
-	icon_state = "1-4"
-	},
-/obj/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/turf/simulated/floor/yellow,
-/area/station/bridge)
 "Os" = (
 /obj/stool/bed,
 /obj/machinery/light/small,
@@ -12903,17 +10319,6 @@
 /area/station/hangar/catering{
 	name = "Dionysus Hangar"
 	})
-"Oy" = (
-/obj/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/cable{
-	icon_state = "1-4"
-	},
-/turf/simulated/floor/yellow,
-/area/station/bridge)
 "OA" = (
 /obj/item/storage/wall/emergency{
 	pixel_y = 32
@@ -12940,13 +10345,6 @@
 	},
 /turf/space,
 /area/space)
-"OE" = (
-/obj/machinery/power/apc/autoname_east,
-/obj/cable,
-/turf/simulated/floor/yellow/side{
-	dir = 4
-	},
-/area/station/engine/elect)
 "OF" = (
 /obj/grille/catwalk{
 	dir = 9;
@@ -12977,15 +10375,6 @@
 	},
 /turf/simulated/floor,
 /area/station/hydroponics/bay)
-"OK" = (
-/obj/machinery/door/airlock/pyro/glass/engineering{
-	dir = 4;
-	name = "Maru Hangar"
-	},
-/obj/access_spawn/engineering,
-/obj/access_spawn/cargo,
-/turf/simulated/floor/orangeblack,
-/area/space)
 "OL" = (
 /obj/stool/bed,
 /obj/landmark/start{
@@ -12997,60 +10386,9 @@
 	},
 /turf/simulated/floor/grey,
 /area/station/crew_quarters)
-"OM" = (
-/obj/table/reinforced/auto,
-/obj/machinery/recharger,
-/obj/item/cargotele,
-/turf/simulated/floor/orangeblack/side{
-	dir = 10
-	},
-/area/space)
-"OO" = (
-/obj/disposalpipe/segment/vertical,
-/turf/simulated/wall/auto/reinforced/supernorn,
-/area/station/quartermaster/office)
 "OQ" = (
 /turf/simulated/wall/auto/reinforced/supernorn,
 /area/station/hallway)
-"OR" = (
-/obj/table/reinforced/auto,
-/obj/item/shipcomponent/sensor/mining{
-	pixel_x = -2
-	},
-/obj/item/shipcomponent/sensor/mining{
-	pixel_x = -2
-	},
-/obj/item/shipcomponent/secondary_system/cargo{
-	pixel_x = 5
-	},
-/obj/item/shipcomponent/secondary_system/cargo{
-	pixel_x = 5
-	},
-/turf/simulated/floor/orangeblack/side,
-/area/station/hangar/engine{
-	name = "Maru Hangar"
-	})
-"OT" = (
-/obj/machinery/computer/barcode/qm{
-	destinations = list("Export","Storage");
-	dir = 4
-	},
-/obj/item/clothing/head/merchant_hat,
-/obj/cable{
-	d2 = 4;
-	icon_state = "0-4"
-	},
-/obj/machinery/power/data_terminal,
-/turf/simulated/floor/orangeblack,
-/area/space)
-"OU" = (
-/obj/cable{
-	icon_state = "1-2"
-	},
-/turf/simulated/floor,
-/area/station/hangar/engine{
-	name = "Maru Hangar"
-	})
 "OV" = (
 /obj/cable{
 	icon_state = "4-8"
@@ -13059,38 +10397,12 @@
 /area/station/crew_quarters/utility{
 	name = "Dionysus Cryocore"
 	})
-"OW" = (
-/obj/storage/secure/closet/engineering/mining,
-/obj/cable{
-	icon_state = "0-2"
-	},
-/obj/cable{
-	icon_state = "0-2"
-	},
-/obj/machinery/camera{
-	c_tag = "autotag";
-	dir = 6;
-	name = "autoname - SS13";
-	pixel_y = 20;
-	tag = ""
-	},
-/turf/simulated/floor/orangeblack,
-/area/space)
 "OX" = (
 /turf/simulated/floor,
 /area/station/hallway)
 "OY" = (
 /turf/simulated/floor/grey,
 /area/station/maintenance)
-"OZ" = (
-/obj/disposalpipe/segment/vertical,
-/obj/cable{
-	icon_state = "1-2"
-	},
-/turf/simulated/floor,
-/area/station/hangar/engine{
-	name = "Maru Hangar"
-	})
 "Pa" = (
 /obj/stool/chair/office/blue{
 	dir = 8
@@ -13117,22 +10429,6 @@
 /area/station/crew_quarters/cafeteria{
 	name = "Dionysus Primary Zone"
 	})
-"Pc" = (
-/obj/machinery/door/poddoor/blast{
-	icon_state = "bdoorsingle1";
-	id = "qm_dock_out"
-	},
-/obj/machinery/mass_driver{
-	dir = 8;
-	id = "qm_dock_out"
-	},
-/obj/forcefield/energyshield/perma/doorlink{
-	desc = "A door-linked force field that prevents gasses from passing through it.";
-	name = "Door-linked Atmospheric Forcefield";
-	powerlevel = 1
-	},
-/turf/simulated/floor/plating,
-/area/space)
 "Pd" = (
 /obj/machinery/door/airlock/pyro/glass,
 /obj/cable{
@@ -13145,18 +10441,6 @@
 /area/station/science/research_director{
 	name = "Tenebrae Command Center"
 	})
-"Pf" = (
-/obj/machinery/processor,
-/turf/simulated/floor/orangeblack/side,
-/area/station/mining/refinery)
-"Ph" = (
-/obj/machinery/manufacturer/mining,
-/turf/simulated/floor/orangeblack/side,
-/area/station/mining/refinery)
-"Pi" = (
-/obj/machinery/portable_reclaimer,
-/turf/simulated/floor/orangeblack/side,
-/area/station/mining/refinery)
 "Pk" = (
 /obj/grille/catwalk{
 	dir = 9
@@ -13175,14 +10459,6 @@
 /area/station/solar/small_backup3{
 	name = "Tenebrae Solar Array"
 	})
-"Pl" = (
-/obj/cable{
-	icon_state = "1-2"
-	},
-/turf/simulated/floor/orangeblack/side{
-	dir = 1
-	},
-/area/space)
 "Po" = (
 /obj/machinery/macrofab/emergency_pod{
 	dir = 1
@@ -13202,16 +10478,6 @@
 /area/station/crew_quarters/utility{
 	name = "Dionysus Cryocore"
 	})
-"Pp" = (
-/obj/cable{
-	icon_state = "0-2"
-	},
-/obj/machinery/power/smes{
-	chargelevel = 15000;
-	output = 10000
-	},
-/turf/simulated/floor/grey,
-/area/space)
 "Pq" = (
 /obj/stool/chair/office/blue{
 	dir = 8
@@ -13236,10 +10502,6 @@
 	},
 /turf/simulated/floor,
 /area/station/hallway)
-"Pu" = (
-/obj/disposalpipe/segment/vertical,
-/turf/simulated/floor/plating,
-/area/space)
 "Pv" = (
 /obj/machinery/power/terminal,
 /obj/cable,
@@ -13268,39 +10530,12 @@
 	dir = 8
 	},
 /area/station/turret_protected/Zeta)
-"PB" = (
-/obj/machinery/conveyor,
-/obj/machinery/crusher,
-/turf/simulated/floor/grey,
-/area/space)
-"PC" = (
-/obj/machinery/computer/magnet{
-	dir = 8
-	},
-/obj/machinery/camera{
-	c_tag = "autotag";
-	dir = 8;
-	name = "autoname - SS13";
-	pixel_x = 10;
-	tag = ""
-	},
-/turf/simulated/floor/plating/airless,
-/area/station/mining/refinery)
 "PD" = (
 /obj/reagent_dispensers/foamtank,
 /turf/simulated/floor/grey,
 /area/station/science/construction{
 	name = "Tenebrae Maintenance"
 	})
-"PE" = (
-/obj/machinery/magnet_chassis{
-	dir = 4
-	},
-/obj/machinery/mining_magnet{
-	dir = 4
-	},
-/turf/simulated/floor/plating/airless,
-/area/station/mining/refinery)
 "PF" = (
 /obj/machinery/light{
 	dir = 8;
@@ -13323,10 +10558,6 @@
 	dir = 1
 	},
 /area/station/science/artifact)
-"PH" = (
-/obj/landmark/magnet_center,
-/turf/space,
-/area/mining/magnet)
 "PI" = (
 /obj/cable,
 /obj/cable{
@@ -13336,44 +10567,10 @@
 /obj/machinery/networked/telepad,
 /turf/simulated/floor/engine,
 /area/station/science/teleporter)
-"PJ" = (
-/obj/cable{
-	icon_state = "0-4"
-	},
-/obj/machinery/power/data_terminal,
-/obj/machinery/shield_generator,
-/turf/simulated/floor/black,
-/area/station/bridge)
-"PK" = (
-/obj/cable{
-	icon_state = "4-8"
-	},
-/obj/machinery/camera{
-	c_tag = "autotag";
-	dir = 4;
-	name = "autoname - SS13";
-	pixel_x = -10;
-	tag = ""
-	},
-/turf/simulated/floor/black,
-/area/space)
 "PL" = (
 /obj/wingrille_spawn/auto,
 /turf/simulated/floor/plating,
 /area/station/maintenance)
-"PM" = (
-/obj/cable{
-	icon_state = "1-8"
-	},
-/obj/decal/tile_edge/line/yellow{
-	dir = 8;
-	icon_state = "line1"
-	},
-/obj/stool/chair/office/yellow{
-	dir = 4
-	},
-/turf/simulated/floor/black,
-/area/station/bridge)
 "PN" = (
 /obj/wingrille_spawn/auto,
 /turf/simulated/floor/plating,
@@ -13384,31 +10581,6 @@
 /area/station/solar/small_backup3{
 	name = "Tenebrae Solar Array"
 	})
-"PP" = (
-/turf/simulated/floor/yellowblack{
-	dir = 1
-	},
-/area/station/bridge)
-"PR" = (
-/obj/stool/bed,
-/obj/item/storage/wall{
-	desc = "It's a big box that comes in useful when the inevitable depressurization occurs.";
-	dir = 8;
-	name = "breach response cabinet";
-	pixel_x = 32;
-	spawn_contents = list(/obj/item/chem_grenade/metalfoam,/obj/item/chem_grenade/metalfoam,/obj/item/chem_grenade/metalfoam,/obj/item/tank/emergency_oxygen,/obj/item/tank/emergency_oxygen)
-	},
-/obj/landmark/start{
-	name = "Chief Engineer"
-	},
-/obj/item/clothing/suit/bedsheet{
-	bcolor = "yellow";
-	icon_state = "bedsheet-yellow"
-	},
-/turf/simulated/floor/yellowblack{
-	dir = 1
-	},
-/area/station/bridge)
 "PU" = (
 /obj/disposalpipe/segment/mail/bent/south,
 /turf/simulated/floor/caution/corner/misc{
@@ -13444,13 +10616,6 @@
 	},
 /turf/simulated/floor/wood/two,
 /area/station/bridge/hos)
-"PY" = (
-/obj/cable{
-	icon_state = "1-2"
-	},
-/obj/disposalpipe/segment/bent/west,
-/turf/simulated/floor,
-/area/station/engine/elect)
 "Qa" = (
 /obj/cable{
 	icon_state = "2-8"
@@ -13495,18 +10660,6 @@
 /obj/reagent_dispensers/foamtank,
 /turf/simulated/floor/grey,
 /area/station/maintenance)
-"Qj" = (
-/obj/disposalpipe/segment/horizontal,
-/obj/cable{
-	icon_state = "1-4"
-	},
-/obj/cable{
-	icon_state = "4-8"
-	},
-/turf/simulated/floor/stairs{
-	dir = 8
-	},
-/area/space)
 "Qk" = (
 /obj/machinery/door/airlock/pyro{
 	name = "Vessel Restroom"
@@ -13533,27 +10686,16 @@
 	name = "Routing Buoy"
 	})
 "Qn" = (
-/obj/machinery/conveyor,
+/obj/machinery/conveyor{
+	id = "tenebelt";
+	name = "Tenebrae disposal belt";
+	operating = 1
+	},
 /obj/machinery/crusher,
 /turf/simulated/floor/grey,
 /area/station/science/construction{
 	name = "Tenebrae Maintenance"
 	})
-"Qo" = (
-/obj/cable{
-	icon_state = "2-8"
-	},
-/obj/disposalpipe/segment/bent/west,
-/turf/simulated/floor/plating,
-/area/space)
-"Qp" = (
-/obj/machinery/conveyor,
-/obj/machinery/light/small{
-	dir = 4;
-	pixel_x = 12
-	},
-/turf/simulated/floor/grey,
-/area/space)
 "Qq" = (
 /obj/cable{
 	icon_state = "0-4"
@@ -13567,21 +10709,6 @@
 	},
 /turf/simulated/floor/black,
 /area/station/bridge)
-"Qr" = (
-/obj/machinery/door/airlock/pyro/glass/engineering{
-	name = "Maru Equipment";
-	req_access = null
-	},
-/obj/access_spawn/engineering_storage,
-/obj/cable{
-	icon_state = "1-2"
-	},
-/turf/simulated/floor/caution/corner/misc{
-	dir = 10
-	},
-/area/station/engine/storage{
-	name = "Maru Equipment"
-	})
 "Qt" = (
 /obj/cable{
 	d1 = 4;
@@ -13594,37 +10721,6 @@
 /obj/wingrille_spawn/auto,
 /turf/simulated/floor/plating,
 /area/station/hallway)
-"Qv" = (
-/obj/machinery/light{
-	dir = 1;
-	layer = 9.1;
-	pixel_y = 21
-	},
-/obj/machinery/power/rtg,
-/obj/cable{
-	d2 = 2;
-	icon_state = "0-2"
-	},
-/turf/simulated/floor/yellowblack{
-	dir = 1
-	},
-/area/space)
-"Qy" = (
-/obj/stool/bed,
-/obj/item/clothing/suit/bedsheet{
-	bcolor = "yellow";
-	icon_state = "bedsheet-yellow"
-	},
-/obj/machinery/power/apc/autoname_east,
-/obj/cable{
-	d2 = 2;
-	icon_state = "0-2"
-	},
-/obj/landmark/start{
-	name = "Chief Engineer"
-	},
-/turf/simulated/floor/black,
-/area/space)
 "Qz" = (
 /obj/disposalpipe/segment/vertical,
 /obj/machinery/light{
@@ -13634,14 +10730,6 @@
 	},
 /turf/simulated/floor/grey,
 /area/station/bridge)
-"QA" = (
-/obj/cable{
-	icon_state = "1-2"
-	},
-/turf/simulated/wall/auto/reinforced/supernorn,
-/area/station/maintenance/storage{
-	name = "Maru Power Room"
-	})
 "QB" = (
 /obj/forcefield/energyshield/perma/doorlink{
 	desc = "A door-linked force field that prevents gasses from passing through it.";
@@ -13660,10 +10748,6 @@
 /obj/machinery/air_vendor,
 /turf/simulated/floor/grey,
 /area/station/crew_quarters/tenebrae)
-"QF" = (
-/obj/storage/crate,
-/turf/simulated/floor/plating/airless,
-/area/station/mining/refinery)
 "QG" = (
 /turf/simulated/floor,
 /area/station/crew_quarters/cafeteria{
@@ -13688,20 +10772,6 @@
 	},
 /turf/simulated/floor/purplewhite,
 /area/station/science/tenebrae)
-"QK" = (
-/obj/disposalpipe/segment/bent/east,
-/turf/simulated/floor/plating,
-/area/space)
-"QM" = (
-/obj/table/reinforced/auto,
-/obj/machinery/recharger{
-	pixel_x = -7
-	},
-/obj/machinery/recharger{
-	pixel_x = 8
-	},
-/turf/simulated/floor/plating/airless,
-/area/station/mining/refinery)
 "QN" = (
 /obj/machinery/light{
 	dir = 8;
@@ -13740,7 +10810,7 @@
 	name = "Magnet Area Boundary"
 	},
 /turf/simulated/floor/airless/plating/catwalk,
-/area/space)
+/area/mining/magnet)
 "QQ" = (
 /obj/machinery/macrofab/emergency_pod{
 	color = "#DDDDDD";
@@ -13753,23 +10823,11 @@
 	},
 /turf/simulated/floor/shuttlebay,
 /area/station/hangar)
-"QS" = (
-/obj/machinery/mass_driver{
-	dir = 4;
-	id = "maru_trash";
-	name = "Maru Waste Driver"
-	},
-/turf/simulated/floor/grey,
-/area/space)
 "QU" = (
 /turf/simulated/floor/orangeblack/corner{
 	dir = 4
 	},
 /area/station/hallway)
-"QV" = (
-/obj/machinery/ore_cloud_storage_container,
-/turf/simulated/floor/plating/airless,
-/area/station/mining/refinery)
 "QW" = (
 /obj/mug_rack{
 	pixel_y = 32
@@ -13789,15 +10847,6 @@
 	},
 /turf/simulated/floor/sanitary/white,
 /area/station/science/tenebrae)
-"QY" = (
-/obj/machinery/light,
-/obj/decal/tile_edge/line/yellow{
-	dir = 9;
-	icon_state = "line1"
-	},
-/obj/machinery/computer3/generic/communications,
-/turf/simulated/floor/yellowblack,
-/area/station/bridge)
 "QZ" = (
 /obj/disposalpipe/segment/vertical,
 /obj/cable{
@@ -13808,12 +10857,6 @@
 	},
 /turf/simulated/floor,
 /area/station/hydroponics/bay)
-"Ra" = (
-/obj/machinery/computer/announcement{
-	name = "Maru Announcement Computer"
-	},
-/turf/simulated/floor/yellowblack,
-/area/station/bridge)
 "Rb" = (
 /obj/machinery/door/airlock/pyro/glass{
 	dir = 4
@@ -13846,32 +10889,10 @@
 /area/station/crew_quarters/utility{
 	name = "Dionysus Cryocore"
 	})
-"Rf" = (
-/obj/storage/secure/closet/command/chief_engineer,
-/obj/item/clothing/suit/rad,
-/obj/item/clothing/head/rad_hood,
-/obj/machinery/light_switch/east,
-/turf/simulated/floor/yellowblack,
-/area/station/bridge)
 "Rg" = (
 /obj/stool/bed,
 /turf/simulated/floor/black,
 /area/station/bridge)
-"Ri" = (
-/obj/disposalpipe/segment/transport,
-/turf/simulated/wall/auto/reinforced/supernorn,
-/area/space)
-"Rj" = (
-/obj/machinery/vending/standard,
-/obj/machinery/light_switch/west,
-/turf/simulated/floor/grey,
-/area/space)
-"Rl" = (
-/obj/cable{
-	icon_state = "1-2"
-	},
-/turf/simulated/floor/plating,
-/area/space)
 "Rm" = (
 /obj/decal/poster/wallsign/stencil/right/d{
 	pixel_x = 14
@@ -13882,20 +10903,6 @@
 /obj/disposalpipe/segment/mail/horizontal,
 /turf/simulated/floor/sanitary/white,
 /area/station/science/tenebrae)
-"Rr" = (
-/obj/machinery/rkit,
-/obj/machinery/light_switch/west,
-/turf/simulated/floor/yellow/side{
-	dir = 8
-	},
-/area/space)
-"Rs" = (
-/obj/storage/secure/closet/engineering/engineer,
-/obj/item/clothing/ears/earmuffs,
-/turf/simulated/floor/black,
-/area/station/engine/storage{
-	name = "Maru Equipment"
-	})
 "Rt" = (
 /obj/cable{
 	icon_state = "4-8"
@@ -13939,14 +10946,6 @@
 /obj/machinery/computer/bank_data,
 /turf/simulated/floor/grey,
 /area/station/bridge)
-"Ry" = (
-/obj/machinery/light{
-	dir = 1;
-	layer = 9.1;
-	pixel_y = 21
-	},
-/turf/simulated/floor/shuttlebay,
-/area/space)
 "Rz" = (
 /obj/machinery/vehicle/miniputt/indyputt/armed,
 /turf/simulated/floor/shuttlebay,
@@ -13965,18 +10964,6 @@
 	},
 /turf/simulated/floor/grey,
 /area/station/crew_quarters)
-"RC" = (
-/obj/storage/secure/closet/engineering/engineer,
-/obj/item/clothing/ears/earmuffs,
-/obj/machinery/light{
-	dir = 1;
-	layer = 9.1;
-	pixel_y = 21
-	},
-/turf/simulated/floor/black,
-/area/station/engine/storage{
-	name = "Maru Equipment"
-	})
 "RD" = (
 /obj/decal/tile_edge/line/yellow{
 	dir = 4;
@@ -13992,14 +10979,6 @@
 /turf/simulated/floor/black,
 /area/station/crew_quarters/cafeteria{
 	name = "Dionysus Primary Zone"
-	})
-"RG" = (
-/obj/cable{
-	icon_state = "1-2"
-	},
-/turf/simulated/floor/caution/west,
-/area/station/engine/storage{
-	name = "Maru Equipment"
 	})
 "RI" = (
 /obj/cable{
@@ -14030,16 +11009,6 @@
 /area/station/crew_quarters/utility{
 	name = "Dionysus Cryocore"
 	})
-"RO" = (
-/obj/machinery/computer3/generic/communications,
-/obj/decal/tile_edge/line/yellow{
-	dir = 9;
-	icon_state = "line1"
-	},
-/obj/cable,
-/obj/machinery/power/data_terminal,
-/turf/simulated/floor/yellowblack,
-/area/space)
 "RP" = (
 /obj/machinery/power/terminal,
 /obj/cable,
@@ -14072,39 +11041,6 @@
 /obj/item/pen/fancy,
 /turf/simulated/floor/grey,
 /area/station/bridge)
-"RS" = (
-/obj/table/auto,
-/obj/item/storage/toolbox/electrical{
-	pixel_y = 7
-	},
-/obj/item/storage/toolbox/electrical{
-	pixel_y = 1
-	},
-/obj/item/clothing/gloves/yellow{
-	pixel_x = 2;
-	pixel_y = -6
-	},
-/obj/item/clothing/gloves/yellow{
-	pixel_x = -1;
-	pixel_y = -3
-	},
-/obj/item/device/multitool{
-	pixel_x = -7
-	},
-/obj/item/device/multitool{
-	pixel_x = 6
-	},
-/obj/machinery/light_switch/east,
-/turf/simulated/floor,
-/area/station/engine/storage{
-	name = "Maru Equipment"
-	})
-"RU" = (
-/obj/cable{
-	icon_state = "4-8"
-	},
-/turf/simulated/floor,
-/area/station/quartermaster/office)
 "RV" = (
 /obj/disposalpipe/segment/mail/vertical,
 /obj/cable{
@@ -14117,41 +11053,12 @@
 	dir = 1
 	},
 /area/station/quartermaster/office)
-"RW" = (
-/obj/machinery/drainage,
-/obj/item/storage/wall/emergency{
-	dir = 8;
-	pixel_x = 32
-	},
-/turf/simulated/floor/sanitary/white,
-/area/space)
-"RY" = (
-/obj/machinery/manufacturer/mechanic,
-/turf/simulated/floor/yellow/side{
-	dir = 4
-	},
-/area/space)
 "RZ" = (
 /obj/disposalpipe/segment/mail/horizontal,
 /turf/simulated/floor/specialroom/cafeteria,
 /area/station/crew_quarters/cafeteria{
 	name = "Dionysus Primary Zone"
 	})
-"Sa" = (
-/obj/machinery/shuttle/engine/propulsion{
-	dir = 4;
-	icon_state = "alt_propulsion"
-	},
-/obj/lattice{
-	dir = 4;
-	icon_state = "lattice-dir"
-	},
-/turf/space,
-/area/space)
-"Sc" = (
-/obj/machinery/portable_reclaimer,
-/turf/simulated/floor/grey,
-/area/space)
 "Sd" = (
 /obj/machinery/portable_reclaimer,
 /turf/simulated/floor/grey,
@@ -14178,18 +11085,6 @@
 /area/station/engine/storage{
 	name = "Maru Equipment"
 	})
-"Sh" = (
-/obj/machinery/launcher_loader/south,
-/turf/simulated/floor/grey,
-/area/space)
-"Sj" = (
-/obj/cable{
-	icon_state = "1-8"
-	},
-/turf/simulated/floor/orangeblack/side{
-	dir = 4
-	},
-/area/space)
 "Sk" = (
 /obj/disposalpipe/switch_junction/left/north,
 /turf/simulated/floor/engine,
@@ -14223,20 +11118,6 @@
 	},
 /turf/simulated/floor/darkblue,
 /area/station/bridge)
-"Sp" = (
-/obj/rack,
-/obj/item/clothing/suit/space/engineer,
-/obj/item/clothing/shoes/magnetic,
-/obj/item/clothing/mask/breath,
-/obj/item/clothing/head/helmet/space/engineer,
-/obj/item/tank/air,
-/obj/item/device/light/flashlight,
-/obj/item/storage/toolbox/mechanical,
-/obj/item/storage/belt/utility,
-/turf/simulated/floor/black,
-/area/station/engine/storage{
-	name = "Maru Equipment"
-	})
 "Sq" = (
 /obj/cable{
 	icon_state = "1-2"
@@ -14274,11 +11155,6 @@
 	},
 /turf/simulated/floor/shuttlebay,
 /area/station/hangar)
-"Su" = (
-/turf/simulated/floor/caution/corner/nw,
-/area/station/engine/storage{
-	name = "Maru Equipment"
-	})
 "Sw" = (
 /obj/decal/tile_edge/line/yellow{
 	dir = 10;
@@ -14290,17 +11166,6 @@
 	},
 /turf/simulated/floor,
 /area/station/quartermaster/office)
-"Sx" = (
-/obj/stool/bed,
-/obj/item/clothing/suit/bedsheet{
-	bcolor = "yellow";
-	icon_state = "bedsheet-yellow"
-	},
-/obj/landmark/start{
-	name = "Mechanic"
-	},
-/turf/simulated/floor/grey,
-/area/space)
 "Sy" = (
 /obj/disposalpipe/segment/horizontal,
 /obj/cable{
@@ -14308,81 +11173,6 @@
 	},
 /turf/simulated/floor/white,
 /area/station/science/tenebrae)
-"Sz" = (
-/turf/simulated/floor/caution/north,
-/area/station/engine/storage{
-	name = "Maru Equipment"
-	})
-"SA" = (
-/obj/rack,
-/obj/item/clothing/mask/breath,
-/obj/item/tank/jetpack,
-/obj/item/clothing/suit/space/engineer,
-/obj/item/clothing/head/helmet/space/engineer,
-/obj/item/device/gps,
-/obj/item/storage/belt/mining,
-/obj/machinery/phone/wall{
-	pixel_y = 32
-	},
-/turf/simulated/floor/orangeblack,
-/area/space)
-"SB" = (
-/obj/grille/catwalk{
-	dir = 10;
-	icon_state = "catwalk_cross"
-	},
-/obj/cable{
-	icon_state = "1-4"
-	},
-/turf/simulated/floor/airless/plating/catwalk{
-	dir = 10
-	},
-/area/space)
-"SC" = (
-/obj/rack,
-/obj/item/clothing/suit/space/emerg,
-/obj/item/clothing/head/emerg,
-/obj/item/clothing/mask/breath,
-/obj/item/tank/air,
-/obj/item/device/light/flashlight,
-/turf/simulated/floor/grey,
-/area/space)
-"SD" = (
-/obj/cable{
-	icon_state = "1-4"
-	},
-/turf/simulated/floor/caution/corner/misc{
-	dir = 9
-	},
-/area/station/engine/storage{
-	name = "Maru Equipment"
-	})
-"SE" = (
-/obj/table/auto,
-/obj/item/storage/box/cablesbox{
-	pixel_x = 7;
-	pixel_y = 6
-	},
-/obj/item/chem_grenade/metalfoam{
-	pixel_x = -9;
-	pixel_y = 10
-	},
-/obj/item/chem_grenade/metalfoam{
-	pixel_x = -9;
-	pixel_y = 7
-	},
-/obj/item/chem_grenade/metalfoam{
-	pixel_x = -9;
-	pixel_y = 4
-	},
-/obj/cable{
-	icon_state = "0-8"
-	},
-/obj/machinery/power/apc/autoname_east,
-/turf/simulated/floor,
-/area/station/engine/storage{
-	name = "Maru Equipment"
-	})
 "SF" = (
 /obj/cable{
 	icon_state = "4-8"
@@ -14395,27 +11185,6 @@
 	},
 /turf/simulated/floor/greenblack,
 /area/station/turret_protected/Zeta)
-"SG" = (
-/obj/cable,
-/obj/cable{
-	d2 = 2;
-	icon_state = "0-2"
-	},
-/obj/cable{
-	d2 = 8;
-	icon_state = "0-8"
-	},
-/obj/cable{
-	d2 = 4;
-	icon_state = "0-4"
-	},
-/obj/grille/catwalk{
-	dir = 4
-	},
-/turf/simulated/floor/airless/plating/catwalk{
-	dir = 4
-	},
-/area/space)
 "SK" = (
 /obj/decal/poster/wallsign/stencil/left/e{
 	pixel_x = 0
@@ -14441,18 +11210,6 @@
 	},
 /turf/simulated/floor/caution/west,
 /area/station/hallway)
-"SO" = (
-/obj/disposalpipe/segment/bent/north,
-/obj/cable{
-	icon_state = "1-2"
-	},
-/obj/cable{
-	icon_state = "1-8"
-	},
-/turf/simulated/floor/orangeblack,
-/area/station/maintenance/storage{
-	name = "Maru Power Room"
-	})
 "SP" = (
 /obj/disposalpipe/switch_junction/left/west,
 /obj/cable{
@@ -14466,20 +11223,6 @@
 /obj/disposalpipe/segment/mail/bent/north,
 /turf/simulated/floor/caution/north,
 /area/station/hallway)
-"SS" = (
-/obj/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/table/reinforced/auto,
-/obj/item/paper_bin,
-/obj/item/pen,
-/obj/item/clothing/ears/earmuffs,
-/obj/item/clothing/ears/earmuffs,
-/obj/item/device/radio,
-/turf/simulated/floor/orangeblack/side,
-/area/space)
 "ST" = (
 /obj/table/auto,
 /obj/item/storage/toolbox/electrical{
@@ -14497,28 +11240,6 @@
 /obj/wingrille_spawn/auto,
 /turf/simulated/floor/plating,
 /area/station/communications)
-"SW" = (
-/obj/disposalpipe/segment/bent/west,
-/obj/cable{
-	icon_state = "4-8"
-	},
-/turf/simulated/floor/black/grime,
-/area/station/maintenance/storage{
-	name = "Maru Power Room"
-	})
-"SX" = (
-/obj/machinery/door/poddoor/blast/pyro/podbay_autoclose{
-	dir = 4;
-	id = "marubay";
-	name = "Maru pod bay door"
-	},
-/obj/forcefield/energyshield/perma/doorlink{
-	desc = "A door-linked force field that prevents gasses from passing through it.";
-	name = "Door-linked Atmospheric Forcefield";
-	powerlevel = 1
-	},
-/turf/simulated/floor/shuttlebay,
-/area/space)
 "SY" = (
 /obj/disposalpipe/segment/horizontal,
 /turf/simulated/floor/grey,
@@ -14583,17 +11304,6 @@
 	},
 /turf/simulated/floor/black,
 /area/station/science/tenebrae)
-"Tk" = (
-/obj/cable{
-	icon_state = "1-8"
-	},
-/obj/cable{
-	icon_state = "4-8"
-	},
-/turf/simulated/floor/black/grime,
-/area/station/maintenance/storage{
-	name = "Maru Power Room"
-	})
 "Tm" = (
 /obj/grille/catwalk{
 	dir = 6
@@ -14619,14 +11329,6 @@
 /obj/disposalpipe/segment/mail/horizontal,
 /turf/simulated/floor/darkblue/checker,
 /area/station/science/artifact)
-"To" = (
-/obj/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/turf/simulated/floor/grey,
-/area/space)
 "Tp" = (
 /obj/machinery/mass_driver{
 	dir = 4;
@@ -14657,14 +11359,6 @@
 /area/station/hangar/science{
 	name = "Tenebrae Hangar"
 	})
-"Tv" = (
-/obj/cable{
-	icon_state = "1-8"
-	},
-/turf/simulated/floor/black/grime,
-/area/station/maintenance/storage{
-	name = "Maru Power Room"
-	})
 "Tx" = (
 /obj/disposalpipe/switch_junction/left/west{
 	mail_tag = "dionysus";
@@ -14684,12 +11378,6 @@
 	},
 /turf/simulated/wall/auto/reinforced/supernorn,
 /area/station/crew_quarters/tenebrae)
-"TB" = (
-/obj/cable{
-	icon_state = "1-8"
-	},
-/turf/simulated/floor,
-/area/station/quartermaster/office)
 "TC" = (
 /obj/cable{
 	icon_state = "1-8"
@@ -14697,12 +11385,6 @@
 /obj/disposalpipe/segment/mail/horizontal,
 /turf/simulated/floor/caution/westeast,
 /area/station/science/artifact)
-"TE" = (
-/obj/cable{
-	icon_state = "1-2"
-	},
-/turf/simulated/floor/black,
-/area/space)
 "TF" = (
 /obj/grille/catwalk{
 	dir = 4
@@ -14717,7 +11399,7 @@
 /turf/simulated/floor/airless/plating/catwalk{
 	dir = 4
 	},
-/area/space)
+/area/mining/magnet)
 "TG" = (
 /obj/table/wood/auto,
 /obj/machinery/glass_recycler{
@@ -14744,34 +11426,12 @@
 	},
 /turf/simulated/floor/wood/two,
 /area/station/bridge/hos)
-"TI" = (
-/obj/forcefield/energyshield/perma/doorlink{
-	desc = "A door-linked force field that prevents gasses from passing through it.";
-	dir = 4;
-	name = "Door-linked Atmospheric Forcefield";
-	powerlevel = 1
-	},
-/turf/simulated/floor/grey,
-/area/space)
-"TJ" = (
-/turf/simulated/floor/caution/corner/sw,
-/area/station/engine/storage{
-	name = "Maru Equipment"
-	})
 "TM" = (
 /obj/storage/closet/welding_supply,
 /turf/simulated/floor/orangeblack/side,
 /area/station/hangar/catering{
 	name = "Dionysus Hangar"
 	})
-"TN" = (
-/obj/cable{
-	icon_state = "0-4"
-	},
-/obj/machinery/manufacturer/general,
-/obj/machinery/power/apc/autoname_west,
-/turf/simulated/floor/grey,
-/area/space)
 "TO" = (
 /turf/simulated/wall/auto/reinforced/supernorn,
 /area/station/janitor{
@@ -14820,21 +11480,10 @@
 /area/station/maintenance/southeast{
 	name = "Dionysus Maintenance"
 	})
-"TV" = (
-/obj/cable{
-	icon_state = "1-8"
-	},
-/turf/simulated/floor/plating,
-/area/space)
 "TW" = (
 /turf/simulated/wall/auto/reinforced/supernorn,
 /area/station/maintenance/storage{
 	name = "Maru Power Room"
-	})
-"TX" = (
-/turf/simulated/floor/caution/south,
-/area/station/engine/storage{
-	name = "Maru Equipment"
 	})
 "TY" = (
 /obj/machinery/portable_atmospherics/canister/air/large,
@@ -14854,71 +11503,10 @@
 /area/station/hangar/science{
 	name = "Tenebrae Hangar"
 	})
-"Uc" = (
-/turf/simulated/floor/caution/corner/misc{
-	dir = 10
-	},
-/area/station/engine/storage{
-	name = "Maru Equipment"
-	})
-"Ud" = (
-/obj/table/auto,
-/obj/item/sheet/steel/reinforced/fullstack{
-	pixel_x = 7;
-	pixel_y = 14
-	},
-/obj/item/sheet/steel/reinforced/fullstack{
-	pixel_x = 7;
-	pixel_y = 14
-	},
-/obj/item/sheet/steel/fullstack{
-	pixel_x = -5;
-	pixel_y = 14
-	},
-/obj/item/sheet/steel/fullstack{
-	pixel_x = -5;
-	pixel_y = 14
-	},
-/obj/item/sheet/glass/fullstack{
-	pixel_x = 7;
-	pixel_y = 4
-	},
-/obj/item/sheet/glass/fullstack{
-	pixel_x = 7;
-	pixel_y = 4
-	},
-/obj/item/sheet/glass/reinforced/fullstack{
-	pixel_x = -5;
-	pixel_y = 4
-	},
-/obj/item/sheet/glass/reinforced/fullstack{
-	pixel_x = -5;
-	pixel_y = 4
-	},
-/obj/machinery/light{
-	dir = 4;
-	layer = 9.1;
-	pixel_x = 10
-	},
-/turf/simulated/floor,
-/area/station/engine/storage{
-	name = "Maru Equipment"
-	})
 "Uf" = (
 /obj/reagent_dispensers/fueltank,
 /turf/simulated/floor/caution/north,
 /area/station/hangar)
-"Ug" = (
-/obj/disposalpipe/segment/transport{
-	dir = 1;
-	icon_state = "pipe-c"
-	},
-/obj/machinery/shuttle/engine/propulsion{
-	dir = 4;
-	icon_state = "alt_propulsion"
-	},
-/turf/space,
-/area/space)
 "Uh" = (
 /obj/machinery/networked/storage/tape_drive{
 	bank_id = "Artlab";
@@ -14935,19 +11523,6 @@
 	},
 /turf/simulated/floor/darkblue/checker,
 /area/station/science/artifact)
-"Ui" = (
-/obj/item/storage/wall/emergency{
-	dir = 8;
-	pixel_x = 32
-	},
-/obj/disposalpipe/trunk/south,
-/obj/machinery/disposal/transport{
-	name = "Meridian transportation unit"
-	},
-/turf/simulated/floor/orangeblack/side{
-	dir = 6
-	},
-/area/space)
 "Uj" = (
 /obj/disposalpipe/segment/bent/west,
 /obj/cable{
@@ -14963,76 +11538,16 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/quartermaster/office)
-"Ul" = (
-/obj/cable{
-	icon_state = "1-8"
-	},
-/obj/cable{
-	icon_state = "1-2"
-	},
-/obj/cable{
-	icon_state = "1-4"
-	},
-/turf/simulated/floor/orangeblack,
-/area/station/maintenance/storage{
-	name = "Maru Power Room"
-	})
-"Un" = (
-/obj/machinery/door/airlock/pyro/glass/engineering{
-	dir = 4;
-	name = "Fore Zone";
-	req_access_txt = null
-	},
-/obj/access_spawn/engineering_power,
-/obj/disposalpipe/segment/horizontal,
-/obj/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/turf/simulated/floor/yellow,
-/area/space)
-"Uo" = (
-/obj/cable{
-	icon_state = "2-8"
-	},
-/turf/simulated/floor/orangeblack,
-/area/station/maintenance/storage{
-	name = "Maru Power Room"
-	})
 "Up" = (
 /obj/reagent_dispensers/watertank/fountain,
 /turf/simulated/floor/orangeblack/side,
 /area/station/hangar/engine{
 	name = "Maru Hangar"
 	})
-"Ur" = (
-/obj/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/cable{
-	d1 = 1;
-	d2 = 4;
-	icon_state = "1-4"
-	},
-/obj/stool/chair{
-	dir = 4
-	},
-/turf/simulated/floor/orangeblack/side,
-/area/space)
 "Us" = (
 /obj/disposalpipe/segment/bent/south,
 /turf/simulated/floor/plating,
 /area/station/maintenance)
-"Uu" = (
-/obj/cable{
-	icon_state = "0-8"
-	},
-/obj/machinery/power/furnace,
-/turf/simulated/floor/grey,
-/area/space)
 "Uv" = (
 /obj/machinery/emitter{
 	dir = 8
@@ -15048,20 +11563,6 @@
 	},
 /turf/simulated/wall/auto/reinforced/supernorn,
 /area/station/crew_quarters)
-"Ux" = (
-/obj/table/auto,
-/obj/item/storage/box/cablesbox{
-	pixel_x = 6
-	},
-/obj/item/device/multitool{
-	pixel_x = -9
-	},
-/obj/machinery/light/small{
-	dir = 4;
-	pixel_x = 12
-	},
-/turf/simulated/floor/grey,
-/area/space)
 "Uy" = (
 /obj/lattice{
 	dir = 9;
@@ -15091,14 +11592,6 @@
 	icon_state = "1-4"
 	},
 /turf/space,
-/area/space)
-"UF" = (
-/obj/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/turf/simulated/floor/orangeblack/side,
 /area/space)
 "UG" = (
 /obj/fitness/speedbag/clown,
@@ -15140,12 +11633,6 @@
 /area/station/crew_quarters/cafeteria{
 	name = "Dionysus Primary Zone"
 	})
-"UN" = (
-/obj/machinery/disposal_pipedispenser/mobile,
-/turf/simulated/floor/black,
-/area/station/engine/storage{
-	name = "Maru Equipment"
-	})
 "UO" = (
 /turf/simulated/wall/auto/reinforced/supernorn,
 /area/station/science/teleporter)
@@ -15167,28 +11654,6 @@
 /obj/machinery/plantpot,
 /turf/simulated/floor/grass,
 /area/station/hydroponics/bay)
-"UU" = (
-/obj/machinery/portable_atmospherics/canister/oxygen,
-/turf/simulated/floor/black,
-/area/station/engine/storage{
-	name = "Maru Equipment"
-	})
-"UV" = (
-/obj/storage/crate,
-/obj/item/electronics/frame/collector_control,
-/obj/item/electronics/frame/collector_control,
-/obj/item/electronics/frame/collector_control,
-/obj/item/electronics/frame/collector_array,
-/obj/item/electronics/frame/collector_array,
-/obj/item/electronics/frame/collector_array,
-/obj/item/electronics/frame/collector_array,
-/obj/item/electronics/frame/collector_array,
-/obj/item/electronics/frame/collector_array,
-/obj/item/electronics/soldering,
-/turf/simulated/floor/black,
-/area/station/engine/storage{
-	name = "Maru Equipment"
-	})
 "UX" = (
 /turf/simulated/wall/auto/reinforced/supernorn,
 /area/station/crew_quarters/baroffice)
@@ -15206,29 +11671,12 @@
 	},
 /turf/simulated/floor/green,
 /area/station/crew_quarters/kitchen)
-"Vb" = (
-/turf/simulated/floor/caution/west,
-/area/station/engine/storage{
-	name = "Maru Equipment"
-	})
 "Vd" = (
 /obj/disposalpipe/segment/mail/bent/south,
 /turf/simulated/floor/caution/corner/misc{
 	dir = 9
 	},
 /area/station/science/tenebrae)
-"Ve" = (
-/obj/item/rods/steel/fullstack{
-	pixel_x = 10;
-	pixel_y = 7
-	},
-/obj/stool/chair/yellow{
-	dir = 8
-	},
-/turf/simulated/floor,
-/area/station/engine/storage{
-	name = "Maru Equipment"
-	})
 "Vf" = (
 /obj/machinery/light,
 /obj/stool/chair{
@@ -15238,55 +11686,18 @@
 /area/station/hangar/catering{
 	name = "Dionysus Hangar"
 	})
-"Vg" = (
-/obj/cable{
-	icon_state = "1-2"
-	},
-/turf/simulated/floor/orangeblack,
-/area/station/maintenance/storage{
-	name = "Maru Power Room"
-	})
-"Vi" = (
-/obj/machinery/light,
-/turf/simulated/floor/orangeblack/side,
-/area/station/quartermaster/office)
 "Vj" = (
 /obj/cable{
 	icon_state = "4-10"
 	},
 /turf/space,
 /area/space)
-"Vk" = (
-/obj/machinery/conveyor{
-	dir = 1;
-	id = "qmin"
-	},
-/obj/machinery/light{
-	dir = 4;
-	layer = 9.1;
-	pixel_x = 10
-	},
-/turf/simulated/floor/caution/westeast,
-/area/station/quartermaster/office)
 "Vm" = (
 /obj/machinery/r_door_control/podbay{
 	pixel_x = 10
 	},
 /turf/simulated/wall/auto/reinforced/supernorn,
 /area/station/hangar)
-"Vo" = (
-/obj/machinery/emitter{
-	dir = 8
-	},
-/obj/machinery/light{
-	dir = 8;
-	layer = 9.1;
-	pixel_x = -10
-	},
-/turf/simulated/floor/black,
-/area/station/engine/storage{
-	name = "Maru Equipment"
-	})
 "Vp" = (
 /obj/disposalpipe/switch_junction/left/west{
 	mail_tag = "maru";
@@ -15362,68 +11773,6 @@
 /area/station/maintenance/southeast{
 	name = "Dionysus Maintenance"
 	})
-"Vx" = (
-/obj/disposalpipe/segment/transport,
-/obj/cable{
-	d1 = 2;
-	d2 = 4;
-	icon_state = "2-9"
-	},
-/turf/space,
-/area/space)
-"Vy" = (
-/obj/machinery/the_singularitygen,
-/turf/simulated/floor/black,
-/area/station/engine/storage{
-	name = "Maru Equipment"
-	})
-"VE" = (
-/obj/decal/tile_edge/stripe/extra_big{
-	dir = 4
-	},
-/obj/machinery/door/airlock/pyro/external{
-	dir = 8
-	},
-/obj/access_spawn/engineering_storage,
-/turf/simulated/floor/caution/corner/misc{
-	dir = 10
-	},
-/area/station/maintenance/storage{
-	name = "Maru Power Room"
-	})
-"VF" = (
-/obj/grille/catwalk{
-	dir = 10;
-	icon_state = "catwalk_cross"
-	},
-/obj/landmark/magnet_shield,
-/obj/securearea{
-	desc = "A warning that demarcates where the magnetic area begins.";
-	dir = 1;
-	icon_state = "magwarning";
-	name = "Magnet Area Boundary"
-	},
-/obj/securearea{
-	desc = "A warning that demarcates where the magnetic area begins.";
-	dir = 8;
-	icon_state = "magwarning";
-	name = "Magnet Area Boundary"
-	},
-/obj/securearea{
-	desc = "A warning that demarcates where the magnetic area begins.";
-	dir = 10;
-	icon_state = "magwarning";
-	name = "Magnet Area Boundary"
-	},
-/obj/securearea{
-	desc = "A warning sign. I guess this area is dangerous.";
-	icon_state = "magwarning2";
-	name = "ACTIVE MAGNET AREA"
-	},
-/turf/simulated/floor/airless/plating/catwalk{
-	dir = 10
-	},
-/area/mining/magnet)
 "VG" = (
 /obj/machinery/vehicle/pod_smooth/light,
 /turf/simulated/floor/shuttlebay,
@@ -15442,59 +11791,12 @@
 	},
 /turf/simulated/floor/grey,
 /area/station/crew_quarters/tenebrae)
-"VM" = (
-/obj/grille/catwalk{
-	dir = 4
-	},
-/obj/landmark/magnet_shield,
-/obj/securearea{
-	desc = "A warning that demarcates where the magnetic area begins.";
-	dir = 8;
-	icon_state = "magwarning";
-	name = "Magnet Area Boundary"
-	},
-/turf/simulated/floor/airless/plating/catwalk{
-	dir = 4
-	},
-/area/mining/magnet)
 "VN" = (
 /obj/machinery/door/airlock/pyro{
 	dir = 4
 	},
 /turf/simulated/floor/caution/westeast,
 /area/station/crew_quarters)
-"VO" = (
-/obj/grille/catwalk{
-	dir = 6;
-	icon_state = "catwalk_cross"
-	},
-/obj/landmark/magnet_shield,
-/obj/securearea{
-	desc = "A warning that demarcates where the magnetic area begins.";
-	icon_state = "magwarning";
-	name = "Magnet Area Boundary"
-	},
-/obj/securearea{
-	desc = "A warning that demarcates where the magnetic area begins.";
-	dir = 8;
-	icon_state = "magwarning";
-	name = "Magnet Area Boundary"
-	},
-/obj/securearea{
-	desc = "A warning that demarcates where the magnetic area begins.";
-	dir = 6;
-	icon_state = "magwarning";
-	name = "Magnet Area Boundary"
-	},
-/obj/securearea{
-	desc = "A warning sign. I guess this area is dangerous.";
-	icon_state = "magwarning2";
-	name = "ACTIVE MAGNET AREA"
-	},
-/turf/simulated/floor/airless/plating/catwalk{
-	dir = 6
-	},
-/area/mining/magnet)
 "VP" = (
 /obj/disposalpipe/junction/right/east,
 /obj/cable{
@@ -15525,12 +11827,6 @@
 /area/station/solar/south{
 	name = "Dionysus Solar Array"
 	})
-"VR" = (
-/obj/machinery/field_generator,
-/turf/simulated/floor/black,
-/area/station/engine/storage{
-	name = "Maru Equipment"
-	})
 "VS" = (
 /obj/table/auto,
 /obj/item/game_kit{
@@ -15541,40 +11837,11 @@
 	},
 /turf/simulated/floor/grey/side,
 /area/station/hallway)
-"VT" = (
-/obj/machinery/light/small{
-	dir = 8;
-	pixel_x = -12
-	},
-/obj/cable{
-	icon_state = "0-8"
-	},
-/obj/machinery/power/furnace,
-/turf/simulated/floor/grey,
-/area/space)
-"VU" = (
-/obj/table/auto,
-/obj/item/extinguisher{
-	pixel_x = -9;
-	pixel_y = 9
-	},
-/obj/item/sheet/glass/fullstack{
-	pixel_x = 6
-	},
-/turf/simulated/floor/grey,
-/area/space)
 "VW" = (
 /obj/disposalpipe/segment/horizontal,
 /turf/simulated/floor/grey,
 /area/station/crew_quarters/utility{
 	name = "Dionysus Cryocore"
-	})
-"VX" = (
-/obj/machinery/field_generator,
-/obj/machinery/light,
-/turf/simulated/floor/black,
-/area/station/engine/storage{
-	name = "Maru Equipment"
 	})
 "VZ" = (
 /obj/machinery/door/unpowered/wood/pyro{
@@ -15629,10 +11896,13 @@
 	})
 "Wl" = (
 /obj/disposalpipe/trunk/south,
-/obj/machinery/conveyor{
-	dir = 4
-	},
 /obj/disposaloutlet/east,
+/obj/machinery/conveyor{
+	dir = 4;
+	id = "tenebelt";
+	name = "Tenebrae disposal belt";
+	operating = 1
+	},
 /turf/simulated/floor/grey,
 /area/station/science/construction{
 	name = "Tenebrae Maintenance"
@@ -15693,31 +11963,10 @@
 /area/station/janitor{
 	name = "Dionysus Janitorial"
 	})
-"WD" = (
-/obj/machinery/door/airlock/pyro/glass{
-	name = "Cargo Bay";
-	req_access_txt = "31"
-	},
-/obj/access_spawn/cargo,
-/obj/disposalpipe/segment/vertical,
-/obj/cable{
-	icon_state = "1-2"
-	},
-/turf/simulated/floor/orangeblack,
-/area/space)
-"WF" = (
-/turf/simulated/floor/shuttlebay,
-/area/space)
 "WH" = (
 /obj/disposalpipe/segment/vertical,
 /turf/simulated/floor/purpleblack,
 /area/station/science/chemistry)
-"WI" = (
-/obj/disposalpipe/segment/transport{
-	dir = 4
-	},
-/turf/space,
-/area/space)
 "WJ" = (
 /obj/stool/bed,
 /obj/landmark/start{
@@ -15731,17 +11980,6 @@
 /area/station/crew_quarters/utility{
 	name = "Dionysus Cryocore"
 	})
-"WK" = (
-/obj/cable{
-	icon_state = "2-4"
-	},
-/obj/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/turf/simulated/floor/orangeblack/side,
-/area/space)
 "WM" = (
 /obj/cable{
 	icon_state = "1-2"
@@ -15758,15 +11996,6 @@
 /area/station/science/chemistry)
 "WR" = (
 /turf/simulated/floor/metalfoam,
-/area/space)
-"WS" = (
-/obj/stool/chair/yellow{
-	dir = 8
-	},
-/obj/landmark/start{
-	name = "Miner"
-	},
-/turf/simulated/floor/orangeblack,
 /area/space)
 "WT" = (
 /obj/machinery/door/airlock/pyro/glass,
@@ -15785,21 +12014,10 @@
 /area/station/hangar/engine{
 	name = "Maru Hangar"
 	})
-"Xd" = (
-/obj/stool/chair/yellow,
-/obj/landmark/start{
-	name = "Miner"
-	},
-/turf/simulated/floor/orangeblack,
-/area/space)
 "Xe" = (
 /obj/machinery/manufacturer/personnel,
 /turf/simulated/floor/grey,
 /area/station/bridge)
-"Xf" = (
-/obj/reagent_dispensers/foamtank,
-/turf/simulated/floor/plating,
-/area/space)
 "Xg" = (
 /turf/simulated/floor/orangeblack/side{
 	dir = 1
@@ -15832,21 +12050,6 @@
 /area/station/engine/storage{
 	name = "Maru Equipment"
 	})
-"Xo" = (
-/obj/rack,
-/obj/item/clothing/mask/breath,
-/obj/item/tank/jetpack,
-/obj/item/clothing/suit/space/engineer,
-/obj/item/clothing/head/helmet/space/engineer,
-/obj/item/device/gps,
-/obj/item/storage/belt/mining,
-/obj/machinery/light{
-	dir = 8;
-	layer = 9.1;
-	pixel_x = -10
-	},
-/turf/simulated/floor/orangeblack,
-/area/space)
 "Xp" = (
 /obj/cable{
 	icon_state = "2-8"
@@ -15856,17 +12059,6 @@
 /area/station/maintenance/southeast{
 	name = "Dionysus Maintenance"
 	})
-"Xq" = (
-/obj/machinery/vending/coffee,
-/obj/machinery/camera{
-	c_tag = "autotag";
-	dir = 4;
-	name = "autoname - SS13";
-	pixel_x = -10;
-	tag = ""
-	},
-/turf/simulated/floor/grey,
-/area/space)
 "Xr" = (
 /obj/machinery/shuttle/engine/heater{
 	dir = 4;
@@ -15916,17 +12108,6 @@
 	},
 /turf/simulated/floor/grass/leafy,
 /area/station/ranch)
-"XE" = (
-/obj/table/auto,
-/obj/machinery/cell_charger,
-/obj/item/cell/charged,
-/obj/item/cell/charged,
-/turf/simulated/floor/grey,
-/area/space)
-"XF" = (
-/obj/reagent_dispensers/foamtank,
-/turf/simulated/floor/grey,
-/area/space)
 "XG" = (
 /obj/machinery/driver_button{
 	desc = "An emergency ejection button.  Maybe some antique gizmo turns out to be an active bomb or something.  Maybe you want it away from you then.";
@@ -15957,28 +12138,6 @@
 /area/station/crew_quarters/utility{
 	name = "Dionysus Cryocore"
 	})
-"XM" = (
-/obj/table/auto,
-/obj/item/storage/toolbox/electrical{
-	pixel_y = 7
-	},
-/obj/item/storage/toolbox/mechanical{
-	pixel_y = -3
-	},
-/obj/item/storage/belt/utility{
-	pixel_y = 4
-	},
-/turf/simulated/floor/grey,
-/area/space)
-"XN" = (
-/obj/machinery/light,
-/obj/machinery/computer/announcement{
-	name = "Maru Announcement Computer"
-	},
-/obj/cable,
-/obj/machinery/power/data_terminal,
-/turf/simulated/floor/yellowblack,
-/area/space)
 "XP" = (
 /obj/table/reinforced/auto,
 /obj/machinery/cashreg,
@@ -15991,21 +12150,6 @@
 	dir = 1
 	},
 /area/station/science/chemistry)
-"XQ" = (
-/obj/table/auto,
-/obj/item/sheet/steel{
-	amount = 50;
-	pixel_x = 6
-	},
-/obj/item/device/gps{
-	pixel_x = -13
-	},
-/obj/item/reagent_containers/glass/oilcan{
-	pixel_x = -14;
-	pixel_y = 10
-	},
-/turf/simulated/floor/grey,
-/area/space)
 "XU" = (
 /obj/machinery/chem_master{
 	dir = 8
@@ -16025,12 +12169,6 @@
 	},
 /turf/simulated/floor,
 /area/station/hallway)
-"XW" = (
-/obj/machinery/light_switch/north,
-/turf/simulated/floor/orangeblack/side{
-	dir = 5
-	},
-/area/space)
 "XY" = (
 /obj/forcefield/energyshield/perma/doorlink{
 	desc = "A door-linked force field that prevents gasses from passing through it.";
@@ -16044,11 +12182,6 @@
 /obj/wingrille_spawn/auto,
 /turf/simulated/floor/plating,
 /area/station/hydroponics/bay)
-"Ya" = (
-/obj/lattice,
-/obj/machinery/macrofab/emergency_pod,
-/turf/space,
-/area/space)
 "Yd" = (
 /obj/landmark/magnet_shield,
 /obj/securearea{
@@ -16063,16 +12196,7 @@
 	dir = 8;
 	icon_state = "catwalk_cross"
 	},
-/area/space)
-"Yh" = (
-/obj/disposalpipe/segment/bent/west,
-/obj/machinery/conveyor{
-	id = "marubelt";
-	name = "Maru disposal belt";
-	operating = 1
-	},
-/turf/simulated/floor/grey,
-/area/space)
+/area/mining/magnet)
 "Yj" = (
 /obj/disposalpipe/switch_junction/right/east{
 	mail_tag = "hammer";
@@ -16107,18 +12231,6 @@
 	},
 /turf/simulated/wall/auto/reinforced/supernorn,
 /area/station/science/chemistry)
-"Yt" = (
-/obj/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/table/reinforced/auto,
-/obj/machinery/cell_charger,
-/obj/item/cell/supercell/charged,
-/obj/item/cell/charged,
-/turf/simulated/floor/orangeblack/side,
-/area/space)
 "Yu" = (
 /obj/stool/chair/office/blue{
 	dir = 4
@@ -16134,24 +12246,6 @@
 	dir = 8
 	},
 /area/station/quartermaster/office)
-"Yy" = (
-/obj/machinery/mass_driver{
-	dir = 4;
-	id = "maru_trash";
-	name = "Maru Waste Driver"
-	},
-/obj/machinery/door/poddoor/pyro{
-	dir = 4;
-	id = "maru_trash";
-	name = "Maru Waste Door"
-	},
-/obj/forcefield/energyshield/perma/doorlink{
-	desc = "A door-linked force field that prevents gasses from passing through it.";
-	name = "Door-linked Atmospheric Forcefield";
-	powerlevel = 1
-	},
-/turf/simulated/floor/grey,
-/area/space)
 "YB" = (
 /obj/stool/chair{
 	dir = 4
@@ -16184,15 +12278,6 @@
 	},
 /turf/simulated/floor/grass/leafy,
 /area/station/ranch)
-"YH" = (
-/obj/grille/catwalk{
-	dir = 4
-	},
-/obj/cable{
-	icon_state = "1-2"
-	},
-/turf/simulated/floor/black,
-/area/space)
 "YJ" = (
 /obj/cable{
 	icon_state = "1-2"
@@ -16258,22 +12343,6 @@
 /area/station/crew_quarters/cafeteria{
 	name = "Dionysus Primary Zone"
 	})
-"YV" = (
-/obj/storage/secure/closet/command/chief_engineer,
-/obj/item/deconstructor,
-/obj/item/item_box/gold_star{
-	item_amount = 20
-	},
-/obj/item/cargotele,
-/obj/item/storage/wall{
-	desc = "It's a big box that comes in useful when the inevitable depressurization occurs.";
-	dir = 8;
-	name = "breach response cabinet";
-	pixel_x = 32;
-	spawn_contents = list(/obj/item/chem_grenade/metalfoam,/obj/item/chem_grenade/metalfoam,/obj/item/chem_grenade/metalfoam,/obj/item/tank/emergency_oxygen,/obj/item/tank/emergency_oxygen)
-	},
-/turf/simulated/floor/yellowblack,
-/area/space)
 "YX" = (
 /obj/table/reinforced/auto,
 /obj/machinery/cashreg,
@@ -16298,11 +12367,7 @@
 	name = "Magnet Area Boundary"
 	},
 /turf/simulated/floor/airless/plating/catwalk,
-/area/space)
-"Zc" = (
-/obj/machinery/recharge_station,
-/turf/simulated/floor/plating/airless,
-/area/space)
+/area/mining/magnet)
 "Zd" = (
 /turf/simulated/floor/plating,
 /area/station/maintenance)
@@ -16321,23 +12386,6 @@
 /area/station/science/research_director{
 	name = "Tenebrae Command Center"
 	})
-"Zf" = (
-/obj/table/auto,
-/obj/item/storage/toolbox/electrical,
-/obj/item/storage/toolbox/electrical,
-/obj/item/clothing/gloves/yellow,
-/obj/item/clothing/gloves/yellow,
-/obj/item/device/multitool,
-/obj/item/device/multitool,
-/obj/item/chem_grenade/metalfoam,
-/obj/item/chem_grenade/metalfoam,
-/turf/simulated/floor/grey,
-/area/space)
-"Zg" = (
-/obj/machinery/light/small,
-/obj/machinery/launcher_loader/east,
-/turf/simulated/floor/grey,
-/area/space)
 "Zi" = (
 /obj/wingrille_spawn/auto,
 /obj/disposalpipe/switch_junction/left/east{
@@ -16346,33 +12394,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/communications)
-"Zj" = (
-/obj/machinery/conveyor{
-	dir = 4;
-	name = "cargo belt - east";
-	operating = 1
-	},
-/turf/simulated/floor/plating,
-/area/space)
-"Zk" = (
-/obj/machinery/light{
-	dir = 8;
-	layer = 9.1;
-	pixel_x = -10
-	},
-/obj/table/auto,
-/obj/item/sheet/steel{
-	amount = 50
-	},
-/obj/item/sheet/glass/reinforced{
-	amount = 50
-	},
-/obj/item/storage/toolbox/electrical,
-/obj/item/wrench,
-/turf/simulated/floor/orangeblack/side{
-	dir = 8
-	},
-/area/space)
 "Zm" = (
 /obj/disposalpipe/segment/mail/bent/north,
 /obj/foamedmetal,
@@ -50905,9 +46926,9 @@ hA
 hA
 hA
 hA
-zw
-fh
-HI
+hA
+hA
+hA
 hA
 hA
 hA
@@ -51207,9 +47228,9 @@ hA
 hA
 hA
 hA
-Rd
-it
-Rd
+hA
+hA
+hA
 hA
 hA
 hA
@@ -51509,9 +47530,9 @@ hA
 hA
 hA
 hA
-Rd
-it
-Rd
+hA
+hA
+hA
 hA
 hA
 hA
@@ -51810,11 +47831,11 @@ hA
 hA
 hA
 hA
-hk
-hk
-Nt
-hk
-hk
+hA
+hA
+hA
+hA
+hA
 hA
 hA
 hA
@@ -52111,13 +48132,13 @@ hA
 hA
 hA
 hA
-hk
-hk
-yu
-PK
-ll
-hk
-hk
+hA
+hA
+hA
+hA
+hA
+hA
+hA
 hA
 hA
 hA
@@ -52413,13 +48434,13 @@ hA
 hA
 hA
 hA
-hk
-Kx
-gt
-pd
-jU
-RO
-hk
+hA
+hA
+hA
+hA
+hA
+hA
+hA
 hA
 hA
 hA
@@ -52715,13 +48736,13 @@ hA
 hA
 hA
 hA
-hk
-Qv
-YH
-TE
-oH
-XN
-hk
+hA
+hA
+hA
+hA
+hA
+hA
+hA
 hA
 hA
 hA
@@ -53017,13 +49038,13 @@ hA
 hA
 hA
 hA
-hk
-cm
-Db
-Qy
-eu
-YV
-hk
+hA
+hA
+hA
+hA
+hA
+hA
+hA
 hA
 hA
 hA
@@ -53319,19 +49340,19 @@ hA
 hA
 hA
 hA
-md
-md
-md
-md
-Eg
-md
-md
-gs
 hA
 hA
 hA
 hA
-KS
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
 hA
 hA
 hA
@@ -53620,20 +49641,20 @@ hA
 hA
 hA
 hA
-md
-md
-yl
-Rr
-md
-xc
-NS
-md
-md
 hA
 hA
 hA
 hA
-DV
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
 hA
 hA
 hA
@@ -53922,20 +49943,20 @@ hA
 hA
 hA
 hA
-hk
-Oq
-yw
-gB
-hk
-oM
-ph
-pV
-hk
 hA
 hA
 hA
 hA
-DV
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
 hA
 hA
 hA
@@ -54218,27 +50239,27 @@ hA
 hA
 hA
 hA
-od
-FD
-vk
-zw
-ym
-qQ
-hk
-HJ
-df
-nE
-MT
-yJ
-DA
-gr
-hk
 hA
 hA
 hA
-fb
-zN
-vk
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
 hA
 hA
 hA
@@ -54520,27 +50541,27 @@ hA
 hA
 hA
 hA
-od
-SG
-vk
-md
-sB
-Pc
-md
-mu
-mZ
-hQ
-hk
-hP
-jR
-bf
-md
-md
-md
 hA
-fb
-SG
-vk
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
 hA
 hA
 hA
@@ -54822,27 +50843,27 @@ hA
 hA
 hA
 hA
-od
-SG
-vk
-md
-Zj
-EL
-wc
-ej
-tn
-RY
-hk
-Zf
-jR
-lS
-wc
-dJ
-md
-md
-fb
-SG
-vk
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
 hA
 hA
 hA
@@ -55124,27 +51145,27 @@ hA
 hA
 hA
 hA
-od
-SG
-vk
-md
-KP
-zS
-wc
-wc
-hk
-hk
-hk
-hk
-Un
-hk
-wc
-tM
-mD
-md
-fb
-SG
-vk
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
 hA
 hA
 hA
@@ -55426,27 +51447,27 @@ hA
 hA
 hA
 hA
-od
-SG
-vk
-md
-fy
-Ci
-AN
-sf
-OT
-qW
-eS
-hk
-ef
-yO
-eB
-RW
-EA
-md
-fb
-SG
-vk
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
 hA
 hA
 hA
@@ -55727,29 +51748,29 @@ hA
 hA
 hA
 hA
-zw
-oC
-DV
-oC
-md
-fH
-yI
-hk
-hX
-fS
-FB
-OM
-hk
-eO
-UF
-wc
-wc
-wc
-md
-oC
-DV
-oC
-HI
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
 hA
 hA
 hA
@@ -56029,29 +52050,29 @@ hA
 hA
 hA
 hA
-bE
-gj
-vb
-rz
-md
-yI
-yI
-JX
-ne
-CJ
-pL
-JF
-hk
-La
-WK
-aX
-Dh
-To
-aX
-LS
-Jg
-SB
-Av
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
 hA
 hA
 hA
@@ -56331,29 +52352,29 @@ hA
 hA
 hA
 hA
-bE
-DV
-oC
-Zc
-md
-re
-sN
-wc
-nF
-yy
-sd
-nt
-WD
-kZ
-Ur
-hk
-SC
-Gd
-md
-Ya
-oC
-DV
-Av
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
 hA
 hA
 hA
@@ -56633,29 +52654,29 @@ hA
 hA
 hA
 hA
-od
-pq
-oC
-md
-md
-wc
-wc
-wc
-eZ
-Sj
-kF
-pK
-Dq
-eO
-Yt
-wc
-wc
-wc
-md
-md
-oC
-CT
-vk
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
 hA
 hA
 hA
@@ -56935,29 +52956,29 @@ hA
 hA
 hA
 hA
-od
-pq
-md
-md
-MO
-Xq
-Jp
-wc
-eX
-jr
-nj
-tO
-hk
-eO
-SS
-wc
-iR
-zp
-yz
-md
-md
-CT
-vk
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
 hA
 hA
 hA
@@ -57237,29 +53258,29 @@ hA
 hA
 hA
 hA
-od
-pq
-md
-zk
-vB
-Lb
-kU
-wc
-hk
-hk
-hk
-hk
-wc
-eO
-wx
-wc
-sa
-QK
-Yh
-pX
-wh
-CT
-vk
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
 hA
 hA
 hA
@@ -57539,29 +53560,29 @@ hA
 hA
 hA
 hA
-od
-fd
-gO
-Aj
-JT
-To
-To
-CK
-Mq
-hE
-hE
-hE
-hE
-vm
-zx
-wc
-Bl
-dC
-hk
-IN
-pl
-CT
-vk
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
 hA
 hA
 hA
@@ -57841,29 +53862,29 @@ hA
 hA
 hA
 hA
-od
-pq
-hk
-Sx
-Sx
-lQ
-sE
-wc
-hk
-hk
-hk
-hk
-wc
-dq
-iV
-FF
-xN
-By
-hk
-Mm
-hk
-CT
-vk
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
 hA
 hA
 hA
@@ -58143,29 +54164,29 @@ hA
 hA
 hA
 hA
-od
-pq
-hk
-vr
-lQ
-lQ
-Kb
-wc
-li
-Xo
-nj
-Ev
-hk
-ne
-mX
-wc
-DB
-gL
-Cb
-Zg
-hk
-CT
-vk
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
 hA
 hA
 hA
@@ -58445,29 +54466,29 @@ hA
 hA
 hA
 hA
-od
-vb
-md
-zP
-sE
-sE
-vH
-wc
-SA
-Xd
-oA
-jz
-hk
-ne
-fi
-wc
-Xf
-uj
-pc
-QS
-md
-pm
-vk
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
 hA
 hA
 hA
@@ -58689,9 +54710,9 @@ hA
 hA
 ik
 ik
-Lp
-NU
-PJ
+gl
+gH
+hQ
 ik
 ik
 hA
@@ -58749,26 +54770,26 @@ hA
 hA
 hA
 hA
-md
-md
-Di
-JH
-eq
-md
-OW
-IK
-tp
-IK
-nH
-Pl
-Bd
-md
-Di
-JH
-eq
-Yy
-md
-wy
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
 hA
 hA
 hA
@@ -58990,11 +55011,11 @@ rd
 hA
 hA
 ik
-In
-LY
-Og
-PM
-QY
+fC
+gq
+gJ
+hR
+iY
 ik
 hA
 hA
@@ -59051,26 +55072,26 @@ hA
 hA
 hA
 hA
-Rd
 hA
-FZ
-qU
-qU
-md
-Gp
-oA
-bn
-wH
-hk
-ne
-Ny
-Ri
-Ug
-qU
-Sa
 hA
-Rd
-YD
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
 hA
 hA
 hA
@@ -59292,11 +55313,11 @@ Rd
 hA
 hA
 ik
-IG
-MB
-Or
-PP
-Ra
+fE
+gr
+gL
+hX
+iZ
 ik
 hA
 hA
@@ -59353,27 +55374,27 @@ hA
 hA
 hA
 hA
-Rd
-hA
-Rd
 hA
 hA
-md
-GG
-oA
-WS
-CQ
-wc
-XW
-Ui
-Ri
-fj
-zQ
-Lq
-zQ
-Lq
-zQ
-Vx
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
 hA
 hA
 hA
@@ -59594,11 +55615,11 @@ bE
 pJ
 qQ
 ik
-IH
-MD
-Oy
-PR
-Rf
+fH
+gs
+gM
+hY
+jd
 ik
 qQ
 pJ
@@ -59655,25 +55676,25 @@ hA
 hA
 hA
 hA
-Rd
-hA
-Rd
 hA
 hA
-md
-hk
-iv
-hk
-hk
-wc
-OK
-wc
-md
-WI
 hA
-Rd
 hA
-Rd
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
 hA
 hA
 hA
@@ -59957,25 +55978,25 @@ hA
 hA
 hA
 hA
-Rd
-hA
-Rd
 hA
 hA
-md
-kN
-Ok
-kt
-Zk
-HH
-Ok
-dB
-md
-WI
 hA
-Rd
 hA
-Rd
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
 hA
 hA
 hA
@@ -60193,11 +56214,11 @@ tk
 WR
 WR
 WR
-fw
-ku
+bn
+di
 if
 if
-lY
+eZ
 nO
 pR
 sW
@@ -60259,25 +56280,25 @@ hA
 hA
 hA
 hA
-Rd
-hA
-Rd
 hA
 hA
-hk
-yq
-wD
-wD
-wD
-wD
-wD
-wD
-hk
-WI
 hA
-Rd
 hA
-Rd
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
 hA
 hA
 hA
@@ -60474,36 +56495,36 @@ ZB
 cB
 Iu
 II
-eK
-eK
-eK
-eK
-eK
-eK
-eK
-eK
-eK
-eK
-eK
-eK
-eK
-eK
-eK
-eK
-eK
-eK
-fv
-fv
-fv
-fz
-lz
-Co
+aX
+aX
+aX
+aX
+aX
+aX
+aX
+aX
+aX
+aX
+aX
+aX
+aX
+aX
+aX
+aX
+aX
+aX
+bf
+bf
+bf
+cm
+dq
+eq
 kn
-Hq
+fb
 mk
 qi
 sX
-PY
+iv
 wv
 CI
 Eo
@@ -60561,25 +56582,25 @@ hA
 hA
 hA
 hA
-Rd
-hA
-Rd
 hA
 hA
-hk
-WF
-mp
-WF
-Nu
-WF
-WF
-so
-hk
-WI
 hA
-Rd
 hA
-Rd
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
 hA
 hA
 hA
@@ -60797,14 +56818,14 @@ WR
 WR
 WR
 WR
-fw
-ku
+bn
+di
 ih
 kp
 ml
 nV
 qj
-OE
+gN
 nV
 nV
 CL
@@ -60863,25 +56884,25 @@ hA
 hA
 hA
 hA
-Rd
-hA
-Rd
 hA
 hA
-md
-Ry
-WF
-WF
-WF
-WF
-WF
-gq
-md
-WI
 hA
-Rd
 hA
-Rd
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
 hA
 hA
 hA
@@ -61100,7 +57121,7 @@ hA
 hA
 Lk
 bE
-fC
+cn
 if
 if
 mG
@@ -61165,25 +57186,25 @@ hA
 hA
 hA
 hA
-Rd
-hA
-Rd
 hA
 hA
-IX
-SX
-SX
-SX
-SX
-SX
-SX
-SX
-md
-WI
 hA
-Rd
 hA
-Rd
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
 hA
 hA
 hA
@@ -61401,14 +57422,14 @@ hA
 hA
 hA
 Rd
-fC
-fC
-CW
-fE
+cn
+cn
+eu
+df
 rx
 nW
 qu
-OO
+gO
 dI
 Yw
 NB
@@ -61467,25 +57488,25 @@ hA
 hA
 hA
 hA
-Rd
-hA
-Rd
-hA
-hA
-Rd
-hA
-rv
 hA
 hA
 hA
-rv
 hA
-Rd
-WI
 hA
-Rd
 hA
-Rd
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
 hA
 hA
 hA
@@ -61703,18 +57724,18 @@ hA
 hA
 hA
 bE
-fC
-lC
-DX
-GE
-Hv
+cn
+dB
+eB
+eX
+fd
 nX
 qA
 uO
 RV
 yR
 CO
-TB
+kx
 Jc
 Du
 tz
@@ -61769,25 +57790,25 @@ hA
 hA
 hA
 hA
-Rd
-hA
-Rd
 hA
 hA
-Rd
 hA
-rv
-qQ
-qQ
-qQ
-rv
 hA
-Rd
-WI
 hA
-Rd
 hA
-Rd
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
 hA
 hA
 hA
@@ -62005,12 +58026,12 @@ hA
 hA
 hA
 bE
-fE
-oQ
-Fc
-fE
+df
+dC
+eK
+df
 Gq
-Js
+fR
 fr
 tz
 Vs
@@ -62071,25 +58092,25 @@ hA
 hA
 hA
 hA
-Rd
-hA
-Rd
 hA
 hA
-bE
-pJ
-rv
-rG
-uG
-wN
-rv
-pJ
-Av
-WI
 hA
-Rd
 hA
-Rd
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
 hA
 hA
 hA
@@ -62307,12 +58328,12 @@ hA
 hA
 hA
 bE
-fE
-fE
-FJ
-fE
+df
+df
+eO
+df
 mH
-Jw
+fS
 pk
 am
 mU
@@ -62373,25 +58394,25 @@ hA
 hA
 hA
 hA
-Rd
-hA
-Rd
 hA
 hA
-Rd
 hA
-Nl
-md
-md
-Ib
-rv
 hA
-Rd
-WI
 hA
-Rd
 hA
-Rd
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
 hA
 hA
 hA
@@ -62609,12 +58630,12 @@ hA
 hA
 hA
 bE
-fE
-sx
-FS
-fE
+df
+dJ
+eS
+df
 mI
-Jy
+fY
 jP
 tE
 Ks
@@ -62622,7 +58643,7 @@ Mc
 Sw
 wU
 Ko
-Vi
+lA
 tz
 Av
 hA
@@ -62675,25 +58696,25 @@ hA
 hA
 hA
 hA
-uR
-HI
-Rd
 hA
 hA
-Rd
 hA
-rv
-rL
-uM
-dO
-rv
 hA
-Rd
-di
-zQ
-Lq
-Kr
-LE
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
 hA
 hA
 hA
@@ -62915,8 +58936,8 @@ Oo
 Oo
 Oo
 Oo
-Hy
-JJ
+fi
+ge
 SP
 vf
 Uk
@@ -62978,23 +58999,23 @@ hA
 hA
 hA
 hA
-uR
-gA
-QP
-QP
-QP
-QP
-QP
-rN
-rN
-QP
-QP
-QP
-QP
-QP
-QP
-qo
-ng
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
 hA
 hA
 hA
@@ -63223,7 +59244,7 @@ Vp
 zh
 ww
 Ey
-RU
+jz
 xh
 to
 KI
@@ -63281,7 +59302,6 @@ hA
 hA
 hA
 hA
-TF
 hA
 hA
 hA
@@ -63295,8 +59315,9 @@ hA
 hA
 hA
 hA
-vy
-WI
+hA
+hA
+hA
 hA
 hA
 hA
@@ -63519,13 +59540,13 @@ aK
 aK
 aK
 uS
-HA
+Od
 Gg
 oz
 eG
 wz
 ze
-RU
+jz
 nu
 tz
 JB
@@ -63583,7 +59604,6 @@ hA
 hA
 hA
 hA
-TF
 hA
 hA
 hA
@@ -63597,8 +59617,9 @@ hA
 hA
 hA
 hA
-vy
-WI
+hA
+hA
+hA
 hA
 hA
 hA
@@ -63830,7 +59851,7 @@ Eq
 qO
 cp
 sq
-Vk
+lC
 sq
 ZH
 zD
@@ -63885,7 +59906,6 @@ hA
 hA
 hA
 hA
-TF
 hA
 hA
 hA
@@ -63899,8 +59919,9 @@ hA
 hA
 hA
 hA
-vy
-WI
+hA
+hA
+hA
 hA
 hA
 hA
@@ -64123,7 +60144,7 @@ aK
 aK
 aK
 aK
-Od
+fj
 Gg
 ie
 Qd
@@ -64187,7 +60208,6 @@ hA
 hA
 hA
 hA
-TF
 hA
 hA
 hA
@@ -64201,8 +60221,9 @@ hA
 hA
 hA
 hA
-vy
-WI
+hA
+hA
+hA
 hA
 hA
 hA
@@ -64431,10 +60452,10 @@ ie
 Hb
 ub
 Wk
-Sp
-Sp
-Sp
-Vo
+jI
+jI
+jI
+lG
 Uv
 ub
 hA
@@ -64489,7 +60510,6 @@ hA
 hA
 hA
 hA
-TF
 hA
 hA
 hA
@@ -64503,8 +60523,9 @@ hA
 hA
 hA
 hA
-vy
-WI
+hA
+hA
+hA
 hA
 hA
 hA
@@ -64727,15 +60748,15 @@ aK
 pE
 aK
 aK
-HN
-Kc
+fv
+gh
 ie
-OR
+gR
 ub
-Rs
-Su
-TJ
-UN
+jr
+jK
+kN
+lg
 Uv
 Uv
 ub
@@ -64791,7 +60812,6 @@ hA
 hA
 hA
 hA
-TF
 hA
 hA
 hA
@@ -64805,8 +60825,9 @@ hA
 hA
 hA
 hA
-vy
-WI
+hA
+hA
+hA
 hA
 hA
 hA
@@ -65034,10 +61055,10 @@ AJ
 Hl
 AJ
 ib
-RC
-Sz
-TX
-UU
+jv
+jL
+kU
+li
 Uv
 Uv
 ib
@@ -65093,22 +61114,22 @@ hA
 hA
 hA
 hA
-TF
 hA
 hA
 hA
 hA
 hA
 hA
-uV
 hA
 hA
 hA
 hA
 hA
 hA
-vy
-WI
+hA
+hA
+hA
+hA
 hA
 hA
 hA
@@ -65336,13 +61357,13 @@ ji
 jT
 Up
 ub
-Rs
-Sz
-TX
-UV
+jr
+jL
+kU
+lk
 Uv
 Uv
-VR
+lS
 ub
 pF
 aZ
@@ -65395,7 +61416,6 @@ hA
 hA
 hA
 hA
-TF
 hA
 hA
 hA
@@ -65409,8 +61429,9 @@ hA
 hA
 hA
 hA
-vy
-WI
+hA
+hA
+hA
 hA
 hA
 hA
@@ -65635,16 +61656,16 @@ Ad
 Ad
 ZG
 WU
-MI
-OU
-Qr
-RG
-SD
-Uc
-Vb
-TJ
-Vy
-VX
+gt
+gX
+iI
+jw
+jQ
+kX
+ll
+kN
+lM
+lU
 ub
 hA
 aZ
@@ -65697,7 +61718,6 @@ hA
 hA
 hA
 hA
-TF
 hA
 hA
 hA
@@ -65711,8 +61731,9 @@ hA
 hA
 hA
 hA
-vy
-WI
+hA
+hA
+hA
 hA
 hA
 hA
@@ -65940,13 +61961,13 @@ Fw
 VP
 nb
 ub
-RS
-SE
-Ud
-Ve
-Uc
-TJ
-VR
+jy
+jR
+kZ
+lr
+kX
+kN
+lS
 Xl
 pF
 aZ
@@ -65999,7 +62020,6 @@ hA
 hA
 hA
 hA
-TF
 hA
 hA
 hA
@@ -66013,8 +62033,9 @@ hA
 hA
 hA
 hA
-vy
-WI
+hA
+hA
+hA
 hA
 hA
 hA
@@ -66247,8 +62268,8 @@ ib
 ib
 ib
 ib
-TX
-VR
+kU
+lS
 Sg
 hA
 aZ
@@ -66301,7 +62322,6 @@ hA
 hA
 hA
 hA
-TF
 hA
 hA
 hA
@@ -66315,8 +62335,9 @@ hA
 hA
 hA
 hA
-vy
-WI
+hA
+hA
+hA
 hA
 hA
 hA
@@ -66541,15 +62562,15 @@ Hw
 OL
 dS
 oh
-MI
+gt
 ic
-QA
+iR
 zt
 CV
 CV
 GS
 TW
-VE
+lQ
 TW
 LQ
 qQ
@@ -66603,7 +62624,6 @@ hA
 hA
 hA
 hA
-TF
 hA
 hA
 hA
@@ -66617,8 +62637,9 @@ hA
 hA
 hA
 hA
-vy
-WI
+hA
+hA
+hA
 hA
 hA
 hA
@@ -66843,12 +62864,12 @@ tX
 cu
 mS
 zu
-MQ
-OZ
+gv
+hc
 px
 zM
-SO
-Ul
+jU
+la
 GU
 TW
 Iq
@@ -66905,7 +62926,6 @@ hA
 hA
 hA
 hA
-TF
 hA
 hA
 hA
@@ -66919,11 +62939,12 @@ hA
 hA
 hA
 hA
-vy
-di
-zQ
-zQ
-zQ
+hA
+hA
+hA
+hA
+hA
+hA
 hA
 hA
 hA
@@ -67140,18 +63161,18 @@ vJ
 ZG
 ZG
 VN
-vO
-vO
-vO
-vO
-vX
+ef
+ef
+ef
+ef
+hk
 qC
 tG
 TW
 zX
 CY
-Uo
-Vg
+lb
+lt
 HR
 Iy
 Kp
@@ -67207,21 +63228,21 @@ hA
 hA
 hA
 hA
-gD
-Yd
-Yd
-Za
-Za
-Yd
-Za
-Za
-Yd
-Za
-Za
-Za
-Za
-Za
-Jd
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
 hA
 hA
 hA
@@ -67442,16 +63463,16 @@ vK
 Df
 nq
 Ij
-vO
+ef
 ii
 ks
 mT
-vX
+hk
 qF
-vX
+hk
 TW
 zZ
-SW
+kl
 CZ
 GV
 TW
@@ -67744,18 +63765,18 @@ xj
 Gi
 Tq
 Uw
-vO
+ef
 ii
 ii
-HQ
-KD
-MS
+fw
+gj
+gB
 tQ
-QA
+iR
 Aa
-Tk
+kt
 EJ
-GV
+lz
 TW
 Ff
 Hi
@@ -68046,13 +64067,13 @@ hA
 qU
 qU
 gy
-vO
+ef
 ii
 ii
-HZ
+fy
 kA
-MV
-Pf
+gG
+hr
 TW
 Ag
 Dc
@@ -68348,13 +64369,13 @@ hA
 hA
 hA
 bE
-vX
+hk
 iu
 kw
 mV
 kA
-MV
-Ph
+gG
+hE
 TW
 Aq
 Dc
@@ -68650,16 +64671,16 @@ hA
 hA
 hA
 bE
-vX
+hk
 iy
 kA
 kA
 kA
-MV
-Pi
+gG
+hP
 TW
 At
-Tv
+ku
 CZ
 GV
 EV
@@ -68952,11 +64973,11 @@ hA
 hA
 hA
 bE
-vX
+hk
 iB
-GJ
-GJ
-KU
+kF
+fz
+gk
 qH
 tW
 TW
@@ -69254,13 +65275,13 @@ hA
 hA
 hA
 bE
-wB
-GC
-GL
-vO
+hp
+iG
+kH
+ef
 ov
-vO
-vX
+ef
+hk
 TW
 TW
 Dg
@@ -69559,12 +65580,12 @@ Rd
 qU
 qU
 kJ
-vX
-Li
-vX
+hk
+oA
+hk
 um
-QF
-Ll
+iV
+rv
 hA
 kJ
 qU
@@ -69861,9 +65882,9 @@ Rd
 hA
 hA
 Rd
-vO
+ef
 ov
-vO
+ef
 uu
 uu
 Ax
@@ -70164,11 +66185,11 @@ hA
 hA
 Rd
 hA
-Ll
+rv
 ru
 uz
 ru
-Ll
+rv
 hA
 Rd
 hA
@@ -70466,11 +66487,11 @@ hA
 hA
 Rd
 hA
-Ll
+rv
 ru
 uz
 ru
-Ll
+rv
 hA
 Rd
 hA
@@ -71070,11 +67091,11 @@ hA
 hA
 bE
 pJ
-Ll
-No
-PC
-QM
-Ll
+rv
+rG
+uG
+wN
+rv
 pJ
 Av
 hA
@@ -71372,11 +67393,11 @@ HI
 hA
 Rd
 hA
-Ll
-vO
-vO
-QV
-Ll
+rv
+ef
+ef
+Ib
+rv
 hA
 Rd
 hA
@@ -71674,11 +67695,11 @@ Av
 hA
 Rd
 hA
-Ll
-NA
-PE
-NA
-Ll
+rv
+rL
+uM
+rL
+rv
 hA
 Rd
 hA
@@ -71971,21 +67992,21 @@ hA
 hA
 hA
 hb
-hc
-Ab
-Ab
-Ab
-Ab
-Ab
-NQ
-NQ
-Ab
-Ab
-Ab
-Ab
-Ab
-Ab
-VF
+gA
+QP
+QP
+QP
+QP
+QP
+rN
+rN
+QP
+QP
+QP
+QP
+QP
+QP
+qo
 hb
 hA
 hA
@@ -72273,21 +68294,21 @@ hA
 hA
 hA
 qU
-jv
-Az
-Az
-Az
-Az
-Az
-Az
-Az
-Az
-Az
-Az
-Az
-Az
-Az
-VM
+TF
+ej
+ej
+ej
+ej
+ej
+ej
+ej
+ej
+ej
+ej
+ej
+ej
+ej
+vy
 qU
 hA
 hA
@@ -72575,21 +68596,21 @@ hA
 hA
 hA
 hA
-jv
-Az
-Az
-Az
-Az
-Az
-Az
-Az
-Az
-Az
-Az
-Az
-Az
-Az
-VM
+TF
+ej
+ej
+ej
+ej
+ej
+ej
+ej
+ej
+ej
+ej
+ej
+ej
+ej
+vy
 hA
 hA
 hA
@@ -72877,21 +68898,21 @@ hA
 hA
 hA
 hA
-jv
-Az
-Az
-Az
-Az
-Az
-Az
-Az
-Az
-Az
-Az
-Az
-Az
-Az
-VM
+TF
+ej
+ej
+ej
+ej
+ej
+ej
+ej
+ej
+ej
+ej
+ej
+ej
+ej
+vy
 hA
 hA
 hA
@@ -73179,21 +69200,21 @@ hA
 hA
 hA
 hA
-jv
-Az
-Az
-Az
-Az
-Az
-Az
-Az
-Az
-Az
-Az
-Az
-Az
-Az
-VM
+TF
+ej
+ej
+ej
+ej
+ej
+ej
+ej
+ej
+ej
+ej
+ej
+ej
+ej
+vy
 hA
 hA
 hA
@@ -73481,21 +69502,21 @@ hA
 hA
 hA
 hA
-jv
-Az
-Az
-Az
-Az
-Az
-Az
-Az
-Az
-Az
-Az
-Az
-Az
-Az
-VM
+TF
+ej
+ej
+ej
+ej
+ej
+ej
+ej
+ej
+ej
+ej
+ej
+ej
+ej
+vy
 hA
 hA
 hA
@@ -73783,21 +69804,21 @@ hA
 hA
 hA
 hA
-jv
-Az
-Az
-Az
-Az
-Az
-Az
-Az
-Az
-Az
-Az
-Az
-Az
-Az
-VM
+TF
+ej
+ej
+ej
+ej
+ej
+ej
+ej
+ej
+ej
+ej
+ej
+ej
+ej
+vy
 hA
 hA
 hA
@@ -74085,21 +70106,21 @@ hA
 hA
 hA
 hA
-jv
-Az
-Az
-Az
-Az
-Az
-Az
-PH
-Az
-Az
-Az
-Az
-Az
-Az
-VM
+TF
+ej
+ej
+ej
+ej
+ej
+ej
+uV
+ej
+ej
+ej
+ej
+ej
+ej
+vy
 hA
 hA
 hA
@@ -74387,21 +70408,21 @@ hA
 hA
 hA
 hA
-jv
-Az
-Az
-Az
-Az
-Az
-Az
-Az
-Az
-Az
-Az
-Az
-Az
-Az
-VM
+TF
+ej
+ej
+ej
+ej
+ej
+ej
+ej
+ej
+ej
+ej
+ej
+ej
+ej
+vy
 hA
 hA
 hA
@@ -74689,21 +70710,21 @@ hA
 hA
 hA
 hA
-jv
-Az
-Az
-Az
-Az
-Az
-Az
-Az
-Az
-Az
-Az
-Az
-Az
-Az
-VM
+TF
+ej
+ej
+ej
+ej
+ej
+ej
+ej
+ej
+ej
+ej
+ej
+ej
+ej
+vy
 hA
 hA
 hA
@@ -74991,21 +71012,21 @@ hA
 hA
 hA
 hA
-jv
-Az
-Az
-Az
-Az
-Az
-Az
-Az
-Az
-Az
-Az
-Az
-Az
-Az
-VM
+TF
+ej
+ej
+ej
+ej
+ej
+ej
+ej
+ej
+ej
+ej
+ej
+ej
+ej
+vy
 hA
 hA
 hA
@@ -75293,21 +71314,21 @@ hA
 hA
 hA
 hA
-jv
-Az
-Az
-Az
-Az
-Az
-Az
-Az
-Az
-Az
-Az
-Az
-Az
-Az
-VM
+TF
+ej
+ej
+ej
+ej
+ej
+ej
+ej
+ej
+ej
+ej
+ej
+ej
+ej
+vy
 hA
 hA
 hA
@@ -75332,17 +71353,17 @@ hA
 hA
 hA
 hA
-up
-LU
-NK
-Pp
-Qj
-Rj
-Sc
-TN
-Uu
-VT
-XE
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
 hA
 hA
 hA
@@ -75595,21 +71616,21 @@ hA
 hA
 hA
 hA
-jv
-Az
-Az
-Az
-Az
-Az
-Az
-Az
-Az
-Az
-Az
-Az
-Az
-Az
-VM
+TF
+ej
+ej
+ej
+ej
+ej
+ej
+ej
+ej
+ej
+ej
+ej
+ej
+ej
+vy
 hA
 hA
 hA
@@ -75634,17 +71655,17 @@ hA
 hA
 hA
 hA
-wM
-Mj
-NR
-Pu
-Qo
-Rl
-Rl
-TV
-yI
-yI
-XF
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
 hA
 hA
 hA
@@ -75897,21 +71918,21 @@ hA
 hA
 hA
 hA
-jv
-Az
-Az
-Az
-Az
-Az
-Az
-Az
-Az
-Az
-Az
-Az
-Az
-Az
-VM
+TF
+ej
+ej
+ej
+ej
+ej
+ej
+ej
+ej
+ej
+ej
+ej
+ej
+ej
+vy
 hA
 hA
 hA
@@ -75936,17 +71957,17 @@ hA
 hA
 hA
 hA
-cn
-yI
-md
-hk
-hk
-yI
-yI
-yI
-yI
-yI
-XM
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
 hA
 hA
 hA
@@ -76199,21 +72220,21 @@ hA
 hA
 hA
 hA
-jK
-BV
-BV
-GR
-GR
-BV
-GR
-GR
-BV
-GR
-GR
-GR
-GR
-GR
-VO
+gD
+Yd
+Yd
+Za
+Za
+Yd
+Za
+Za
+Yd
+Za
+Za
+Za
+Za
+Za
+Jd
 hA
 hA
 hA
@@ -76238,17 +72259,17 @@ hA
 hA
 hA
 hA
-MA
-MA
-NT
-PB
-Qp
-MA
-Sh
-lQ
-Ux
-VU
-XQ
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
 hA
 hA
 hA
@@ -76539,19 +72560,19 @@ hA
 hA
 hA
 hA
-hp
-iG
-kH
-md
-md
-md
-lQ
-md
-TI
-md
-hp
-iG
-kH
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
 hA
 hA
 hA
@@ -76841,19 +72862,19 @@ hA
 hA
 hA
 hA
-qU
-qU
-qU
-ET
-pF
-hk
-lQ
-hk
-pF
-tx
-qU
-qU
-qU
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
 hA
 hA
 hA
@@ -77148,9 +73169,9 @@ hA
 hA
 hA
 hA
-hk
-KY
-hk
+hA
+hA
+hA
 hA
 hA
 hA
@@ -77450,9 +73471,9 @@ hA
 hA
 hA
 hA
-hk
-lQ
-hk
+hA
+hA
+hA
 hA
 hA
 hA
@@ -77752,9 +73773,9 @@ hA
 hA
 hA
 hA
-md
-zI
-md
+hA
+hA
+hA
 hA
 hA
 hA
@@ -78054,9 +74075,9 @@ hA
 hA
 hA
 hA
-DY
-kx
-DY
+hA
+hA
+hA
 hA
 hA
 hA
@@ -78356,9 +74377,9 @@ hA
 hA
 hA
 hA
-md
-md
-md
+hA
+hA
+hA
 hA
 hA
 hA
@@ -78658,9 +74679,9 @@ hA
 hA
 hA
 hA
-FU
 hA
-FU
+hA
+hA
 hA
 hA
 hA
@@ -79822,19 +75843,19 @@ hA
 hA
 hA
 hA
-fR
-gG
-hr
-iI
-kX
-mW
-oK
-gh
-gh
-wV
-AG
-lQ
-lQ
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
 hA
 hA
 hA
@@ -80124,19 +76145,19 @@ hA
 hA
 hA
 hA
-fY
-gH
-hE
-hE
-la
-nd
-oO
-rO
-vg
-xn
-xn
-Dj
-Ea
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
 hA
 hA
 hA
@@ -80426,19 +76447,19 @@ hA
 hA
 hA
 hA
-ge
-gJ
-hQ
-iY
-lb
-nk
-oR
-oR
-hk
-xG
-AU
-DF
-Fm
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
 hA
 hA
 hA
@@ -80728,19 +76749,19 @@ hA
 hA
 hA
 hA
-gh
-gM
-hR
-iZ
-lg
-nl
-oS
-hE
-vn
-nl
-AW
-DG
-Fo
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
 hA
 hA
 hA
@@ -81030,19 +77051,19 @@ hA
 hA
 hA
 hA
-gk
-gN
-hQ
-jd
-lk
-hR
-hQ
-rS
-hk
-xH
-pL
-hQ
-Fq
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
 hA
 hA
 hA
@@ -81332,19 +77353,19 @@ hA
 hA
 hA
 hA
-gl
-gR
-hE
-jw
-lr
-hQ
-hQ
-rY
-hk
-xJ
-pL
-hQ
-Fs
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
 hA
 hA
 hA
@@ -81634,19 +77655,19 @@ hA
 hA
 hA
 hA
-gv
-gX
-hY
-gX
-lt
-np
-pb
-sb
-hk
-xL
-Bk
-kF
-Fx
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
 hA
 hA
 hA
@@ -82246,11 +78267,11 @@ hA
 hA
 hA
 hA
-vt
-xU
-Bp
-rS
-FC
+hA
+hA
+hA
+hA
+hA
 hA
 hA
 hA
@@ -82548,11 +78569,11 @@ hA
 hA
 hA
 hA
-vt
-vt
-Bs
-hQ
-FT
+hA
+hA
+hA
+hA
+hA
 hA
 hA
 hA
@@ -82850,13 +78871,13 @@ hA
 hA
 hA
 hA
-vt
-vt
-Bw
-hQ
-FT
-Ht
-HY
+hA
+hA
+hA
+hA
+hA
+hA
+hA
 hA
 hA
 hA
@@ -83152,11 +79173,11 @@ hA
 hA
 hA
 hA
-vD
-xY
-Bx
-hQ
-Gs
+hA
+hA
+hA
+hA
+hA
 hA
 hA
 hA
@@ -83751,16 +79772,16 @@ hA
 hA
 hA
 hA
-jy
-lA
-nC
-lA
-sm
-hk
-yg
-BD
-DI
-Av
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
 hA
 hA
 hA
@@ -84053,16 +80074,16 @@ hA
 hA
 hA
 hA
-jI
-lG
-hQ
-ps
-sr
-vW
-lA
-BF
-DM
-Av
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
 hA
 hA
 hA
@@ -84355,19 +80376,19 @@ hA
 hA
 hA
 hA
-jL
-lM
-nE
-pD
-su
-hk
-sr
-BP
-DN
-oC
-qQ
-qQ
-Jj
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
 hA
 hA
 hA
@@ -84657,19 +80678,19 @@ hA
 hA
 hA
 hA
-hQ
-lQ
-nL
-pL
-sz
-wc
-yt
-BZ
-DW
-Gt
-Gt
-Gt
-Gt
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
 hA
 hA
 hA
@@ -84959,19 +80980,19 @@ hA
 hA
 hA
 hA
-hQ
-hQ
-hQ
-pN
-hE
-we
-yG
-Cv
-DN
-oC
-xj
-xj
-Jj
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
 hA
 hA
 hA
@@ -85261,15 +81282,15 @@ hA
 hA
 hA
 hA
-jQ
-hQ
-hQ
-pL
-sD
-hk
-yI
-Cx
-Ea
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
 hA
 hA
 hA
@@ -85563,15 +81584,15 @@ hA
 hA
 hA
 hA
-kl
-lU
-nM
-pP
-sL
-wp
-yL
-Cz
-Ed
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
+hA
 hA
 hA
 hA
