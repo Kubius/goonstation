@@ -2545,7 +2545,7 @@
 /area/station/bridge)
 "gI" = (
 /obj/table/auto,
-/obj/item/paper/book/medical_surgery_guide{
+/obj/item/paper/book/from_file/medical_surgery_guide{
 	pixel_y = 14
 	},
 /obj/machinery/light{
@@ -4953,7 +4953,6 @@
 /obj/storage/secure/closet/research/chemical{
 	req_access_txt = "5"
 	},
-/obj/item/paper/book/medical_guide,
 /obj/machinery/camera{
 	c_tag = "autotag";
 	dir = 4;
@@ -4961,6 +4960,7 @@
 	pixel_x = -10;
 	tag = ""
 	},
+/obj/item/paper/book/from_file/pharmacopia,
 /turf/simulated/floor/blueblack{
 	dir = 4
 	},
@@ -6907,12 +6907,12 @@
 /area/station/hallway)
 "ti" = (
 /obj/storage/secure/closet/research/chemical,
-/obj/item/paper/book/medical_guide,
 /obj/machinery/light{
 	dir = 8;
 	layer = 9.1;
 	pixel_x = -10
 	},
+/obj/item/paper/book/from_file/pharmacopia,
 /turf/simulated/floor/purpleblack/corner,
 /area/station/science/chemistry)
 "tj" = (
@@ -7702,7 +7702,7 @@
 /obj/storage/secure/closet/research/chemical{
 	req_access_txt = "5"
 	},
-/obj/item/paper/book/medical_guide,
+/obj/item/paper/book/from_file/pharmacopia,
 /turf/simulated/floor/blueblack{
 	dir = 4
 	},
@@ -17391,7 +17391,7 @@
 /area/station/maintenance)
 "Ze" = (
 /obj/table/wood/auto,
-/obj/item/paper/book/dwainedummies,
+/obj/item/paper/book/from_file/dwainedummies,
 /obj/item/disk/data/tape/master/readonly,
 /obj/item/reagent_containers/food/snacks/beefood{
 	desc = "A little birthday cupcake for Heisenbee.  May not taste good to non-bees.";
