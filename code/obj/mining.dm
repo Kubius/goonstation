@@ -1269,6 +1269,11 @@
 		if (src.ore)
 			src.ore.onHit(src)
 
+		var/datum/ore/event/E = src.event
+
+		if (E)
+			E.onHit(src)
+
 		if (difference <= 0)
 			destroy_asteroid()
 		else
@@ -1593,13 +1598,13 @@ obj/item/clothing/gloves/concussive
 				src.power_up()
 				item_state = "ppick1"
 				user.update_inhands()
-				playsound(user.loc, "sound/items/miningtool_on.ogg", 50, 1)
+				playsound(user.loc, "sound/items/miningtool_on.ogg", 30, 1)
 			else
 				boutput(user, "<span class='notice'>You power down [src].</span>")
 				src.power_down()
 				item_state = "ppick0"
 				user.update_inhands()
-				playsound(user.loc, "sound/items/miningtool_off.ogg", 50, 1)
+				playsound(user.loc, "sound/items/miningtool_off.ogg", 30, 1)
 		else
 			boutput(user, "<span class='alert'>No charge left in [src].</span>")
 
@@ -1683,13 +1688,13 @@ obj/item/clothing/gloves/concussive
 				src.power_up()
 				item_state = "phammer1"
 				user.update_inhands()
-				playsound(user.loc, "sound/items/miningtool_on.ogg", 50, 1)
+				playsound(user.loc, "sound/items/miningtool_on.ogg", 30, 1)
 			else
 				boutput(user, "<span class='notice'>You power down [src].</span>")
 				src.power_down()
 				item_state = "phammer0"
 				user.update_inhands()
-				playsound(user.loc, "sound/items/miningtool_off.ogg", 50, 1)
+				playsound(user.loc, "sound/items/miningtool_off.ogg", 30, 1)
 		else
 			boutput(user, "<span class='alert'>No charge left in [src].</span>")
 
@@ -1733,13 +1738,13 @@ obj/item/clothing/gloves/concussive
 				src.power_up()
 				item_state = "pshovel1"
 				user.update_inhands()
-				playsound(user.loc, "sound/items/miningtool_on.ogg", 50, 1)
+				playsound(user.loc, "sound/items/miningtool_on.ogg", 30, 1)
 			else
 				boutput(user, "<span class='notice'>You power down [src].</span>")
 				src.power_down()
 				item_state = "pshovel0"
 				user.update_inhands()
-				playsound(user.loc, "sound/items/miningtool_off.ogg", 50, 1)
+				playsound(user.loc, "sound/items/miningtool_off.ogg", 30, 1)
 		else
 			boutput(user, "<span class='alert'>No charge left in [src].</span>")
 
@@ -1882,7 +1887,7 @@ obj/item/clothing/gloves/concussive
 		for(var/mob/living/carbon/C in range(src.expl_flash, src))
 			if (!isdead(C) && C.client) shake_camera(C, 3, 2)
 			if(get_dist(src,C) <= src.expl_light)
-				C.changeStatus("stunned", 80)
+				C.changeStatus("stunned", 8 SECONDS)
 				C.changeStatus("weakened", 10 SECONDS)
 				C.stuttering += 15
 				boutput(C, "<span class='alert'>The concussive blast knocks you off your feet!</span>")
@@ -2124,6 +2129,7 @@ obj/item/clothing/gloves/concussive
 	var/active = 0
 	var/cell = null
 	var/target = null
+	var/group = null
 
 	New()
 		var/obj/item/cell/P = new/obj/item/cell(src)
@@ -2134,7 +2140,7 @@ obj/item/clothing/gloves/concussive
 	attack_hand(var/mob/user as mob)
 		if (!src.cell) boutput(user, "<span class='alert'>It won't work without a power cell!</span>")
 		else
-			var/action = input("What do you want to do?", "Mineral Accumulator") in list("Flip the power switch","Change the destination","Remove the power cell")
+			var/action = tgui_input_list(user, "What do you want to do?", "Mineral Accumulator", list("Flip the power switch","Change the destination","Remove the power cell"))
 			if (action == "Remove the power cell")
 				var/obj/item/cell/PCEL = src.cell
 				user.put_in_hand_or_drop(PCEL)
@@ -2144,17 +2150,7 @@ obj/item/clothing/gloves/concussive
 
 				src.cell = null
 			else if (action == "Change the destination")
-				if (!cargopads.len) boutput(user, "<span class='alert'>No receivers available.</span>")
-				else
-					var/selection = input("Select Cargo Pad Location:", "Cargo Pads", null, null) as null|anything in cargopads
-					if(!selection)
-						return
-					var/turf/T = get_turf(selection)
-					if (!T)
-						boutput(user, "<span class='alert'>Target not set!</span>")
-						return
-					boutput(user, "Target set to [T.loc].")
-					src.target = T
+				src.change_dest(user)
 			else if (action == "Flip the power switch")
 				if (!src.active)
 					user.visible_message("[user] powers up [src].", "You power up [src].")
@@ -2232,6 +2228,28 @@ obj/item/clothing/gloves/concussive
 				step_towards(R, src.loc)
 				moved++
 
+	proc/change_dest(mob/user as mob)
+		if (!cargopads.len)
+			boutput(user, "<span class='alert'>No receivers available.</span>")
+		else
+			var/list/L
+			if (src.group)
+				L = list()
+				for (var/obj/submachine/cargopad/C in cargopads)
+					if (C.group == src.group)
+						L += C
+			else
+				L = cargopads
+			var/selection = tgui_input_list(user, "Select target output:", "Cargo Pads", L)
+			if(!selection)
+				return
+			var/turf/T = get_turf(selection)
+			if (!T)
+				boutput(user, "<span class='alert'>Target not set!</span>")
+				return
+			boutput(user, "Target set to [selection] at [T.loc].")
+			src.target = T
+
 var/global/list/cargopads = list()
 
 /obj/submachine/cargopad
@@ -2244,6 +2262,7 @@ var/global/list/cargopads = list()
 	mats = 10 //I don't see the harm in re-adding this. -ZeWaka
 	deconstruct_flags = DECON_SCREWDRIVER | DECON_CROWBAR | DECON_WELDER | DECON_MULTITOOL
 	var/active = 1
+	var/group
 
 	podbay
 		name = "Pod Bay Pad"

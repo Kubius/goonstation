@@ -68,6 +68,7 @@
 	name = "satchel"
 	desc = "A thick, wearable container made of synthetic fibers, able to carry a number of objects comfortably on a crewmember's shoulder."
 	icon_state = "satchel"
+	wear_layer = MOB_BACK_LAYER_SATCHEL // satchels show over the tail of lizards normally, they should be BEHIND the tail
 
 /obj/item/storage/backpack/satchel/syndie
 	name = "\improper Syndicate Satchel"
@@ -125,6 +126,7 @@
 	item_state = "fanny"
 	flags = FPRINT | TABLEPASS | ONBELT | NOSPLASH
 	w_class = W_CLASS_BULKY
+	slots = 5
 	max_wclass = 3
 	does_not_open_in_pocket = 0
 	stamina_damage = 0
@@ -143,6 +145,7 @@
 	item_state = "funny"
 	spawn_contents = list(/obj/item/storage/box/starter,\
 	/obj/item/storage/box/balloonbox)
+	slots = 7
 
 /obj/item/storage/fanny/funny/mini
 	name = "mini funny pack"
@@ -154,6 +157,7 @@
 	desc = "It's different than a fanny pack. It's tactical and action-packed!"
 	icon_state = "syndie"
 	item_state = "syndie"
+	slots = 7
 
 /* -------------------- Belts -------------------- */
 
@@ -200,14 +204,7 @@
 		if(!can_use())
 			boutput(user, "<span class='alert'>You need to wear [src] for that.</span>")
 			return
-		if (istype(W, /obj/item/storage/toolbox) || istype(W, /obj/item/storage/box) || istype(W, /obj/item/storage/belt))
-			var/obj/item/storage/S = W
-			for (var/obj/item/I in S.get_contents())
-				if (..(I, user, S) == 0)
-					break
-			return
-		else
-			return ..()
+		return ..()
 
 /obj/item/storage/belt/utility
 	name = "utility belt"
