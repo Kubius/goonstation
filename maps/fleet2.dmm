@@ -564,8 +564,9 @@
 /obj/cable{
 	icon_state = "0-8"
 	},
-/obj/machinery/power/monitor{
-	dir = 4
+/obj/machinery/computer/power_monitor{
+	dir = 4;
+	name = "Station Power Grid Monitoring"
 	},
 /turf/simulated/floor/black,
 /area/station/science/research_director{
@@ -979,7 +980,7 @@
 /obj/cable{
 	icon_state = "0-8"
 	},
-/obj/machinery/power/solar_control{
+/obj/machinery/computer/solar_control{
 	dir = 4;
 	id = "dio";
 	name = "Dionysus solar panel control"
@@ -4929,7 +4930,7 @@
 /turf/simulated/floor/white,
 /area/station/medical/medbay/surgery)
 "lF" = (
-/obj/submachine/chicken_feed_grinder,
+/obj/submachine/ranch_feed_grinder,
 /obj/item/reagent_containers/food/snacks/plant/corn{
 	doants = 0
 	},
@@ -6093,8 +6094,9 @@
 /obj/cable{
 	icon_state = "0-8"
 	},
-/obj/machinery/power/monitor{
-	dir = 4
+/obj/machinery/computer/power_monitor{
+	dir = 4;
+	name = "Station Power Grid Monitoring"
 	},
 /turf/simulated/floor/wood/two,
 /area/station/bridge/hos)
@@ -9733,15 +9735,9 @@
 	})
 "yv" = (
 /obj/table/reinforced/auto,
-/obj/item/reagent_containers/food/snacks/chicken_feed_bag{
-	rand_pos = 1
-	},
-/obj/item/reagent_containers/food/snacks/chicken_feed_bag{
-	rand_pos = 1
-	},
-/obj/item/reagent_containers/food/snacks/chicken_feed_bag{
-	rand_pos = 1
-	},
+/obj/item/reagent_containers/food/snacks/ranch_feed_bag,
+/obj/item/reagent_containers/food/snacks/ranch_feed_bag,
+/obj/item/reagent_containers/food/snacks/ranch_feed_bag,
 /turf/simulated/floor/grasstodirt{
 	dir = 1
 	},
@@ -9754,8 +9750,9 @@
 /obj/cable{
 	icon_state = "0-8"
 	},
-/obj/machinery/power/monitor{
-	dir = 4
+/obj/machinery/computer/power_monitor{
+	dir = 4;
+	name = "Station Power Grid Monitoring"
 	},
 /turf/simulated/floor/blueblack{
 	dir = 8
@@ -10140,7 +10137,7 @@
 /obj/cable{
 	icon_state = "0-8"
 	},
-/obj/machinery/power/solar_control{
+/obj/machinery/computer/solar_control{
 	dir = 4;
 	id = "meri";
 	name = "Meridian solar panel control"
@@ -10296,8 +10293,10 @@
 /obj/cable{
 	icon_state = "0-2"
 	},
-/obj/machinery/power/monitor,
 /obj/machinery/light_switch/north,
+/obj/machinery/computer/power_monitor{
+	name = "Station Power Grid Monitoring"
+	},
 /turf/simulated/floor/orangeblack,
 /area/station/maintenance/storage{
 	name = "Maru Power Room"
@@ -12803,7 +12802,7 @@
 	})
 "GU" = (
 /obj/cable,
-/obj/machinery/power/solar_control{
+/obj/machinery/computer/solar_control{
 	dir = 4;
 	id = "maru";
 	name = "Maru solar panel control"
@@ -13192,7 +13191,7 @@
 /obj/cable{
 	icon_state = "0-8"
 	},
-/obj/machinery/power/solar_control{
+/obj/machinery/computer/solar_control{
 	dir = 4;
 	id = "asc";
 	name = "Asclepius solar panel control"
@@ -13955,7 +13954,7 @@
 /obj/cable{
 	icon_state = "0-8"
 	},
-/obj/machinery/power/monitor{
+/obj/gibtyson{
 	dir = 4
 	},
 /turf/simulated/floor/black,
@@ -15164,7 +15163,7 @@
 /obj/cable{
 	icon_state = "0-8"
 	},
-/obj/machinery/power/solar_control{
+/obj/machinery/computer/solar_control{
 	dir = 4;
 	id = "tene";
 	name = "Tenebrae solar panel control"
@@ -15515,7 +15514,7 @@
 	name = "Asclepius Primary Zone"
 	})
 "Oj" = (
-/obj/lrteleporter,
+/obj/machinery/lrteleporter,
 /turf/simulated/floor/purplewhite{
 	dir = 8
 	},
@@ -16306,13 +16305,14 @@
 	},
 /obj/machinery/power/data_terminal,
 /obj/cable,
-/obj/machinery/power/monitor{
-	dir = 4
-	},
 /obj/disposalpipe/segment/mail/horizontal,
 /obj/machinery/firealarm{
 	dir = 8;
 	pixel_x = -24
+	},
+/obj/machinery/computer/power_monitor{
+	dir = 4;
+	name = "Station Power Grid Monitoring"
 	},
 /turf/simulated/floor/engine/caution/east,
 /area/station/routing/depot{
@@ -16366,8 +16366,9 @@
 /obj/cable{
 	icon_state = "0-8"
 	},
-/obj/machinery/power/monitor{
-	dir = 4
+/obj/machinery/computer/power_monitor{
+	dir = 4;
+	name = "Station Power Grid Monitoring"
 	},
 /turf/simulated/floor/black,
 /area/station/bridge)
@@ -16435,7 +16436,7 @@
 /obj/cable{
 	icon_state = "0-8"
 	},
-/obj/machinery/power/solar_control,
+/obj/machinery/computer/solar_control,
 /turf/simulated/floor/grey,
 /area/station/maintenance/outer/east)
 "Qy" = (
@@ -17395,7 +17396,7 @@
 /obj/cable{
 	icon_state = "0-8"
 	},
-/obj/machinery/power/solar_control,
+/obj/machinery/computer/solar_control,
 /turf/simulated/floor/grey,
 /area/station/maintenance)
 "Ta" = (
@@ -19432,9 +19433,6 @@
 	})
 "YF" = (
 /obj/machinery/drainage,
-/obj/cable{
-	icon_state = "1-4"
-	},
 /turf/simulated/floor/grass/leafy,
 /area/station/ranch)
 "YG" = (
