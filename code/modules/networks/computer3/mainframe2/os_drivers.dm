@@ -478,7 +478,7 @@
 		return 0
 
 	process()
-		if (..() || !initialized || !to_print.len)
+		if (..() || !initialized || !length(to_print))
 			return
 
 		if (printer_wait)
@@ -654,7 +654,7 @@
 					return ESIG_USR1
 				new_z = round(new_z, 0.01)
 
-				var/datum/computer/file/coords/new_coords = unpool(/datum/computer/file/coords)
+				var/datum/computer/file/coords/new_coords = new /datum/computer/file/coords
 				new_coords.destx = (new_x * XMULTIPLY) - XSUBTRACT
 				new_coords.desty = (new_y * YMULTIPLY) - YSUBTRACT
 				new_coords.destz = new_z - ZSUBTRACT
@@ -700,7 +700,7 @@
 					return ESIG_USR1
 				dest_z = round(dest_z, 0.01)
 
-				var/datum/computer/file/coords/new_coords = unpool(/datum/computer/file/coords)
+				var/datum/computer/file/coords/new_coords = new /datum/computer/file/coords
 				new_coords.destx = (dest_x * XMULTIPLY) - XSUBTRACT
 				new_coords.desty = (dest_y * YMULTIPLY) - YSUBTRACT
 				new_coords.destz = dest_z - ZSUBTRACT
@@ -769,7 +769,7 @@
 			return
 
 		var/list/initlist = splittext(initparams, " ")
-		if (!initparams || !initlist.len)
+		if (!initparams || !length(initlist))
 			message_user("Invalid commmand argument.|nValid Commands:|n (Coords) to set target coordinates. Specify x y z.|n (Send) to send to target.|n (Receive) to receive from target.|n (Portal) to open bidirectional portal to target.|n (Scan) to scan target atmosphere.","multiline")
 			mainframe_prog_exit
 			return
@@ -1064,7 +1064,7 @@
 				if (!isnum(data["time"]))
 					return ESIG_GENERIC
 
-				var/newtime = max(0, min(data["time"], 440))
+				var/newtime = clamp("time", 0, MAX_NUKE_TIME)
 
 				var/sessionid = "[world.timeofday%100][rand(0,9)]"
 				message_device("command=settime&time=[newtime]&session=[sessionid]")
@@ -1176,7 +1176,7 @@
 			return
 
 		var/list/initlist = splittext(initparams, " ")
-		if (!initparams || !initlist.len)
+		if (!initparams || !length(initlist))
 			message_user("Invalid commmand argument.|nValid Commands:|n (Status) for detonator status.|n (Auth) to authorize detonation.|n (Deauth) to revoke authorizations.|n (Time) to set charge timer.|n (Activate) to activate detonation sequence|n (Abort) to halt activation sequence.","multiline")
 			mainframe_prog_exit
 			return
@@ -1255,7 +1255,7 @@
 			if ("time")
 				if (initlist.len >= 2)
 					var/newtime = text2num(initlist[2])
-					if (isnum(newtime) && (newtime <= 440) && (newtime >= 30))
+					if (isnum(newtime) && (newtime <= MAX_NUKE_TIME) && (newtime >= MIN_NUKE_TIME))
 						var/success = signal_program( 1, list("command"=DWAINE_COMMAND_DMSG,"target"=driver_id,"dcommand"="settime","time"=newtime))
 						switch(success)
 							if (ESIG_SUCCESS)
@@ -1266,9 +1266,9 @@
 								message_user("Error: Could not associate with charge driver.")
 
 					else
-						message_user("Error: Invalid time argument supplied (Must be between 30 and 440).")
+						message_user("Error: Invalid time argument supplied (Must be between [MIN_NUKE_TIME] and [MAX_NUKE_TIME]).")
 				else
-					message_user("Error: No time argument supplied (Must be between 30 and 440).")
+					message_user("Error: No time argument supplied (Must be between [MIN_NUKE_TIME] and [MAX_NUKE_TIME]).")
 
 
 			else
@@ -1566,7 +1566,7 @@
 /datum/computer/file/mainframe_program/guardbot_interface
 	name = "prman"
 	size = 4
-	var/const/buddyFreq = 1219
+	var/const/buddyFreq = FREQ_BUDDY
 
 	initialize(var/initparams)
 		if (..())
@@ -1580,13 +1580,13 @@
 			return
 
 		var/list/initlist = splittext(initparams, " ")
-		if (!initparams || !initlist.len)
+		if (!initparams || !length(initlist))
 			message_user("Invalid commmand argument.|nValid Arguments:|n \"list\" to list known docking stations.|n \"stat (PR-6 Net ID)\" to view unit status. |n \"upload (PR-6 Net ID) (task filepath) \[configuration filepath]\" to upload task.|n \"wake (PR-6 Net ID)\" to wake unit.|n \"wipe (PR-6 Net ID)\" to clear unit memory.|n \"recall (PR-6 Net ID | \'all\')\" to recall unit.","multiline")
 			mainframe_prog_exit
 			return
 
 		var/list/driverlist = signal_program(1, list("command"=DWAINE_COMMAND_DLIST, "dtag"="pr6_charg", "mode"=1))
-		if (!istype(driverlist) || !driverlist.len)
+		if (!istype(driverlist) || !length(driverlist))
 			message_user("Error: Could not detect PR-6 driver(s).")
 			mainframe_prog_exit
 			return
@@ -1798,7 +1798,7 @@
 	disposing()
 		for (var/a_user_id in radio_users)
 			var/list/id_stuff = radio_users[a_user_id]
-			if (istype(id_stuff) && id_stuff.len)
+			if (istype(id_stuff) && length(id_stuff))
 				signal_program(1, list("command"=DWAINE_COMMAND_TKILL, "target"=id_stuff[1]))
 
 		if (radio_users)
@@ -1812,7 +1812,7 @@
 			return 1
 
 		var/list/dataList = params2list(data)
-		if (!dataList || !dataList.len)
+		if (!dataList || !length(dataList))
 			return 1
 
 		if (dataList["sender"])
@@ -2234,7 +2234,7 @@
 			return
 
 		var/list/initlist = splittext(initparams, " ")
-		if (!initparams || !initlist.len)
+		if (!initparams || !length(initlist))
 			message_user("Invalid commmand argument.|nValid Commands:|n (Status) for emitter status.|n (Activate) to activate emitter|n (Deactivate) to shut down emitter.","multiline")
 			mainframe_prog_exit
 			return
@@ -2647,7 +2647,7 @@
 
 				if (!isnull(readData))
 					if (knownReadings.len < knownReadingFields.len)
-						knownReadings.len = knownReadingFields.len
+						knownReadings.len = length(knownReadingFields)
 
 					for (var/i = 1, i <= knownReadingFields.len && i <= readData.len, i++)
 						knownReadings[i] = readData[i]
@@ -2823,7 +2823,7 @@
 
 		var/command = null
 		var/list/initlist = splittext(initparams, " ")
-		if (!initparams || !initlist.len)
+		if (!initparams || !length(initlist))
 			command = "index"
 		else
 			command = ckey(initlist[1])
@@ -2848,7 +2848,7 @@
 					var/printerName = copytext(ckeyEx(initlist[2]), 1,33)
 					var/datum/computer/file/record/printerStatus = signal_program(1, list("command"=DWAINE_COMMAND_FGET,"path"="/mnt/lp-[printerName]/status"))
 					var/theStatus = "???"
-					if (istype(printerStatus) && printerStatus.fields && printerStatus.fields.len)
+					if (istype(printerStatus) && printerStatus.fields && length(printerStatus.fields))
 						theStatus = "[printerStatus.fields[1]]"
 					message_user("print_status|n[theStatus]","multiline")
 

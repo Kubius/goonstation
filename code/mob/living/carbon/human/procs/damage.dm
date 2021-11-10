@@ -342,8 +342,6 @@
 		burn *= src.mutantrace.firevuln
 		tox *= src.mutantrace.toxvuln
 
-	if (is_heat_resistant())
-		burn = 0
 
 	//if (src.bioHolder && src.bioHolder.HasEffect("resist_toxic"))
 		//tox = 0
@@ -354,8 +352,8 @@
 
 	if (brute + burn + tox <= 0) return
 
-	if (src.is_heat_resistant())
-		burn = 0 //mostly covered by individual procs that cause burn damage, but just in case
+	if (src.bioHolder?.HasEffect("fire_resist") > 1)
+		burn /= 2
 
 	//Bandaid fix for tox damage being mysteriously unhooked in here.
 	if (tox)
@@ -429,6 +427,8 @@
 
 	if (src.traitHolder && src.traitHolder.hasTrait("reversal"))
 		src.TakeDamage(zone, brute, burn, tox, null, FALSE, TRUE)
+
+	src.take_toxin_damage(-tox)
 
 	if (zone == "All")
 		var/bruteOrganCount = 0.0 		//How many organs have brute damage?
@@ -637,7 +637,7 @@
 		return //???
 	var/list/zones = themob.get_valid_target_zones()
 	if(checkarmor)
-		if (!zones || !zones.len)
+		if (!zones || !length(zones))
 			themob.TakeDamageAccountArmor("All", damage, 0, 0, DAMAGE_BLUNT)
 		else
 			if (prob(100 / zones.len + 1))
@@ -646,7 +646,7 @@
 				var/zone=pick(zones)
 				themob.TakeDamageAccountArmor(zone, damage, 0, 0, DAMAGE_BLUNT)
 	else
-		if (!zones || !zones.len)
+		if (!zones || !length(zones))
 			themob.TakeDamage("All", damage, 0, 0, DAMAGE_BLUNT)
 		else
 			if (prob(100 / zones.len + 1))
@@ -659,7 +659,7 @@
 	if (!themob || !ismob(themob))
 		return //???
 	var/list/zones = themob.get_valid_target_zones()
-	if (!zones || !zones.len)
+	if (!zones || !length(zones))
 		themob.TakeDamage("All", 0, damage, 0, DAMAGE_BURN)
 	else
 		if (prob(100 / zones.len + 1))
@@ -703,4 +703,4 @@
 
 /mob/living/carbon/human/UpdateDamage()
 	..()
-	src.hud.update_health_indicator()
+	src.hud?.update_health_indicator()

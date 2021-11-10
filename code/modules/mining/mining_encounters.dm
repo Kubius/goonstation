@@ -165,7 +165,7 @@
 			amount--
 			the_gem = pick(gems)
 			if (floors.len) //ZeWaka: Fix for pick() from empty list
-				var/obj/item/G = unpool(the_gem)
+				var/obj/item/G = new the_gem
 				G.set_loc(pick(floors))
 
 /////////////TELESCOPE ENCOUNTERS BELOW
@@ -445,7 +445,7 @@
 		for (var/turf/simulated/floor/plating/airless/asteroid/AST in generated_turfs)
 			AST.update_icon()
 
-		Turfspawn_Asteroid_SeedSpecificOre(generated_turfs,"erebite",rand(2,8))
+		Turfspawn_Asteroid_SeedSpecificOre(generated_turfs,"erebite",rand(1,4))
 
 /datum/mining_encounter/tel_cerenkite
 	name = "Cerenkite asteroid"
@@ -823,7 +823,7 @@
 		picker = rand(1,6)
 		switch(picker)
 			if (1 to 3)
-				I = unpool(/obj/item/raw_material/scrap_metal)
+				I = new /obj/item/raw_material/scrap_metal
 				I.set_loc(pick(turfs_near_center))
 				I.setMaterial(scrap_material)
 			if (4)

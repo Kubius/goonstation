@@ -12,9 +12,9 @@
 /obj/machinery/computer/stockexchange/proc/balance()
 	if (!logged_in)
 		return 0
-	var/datum/data/record/B = FindBankAccountByName(logged_in)
+	var/datum/db_record/B = FindBankAccountByName(logged_in)
 	if (B)
-		return B.fields["current_money"]
+		return B["current_money"]
 	return "--- account not found ---"
 
 /obj/machinery/computer/stockexchange/attack_hand(mob/user)
@@ -58,7 +58,7 @@
 	dat += "<h3>Listed stocks</h3>"
 
 	if (vmode == 0)
-		for (var/datum/stock/ticker/S as() in stockExchange.stocks)
+		for (var/datum/stock/ticker/S as anything in stockExchange.stocks)
 			var/mystocks = 0
 			if (logged_in && (logged_in in S.shareholders))
 				mystocks = S.shareholders[logged_in]
@@ -97,12 +97,12 @@
 			if (logged_in)
 				var/list/LR = stockExchange.last_read[S]
 				var/lrt = LR[logged_in]
-				for (var/datum/stock/article/A as() in S.articles)
+				for (var/datum/stock/article/A as anything in S.articles)
 					if (A.ticks > lrt)
 						news = 1
 						break
 				if (!news)
-					for (var/datum/stock/event/E as() in S.events)
+					for (var/datum/stock/event/E as anything in S.events)
 						if (E.last_change > lrt && !E.hidden)
 							news = 1
 							break
@@ -110,7 +110,7 @@
 	else if (vmode == 1)
 		dat += "<b>Actions:</b> + Buy, - Sell, (A)rchives, (H)istory<br><br>"
 		dat += "<table class='stable'><tr><th>&nbsp;</th><th>Name</th><th>Value</th><th>Owned/Avail</th><th>Actions</th></tr>"
-		for (var/datum/stock/ticker/S as() in stockExchange.stocks)
+		for (var/datum/stock/ticker/S as anything in stockExchange.stocks)
 			var/mystocks = 0
 			if (logged_in && (logged_in in S.shareholders))
 				mystocks = S.shareholders[logged_in]
@@ -122,12 +122,12 @@
 			if (logged_in)
 				var/list/LR = stockExchange.last_read[S]
 				var/lrt = LR[logged_in]
-				for (var/datum/stock/article/A as() in S.articles)
+				for (var/datum/stock/article/A as anything in S.articles)
 					if (A.ticks > lrt)
 						news = 1
 						break
 				if (!news)
-					for (var/datum/stock/event/E as() in S.events)
+					for (var/datum/stock/event/E as anything in S.events)
 						if (E.last_change > lrt && !E.hidden)
 							news = 1
 							break
@@ -148,7 +148,7 @@
 		if (istype(I, /obj/item/device/pda2) && I:ID_card) I = I:ID_card
 		var/obj/item/card/id/ID = I
 		boutput(user, "<span class='notice'>You swipe the ID card.</span>")
-		var/datum/data/record/account = null
+		var/datum/db_record/account = null
 		account = FindBankAccountByName(ID.registered)
 		if(account)
 			var/enterpin = input(user, "Please enter your PIN number.", "Order Console", 0) as null|num
@@ -161,7 +161,7 @@
 		else
 			boutput(user, "<span class='alert'>No bank account associated with this ID found.</span>")
 			src.logged_in = null
-	else src.attack_hand(user)
+	else ..()
 	return
 
 /obj/machinery/computer/stockexchange/proc/sell_some_shares(datum/stock/ticker/S, mob/user)
@@ -285,7 +285,7 @@
 		var/dat = "<html><head><title>News feed for [S.name]</title></head><body><h2>News feed for [S.name]</h2><div><a href='?src=\ref[src];archive=\ref[S]'>Refresh</a></div>"
 		dat += "<div><h3>Events</h3>"
 		var/p = 0
-		for (var/datum/stock/event/E as() in S.events)
+		for (var/datum/stock/event/E as anything in S.events)
 			if (E.hidden)
 				continue
 			if (p > 0)
@@ -294,7 +294,7 @@
 			p++
 		dat += "</div><hr><div><h3>Articles</h3>"
 		p = 0
-		for (var/datum/stock/article/A as() in S.articles)
+		for (var/datum/stock/article/A as anything in S.articles)
 			if (p > 0)
 				dat += "<hr>"
 			dat += "<div><b style='font-size:1.25em'>[A.headline]</b><br><i>[A.subtitle]</i><br><br>[A.article]<br>- [A.author], [A.spacetime] (via <i>[A.outlet]</i>)</div>"

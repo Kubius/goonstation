@@ -321,12 +321,9 @@ var/datum/artifact_controller/artifact_controls
 			if(prob(20))
 				distortion_icon = turn(distortion_icon, rand(360))
 			var/size = rand(4, 6 + 8 * rarityMod) * pick(-1, 1)
-			artifact.filters += filter(
-				type="displace",
-				icon=distortion_icon,
-				size=size)
+			artifact.add_filter("martian distortion", 1, displacement_map_filter(icon=distortion_icon, size=size))
 			if(prob(80 * rarityMod))
-				var/filter = artifact.filters[length(artifact.filters)]
+				var/filter = artifact.get_filter("martian distortion")
 				var/anim_time = pick(rand() * 1 SECOND + 1 SECOND, rand() * 5 SECONDS, rand() * 1 MINUTE)
 				var/new_size = size + rand(-8, 8)
 				if(prob(15) || anim_time > 5 SECONDS && prob(70))
@@ -402,13 +399,13 @@ var/datum/artifact_controller/artifact_controls
 			var/hue1 = prob(100*rarityMod) ? rand(360) : (55 + rand(-10, 10))
 			var/list/col1
 			if(prob(150*rarityMod))
-				col1 = hsv2rgblist(hue1, rand() * 0.2 + 0.5, rand() * 0.2 + 0.6)
+				col1 = hsv2rgblist(hue1, rand() * 20 + 50, rand() * 20 + 60)
 			else
 				col1 = list(255, 168, 0)
 			var/hue2 = 180 + hue1 + rand(-135, 135)
 			if(prob(100*rarityMod))
 				hue2 = rand(360)
-			var/list/col2 = hsv2rgblist(hue2, rand() * 0.3 + 0.7, rand() * 0.1 + 0.9)
+			var/list/col2 = hsv2rgblist(hue2, rand() * 30 + 70, rand() * 10 + 90)
 			artifact.color = affine_color_mapping_matrix(
 				list("#000000", "#ffa800", "#ae2300", "#0000ff"),
 				list(random_color(), col1, col2, "#0000ff")

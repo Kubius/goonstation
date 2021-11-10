@@ -15,10 +15,6 @@ proc/qdel(var/datum/O)
 
 	if (istype(O))
 		O.dispose(qdel_instead=0)
-		if (istype(O, /atom/movable))
-			O:set_loc(null)
-		if (istype(O, /image))
-			O:loc = null
 
 		if (isloc(O) && O:contents:len > 0)
 			for (var/C in O:contents)
@@ -83,6 +79,7 @@ proc/qdel(var/datum/O)
 /datum/proc/disposing()
 	PROTECTED_PROC(TRUE)
 	SHOULD_CALL_PARENT(TRUE)
+	SHOULD_NOT_SLEEP(TRUE)
 
 	src.tag = null // not part of components but definitely should happen
 
@@ -91,7 +88,7 @@ proc/qdel(var/datum/O)
 	if(dc)
 		var/all_components = dc[/datum/component]
 		if(length(all_components))
-			for (var/datum/component/C as() in all_components)
+			for (var/datum/component/C as anything in all_components)
 				qdel(C, FALSE, TRUE)
 		else
 			var/datum/component/C = all_components
@@ -103,7 +100,7 @@ proc/qdel(var/datum/O)
 		for(var/sig in lookup)
 			var/list/comps = lookup[sig]
 			if(length(comps))
-				for (var/datum/component/comp as() in comps)
+				for (var/datum/component/comp as anything in comps)
 					comp.UnregisterSignal(src, sig)
 			else
 				var/datum/component/comp = comps

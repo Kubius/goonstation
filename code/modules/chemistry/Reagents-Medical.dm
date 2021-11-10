@@ -75,10 +75,6 @@ datum
 			var/counter = 1 //Data is conserved...so some jerkbag could inject a monkey with this, wait for data to build up, then extract some instant KO juice.  Dumb.
 			value = 5
 
-			pooled()
-				..()
-				counter = 1
-
 			on_add()
 				if(ismob(holder?.my_atom))
 					var/mob/M = holder.my_atom
@@ -104,10 +100,10 @@ datum
 					if(1 to 15)
 						if(probmult(7)) M.emote("yawn")
 					if(16 to 35)
-						M.drowsyness  = max(M.drowsyness, 20)
+						M.setStatus("drowsy", 40 SECONDS)
 					if(36 to INFINITY)
-						M.setStatus("paralysis", max(M.getStatusDuration("paralysis"), 30 * mult))
-						M.drowsyness  = max(M.drowsyness, 20)
+						M.setStatus("paralysis", max(M.getStatusDuration("paralysis"), 3 SECONDS * mult))
+						M.setStatus("drowsy", 40 SECONDS)
 
 				..()
 				return
@@ -126,10 +122,6 @@ datum
 			overdose = 20
 			var/counter = 1 //Data is conserved...so some jerkbag could inject a monkey with this, wait for data to build up, then extract some instant KO juice.  Dumb.
 			value = 5
-
-			pooled()
-				..()
-				counter = 1
 
 			on_add()
 				if(ismob(holder?.my_atom))
@@ -154,10 +146,10 @@ datum
 					if(1 to 15)
 						if(probmult(7)) M.emote("yawn")
 					if(16 to 35)
-						M.drowsyness  = max(M.drowsyness, 20)
+						M.setStatus("drowsy", 40 SECONDS)
 					if(36 to INFINITY)
-						M.setStatus("paralysis", max(M.getStatusDuration("paralysis"), 30 * mult))
-						M.drowsyness  = max(M.drowsyness, 20)
+						M.setStatus("paralysis", max(M.getStatusDuration("paralysis"), 3 SECONDS * mult))
+						M.setStatus("drowsy", 40 SECONDS)
 
 				..()
 				return
@@ -199,9 +191,9 @@ datum
 						M.change_misstep_chance(8 * mult)
 					else if (effect <= 9)
 						M.emote("twitch")
-						M.setStatus("weakened", max(M.getStatusDuration("weakened"), 30 * mult))
+						M.setStatus("weakened", max(M.getStatusDuration("weakened"), 3 SECONDS * mult))
 					else if(effect <= 12)
-						M.setStatus("weakened", max(M.getStatusDuration("weakened"), 50 * mult))
+						M.setStatus("weakened", max(M.getStatusDuration("weakened"), 5 SECONDS * mult))
 						M.druggy ++
 				else if (severity == 2)
 					if(effect <= 4)
@@ -209,9 +201,9 @@ datum
 						M.change_misstep_chance(14 * mult)
 					else if (effect <= 10)
 						M.emote("twitch")
-						M.setStatus("weakened", max(M.getStatusDuration("weakened"), 30 * mult))
+						M.setStatus("weakened", max(M.getStatusDuration("weakened"), 3 SECONDS * mult))
 					else if (effect <= 13)
-						M.setStatus("weakened", max(M.getStatusDuration("weakened"), 50 * mult))
+						M.setStatus("weakened", max(M.getStatusDuration("weakened"), 5 SECONDS * mult))
 						M.druggy ++
 
 
@@ -368,9 +360,9 @@ datum
 					M.bodytemperature = min(M.base_body_temp, M.bodytemperature+(15 * mult))
 				else if(M.bodytemperature > M.base_body_temp)
 					M.bodytemperature = max(M.base_body_temp, M.bodytemperature-(15 * mult))
+				var/oxyloss = M.get_oxygen_deprivation()
 				M.take_oxygen_deprivation(-INFINITY)
-				if(prob(20))
-					M.take_brain_damage(1 * mult)
+				M.take_brain_damage(oxyloss * 0.025)
 				..()
 				return
 
@@ -389,7 +381,12 @@ datum
 				. = ..()
 				if(!volume_passed)
 					return
+				volume_passed = clamp(volume_passed, 0, 10)
+
 				if(method == TOUCH)
+					. = 0
+					if(issilicon(M)) //Metal flesh isn't repaired by synthflesh
+						return
 					M.HealDamage("All", volume_passed * 1.5, volume_passed * 1.5)
 					if (isliving(M))
 						var/mob/living/H = M
@@ -453,7 +450,7 @@ datum
 
 			on_mob_life(var/mob/M, var/mult = 1)
 				if(!M) M = holder.my_atom
-				M.drowsyness = max(M.drowsyness-5, 0)
+				M.changeStatus("drowsy", -10 SECONDS)
 				if(M.sleeping) M.sleeping = 0
 				if (M.get_brain_damage() <= 90)
 					if (prob(50)) M.take_brain_damage(-1 * mult)
@@ -503,8 +500,6 @@ datum
 					M = holder.my_atom
 				if(M.get_oxygen_deprivation())
 					M.take_oxygen_deprivation(-1 * mult)
-				if(M.get_toxin_damage())
-					M.take_toxin_damage(-1 * mult)
 				if(M.losebreath && prob(50))
 					M.lose_breath(-1 * mult)
 				M.HealDamage("All", 2 * mult, 2 * mult, 1 * mult)
@@ -530,14 +525,14 @@ datum
 					if(effect <= 1)
 						M.visible_message("<span class='alert'><b>[M.name]</b> suddenly cluches their gut!</span>")
 						M.emote("scream")
-						M.setStatus("weakened", max(M.getStatusDuration("weakened"), 40 * mult))
+						M.setStatus("weakened", max(M.getStatusDuration("weakened"), 4 SECONDS * mult))
 					else if(effect <= 3)
 						M.visible_message("<span class='alert'><b>[M.name]</b> completely spaces out for a moment.</span>")
 						M.change_misstep_chance(15 * mult)
 					else if(effect <= 5)
 						M.visible_message("<span class='alert'><b>[M.name]</b> stumbles and staggers.</span>")
 						M.dizziness += 5
-						M.setStatus("weakened", max(M.getStatusDuration("weakened"), 40 * mult))
+						M.setStatus("weakened", max(M.getStatusDuration("weakened"), 4 SECONDS * mult))
 					else if(effect <= 7)
 						M.visible_message("<span class='alert'><b>[M.name]</b> shakes uncontrollably.</span>")
 						M.make_jittery(30)
@@ -545,14 +540,14 @@ datum
 					if(effect <= 2)
 						M.visible_message("<span class='alert'><b>[M.name]</b> suddenly cluches their gut!</span>")
 						M.emote("scream")
-						M.setStatus("weakened", max(M.getStatusDuration("weakened"), 80 * mult))
+						M.setStatus("weakened", max(M.getStatusDuration("weakened"), 8 SECONDS * mult))
 					else if(effect <= 5)
 						M.visible_message("<span class='alert'><b>[M.name]</b> jerks bolt upright, then collapses!</span>")
-						M.setStatus("weakened", max(M.getStatusDuration("weakened"), 80 * mult))
+						M.setStatus("weakened", max(M.getStatusDuration("weakened"), 8 SECONDS * mult))
 					else if(effect <= 8)
 						M.visible_message("<span class='alert'><b>[M.name]</b> stumbles and staggers.</span>")
 						M.dizziness += 5
-						M.setStatus("weakened", max(M.getStatusDuration("weakened"), 40 * mult))
+						M.setStatus("weakened", max(M.getStatusDuration("weakened"), 4 SECONDS * mult))
 
 		medical/saline // COGWERKS CHEM REVISION PROJECT. magic drug, ought to use plasma or something
 			name = "saline-glucose solution"
@@ -595,9 +590,9 @@ datum
 			on_mob_life(var/mob/M, var/mult = 1)
 				if(!M) M = holder.my_atom
 				if(M.getStatusDuration("radiation") && prob(80))
-					M.changeStatus("radiation", -20 * mult, 1)
+					M.changeStatus("radiation", -2 SECONDS * mult, 1)
 				if(M.getStatusDuration("n_radiation") && prob(80))
-					M.changeStatus("n_radiation", -20 * mult, 1)
+					M.changeStatus("n_radiation", -2 SECONDS * mult, 1)
 
 				M.take_toxin_damage(-0.5 * mult)
 				M.HealDamage("All", 0, 0, 0.5 * mult)
@@ -653,7 +648,7 @@ datum
 					if (M.health < -5 && M.health > -30)
 						M.HealDamage("All", 1 * mult, 1 * mult, 1 * mult)
 				if(M.getStatusDuration("radiation") && prob(30))
-					M.changeStatus("radiation", -20 * mult, 1)
+					M.changeStatus("radiation", -2 SECONDS * mult, 1)
 				if (prob(5))
 					M.take_toxin_damage(1 * mult)
 				..()
@@ -677,11 +672,15 @@ datum
 					M = holder.my_atom
 
 				if (M.bioHolder)
-					if (probmult(50) && M.bioHolder.HasEffect("bad_eyesight"))
+					var/datum/bioEffect/BE
+					BE = M.bioHolder.GetEffect("bad_eyesight")
+					if (probmult(50) && BE?.curable_by_mutadone)
 						M.bioHolder.RemoveEffect("bad_eyesight")
-					if (probmult(30) && M.bioHolder.HasEffect("blind"))
+					BE = M.bioHolder.GetEffect("blind")
+					if (probmult(30) && BE?.curable_by_mutadone)
 						M.bioHolder.RemoveEffect("blind")
-					if (probmult(30) && (M.get_ear_damage() && M.get_ear_damage() <= M.get_ear_damage_natural_healing_threshold()) && M.bioHolder.HasEffect("deaf") || M.ear_disability)
+					BE = M.bioHolder.GetEffect("deaf")
+					if (probmult(30) && (M.get_ear_damage() && M.get_ear_damage() <= M.get_ear_damage_natural_healing_threshold()) && BE?.curable_by_mutadone)
 						M.bioHolder.RemoveEffect("deaf")
 
 				if (M.get_eye_blurry())
@@ -760,7 +759,7 @@ datum
 						if(istype(virus.master,/datum/ailment/disease/space_madness) || istype(virus.master,/datum/ailment/disease/berserker))
 							M.cure_disease(virus)
 				if(prob(20)) M.take_brain_damage(1 * mult)
-				if(probmult(50)) M.drowsyness = max(M.drowsyness, 6)
+				if(probmult(50)) M.changeStatus("drowsy", 10 SECONDS)
 				if(probmult(10)) M.emote("drool")
 				..()
 				return
@@ -782,12 +781,16 @@ datum
 				if(ismob(holder?.my_atom))
 					var/mob/M = holder.my_atom
 					APPLY_MOB_PROPERTY(M, PROP_STAMINA_REGEN_BONUS, "r_epinephrine", 3)
+					APPLY_MOVEMENT_MODIFIER(M, /datum/movement_modifier/reagent/epinepherine, src.type)
 				..()
+
+
 
 			on_remove()
 				if(ismob(holder?.my_atom))
 					var/mob/M = holder.my_atom
 					REMOVE_MOB_PROPERTY(M, PROP_STAMINA_REGEN_BONUS, "r_epinephrine")
+					REMOVE_MOVEMENT_MODIFIER(M, /datum/movement_modifier/reagent/epinepherine, src.type)
 				..()
 
 			on_mob_life(var/mob/M, var/mult = 1)
@@ -796,7 +799,7 @@ datum
 					M.bodytemperature = min(M.base_body_temp, M.bodytemperature+(7 * mult))
 				if(probmult(10))
 					M.make_jittery(4)
-				M.drowsyness = max(M.drowsyness-5, 0)
+				M.changeStatus("drowsy", -10 SECONDS)
 				if(M.sleeping && probmult(5)) M.sleeping = 0
 				if(M.get_brain_damage() && prob(5)) M.take_brain_damage(-1 * mult)
 				if(holder.has_reagent("histamine"))
@@ -806,8 +809,6 @@ datum
 				if(M.get_oxygen_deprivation() > 35)
 					M.take_oxygen_deprivation(-10 * mult)
 				if(M.health < -10 && M.health > -65)
-					if(M.get_toxin_damage())
-						M.take_toxin_damage(-1 * mult)
 					M.HealDamage("All", 1 * mult, 1 * mult, 1 * mult)
 				..()
 				return
@@ -827,7 +828,7 @@ datum
 					else if (effect <= 5)
 						M.visible_message("<span class='alert'><b>[M.name]</b> staggers and drools, their eyes bloodshot!</span>")
 						M.dizziness += 2
-						M.setStatus("weakened", max(M.getStatusDuration("weakened"), 40 * mult))
+						M.setStatus("weakened", max(M.getStatusDuration("weakened"), 4 SECONDS * mult))
 					if (effect <= 15) M.emote("collapse")
 
 		medical/heparin
@@ -857,11 +858,11 @@ datum
 				if (severity == 1) //lesser
 					if (effect <= 2)
 						M.visible_message("<span class='alert'>[M] coughs up a lot of blood!</span>")
-						playsound(get_turf(M), "sound/impact_sounds/Slimy_Splat_1.ogg", 30, 1)
+						playsound(M, "sound/impact_sounds/Slimy_Splat_1.ogg", 30, 1)
 						bleed(M, rand(5,10) * mult, 3 * mult)
 					else if (effect <= 4)
 						M.visible_message("<span class='alert'>[M] coughs up a little blood!</span>")
-						playsound(get_turf(M), "sound/impact_sounds/Slimy_Splat_1.ogg", 30, 1)
+						playsound(M, "sound/impact_sounds/Slimy_Splat_1.ogg", 30, 1)
 						bleed(M, rand(1,2) * mult, 1 * mult)
 				else if (severity == 2) // greater
 					if (effect <= 2)
@@ -877,11 +878,11 @@ datum
 							H.set_clothing_icon_dirty()
 					else if (effect <= 4)
 						M.visible_message("<span class='alert'>[M] coughs up a lot of blood!</span>")
-						playsound(get_turf(M), "sound/impact_sounds/Slimy_Splat_1.ogg", 30, 1)
+						playsound(M, "sound/impact_sounds/Slimy_Splat_1.ogg", 30, 1)
 						bleed(M, rand(5,10) * mult, 3 * mult)
 					else if (effect <= 8)
 						M.visible_message("<span class='alert'>[M] coughs up a little blood!</span>")
-						playsound(get_turf(M), "sound/impact_sounds/Slimy_Splat_1.ogg", 30, 1)
+						playsound(M, "sound/impact_sounds/Slimy_Splat_1.ogg", 30, 1)
 						bleed(M, rand(1,2) * mult, 1 * mult)
 
 		medical/proconvertin // old name for factor VII, which is a protein that causes blood to clot. this stuff is seemingly just used for people with hemophilia but this is ss13 so let's give it to everybody who's bleeding a little, it's fine.
@@ -941,7 +942,7 @@ datum
 						L.emote("cough")
 					else if (severity > 1 && prob(50))
 						L.visible_message("<span class='alert'>[L] coughs up a little blood!</span>")
-						playsound(get_turf(L), "sound/impact_sounds/Slimy_Splat_1.ogg", 30, 1)
+						playsound(L, "sound/impact_sounds/Slimy_Splat_1.ogg", 30, 1)
 						bleed(L, rand(2,8) * mult, 3 * mult)
 					if (ishuman(M))
 						var/mob/living/carbon/human/H = M
@@ -993,10 +994,14 @@ datum
 
 			reaction_mob(var/mob/M, var/method=TOUCH, var/volume_passed, var/list/paramslist = 0)
 				. = ..()
+				if(issilicon(M)) // borgs shouldn't heal from this
+					return
 				if (!volume_passed)
 					return
+				volume_passed = clamp(volume_passed, 0, 10)
 
 				if (method == TOUCH)
+					. = 0
 					M.HealDamage("All", 0, volume_passed)
 
 					var/silent = 0
@@ -1012,6 +1017,7 @@ datum
 					boutput(M, "<span class='alert'>You feel sick...</span>")
 					if (volume_passed > 0)
 						M.take_toxin_damage(volume_passed/2)
+						M.add_karma(0.5)
 
 
 		medical/mutadone // COGWERKS CHEM REVISION PROJECT. - marked for revision. Magic bullshit chem, ought to be related to mutagen somehow
@@ -1027,7 +1033,7 @@ datum
 
 			on_mob_life(var/mob/M, var/mult = 1)
 				if(!M) M = holder.my_atom
-				if(M.bioHolder && M.bioHolder.effects && M.bioHolder.effects.len) //One per cycle. We're having superpowered hellbastards and this is their kryptonite.
+				if(M.bioHolder && M.bioHolder.effects && length(M.bioHolder.effects)) //One per cycle. We're having superpowered hellbastards and this is their kryptonite.
 					var/datum/bioEffect/B = M.bioHolder.effects[pick(M.bioHolder.effects)]
 					if (B?.curable_by_mutadone)
 						M.bioHolder.RemoveEffect(B.id)
@@ -1068,9 +1074,6 @@ datum
 			var/remove_buff = 0
 			stun_resist = 15
 
-			pooled()
-				..()
-
 			on_add()
 				if(ismob(holder?.my_atom))
 					var/mob/M = holder.my_atom
@@ -1088,7 +1091,7 @@ datum
 				if(M.bodytemperature < M.base_body_temp) // So it doesn't act like supermint
 					M.bodytemperature = min(M.base_body_temp, M.bodytemperature+(5 * mult))
 				M.make_jittery(4)
-				M.drowsyness = max(M.drowsyness-5, 0)
+				M.changeStatus("drowsy", -10 SECONDS)
 				if(M.losebreath > 3)
 					M.losebreath = max(5, M.losebreath-(1 * mult))
 				if(M.get_oxygen_deprivation() > 75)
@@ -1113,10 +1116,11 @@ datum
 					if( effect <= 2)
 						M.visible_message("<span class='alert'>[M.name] suddenly and violently vomits!</span>")
 						M.vomit()
+						M.add_karma(1)
 					else if (effect <= 5)
 						M.visible_message("<span class='alert'><b>[M.name]</b> staggers and drools, their eyes bloodshot!</span>")
 						M.dizziness += 8
-						M.setStatus("weakened", max(M.getStatusDuration("weakened"), 50 * mult))
+						M.setStatus("weakened", max(M.getStatusDuration("weakened"), 5 SECONDS * mult))
 					if (effect <= 15)
 						M.take_toxin_damage(1 * mult)
 
@@ -1138,10 +1142,9 @@ datum
 				for (var/reagent_id in M.reagents.reagent_list)
 					if (reagent_id != id)
 						M.reagents.remove_reagent(reagent_id, 4 * mult)
-				M.changeStatus("radiation", -70, 1)
-				if (M.get_toxin_damage() && prob(75))
-					M.take_toxin_damage(-4 * mult)
-					M.HealDamage("All", 0, 0, 2 * mult)
+				M.changeStatus("radiation", -7 SECONDS, 1)
+				if (prob(75))
+					M.HealDamage("All", 0, 0, 4 * mult)
 				if (prob(33))
 					M.TakeDamage("chest", 1 * mult, 1 * mult, 0, DAMAGE_BLUNT)
 				if (ishuman(M))
@@ -1185,8 +1188,8 @@ datum
 					holder.remove_reagent("itching", 3 * mult)
 				if(probmult(7)) M.emote("yawn")
 				if(prob(3))
-					M.setStatus("stunned", max(M.getStatusDuration("stunned"), 30 * mult))
-					M.drowsyness += 1
+					M.setStatus("stunned", max(M.getStatusDuration("stunned"), 3 SECONDS * mult))
+					M.changeStatus("drowsy", 12 SECONDS)
 					M.visible_message("<span class='notice'><b>[M.name]<b> looks a bit dazed.</span>")
 				..()
 				return
@@ -1218,7 +1221,11 @@ datum
 					return
 				if(!isliving(M)) // fucking human shitfucks
 					return
+				if(issilicon(M)) // Borgs shouldn't heal from this
+					return
+				volume_passed = clamp(volume_passed, 0, 10)
 				if(method == TOUCH)
+					. = 0
 					M.HealDamage("All", volume_passed, 0)
 					// M.HealBleeding(volume_passed) // At least implement your stuff properly first, thanks. Styptic also shouldn't be as good as synthflesh for healing bleeding.
 
@@ -1242,8 +1249,9 @@ datum
 							silent = 1
 
 					if (!silent)
-						boutput(M, "<span class='notice'>The styptic powder stings like hell as it closes some of your wounds.</span>")
-						M.emote("scream")
+						if(!ON_COOLDOWN(M, "styptic screaming", 3 SECONDS))
+							boutput(M, "<span class='notice'>The styptic powder stings like hell as it closes some of your wounds.</span>")
+							M.emote("scream")
 					M.UpdateDamageIcon()
 				else if(method == INGEST)
 					boutput(M, "<span class='alert'>You feel gross!</span>")
@@ -1276,7 +1284,7 @@ datum
 
 			on_mob_life(var/mob/M, var/mult = 1)
 				if(!M) M = holder.my_atom
-				if(M.bodytemperature < M.base_body_temp - 100)
+				if(M.bodytemperature < M.base_body_temp - 100 && !M.hasStatus("burning"))
 					var/health_before = M.health
 
 					if(M.get_oxygen_deprivation())
@@ -1296,7 +1304,6 @@ datum
 						if (H.organHolder)
 							H.organHolder.heal_organs(2*mult, 2*mult, 2*mult, target_organs)
 
-				if(prob(25)) M.UpdateDamageIcon() // gonna leave this one on for now, but only call it a quarter of the time
 				..()
 
 		medical/atropine // COGWERKS CHEM REVISION PROJECT. i dunno what the fuck this would be, probably something bad. maybe atropine?
@@ -1313,10 +1320,6 @@ datum
 			var/remove_buff = 0
 			var/total_misstep = 0
 			value = 18 // 5 4 5 3 1
-
-			pooled()
-				..()
-				remove_buff = 0
 
 			on_add()
 				if(istype(holder) && istype(holder.my_atom) && hascall(holder.my_atom,"add_stam_mod_max"))
@@ -1465,8 +1468,7 @@ datum
 				for(var/reagent_id in M.reagents.reagent_list)
 					if(reagent_id != id && prob(50)) // slow this down a bit
 						M.reagents.remove_reagent(reagent_id, 1 * mult)
-				M.take_toxin_damage(-1.5 * mult)
-				M.HealDamage("All", 0, 0, 1 * mult)
+				M.HealDamage("All", 0, 0, 1.5 * mult)
 
 				if (ishuman(M))
 					var/mob/living/carbon/human/H = M

@@ -140,7 +140,7 @@
 	dir = NORTH
 	event_handler_flags = USE_FLUID_ENTER | USE_CHECKEXIT | USE_CANPASS
 
-	CanPass(atom/movable/mover, turf/target, height=0, air_group=0)
+	CanPass(atom/movable/mover, turf/target)
 		if (istype(mover, /obj/projectile))
 			return 1
 		if (get_dir(loc, target) == dir)
@@ -168,6 +168,6 @@
 	desc = "Follow the anchor to reach The Rising Tide bar!"
 	bound_height = 64
 	bound_width = 32
-	icon = 'icons/obj/32x64.dmi'
+	icon = 'icons/obj/large/32x64.dmi'
 	icon_state = "risingtide"
 

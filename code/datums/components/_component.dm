@@ -1,5 +1,3 @@
-#define QDELETED(thing) (!thing || thing.disposed)
-
 /datum
 	/**
 		* Components attached to this datum
@@ -341,7 +339,7 @@
 		var/proctype = C.signal_procs[src][sigtype]
 		return 0 | CallAsync(C, proctype, arguments)
 	. = 0
-	for (var/datum/C as() in target)
+	for (var/datum/C as anything in target)
 		if(!C.signal_enabled)
 			continue
 		var/proctype = C.signal_procs[src][sigtype]
@@ -396,12 +394,10 @@
   * * c_type The component type path
   */
 /datum/proc/GetComponents(c_type)
-	var/list/dc = datum_components
-	if(!dc)
-		return null
-	. = dc[c_type]
-	if(!length(.))
-		return list(.)
+	var/list/components = datum_components?[c_type]
+	if(!components)
+		return list()
+	return islist(components) ? components : list(components)
 
 /**
   * Creates an instance of `new_type` in the datum and attaches to it as parent
@@ -464,7 +460,7 @@
 					var/list/arguments = raw_args.Copy()
 					arguments[1] = new_comp
 					var/make_new_component = TRUE
-					for (var/datum/component/C as() in GetComponents(new_type))
+					for (var/datum/component/C as anything in GetComponents(new_type))
 						if(C.CheckDupeComponent(arglist(arguments)))
 							make_new_component = FALSE
 							qdel(new_comp)
@@ -477,7 +473,7 @@
 	else if(!new_comp)
 		new_comp = new nt(raw_args) // Dupes are allowed, act like normal
 
-	if(!old_comp && !QDELETED(new_comp)) // Nothing related to duplicate components happened and the new component is healthy
+	if(new_comp && !QDELETED(new_comp)) // Nothing related to duplicate components happened and the new component is healthy
 		SEND_SIGNAL(src, COMSIG_COMPONENT_ADDED, new_comp)
 		return new_comp
 	return old_comp

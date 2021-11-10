@@ -9,7 +9,27 @@ var/list/ai_emotions = list("Happy" = "ai_happy",\
 	"Mad" = "ai_mad",\
 	"BSOD" = "ai_bsod",\
 	"Text" = "ai_text",\
-	"Blank" = "ai_blank")
+	"Blank" = "ai_blank",\
+	"Unimpressed" = "ai_unimpressed",\
+	"Baffled" = "ai_baffled",\
+	"Cheeky" = "ai_cheeky",\
+	"Silly" = "ai_silly",\
+	"Annoyed" = "ai_annoyed",\
+	"Pensive" = "ai_pensive",\
+	"Content" = "ai_content",\
+	"Tired" = "ai_tired",\
+	"Smug" = "ai_smug",\
+	"Wink" = "ai_wink",\
+	"Heart" = "ai_heart",\
+	"Triangle" = "ai_triangle",\
+	"Spooky" = "ai_spooky",\
+	"Suspicious" = "ai_eyesemoji",\
+	"Glitch" = "ai_glitch",\
+	"Eye" = "ai_eye",\
+	"Snoozing" = "ai_zzz",\
+	"Loading Bar" = "ai_loading",\
+	"Exclamation" = "ai_exclamation",\
+	"Question" = "ai_question")
 
 /mob/living/silicon/ai
 	name = "AI"
@@ -125,7 +145,7 @@ var/list/ai_emotions = list("Happy" = "ai_happy",\
 	has_feet = 1
 	var/obj/churn = new/obj{icon = 'icons/misc/SomepotatoArt.dmi'; pixel_y = -14; icon_state = "feet"}
 	underlays += churn
-	del(churn)
+	qdel(churn)
 	canmove = 1
 
 /mob/living/silicon/ai/TakeDamage(zone, brute, burn, tox, damage_type, disallow_limb_loss)
@@ -157,6 +177,8 @@ var/list/ai_emotions = list("Happy" = "ai_happy",\
 /mob/living/silicon/ai/New(loc, var/empty = 0)
 	..(loc)
 	START_TRACKING
+
+	APPLY_MOB_PROPERTY(src, PROP_EXAMINE_ALL_NAMES, src)
 
 	light = new /datum/light/point
 	light.set_color(0.4, 0.7, 0.95)
@@ -203,6 +225,7 @@ var/list/ai_emotions = list("Happy" = "ai_happy",\
 		src.cell.charge = src.cell.maxcharge
 		src.radio1.name = "Primary Radio"
 		src.radio2.name = "AI Intercom Monitor"
+		src.radio2.device_color = "#7F7FE2"
 		src.radio3.name = "Secure Channels Monitor"
 		src.radio1.broadcasting = 1
 		src.radio2.set_frequency(R_FREQ_INTERCOM_AI)
@@ -236,11 +259,12 @@ var/list/ai_emotions = list("Happy" = "ai_happy",\
 //Returns either the AI mainframe or the eyecam mob, depending on whther or not we are deployed
 /mob/living/silicon/ai/proc/get_message_mob()
 	RETURN_TYPE(/mob)
+
 	if (deployed_to_eyecam)
 		return src.eyecam
 	return src
 
-/mob/living/silicon/ai/show_message(msg, type, alt, alt_type, group = 0, var/image/chat_maptext/assoc_maptext = null)
+/mob/living/silicon/ai/show_message(msg, type, alt, alt_type, group = "", var/just_maptext, var/image/chat_maptext/assoc_maptext = null)
 	..()
 	if (deployed_to_eyecam && src.eyecam)
 		src.eyecam.show_message(msg, 1, 0, 0, group)
@@ -673,8 +697,8 @@ var/list/ai_emotions = list("Happy" = "ai_happy",\
 	var/mob/vamp = src
 	if (relay_laws_for_shell && ismob(relay_laws_for_shell))
 		vamp = relay_laws_for_shell
-	if (vamp.mind && vamp.mind.special_role == "vampthrall" && vamp.mind.master)
-		var/mob/mymaster = whois_ckey_to_mob_reference(vamp.mind.master)
+	if (vamp.mind && vamp.mind.special_role == ROLE_VAMPTHRALL && vamp.mind.master)
+		var/mob/mymaster = ckey_to_mob(vamp.mind.master)
 		if (mymaster)
 			boutput(who, "1. Only your master [mymaster.real_name] is human. Obey and serve them to the best of your ability.")
 			return
@@ -748,6 +772,9 @@ var/list/ai_emotions = list("Happy" = "ai_happy",\
 	if (deployed_to_eyecam)
 		eyecam.return_mainframe()
 
+	if (deployed_shell)
+		src.return_to(deployed_shell)
+
 	src.lastgasp() // calling lastgasp() here because we just died
 	setdead(src)
 	src.canmove = 0
@@ -756,7 +783,7 @@ var/list/ai_emotions = list("Happy" = "ai_happy",\
 	src.sight |= SEE_MOBS
 	src.sight |= SEE_OBJS
 	src.see_in_dark = SEE_DARK_FULL
-	src.see_invisible = 2
+	src.see_invisible = INVIS_CLOAK
 	src.lying = 1
 	src.light.disable()
 	src.update_appearance()
@@ -789,7 +816,9 @@ var/list/ai_emotions = list("Happy" = "ai_happy",\
 	if (isghostdrone(user))
 		return list()
 
-	. = list("<span class='notice'>This is [bicon(src)] <B>[src.name]</B>!</span>")
+	. = list("<span class='notice'>This is [bicon(src)] <B>[src.name]</B>!</span><br>")
+	if (src.hat)
+		. += "<span class='notice'>[src.name] is wearing the [bicon(src.hat)] [src.hat.name].</span>"
 
 	if (isdead(src))
 		. += "<span class='alert'>[src.name] is nonfunctional...</span>"
@@ -989,7 +1018,7 @@ var/list/ai_emotions = list("Happy" = "ai_happy",\
 				message = "<B>[src]</B> does a flip!"
 
 				//flick("ai-flip", src)
-				if(faceEmotion != "ai-red")
+				if(faceEmotion != "ai-red" && faceEmotion != "ai-tetris")
 					UpdateOverlays(SafeGetOverlayImage("actual_face", 'icons/mob/ai.dmi', "[faceEmotion]-flip", src.layer+0.2), "actual_face")
 					SPAWN_DBG(0.5 SECONDS)
 						UpdateOverlays(SafeGetOverlayImage("actual_face", 'icons/mob/ai.dmi', faceEmotion, src.layer+0.2), "actual_face")
@@ -1119,7 +1148,7 @@ var/list/ai_emotions = list("Happy" = "ai_happy",\
 	if (src.blinded) src.blinded = 0
 	if (src.get_ear_damage()) src.take_ear_damage(-INFINITY) // Ear_deaf is handled by src.set_vision().
 	if (src.dizziness) src.dizziness = 0
-	if (src.drowsyness) src.drowsyness = 0
+	if (src.hasStatus("drowsy")) src.delStatus("drowsy")
 	if (src.stuttering) src.stuttering = 0
 	if (src.druggy) src.druggy = 0
 	if (src.jitteriness) src.jitteriness = 0
@@ -1215,7 +1244,7 @@ var/list/ai_emotions = list("Happy" = "ai_happy",\
 
 /mob/living/silicon/ai/process_locks()
 	if(weapon_lock)
-		src.setStatus("paralysis", 50)
+		src.setStatus("paralysis", 5 SECONDS)
 		weaponlock_time --
 		if(weaponlock_time <= 0)
 			if(src.client) boutput(src, "<span class='alert'><B>Hibernation Mode Timed Out!</B></span>")
@@ -1349,11 +1378,14 @@ var/list/ai_emotions = list("Happy" = "ai_happy",\
 	set category = "AI Commands"
 	set name = "View Crew Manifest"
 
-	var/crew = ""
-	for(var/datum/data/record/t in data_core.general)
-		crew += "[t.fields["name"]] - [t.fields["rank"]]<br>"
+	var/stored = ""
+	if(length(by_type[/obj/cryotron]))
+		var/obj/cryotron/cryo_unit = pick(by_type[/obj/cryotron])
+		for(var/L as anything in cryo_unit.stored_crew_names)
+			stored += "<i>- [L]<i><br>"
 
-	usr.Browse("<head><title>Crew Manifest</title></head><body><tt><b>Crew Manifest:</b><hr>[crew]</tt></body>", "window=aimanifest")
+	usr.Browse("<head><title>Crew Manifest</title></head><body><tt><b>Crew Manifest:</b><hr>[get_manifest()]<br><b>In Cryogenic Storage:</b><hr>[stored]</tt></body>", "window=aimanifest")
+
 
 /mob/living/silicon/ai/proc/show_laws_verb()
 	set category = "AI Commands"
@@ -1585,8 +1617,6 @@ var/list/ai_emotions = list("Happy" = "ai_happy",\
 					if (istype(R.ai_interface))
 						R.shell = 1
 					R.dependent = 0
-				//else if (isAIeye(user))
-				//	var/mob/dead/aieye/E = user
 				user.name = user.real_name
 		return
 
@@ -1900,7 +1930,11 @@ var/list/ai_emotions = list("Happy" = "ai_happy",\
 		I.color = faceColor
 		UpdateOverlays(I, "faceplate")
 
-		UpdateOverlays(SafeGetOverlayImage("face_glow", 'icons/mob/ai.dmi', "ai-face_glow", src.layer+0.1), "face_glow")
+		if (faceEmotion != "ai-tetris")
+			UpdateOverlays(SafeGetOverlayImage("face_glow", 'icons/mob/ai.dmi', "ai-face_glow", src.layer+0.1), "face_glow")
+		else
+			UpdateOverlays(null, "face_glow")
+
 		UpdateOverlays(SafeGetOverlayImage("actual_face", 'icons/mob/ai.dmi', faceEmotion, src.layer+0.2), "actual_face")
 
 		if (src.power_mode == 1)
@@ -1982,13 +2016,13 @@ var/list/ai_emotions = list("Happy" = "ai_happy",\
 			src.sight |= SEE_MOBS
 			src.sight |= SEE_OBJS
 		src.see_in_dark = SEE_DARK_FULL
-		src.see_invisible = 2
+		src.see_invisible = INVIS_CLOAK
 		src.ear_deaf = 0
 	else
 		vision.set_color_mod("#000000")
 		src.sight = src.sight & ~(SEE_TURFS | SEE_MOBS | SEE_OBJS)
 		src.see_in_dark = 0
-		src.see_invisible = 0
+		src.see_invisible = INVIS_NONE
 		src.ear_deaf = 1
 
 /mob/living/silicon/ai/verb/open_nearest_door()
@@ -2002,6 +2036,8 @@ var/list/ai_emotions = list("Happy" = "ai_happy",\
 
 //just use this proc to make click-track checking easier (I would use this in the below proc that builds a list, but i think the proc call overhead is not worth it)
 proc/is_mob_trackable_by_AI(var/mob/M)
+	if (HAS_MOB_PROPERTY(M, PROP_AI_UNTRACKABLE))
+		return 0
 	if (istype(M, /mob/new_player))
 		return 0
 	if (ishuman(M) && (istype(M:wear_id, /obj/item/card/id/syndicate) || (istype(M:wear_id, /obj/item/device/pda2) && M:wear_id:ID_card && istype(M:wear_id:ID_card, /obj/item/card/id/syndicate))))
@@ -2033,9 +2069,11 @@ proc/get_mobs_trackable_by_AI()
 	for (var/mob/M in mobs)
 		if (istype(M, /mob/new_player))
 			continue //cameras can't follow people who haven't started yet DUH OR DIDN'T YOU KNOW THAT
+		if (HAS_MOB_PROPERTY(M, PROP_AI_UNTRACKABLE))
+			continue
 		if (ishuman(M) && (istype(M:wear_id, /obj/item/card/id/syndicate) || (istype(M:wear_id, /obj/item/device/pda2) && M:wear_id:ID_card && istype(M:wear_id:ID_card, /obj/item/card/id/syndicate))))
 			continue
-		if (istype(M,/mob/living/critter/aquatic) || istype(M, /mob/living/critter/small_animal/chicken))
+		if (istype(M,/mob/living/critter/aquatic) || istype(M, /mob/living/critter/small_animal/ranch_base/chicken))
 			continue
 		if(M.z != 1 && M.z != usr.z)
 			continue
@@ -2047,7 +2085,7 @@ proc/get_mobs_trackable_by_AI()
 			continue
 
 		var/turf/T = get_turf(M)
-		if(!T.cameras || !T.cameras.len)
+		if(!T.cameras || !length(T.cameras))
 			continue
 
 		var/name = M.name
@@ -2203,10 +2241,10 @@ proc/get_mobs_trackable_by_AI()
 		if (W.material.material_flags & MATERIAL_METAL) // metal sheets
 			if (src.build_step < 1)
 				var/obj/item/sheet/M = W
-				if (M.consume_sheets(3))
+				if (M.change_stack_amount(-3))
 					src.build_step++
 					boutput(user, "You add plating to [src]!")
-					playsound(get_turf(src), "sound/impact_sounds/Generic_Stab_1.ogg", 40, 1)
+					playsound(src, "sound/impact_sounds/Generic_Stab_1.ogg", 40, 1)
 					src.icon_state = "ai_frame1"
 					return
 				else
@@ -2219,10 +2257,10 @@ proc/get_mobs_trackable_by_AI()
 			if (src.build_step >= 2)
 				if (!src.has_glass)
 					var/obj/item/sheet/G = W
-					if (G.consume_sheets(1))
+					if (G.change_stack_amount(-1))
 						src.build_step++
 						boutput(user, "You add glass to [src]!")
-						playsound(get_turf(src), "sound/impact_sounds/Generic_Stab_1.ogg", 40, 1)
+						playsound(src, "sound/impact_sounds/Generic_Stab_1.ogg", 40, 1)
 						src.has_glass = 1
 						if (!src.image_coverlay)
 							src.image_coverlay = image(src.icon, "ai_frame2-og", FLY_LAYER)
@@ -2251,7 +2289,7 @@ proc/get_mobs_trackable_by_AI()
 			if (coil.use(3))
 				src.build_step++
 				boutput(user, "You add \the [W] to [src]!")
-				playsound(get_turf(src), "sound/impact_sounds/Generic_Stab_1.ogg", 40, 1)
+				playsound(src, "sound/impact_sounds/Generic_Stab_1.ogg", 40, 1)
 				src.icon_state = "ai_frame2"
 				if (coil.amount < 1)
 					user.drop_item()
@@ -2272,7 +2310,7 @@ proc/get_mobs_trackable_by_AI()
 			if (!src.cell)
 				src.build_step++
 				boutput(user, "You add \the [W] to [src]!")
-				playsound(get_turf(src), "sound/impact_sounds/Generic_Stab_1.ogg", 40, 1)
+				playsound(src, "sound/impact_sounds/Generic_Stab_1.ogg", 40, 1)
 				src.cell = W
 				user.u_equip(W)
 				W.set_loc(src)
@@ -2297,7 +2335,7 @@ proc/get_mobs_trackable_by_AI()
 			if (src.has_radios < 3)
 				src.build_step++
 				boutput(user, "You add \the [W] to [src]!")
-				playsound(get_turf(src), "sound/impact_sounds/Generic_Stab_1.ogg", 40, 1)
+				playsound(src, "sound/impact_sounds/Generic_Stab_1.ogg", 40, 1)
 				src.icon_state = "shell-radio"
 				src.has_radios++
 				qdel(W)
@@ -2323,7 +2361,7 @@ proc/get_mobs_trackable_by_AI()
 			if (!src.has_interface)
 				src.build_step++
 				boutput(user, "You add \the [W] to [src]!")
-				playsound(get_turf(src), "sound/impact_sounds/Generic_Stab_1.ogg", 40, 1)
+				playsound(src, "sound/impact_sounds/Generic_Stab_1.ogg", 40, 1)
 				src.has_interface = 1
 				qdel(W)
 				if (!src.image_coverlay)

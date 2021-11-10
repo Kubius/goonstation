@@ -19,7 +19,7 @@ proc/semi_deep_copy(orig, new_arg=null, list/environment=null, root=null, copy_f
 	if(((copy_flags & COPY_SHALLOW) || (copy_flags & COPY_SHALLOW_EXCEPT_FOR_LISTS && !islist(orig))) && !isnull(root))
 		return orig
 	if(isnum(orig) || istext(orig) || isnull(orig) || isclient(orig) || isicon(orig) || isfile(orig) || ispath(orig) || \
-			istype(orig, /datum/chemical_reaction) || istype(orig, /datum/radio_frequency))
+			istype(orig, /datum/chemical_reaction) || istype(orig, /datum/radio_frequency) || istype(orig, /datum/client_image_group))
 		return orig
 	if(copy_flags & COPY_SKIP_EXPLOITABLE && (
 			istype(orig, /obj/item/uplink) || istype(orig, /obj/item/spacebux) || istype(orig, /obj/item/chem_hint)))
@@ -130,7 +130,7 @@ proc/semi_deep_copy(orig, new_arg=null, list/environment=null, root=null, copy_f
 			var/atom/result_atom = result
 			result_atom.overlays = null
 			var/list/overlays = list()
-			overlays.len = result_atom.overlay_refs.len
+			overlays.len = length(result_atom.overlay_refs)
 			for(var/key in result_atom.overlay_refs)
 				var/list/overlay_ref = result_atom.overlay_refs[key]
 				var/image/I = overlay_ref[2]

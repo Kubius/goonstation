@@ -9,7 +9,7 @@
 	var/selection
 
 	initialize()
-		selection = unpool(/obj/adventurepuzzle/marker)
+		selection = new /obj/adventurepuzzle/marker
 		button_type = input("Button type", "Button type", "ancient") in list("ancient", "red")
 		color_rgb = input("Color", "Color", "#ffffff") as color
 		button_name = input("Button name", "Button name", "button") as text
@@ -25,7 +25,7 @@
 
 	disposing()
 		clear_selections()
-		pool(selection)
+		qdel(selection)
 		..()
 
 	build_click(var/mob/user, var/datum/buildmode_holder/holder, var/list/pa, var/atom/object)
@@ -53,7 +53,7 @@
 					selected_triggerable_untrigger -= object
 				else
 					var/list/actions = object:trigger_actions()
-					if (islist(actions) && actions.len)
+					if (islist(actions) && length(actions))
 						var/act_name = input("Do what on press?", "Do what?", actions[1]) in actions
 						var/act = actions[act_name]
 						var/unact_name = input("Do what on unpress?", "Do what?", actions[1]) in actions

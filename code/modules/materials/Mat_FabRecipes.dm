@@ -666,13 +666,21 @@
 		..()
 
 	build(amount, var/obj/machinery/nanofab/owner)
-		var/obj/item/sheet/newObj = new()
+		var/num = round(amount/5)
+		amount = amount%5
 		var/obj/item/source = getObjectByPartName("Sheet")
-		if(source?.material)
-			newObj.setMaterial(source.material)
-		newObj.change_stack_amount((amount * 10) - newObj.amount)
-		newObj.set_loc(getOutputLocation(owner))
-		return
+		for(var/i in 1 to num)
+			var/obj/item/sheet/newObj = new()
+			if(source?.material)
+				newObj.setMaterial(source.material)
+			newObj.change_stack_amount(50 - newObj.amount)
+			newObj.set_loc(getOutputLocation(owner))
+		if(amount > 0)
+			var/obj/item/sheet/newObj = new()
+			if(source?.material)
+				newObj.setMaterial(source.material)
+			newObj.change_stack_amount((amount*10) - newObj.amount)
+			newObj.set_loc(getOutputLocation(owner))
 
 /datum/matfab_recipe/cell_small
 	name = "Small energy cell"
@@ -739,7 +747,7 @@
 			refined.material.triggersOnAttack.Cut()
 			refined.material.addTrigger(refined.material.triggersOnAttack, A)
 
-			var/obj/item/material_piece/wad/W = unpool(/obj/item/material_piece/wad)
+			var/obj/item/material_piece/wad/W = new /obj/item/material_piece/wad
 
 			if(refined?.material)
 				refined.material.canMix = 0

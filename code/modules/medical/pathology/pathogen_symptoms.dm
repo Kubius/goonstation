@@ -1341,7 +1341,7 @@ datum/pathogeneffects/malevolent/liverdamage
 				if (prob(12) && M.reagents.has_reagent("ethanol"))
 					M.visible_message("[M] falls to the ground, clutching their chest!", "<span class='alert'>The pain overwhelms you!</span>", "<span class='alert'>You hear someone fall.</span>")
 					M.take_toxin_damage(5)
-					M.changeStatus("weakened", 400)
+					M.changeStatus("weakened", 40 SECONDS)
 
 	may_react_to()
 		return "The pathogen appears to be capable of processing certain beverages."
@@ -1543,10 +1543,10 @@ datum/pathogeneffects/malevolent/seriouschills
 	rarity = RARITY_RARE
 
 	proc/create_icing(var/mob/M)
-		var/obj/decal/icefloor/I = unpool(/obj/decal/icefloor)
+		var/obj/decal/icefloor/I = new /obj/decal/icefloor
 		I.set_loc(get_turf(M))
 		SPAWN_DBG(30 SECONDS)
-			pool(I)
+			qdel(I)
 
 	disease_act(var/mob/M as mob, var/datum/pathogen/origin)
 		if (!origin.symptomatic)
@@ -1730,7 +1730,7 @@ datum/pathogeneffects/malevolent/farts/plasma
 	fart(var/mob/M, var/datum/pathogen/origin, var/voluntary)
 		..()
 		var/turf/T = get_turf(M)
-		var/datum/gas_mixture/gas = unpool(/datum/gas_mixture)
+		var/datum/gas_mixture/gas = new /datum/gas_mixture
 		gas.zero()
 		gas.toxins = origin.stage * (voluntary ? 0.6 : 3) // only a fifth for voluntary farts
 		gas.temperature = T20C
@@ -1759,7 +1759,7 @@ datum/pathogeneffects/malevolent/farts/co2
 	fart(var/mob/M, var/datum/pathogen/origin, var/voluntary)
 		..()
 		var/turf/T = get_turf(M)
-		var/datum/gas_mixture/gas = unpool(/datum/gas_mixture)
+		var/datum/gas_mixture/gas = new /datum/gas_mixture
 		gas.zero()
 		gas.carbon_dioxide = origin.stage * (voluntary ? 1.4 : 7) // only a fifth for voluntary farts
 		gas.temperature = T20C
@@ -1792,7 +1792,7 @@ datum/pathogeneffects/malevolent/farts/o2
 	fart(var/mob/M, var/datum/pathogen/origin, var/voluntary)
 		..()
 		var/turf/T = get_turf(M)
-		var/datum/gas_mixture/gas = unpool(/datum/gas_mixture)
+		var/datum/gas_mixture/gas = new /datum/gas_mixture
 		gas.zero()
 		gas.oxygen = origin.stage * (voluntary ? 20 : 2) // ten times as much for voluntary farts
 		gas.temperature = T20C
@@ -2017,17 +2017,17 @@ datum/pathogeneffects/malevolent/radiation
 					boutput(M,"<span class='alert'>You feel sick.</span>")
 			if (4)
 				if (prob(13))
-					M.changeStatus("radiation", 30)
+					M.changeStatus("radiation", 3 SECONDS)
 					boutput(M,"<span class='alert'>You feel very sick!</span>")
 				else if (prob(26))
 					M.changeStatus("radiation", 2 SECONDS)
 					boutput(M,"<span class='alert'>You feel sick.</span>")
 			if (5)
 				if (prob(15))
-					M.changeStatus("radiation", rand(20,40))
+					M.changeStatus("radiation", rand(2,4) SECONDS)
 					boutput(M,"<span class='alert'>You feel extremely sick!!</span>")
 				else if (prob(20))
-					M.changeStatus("radiation", 30)
+					M.changeStatus("radiation", 3 SECONDS)
 					boutput(M,"<span class='alert'>You feel very sick!</span>")
 				else if (prob(40))
 					M.changeStatus("radiation", 2 SECONDS)

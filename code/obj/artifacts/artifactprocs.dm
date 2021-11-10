@@ -103,6 +103,7 @@
 	A.activ_sound = pick(AO.activation_sounds)
 	A.fault_types |= AO.fault_types - A.fault_blacklist
 	A.internal_name = AO.generate_name()
+	A.used_names[AO.type_name] = A.internal_name
 	A.nofx = AO.nofx
 
 	ArtifactDevelopFault(10)
@@ -166,6 +167,63 @@
 		src.UpdateOverlays(null, "activated")
 	A.effect_deactivate(src)
 
+/obj/proc/Artifact_emp_act()
+	if (!src.ArtifactSanityCheck())
+		return
+	src.ArtifactStimulus("elec", 800)
+	src.ArtifactStimulus("radiate", 3)
+
+/obj/proc/Artifact_blob_act(var/power)
+	if (!src.ArtifactSanityCheck())
+		return
+	src.ArtifactStimulus("force", power)
+	src.ArtifactStimulus("carbtouch", 1)
+
+/obj/proc/Artifact_reagent_act(var/reagent_id, var/volume)
+	if (!src.ArtifactSanityCheck())
+		return
+	var/datum/artifact/A = src.artifact
+	switch(reagent_id)
+		if("radium","porktonium")
+			src.ArtifactStimulus("radiate", round(volume / 10))
+		if("strange_reagent")
+			src.ArtifactStimulus("radiate", round(volume / 5))
+		if("uranium","polonium")
+			src.ArtifactStimulus("radiate", round(volume / 2))
+		if("dna_mutagen","mutagen","omega_mutagen")
+			if (A.artitype.name == "martian")
+				ArtifactDevelopFault(80)
+		if("phlogiston","el_diablo","thermite","thalmerite","argine")
+			src.ArtifactStimulus("heat", 310 + (volume * 5))
+		if("napalm_goo","kerosene","ghostchilijuice")
+			src.ArtifactStimulus("heat", 310 + (volume * 10))
+		if("infernite","foof","dbreath")
+			src.ArtifactStimulus("heat", 310 + (volume * 15))
+		if("cryostylane")
+			src.ArtifactStimulus("heat", 310 - (volume * 10))
+		if("freeze")
+			src.ArtifactStimulus("heat", 310 - (volume * 15))
+		if("voltagen","energydrink")
+			src.ArtifactStimulus("elec", volume * 50)
+		if("acid","acetic_acid")
+			src.ArtifactTakeDamage(volume * 2)
+		if("pacid","clacid","nitric_acid")
+			src.ArtifactTakeDamage(volume * 10)
+		if("george_melonium")
+			var/random_stimulus = pick("heat","force","radiate","elec")
+			var/random_strength = 0
+			switch(random_stimulus)
+				if ("heat")
+					random_strength = rand(200,400)
+				if ("elec")
+					random_strength = rand(5,5000)
+				if ("force")
+					random_strength = rand(3,30)
+				if ("radiate")
+					random_strength = rand(1,10)
+			src.ArtifactStimulus(random_stimulus,random_strength)
+	return
+
 /obj/proc/Artifact_attackby(obj/item/W as obj, mob/user as mob)
 	if (istype(W, /obj/item/cargotele)) // Re-added (Convair880).
 		var/obj/item/cargotele/CT = W
@@ -207,6 +265,12 @@
 			src.visible_message("<span class='alert'>[user.name] burns the artifact with [ZIP]!</span>")
 			return 0
 
+	if(istype(W,/obj/item/device/igniter))
+		var/obj/item/device/igniter/igniter = W
+		src.ArtifactStimulus("elec", 700)
+		src.ArtifactStimulus("heat", 385)
+		src.visible_message("<span class='alert'>[user.name] sparks against \the [src] with \the [igniter]!</span>")
+
 	if (istype(W, /obj/item/robodefibrillator))
 		var/obj/item/robodefibrillator/R = W
 		if (R.do_the_shocky_thing(user))
@@ -216,13 +280,24 @@
 
 	if(istype(W,/obj/item/baton))
 		var/obj/item/baton/BAT = W
-		if (BAT.can_stun(1, 1, user) == 1)
+		if (BAT.can_stun(1, user) == 1)
 			src.ArtifactStimulus("force", BAT.force)
 			src.ArtifactStimulus("elec", 1500)
 			playsound(src.loc, "sound/impact_sounds/Energy_Hit_3.ogg", 100, 1)
 			src.visible_message("<span class='alert'>[user.name] beats the artifact with [BAT]!</span>")
 			BAT.process_charges(-1, user)
 			return 0
+
+	if(istype(W,/obj/item/device/flyswatter))
+		var/obj/item/device/flyswatter/swatter = W
+		src.ArtifactStimulus("elec", 1500)
+		src.visible_message("<span class='alert'>[user.name] shocks \the [src] with \the [swatter]!</span>")
+		return 0
+
+	if(ispulsingtool(W))
+		src.ArtifactStimulus("elec", 1000)
+		src.visible_message("<span class='alert'>[user.name] shocks \the [src] with \the [W]!</span>")
+		return 0
 
 	if (istype(W,/obj/item/parts/robot_parts))
 		var/obj/item/parts/robot_parts/THISPART = W
@@ -252,7 +327,7 @@
 			if (get_dist(src.loc, M.loc) > 1)
 				return
 			src.visible_message("<strong class='combat'>[A] shoves [M] against \the [src]!</strong>")
-			logTheThing("combat", A, M, "forces [constructTarget(M,"combat")] to touch \an ([A.type]) artifact at [log_loc(src)].")
+			logTheThing("combat", A, M, "forces [constructTarget(M,"combat")] to touch \an ([src.type]) artifact at [log_loc(src)].")
 			src.ArtifactTouched(M)
 			return 0
 
@@ -317,7 +392,7 @@
 	var/turf/T = get_turf(src)
 
 	var/datum/artifact/A = src.artifact
-	if(!istype(A))
+	if(!istype(A) || !A.artitype)
 		return
 
 	// Possible stimuli = force, elec, radiate, heat
@@ -379,9 +454,16 @@
 
 	var/datum/artifact/A = src.artifact
 	if (istype(A,/datum/artifact/))
-		if (iscarbon(user))
+		if (ishuman(user))
+			var/mob/living/carbon/human/H = user
+			var/obj/item/parts/arm = H.hand ? H.limbs.l_arm : H.limbs.r_arm
+			if(istype(arm, /obj/item/parts/robot_parts))
+				src.ArtifactStimulus("silitouch", 1)
+			else
+				src.ArtifactStimulus("carbtouch", 1)
+		else if (iscarbon(user))
 			src.ArtifactStimulus("carbtouch", 1)
-		if (issilicon(user))
+		else if (issilicon(user))
 			src.ArtifactStimulus("silitouch", 1)
 		src.ArtifactStimulus("force", 1)
 		user.visible_message("<b>[user.name]</b> touches [src].")
@@ -411,6 +493,18 @@
 		src.ArtifactDestroyed()
 	return
 
+/// Removes all artifact forms attached to this and makes them fall to the floor
+/// Because artifacts often like to disappear in mysterious ways
+/obj/proc/remove_artifact_forms()
+	var/removed = 0
+	for(var/obj/item/sticker/postit/artifact_paper/AP in src.vis_contents)
+		AP.remove_from_attached()
+		removed++
+	if(removed == 1)
+		src.visible_message("The artifact form that was attached falls to the ground.")
+	else if(removed > 1)
+		src.visible_message("All the artifact forms that were attached fall to the ground.")
+
 /obj/proc/ArtifactDestroyed()
 	// Call this rather than straight disposing() on an artifact if you want to destroy it. This way, artifacts can have their own
 	// version of this for ones that will deliver a payload if broken.
@@ -432,6 +526,8 @@
 				T.visible_message("<span class='alert'><B>[src] warps in on itself and vanishes!</B></span>")
 			if("precursor")
 				T.visible_message("<span class='alert'><B>[src] implodes, crushing itself into dust!</B></span>")
+
+	src.remove_artifact_forms()
 
 	src.ArtifactDeactivated()
 
@@ -459,7 +555,7 @@
 		faultprob *= 2 // eldritch artifacts fucking hate you and are twice as likely to go faulty
 	faultprob = max(0,min(faultprob,100))
 
-	if (prob(faultprob) && A.fault_types.len)
+	if (prob(faultprob) && length(A.fault_types))
 		var/new_fault = weighted_pick(A.fault_types)
 		if (ispath(new_fault))
 			var/datum/artifact_fault/F = new new_fault(A)
@@ -479,6 +575,6 @@
 		logTheThing(type_of_action == "detonated" ? "bombing" : "station", user, target, "an artifact ([A.type]) was [type_of_action] [special_addendum ? "([special_addendum])" : ""] at [target && isturf(target) ? "[log_loc(target)]" : "[log_loc(O)]"].[type_of_action == "detonated" ? " Last touched by: [O.fingerprintslast ? "[O.fingerprintslast]" : "*null*"]" : ""]")
 
 	if (trigger_alert)
-		message_admins("An artifact ([A.type]) was [type_of_action] [special_addendum ? "([special_addendum])" : ""] at [log_loc(O)]. Last touched by: [O.fingerprintslast ? "[O.fingerprintslast]" : "*null*"]")
+		message_admins("An artifact ([A.type]) was [type_of_action] [special_addendum ? "([special_addendum])" : ""] at [log_loc(O)]. Last touched by: [key_name(O.fingerprintslast)]")
 
 	return

@@ -201,6 +201,13 @@ menu "menu"
 		can-check = true
 		group = "size"
 		saved-params = "is-checked"
+	elem "icon96"
+		name = "&96x96"
+		command = ".winset \"mapwindow.map.icon-size=96\""
+		category = "&Icon Settings"
+		can-check = true
+		group = "size"
+		saved-params = "is-checked"
 	elem "icon64"
 		name = "&64x64"
 		command = ".winset \"mapwindow.map.icon-size=64\""
@@ -432,6 +439,11 @@ menu "menu"
 	elem
 		name = "&Adjust Emote Volume"
 		command = "change-volume emote"
+		category = "&Audio"
+		saved-params = "is-checked"
+	elem
+		name = "&Adjust Mentor PM Volume"
+		command = "change-volume mentorpm"
 		category = "&Audio"
 		saved-params = "is-checked"
 	elem

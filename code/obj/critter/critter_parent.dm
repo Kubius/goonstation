@@ -108,6 +108,7 @@
 		if (!message || !length(message))
 			return
 		var/msg = replacetext(message, "%src%", "<b>[src]</b>")
+		msg = replacetext(msg, "%target%", "[target]")
 		msg = replacetext(msg, "[constructTarget(target,"combat")]", "[target]")
 		src.visible_message("<span class='alert'>[msg]</span>")
 
@@ -245,11 +246,17 @@
 			..()
 			return
 
-		if (src.health_gain_from_food && (istype(W, /obj/item/reagent_containers/food/snacks) || istype(W, /obj/item/seed)))
-			user.visible_message("<b>[user]</b> feeds [W] to [src]!","You feed [W] to [src].")
+		if (istype(W, /obj/item/reagent_containers/food/snacks) || istype(W, /obj/item/seed))
+			boutput(user, "You offer [src] [W].")
+			if (!do_mob(user, src, 1 SECOND) || get_dist(user, src) > 1)
+				if (user && ismob(user))
+					user.show_text("You were interrupted!", "red")
+				return
 			if (src.feed_text)
-				src.visible_message("[src] [src.feed_text]")
+				src.visible_message("<span class='notice'>[src] [src.feed_text]</span>")
+			eat_twitch(src)
 			src.health += src.health_gain_from_food
+			user.drop_item()
 			qdel(W)
 			return
 
@@ -339,13 +346,13 @@
 
 	proc/on_damaged(mob/user)
 		if(registered_area) //In case some butt fiddles with a hibernating critter
-			registered_area.wake_critters()
+			registered_area.wake_critters(user)
 		return
 
 
 	proc/on_pet(mob/user)
 		if(registered_area) //In case some nice person fiddles with a hibernating critter
-			registered_area.wake_critters()
+			registered_area.wake_critters(user)
 		if (!user)
 			return 1 // so things can do if (..())
 		return

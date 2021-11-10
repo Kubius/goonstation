@@ -20,7 +20,7 @@ var/global/Z4_ACTIVE = 0 //Used for mob processing purposes
 	icon_state = "purple"
 	requires_power = 0
 	sound_environment = 4
-	teleport_blocked = 1
+	teleport_blocked = 2
 	skip_sims = 1
 	sims_score = 25
 	sound_group = "centcom"
@@ -253,9 +253,15 @@ var/global/Z4_ACTIVE = 0 //Used for mob processing purposes
 	tarmunora
 		ckey = "tarmunora"
 		name = "Office of yass"
+	tterc
+		ckey = "tterc"
+		name = "Office of Caroline Audibert"
 	urs
 		ckey = "ursulamajor"
 		name = "Office of UrsulaMajor"
+	varshie
+		ckey = "varshie"
+		name = "Office of Varshie"
 	virvatuli
 		ckey = "virvatuli"
 		name = "Office of Virvatuli"
@@ -293,13 +299,50 @@ var/global/Z4_ACTIVE = 0 //Used for mob processing purposes
 	name = "NT Data Center"
 	icon_state = "pink"
 
+/area/centcom/reconstitutioncenter
+	name = "NT Reconstitution Center"
+	icon_state = "purple"
+
 /area/retentioncenter
 	name = "NT Retention Center"
 	icon_state = "dk_yellow"
 
+/area/retentioncenter/teleblocked
+	name = "NT Retention Center (teleblocked)"
+	icon_state = "death"
+	teleport_blocked = 2
+
 /area/retentioncenter/depot
 	name = "NT Retention Center (depot)"
 	icon_state = "green"
+
+/area/retentioncenter/blue
+	name = "NT Retention Center (BLU)"
+	icon_state = "blue"
+
+/area/retentioncenter/green
+	name = "NT Retention Center (GRN)"
+	icon_state = "green"
+
+/area/retentioncenter/yellow
+	name = "NT Retention Center (YLW)"
+	icon_state = "yellow"
+
+/area/retentioncenter/orange
+	name = "NT Retention Center (ORG)"
+	icon_state = "orange"
+
+/area/retentioncenter/red
+	name = "NT Retention Center (RED)"
+	icon_state = "red"
+
+/area/retentioncenter/black
+	name = "NT Retention Center (BLK)"
+	icon_state = "purple"
+
+/area/retentioncenter/restricted
+	name = "NT Retention Center (Restricted)"
+	icon_state = "death"
 
 /area/retentioncenter/disposals
 	name = "NT Retention Center (disposals)"
@@ -524,3 +567,43 @@ var/global/Z4_ACTIVE = 0 //Used for mob processing purposes
 			var/matrix/M = L.transform
 			animate(L, transform = matrix(M, -90, MATRIX_ROTATE | MATRIX_MODIFY), time = 3)
 			animate( transform = matrix(M, -90, MATRIX_ROTATE | MATRIX_MODIFY), time = 3)
+
+
+
+
+
+proc/get_centcom_mob_cloner_spawn_loc()
+	RETURN_TYPE(/turf)
+	if(length(landmarks[LANDMARK_CHARACTER_PREVIEW_SPAWN]))
+		shuffle_list(landmarks[LANDMARK_CHARACTER_PREVIEW_SPAWN])
+		for(var/turf/T in landmarks[LANDMARK_CHARACTER_PREVIEW_SPAWN])
+			if(isnull(locate(/mob/living) in T))
+				return T
+
+proc/put_mob_in_centcom_cloner(mob/living/L)
+	var/area/AR = get_area(L)
+	if(!istype(AR, /area/centcom/reconstitutioncenter))
+		L.set_loc(get_centcom_mob_cloner_spawn_loc())
+	L.density = TRUE
+	L.a_intent = INTENT_HARM
+	L.dir_locked = TRUE
+	playsound(L, "sound/machines/ding.ogg", 50, 1)
+	L.visible_message("<span class='notice'>[L.name || "A clone"] pops out of the cloner.</span>")
+	var/static/list/obj/machinery/conveyor/conveyors = null
+	var/static/conveyor_running_count = 0
+	if(isnull(conveyors))
+		conveyors = list()
+		for(var/obj/machinery/conveyor/C as anything in machine_registry[MACHINES_CONVEYORS])
+			if(C.id == "centcom cloning")
+				conveyors += C
+	if(conveyor_running_count == 0)
+		for(var/obj/machinery/conveyor/conveyor as anything in conveyors)
+			conveyor.operating = 1
+			conveyor.setdir()
+	conveyor_running_count++
+	SPAWN_DBG(8 SECONDS)
+		conveyor_running_count--
+		if(conveyor_running_count == 0)
+			for(var/obj/machinery/conveyor/conveyor as anything in conveyors)
+				conveyor.operating = 0
+				conveyor.setdir()

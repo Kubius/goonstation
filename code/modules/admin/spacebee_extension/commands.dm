@@ -20,7 +20,7 @@
 	help_message = "Locates a given ckey on all servers."
 	argument_types = list(/datum/command_argument/string/ckey="ckey")
 	execute(user, ckey)
-		var/mob/M = whois_ckey_to_mob_reference(ckey, exact=FALSE)
+		var/mob/M = ckey_to_mob(ckey, exact=FALSE)
 		if(!M)
 			return
 		var/list/result = list()
@@ -48,6 +48,120 @@
 		ircmsg["name"] = user
 		ircmsg["msg"] = "Added a note for [ckey]: [note]"
 		ircbot.export("admin", ircmsg)
+
+/datum/spacebee_extension_command/ban
+	name = "ban"
+	server_targeting = COMMAND_TARGETING_MAIN_SERVER
+	help_message = "Bans a given ckey. Arguments in the order of ckey, length (number of minutes, or put \"hour\", \"day\", \"week\", \"month\", \"perma\" or \"untilappeal\"), and ban reason. Make sure you specify the server that the person is on. Also keep in mind that this bans them from all servers. e.g. ban1 shelterfrog perma Lol rip."
+	argument_types = list(/datum/command_argument/string/ckey="ckey", /datum/command_argument/string="length",
+	/datum/command_argument/the_rest="reason")
+	execute(user, ckey, length, reason)
+		if (!(ckey && length && reason))
+			system.reply("Insufficient arguments.", user)
+			return
+		var/data[] = new()
+		data["ckey"] = ckey
+		var/mob/M = ckey_to_mob(ckey)
+		if (M)
+			data["compID"] = M.computer_id
+			data["ip"] = M.lastKnownIP
+		else
+			var/list/response
+			try
+				response = apiHandler.queryAPI("playerInfo/get", list("ckey" = data["ckey"]), forceResponse = 1)
+			catch ()
+				var/ircmsg[] = new()
+				ircmsg["name"] = user
+				ircmsg["msg"] = "Failed to query API, try again later."
+				ircbot.export("admin", ircmsg)
+				return
+			data["ip"] = response["last_ip"]
+			data["compID"] = response["last_compID"]
+		data["text_ban_length"] = length
+		data["reason"] = reason
+		if (length == "hour")
+			length = 60
+		else if (length == "day")
+			length = 1440
+		else if (length == "week")
+			length = 10080
+		else if (length == "month")
+			length = 43200
+		else if (length == "perma")
+			length = 0
+			data["text_ban_length"] = "Permanent"
+		else if (ckey(length) == "untilappeal")
+			length = -1
+			data["text_ban_length"] = "Until Appeal"
+		else
+			length = text2num(length)
+		if (!isnum(length))
+			system.reply("Ban length invalid.", user)
+			return
+		data["mins"] = length
+		data["akey"] = ckey(user) + " (Discord)"
+		addBan(data) // logging, messaging, and noting are all taken care of by this proc
+
+		var/ircmsg[] = new()
+		ircmsg["name"] = user
+		ircmsg["msg"] = "Banned [ckey] from all servers for [length] minutes, reason: [reason]"
+		ircbot.export("admin", ircmsg)
+
+/datum/spacebee_extension_command/boot
+	name = "boot"
+	server_targeting = COMMAND_TARGETING_SINGLE_SERVER
+	help_message = "Boot a given ckey off the specified server."
+	argument_types = list(/datum/command_argument/string/ckey="ckey")
+
+	execute(user, ckey)
+		for(var/client/C)
+			if (C.ckey == ckey)
+				del(C)
+				logTheThing("admin", "[user] (Discord)", null, "booted [constructTarget(C,"admin")].")
+				logTheThing("diary", "[user] (Discord)", null, "booted [constructTarget(C,"diary")].", "admin")
+				system.reply("Booted [ckey].", user)
+				return
+		system.reply("Could not locate [ckey].", user)
+
+/datum/spacebee_extension_command/prison
+	name = "prison"
+	server_targeting = COMMAND_TARGETING_SINGLE_SERVER
+	help_message = "Sends a given ckey to the prison zone."
+	argument_types = list(/datum/command_argument/string/ckey="ckey")
+
+	execute(user, ckey)
+		for(var/client/C)
+			if (C.ckey == ckey)
+				var/mob/M = C.mob
+				if (M && ismob(M) && !isAI(M) && !isobserver(M))
+					var/prison = pick_landmark(LANDMARK_PRISONWARP)
+					if (prison)
+						M.changeStatus("paralysis", 8 SECONDS)
+						M.set_loc(prison)
+						M.show_text("<h2><font color=red><b>You have been sent to the penalty box, and an admin should contact you shortly. If nobody does within a minute or two, please inquire about it in adminhelp (F1 key).</b></font></h2>", "red")
+						logTheThing("admin", "[user] (Discord)", null, "prisoned [constructTarget(C,"admin")].")
+						logTheThing("diary", "[user] (Discord)", null, "prisoned [constructTarget(C,"diary")].", "admin")
+						system.reply("Prisoned [ckey].", user)
+						return
+					system.reply("Could not locate prison zone.", user)
+					return
+				system.reply("[ckey] was of mob type [M.type] and could not be prisoned.", user)
+				return
+		system.reply("Could not locate [ckey].", user)
+
+/datum/spacebee_extension_command/where_is
+	name = "whereis"
+	server_targeting = COMMAND_TARGETING_SINGLE_SERVER
+	help_message = "Get where a given ckey is currently located ingame."
+	argument_types = list(/datum/command_argument/string/ckey="ckey")
+
+	execute(user, ckey)
+		var/mob/M = ckey_to_mob(ckey)
+		if (!M)
+			system.reply("Could not locate [ckey].", user)
+			return
+		var/area/A = get_area(M)
+		system.reply("[ckey] ([M]) is at [A.x], [A.y], [A.z] in [A].", user)
 
 /datum/spacebee_extension_command/announce
 	name = "announce"
@@ -224,7 +338,7 @@
 	help_message = "Sends items in a crate to cargo. Separate typepaths by spaces."
 	argument_types = list(/datum/command_argument/the_rest="types")
 	execute(user, types)
-		var/obj/to_send = new /obj/storage/crate/packing
+		var/obj/to_send = new /obj/storage/crate/wooden
 		var/list/type_str_list = splittext(types, " ")
 		for(var/type_str in type_str_list)
 			var/type = text2path(type_str)
@@ -268,4 +382,23 @@
 		target.real_name = src.new_name
 		target.name = src.new_name
 		target.choose_name(1, null, target.real_name, force_instead=TRUE)
+		return TRUE
+
+
+/datum/spacebee_extension_command/vpn_whitelist
+	name = "vpnwhitelist"
+	help_message = "Whitelists a given ckey from the VPN checker."
+	argument_types = list(/datum/command_argument/string/ckey="ckey")
+	server_targeting = COMMAND_TARGETING_SINGLE_SERVER
+
+	execute(user, ckey)
+		try
+			apiHandler.queryAPI("vpncheck-whitelist/add", list("ckey" = ckey, "akey" = user + " (Discord)"))
+		catch(var/exception/e)
+			system.reply("Error while adding ckey [ckey] to the VPN whitelist: [e.name]")
+			return FALSE
+		global.vpn_ip_checks?.Cut() // to allow them to reconnect this round
+		message_admins("Ckey [ckey] added to the VPN whitelist by [user] (Discord).")
+		logTheThing("admin", "[user] (Discord)", null, "Ckey [ckey] added to the VPN whitelist.")
+		system.reply("[ckey] added to the VPN whitelist.")
 		return TRUE

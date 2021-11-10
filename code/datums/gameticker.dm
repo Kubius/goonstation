@@ -29,16 +29,11 @@ var/global/current_state = GAME_STATE_WORLD_INIT
 
 	var/skull_key_assigned = 0
 
+	var/tmp/last_try_dilate = 0
 	var/tmp/useTimeDilation = TIME_DILATION_ENABLED
 	var/tmp/timeDilationLowerBound = MIN_TICKLAG
 	var/tmp/timeDilationUpperBound = OVERLOADED_WORLD_TICKLAG
-	var/tmp/last_tick_realtime = 0
-	var/tmp/last_tick_byondtime = 0
-	var/tmp/last_interval_tick_offset = 0 //how far off the last tick (byondtime - realtime)
-	var/tmp/last_try_dilate = 0
-
-	var/tmp/threshold_dilation = TICKLAG_DILATION_THRESHOLD	//remove later
-	var/tmp/threshold_normalization = TICKLAG_NORMALIZATION_THRESHOLD //remove later
+	var/tmp/highMapCpuCount = 0 // how many times in a row has the map_cpu been high
 
 /datum/controller/gameticker/proc/pregame()
 
@@ -94,18 +89,18 @@ var/global/current_state = GAME_STATE_WORLD_INIT
 #ifdef SERVER_SIDE_PROFILING_PREGAME
 #warn Profiler will output at pregame stage
 	var/profile_out = file("data/profile/[time2text(world.realtime, "YYYY-MM-DD hh-mm-ss")]-pregame.log")
-	profile_out << world.Profile(PROFILE_START, "json")
+	profile_out << world.Profile(PROFILE_START | PROFILE_AVERAGE, "sendmaps", "json")
 	world.log << "Dumped profiler data."
 #endif
 
 #if defined(SERVER_SIDE_PROFILING_INGAME_ONLY)
 #warn Profiler reset for ingame stage
 	// We're in game now, so reset profiler data
-	world.Profile(PROFILE_RESTART)
+	world.Profile(PROFILE_RESTART | PROFILE_AVERAGE, "sendmaps", "json")
 #elif !defined(SERVER_SIDE_PROFILING_FULL_ROUND)
 #warn Profiler disabled after init
 	// If we aren't doing ingame or full round then we're done with the profiler
-	world.Profile(PROFILE_STOP)
+	world.Profile(PROFILE_STOP | PROFILE_AVERAGE, "sendmaps", "json")
 #endif
 #endif
 
@@ -121,8 +116,13 @@ var/global/current_state = GAME_STATE_WORLD_INIT
 	switch(master_mode)
 		if("random","secret") src.mode = config.pick_random_mode()
 		if("action") src.mode = config.pick_mode(pick("nuclear","wizard","blob"))
-		if("intrigue") src.mode = config.pick_mode(pick("mixed_rp", "traitor","changeling","vampire","conspiracy","spy_theft", prob(50); "extended"))
+		if("intrigue") src.mode = config.pick_mode(pick("mixed_rp", "traitor","changeling","vampire","conspiracy","spy_theft","arcfiend", prob(50); "extended"))
+		if("pod_wars") src.mode = config.pick_mode("pod_wars")
 		else src.mode = config.pick_mode(master_mode)
+
+#if defined(MAP_OVERRIDE_POD_WARS)
+	src.mode = config.pick_mode("pod_wars")
+#endif
 
 	if(hide_mode)
 		#ifdef RP_MODE
@@ -251,16 +251,23 @@ var/global/current_state = GAME_STATE_WORLD_INIT
 		participationRecorder.releaseHold()
 
 	SPAWN_DBG (6000) // 10 minutes in
-		for(var/obj/machinery/power/monitor/smes/E in machine_registry[MACHINES_POWER])
+		for(var/obj/machinery/computer/power_monitor/smes/E in machine_registry[MACHINES_POWER])
 			LAGCHECK(LAG_LOW)
-			if(E.powernet?.avail <= 0)
+			var/datum/powernet/PN = E.get_direct_powernet()
+			if(PN?.avail <= 0)
 				command_alert("Reports indicate that the engine on-board [station_name()] has not yet been started. Setting up the engine is strongly recommended, or else stationwide power failures may occur.", "Power Grid Warning")
 			break
+
+	for(var/turf/T in job_start_locations["AI"])
+		if(isnull(locate(/mob/living/silicon/ai) in T))
+			new /obj/item/clothing/suit/cardboard_box/ai(T)
 
 	processScheduler.start()
 
 	if (total_clients() >= OVERLOAD_PLAYERCOUNT)
 		world.tick_lag = OVERLOADED_WORLD_TICKLAG
+	else if (total_clients() >= SEMIOVERLOAD_PLAYERCOUNT)
+		world.tick_lag = SEMIOVERLOADED_WORLD_TICKLAG
 
 //Okay this is kinda stupid, but mapSwitcher.autoVoteDelay which is now set to 30 seconds, (used to be 5 min).
 //The voting will happen 30 seconds into the pre-game lobby. This is probably fine to leave. But if someone changes that var then it might start before the lobby timer ends.
@@ -298,29 +305,29 @@ var/global/current_state = GAME_STATE_WORLD_INIT
 					var/mob/living/silicon/ai/A = player.AIize()
 					A.Equip_Bank_Purchase(A.mind.purchased_bank_item)
 
-				else if (player.mind && player.mind.special_role == "wraith")
+				else if (player.mind && player.mind.special_role == ROLE_WRAITH)
 					player.close_spawn_windows()
 					var/mob/wraith/W = player.make_wraith()
 					if (W)
 						W.set_loc(pick_landmark(LANDMARK_OBSERVER))
 						logTheThing("debug", W, null, "<b>Late join</b>: assigned antagonist role: wraith.")
-						antagWeighter.record(role = "wraith", ckey = W.ckey)
+						antagWeighter.record(role = ROLE_WRAITH, ckey = W.ckey)
 
-				else if (player.mind && player.mind.special_role == "blob")
+				else if (player.mind && player.mind.special_role == ROLE_BLOB)
 					player.close_spawn_windows()
 					var/mob/living/intangible/blob_overmind/B = player.make_blob()
 					if (B)
 						B.set_loc(pick_landmark(LANDMARK_OBSERVER))
 						logTheThing("debug", B, null, "<b>Late join</b>: assigned antagonist role: blob.")
-						antagWeighter.record(role = "blob", ckey = B.ckey)
+						antagWeighter.record(role = ROLE_BLOB, ckey = B.ckey)
 
-				else if (player.mind && player.mind.special_role == "flockmind")
+				else if (player.mind && player.mind.special_role == ROLE_FLOCKMIND)
 					player.close_spawn_windows()
 					var/mob/living/intangible/flock/flockmind/F = player.make_flockmind()
 					if (F)
 						F.set_loc(pick_landmark(LANDMARK_OBSERVER))
 						logTheThing("debug", F, null, "<b>Late join</b>: assigned antagonist role: flockmind.")
-						antagWeighter.record(role = "flockmind", ckey = F.ckey)
+						antagWeighter.record(role = ROLE_FLOCKMIND, ckey = F.ckey)
 
 				else if (player.mind)
 					if (player.client.using_antag_token)
@@ -381,24 +388,33 @@ var/global/current_state = GAME_STATE_WORLD_INIT
 
 		emergency_shuttle.process()
 
+		#if DM_VERSION >= 514
 		if (useTimeDilation)//TIME_DILATION_ENABLED set this
 			if (world.time > last_try_dilate + TICKLAG_DILATE_INTERVAL) //interval separate from the process loop. maybe consider moving this for cleanup later (its own process loop with diff. interval?)
 				last_try_dilate = world.time
 
-				last_interval_tick_offset = max(0, (world.timeofday - last_tick_realtime) - (world.time - last_tick_byondtime))
-				last_tick_realtime = world.timeofday
-				last_tick_byondtime = world.time
+				// adjust the counter up or down and keep it within the set boundaries
+				if (world.map_cpu >= TICKLAG_MAPCPU_MAX)
+					if (highMapCpuCount < TICKLAG_INCREASE_THRESHOLD)
+						highMapCpuCount++
+				else if (world.map_cpu <= TICKLAG_MAPCPU_MIN)
+					if (highMapCpuCount > -TICKLAG_DECREASE_THRESHOLD)
+						highMapCpuCount--
 
+				// adjust the tick_lag, if needed
 				var/dilated_tick_lag = world.tick_lag
+				if (highMapCpuCount >= TICKLAG_INCREASE_THRESHOLD)
+					dilated_tick_lag = min(world.tick_lag + TICKLAG_DILATION_INC,	timeDilationUpperBound)
+				else if (highMapCpuCount <= -TICKLAG_DECREASE_THRESHOLD)
+					dilated_tick_lag = max(world.tick_lag - TICKLAG_DILATION_DEC, timeDilationLowerBound)
 
-				if (last_interval_tick_offset >= threshold_dilation)
-					dilated_tick_lag = 	min(world.tick_lag + TICKLAG_DILATION_INC,	timeDilationUpperBound)
-				else if (last_interval_tick_offset <= threshold_normalization)
-					dilated_tick_lag =	max(world.tick_lag - TICKLAG_DILATION_DEC, timeDilationLowerBound)
-
+				// only set the value if it changed! earlier iteration of this was
+				// setting world.tick_lag very often, which caused instability with
+				// the networking. do not spam change world.tick_lag! you will regret it!
 				if (world.tick_lag != dilated_tick_lag)
 					world.tick_lag = dilated_tick_lag
-
+					highMapCpuCount = 0
+		#endif
 
 		// Minds are sometimes kicked out of the global list, hence the fallback (Convair880).
 		if (src.last_readd_lost_minds_to_ticker && world.time > src.last_readd_lost_minds_to_ticker + 1800)
@@ -420,6 +436,9 @@ var/global/current_state = GAME_STATE_WORLD_INIT
 
 			// Official go-ahead to be an end-of-round asshole
 			boutput(world, "<h3>The round has ended!</h3><strong style='color: #393;'>Further actions will have no impact on round results. Go hog wild!</strong>")
+
+			SPAWN_DBG(0)
+				change_ghost_invisibility(INVIS_NONE)
 
 			// i feel like this should probably be a proc call somewhere instead but w/e
 			if (!ooc_allowed)
@@ -495,7 +514,7 @@ var/global/current_state = GAME_STATE_WORLD_INIT
 			if (!isdead(player))
 				if (in_centcom(player))
 					player.unlock_medal("100M dash", 1)
-					if (pets_rescued >= 6)
+					if (pets_rescued >= 7)
 						player.unlock_medal("Noah's Shuttle", 1)
 				player.unlock_medal("Survivor", 1)
 
@@ -522,7 +541,7 @@ var/global/current_state = GAME_STATE_WORLD_INIT
 	//logTheThing("debug", null, null, "Zamujasa: [world.timeofday] Processing crew objectives")
 	var/list/successfulCrew = list()
 	for (var/datum/mind/crewMind in minds)
-		if (!crewMind.current || !crewMind.objectives.len)
+		if (!crewMind.current || !length(crewMind.objectives))
 			continue
 
 		var/count = 0
@@ -541,9 +560,9 @@ var/global/current_state = GAME_STATE_WORLD_INIT
 				logTheThing("diary",crewMind,null,"failed objective: [CO.explanation_text]. Bummer!")
 				allComplete = 0
 				crewMind.all_objs = 0
-
 		if (allComplete && count)
 			successfulCrew += "[crewMind.current.real_name] ([crewMind.key])"
+		boutput(crewMind.current, "<br>")
 #endif
 
 	//logTheThing("debug", null, null, "Zamujasa: [world.timeofday] mode.declare_completion()")
@@ -561,9 +580,11 @@ var/global/current_state = GAME_STATE_WORLD_INIT
 	else
 		final_score = 100
 
+	if(!score_tracker.score_calculated)
+		final_score = 100
+
 	boutput(world, score_tracker.escapee_facts())
 	boutput(world, score_tracker.heisenhat_stats())
-
 	//logTheThing("debug", null, null, "Zamujasa: [world.timeofday] ai law display")
 	boutput(world, "<b>AIs and Cyborgs had the following laws at the end of the game:</b><br>[ticker.centralized_ai_laws.format_for_logs()]")
 
@@ -596,10 +617,6 @@ var/global/current_state = GAME_STATE_WORLD_INIT
 
 	// DO THE PERSISTENT_BANK STUFF
 	//logTheThing("debug", null, null, "Zamujasa: [world.timeofday] processing spacebux updates")
-
-	var/escape_possible = 1
-	if (istype(mode, /datum/game_mode/blob) || istype(mode, /datum/game_mode/nuclear) || istype(mode, /datum/game_mode/revolution))
-		escape_possible = 0
 
 	var/time = world.time
 
@@ -661,7 +678,7 @@ var/global/current_state = GAME_STATE_WORLD_INIT
 					var/mob/dead/aieye/E = player
 					player_loses_held_item = isdead(E.mainframe)
 
-			if (!escape_possible)
+			if (!mode.escape_possible)
 				player_body_escaped = 1
 				if (istype(mode, /datum/game_mode/nuclear)) //bleh the nuke thing kills everyone
 					player_loses_held_item = 0
@@ -681,7 +698,7 @@ var/global/current_state = GAME_STATE_WORLD_INIT
 			else if (istype(player.loc, /obj/cryotron) || player.mind && (player.mind in all_the_baddies)) // Cryo'd or was a baddie at any point? Keep your shit, but you don't get the extra bux
 				player_loses_held_item = 0
 			//some might not actually have a wage
-			if (!isvirtual(player) && (isnukeop(player) ||  (isblob(player) && (player.mind && player.mind.special_role == "blob")) || iswraith(player) || (iswizard(player) && (player.mind && player.mind.special_role == "wizard")) ))
+			if (!isvirtual(player) && (isnukeop(player) ||  (isblob(player) && (player.mind && player.mind.special_role == ROLE_BLOB)) || iswraith(player) || (iswizard(player) && (player.mind && player.mind.special_role == ROLE_WIZARD)) ))
 				bank_earnings.wage_base = 0 //only effects the end of round display
 				earnings = 800
 
@@ -736,6 +753,8 @@ var/global/current_state = GAME_STATE_WORLD_INIT
 
 	for_by_tcl(P, /obj/bookshelf/persistent) //make the bookshelf save its contents
 		P.build_curr_contents()
+
+	global.save_noticeboards()
 
 #ifdef SECRETS_ENABLED
 	for_by_tcl(S, /obj/santa_helper)

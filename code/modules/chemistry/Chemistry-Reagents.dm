@@ -31,7 +31,7 @@ datum
 		var/depletion_rate = 0.4 // this much goes away per tick
 		var/penetrates_skin = 0 //if this reagent can enter the bloodstream through simple touch.
 		var/touch_modifier = 1 //If this does penetrate skin, how much should be transferred by default (assuming naked dude)? 1 = transfer full amount, 0.5 = transfer half, etc.
-		var/taste = "uninteresting"
+		var/taste = null
 		var/value = 1 // how many credits this is worth per unit
 		var/thirst_value = 0
 		var/hunger_value = 0
@@ -42,7 +42,7 @@ datum
 		var/viscosity = 0 // determines interactions in fluids. 0 for least viscous, 1 for most viscous. use decimals!
 		var/block_slippy = 0 //fluid flag for slippage control
 		var/list/target_organs
-		var/heat_capacity = 100 /* how much heat a reagent can hold */
+		var/heat_capacity = 100 /* how much heat a reagent can hold */ // ACTUALLY, THIS IS SPECIFIC HEAT CAPACITY, HOPE THIS HELPS!! - Emily
 		var/blocks_sight_gas = 0 //opacity
 		var/pierces_outerwear = 0//whether or not this penetrates outerwear that may protect the victim(e.g. biosuit)
 		var/stun_resist = 0
@@ -59,19 +59,8 @@ datum
 
 		disposing()
 			holder = null
-			..()
-
-		pooled()
-			..()
-			transparency = initial(transparency)
-			fluid_r = initial(fluid_r)
-			fluid_b = initial(fluid_b)
-			fluid_g = initial(fluid_g)
-			holder = null
 			data = null
-			volume = 0
-			reacting = 0
-
+			..()
 
 		proc/on_add()
 			if (stun_resist > 0)
@@ -203,6 +192,7 @@ datum
 
 		//mult is used to handle realtime metabolizations over byond time
 		proc/on_mob_life(var/mob/M, var/mult = 1)
+			SHOULD_CALL_PARENT(TRUE)
 			if (!M || !M.reagents)
 				return
 			if (!holder)

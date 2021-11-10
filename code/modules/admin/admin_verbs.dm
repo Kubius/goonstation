@@ -49,6 +49,7 @@ var/list/admin_verbs = list(
 		/client/proc/toggle_popup_verbs,
 		/client/proc/toggle_server_toggles_tab,
 		/client/proc/toggle_attack_messages,
+		/client/proc/toggle_rp_word_filtering,
 		/client/proc/toggle_hear_prayers,
 		/client/proc/cmd_admin_plain_message,
 		/client/proc/cmd_admin_check_vehicle,
@@ -179,6 +180,7 @@ var/list/admin_verbs = list(
 		/client/proc/cmd_rotate_type,
 		/client/proc/cmd_spin_type,
 		/client/proc/cmd_get_type,
+		/client/proc/cmd_lightsout,
 
 		/client/proc/vpn_whitelist_add,
 		/client/proc/vpn_whitelist_remove
@@ -221,6 +223,7 @@ var/list/admin_verbs = list(
 		/client/proc/cmd_admin_rejuvenate_all,
 		/client/proc/toggle_force_mixed_blob,
 		/client/proc/toggle_force_mixed_wraith,
+		/client/proc/toggle_spooky_light_plane,
 		///proc/possess,
 		/proc/possessmob,
 		/proc/releasemob,
@@ -247,6 +250,7 @@ var/list/admin_verbs = list(
 		// moved up from admin
 		//client/proc/cmd_admin_delete,
 		/client/proc/noclip,
+		/client/proc/idclip,
 		///client/proc/addpathogens,
 		/client/proc/respawn_as_self,
 		/client/proc/cmd_give_pet,
@@ -276,6 +280,7 @@ var/list/admin_verbs = list(
 		/datum/admins/proc/heavenly_spawn_obj,
 		/datum/admins/proc/supplydrop_spawn_obj,
 		/datum/admins/proc/demonically_spawn_obj,
+		/datum/admins/proc/spawn_figurine,
 
 		// moved down from coder. shows artists, atmos etc
 		/client/proc/SetInfoOverlay,
@@ -302,6 +307,7 @@ var/list/admin_verbs = list(
 		/client/proc/cmd_debug_del_all,
 		/client/proc/cmd_admin_godmode,
 		/client/proc/cmd_admin_godmode_self,
+		/client/proc/iddqd,
 		/client/proc/cmd_admin_omnipresence,
 		/client/proc/cmd_admin_get_mobject,
 		/client/proc/cmd_admin_get_mobject_loc,
@@ -330,11 +336,13 @@ var/list/admin_verbs = list(
 		/client/proc/show_image_to_all,
 		/client/proc/sharkban,
 		/client/proc/toggle_literal_disarm,
+		/datum/admins/proc/toggle_emote_cooldowns,
 		/client/proc/implant_all,
 		/client/proc/cmd_crusher_walls,
 		/client/proc/cmd_disco_lights,
 		/client/proc/cmd_blindfold_monkeys,
-		/client/proc/cmd_swampify_station,
+		/client/proc/cmd_terrainify_station,
+		/client/proc/cmd_special_shuttle,
 
 		/datum/admins/proc/toggleaprilfools,
 		/client/proc/cmd_admin_pop_off_all_the_limbs_oh_god,
@@ -350,6 +358,7 @@ var/list/admin_verbs = list(
 		/client/proc/dereplace_space,
 		/client/proc/ghostdroneAll,
 		/client/proc/showPregameHTML,
+		/client/proc/dbg_radio_controller,
 
 		/client/proc/call_proc,
 		/client/proc/call_proc_all,
@@ -371,7 +380,6 @@ var/list/admin_verbs = list(
 		/client/proc/BK_finance_debug,
 		/client/proc/BK_alter_funds,
 		/client/proc/debug_pools,
-		/client/proc/cmd_claim_rs_verbs,
 		/client/proc/debug_variables,
 		/client/proc/debug_global_variable,
 		/client/proc/get_admin_state,
@@ -424,9 +432,14 @@ var/list/admin_verbs = list(
 		/client/proc/toggle_hard_reboot,
 		/client/proc/cmd_modify_respawn_variables,
 		/client/proc/set_nukie_score,
+		/client/proc/set_pod_wars_score,
+		/client/proc/set_pod_wars_deaths,
+
+		/client/proc/player_panel_tgui,
 
 #ifdef MACHINE_PROCESSING_DEBUG
 		/client/proc/cmd_display_detailed_machine_stats,
+		/client/proc/cmd_display_detailed_power_stats,
 #endif
 #ifdef QUEUE_STAT_DEBUG
 		/client/proc/cmd_display_queue_stats,
@@ -437,14 +450,10 @@ var/list/admin_verbs = list(
 #elif defined(ENABLE_SPAWN_DEBUG_2)
 		/client/proc/spawn_dbg,
 #endif
-#ifdef INCLUDE_BUGGY_LUA_SHIT
-		/client/proc/RunLuaString,
-#endif
 		),
 
 	8 = list(
 		// LEVEL_HOST, host
-		/client/proc/cmd_claim_rs_verbs,
 		/datum/admins/proc/toggle_soundpref_override
 		),
 	)
@@ -664,6 +673,15 @@ var/list/special_pa_observing_verbs = list(
 		src.holder.player()
 	return
 
+/client/proc/player_panel_tgui()
+	set name = "Player Panel TGUI"
+	SET_ADMIN_CAT(ADMIN_CAT_PLAYERS)
+	admin_only
+	if (src.holder.tempmin)
+		return
+	if (src.holder.level >= LEVEL_SA)
+		global.player_panel.ui_interact(src.mob)
+
 /client/proc/rspawn_panel()
 	set name = "Respawn Panel"
 	SET_ADMIN_CAT(ADMIN_CAT_FUN)
@@ -719,12 +737,14 @@ var/list/special_pa_observing_verbs = list(
 			//stealth_hide_fakekey = (alert("Hide your fake key when using DSAY?", "Extra stealthy","Yes", "No") == "Yes")
 			// I think if people really wanna be Denmark they can just set themselves to be Denmark
 			new_key = strip_html(new_key)
-			if (length(new_key) >= 26)
-				new_key = copytext(new_key, 1, 26)
+			if (length(new_key) >= 50)
+				new_key = copytext(new_key, 1, 50)
 			src.owner:fakekey = new_key
 	else
 		src.owner:fakekey = null
 		src.owner:stealth_hide_fakekey = 0
+		if (src.auto_alt_key)
+			src.set_alt_key(src.auto_alt_key_name)
 
 	logTheThing("admin", src.owner, null, "has turned stealth mode [src.owner:stealth ? "ON using key \"[src.owner:fakekey]\"" : "OFF"]")
 	logTheThing("diary", src.owner, null, "has turned stealth mode [src.owner:stealth ? "ON using key \"[src.owner:fakekey]\"" : "OFF"]", "admin")
@@ -763,8 +783,8 @@ var/list/special_pa_observing_verbs = list(
 		if (new_key)
 			new_key = trim(new_key)
 			new_key = strip_html(new_key)
-			if (length(new_key) >= 26)
-				new_key = copytext(new_key, 1, 26)
+			if (length(new_key) >= 50)
+				new_key = copytext(new_key, 1, 50)
 			src.owner:fakekey = new_key
 	else
 		src.owner:fakekey = null
@@ -862,12 +882,11 @@ var/list/fun_images = list()
 	set name = "Show Rules to Player"
 	set popup_menu = 0
 	SET_ADMIN_CAT(ADMIN_CAT_NONE)
-	
+
 	var/crossness = input("How cross are we with this guy?", "Enter Crossness", "A bit") as anything in list("A bit", "A lot", "Cancel")
 	if (!crossness || crossness == "Cancel")
 		return
 
-	message_admins(crossness)
 	if(!M.client)
 		alert("[M] is logged out, so you should probably ban them!")
 		return
@@ -882,7 +901,8 @@ var/list/fun_images = list()
 			M << csound("sound/misc/klaxon.ogg")
 			boutput(M, "<span class='alert'><B>WARNING: An admin is likely very cross with you and wants you to read the rules right fucking now!</B></span>")
 
-	M << browse(rules, "window=rules;size=800x1000")
+	// M << browse(rules, "window=rules;size=800x1000")
+	M << link("http://wiki.ss13.co/Rules")
 
 /client/proc/view_fingerprints(obj/O as obj in world)
 	set name = "View Object Fingerprints"
@@ -890,7 +910,7 @@ var/list/fun_images = list()
 	set popup_menu = 0
 
 	admin_only
-	if(!O.fingerprintshidden || !O.fingerprintshidden.len)
+	if(!O.fingerprintshidden || !length(O.fingerprintshidden))
 		alert("There are no fingerprints on this object.", null, null, null, null, null)
 		return
 
@@ -898,7 +918,7 @@ var/list/fun_images = list()
 	for(var/i in O.fingerprintshidden)
 		boutput(src, i)
 
-	boutput(src, "<b>Last touched by:</b> [O.fingerprintslast].")
+	boutput(src, "<b>Last touched by:</b> [key_name(O.fingerprintslast)].")
 	return
 
 /client/proc/respawn_heavenly()
@@ -1007,12 +1027,12 @@ var/list/fun_images = list()
 	// You now get to chose (mostly) if you want to send the target to the arrival shuttle (Convair880).
 	var/send_to_arrival_shuttle = 0
 	if (iswraith(M))
-		if (M.mind && M.mind.special_role == "wraith")
+		if (M.mind && M.mind.special_role == ROLE_WRAITH)
 			remove_antag(M, src, 0, 1) // Can't complete specialist objectives as a human. Also, the proc takes care of the rest.
 			return
 		send_to_arrival_shuttle = 1
 	else if (isintangible(M))
-		if (M.mind && M.mind.special_role == "blob")
+		if (M.mind && M.mind.special_role == ROLE_BLOB)
 			remove_antag(M, src, 0, 1) // Ditto.
 			return
 		send_to_arrival_shuttle = 1
@@ -1503,7 +1523,7 @@ var/list/fun_images = list()
 	if (!pet_path)
 		return
 
-	for (var/client/cl as() in clients)
+	for (var/client/cl as anything in clients)
 		var/mob/living/L = cl.mob
 		if(!istype(L) || isdead(L))
 			continue
@@ -1632,9 +1652,6 @@ var/list/fun_images = list()
 		var/ignorePlayerVote = alert("The next map was voted for by the players, are you sure you want to override it? This could be very rude!", "Ignore Players?", "Yes", "No")
 		if (ignorePlayerVote == "No")
 			return
-
-	if (mapSwitcher.locked)
-		return alert("The server is currently switching to another map. You will need to wait.")
 
 	var/info = "Select a map"
 	info += "\nCurrently on: [mapSwitcher.current]"
@@ -1908,9 +1925,49 @@ var/list/fun_images = list()
 	var/lose_value = input("Enter new lose value.") as num
 	world.save_intra_round_value("nukie_loss", lose_value)
 
+	world.save_intra_round_value("nukie_last_reset", world.realtime)
+
 	logTheThing("admin", usr ? usr : src, null, "set nuke ops values to [win_value] wins and [lose_value] loses.")
 	logTheThing("diary", usr ? usr : src, null, "set nuke ops values to [win_value] wins and [lose_value] loses.", "admin")
 	message_admins("[key_name(usr ? usr : src)] set nuke ops values to [win_value] wins and [lose_value] loses.")
+
+/client/proc/set_pod_wars_score()
+	set popup_menu = 0
+	set name = "Set Pod Wars Scoreboard Values"
+	set desc = "Manually assign values to the Pod Wars Nanotrasen/Syndicate wins scoreboard."
+	SET_ADMIN_CAT(ADMIN_CAT_SERVER)
+	admin_only
+
+	var/nt_win_value = input("Enter new Nanotrasen win value.") as num
+	world.save_intra_round_value("nt_win", nt_win_value)
+
+	var/sy_win_value = input("Enter new Syndicate loss value.") as num
+	world.save_intra_round_value("sy_win", sy_win_value)
+
+	world.save_intra_round_value("pod_wars_last_reset", world.realtime)
+
+	logTheThing("admin", usr ? usr : src, null, "set pod war win values to [nt_win_value] Nanotrasen wins and [sy_win_value] Syndicate wins.")
+	logTheThing("diary", usr ? usr : src, null, "set pod war win values to [nt_win_value] Nanotrasen wins and [sy_win_value] Syndicate wins.", "admin")
+	message_admins("[key_name(usr ? usr : src)] set pod war win values to [nt_win_value] Nanotrasen wins and [sy_win_value] Syndicate wins.")
+
+/client/proc/set_pod_wars_deaths()
+	set popup_menu = 0
+	set name = "Set Pod Wars Death Scoreboard Values"
+	set desc = "Manually assign values to the Pod Wars Nanotrasen/Syndicate deaths scoreboard."
+	SET_ADMIN_CAT(ADMIN_CAT_SERVER)
+	admin_only
+
+	var/nt_death_value = input("Enter new Nanotrasen death value.") as num
+	world.save_intra_round_value("nt_death", nt_death_value)
+
+	var/sy_death_value = input("Enter new Syndicate death value.") as num
+	world.save_intra_round_value("sy_death", sy_death_value)
+
+	world.save_intra_round_value("pod_wars_last_reset", world.realtime)
+
+	logTheThing("admin", usr ? usr : src, null, "set pod war death values to [nt_death_value] Nanotrasen deaths and [sy_death_value] Syndicate deaths.")
+	logTheThing("diary", usr ? usr : src, null, "set pod war death values to [nt_death_value] Nanotrasen deaths and [sy_death_value] Syndicate deaths.", "admin")
+	message_admins("[key_name(usr ? usr : src)] set pod war death values to [nt_death_value] Nanotrasen deaths and [sy_death_value] Syndicate deaths.")
 
 
 /mob/verb/admin_interact_verb()
@@ -1934,7 +1991,7 @@ var/list/fun_images = list()
 		var/y_shift = round(text2num(parameters["icon-y"]) / 32)
 		clicked_turf = locate(clicked_turf.x + x_shift, clicked_turf.y + y_shift, clicked_turf.z)
 		var/list/atom/atoms = list(clicked_turf)
-		for(var/atom/thing as() in clicked_turf)
+		for(var/atom/thing as anything in clicked_turf)
 			atoms += thing
 		if (atoms.len)
 			A = input(usr, "Which item to admin-interact with?") as null|anything in atoms
@@ -1979,6 +2036,8 @@ var/list/fun_images = list()
 			C.cmd_admin_delete(A)
 		if("Copy Here")
 			semi_deep_copy(A, src.loc)
+		if("Ship to Cargo")
+			C.cmd_admin_ship_movable_to_cargo(A)
 
 		if("Player Options")
 			C.cmd_admin_playeropt(A)
@@ -2052,8 +2111,8 @@ var/list/fun_images = list()
 		message_admins("Error while adding ckey [vpnckey] to the VPN whitelist: [e.name]")
 		return 0
 	global.vpn_ip_checks?.Cut() // to allow them to reconnect this round
-	message_admins("Ckey [vpnckey] added to the VPN whitelist.")
-	logTheThing("admin", null, null, "Ckey [vpnckey] added to the VPN whitelist.")
+	message_admins("Ckey [vpnckey] added to the VPN whitelist by [src.key].")
+	logTheThing("admin", src, null, "Ckey [vpnckey] added to the VPN whitelist.")
 	return 1
 
 /client/proc/vpn_whitelist_remove(vpnckey as text)
@@ -2065,6 +2124,25 @@ var/list/fun_images = list()
 	catch(var/exception/e)
 		message_admins("Error while removing ckey [vpnckey] from the VPN whitelist: [e.name]")
 		return 0
-	message_admins("Ckey [vpnckey] removed from the VPN whitelist.")
-	logTheThing("admin", null, null, "Ckey [vpnckey] removed from the VPN whitelist.")
+	message_admins("Ckey [vpnckey] removed from the VPN whitelist by [src.key].")
+	logTheThing("admin", src, null, "Ckey [vpnckey] removed from the VPN whitelist.")
 	return 1
+
+/client/proc/cmd_lightsout()
+	SET_ADMIN_CAT(ADMIN_CAT_FUN)
+	set name = "Lights Out"
+	set desc = "Force off all station lighting for a duration"
+	admin_only
+	if(!isadmin(src))
+		boutput(src, "Only administrators may use this command.")
+		return
+
+	var/dur = input(usr, "Input duration (in seconds)", "lightsout duration", 0) as null|num
+
+	if(dur)
+		var i = 0
+		for_by_tcl(apc, /obj/machinery/power/apc)
+			if(apc.z == 1)
+				if((i++ % 5) == 0)
+					sleep(1 SECOND)
+				apc.setStatus("lightsout", dur SECONDS)

@@ -15,7 +15,7 @@ datum/pipeline
 
 		if(air?.volume)
 			temporarily_store_air()
-			pool(air)
+			qdel(air)
 		air = null
 
 		if (members)
@@ -72,7 +72,7 @@ datum/pipeline
 			member.air_temporary.temperature = air.temperature
 
 			if(length(air.trace_gases))
-				for(var/datum/gas/trace_gas as() in air.trace_gases)
+				for(var/datum/gas/trace_gas as anything in air.trace_gases)
 					var/datum/gas/corresponding = member.air_temporary.get_or_add_trace_gas_by_type(trace_gas.type)
 					corresponding.moles = trace_gas.moles*member.volume/air.volume
 
@@ -94,17 +94,17 @@ datum/pipeline
 
 		if(base.air_temporary)
 			if(air)
-				pool(air)
+				qdel(air)
 			air = base.air_temporary
 			base.air_temporary = null
 		else
-			air = unpool(/datum/gas_mixture)
+			air = new /datum/gas_mixture
 
 		while(possible_expansions.len>0)
 			for(var/obj/machinery/atmospherics/pipe/borderline in possible_expansions)
 
 				var/list/result = borderline.pipeline_expansion()
-				var/edge_check = result.len
+				var/edge_check = length(result)
 
 				if(result.len>0)
 					for(var/obj/machinery/atmospherics/pipe/item in result)
@@ -159,7 +159,7 @@ datum/pipeline
 
 		if(istype(target) && target.parent && target.parent.group_processing)
 			//Have to consider preservation of group statuses
-			var/datum/gas_mixture/turf_copy = unpool(/datum/gas_mixture)
+			var/datum/gas_mixture/turf_copy = new /datum/gas_mixture
 
 			turf_copy.copy_from(target.parent.air)
 			turf_copy.volume = target.parent.air.volume //Copy a good representation of the turf from parent group
@@ -179,7 +179,7 @@ datum/pipeline
 
 				target.parent.suspend_group_processing()
 				target.air.copy_from(turf_copy)
-				pool(turf_copy) // done with this
+				qdel(turf_copy) // done with this
 
 		else
 			var/datum/gas_mixture/turf_air = target.return_air()
@@ -209,7 +209,7 @@ datum/pipeline
 			var/turf/simulated/modeled_location = target
 
 			// Turf with walls or without air
-			if(modeled_location.blocks_air || !modeled_location.air)
+			if(modeled_location.gas_impermeable || !modeled_location.air)
 				if((modeled_location.heat_capacity>0) && (partial_heat_capacity>0))
 					delta_temperature = src.air.temperature - modeled_location.temperature
 

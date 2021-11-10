@@ -1,3 +1,5 @@
+ABSTRACT_TYPE(/obj/item/parts)
+
 /obj/item/parts
 	name = "body part"
 	icon = 'icons/obj/robot_parts.dmi'
@@ -71,6 +73,8 @@
 	var/limb_is_transplanted = FALSE
 	/// What kind of limb is this? So we dont have to do dozens of typechecks. is bitflags, check defines/item.dm
 	var/kind_of_limb
+	/// Can we roll this limb as a random limb?
+	var/random_limb_blacklisted = 0
 
 	New(atom/new_holder)
 		..()
@@ -85,6 +89,11 @@
 			limb_data.holder = null
 		limb_data = null
 
+		if(ishuman(holder))
+			var/mob/living/carbon/human/H = holder
+			if(H.limbs.vars[src.slot] == src)
+				H.limbs.vars[src.slot] = null
+
 		if (holder)
 			if (holder.organHolder)
 				for(var/thing in holder.organHolder.organ_list)
@@ -93,8 +102,8 @@
 					if(holder.organHolder.organ_list[thing] == src)
 						holder.organHolder.organ_list[thing] = null
 
-			if (holder.organs)
-				holder.organs -= src
+			if (holder?.organs?[src.slot] == src)
+				holder.organs[src.slot] = null
 		holder = null
 
 		if (bones)
@@ -225,7 +234,8 @@
 		if(ishuman(holder))
 			var/mob/living/carbon/human/H = holder
 			holder = null
-			H.limbs.vars[src.slot] = null
+			if(H.limbs.vars[src.slot] == src) //BAD BAD HACK FUCK FUCK UGLY SHITCODE - Tarm
+				H.limbs.vars[src.slot] = null
 			if(remove_object)
 				src.remove_object = null
 				qdel(src)
@@ -250,6 +260,8 @@
 
 	//for humans
 	attach(var/mob/living/carbon/human/attachee,var/mob/attacher,var/both_legs = 0)
+		if(!can_act(attacher))
+			return
 		if(!src.easy_attach)
 			if(!surgeryCheck(attachee, attacher))
 				return
@@ -392,3 +404,35 @@
 				if (ispath(streak_splatter))
 					make_cleanable(streak_splatter,src.loc)
 			sleep(0.1 SECONDS)
+
+
+var/global/list/all_valid_random_right_arms = filtered_concrete_typesof(/obj/item/parts, /proc/goes_in_right_arm_slot)
+var/global/list/all_valid_random_left_arms = filtered_concrete_typesof(/obj/item/parts, /proc/goes_in_left_arm_slot)
+var/global/list/all_valid_random_right_legs = filtered_concrete_typesof(/obj/item/parts, /proc/goes_in_right_leg_slot)
+var/global/list/all_valid_random_left_legs = filtered_concrete_typesof(/obj/item/parts, /proc/goes_in_left_leg_slot)
+
+/proc/goes_in_right_arm_slot(var/type)
+	var/obj/item/parts/fakeInstance = type
+	return (((initial(fakeInstance.slot) == "r_arm")) && !(initial(fakeInstance.random_limb_blacklisted)))
+
+/proc/goes_in_left_arm_slot(var/type)
+	var/obj/item/parts/fakeInstance = type
+	return (((initial(fakeInstance.slot) == "l_arm")) && !(initial(fakeInstance.random_limb_blacklisted)))
+
+/proc/goes_in_right_leg_slot(var/type)
+	var/obj/item/parts/fakeInstance = type
+	return (((initial(fakeInstance.slot) == "r_leg")) && !(initial(fakeInstance.random_limb_blacklisted)))
+
+/proc/goes_in_left_leg_slot(var/type)
+	var/obj/item/parts/fakeInstance = type
+	return (((initial(fakeInstance.slot) == "l_leg")) && !(initial(fakeInstance.random_limb_blacklisted)))
+
+/proc/randomize_mob_limbs(var/mob/living/carbon/human/target, var/mob/user, var/zone = "all", var/showmessage = 1)
+	if (!target)
+		return 0
+	var/datum/human_limbs/targetlimbs = target.limbs
+	if (!targetlimbs)
+		return 0
+	return targetlimbs.randomize(zone, user, showmessage)
+
+

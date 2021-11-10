@@ -616,7 +616,7 @@
 		//			var/turf/T = O.loc
 		//			for(var/atom/A in T.contents)
 		//				boutput(src, "There is a [A.name] at this location.")
-					SPAWN_DBG(0.3 SECONDS) pool(O)
+					SPAWN_DBG(0.3 SECONDS) qdel(O)
 
 				if(istype(target_r, /obj/railgun_trg_dummy)) qdel(target_r)
 			return
@@ -912,7 +912,7 @@
 			elec_zap()
 
 		/*
-		var/obj/projectile/A = unpool(/obj/projectile)
+		var/obj/projectile/A = new /obj/projectile
 		if(!A)	return
 		A.set_loc(src.loc)
 		A.projectile = new current_projectile.type
@@ -1047,7 +1047,7 @@
 
 		SPAWN_DBG(0.6 SECONDS)
 			for (var/obj/O in lineObjs)
-				pool(O)
+				qdel(O)
 
 	New()
 		..()
@@ -1168,7 +1168,7 @@
 
 		SPAWN_DBG(0.6 SECONDS)
 			for (var/obj/O in lineObjs)
-				pool(O)*/
+				qdel(O)*/
 
 /obj/critter/gunbot/drone/iridium/whydrone/horse
 	name = "Horseman"
@@ -1286,14 +1286,14 @@
 
 	select_target(var/atom/newtarget)
 		..()
-		playsound(get_turf(src), (voice_gender == "male" ? "sound/voice/screams/male_scream.ogg" : "sound/voice/screams/female_scream.ogg"), 40, 1, 0.1, 3, channel=VOLUME_CHANNEL_EMOTE)
+		playsound(src, (voice_gender == "male" ? "sound/voice/screams/male_scream.ogg" : "sound/voice/screams/female_scream.ogg"), 40, 1, 0.1, 3, channel=VOLUME_CHANNEL_EMOTE)
 
 	ex_act(severity)
 		return
 
 	CritterDeath()
 		if(dying) return
-		playsound(get_turf(src), 'sound/voice/farts/poo2.ogg', 40, 1, 0.1, 3, channel=VOLUME_CHANNEL_EMOTE)
+		playsound(src, 'sound/voice/farts/poo2.ogg', 40, 1, 0.1, 3, channel=VOLUME_CHANNEL_EMOTE)
 		src.visible_message("[src] emits a very small clicking noise.")
 		icon_state = dead_state
 		SPAWN_DBG(0.5 SECONDS)

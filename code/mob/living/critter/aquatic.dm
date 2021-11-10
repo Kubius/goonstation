@@ -5,6 +5,7 @@
 //	-etc
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
+ABSTRACT_TYPE(/mob/living/critter/aquatic)
 /mob/living/critter/aquatic
 	name = "aquatic mobcritter"
 	real_name = "aquatic mobcritter"
@@ -50,8 +51,8 @@
 	..()
 
 /mob/living/critter/aquatic/setup_healths()
-	add_hh_flesh(-(src.health_brute), src.health_brute, src.health_brute_vuln)
-	add_hh_flesh_burn(-(src.health_burn), src.health_burn, src.health_burn_vuln)
+	add_hh_flesh(src.health_brute, src.health_brute_vuln)
+	add_hh_flesh_burn(src.health_burn, src.health_burn_vuln)
 
 /mob/living/critter/aquatic/Login()
 	..()
@@ -105,6 +106,7 @@
 
 	process()
 		src.update_water_status()
+		if (HAS_MOB_PROPERTY(src.critter_owner, PROP_BREATHLESS)) return
 		if(src.critter_owner)
 			if(src.water_need)
 				if(prob(50 * src.water_need) && !critter_owner.nodamage) // question: this gets rid of like one proc call; worth it?
@@ -373,7 +375,7 @@
 	name = "king crab"
 	real_name = "king crab"
 	desc = "This doesn't look tasty at all. It probably has spectacular levels of mercury and lead and who knows what else."
-	icon = 'icons/obj/64x96.dmi'
+	icon = 'icons/obj/large/64x96.dmi'
 	icon_state = "king_crab"
 	base_move_delay = 1
 	density = 1
@@ -488,9 +490,9 @@
 				return "<span class='alert'><b>[src]</b> does a sinister dance.</span>"
 		if ("snap")
 			if (src.emote_check(voluntary, 300))
-				src.changeStatus("paralysis", -300)
-				src.changeStatus("stunned", -300)
-				src.changeStatus("weakened", -300)
+				src.changeStatus("paralysis", -30 SECONDS)
+				src.changeStatus("stunned", -30 SECONDS)
+				src.changeStatus("weakened", -30 SECONDS)
 				return "<span class='alert'><b>[src]</b> clacks menacingly.</span>"
 		if ("flex")
 			if (src.emote_check(voluntary, 300))
@@ -521,7 +523,7 @@
 		return
 
 	if (!istype(user))
-		target.attack_hand(user, params, location, control)
+		target.Attackhand(user, params, location, control)
 		return
 
 	if (isobj(target))

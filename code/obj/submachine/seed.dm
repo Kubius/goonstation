@@ -249,6 +249,7 @@
 				if(2) src.mode = "extraction"
 				if(3) src.mode = "seedlist"
 				else src.mode = "overview"
+			playsound(src.loc, "sound/machines/click.ogg", 50, 1)
 			src.updateUsrDialog()
 
 		else if(href_list["ejectbeaker"])
@@ -281,13 +282,17 @@
 				return
 			if (istype(I,/obj/item/seed)) src.seeds.Remove(I)
 			else src.extractables.Remove(I)
+			if(I == src.splicing1)
+				src.splicing1 = null
+			if(I == src.splicing2)
+				src.splicing2 = null
 			I.set_loc(src.loc)
 			usr.put_in_hand_or_eject(I) // try to eject it into the users hand, if we can
 			src.updateUsrDialog()
 
 		else if(href_list["label"])
 			var/obj/item/I = locate(href_list["label"]) in src
-			if (istype(I))
+			if (istype(I) && !isghostdrone(usr) && !isghostcritter(usr))
 				var/newName = copytext(strip_html(input(usr,"What do you want to label [I.name]?","[src.name]",I.name) ),1, 129)
 				if(newName && newName != I.name)
 					phrase_log.log_phrase("seed", newName, no_duplicates=TRUE)
@@ -301,6 +306,7 @@
 
 		else if(href_list["analyze"])
 			var/obj/item/I = locate(href_list["analyze"]) in src
+			playsound(src.loc, "sound/machines/click.ogg", 50, 1)
 
 			if (istype(I,/obj/item/seed/))
 				var/obj/item/seed/S = I
@@ -352,8 +358,10 @@
 						HYPpassplantgenes(DNA,SDNA)
 
 						S.name = stored.name
+						S.plant_seed_color(stored.seedcolor)
 						if (stored.hybrid)
-							var/datum/plant/hybrid = new /datum/plant(S)
+							var/hybrid_type = stored.type
+							var/datum/plant/hybrid = new hybrid_type(S)
 							for(var/V in stored.vars)
 								if (issaved(stored.vars[V]) && V != "holder")
 									hybrid.vars[V] = stored.vars[V]
@@ -382,6 +390,7 @@
 			src.updateUsrDialog()
 
 		else if(href_list["splice_select"])
+			playsound(src, "sound/machines/keypress.ogg", 50, 1)
 			var/obj/item/I = locate(href_list["splice_select"]) in src
 			if (!istype(I))
 				return
@@ -396,6 +405,7 @@
 			src.updateUsrDialog()
 
 		else if(href_list["splice_cancel"])
+			playsound(src, "sound/machines/keypress.ogg", 50, 1)
 			src.splicing1 = null
 			src.splicing2 = null
 			src.mode = "seedlist"
@@ -427,10 +437,18 @@
 						if (!R || !S)
 							return
 						switch(S.HYPinfusionS(R.id,src))
-							if (1) boutput(usr, "<span class='alert'>ERROR: Seed has been destroyed.</span>")
-							if (2) boutput(usr, "<span class='alert'>ERROR: Reagent lost.</span>")
-							if (3) boutput(usr, "<span class='alert'>ERROR: Unknown error. Please try again.</span>")
-							else boutput(usr, "<span class='notice'>Infusion of [R.name] successful.</span>")
+							if (1)
+								playsound(src, "sound/machines/seed_destroyed.ogg", 50, 1)
+								boutput(usr, "<span class='alert'>ERROR: Seed has been destroyed.</span>")
+							if (2)
+								playsound(src, "sound/machines/buzz-sigh.ogg", 50, 1)
+								boutput(usr, "<span class='alert'>ERROR: Reagent lost.</span>")
+							if (3)
+								playsound(src, "sound/machines/buzz-sigh.ogg", 50, 1)
+								boutput(usr, "<span class='alert'>ERROR: Unknown error. Please try again.</span>")
+							else
+								playsound(src, "sound/effects/zzzt.ogg", 50, 1)
+								boutput(usr, "<span class='notice'>Infusion of [R.name] successful.</span>")
 						src.inserted.reagents.remove_reagent(R.id,10)
 						dialogue_open = 0
 
@@ -478,16 +496,6 @@
 			// Cap probability between 0 and 100
 			splice_chance = max(0,min(splice_chance,100))
 			if (prob(splice_chance)) // We're good, so start splicing!
-				// Create the new seed
-				var/obj/item/seed/S = unpool(/obj/item/seed)
-				S.set_loc(src)
-				var/datum/plant/P = new /datum/plant(S)
-				var/datum/plantgenes/DNA = new /datum/plantgenes(S)
-				S.planttype = P
-				S.plantgenes = DNA
-				P.hybrid = 1
-				S.generation = max(seed1.generation, seed2.generation) + 1
-
 				var/datum/plantgenes/P1DNA = seed1.plantgenes
 				var/datum/plantgenes/P2DNA = seed2.plantgenes
 
@@ -521,6 +529,17 @@
 						dominantDNA = P2DNA
 						submissiveDNA = P1DNA
 
+				// Create the new seed
+				var/obj/item/seed/S = new /obj/item/seed
+				S.set_loc(src)
+				var/dominantType = dominantspecies.type
+				var/datum/plant/P = new dominantType(S)
+				var/datum/plantgenes/DNA = new /datum/plantgenes(S)
+				S.planttype = P
+				S.plantgenes = DNA
+				P.hybrid = 1
+				S.generation = max(seed1.generation, seed2.generation) + 1
+
 				// Set up the base variables first
 				/*
 				if (!dominantspecies.hybrid)
@@ -550,6 +569,9 @@
 				P.cantscan = dominantspecies.cantscan
 				P.nectarlevel = dominantspecies.nectarlevel
 				S.name = "[P.name] seed"
+
+				P.seedcolor = rgb(round((GetRedPart(P1.seedcolor) + GetRedPart(P2.seedcolor)) / 2), round((GetGreenPart(P1.seedcolor) + GetGreenPart(P2.seedcolor)) / 2), round((GetBluePart(P1.seedcolor) + GetBluePart(P2.seedcolor)) / 2))
+				S.plant_seed_color(P.seedcolor)
 
 				var/newgenome = P1.genome + P2.genome
 				if (newgenome)
@@ -592,12 +614,16 @@
 				DNA.endurance = SpliceMK2(P1DNA.alleles[7],P2DNA.alleles[7],P1DNA.vars["endurance"],P2DNA.vars["endurance"])
 
 				boutput(usr, "<span class='notice'>Splice successful.</span>")
+				playsound(src, "sound/machines/ping.ogg", 50, 1)
+				//0 xp for a 100% splice, 4 xp for a 10% splice
+				JOB_XP(usr, "Botanist", clamp(round((100 - splice_chance) / 20), 0, 4))
 				if (!src.seedoutput) src.seeds.Add(S)
 				else S.set_loc(src.loc)
 
 			else
 				// It fucked up - we don't need to do anything else other than tell the user
 				boutput(usr, "<span class='alert'>Splice failed.</span>")
+				playsound(src, "sound/machines/seed_destroyed.ogg", 50, 1)
 
 			// Now get rid of the old seeds and go back to square one
 			src.seeds.Remove(seed1)
@@ -659,10 +685,12 @@
 	MouseDrop_T(atom/movable/O as mob|obj, mob/user as mob)
 		if (!O || !user)
 			return
+		if (!in_interact_range(src, user)  || !IN_RANGE(user, O, 1))
+			return
 		if (!isitem(O))
 			return
 		if (istype(O, /obj/item/reagent_containers/glass/) || istype(O, /obj/item/reagent_containers/food/drinks/) || istype(O,/obj/item/satchel/hydro))
-			return src.attackby(O, user)
+			return src.Attackby(O, user)
 		if (istype(O, /obj/item/reagent_containers/food/snacks/plant/) || istype(O, /obj/item/seed/))
 			user.visible_message("<span class='notice'>[user] begins quickly stuffing [O.name] into [src]!</span>")
 			var/staystill = user.loc
@@ -981,74 +1009,50 @@
 
 		else if (istype(W,/obj/item/satchel/hydro))
 			var/obj/item/satchel/S = W
-
 			var/loadcount = 0
 			for (var/obj/item/I in S.contents)
-				for(var/check_path in src.allowed)
-					if(istype(I, check_path))
-						I.set_loc(src)
-						src.ingredients += I
-						loadcount++
-						break
-
-			if (loadcount)
-				boutput(user, "<span class='notice'>[loadcount] items were loaded from the satchel!</span>")
-			else
+				if (src.canExtract(I) && (src.tryLoading(I, user)))
+					loadcount++
+			if (!loadcount)
 				boutput(user, "<span class='alert'>No items were loaded from the satchel!</span>")
+			else if (src.autoextract)
+				boutput(user, "<span class='notice'>[loadcount] items were automatically extracted from the satchel!</span>")
+			else
+				boutput(user, "<span class='notice'>[loadcount] items were loaded from the satchel!</span>")
+
 			S.satchel_updateicon()
 			src.update_icon()
 			src.updateUsrDialog()
 
 		else
-			var/proceed = 0
-			for(var/check_path in src.allowed)
-				if(istype(W, check_path))
-					proceed = 1
-					break
-			if (!proceed)
+			if (!src.canExtract(W))
 				boutput(user, "<span class='alert'>The extractor cannot accept that!</span>")
 				return
 
-			if (src.autoextract)
-				if (!src.extract_to)
-					boutput(user, "<span class='alert'>You must first select an extraction target if you want items to be automatically extracted.</span>")
-					return
-				if (src.extract_to.reagents.total_volume == src.extract_to.reagents.maximum_volume)
-					boutput(user, "<span class='alert'>The extraction target is full.</span>")
-					return
-
+			if (!src.tryLoading(W, user)) return
 			boutput(user, "<span class='notice'>You add [W] to the machine!</span>")
+
 			user.u_equip(W)
 			W.dropped()
 
-			if (src.autoextract)
-				src.doExtract(W)
-				qdel(W)
-			else
-				W.set_loc(src)
-				src.ingredients += W
 			src.update_icon()
 			src.updateUsrDialog()
 			return
 
 	MouseDrop_T(atom/movable/O as mob|obj, mob/user as mob)
+		if (!in_interact_range(src, user)  || !IN_RANGE(user, O, 1))
+			return
 		if (istype(O, /obj/item/reagent_containers/glass/) || istype(O, /obj/item/reagent_containers/food/drinks/) || istype(O, /obj/item/satchel/hydro))
-			return src.attackby(O, user)
-		var/proceed = 0
-		for (var/check_path in src.allowed)
-			if (istype(O, check_path))
-				proceed = 1
-				break
-		if (!proceed) ..()
+			return src.Attackby(O, user)
+		if (!src.canExtract(O)) ..()
 		else
 			user.visible_message("<span class='notice'>[user] begins quickly stuffing [O.name] into [src]!</span>")
 			var/staystill = user.loc
 			for (var/obj/item/P in view(1,user))
-				sleep(0.2 SECONDS)
 				if (user.loc != staystill) break
 				if (P.type == O.type)
-					src.ingredients.Add(P)
-					P.set_loc(src)
+					if (!src.tryLoading(P, user)) break
+					sleep(0.2 SECONDS)
 				else continue
 			boutput(user, "<span class='notice'>You finish stuffing items into [src]!</span>")
 		src.update_icon()
@@ -1090,6 +1094,29 @@
 	I.reagents.trans_to(src.extract_to, I.reagents.total_volume)
 	src.update_icon()
 
+/obj/submachine/chem_extractor/proc/canExtract(O)
+	. = FALSE
+	for(var/check_path in src.allowed)
+		if(istype(O, check_path))
+			return TRUE
+
+/obj/submachine/chem_extractor/proc/tryLoading(var/obj/item/O, var/mob/user as mob)
+	// Pre: make sure that the item type can be extracted
+	if (src.autoextract)
+		if (!src.extract_to)
+			boutput(user, "<span class='alert'>You must first select an extraction target if you want items to be automatically extracted.</span>")
+			return FALSE
+		if (src.extract_to.reagents.total_volume >= src.extract_to.reagents.maximum_volume)
+			boutput(user, "<span class='alert'>The auto-extraction target is full.</span>")
+			return FALSE
+		src.doExtract(O)
+		qdel(O)
+		return TRUE
+	else
+		O.set_loc(src)
+		src.ingredients += O
+		return TRUE
+
 /obj/submachine/seed_vendor
 	name = "Seed Fabricator"
 	desc = "Fabricates basic plant seeds."
@@ -1120,13 +1147,8 @@
 		..()
 		for (var/A in concrete_typesof(/datum/plant)) src.available += new A(src)
 
-		/*for (var/datum/plant/P in src.available)
-			if (!P.vending || P.type == /datum/plant)
-				del(P)
-				continue*/
-
 	attack_ai(mob/user as mob)
-		return src.attack_hand(user)
+		return src.Attackhand(user)
 
 	attack_hand(var/mob/user as mob)
 		src.add_dialog(user)
@@ -1221,10 +1243,10 @@
 				//new getseed(src.loc)
 				var/obj/item/seed/S
 				if (I.unique_seed)
-					S = unpool(I.unique_seed)
+					S = new I.unique_seed
 					S.set_loc(src.loc)
 				else
-					S = unpool(/obj/item/seed)
+					S = new /obj/item/seed
 					S.set_loc(src.loc)
 					S.removecolor()
 				S.generic_seed_setup(I)
@@ -1282,6 +1304,8 @@
 				src.panelopen = 0
 			boutput(user, "You [src.panelopen ? "open" : "close"] the maintenance panel.")
 			src.updateUsrDialog()
+		else if (src.panelopen && (issnippingtool(W) || ispulsingtool(W)))
+			src.Attackhand(user)
 		else ..()
 
 	proc/isWireColorCut(var/wireColor)

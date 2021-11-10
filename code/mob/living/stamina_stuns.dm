@@ -50,7 +50,7 @@
 		val += stamina_mods_max[x]
 
 	var/stam_mod_items = 0
-	for (var/obj/item/C as() in src.get_equipped_items())
+	for (var/obj/item/C as anything in src.get_equipped_items())
 		stam_mod_items += C.getProperty("stammax")
 
 	return (val + stam_mod_items)
@@ -94,7 +94,7 @@
 	if(!isnum(x)) return
 	if(prob(20) && ishellbanned(src)) return //Stamina regenerates 20% slower for you. RIP
 	stamina = min(stamina_max, stamina + x)
-	if(src.stamina_bar) src.stamina_bar.update_value(src)
+	if(src.stamina_bar.last_update != TIME) src.stamina_bar.update_value(src)
 	return
 
 //Removes stamina
@@ -111,7 +111,7 @@
 			del(src.client)
 
 	var/stam_mod_items = 0
-	for (var/obj/item/C as() in src.get_equipped_items())
+	for (var/obj/item/C as anything in src.get_equipped_items())
 		stam_mod_items += C.getProperty("stamcost")
 
 	var/percReduction = 0
@@ -119,7 +119,7 @@
 		percReduction = (x * (stam_mod_items / 100))
 
 	stamina = max(STAMINA_NEG_CAP, stamina - (x - percReduction) )
-	src.stamina_bar?.update_value(src)
+	if(src.stamina_bar.last_update != TIME) src.stamina_bar?.update_value(src)
 	return
 
 /mob/living/carbon/human/remove_stamina(var/x)
@@ -181,7 +181,7 @@
 		#if STAMINA_NEG_CRIT_KNOCKOUT == 1
 		if(!src.getStatusDuration("weakened"))
 			src.visible_message("<span class='alert'>[src] collapses!</span>")
-			src.changeStatus("weakened", (STAMINA_STUN_CRIT_TIME)*10)
+			src.changeStatus("weakened", (STAMINA_STUN_CRIT_TIME) SECONDS)
 		#endif
 	stamina_stun() //Just in case.
 	return
@@ -198,7 +198,7 @@
 /mob/proc/stamina_stun()
 	return
 
-/mob/living/stamina_stun()
+/mob/living/stamina_stun(stunmult = 1)
 	if(!src.use_stamina) return
 	if(src.stamina <= 0)
 		var/chance = STAMINA_SCALING_KNOCKOUT_BASE
@@ -206,7 +206,7 @@
 		if(prob(chance))
 			if(!src.getStatusDuration("weakened"))
 				src.visible_message("<span class='alert'>[src] collapses!</span>")
-				src.changeStatus("weakened", (STAMINA_STUN_TIME)*10)
+				src.changeStatus("weakened", (STAMINA_STUN_TIME * stunmult) SECONDS)
 				src.force_laydown_standup()
 
 //new disorient thing
@@ -216,82 +216,35 @@
 #define DISORIENT_EAR 4
 
 /mob/proc/get_disorient_protection()
-	. = 0
-
-	var/res = 0
-	for (var/obj/item/C as() in src.get_equipped_items())
-		if(C.hasProperty("disorient_resist"))
-			res = C.getProperty("disorient_resist")
-			if (res >= 100)
-				return 100 //a singular item with resistance 100 or higher will block ALL
-			. += res
-		if(C.hasProperty("I_disorient_resist")) //cursed
-			res = C.getProperty("I_disorient_resist")
-			if (res >= 100)
-				return 100 //a singular item with resistance 100 or higher will block ALL
-			. += res
-
-
-	. = clamp(.,0,90) //0 to 90 range
+	return clamp(GET_MOB_PROPERTY(src, PROP_DISORIENT_RESIST_BODY), 90, GET_MOB_PROPERTY(src, PROP_DISORIENT_RESIST_BODY_MAX))
 
 /mob/proc/get_disorient_protection_eye()
-	. = 0
-
-	var/res = 0
-	for (var/obj/item/C as() in src.get_equipped_items())
-		if(C.hasProperty("disorient_resist_eye"))
-			res = C.getProperty("disorient_resist_eye")
-			if (res >= 100)
-				return 100 //a singular item with resistance 100 or higher will block ALL
-			. += res
-
-	.= clamp(.,0,90) //90 max!
-
-/mob/living/get_disorient_protection_eye()
-	.= ..()
-
-	if (. >= 100)
-		return .
-
-	if (organHolder)//factor in me eyes
-		if (organHolder.left_eye)
-			var/res = organHolder.left_eye.getProperty("disorient_resist_eye")
-			if (res >= 100)
-				return 100
-			.+= res
-		if (organHolder.right_eye)
-			var/res = organHolder.right_eye.getProperty("disorient_resist_eye")
-			if (res >= 100)
-				return 100
-			.+= res
-
-	.= clamp(.,0,90)
+	return clamp(GET_MOB_PROPERTY(src, PROP_DISORIENT_RESIST_EYE), 90, GET_MOB_PROPERTY(src, PROP_DISORIENT_RESIST_EYE_MAX))
 
 /mob/proc/get_disorient_protection_ear()
-	.= 0
-
-	var/res = 0
-	for (var/obj/item/C as() in src.get_equipped_items())
-		if(C.hasProperty("disorient_resist_ear"))
-			res = C.getProperty("disorient_resist_ear")
-			if (res >= 100)
-				return 100 //a singular item with resistance 100 or higher will block ALL
-			. += res
-
-	.= clamp(.,0,90) //0 to 90 range
+	return clamp(GET_MOB_PROPERTY(src, PROP_DISORIENT_RESIST_EAR), 90, GET_MOB_PROPERTY(src, PROP_DISORIENT_RESIST_EAR_MAX))
 
 
 /mob/proc/force_laydown_standup() //the real force laydown lives in Life.dm
 	.=0
 
-/mob/proc/do_disorient(var/stamina_damage, var/weakened, var/stunned, var/paralysis, var/disorient = 60, var/remove_stamina_below_zero = 0, var/target_type = DISORIENT_BODY)
+/mob/proc/do_disorient(var/stamina_damage, var/weakened, var/stunned, var/paralysis, var/disorient = 60, var/remove_stamina_below_zero = 0, var/target_type = DISORIENT_BODY, stack_stuns = 1)
 	.= 1
 	if (stunned)
-		src.changeStatus("stunned", stunned)
+		if(stack_stuns)
+			src.changeStatus("stunned", stunned)
+		else if(stunned >= src.getStatusDuration("stunned"))
+			src.setStatus("stunned", stunned)
 	if (weakened)
-		src.changeStatus("weakened", weakened)
+		if(stack_stuns)
+			src.changeStatus("weakened", weakened)
+		else if(weakened >= src.getStatusDuration("weakened"))
+			src.setStatus("weakened", weakened)
 	if (paralysis)
-		src.changeStatus("paralysis", paralysis)
+		if(stack_stuns)
+			src.changeStatus("paralysis", paralysis)
+		else if(paralysis >= src.getStatusDuration("paralysis"))
+			src.setStatus("paralysis", paralysis)
 
 	src.force_laydown_standup()
 
@@ -299,7 +252,7 @@
 		.= 0
 
 //Do stamina damage + disorient above 0 stamina. Stun/Weaken/Paralyze when we hit or drop below 0.
-/mob/living/do_disorient(var/stamina_damage, var/weakened, var/stunned, var/paralysis, var/disorient = 60, var/remove_stamina_below_zero = 0, var/target_type = DISORIENT_BODY)
+/mob/living/do_disorient(var/stamina_damage, var/weakened, var/stunned, var/paralysis, var/disorient = 60, var/remove_stamina_below_zero = 0, var/target_type = DISORIENT_BODY, stack_stuns = 1)
 	if(!src.use_stamina) return ..()
 	var/protection = 0
 
@@ -332,7 +285,7 @@
 		.= 0
 		src.changeStatus("disorient", disorient)
 
-/mob/living/silicon/do_disorient(var/stamina_damage, var/weakened, var/stunned, var/paralysis, var/disorient = 60, var/remove_stamina_below_zero = 0, var/target_type = DISORIENT_BODY)
+/mob/living/silicon/do_disorient(var/stamina_damage, var/weakened, var/stunned, var/paralysis, var/disorient = 60, var/remove_stamina_below_zero = 0, var/target_type = DISORIENT_BODY, stack_stuns = 1)
 	// Apply the twitching disorient animation for as long as the maximum stun duration is.
 	src.changeStatus("cyborg-disorient", max(weakened, stunned, paralysis))
 	. = ..()

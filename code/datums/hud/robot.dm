@@ -281,7 +281,7 @@
 					else items_screen--
 					update_equipment()
 
-	clicked(id)
+	relay_click(id)
 		if (!master)
 			return
 		switch (id)
@@ -338,7 +338,7 @@
 			if ("pulling")
 				if (master.pulling)
 					unpull_particle(master,pulling)
-				master.pulling = null
+				master.remove_pulling()
 				update_pulling()
 			if ("upgrades")
 				set_show_upgrades(!src.show_upgrades)
@@ -384,9 +384,9 @@
 		for(var/atom/movable/screen/statusEffect/G in src.objects)
 			remove_screen(G)
 
-		for(var/datum/statusEffect/S as() in src.statusUiElements) //Remove stray effects.
+		for(var/datum/statusEffect/S as anything in src.statusUiElements) //Remove stray effects.
 			if(!master.statusEffects || !(S in master.statusEffects))
-				pool(statusUiElements[S])
+				qdel(statusUiElements[S])
 				src.statusUiElements.Remove(S)
 				qdel(S)
 
@@ -394,7 +394,7 @@
 		var/pos_x = spacing - 0.2 - 1
 
 		if(master.statusEffects)
-			for(var/datum/statusEffect/S as() in master.statusEffects) //Add new ones, update old ones.
+			for(var/datum/statusEffect/S as anything in master.statusEffects) //Add new ones, update old ones.
 				if(!S.visible) continue
 				if((S in statusUiElements) && statusUiElements[S])
 					var/atom/movable/screen/statusEffect/U = statusUiElements[S]
@@ -405,7 +405,7 @@
 					pos_x -= spacing
 				else
 					if(S.visible)
-						var/atom/movable/screen/statusEffect/U = unpool(/atom/movable/screen/statusEffect)
+						var/atom/movable/screen/statusEffect/U = new /atom/movable/screen/statusEffect
 						U.init(master,S)
 						U.icon = icon_hud
 						statusUiElements.Add(S)
@@ -548,7 +548,7 @@
 			// I put this here because there's nowhere else for it right now.
 			// @TODO robot hud needs a general update() call imo.
 			if (src.mainframe)
-				mainframe.invisibility = (master.mainframe ? 0 : 101)
+				mainframe.invisibility = (master.mainframe ? INVIS_NONE : INVIS_ALWAYS)
 
 
 		update_pulling()

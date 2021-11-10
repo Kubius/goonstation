@@ -1,5 +1,7 @@
 // im pali
 
+//bonk
+
 
 // Pill of sheltestgrog for my office
 
@@ -46,7 +48,7 @@
 	slowdown_time = 15
 
 	two_handed = 1
-	w_class = 4
+	w_class = W_CLASS_BULKY
 
 	New()
 		ammo = new/obj/item/ammo/bullets/beepsky
@@ -224,8 +226,9 @@
 
 	New()
 		..()
-		src.filters += filter(type="rays", size=64, density=src.ray_density, factor=1, offset=rand(1000), threshold=0, color=src.color, x=shift_x, y=shift_y)
-		var/f = src.filters[length(src.filters)]
+		add_filter("rays", 1, rays_filter(size=64, density=src.ray_density, factor=1, offset=rand(1000), threshold=0, color=src.color, x=shift_x, y=shift_y))
+
+		var/f = src.get_filter("rays")
 		animate(f, offset=f:offset + 100, time=5 MINUTES, easing=LINEAR_EASING, flags=ANIMATION_PARALLEL, loop=-1)
 
 
@@ -325,7 +328,7 @@
 			src.transforming = 1
 			src.canmove = 0
 			src.icon = null
-			src.invisibility = 101
+			APPLY_MOB_PROPERTY(src, PROP_INVISIBILITY, "transform", INVIS_ALWAYS)
 			if (src.mind || src.client)
 				src.ghostize()
 			qdel(src)
@@ -342,19 +345,19 @@
 		else
 			M.Turn(-90)
 		animate(src, transform=M, time=src.base_move_delay)
-		if(size > 70 && istype(new_turf, /turf/simulated/floor))
+		if(size > 120 && istype(new_turf, /turf/simulated/floor))
 			var/turf/simulated/floor/floor = new_turf
 			floor.pry_tile(src.equipped(), src)
 		var/found = 0
 		for(var/obj/O in new_turf)
 			if(istype(O, /obj/overlay))
 				continue
-			if(O.invisibility > 10)
+			if(O.invisibility > INVIS_GHOST)
 				continue
 			var/obj/item/I = O
-			if(size < 40 && (!istype(O, /obj/item) || I.w_class > size / 10 + 1))
+			if(size < 60 && (!istype(O, /obj/item) || I.w_class > size / 10 + 1))
 				continue
-			if(size < 60 && O.anchored)
+			if(size < 90 && O.anchored)
 				continue
 			if(istype(I, /obj/item/card/id))
 				var/obj/item/card/id/id = I
@@ -371,12 +374,12 @@
 			size += 0.3
 			found = 1
 			break
-		if(size > 80 && !found && new_turf.density && !isrestrictedz(new_turf.z) && prob(20))
+		if(size > 140 && !found && new_turf.density && !isrestrictedz(new_turf.z) && prob(20))
 			new_turf.ex_act(prob(1) ? 1 : 2)
 		. = ..()
 
 	setup_healths()
-		add_hh_robot(-150, 150, 1.15)
+		add_hh_robot(150, 1.15)
 
 
 // A belt which gives you big muscles (visual only)
@@ -387,20 +390,17 @@
 	icon_state = "machobelt"
 	item_state = "machobelt"
 	var/muscliness_factor = 7
-	var/filter
 
 	equipped(var/mob/user)
 		..()
-		user.filters += filter(type="displace", icon=icon('icons/effects/distort.dmi', "muscly"), size=0)
-		src.filter = user.filters[length(user.filters)]
-		animate(filter, size=src.muscliness_factor, time=1 SECOND, easing=SINE_EASING)
+		user.add_filter("muscly", 1, displacement_map_filter(icon=icon('icons/effects/distort.dmi', "muscly"), size=0))
+		animate(user.get_filter("muscly"), size=src.muscliness_factor, time=1 SECOND, easing=SINE_EASING)
 
 	unequipped(var/mob/user)
 		..()
-		animate(filter, size=0, time=1 SECOND, easing=SINE_EASING)
+		animate(user.get_filter("muscly"), size=0, time=1 SECOND, easing=SINE_EASING)
 		SPAWN_DBG(1 SECOND)
-			user.filters -= filter
-			filter = null
+			user.remove_filter("muscly")
 
 
 // Among Us memery
@@ -411,8 +411,8 @@
 	New()
 		. = ..()
 		var/h = rand(360)
-		var/s = rand() * 0.2 + 0.8
-		var/v = rand() * 0.5 + 0.5
+		var/s = rand() * 20 + 80
+		var/v = rand() * 50 + 50
 		var/suit_color = hsv2rgb(h, s, v)
 		var/boots_color = hsv2rgb(h + rand(-30, 30), s, v * 0.8)
 		var/col = color_mapping_matrix(
@@ -454,3 +454,14 @@
 
 /obj/spawner/amongus_clothing/cursed
 	cursed = TRUE
+
+
+
+/proc/populate_station(chance=100)
+	for(var/job_name in job_start_locations)
+		if(job_name == "AI")
+			continue
+		for(var/turf/T in job_start_locations[job_name])
+			if(prob(chance))
+				var/mob/living/carbon/human/normal/H = new(T)
+				H.JobEquipSpawned(job_name)

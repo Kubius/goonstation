@@ -16,6 +16,9 @@
 		if (!istype(C)|| C.anchored || get_dist(user, src) > 1 || get_dist(src,C) > 1 )
 			return
 
+		if (istype(C, /mob/dead/))
+			return
+
 		if (istype(C, /obj/vehicle/tug))
 			user.show_text("\The [C] is too heavy for \the [src]!", "red")
 			return
@@ -111,15 +114,7 @@
 		if (!isturf(T))
 			T = get_turf(T)
 
-		load.pixel_y -= 6
-		load.layer = initial(load.layer)
 		load.set_loc(src.loc)
-		if (T)
-			SPAWN_DBG(0.2 SECONDS)
-				if (load)
-					load.set_loc(T)
-					load = null
-		src.UpdateOverlays(null, "load")
 
 		// in case non-load items end up in contents, dump every else too
 		// this seems to happen sometimes due to race conditions
@@ -129,6 +124,14 @@
 			AM.set_loc(src.loc)
 			AM.layer = initial(AM.layer)
 			AM.pixel_y = initial(AM.pixel_y)
+
+	Exited(atom/movable/Obj, newloc)
+		. = ..()
+		if(src.load == Obj)
+			src.load.pixel_y -= 6
+			src.load.layer = initial(src.load.layer)
+			src.load = null
+			src.UpdateOverlays(null, "load")
 
 	Move()
 		var/oldloc = src.loc
@@ -213,7 +216,7 @@
 			if (crashed == 2)
 				playsound(src.loc, "sound/impact_sounds/Generic_Hit_Heavy_1.ogg", 40, 1)
 			boutput(rider, "<span class='alert'><B>You are flung off of [src]!</B></span>")
-			rider.changeStatus("stunned", 80)
+			rider.changeStatus("stunned", 8 SECONDS)
 			rider.changeStatus("weakened", 5 SECONDS)
 			for (var/mob/C in AIviewers(src))
 				if (C == rider)
@@ -320,18 +323,6 @@
 				else
 					playsound(src.loc, "sound/impact_sounds/Generic_Swing_1.ogg", 25, 1, -1)
 					src.visible_message("<span class='alert'><B>[M] has attempted to shove [rider] off of [src]!</B></span>")
-		return
-
-	bullet_act(flag, A as obj)
-		if (rider)
-			rider.bullet_act(flag, A)
-			eject_rider()
-		return
-
-	meteorhit()
-		if (rider)
-			rider.meteorhit()
-			eject_rider()
 		return
 
 	disposing()

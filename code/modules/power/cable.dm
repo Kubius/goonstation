@@ -171,7 +171,7 @@
 /obj/cable/hide(var/i)
 
 	if(level == 1)// && istype(loc, /turf/simulated))
-		invisibility = i ? 101 : 0
+		invisibility = i ? INVIS_ALWAYS : INVIS_NONE
 	updateicon()
 
 /obj/cable/proc/updateicon()
@@ -328,8 +328,8 @@
 		var/datum/powernet/PN = new()
 		powernets += PN
 		PN.cables += src
-		PN.number = powernets.len
-		src.netnum = powernets.len
+		PN.number = length(powernets)
+		src.netnum = length(powernets)
 
 	else if (cable_d1)
 		var/datum/powernet/PN = powernets[cable_d1.netnum]

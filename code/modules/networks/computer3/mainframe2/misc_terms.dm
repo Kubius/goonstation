@@ -100,6 +100,7 @@
 
 		..()
 
+
 /obj/machinery/networked/storage
 	name = "Databank"
 	desc = "A networked data storage device."
@@ -108,7 +109,7 @@
 	icon_state = "tapedrive0"
 	device_tag = "PNET_DATA_BANK"
 	mats = 12
-	deconstruct_flags = DECON_SCREWDRIVER | DECON_WRENCH | DECON_CROWBAR | DECON_WELDER | DECON_WIRECUTTERS | DECON_MULTITOOL
+	deconstruct_flags = DECON_SCREWDRIVER | DECON_WRENCH | DECON_CROWBAR | DECON_WELDER | DECON_WIRECUTTERS | DECON_MULTITOOL | DECON_DESTRUCT
 	var/base_icon_state = "tapedrive"
 	var/bank_id = null //Unique Identifier for this databank.
 	var/locked = 1
@@ -1029,23 +1030,23 @@
 	desc = "A nuclear charge used as a self-destruct device. Uh oh!"
 	device_tag = "PNET_NUCCHARGE"
 	var/timing = 0
-	var/time = 60
+	var/time = 180
 	power_usage = 120
 
-	var/status_display_freq = "1435"
+	var/status_display_freq = FREQ_STATUS_DISPLAY
 
 
 #define DISARM_CUTOFF 10 //Can't disarm past this point! OH NO!
 
-	mats = 80 //haha this is a bad idea
+	mats = list("POW-3" = 27, "MET-3" = 25, "CON-2" = 13, "DEN-3" = 15) //haha this is a bad idea
 	deconstruct_flags = DECON_NONE
 	is_syndicate = 1 //^ Agreed
 
 	New()
 		..()
+		src.net_id = generate_net_id(src)
+		MAKE_DEFAULT_RADIO_PACKET_COMPONENT(null, status_display_freq)
 		SPAWN_DBG(0.5 SECONDS)
-			src.net_id = generate_net_id(src)
-
 			if(!src.link)
 				var/turf/T = get_turf(src)
 				var/obj/machinery/power/data_terminal/test_link = locate() in T
@@ -1053,16 +1054,9 @@
 					src.link = test_link
 					src.link.master = src
 
-	disposing()
-		//get freq datunm first
-		//radio_controller.remove_object(src, "[frequency]")
-		..()
-
 	attack_hand(mob/user as mob)
 		if(..() || status & NOPOWER)
 			return
-
-		src.add_dialog(user)
 
 		var/dat = "<html><head><title>Nuclear Charge</title></head><body>"
 
@@ -1145,7 +1139,7 @@
 				src.detonate()
 				return
 			if(src.time == DISARM_CUTOFF)
-				world << sound('sound/misc/airraid_loop_short.ogg')
+				playsound_global(world, "sound/misc/airraid_loop_short.ogg", 90)
 			if(src.time <= DISARM_CUTOFF)
 				src.icon_state = "net_nuke2"
 				boutput(world, "<span class='alert'><b>[src.time] seconds until nuclear charge detonation.</b></span>")
@@ -1262,7 +1256,7 @@
 						if(isnull(thetime))
 							src.post_status(target,"command","term_message","data","command=status&status=noparam&session=[sessionid]")
 							return
-						thetime = max( min(thetime,440), 30)
+						thetime = clamp(thetime, MIN_NUKE_TIME, MAX_NUKE_TIME)
 						src.time = thetime
 						src.post_status(target,"command","term_message","data","command=status&status=success&session=[sessionid]")
 						return
@@ -1282,9 +1276,14 @@
 							admessage += "<b> ([T.x],[T.y],[T.z])</b>"
 						message_admins(admessage)
 						//World announcement.
-						boutput(world, "<span class='alert'><b>Alert: Self-Destruct Sequence has been engaged.</b></span>")
-						boutput(world, "<span class='alert'><b>Detonation in T-[src.time] seconds!</b></span>")
-						return
+						if(station_or_ship() == "ship")
+							command_alert("The ship's self-destruct sequence has been activated, please evacuate the ship or abort the sequence as soon as possible. Detonation in T-[src.time] seconds", "Self-Destruct Activated")
+							playsound_global(world, "sound/machines/engine_alert2.ogg", 40)
+							return
+						if(station_or_ship() == "station")
+							command_alert("The station's self-destruct sequence has been activated, please evacuate the station or abort the sequence as soon as possible. Detonation in T-[src.time] seconds", "Self-Destruct Activated")
+							playsound_global(world, "sound/machines/engine_alert2.ogg", 40)
+							return
 					if("deact")
 						if(data["auth"] != netpass_heads)
 							src.post_status(target,"command","term_message","data","command=status&status=badauth&session=[sessionid]")
@@ -1294,7 +1293,7 @@
 							return
 
 						src.timing = 0
-						src.time = max(src.time,30) //so we don't have some jerk letting it tick down to 11 and then saving it for later.
+						src.time = max(src.time,MIN_NUKE_TIME) //so we don't have some jerk letting it tick down to 11 and then saving it for later.
 						src.icon_state = "net_nuke0"
 						src.post_status(target,"command","term_message","data","command=status&status=success&session=[sessionid]")
 						//World announcement.
@@ -1324,7 +1323,7 @@
 		return
 
 	proc/detonate()
-		world << sound('sound/effects/kaboom.ogg')
+		playsound_global(world, "sound/effects/kaboom.ogg", 70)
 		//explosion(src, src.loc, 10, 20, 30, 35)
 		explosion_new(src, get_turf(src), 10000)
 		//dispose()
@@ -1334,11 +1333,6 @@
 
 
 	proc/post_display_status(var/timeleft)
-
-		var/datum/radio_frequency/frequency = radio_controller.return_frequency(status_display_freq)
-
-		if(!frequency) return
-
 		var/datum/signal/status_signal = get_free_signal()
 		status_signal.source = src
 		status_signal.transmission_method = 1
@@ -1348,7 +1342,7 @@
 			status_signal.data["command"] = "destruct"
 			status_signal.data["time"] = "[timeleft]"
 
-		frequency.post_signal(src, status_signal)
+		SEND_SIGNAL(src, COMSIG_MOVABLE_POST_RADIO_PACKET, status_signal)
 
 #undef DISARM_CUTOFF
 
@@ -1360,11 +1354,10 @@
 	density = 1
 	icon_state = "net_radio"
 	device_tag = "PNET_PR6_RADIO"
-	//var/freq = 1219
+	//var/freq = FREQ_BUDDY
 	mats = 8
-	deconstruct_flags = DECON_SCREWDRIVER | DECON_WRENCH | DECON_CROWBAR | DECON_WELDER | DECON_WIRECUTTERS | DECON_MULTITOOL
+	deconstruct_flags = DECON_SCREWDRIVER | DECON_WRENCH | DECON_CROWBAR | DECON_WELDER | DECON_WIRECUTTERS | DECON_MULTITOOL | DECON_DESTRUCT
 	var/list/frequencies = list()
-	var/datum/radio_frequency/radio_connection
 	var/transmission_range = 100 //How far does our signal reach?
 	var/take_radio_input = 1 //Do we echo radio signals addresed to us back to our host?
 	var/can_be_host = 0
@@ -1379,8 +1372,8 @@
 		SPAWN_DBG(0.5 SECONDS)
 
 			if (radio_controller)
-				frequencies["1411"] = radio_controller.add_object(src, "1411")
-				frequencies["1419"] = radio_controller.add_object(src, "1419")
+				add_frequency(FREQ_AIRLOCK)
+				add_frequency(FREQ_FREE)
 
 			if(!src.link)
 				var/turf/T = get_turf(src)
@@ -1389,10 +1382,8 @@
 					src.link = test_link
 					src.link.master = src
 
-	disposing()
-		radio_controller.remove_object(src, "1411")
-		radio_controller.remove_object(src, "1419")
-		..()
+	proc/add_frequency(newFreq)
+		frequencies["[newFreq]"] = MAKE_DEFAULT_RADIO_PACKET_COMPONENT("f[newFreq]", newFreq)
 
 	attack_hand(mob/user as mob)
 		if(..() || (status & (NOPOWER|BROKEN)))
@@ -1506,11 +1497,12 @@
 
 		return
 
-	receive_signal(datum/signal/signal, transmission_type, theFreq)
+	receive_signal(datum/signal/signal, transmission_type, range, connection_id)
 		if(status & (NOPOWER) || !src.link)
 			return
 		if(!signal || !src.net_id || signal.encryption)
 			return
+		var/theFreq = isnull(connection_id) ? null : text2num(copytext(connection_id, 2))
 
 		var/target = signal.data["sender"] ? signal.data["sender"] : signal.data["netid"]
 		if(!target)
@@ -1521,17 +1513,10 @@
 			if((signal.data["address_1"] == "ping") && ((signal.data["net"] == null) || ("[signal.data["net"]]" == "[src.net_number]")))
 				SPAWN_DBG(0.5 SECONDS) //Send a reply for those curious jerks
 					if (signal.transmission_method == TRANSMISSION_RADIO)
-						var/datum/radio_frequency/transmit_connection = radio_controller.return_frequency("[theFreq]")
-
-						if(!transmit_connection)
-							return
-
 						var/datum/signal/rsignal = get_free_signal()
 						rsignal.source = src
-						rsignal.transmission_method = TRANSMISSION_RADIO
 						rsignal.data = list("address_1"=target, "command"="ping_reply", "device"=src.device_tag, "netid"=src.net_id, "net"="[net_number]", "sender" = src.net_id)
-
-						transmit_connection.post_signal(src, rsignal, transmission_range)
+						SEND_SIGNAL(src, COMSIG_MOVABLE_POST_RADIO_PACKET, rsignal, null, connection_id)
 					else
 						src.post_status(target, "command", "ping_reply", "device", src.device_tag, "netid", src.net_id, "net", "[net_number]")
 				return
@@ -1622,17 +1607,17 @@
 						if ("add")
 							var/newFreq = "[round(max(1000, min(text2num(data["_freq"]), 1500)))]"
 							if (newFreq && !(newFreq in frequencies))
-								frequencies[newFreq] = radio_controller.add_object(src, newFreq)
+								add_frequency(newFreq)
 
 						if ("remove")
 							var/newFreq = "[round(max(1000, min(text2num(data["_freq"]), 1500)))]"
 							if (newFreq && (newFreq in frequencies))
-								radio_controller.remove_object(src, newFreq)
+								qdel(frequencies[newFreq])
 								frequencies -= newFreq
 
 						if ("clear")
 							for (var/x in frequencies)
-								radio_controller.remove_object(src, x)
+								qdel(frequencies[x])
 
 							frequencies.len = 0
 
@@ -1642,24 +1627,22 @@
 
 				var/newFreq = round(max(1000, min(text2num(data["_freq"]), 1500)))
 				data -= "_freq"
-				if (!newFreq || !radio_controller || !data.len)
+				if (!newFreq || !radio_controller || !length(data))
 					src.post_status(target,"command","term_message","data","command=status&status=failure")
 					return
-				var/datum/radio_frequency/transmit_connection = radio_controller.return_frequency("[newFreq]")
 
-				if(!transmit_connection)
+				if(!("[newFreq]" in src.frequencies))
 					src.post_status(target,"command","term_message","data","command=status&status=failure")
 					return
 
 				var/datum/signal/rsignal = get_free_signal()
 				rsignal.source = src
-				rsignal.transmission_method = TRANSMISSION_RADIO
 				rsignal.data = data.Copy()
 
 				rsignal.data["sender"] = src.net_id
 
 				SPAWN_DBG(0)
-					transmit_connection.post_signal(src, rsignal, transmission_range)
+					SEND_SIGNAL(src, COMSIG_MOVABLE_POST_RADIO_PACKET, rsignal, transmission_range, "f[newFreq]")
 					flick("net_radio-blink", src)
 				src.post_status(target,"command","term_message","data","command=status&status=success")
 
@@ -1690,7 +1673,7 @@
 	desc = "A networked printer.  It's designed to print."
 	anchored = 1
 	density = 1
-	deconstruct_flags = DECON_SCREWDRIVER | DECON_WRENCH | DECON_WIRECUTTERS | DECON_MULTITOOL
+	deconstruct_flags = DECON_SCREWDRIVER | DECON_WRENCH | DECON_WIRECUTTERS | DECON_MULTITOOL | DECON_DESTRUCT
 	icon_state = "printer0"
 	device_tag = "PNET_PRINTDEVC"
 	mats = 6
@@ -1709,6 +1692,7 @@
 
 	New()
 		..()
+		src.AddComponent(/datum/component/obj_projectile_damage)
 		if(!print_id)
 			src.print_id = "GENERIC"
 
@@ -1737,7 +1721,7 @@
 				return
 
 			user.drop_item()
-			pool(W)
+			qdel(W)
 			boutput(user, "You load the paper into [src].")
 			if(!src.sheets_remaining && !src.jam)
 				src.clear_alert()
@@ -1760,7 +1744,7 @@
 				boutput(user, "You load [W:amount] sheets into the tray.")
 				src.sheets_remaining += W:amount
 				user.drop_item()
-				pool(W)
+				qdel(W)
 
 			if(!src.jam)
 				src.clear_alert()
@@ -1779,6 +1763,12 @@
 
 		else
 			return attack_hand(user)
+
+	onDestroy()
+		if (src.powered())
+			elecflash(src, power = 2)
+		playsound(src.loc, "sound/impact_sounds/Machinery_Break_1.ogg", 50, 1)
+		. = ..()
 
 	attack_hand(mob/user as mob)
 		if(..() || (status & (NOPOWER|BROKEN)))
@@ -1883,7 +1873,7 @@
 				src.timeout_alert = 1
 				src.post_status(src.host_id, "command","term_ping","data","reply")
 
-		if(!printing && print_buffer.len)
+		if(!printing && length(print_buffer))
 			src.print()
 
 		return
@@ -2011,7 +2001,7 @@
 				return 0
 			if(!src.host_id)
 				return 0
-			if(src.printing || !print_buffer.len)
+			if(src.printing || !length(print_buffer))
 				return 0
 
 			var/print_text = print_buffer[1]
@@ -2050,7 +2040,7 @@
 					P.name = IMG.img_name
 					P.desc = IMG.img_desc*/
 				else
-					var/obj/item/paper/P = unpool(/obj/item/paper)
+					var/obj/item/paper/P = new /obj/item/paper
 					P.set_loc(src.loc)
 
 
@@ -2153,6 +2143,7 @@
 	anchored = 1
 	density = 1
 	icon_state = "scanner0"
+	deconstruct_flags = DECON_DESTRUCT
 	//device_tag = "PNET_SCANDEVC"
 	var/scanning = 0 //Are we scanning RIGHT NOW?
 	var/obj/item/scanned_thing //Ideally, this would be a paper or photo.
@@ -2526,8 +2517,8 @@
 		switch (src.state)
 			if (0)
 				if (src.scan_beam)
-					//qdel(src.scan_beam)
-					src.scan_beam.dispose()
+					qdel(src.scan_beam)
+					src.scan_beam = null
 			if (1)
 				if (!src.scan_beam)
 					var/turf/beamTurf = get_step(src, src.dir)
@@ -2674,8 +2665,8 @@
 				light.disable()
 				icon_state = "secdetector-p"
 				if (src.scan_beam)
-					//qdel(src.scan_beam)
-					src.scan_beam.dispose()
+					qdel(src.scan_beam)
+					src.scan_beam = null
 				src.state = src.online
 				return
 
@@ -2739,11 +2730,11 @@
 	layer = NOLIGHT_EFFECTS_LAYER_BASE
 	anchored = 1.0
 	flags = TABLEPASS
-	event_handler_flags = USE_HASENTERED | USE_FLUID_ENTER
+	event_handler_flags = USE_FLUID_ENTER
 
 	disposing()
 		if (src.next)
-			src.next.dispose()
+			qdel(src.next)
 			src.next = null
 		..()
 
@@ -2751,8 +2742,9 @@
 		src.hit()
 		return
 
-	HasEntered(atom/movable/AM as mob|obj)
-		if (istype(AM, /obj/beam) || istype(AM, /obj/critter/aberration))
+	Crossed(atom/movable/AM as mob|obj)
+		..()
+		if (istype(AM, /obj/beam) || istype(AM, /obj/critter/aberration) || isobserver(AM) || isintangible(AM))
 			return
 		SPAWN_DBG( 0 )
 			src.hit(AM)
@@ -2787,14 +2779,14 @@
 	desc = "A beam of infrared light."
 	icon = 'icons/obj/projectiles.dmi'
 	icon_state = "ibeam"
-	invisibility = 2
+	invisibility = INVIS_CLOAK
 	dir = 2
 	//var/obj/beam/ir_beam/next = null
 	var/obj/machinery/networked/secdetector/master = null
 	//var/limit = 24
 	anchored = 1.0
 	flags = TABLEPASS
-	event_handler_flags = USE_HASENTERED | USE_FLUID_ENTER
+	event_handler_flags = USE_FLUID_ENTER
 
 	New(location, newLimit)
 		..()
@@ -2817,7 +2809,8 @@
 		..()
 
 
-	HasEntered(atom/movable/AM as mob|obj)
+	Crossed(atom/movable/AM as mob|obj)
+		..()
 		if(isobserver(AM) || isintangible(AM)) return
 		if (istype(AM, /obj/beam))
 			return
@@ -3264,7 +3257,7 @@
 		src.hit()
 		return
 
-	HasEntered(atom/movable/AM as mob|obj)
+	Crossed(atom/movable/AM as mob|obj)
 		if (istype(AM, /obj/beam) || istype(AM, /obj/critter/aberration))
 			return
 		SPAWN_DBG( 0 )
@@ -3311,7 +3304,7 @@
 				if (1 to 3)
 					//telehop + radiation
 					if (iscarbon(hitMob))
-						hitMob.changeStatus("radiation", 1000)
+						hitMob.changeStatus("radiation", 100 SECONDS)
 						hitMob.changeStatus("weakened", 2 SECONDS)
 					telehop(hitMob, src.power, src.power > 2)
 					return
@@ -3319,7 +3312,7 @@
 				if (4)
 					//big telehop + might leave parts behind.
 					if (iscarbon(hitMob))
-						hitMob.changeStatus("radiation", 1000)
+						hitMob.changeStatus("radiation", 100 SECONDS)
 
 						random_brute_damage(hitMob, 25)
 						hitMob.changeStatus("weakened", 2 SECONDS)
@@ -3340,9 +3333,6 @@
 						if (!source)
 							telehop(AM, 5, 1)
 							return
-
-						var/area/sourceArea = get_area(source)
-						sourceArea.Entered(AM, AM.loc)
 
 						AM.set_loc(get_turf(source))
 						return
@@ -3392,6 +3382,7 @@
 	//Don't forget to give devices unique device_tag values of the form "PNET_XXXXXXXXX"
 	device_tag = "PNET_TEST_APPT" //This is the device tag used to interface with the mainframe GTPIO driver.
 	mats = 8
+	deconstruct_flags = DECON_DESTRUCT
 
 	power_usage = 200
 	var/dragload = 0 // can we click-drag a machinery-type artifact into this machine?
@@ -3529,7 +3520,8 @@
 		if (status & NOPOWER)
 			return 1
 
-		use_power(200)
+		if(active)
+			use_power(power_usage)
 
 		return 0
 
@@ -3730,7 +3722,7 @@
 
 			if ("activate")
 				if (src.contents.len)
-					active = src.contents.len
+					active = length(src.contents)
 					message_host("command=ack")
 					src.update_icon()
 				else
@@ -3797,7 +3789,7 @@
 			else
 				return
 
-		if (I.w_class < 4)
+		if (I.w_class < W_CLASS_BULKY)
 			if (src.contents.len < src.setup_max_objects)
 				if(I.cant_drop)
 					return
@@ -3948,7 +3940,7 @@
 			var/stimforce = M.throwforce
 			src.sensed[1] = stimforce * ARTDATA.react_mpct[1]
 			src.sensed[2] = stimforce * ARTDATA.react_mpct[2]
-			if (src.sensed[2] != 0 && ARTDATA.faults.len)
+			if (src.sensed[2] != 0 && length(ARTDATA.faults))
 				src.sensed[2] += rand(ARTDATA.faults.len / 2,ARTDATA.faults.len * 2)
 			var/datum/artifact_trigger/AT = ARTDATA.get_trigger_by_string("force")
 			if (AT)
@@ -3967,7 +3959,7 @@
 			src.sensed[1] = stimforce * ARTDATA.react_mpct[1]
 			src.sensed[2] = stimforce * ARTDATA.react_mpct[2]
 
-			if (src.sensed[2] != 0 && ARTDATA.faults.len)
+			if (src.sensed[2] != 0 && length(ARTDATA.faults))
 				src.sensed[2] += rand(ARTDATA.faults.len / 2,ARTDATA.faults.len * 2)
 
 			var/datum/artifact_trigger/AT = ARTDATA.get_trigger_by_string("force")
@@ -4104,7 +4096,8 @@
 						return
 					src.wattage = pokeval
 
-				src.electrify_contents()
+				if (src.active)
+					src.electrify_contents()
 				message_host("command=ack")
 				return
 
@@ -4433,7 +4426,7 @@
 				heat_overlay.icon_state = "heat-1"
 			if (250 to 269)
 				heat_overlay.icon_state = "heat-2"
-			if (249 to -99)
+			if (-INFINITY to 249)
 				heat_overlay.icon_state = "heat-3"
 			else
 				heat_overlay.icon_state = ""
@@ -4726,6 +4719,7 @@
 	setup_device_name = "Gas Sensor"
 	setup_capability_value = "S"
 	active = 1
+	power_usage = 20
 
 	var/setup_tag = null
 			//Pressure, Temperature, gases, trace gases sum
@@ -4767,7 +4761,7 @@
 
 					var/tgmoles = 0
 					if(length(air_sample.trace_gases))
-						for(var/datum/gas/trace_gas as() in air_sample.trace_gases)
+						for(var/datum/gas/trace_gas as anything in air_sample.trace_gases)
 							tgmoles += trace_gas.moles
 					sensed.Add(round(100*tgmoles/total_moles, 0.1))
 				else

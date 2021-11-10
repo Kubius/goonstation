@@ -12,7 +12,7 @@
 	flags = FPRINT | EXTRADELAY | TABLEPASS | CONDUCT | OPENCONTAINER
 	tooltip_flags = REBUILD_DIST
 	throwforce = 10
-	w_class = 3.0
+	w_class = W_CLASS_NORMAL
 	throw_speed = 2
 	throw_range = 10
 	force = 10.0
@@ -22,7 +22,6 @@
 	stamina_damage = 25
 	stamina_cost = 20
 	stamina_crit_chance = 35
-	module_research = list("tools" = 5, "science" = 1)
 	rand_pos = 1
 	inventory_counter_enabled = 1
 	move_triggered = 1
@@ -137,7 +136,7 @@
 				qdel(src)
 				return
 
-		playsound(get_turf(src), "sound/effects/spray.ogg", 75, 1, -3)
+		playsound(src, "sound/effects/spray.ogg", 30, 1, -3)
 
 		var/direction = get_dir(src,target)
 
@@ -162,7 +161,7 @@
 					return
 				if (!src.reagents)
 					return
-				var/obj/effects/water/W = unpool(/obj/effects/water, user)
+				var/obj/effects/water/W = new /obj/effects/water(user)
 				W.owner = user
 				if (!W) return
 				W.set_loc( get_turf(src) )

@@ -57,6 +57,7 @@
 
 	// moved up from critter/small_animal
 	var/butcherable = 0
+	var/butcher_time = 1.2 SECONDS
 	var/meat_type = /obj/item/reagent_containers/food/snacks/ingredient/meat/mysterymeat
 	var/name_the_meat = 0
 	var/skinresult = /obj/item/material_piece/cloth/leather //YEP
@@ -78,7 +79,7 @@
 	var/last_life_process = 0
 	var/use_stunned_icon = 1
 
-	var/pull_w_class = 2
+	var/pull_w_class = W_CLASS_SMALL
 
 	blood_id = "blood"
 
@@ -98,8 +99,9 @@
 		count_healths()
 
 		SPAWN_DBG(0)
-			src.zone_sel.change_hud_style('icons/mob/hud_human.dmi')
-			src.attach_hud(zone_sel)
+			if(!src.disposed)
+				src.zone_sel.change_hud_style('icons/mob/hud_human.dmi')
+				src.attach_hud(zone_sel)
 
 		for (var/datum/equipmentHolder/EE in equipment)
 			EE.after_setup(hud)
@@ -126,7 +128,7 @@
 		health_update_queue |= src
 
 		src.abilityHolder = new /datum/abilityHolder/critter(src)
-		if (islist(src.add_abilities) && src.add_abilities.len)
+		if (islist(src.add_abilities) && length(src.add_abilities))
 			for (var/abil in src.add_abilities)
 				if (ispath(abil))
 					abilityHolder.addAbility(abil)
@@ -171,6 +173,9 @@
 		if (src.is_npc)
 			src.registered_area?.registered_mob_critters -= src
 			src.registered_area = null
+		if (ai)
+			qdel(ai)
+			ai = null
 		..()
 
 	///enables mob ai that was disabled by a hibernation task
@@ -222,44 +227,36 @@
 				health += HH.maximum_value
 
 	// begin convenience procs
-	proc/add_hh_flesh(var/min, var/max, var/mult)
+	proc/add_hh_flesh(var/max, var/mult)
 		var/datum/healthHolder/Brute = add_health_holder(/datum/healthHolder/flesh)
 		Brute.maximum_value = max
 		Brute.value = max
 		Brute.last_value = max
 		Brute.damage_multiplier = mult
-		Brute.depletion_threshold = min
-		Brute.minimum_value = min
 		return Brute
 
-	proc/add_hh_flesh_burn(var/min, var/max, var/mult)
+	proc/add_hh_flesh_burn(var/max, var/mult)
 		var/datum/healthHolder/Burn = add_health_holder(/datum/healthHolder/flesh_burn)
 		Burn.maximum_value = max
 		Burn.value = max
 		Burn.last_value = max
 		Burn.damage_multiplier = mult
-		Burn.depletion_threshold = min
-		Burn.minimum_value = min
 		return Burn
 
-	proc/add_hh_robot(var/min, var/max, var/mult)
+	proc/add_hh_robot(var/max, var/mult)
 		var/datum/healthHolder/Brute = add_health_holder(/datum/healthHolder/structure)
 		Brute.maximum_value = max
 		Brute.value = max
 		Brute.last_value = max
 		Brute.damage_multiplier = mult
-		Brute.depletion_threshold = min
-		Brute.minimum_value = min
 		return Brute
 
-	proc/add_hh_robot_burn(var/min, var/max, var/mult)
+	proc/add_hh_robot_burn(var/max, var/mult)
 		var/datum/healthHolder/Burn = add_health_holder(/datum/healthHolder/wiring)
 		Burn.maximum_value = max
 		Burn.value = max
 		Burn.last_value = max
 		Burn.damage_multiplier = mult
-		Burn.depletion_threshold = min
-		Burn.minimum_value = min
 		return Burn
 
 	// end convenience procs
@@ -275,7 +272,7 @@
 		var/obj/item/I = equipped()
 		var/obj/item/W = EH.item
 		if (I && W)
-			W.attackby(I, src) // fix runtime for null.find_type_in_hand - cirr
+			W.Attackby(I, src) // fix runtime for null.find_type_in_hand - cirr
 		else if (I)
 			if (EH.can_equip(I))
 				u_equip(I)
@@ -303,13 +300,13 @@
 			if (src.skinresult && max_skins)
 				if (istype(I, /obj/item/circular_saw) || istype(I, /obj/item/kitchen/utensil/knife) || istype(I, /obj/item/scalpel) || istype(I, /obj/item/raw_material/shard) || istype(I, /obj/item/sword) || istype(I, /obj/item/saw) || istype(I, /obj/item/wirecutters))
 					for (var/i, i<rand(1, max_skins), i++)
-						var/obj/item/S = unpool(src.skinresult)
+						var/obj/item/S = new src.skinresult
 						S.set_loc(src.loc)
 					src.skinresult = null
 					M.visible_message("<span class='alert'>[M] skins [src].</span>","You skin [src].")
 					return
 			if (src.butcherable && (istype(I, /obj/item/circular_saw) || istype(I, /obj/item/kitchen/utensil/knife) || istype(I, /obj/item/scalpel) || istype(I, /obj/item/raw_material/shard) || istype(I, /obj/item/sword) || istype(I, /obj/item/saw) || istype(I, /obj/item/wirecutters)))
-				actions.start(new/datum/action/bar/icon/butcher_living_critter(src), M)
+				actions.start(new/datum/action/bar/icon/butcher_living_critter(src,src.butcher_time), M)
 				return
 
 		var/rv = 1
@@ -321,19 +318,19 @@
 		else
 			..()
 
-	proc/butcher(var/mob/M)
+	proc/butcher(var/mob/M, drop_brain = TRUE)
 		var/i = rand(2,4)
-		var/transfer = src.reagents.total_volume / i
+		var/transfer = src.reagents ? src.reagents.total_volume / i : 0
 
 		while (i-- > 0)
 			var/obj/item/reagent_containers/food/newmeat = new meat_type
 			newmeat.set_loc(src.loc)
-			src.reagents.trans_to(newmeat, transfer)
+			src.reagents?.trans_to(newmeat, transfer)
 			if (name_the_meat)
 				newmeat.name = "[src.name] meat"
 				newmeat.real_name = newmeat.name
 
-		if (src.organHolder)
+		if (src.organHolder && drop_brain)
 			src.organHolder.drop_organ("brain",src.loc)
 
 		src.ghostize()
@@ -360,7 +357,10 @@
 		src.update_cursor()
 		hud.update_throwing()
 
-	proc/throw_item(atom/target, list/params)
+	throw_item(atom/target, list/params)
+		..()
+		if (HAS_MOB_PROPERTY(src, PROP_CANTTHROW))
+			return
 		if (!can_throw)
 			return
 		src.throw_mode_off()
@@ -415,13 +415,13 @@
 		if (!src.ghost_spawned) //if its an admin or wizard made critter, just let them pull everythang
 			return 1
 		if (ismob(A))
-			return (src.pull_w_class >= 3)
+			return (src.pull_w_class >= W_CLASS_NORMAL)
 		else if (isobj(A))
 			if (istype(A,/obj/item))
 				var/obj/item/I = A
 				return (pull_w_class >= I.w_class)
 			else
-				return (src.pull_w_class >= 4)
+				return (src.pull_w_class >= W_CLASS_BULKY)
 		return 0
 
 	click(atom/target, list/params)
@@ -630,6 +630,7 @@
 		var/pmsg = islist(src.pet_text) ? pick(src.pet_text) : src.pet_text
 		src.visible_message("<span class='notice'><b>[user] [pmsg] [src]!</b></span>",\
 		"<span class='notice'><b>[user] [pmsg] you!</b></span>")
+		user.add_karma(0.5)
 		return
 
 	proc/get_active_hand()
@@ -780,6 +781,7 @@
 		var/datum/healthHolder/Bu = get_health_holder("burn")
 		if (Bu && (burn < 0 || !is_heat_resistant()))
 			Bu.TakeDamage(burn)
+		take_toxin_damage(tox)
 
 	take_brain_damage(var/amount)
 		if (..())
@@ -857,7 +859,7 @@
 
 	HealDamage(zone, brute, burn, tox)
 		..()
-		TakeDamage(zone, -brute, -burn)
+		TakeDamage(zone, -brute, -burn, -tox)
 
 
 	updatehealth()
@@ -1009,7 +1011,7 @@
 						if (istype(src.loc,/obj/))
 							var/obj/container = src.loc
 							boutput(src, "<span class='alert'>You leap and slam your head against the inside of [container]! Ouch!</span>")
-							src.changeStatus("paralysis", 30)
+							src.changeStatus("paralysis", 3 SECONDS)
 							src.changeStatus("weakened", 4 SECONDS)
 							container.visible_message("<span class='alert'><b>[container]</b> emits a loud thump and rattles a bit.</span>")
 							playsound(src.loc, "sound/impact_sounds/Metal_Hit_Heavy_1.ogg", 50, 1)
@@ -1312,7 +1314,7 @@
 			for (var/mob/O in viewers(src, null))
 				O.show_message("<span class='alert'><B>The blob has knocked down [src]!</B></span>", 1, "<span class='alert'>You hear someone fall.</span>", 2)
 		else
-			src.changeStatus("stunned", 50)
+			src.changeStatus("stunned", 5 SECONDS)
 			for (var/mob/O in viewers(src, null))
 				if (O.client)	O.show_message("<span class='alert'><B>The blob has stunned [src]!</B></span>", 1)
 		if (isalive(src))

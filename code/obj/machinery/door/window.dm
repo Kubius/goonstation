@@ -13,6 +13,8 @@
 	var/base_state = "left"
 	visible = 0
 	flags = ON_BORDER
+	health = 500
+	health_max = 500
 	opacity = 0
 	brainloss_stumble = 1
 	autoclose = 1
@@ -22,7 +24,7 @@
 	New()
 		..()
 
-		if (src.req_access && src.req_access.len)
+		if (src.req_access && length(src.req_access))
 			src.icon_state = "[src.icon_state]"
 			src.base_state = src.icon_state
 		return
@@ -32,7 +34,7 @@
 			user.show_text("You cannot control this door.", "red")
 			return
 		else
-			return src.attackby(null, user)
+			return src.Attackby(null, user)
 
 	attackby(obj/item/I as obj, mob/user as mob)
 		if (user.getStatusDuration("stunned") || user.getStatusDuration("weakened") || user.stat || user.restrained())
@@ -95,16 +97,29 @@
 		close()
 		return 1
 
-	CanPass(atom/movable/mover, turf/target, height=0, air_group=0)
+	CanPass(atom/movable/mover, turf/target)
 		if (istype(mover, /obj/projectile))
 			var/obj/projectile/P = mover
 			if (P.proj_data.window_pass)
 				return 1
 
 		if (get_dir(loc, target) == dir) // Check for appropriate border.
+			if(density && mover && mover.flags & DOORPASS && !src.cant_emag)
+				if (ismob(mover) && mover:pulling && src.bumpopen(mover))
+					// If they're pulling something and the door would open anyway,
+					// just let the door open instead.
+					return 0
+				animate_door_squeeze(mover)
+				return 1 // they can pass through a closed door
 			return !density
 		else
 			return 1
+
+	gas_cross(turf/target)
+		if(get_dir(loc, target) == dir)
+			return !density
+		else
+			return TRUE
 
 	CheckExit(atom/movable/mover as mob|obj, turf/target as turf)
 		if (istype(mover, /obj/projectile))
@@ -113,6 +128,13 @@
 				return 1
 
 		if (get_dir(loc, target) == dir)
+			if(density && mover && mover.flags & DOORPASS && !src.cant_emag)
+				if (ismob(mover) && mover:pulling && src.bumpopen(mover))
+					// If they're pulling something and the door would open anyway,
+					// just let the door open instead.
+					return 0
+				animate_door_squeeze(mover)
+				return 1 // they can pass through a closed door
 			return !density
 		else
 			return 1

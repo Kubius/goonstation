@@ -43,7 +43,7 @@ var/list/datum/bioEffect/mutini_effects = list()
 	/// The color that was set by the player's preferences
 	var/customization_first_color_original = "#101010"
 	/// The hair style / detail thing that gets displayed on your spaceperson
-	var/customization_first = "Trimmed"
+	var/datum/customization_style/customization_first = new /datum/customization_style/hair/short/short
 	/// The hair style / detail thing that was set by the player in their settings
 	var/customization_first_original = "None"
 	/// The Y offset to display this image
@@ -51,13 +51,13 @@ var/list/datum/bioEffect/mutini_effects = list()
 
 	var/customization_second_color = "#101010"
 	var/customization_second_color_original = "#101010"
-	var/customization_second = "None"
+	var/datum/customization_style/customization_second =  new /datum/customization_style/none
 	var/customization_second_original = "None"
 	var/customization_second_offset_y = 0
 
 	var/customization_third_color = "#101010"
 	var/customization_third_color_original = "#101010"
-	var/customization_third = "None"
+	var/datum/customization_style/customization_third = new /datum/customization_style/none
 	var/customization_third_original = "None"
 	var/customization_third_offset_y = 0
 
@@ -137,7 +137,7 @@ var/list/datum/bioEffect/mutini_effects = list()
 	var/datum/bioHolder/parentHolder = null
 
 	var/gender = MALE
-	var/pronouns = 0		//1 if using neutral pronouns (they/their);  0 if using gendered pronouns matching their gender var
+	var/datum/pronouns/pronouns
 	var/screamsound = "male"
 	var/fartsound = "default"
 	var/voicetype = 0
@@ -230,7 +230,7 @@ var/list/datum/bioEffect/mutini_effects = list()
 		e_offset_y = toCopy.e_offset_y
 		e_color_original = toCopy.e_color_original
 
-		s_tone = toCopy.s_tone_original // *usually* we want to have a normal skintone by default. *usually*
+		s_tone = toCopy.s_tone
 		s_tone_original = toCopy.s_tone_original
 
 		underwear = toCopy.underwear
@@ -327,6 +327,8 @@ var/list/datum/bioEffect/mutini_effects = list()
 
 			if (H.mutantrace && H.mutantrace.voice_override)
 				H.voice_type = H.mutantrace.voice_override
+
+			H.update_name_tag()
 		// if the owner's not human I don't think this would do anything anyway so fuck it
 		return
 
@@ -341,7 +343,7 @@ var/list/datum/bioEffect/mutini_effects = list()
 	var/bloodType = "AB+-"
 	var/bloodColor = null
 	var/age = 30.0
-	var/genetic_stability = 100
+	var/genetic_stability = 125
 	var/clone_generation = 0 //Get this high enough and you can be like Arnold. Maybe. I found that movie fun. Don't judge me.
 
 	var/datum/appearanceHolder/mobAppearance = null
@@ -441,7 +443,7 @@ var/list/datum/bioEffect/mutini_effects = list()
 	proc/AddRandomNewPoolEffect()
 		var/list/filteredList = list()
 
-		if (!bioEffectList || !bioEffectList.len)
+		if (!bioEffectList || !length(bioEffectList))
 			logTheThing("debug", null, null, {"<b>Genetics:</b> Tried to add new random effect to pool for
 			 [owner ? "\ref[owner] [owner.name]" : "*NULL*"], but bioEffectList is empty!"})
 			return 0
@@ -459,7 +461,7 @@ var/list/datum/bioEffect/mutini_effects = list()
 			 [owner ? "\ref[owner] [owner.name]" : "*NULL*"]. (filteredList.len = [filteredList.len])"})
 			return 0
 
-		var/datum/bioEffect/selectedG = pickweight(filteredList)
+		var/datum/bioEffect/selectedG = weighted_pick(filteredList)
 		var/datum/bioEffect/selectedNew = selectedG.GetCopy()
 		selectedNew.dnaBlocks.ModBlocks() //Corrupt the local copy
 		selectedNew.holder = src
@@ -481,7 +483,7 @@ var/list/datum/bioEffect/mutini_effects = list()
 			qdel(BE)
 		effectPool.Cut()
 
-		if (!bioEffectList || !bioEffectList.len)
+		if (!bioEffectList || !length(bioEffectList))
 			logTheThing("debug", null, null, {"<b>Genetics:</b> Tried to build effect pool for
 			 [owner ? "\ref[owner] [owner.name]" : "*NULL*"], but bioEffectList is empty!"})
 
@@ -494,23 +496,21 @@ var/list/datum/bioEffect/mutini_effects = list()
 				if (instance.mob_exclusive && src.owner.type != instance.mob_exclusive)
 					continue
 			if(instance.secret)
-				filteredSecret.Add(instance)
+				filteredSecret[instance] = instance.probability
 			else
 				if(instance.isBad)
-					filteredBad.Add(instance)
 					filteredBad[instance] = instance.probability
 				else
-					filteredGood.Add(instance)
 					filteredGood[instance] = instance.probability
 
-		if(!filteredGood.len || !filteredBad.len)
+		if(!filteredGood.len || !length(filteredBad))
 			logTheThing("debug", null, null, {"<b>Genetics:</b> Unable to build effect pool for
 			 [owner ? "\ref[owner] [owner.name]" : "*NULL*"]. (filteredGood.len = [filteredGood.len],
 			  filteredBad.len = [filteredBad.len])"})
 			return
 
 		for(var/g=0, g<5, g++)
-			var/datum/bioEffect/selectedG = pickweight(filteredGood)
+			var/datum/bioEffect/selectedG = weighted_pick(filteredGood)
 			if(selectedG)
 				var/datum/bioEffect/selectedNew = selectedG.GetCopy()
 				selectedNew.dnaBlocks.ModBlocks() //Corrupt the local copy
@@ -522,7 +522,7 @@ var/list/datum/bioEffect/mutini_effects = list()
 				break
 
 		for(var/b=0, b<5, b++)
-			var/datum/bioEffect/selectedB = pickweight(filteredBad)
+			var/datum/bioEffect/selectedB = weighted_pick(filteredBad)
 			if(selectedB)
 				var/datum/bioEffect/selectedNew = selectedB.GetCopy()
 				selectedNew.dnaBlocks.ModBlocks() //Corrupt the local copy
@@ -534,7 +534,7 @@ var/list/datum/bioEffect/mutini_effects = list()
 				break
 
 		if (filteredSecret.len)
-			var/datum/bioEffect/selectedS = pickweight(filteredSecret)
+			var/datum/bioEffect/selectedS = weighted_pick(filteredSecret)
 			var/datum/bioEffect/selectedNew = selectedS.GetCopy()
 			selectedNew.dnaBlocks.ModBlocks() //Corrupt the local copy
 			selectedNew.holder = src
@@ -544,15 +544,17 @@ var/list/datum/bioEffect/mutini_effects = list()
 
 		shuffle_list(effectPool)
 
-	proc/OnLife()
+	proc/OnLife(var/mult)
 		var/datum/bioEffect/BE
 		for(var/curr in effects)
 			BE = effects[curr]
 			if (BE)
-				BE.OnLife()
+				BE.OnLife(mult)
 				if(BE.timeLeft != -1)
-					BE.timeLeft--
+					BE.timeLeft -= 1*mult
 					if(BE.timeLeft <= 0)
+						if(BE.degrade_after && BE.degrade_to)
+							AddEffect(BE.degrade_to, do_stability = 0)
 						RemoveEffect(BE.id)
 		return
 
@@ -607,14 +609,15 @@ var/list/datum/bioEffect/mutini_effects = list()
 					if(!newCopy) continue
 
 					newCopy.timeLeft = BE.timeLeft
-					newCopy.variant = BE.variant
+					var/oldpower = newCopy.power
+					newCopy.power = BE.power
+					newCopy.onPowerChange(oldpower, newCopy.power)
 					newCopy.data = BE.data
 				else
-					var/datum/bioEffect/newCopy = AddEffect(BE.id)
+					var/datum/bioEffect/newCopy = AddEffect(BE.id, power = BE.power)
 					if(!newCopy) continue
 
 					newCopy.timeLeft = BE.timeLeft
-					newCopy.variant = BE.variant
 					newCopy.data = BE.data
 		return
 
@@ -631,7 +634,7 @@ var/list/datum/bioEffect/mutini_effects = list()
 
 		age += (toCopy.age - age) / (11 - progress)
 
-	proc/AddEffect(var/idToAdd, var/variant = 0, var/timeleft = 0, var/do_stability = 1, var/magical = 0)
+	proc/AddEffect(var/idToAdd, var/power = 0, var/timeleft = 0, var/do_stability = 1, var/magical = 0)
 		//Adds an effect to this holder. Returns the newly created effect if succesful else 0.
 
 		if(HasEffect(idToAdd))
@@ -643,14 +646,14 @@ var/list/datum/bioEffect/mutini_effects = list()
 		newEffect = new newEffect.type
 
 		if(istype(newEffect))
-			for(var/datum/bioEffect/curr_id as() in effects)
-				var/datum/bioEffect/curr = effects[curr_id]
-				if(curr?.type == EFFECT_TYPE_MUTANTRACE && newEffect.type == EFFECT_TYPE_MUTANTRACE)
-					//Can only have one mutant race.
-					RemoveEffect(curr.id)
-					break //Since this cleaning is always done we just ousted the only mutantrace in effects
+			if(newEffect.effect_group)
+				for(var/datum/bioEffect/curr_id as anything in effects)
+					var/datum/bioEffect/curr = effects[curr_id]
+					if(curr.effect_group == newEffect.effect_group)
+						RemoveEffect(curr.id)
+						break
 
-			if(variant) newEffect.variant = variant
+			if(power) newEffect.power = power
 			if(timeleft) newEffect.timeLeft = timeleft
 			if(magical)
 				newEffect.curable_by_mutadone = 0
@@ -658,6 +661,7 @@ var/list/datum/bioEffect/mutini_effects = list()
 				newEffect.can_scramble = 0
 				newEffect.can_reclaim = 0
 				newEffect.degrade_to = null
+				newEffect.can_copy = 0
 
 			effects[newEffect.id] = newEffect
 			newEffect.owner = owner
@@ -665,6 +669,9 @@ var/list/datum/bioEffect/mutini_effects = list()
 			if(owner)
 				newEffect.OnAdd()
 			if (do_stability)
+				if(newEffect.degrade_to && !prob(lerp(clamp(src.genetic_stability, 0, 100), 100, 0.5)))
+					newEffect.timeLeft = rand(20, 60)
+					newEffect.degrade_after = TRUE
 				src.genetic_stability -= newEffect.stability_loss
 				src.genetic_stability = max(0,src.genetic_stability)
 			if(owner && length(newEffect.msgGain) > 0)
@@ -673,6 +680,7 @@ var/list/datum/bioEffect/mutini_effects = list()
 				else
 					boutput(owner, "<span class='notice'>[newEffect.msgGain]</span>")
 			mobAppearance.UpdateMob()
+			logTheThing("combat", owner, null, "gains the [newEffect] mutation at [log_loc(owner)].")
 			return newEffect
 
 		return 0
@@ -702,6 +710,7 @@ var/list/datum/bioEffect/mutini_effects = list()
 			else
 				boutput(owner, "<span class='notice'>[BE.msgGain]</span>")
 		mobAppearance.UpdateMob()
+		logTheThing("combat", owner, null, "gains the [BE] mutation at [log_loc(owner)].")
 		return BE
 
 	proc/RemoveEffect(var/id)
@@ -723,12 +732,13 @@ var/list/datum/bioEffect/mutini_effects = list()
 					boutput(owner, "<span class='alert'>[D.msgLose]</span>")
 			if (mobAppearance)
 				mobAppearance.UpdateMob()
+			logTheThing("combat", owner, null, "loses the [D] mutation at [log_loc(owner)].")
 			return effects.Remove(D.id)
 
 		return 0
 
 	proc/RemoveAllEffects(var/type = null)
-		for(var/D as() in effects)
+		for(var/D as anything in effects)
 			var/datum/bioEffect/BE = effects[D]
 			if(BE && (isnull(type) || BE.effectType == type))
 				RemoveEffect(BE.id)
@@ -741,7 +751,7 @@ var/list/datum/bioEffect/mutini_effects = list()
 		return 1
 
 	proc/RemoveAllPoolEffects(var/type = null)
-		for(var/D as() in effectPool)
+		for(var/D as anything in effectPool)
 			var/datum/bioEffect/BE = effectPool[D]
 			if(BE && (isnull(type) || BE.effectType == type))
 				effectPool.Remove(D)
@@ -755,7 +765,7 @@ var/list/datum/bioEffect/mutini_effects = list()
 
 	proc/HasAnyEffect(var/type = null)
 		if(type)
-			for(var/D as() in effects)
+			for(var/D as anything in effects)
 				var/datum/bioEffect/BE = effects[D]
 				if(BE && BE.effectType == type)
 					return 1
@@ -764,15 +774,13 @@ var/list/datum/bioEffect/mutini_effects = list()
 		return 0
 
 	proc/HasEffect(var/id)
-		//Returns variant if this holder has an effect with the given ID else 0.
-		//Returns 1 if it has the effect with variant 0, special case for limb tone.
+		//Returns effect power if this holder has an effect with the given ID else 0.
 		var/datum/bioEffect/B = effects[id]
 
 		if(!B)
 			.= 0
 		else
-			.= B.variant ? B.variant : 1
-
+			.= B.power
 
 	proc/HasEffectInPool(var/id)
 		return !isnull(effectPool[id])
@@ -790,19 +798,19 @@ var/list/datum/bioEffect/mutini_effects = list()
 		var/list/temp = args & effects
 		if(temp.len)
 			var/datum/bioEffect/BE = effects[temp[1]]
-			if(BE) return BE.variant ? BE.variant : 1
+			if(BE) return BE.power
 		return 0
 
 	proc/HasAllOfTheseEffects()
 		var/tally = 0 //We cannot edit the args list directly, so just keep a count.
-		for (var/datum/bioEffect/D as() in effects)
+		for (var/datum/bioEffect/D as anything in effects)
 			if (lowertext(D) in args)
 				tally++
 
-		return tally >= args.len
+		return tally >= length(args)
 
 	proc/GetASubtypeEffect(type)
-		for(var/id as() in effects)
+		for(var/id as anything in effects)
 			var/datum/bioEffect/BE = effects[id]
 			if(istype(BE, type))
 				return BE
@@ -836,7 +844,7 @@ var/list/datum/bioEffect/mutini_effects = list()
 		var/datum/bioEffect/E = null
 
 		if(useProbability)
-			E = pickweight(filtered)
+			E = weighted_pick(filtered)
 		else
 			E = pick(filtered)
 
@@ -851,7 +859,7 @@ var/list/datum/bioEffect/mutini_effects = list()
 	proc/DegradeRandomEffect()
 		var/list/eligible_effects = list()
 		var/datum/bioEffect/BE = null
-		for (var/X as() in effects)
+		for (var/X as anything in effects)
 			BE = effects[X]
 			if (!BE.degrade_to) // doesn't turn into anything
 				continue

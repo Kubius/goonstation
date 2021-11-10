@@ -15,7 +15,7 @@
 	icon = 'icons/obj/cloning.dmi'
 	icon_state = "pod_0_lowmeat"
 	object_flags = CAN_REPROGRAM_ACCESS
-	mats = list("MET-1"=20, "uqill"=10, "beeswax"=5)
+	mats = list("MET-1"=35, "honey"=5)
 	var/meat_used_per_tick = DEFAULT_MEAT_USED_PER_TICK
 	var/mob/living/occupant
 	var/heal_level = 10 //The clone is released once its health^W damage (maxHP - HP) reaches this level.
@@ -47,8 +47,7 @@
 	var/message = null
 	var/list/mailgroups
 	var/net_id = null
-	var/pdafrequency = 1149
-	var/datum/radio_frequency/pda_connection
+	var/pdafrequency = FREQ_PDA
 
 	var/datum/light/light
 
@@ -60,6 +59,7 @@
 	var/static/list/sounds_function = list('sound/machines/engine_grump1.ogg','sound/machines/engine_grump2.ogg','sound/machines/engine_grump3.ogg',
 	'sound/impact_sounds/Metal_Clang_1.ogg','sound/impact_sounds/Metal_Hit_Heavy_1.ogg')
 
+	var/perfect_clone = FALSE		//if TRUE, then clones always keep normal name and receive no health debuffs
 
 	New()
 		..()
@@ -77,15 +77,13 @@
 		light.set_height(0.75)
 		light.attach(src)
 
-		SPAWN_DBG(10 SECONDS)
-			if (radio_controller)
-				pda_connection = radio_controller.add_object(src, "[pdafrequency]")
-			if (!src.net_id)
-				src.net_id = generate_net_id(src)
+		if (!src.net_id)
+			src.net_id = generate_net_id(src)
+		MAKE_SENDER_RADIO_PACKET_COMPONENT("pda", FREQ_PDA)
+
 
 	disposing()
 		mailgroups.len = 0
-		radio_controller.remove_object(src, "[pdafrequency]")
 		genResearch?.clonepods?.Remove(src) //Bye bye
 		connected?.linked_pods -= src
 		if(connected?.scanner?.pods)
@@ -119,12 +117,9 @@
 			msg = src.message
 		else if (!msg)
 			return
-		if(!pda_connection)
-			return
 
 		var/datum/signal/newsignal = get_free_signal()
 		newsignal.source = src
-		newsignal.transmission_method = TRANSMISSION_RADIO
 		newsignal.data["command"] = "text_message"
 		newsignal.data["sender_name"] = "CLONEPOD-MAILBOT"
 		newsignal.data["message"] = "[msg]"
@@ -133,7 +128,7 @@
 		newsignal.data["group"] = mailgroups + MGA_CLONER
 		newsignal.data["sender"] = src.net_id
 
-		pda_connection.post_signal(src, newsignal)
+		SEND_SIGNAL(src, COMSIG_MOVABLE_POST_RADIO_PACKET, newsignal, null, "pda")
 
 	attack_hand(mob/user as mob)
 		interact_particle(user, src)
@@ -142,9 +137,8 @@
 	get_desc(dist, mob/user)
 		. = ""
 		if ((!isnull(src.occupant)) && (!isdead(src.occupant)))
-			var/completion = clamp(100 - ((src.occupant.max_health - src.occupant.health) - heal_level), 0, 100)
 			//var/completion = (100 * ((src.occupant.health + 100) / (src.heal_level + 100)))
-			. += "<br>Currently [!src.attempting ? "preparing a new body" : "cloning [src.occupant]"]. [round(completion)]% complete."
+			. += "<br>Currently [!src.attempting ? "preparing a new body" : "cloning [src.occupant]"]. [src.get_progress()]% complete."
 
 		var/meat_pct = round( 100 * (src.meat_level / MAXIMUM_MEAT_LEVEL) )
 
@@ -238,8 +232,10 @@
 
 		if (istype(oldholder))
 			oldholder.clone_generation++
-			src.occupant.bioHolder.CopyOther(oldholder, copyActiveEffects = connected?.gen_analysis)
 			src.occupant?.set_mutantrace(oldholder?.mobAppearance?.mutant_race?.type)
+			src.occupant.bioHolder.CopyOther(oldholder, copyActiveEffects = connected?.gen_analysis)
+			if(oldholder?.mobAppearance?.mutant_race?.dna_mutagen_banned)
+				src.occupant?.set_mutantrace(null)
 			if(ishuman(src.occupant))
 				var/mob/living/carbon/human/H = src.occupant
 				H.update_colorful_parts()
@@ -258,7 +254,7 @@
 		if(src.occupant.client) // gross hack for resetting tg layout bleh bluh
 			src.occupant.client.set_layout(src.occupant.client.tg_layout)
 
-		if(src.occupant.bioHolder.clone_generation > 1)
+		if(!src.perfect_clone && src.occupant.bioHolder.clone_generation > 1)
 			var/health_penalty = (src.occupant.bioHolder.clone_generation - 1) * 15
 			src.occupant.setStatus("maxhealth-", null, -health_penalty)
 			if(health_penalty >= 100)
@@ -296,7 +292,7 @@
 			boutput(src.occupant, "<span class='notice'><b>Clone generation process initiated.</b> This might take a moment, please hold.</span>")
 
 		if (clonename)
-			if (prob(15))
+			if (!src.perfect_clone && prob(15))
 				src.occupant.real_name = "[pick("Almost", "Sorta", "Mostly", "Kinda", "Nearly", "Pretty Much", "Roughly", "Not Quite", "Just About", "Something Resembling", "Somewhat")] [clonename]"
 			else
 				src.occupant.real_name = clonename
@@ -339,7 +335,7 @@
 			else
 				if (src.occupant.mind && ticker.mode)
 					if (!src.occupant.mind.special_role)
-						src.occupant.mind.special_role = "mindslave"
+						src.occupant.mind.special_role = ROLE_MINDSLAVE
 					if (!(src.occupant.mind in ticker.mode.Agimmicks))
 						ticker.mode.Agimmicks += src.occupant.mind
 					src.occupant.mind.master = implant_master.ckey
@@ -425,7 +421,7 @@
 				power_usage = 200
 				return ..()
 
-			else if ((src.occupant.max_health - src.occupant.health) > src.heal_level)
+			else if (src.get_progress() < 100)
 
 				if (src.attempting)
 					// If we're cloning an actual person, make weird noises
@@ -476,7 +472,7 @@
 					src.failed_tick_counter = 0
 				previous_heal = src.occupant.health
 
-				if ((src.occupant.health + (100 - src.occupant.max_health)) > 50 && src.failed_tick_counter >= 2 && (src.time_started + eject_wait < TIME))
+				if (src.get_progress() > 50 && src.failed_tick_counter >= 2 && (src.time_started + eject_wait < TIME))
 					// Wait a few ticks to see if they stop gaining health.
 					// Once that's the case, boot em
 					src.connected_message("Cloning Process Complete.", "success")
@@ -488,7 +484,7 @@
 				power_usage = 7500
 				return ..()
 
-			else if (src.occupant.max_health - src.occupant.health <= src.heal_level)
+			else if (src.get_progress() >= 100)
 				// Clone is more or less fully complete!
 
 				if (src.attempting && (src.time_started + eject_wait < TIME))
@@ -597,12 +593,8 @@
 			logTheThing("combat", src, user, "[user] installed ([W]) to ([src]) at [log_loc(user)].")
 			cloneslave = 1
 			implant_master = user
-			// Clone armies are not allowed to use speed or efficiency modules under article 7.2 p5 of the space geneva convention
-			is_speedy = 1
-			is_efficient = 1
-			speed_bonus = DEFAULT_SPEED_BONUS
-			meat_used_per_tick = DEFAULT_MEAT_USED_PER_TICK
 			light.enable()
+			src.update_icon()
 			user.drop_item()
 			qdel(W)
 			return
@@ -613,13 +605,14 @@
 				return
 			boutput(user, "<span class='notice'>You begin detatching the mindslave cloning module...</span>")
 			playsound(src.loc, "sound/items/Screwdriver.ogg", 50, 1)
-			if(do_after(user,50))
+			if (do_after(user, 50) && cloneslave)
 				new /obj/item/cloneModule/mindslave_module( src.loc )
 				cloneslave = 0
 				implant_master = null
 				boutput(user,"<span class='alert'>The mindslave cloning module falls to the floor with a dull thunk!</span>")
 				playsound(src.loc, "sound/effects/thunk.ogg", 50, 0)
 				light.disable()
+				src.update_icon()
 			else
 				boutput(user,"<span class='alert'>You were interrupted!</span>")
 			return
@@ -658,7 +651,7 @@
 		set src in oview(1)
 		set category = "Local"
 
-		if (!isalive(usr))
+		if (!isalive(usr) || iswraith(usr))
 			return
 		src.go_out()
 		add_fingerprint(usr)
@@ -669,6 +662,8 @@
 		set name = "Toggle Auto Mode"
 		set category = "Local"
 
+		if (!isalive(usr) && !isAIeye(usr))
+			return
 		src.auto_mode = 1 - src.auto_mode
 		boutput(usr, "<span class='notice'>\The [src] will [src.auto_mode ? "automatically" : "no longer"] automatically prepare new bodies for clones.</span>")
 		add_fingerprint(usr)
@@ -786,6 +781,14 @@
 		else
 			animate_shake(src,3,rand(1,4),rand(1,4))
 
+	proc/get_progress()
+		if (!src.occupant)
+			return 0
+
+		if (src.heal_level == 0)
+			return 100
+
+		return round(clamp(100 - ((src.occupant.max_health - src.occupant.health) - src.heal_level), 0, 100))
 
 	//SOME SCRAPS I GUESS
 	/* EMP grenade/spell effect
@@ -832,7 +835,7 @@
 		if (!islist(src.pods))
 			src.pods = list()
 		if (!isnull(src.id) && genResearch && islist(genResearch.clonepods) && length(genResearch.clonepods))
-			for (var/obj/machinery/clonepod/pod as() in genResearch.clonepods)
+			for (var/obj/machinery/clonepod/pod as anything in genResearch.clonepods)
 				if (pod.id == src.id && !src.pods.Find(pod))
 					src.pods += pod
 					DEBUG_MESSAGE("[src] adds pod [log_loc(pod)] (ID [src.id]) in genResearch.clonepods")
@@ -845,7 +848,7 @@
 	verb/eject()
 		set src in oview(1)
 		set category = "Local"
-		if (!isalive(usr)) return
+		if (!isalive(usr) || iswraith(usr)) return
 		if (src.process_timer > 0) return
 		src.eject_meats()
 		src.go_out()
@@ -879,7 +882,7 @@
 			if (prob(2))
 				src.reagents.add_reagent("beff", 1 * process_per_tick)
 
-		if (src.reagents.total_volume && islist(src.pods) && pods.len)
+		if (src.reagents.total_volume && islist(src.pods) && length(pods))
 			// Distribute reagents to cloning pods nearby
 			// Changed from before to distribute while grinding rather than all at once
 			// give an equal amount of reagents to each pod that happens to be around
@@ -1063,7 +1066,7 @@
 			boutput(user, "<span class='alert'>There is already somebody in there.</span>")
 			return
 
-		else if (G?.affecting && !src.emagged && !isdead(G.affecting) && !ismonkey(G.affecting))
+		else if (G?.affecting && !src.emagged && !isdead(G.affecting) && (!isnpcmonkey(G.affecting) || G.affecting.client))
 			user.visible_message("<span class='alert'>[user] tries to stuff [G.affecting] into [src], but it beeps angrily as the safety overrides engage!</span>")
 			return
 
@@ -1193,33 +1196,3 @@
 #undef DEFAULT_MEAT_USED_PER_TICK
 #undef DEFAULT_SPEED_BONUS
 #undef MEAT_LOW_LEVEL
-
-/obj/machinery/clonepod/automatic
-	name = "Cloning Pod Deluxe"
-	meat_level = 1.#INF
-	var/last_check = 0
-	var/check_delay = 10 SECONDS
-
-/obj/machinery/clonepod/automatic/process()
-	if(!src.attempting)
-		if (world.time - last_check >= check_delay)
-			last_check = world.time
-			INVOKE_ASYNC(src, /obj/machinery/clonepod/automatic.proc/growclone_a_ghost)
-	return..()
-
-/obj/machinery/clonepod/automatic/New()
-	..()
-	animate_rainbow_glow(src) // rgb shit cause it looks cool
-	SubscribeToProcess()
-	last_check = world.time
-
-/obj/machinery/clonepod/automatic/disposing()
-	..()
-	UnsubscribeProcess()
-
-/obj/machinery/clonepod/automatic/proc/growclone_a_ghost()
-	for(var/mob/dead/observer/ghost in mobs)
-		var/datum/mind/ghost_mind = ghost.mind
-		if(ghost.client && !ghost_mind.dnr)
-			growclone(ghost, ghost.real_name, ghost_mind)
-			break

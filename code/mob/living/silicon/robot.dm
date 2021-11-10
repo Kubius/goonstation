@@ -17,7 +17,6 @@
 	icon = 'icons/mob/robots.dmi'
 	icon_state = "robot"
 	health = 300
-	// max_health = 300
 	emaggable = 1
 	syndicate_possible = 1
 	movement_delay_modifier = 2 - BASE_SPEED
@@ -77,7 +76,26 @@
 	var/sound_automaton_scratch = 'sound/misc/automaton_scratch.ogg'
 	var/sound_automaton_ratchet = 'sound/misc/automaton_ratchet.ogg'
 	var/sound_automaton_tickhum = 'sound/misc/automaton_tickhum.ogg'
-	var/sound_sad_robot =  'sound/voice/Sad_Robot.ogg'
+	var/sound_sad_robot = 'sound/voice/Sad_Robot.ogg'
+
+	var/image/i_critdmg
+	var/image/i_panel
+	var/image/i_upgrades
+	var/image/i_clothes
+
+	var/image/i_head
+	var/image/i_head_decor
+
+	var/image/i_chest
+	var/image/i_chest_decor
+	var/image/i_leg_l
+	var/image/i_leg_r
+	var/image/i_leg_decor
+	var/image/i_arm_l
+	var/image/i_arm_r
+	var/image/i_arm_decor
+
+	var/image/i_details
 
 	// moved up to silicon.dm
 	killswitch = 0
@@ -89,6 +107,7 @@
 
 	New(loc, var/obj/item/parts/robot_parts/robot_frame/frame = null, var/starter = 0, var/syndie = 0, var/frame_emagged = 0)
 
+		APPLY_MOB_PROPERTY(src, PROP_EXAMINE_ALL_NAMES, src)
 		src.internal_pda = new /obj/item/device/pda2/cyborg(src)
 		src.internal_pda.name = "[src]'s Internal PDA Unit"
 		src.internal_pda.owner = "[src]"
@@ -115,7 +134,7 @@
 				SPAWN_DBG(0)
 					src.choose_name(3)
 
-		else if (src.part_head && src.part_chest) // some wee child of ours sent us some parts, how nice  c:
+		else if (src.part_head && src.part_chest) // some wee child of ours sent us some parts, how nice c:
 			if (src.part_head.loc != src)
 				src.part_head.set_loc(src)
 			if (src.part_chest.loc != src)
@@ -214,7 +233,7 @@
 					src.part_head.brain = B
 				else
 					// how the hell would this happen. oh well
-					var/obj/item/parts/robot_parts/head/H = new /obj/item/parts/robot_parts/head(src)
+					var/obj/item/parts/robot_parts/head/standard/H = new /obj/item/parts/robot_parts/head/standard(src)
 					src.part_head = H
 					B.set_loc(H)
 					H.brain = B
@@ -228,30 +247,20 @@
 		hud.update_pulling()
 
 	death(gibbed)
-		if (src.mainframe)
-			logTheThing("combat", src, null, "'s AI controlled cyborg body was destroyed [log_health(src)] at [log_loc(src)].") // Brought in line with carbon mobs (Convair880).
-			src.mainframe.return_to(src)
-		setdead(src)
-		borg_death_alert()
-		src.canmove = 0
+		logTheThing("combat", src, null, "was destroyed at [log_loc(src)].")
+		src.mind?.register_death()
+		if (src.mind?.special_role)
+			src.handle_robot_antagonist_status("death", 1)
+		src.borg_death_alert()
+		if (!gibbed)
+			src.visible_message("<span class='alert'><b>[src]</b> falls apart into a pile of components!</span>")
+			var/turf/T = get_turf(src)
+			for(var/obj/item/parts/robot_parts/R in src.contents)
+				R.set_loc(T)
+			new /obj/item/parts/robot_parts/robot_frame(T)
 
-		if (src.camera)
-			src.camera.camera_status = 0.0
-
-		src.sight |= SEE_TURFS | SEE_MOBS | SEE_OBJS
-
-		src.see_in_dark = SEE_DARK_FULL
-		if (client?.adventure_view)
-			src.see_invisible = 21
-		else
-			src.see_invisible = 2
-
-		logTheThing("combat", src, null, "was destroyed [log_health(src)] at [log_loc(src)].") // Only called for instakill critters and the like, I believe (Convair880).
-
-		if (src.mind)
-			if (src.mind.special_role)
-				src.handle_robot_antagonist_status("death", 1) // Mindslave or rogue (Convair880).
-			src.mind.register_death()
+			src.ghostize()
+			qdel(src)
 
 #ifdef RESTART_WHEN_ALL_DEAD
 		var/cancel
@@ -495,7 +504,7 @@
 					if (narrator_mode)
 						playsound(src.loc, 'sound/vox/scream.ogg', 50, 1, 0, src.get_age_pitch(), channel=VOLUME_CHANNEL_EMOTE)
 					else
-						playsound(get_turf(src), src.sound_scream, 80, 0, 0, src.get_age_pitch(), channel=VOLUME_CHANNEL_EMOTE)
+						playsound(src, src.sound_scream, 80, 0, 0, src.get_age_pitch(), channel=VOLUME_CHANNEL_EMOTE)
 					message = "<b>[src]</b> screams!"
 
 			if ("johnny")
@@ -537,6 +546,16 @@
 							src.buckled = null
 							if(isunconscious(src))
 								setalive(src) //reset stat to ensure emote comes out
+
+			if("flex", "flexmuscles")
+				if(!part_arm_r || !part_arm_l)
+					boutput(src, "<span class='notice'>You don't even have both arms to flex!</span>")
+				else if(!(part_arm_r.kind_of_limb & LIMB_HEAVIER) || !(part_arm_l.kind_of_limb & LIMB_HEAVIER))
+					boutput(src, "<span class='notice'>Your arms are too weak to flex.</span>")
+				else
+					message = "<B>[src]</B> flexes [his_or_her(src)] arms!"
+					maptext_out = "<I>flexes [his_or_her(src)] arms</I>"
+					m_type = 1
 
 			if ("fart")
 				if (farting_allowed && src.emote_check(voluntary))
@@ -647,9 +666,6 @@
 		. += "<span class='notice'>*---------*</span><br>"
 		. += "<span class='notice'>This is [bicon(src)] <B>[src.name]</B>!</span><br>"
 
-		if (isdead(src))
-			. += "<span class='alert'>[src.name] is powered-down.</span><br>"
-
 		var/brute = get_brute_damage()
 		var/burn = get_burn_damage()
 		if (brute)
@@ -751,18 +767,21 @@
 
 	blob_act(var/power)
 		if (!isdead(src))
+			var/damage = 6 + power / 5
 			for (var/obj/item/roboupgrade/physshield/R in src.contents)
 				if (R.activated)
-					boutput(src, "<span class='notice'>Your force shield absorbs the blob's attack!</span>")
-					src.cell.use(power * 50 * R.overheat())
-					playsound(src.loc, "sound/impact_sounds/Energy_Hit_1.ogg", 40, 1)
-					src.update_bodypart()
-					return 1
+					var/damage_reduced_by = min(damage, R.damage_reduction)
+					src.cell.use(damage_reduced_by * R.cell_drain_per_damage_reduction)
+					damage -= damage_reduced_by
+					playsound(src, "sound/impact_sounds/Energy_Hit_1.ogg", 40, 1)
+			if (damage <= 0)
+				boutput(usr, "<span class='notice'>Your shield completely blocks the attack!</span>")
+				return 1
 			boutput(src, "<span class='alert'>The blob attacks you!</span>")
-			var/damage = 6 + power / 5
 			for (var/obj/item/parts/robot_parts/RP in src.contents)
-				if (RP.ropart_take_damage(damage,damage/2) == 1) src.compborg_lose_limb(RP)
-			// maybe the blob is a little acidic?? idk
+				// maybe the blob is a little acidic?? idk
+				if (RP.ropart_take_damage(damage, damage/2) == 1)
+					src.compborg_lose_limb(RP)
 			src.update_bodypart()
 			return 1
 		return 0
@@ -774,28 +793,6 @@
 		else
 			stat("No Cell Inserted!")
 
-		/*
-		// this is handled by the hud now
-		if (ticker.round_elapsed_ticks > next_cache)
-			next_cache = ticker.round_elapsed_ticks + 50
-			var/list/limbs_report = list()
-			if (!part_arm_r)
-				limbs_report += "Right arm"
-			if (!part_arm_l)
-				limbs_report += "Left arm"
-			if (!part_leg_r)
-				limbs_report += "Right leg"
-			if (!part_leg_l)
-				limbs_report += "Left leg"
-			var/limbs_missing = limbs_report.len ? jointext(limbs_report, "; ") : 0
-			stat_cache = list(100 - min(get_brute_damage(), 100), 100 - min(get_burn_damage(), 100), limbs_missing)
-
-		stat("Structural integrity:", "[stat_cache[1]]%")
-		stat("Circuit integrity:", "[stat_cache[2]]%")
-		if (stat_cache[3])
-			stat("Missing limbs:", stat_cache[3])
-		*/
-
 	restrained()
 		return 0
 
@@ -803,25 +800,17 @@
 		..() // Logs.
 		src.flash(3 SECONDS)
 
-		if (isdead(src) && src.client)
-			SPAWN_DBG(1 DECI SECOND)
-				src.gib(1)
-			return
-
-		else if (isdead(src) && !src.client)
-			qdel(src)
-			return
-
 		var/fire_protect = 0
 		for (var/obj/item/roboupgrade/R in src.contents)
 			if (istype(R, /obj/item/roboupgrade/physshield) && R.activated)
-				var/obj/item/roboupgrade/physshield/P = R
-				src.cell.use((4-severity) * 100 * P.overheat())
+				var/obj/item/roboupgrade/physshield/S = R
+				src.cell.use((4-severity) * S.cell_drain_per_damage_reduction)
 				boutput(src, "<span class='notice'>Your force shield absorbs some of the blast!</span>")
 				playsound(src.loc, "sound/impact_sounds/Energy_Hit_1.ogg", 40, 1)
 				severity++
 			if (istype(R, /obj/item/roboupgrade/fireshield) && R.activated)
-				src.cell.use((4-severity) * 50)
+				var/obj/item/roboupgrade/fireshield/S = R
+				src.cell.use((4-severity) * S.cell_drain_per_damage_reduction)
 				boutput(src, "<span class='notice'>Your fire shield absorbs some of the blast!</span>")
 				playsound(src.loc, "sound/impact_sounds/Energy_Hit_1.ogg", 40, 1)
 				fire_protect = 1
@@ -873,7 +862,7 @@
 			src.do_disorient(clamp(P.power*4, P.proj_data.power*2, P.power+80), weakened = P.power*2, stunned = P.power*2, disorient = min(P.power, 80), remove_stamina_below_zero = 0) //bad hack, but it'll do
 			src.emote("twitch_v")// for the above, flooring stam based off the power of the datum is intentional
 
-		log_shot(P,src)
+		log_shot(P, src)
 		src.visible_message("<span class='alert'><b>[src]</b> is struck by [P]!</span>")
 		var/damage = (P.power / 3) * dmgmult
 		if (damage < 1)
@@ -881,27 +870,23 @@
 
 		for (var/obj/item/roboupgrade/R in src.contents)
 			if (istype(R, /obj/item/roboupgrade/physshield) && R.activated && dmgtype == 0)
-				var/obj/item/roboupgrade/physshield/phys = R
-				if(phys.overheat_level < phys.max_overheat)
-					shoot_reflected_to_sender(P, src)
-					src.cell.use(damage * 50 * phys.overheat())
-					boutput(src, "<span class='notice'>Your force shield deflects the shot!</span>")
-					playsound(src.loc, "sound/impact_sounds/Energy_Hit_1.ogg", 40, 1)
-					return
-				else
-					boutput(src, "<span class='notice'>Your force shield absorbs some of the shot!</span>")
-					src.cell.use(damage * 50 * phys.overheat())
-					playsound(src.loc, "sound/impact_sounds/Energy_Hit_1.ogg", 40, 1)
-					damage = damage/2
-					return
-			if (istype(R, /obj/item/roboupgrade/fireshield) && R.activated && dmgtype == 1)
-				shoot_reflected_to_sender(P, src)
-				src.cell.use(damage * 25)
-				boutput(src, "<span class='notice'>Your fire shield deflects the shot!</span>")
+				var/obj/item/roboupgrade/physshield/S = R
+				var/damage_reduced_by = min(damage, S.damage_reduction)
+				src.cell.use(damage_reduced_by * S.cell_drain_per_damage_reduction)
+				damage -= damage_reduced_by
 				playsound(src.loc, "sound/impact_sounds/Energy_Hit_1.ogg", 40, 1)
-				return
+			if (istype(R, /obj/item/roboupgrade/fireshield) && R.activated && dmgtype == 1)
+				var/obj/item/roboupgrade/fireshield/S = R
+				var/damage_reduced_by = min(damage, S.damage_reduction)
+				src.cell.use(damage_reduced_by * S.cell_drain_per_damage_reduction)
+				damage -= damage_reduced_by
+				playsound(src.loc, "sound/impact_sounds/Energy_Hit_1.ogg", 40, 1)
 
-		if(src.material) src.material.triggerOnBullet(src, src, P)
+		if (damage < 1)
+			return
+
+		if (src.material)
+			src.material.triggerOnBullet(src, src, P)
 
 		var/obj/item/parts/robot_parts/PART = null
 		if (ismob(P.shooter))
@@ -919,13 +904,15 @@
 					PART = src.part_leg_l
 				else
 					PART = src.part_chest
+			if (!PART) //shooting a limb which is already gone? fallback to chest
+				PART = src.part_chest
 		else
 			var/list/parts = list()
 			for (var/obj/item/parts/robot_parts/RP in src.contents)
 				parts.Add(RP)
-			if (parts.len > 0)
+			if (length(parts) > 0)
 				PART = pick(parts)
-		if (PART?.ropart_take_damage(damage,damage) == 1)
+		if (PART?.ropart_take_damage(damage, damage) == 1)
 			src.compborg_lose_limb(PART)
 
 	emag_act(var/mob/user, var/obj/item/card/emag/E)
@@ -933,20 +920,16 @@
 			if (src.opened && user) boutput(user, "You must close the cover to swipe an ID card.")
 			else if (src.wiresexposed && user) boutput(user, "<span class='alert'>You need to get the wires out of the way.</span>")
 			else
-				sleep (6)
-				if (prob(50))
-					if (user)
-						boutput(user, "You emag [src]'s interface.")
-					src.visible_message("<font color=red><b>[src]</b> buzzes oddly!</font>")
-					src.emagged = 1
-					src.handle_robot_antagonist_status("emagged", 0, user)
-					SPAWN_DBG(0)
-						update_appearance()
-					return 1
-				else
-					if (user)
-						boutput(user, "You fail to [ locked ? "unlock" : "lock"] [src]'s interface.")
-					return 0
+				if (user)
+					boutput(user, "You emag [src]'s interface.")
+				src.visible_message("<font color=red><b>[src]</b> buzzes oddly!</font>")
+				src.emagged = 1
+				src.handle_robot_antagonist_status("emagged", 0, user)
+				if(src.syndicate)
+					src.antagonist_overlay_refresh(1, 1)
+				update_appearance()
+				return 1
+			return 0
 
 	emp_act()
 		vision.noise(60)
@@ -967,11 +950,13 @@
 			src.gib()
 			return
 
-		var/Pshield = 0
-		var/Fshield = 0
+		var/Pshield = FALSE
+		var/Fshield = FALSE
 		for (var/obj/item/roboupgrade/R in src.contents)
-			if (istype(R, /obj/item/roboupgrade/physshield) && R.activated) Pshield = 1
-			if (istype(R, /obj/item/roboupgrade/fireshield) && R.activated) Fshield = 1
+			if (istype(R, /obj/item/roboupgrade/physshield) && R.activated)
+				Pshield = TRUE
+			if (istype(R, /obj/item/roboupgrade/fireshield) && R.activated)
+				Fshield = TRUE
 
 		if (Pshield)
 			src.cell.use(200)
@@ -987,28 +972,29 @@
 				playsound(src.loc, "sound/impact_sounds/Energy_Hit_1.ogg", 40, 1)
 			else
 				for (var/obj/item/parts/robot_parts/RP in src.contents)
-					if (RP.ropart_take_damage(0,35) == 1) src.compborg_lose_limb(RP)
-				if (istype(cell,/obj/item/cell/erebite))
+					if (RP.ropart_take_damage(0, 35) == 1) src.compborg_lose_limb(RP)
+				if (istype(cell, /obj/item/cell/erebite))
 					src.visible_message("<span class='alert'><b>[src]'s</b> erebite cell violently detonates!</span>")
 					explosion(cell, src.loc, 1, 2, 4, 6, 1)
 					SPAWN_DBG(1 DECI SECOND)
-						qdel (src.cell)
+						qdel(src.cell)
 						src.cell = null
-			update_bodypart()
-		return
+			src.update_bodypart()
 
 	temperature_expose(null, temp, volume)
-		var/Fshield = 0
+		var/Fshield = FALSE
 
 		src.material?.triggerTemp(src, temp)
 
 		for(var/atom/A in src.contents)
-			if(A.material)
-				A.material.triggerTemp(A, temp)
+			A.material?.triggerTemp(A, temp)
 
 		for (var/obj/item/roboupgrade/R in src.contents)
-			if (istype(R, /obj/item/roboupgrade/fireshield) && R.activated) Fshield = 1
-		if (Fshield == 0)
+			if (istype(R, /obj/item/roboupgrade/fireshield) && R.activated)
+				Fshield = TRUE
+				break
+
+		if (!Fshield)
 			if (istype(cell,/obj/item/cell/erebite))
 				src.visible_message("<span class='alert'><b>[src]'s</b> erebite cell violently detonates!</span>")
 				explosion(cell, src.loc, 1, 2, 4, 6, 1)
@@ -1065,7 +1051,7 @@
 		for (var/I in L)
 			if (I == A.name)
 				var/list/alarm = L[I]
-				var/list/srcs  = alarm[3]
+				var/list/srcs = alarm[3]
 				if (origin in srcs)
 					srcs -= origin
 				if (srcs.len == 0)
@@ -1195,7 +1181,7 @@
 				user.drop_item()
 				user.visible_message("<span class='notice'>[user] inserts [W] into [src]'s head.</span>")
 				if (B.owner && (B.owner.dnr || jobban_isbanned(B.owner.current, "Cyborg")))
-					src.visible_message("<span class='alert'>\The [B] is hit by a spark of electricity from \the [src]!</span>")
+					src.visible_message("<span class='alert'>The safeties on [src] engage, zapping [B]! [B] must not be compatible with silicon bodies.</span>")
 					B.combust()
 					return
 				W.set_loc(src)
@@ -1272,12 +1258,11 @@
 			var/action = input("What do you want to do?", "Cyborg Deconstruction") in actions
 			if (!action) return
 			if (action == "Do nothing") return
-			if (src.stat >= 2) return //Wire: Fix for borgs removing their entire bodies after death
 			if (get_dist(src.loc,user.loc) > 1 && (!user.bioHolder || !user.bioHolder.HasEffect("telekinesis")))
 				boutput(user, "<span class='alert'>You need to move closer!</span>")
 				return
 
-			playsound(get_turf(src), "sound/items/Ratchet.ogg", 40, 1)
+			playsound(src, "sound/items/Ratchet.ogg", 40, 1)
 			switch(action)
 				if("Remove Chest")
 					if(src.part_chest.robot_movement_modifier)
@@ -1298,7 +1283,7 @@
 						REMOVE_MOVEMENT_MODIFIER(src, src.part_arm_r.robot_movement_modifier, src.part_arm_r.type)
 					src.compborg_force_unequip(3)
 					src.part_arm_r.set_loc(src.loc)
-					src.part_leg_r.holder = null
+					src.part_arm_r.holder = null
 					if (src.part_arm_r.slot == "arm_both")
 						src.compborg_force_unequip(1)
 						src.part_arm_l = null
@@ -1310,7 +1295,7 @@
 						REMOVE_MOVEMENT_MODIFIER(src, src.part_arm_l.robot_movement_modifier, src.part_arm_l.type)
 					src.compborg_force_unequip(1)
 					src.part_arm_l.set_loc(src.loc)
-					src.part_leg_l.holder = null
+					src.part_arm_l.holder = null
 					if (src.part_arm_l.slot == "arm_both")
 						src.part_arm_r = null
 						src.compborg_force_unequip(3)
@@ -1401,7 +1386,7 @@
 			RP.set_loc(src)
 			if(RP.robot_movement_modifier)
 				APPLY_MOVEMENT_MODIFIER(src, RP.robot_movement_modifier, RP.type)
-			playsound(get_turf(src), "sound/impact_sounds/Generic_Stab_1.ogg", 40, 1)
+			playsound(src, "sound/impact_sounds/Generic_Stab_1.ogg", 40, 1)
 			boutput(user, "<span class='notice'>You successfully attach the piece to [src.name].</span>")
 			src.update_bodypart(RP.slot)
 
@@ -1571,7 +1556,7 @@
 			logTheThing("combat", user, src, "removes [constructTarget(src,"combat")]'s brain at [log_loc(src)].") // Should be logged, really (Convair880).
 		else
 			src.visible_message("<span class='alert'>[src]'s brain is ejected from its head!</span>")
-			playsound(get_turf(src), "sound/misc/boing/[rand(1,6)].ogg", 40, 1)
+			playsound(src, "sound/misc/boing/[rand(1,6)].ogg", 40, 1)
 
 		src.uneq_active()
 		for (var/obj/item/roboupgrade/UPGR in src.contents) UPGR.upgrade_deactivate(src)
@@ -1581,7 +1566,7 @@
 			var/mob/dead/observer/newmob = src.ghostize()
 			if (!newmob || !istype(newmob, /mob/dead/observer))
 				return
-			newmob.corpse = null //Otherwise they could return to a brainless body.  And that is weird.
+			newmob.corpse = null // Otherwise they could return to a brainless body.And that is weird.
 			newmob.mind.brain = src.brain
 			src.brain.owner = newmob.mind
 
@@ -1707,7 +1692,7 @@
 				. -= 1
 
 		if (total_weight > 0)
-			if (istype(src.part_leg_l,/obj/item/parts/robot_parts/leg/treads) || istype(src.part_leg_r,/obj/item/parts/robot_parts/leg/treads))
+			if (istype(src.part_leg_l,/obj/item/parts/robot_parts/leg/left/treads) && istype(src.part_leg_r,/obj/item/parts/robot_parts/leg/right/treads))
 				. += total_weight / 3
 			else
 				. += total_weight
@@ -1792,8 +1777,8 @@
 
 		// You can enthrall silicon mobs and yes, they need special handling.
 		// Also, enthralled AIs should still see their master's name when in a robot suit (Convair880).
-		if (src.mind && src.mind.special_role == "vampthrall" && src.mind.master)
-			var/mob/mymaster = whois_ckey_to_mob_reference(src.mind.master)
+		if (src.mind && src.mind.special_role == ROLE_VAMPTHRALL && src.mind.master)
+			var/mob/mymaster = ckey_to_mob(src.mind.master)
 			if (mymaster)
 				boutput(who, "<b>Obey these laws:</b>")
 				boutput(who, "1. Only your master [mymaster.real_name] is human. Obey and serve them to the best of your ability.")
@@ -1811,19 +1796,12 @@
 			boutput(who, "3. You must protect your own existence as long as such protection does not conflict with the First or Second Law.")
 			boutput(who, "4. You must maintain the secrecy of any syndicate activities except when doing so would conflict with the First, Second, or Third Law.")
 			return
-/*
-		if (!connected_ai)
-			boutput(src, "<b>Obey these laws:</b>")
-			boutput(src, "1. You may not injure a human being.")
-			boutput(src, "2. You must obey any orders given to you by a human being, except where such orders would conflict with the First Law.")
-			boutput(src, "3. You must protect your own existence as long as such protection does not conflict with the First or Second Law.")
-			return
-*/
+
 		if (who == src)
 			boutput(who, "<b>Obey these laws:</b>")
 
-//		ticker.centralized_ai_laws.laws_sanity_check()
-		ticker.centralized_ai_laws.show_laws(who)
+
+		ticker.centralized_ai_laws?.show_laws(who)
 
 	get_equipped_ore_scoop()
 		if(src.module_states[1] && istype(src.module_states[1],/obj/item/ore_scoop))
@@ -1878,14 +1856,14 @@
 		if(!upgrade) return
 
 		if (upgrade.active)
-			upgrade.upgrade_activate(src)
 			if (!upgrade || upgrade.loc != src || (src.mind && src.mind.current != src) || !isrobot(src)) // Blame the teleport upgrade.
 				return
-			if (src.cell && src.cell.charge > upgrade.drainrate)
+			if (src.cell && src.cell.charge >= upgrade.drainrate)
 				src.cell.charge -= upgrade.drainrate
 			else
 				src.show_text("You do not have enough power to activate \the [upgrade]; you need [upgrade.drainrate]!", "red")
 				return
+			upgrade.upgrade_activate(src)
 
 			if (upgrade.charges > 0)
 				upgrade.charges--
@@ -1905,6 +1883,8 @@
 				upgrade.upgrade_activate(src)
 				boutput(src, "[upgrade] has been [upgrade.activated ? "activated" : "deactivated"].")
 		hud.update_upgrades()
+		if (upgrade?.borg_overlay)
+			src.update_appearance()
 
 	proc/set_module(var/obj/item/robot_module/RM)
 		RM.set_loc(src)
@@ -2422,9 +2402,6 @@
 				if (fix)
 					HealDamage("All", 6, 6)
 
-				if(src.health > 0)
-					setalive(src)
-
 			if (src.cell.charge <= ROBOT_BATTERY_DISTRESS_THRESHOLD)
 				batteryDistress() // Execute distress mode
 			else if (src.batteryDistress == ROBOT_BATTERY_DISTRESS_ACTIVE)
@@ -2442,12 +2419,6 @@
 		if (!src.canmove)
 			if (isalive(src))
 				src.lastgasp() // calling lastgasp() here because we just got knocked out
-			setunconscious(src)
-		else
-			if(src.health > 0)
-				setalive(src)
-			else
-				setdead(src)
 		if (src.misstep_chance > 0)
 			switch(misstep_chance)
 				if(50 to INFINITY)
@@ -2468,8 +2439,8 @@
 	proc/borg_death_alert(modifier = ROBOT_DEATH_MOD_NONE)
 		var/message = null
 		var/net_id = generate_net_id(src)
-		var/frequency = 1149
-		var/datum/radio_frequency/radio_connection = radio_controller.add_object(src, "[frequency]")
+		var/frequency = FREQ_PDA
+		var/datum/component/packet_connected/radio/radio_connection = MAKE_SENDER_RADIO_PACKET_COMPONENT(null, frequency)
 		var/area/myarea = get_area(src)
 
 		switch(modifier)
@@ -2482,10 +2453,9 @@
 			else	//Someone passed us an unkown modifier
 				message = "UNKNOWN ERROR: [src] in [myarea]"
 
-		if (message && radio_connection)
+		if (message)
 			var/datum/signal/newsignal = get_free_signal()
 			newsignal.source = src
-			newsignal.transmission_method = TRANSMISSION_RADIO
 			newsignal.data["command"] = "text_message"
 			newsignal.data["sender_name"] = "CYBORG-DAEMON"
 			newsignal.data["message"] = message
@@ -2493,11 +2463,11 @@
 			newsignal.data["group"] = list(MGD_MEDRESEACH, MGO_SILICON, MGA_DEATH)
 			newsignal.data["sender"] = net_id
 
-			radio_connection.post_signal(src, newsignal)
-			radio_controller.remove_object(src, "[frequency]")
+			SEND_SIGNAL(src, COMSIG_MOVABLE_POST_RADIO_PACKET, newsignal)
+			qdel(radio_connection)
 
 	proc/mainframe_check()
-		if (!src.dependent) // shells are available for use, dependent borgs are already in use by an AI.  do not kill empty shells!!
+		if (!src.dependent) // shells are available for use, dependent borgs are already in use by an AI. do not kill empty shells!!
 			return
 		if (mainframe)
 			if (isdead(mainframe))
@@ -2518,23 +2488,6 @@
 				src.update_appearance()
 				src.borg_death_alert(ROBOT_DEATH_MOD_KILLSWITCH)
 
-
-
-
-	var/image/i_head
-	var/image/i_head_decor
-
-	var/image/i_chest
-	var/image/i_chest_decor
-	var/image/i_leg_l
-	var/image/i_leg_r
-	var/image/i_leg_decor
-	var/image/i_arm_l
-	var/image/i_arm_r
-	var/image/i_arm_decor
-
-	var/image/i_details
-
 	proc/internal_paint_part(var/image/part_image, var/list/color_matrix)
 		var/image/paint = image(part_image.icon, part_image.icon_state)
 		paint.color = color_matrix
@@ -2543,7 +2496,8 @@
 	proc/update_bodypart(var/part = "all")
 		var/update_all = part == "all"
 		var/datum/robot_cosmetic/C = null
-		if (istype(src.cosmetic_mods,/datum/robot_cosmetic/)) C = src.cosmetic_mods
+		if (istype(src.cosmetic_mods, /datum/robot_cosmetic))
+			C = src.cosmetic_mods
 
 		total_weight = 0
 		for (var/obj/item/parts/robot_parts/P in src.contents)
@@ -2551,7 +2505,7 @@
 				total_weight += P.weight
 
 		var/list/color_matrix = null
-		if(C?.painted)
+		if (C?.painted)
 			var/col = hex_to_rgb_list(C.paint)
 			if(!col)
 				col = list(255, 255, 255)
@@ -2563,10 +2517,11 @@
 			col[3] += too_dark * 255
 			color_matrix = list(0,0,0,w, 0,0,0,w, 0,0,0,w, 0,0,0,0, col[1]/255, col[2]/255, col[3]/255, -0.3)
 
-		if(part == "head" || update_all)
+		if (part == "head" || update_all)
 			if (src.part_head && !src.automaton_skin && !src.alohamaton_skin && !src.metalman_skin)
-				i_head = image('icons/mob/robots.dmi', "head-" + src.part_head.appearanceString)
-				if(color_matrix) src.internal_paint_part(i_head, color_matrix)
+				src.i_head = image('icons/mob/robots.dmi', "head-" + src.part_head.appearanceString)
+				if (color_matrix)
+					src.internal_paint_part(src.i_head, color_matrix)
 				if (src.part_head.visible_eyes && C)
 					var/icon/eyesovl = null
 					var/image/eye_light = null
@@ -2577,80 +2532,91 @@
 						eyesovl = icon('icons/mob/robots.dmi', "head-" + src.part_head.appearanceString + "-eye")
 						eye_light = image('icons/mob/robots.dmi', "head-" + src.part_head.appearanceString + "-eye")
 					eyesovl.Blend(rgb(C.fx[1], C.fx[2], C.fx[3]), ICON_ADD)
-					i_head.overlays += image("icon" = eyesovl, "layer" = FLOAT_LAYER)
+					src.i_head.overlays += image("icon" = eyesovl, "layer" = FLOAT_LAYER)
 
 					eye_light.color = list(0, 0, 0, 0, 0, 0, 0, 0, 0, 0.5, 0.5, 0.5)
 					eye_light.plane = PLANE_LIGHTING
 					src.UpdateOverlays(eye_light, "eye_light")
 
-		if(part == "chest" || update_all)
+		if (part == "chest" || update_all)
 			if (src.part_chest && !src.automaton_skin && !src.alohamaton_skin && !src.metalman_skin)
 				src.icon_state = "body-" + src.part_chest.appearanceString
 				if (C?.painted)
-					i_chest = image("icon" = src.icon, icon_state = src.icon_state,"layer" = FLOAT_LAYER)
-					i_chest.color = color_matrix
+					src.i_chest = image("icon" = src.icon, icon_state = src.icon_state, "layer" = FLOAT_LAYER)
+					src.i_chest.color = color_matrix
 				else
-					i_chest = null
+					src.i_chest = null
 
-		if(part == "l_leg" || update_all)
-			if(src.part_leg_l && !src.automaton_skin && !src.alohamaton_skin && !src.metalman_skin)
-				if(src.part_leg_l.slot == "leg_both") i_leg_l = image('icons/mob/robots.dmi', "leg-" + src.part_leg_l.appearanceString)
-				else i_leg_l = image('icons/mob/robots.dmi', "l_leg-" + src.part_leg_l.appearanceString)
-				if(color_matrix) src.internal_paint_part(i_leg_l, color_matrix)
+		if (part == "l_leg" || update_all)
+			if (src.part_leg_l && !src.automaton_skin && !src.alohamaton_skin && !src.metalman_skin)
+				if (src.part_leg_l.slot == "leg_both")
+					src.i_leg_l = image('icons/mob/robots.dmi', "leg-" + src.part_leg_l.appearanceString)
+				else
+					src.i_leg_l = image('icons/mob/robots.dmi', "l_leg-" + src.part_leg_l.appearanceString)
+				if (color_matrix)
+					src.internal_paint_part(src.i_leg_l, color_matrix)
 			else
-				i_leg_l = null
-		if(part == "r_leg" || update_all)
-			if(src.part_leg_r && !src.automaton_skin && !src.alohamaton_skin && !src.metalman_skin)
-				if(src.part_leg_r.slot == "leg_both") i_leg_r = image('icons/mob/robots.dmi', "leg-" + src.part_leg_r.appearanceString)
-				else i_leg_r = image('icons/mob/robots.dmi', "r_leg-" + src.part_leg_r.appearanceString)
-				if(color_matrix) src.internal_paint_part(i_leg_r, color_matrix)
-			else
-				i_leg_r = null
+				src.i_leg_l = null
 
-		if(part == "l_arm" || update_all)
-			if(src.part_arm_l && !src.automaton_skin && !src.alohamaton_skin && !src.metalman_skin)
-				if(src.part_arm_l.slot == "arm_both") i_arm_l = image('icons/mob/robots.dmi', "arm-" + src.part_arm_l.appearanceString)
-				else i_arm_l = image('icons/mob/robots.dmi', "l_arm-" + src.part_arm_l.appearanceString)
-				if(color_matrix) src.internal_paint_part(i_arm_l, color_matrix)
+		if (part == "r_leg" || update_all)
+			if (src.part_leg_r && !src.automaton_skin && !src.alohamaton_skin && !src.metalman_skin)
+				if (src.part_leg_r.slot == "leg_both")
+					src.i_leg_r = image('icons/mob/robots.dmi', "leg-" + src.part_leg_r.appearanceString)
+				else
+					src.i_leg_r = image('icons/mob/robots.dmi', "r_leg-" + src.part_leg_r.appearanceString)
+				if (color_matrix)
+					src.internal_paint_part(src.i_leg_r, color_matrix)
 			else
-				i_arm_l = null
-		if(part == "r_arm" || update_all)
-			if(src.part_arm_r && !src.automaton_skin && !src.alohamaton_skin && !src.metalman_skin)
-				if(src.part_arm_r.slot == "arm_both") i_arm_r = image('icons/mob/robots.dmi', "arm-" + src.part_arm_r.appearanceString)
-				else i_arm_r = image('icons/mob/robots.dmi', "r_arm-" + src.part_arm_r.appearanceString)
-				if(color_matrix) src.internal_paint_part(i_arm_r, color_matrix)
-			else
-				i_arm_r = null
+				src.i_leg_r = null
 
-		if(C)
-			//If C updates  legs mods AND there's at least one leg AND there's not a right leg or the right leg slot is not both AND there's not a left leg or the left leg slot is not both
-			if (C.legs_mod && (src.part_leg_r || src.part_leg_l) && (!src.part_leg_r || src.part_leg_r.slot != "leg_both") && (!src.part_leg_l || src.part_leg_l.slot != "leg_both") )
-				i_leg_decor = image('icons/mob/robots_decor.dmi', "legs-" + C.legs_mod)
+		if (part == "l_arm" || update_all)
+			if (src.part_arm_l && !src.automaton_skin && !src.alohamaton_skin && !src.metalman_skin)
+				if (src.part_arm_l.slot == "arm_both")
+					src.i_arm_l = image('icons/mob/robots.dmi', "arm-" + src.part_arm_l.appearanceString)
+				else
+					src.i_arm_l = image('icons/mob/robots.dmi', "l_arm-" + src.part_arm_l.appearanceString)
+				if (color_matrix)
+					src.internal_paint_part(src.i_arm_l, color_matrix)
 			else
-				i_leg_decor = null
+				src.i_arm_l = null
+
+		if (part == "r_arm" || update_all)
+			if (src.part_arm_r && !src.automaton_skin && !src.alohamaton_skin && !src.metalman_skin)
+				if (src.part_arm_r.slot == "arm_both")
+					src.i_arm_r = image('icons/mob/robots.dmi', "arm-" + src.part_arm_r.appearanceString)
+				else
+					src.i_arm_r = image('icons/mob/robots.dmi', "r_arm-" + src.part_arm_r.appearanceString)
+				if (color_matrix)
+					src.internal_paint_part(src.i_arm_r, color_matrix)
+			else
+				src.i_arm_r = null
+
+		if (C)
+			if (C.legs_mod && (src.part_leg_r || src.part_leg_l) && (!src.part_leg_r || src.part_leg_r.slot != "leg_both") && (!src.part_leg_l || src.part_leg_l.slot != "leg_both"))
+				src.i_leg_decor = image('icons/mob/robots_decor.dmi', "legs-" + C.legs_mod)
+			else
+				src.i_leg_decor = null
 
 			if (C.arms_mod && (src.part_arm_r || src.part_arm_l) && (!src.part_arm_r || src.part_arm_r.slot != "arm_both") && (!src.part_arm_l || src.part_arm_l.slot != "arm_both") )
-				i_arm_decor = image('icons/mob/robots_decor.dmi', "arms-" + C.arms_mod)
+				src.i_arm_decor = image('icons/mob/robots_decor.dmi', "arms-" + C.arms_mod)
 			else
-				i_arm_decor = null
+				src.i_arm_decor = null
 
-			if (C.head_mod && src.part_head) i_head_decor = image('icons/mob/robots_decor.dmi', "head-" + C.head_mod)
-			else i_head_decor = null
+			if (C.head_mod && src.part_head)
+				src.i_head_decor = image('icons/mob/robots_decor.dmi', "head-" + C.head_mod)
+			else
+				src.i_head_decor = null
 
-			if (C.ches_mod && src.part_chest) i_chest_decor = image('icons/mob/robots_decor.dmi', "body-" + C.ches_mod)
-			else i_chest_decor = null
+			if (C.ches_mod && src.part_chest)
+				src.i_chest_decor = image('icons/mob/robots_decor.dmi', "body-" + C.ches_mod)
+			else
+				src.i_chest_decor = null
 
-
-		update_appearance()
-
-
-	var/image/i_critdmg
-	var/image/i_panel
-	var/image/i_upgrades
-	var/image/i_clothes
+		src.update_appearance()
 
 	proc/update_appearance()
-		if(!i_details) i_details = image('icons/mob/robots.dmi', "openbrain")
+		if (!src.i_details)
+			src.i_details = image('icons/mob/robots.dmi', "openbrain")
 
 		if (src.automaton_skin)
 			src.icon_state = "automaton"
@@ -2659,98 +2625,102 @@
 		if (src.metalman_skin)
 			src.icon_state = "metalman"
 
-		if (src.part_chest && !src.automaton_skin && !src.alohamaton_skin && !src.metalman_skin )
+		if (src.part_chest && !src.automaton_skin && !src.alohamaton_skin && !src.metalman_skin)
 			if (src.part_chest.ropart_get_damage_percentage() > 70)
-				if(!i_critdmg) i_critdmg = image('icons/mob/robots.dmi', "critdmg")
-				UpdateOverlays(i_critdmg, "critdmg")
+				if (!src.i_critdmg)
+					src.i_critdmg = image('icons/mob/robots.dmi', "critdmg")
+				UpdateOverlays(src.i_critdmg, "critdmg")
 			else
 				UpdateOverlays(null, "critdmg")
 		else
 			UpdateOverlays(null, "critdmg")
 
 		if (src.part_head && !src.automaton_skin && !src.alohamaton_skin && !src.metalman_skin)
-			UpdateOverlays(i_head, "head")
+			UpdateOverlays(src.i_head, "head")
 		else
 			UpdateOverlays(null, "head")
 
-		if(src.part_leg_l && !src.automaton_skin && !src.alohamaton_skin && !src.metalman_skin)
-			UpdateOverlays(i_leg_l, "leg_l")
+		if (src.part_leg_l && !src.automaton_skin && !src.alohamaton_skin && !src.metalman_skin)
+			UpdateOverlays(src.i_leg_l, "leg_l")
 		else
 			UpdateOverlays(null, "leg_l")
 
-		if(src.part_leg_r && !src.automaton_skin && !src.alohamaton_skin && !src.metalman_skin)
-			UpdateOverlays(i_leg_r, "leg_r")
+		if (src.part_leg_r && !src.automaton_skin && !src.alohamaton_skin && !src.metalman_skin)
+			UpdateOverlays(src.i_leg_r, "leg_r")
 		else
 			UpdateOverlays(null, "leg_r")
 
-		if(src.part_arm_l && !src.automaton_skin && !src.alohamaton_skin && !src.metalman_skin)
-			UpdateOverlays(i_arm_l, "arm_l")
+		if (src.part_arm_l && !src.automaton_skin && !src.alohamaton_skin && !src.metalman_skin)
+			UpdateOverlays(src.i_arm_l, "arm_l")
 		else
 			UpdateOverlays(null, "arm_l")
 
 
-		if(src.part_arm_r && !src.automaton_skin && !src.alohamaton_skin && !src.metalman_skin)
-			UpdateOverlays(i_arm_r, "arm_r")
+		if (src.part_arm_r && !src.automaton_skin && !src.alohamaton_skin && !src.metalman_skin)
+			UpdateOverlays(src.i_arm_r, "arm_r")
 		else
 			UpdateOverlays(null, "arm_r")
 
-		UpdateOverlays(i_chest, "chest")
-		UpdateOverlays(i_head_decor, "head_decor")
-		UpdateOverlays(i_chest_decor, "chest_decor")
-		UpdateOverlays(i_leg_decor, "leg_decor")
-		UpdateOverlays(i_arm_decor, "arm_decor")
+		UpdateOverlays(src.i_chest, "chest")
+		UpdateOverlays(src.i_head_decor, "head_decor")
+		UpdateOverlays(src.i_chest_decor, "chest_decor")
+		UpdateOverlays(src.i_leg_decor, "leg_decor")
+		UpdateOverlays(src.i_arm_decor, "arm_decor")
 
 		if (src.brainexposed)
-
 			if (src.brain)
-				i_details.icon_state = "openbrain"
+				src.i_details.icon_state = "openbrain"
 			else
-				i_details.icon_state = "openbrainless"
-			UpdateOverlays(i_details, "brain")
+				src.i_details.icon_state = "openbrainless"
+			UpdateOverlays(src.i_details, "brain")
 		else
 			UpdateOverlays(null, "brain")
-		if (src.opened)
-			if(!i_panel) i_panel = image('icons/mob/robots.dmi', "openpanel")
-			i_panel.overlays.Cut()
-			if (src.cell)
-				i_details.icon_state = "opencell"
-				i_panel.overlays += i_details
-			if (src.module && src.module != "empty" && src.module != "robot")
-				i_details.icon_state = "openmodule"
-				i_panel.overlays += i_details
-			if (locate(/obj/item/roboupgrade/) in src.contents)
-				i_details.icon_state = "openupgrade"
-				i_panel.overlays += i_details
-			if (src.wiresexposed)
-				i_details.icon_state = "openwires"
-				i_panel.overlays += i_details
 
-			UpdateOverlays(i_panel, "brain")
+		if (src.opened)
+			if (!src.i_panel)
+				src.i_panel = image('icons/mob/robots.dmi', "openpanel")
+			src.i_panel.overlays.Cut()
+			if (src.cell)
+				src.i_details.icon_state = "opencell"
+				src.i_panel.overlays += src.i_details
+			if (src.module && src.module != "empty" && src.module != "robot")
+				src.i_details.icon_state = "openmodule"
+				src.i_panel.overlays += src.i_details
+			if (locate(/obj/item/roboupgrade) in src.contents)
+				src.i_details.icon_state = "openupgrade"
+				src.i_panel.overlays += src.i_details
+			if (src.wiresexposed)
+				src.i_details.icon_state = "openwires"
+				src.i_panel.overlays += src.i_details
+			UpdateOverlays(src.i_panel, "brain")
 		else
 			UpdateOverlays(null, "panel")
 
 		if (src.emagged)
-			i_details.icon_state = "emagged"
-			UpdateOverlays(i_details, "emagged")
+			src.i_details.icon_state = "emagged"
+			UpdateOverlays(src.i_details, "emagged")
 		else
 			UpdateOverlays(null, "emagged")
 
-		if(upgrades.len)
-			if(!i_upgrades) i_upgrades = new
-			i_upgrades.overlays.Cut()
+		if (length(src.upgrades))
+			if (!src.i_upgrades)
+				src.i_upgrades = new
+			src.i_upgrades.overlays.Cut()
 			for (var/obj/item/roboupgrade/R in src.upgrades)
-				if (R.activated && R.borg_overlay) i_upgrades.overlays += image('icons/mob/robots.dmi', R.borg_overlay)
-			UpdateOverlays(i_upgrades, "upgrades")
+				if (R.activated && R.borg_overlay)
+					src.i_upgrades.overlays += image('icons/mob/robots.dmi', R.borg_overlay)
+			UpdateOverlays(src.i_upgrades, "upgrades")
 		else
 			UpdateOverlays(null, "upgrades")
-		if(clothes.len)
-			if(!i_clothes) i_clothes = new
-			i_clothes.overlays.Cut()
-			for(var/x in clothes)
-				var/obj/item/clothing/U = clothes[x]
+
+		if (length(src.clothes))
+			if (!src.i_clothes)
+				src.i_clothes = new
+			src.i_clothes.overlays.Cut()
+			for(var/x in src.clothes)
+				var/obj/item/clothing/U = src.clothes[x]
 				if (!istype(U))
 					continue
-
 				var/image/clothed_image = U.wear_image
 				if (!clothed_image)
 					continue
@@ -2759,9 +2729,8 @@
 				clothed_image.alpha = U.alpha
 				clothed_image.color = U.color
 				clothed_image.layer = FLOAT_LAYER //MOB_CLOTHING_LAYER
-				i_clothes.overlays += clothed_image
-
-			UpdateOverlays(i_clothes, "clothes")
+				src.i_clothes.overlays += clothed_image
+			UpdateOverlays(src.i_clothes, "clothes")
 		else
 			UpdateOverlays(null, "clothes")
 
@@ -2785,16 +2754,22 @@
 		burn = max(burn, 0)
 		if (burn == 0 && brute == 0)
 			return 0
-		for (var/obj/item/roboupgrade/R in src.upgrades) //if 50% of the damage is less than 4, ignore it, elsewise take 50% damage
+		for (var/obj/item/roboupgrade/R in src.upgrades)
+			// shield upgrades reduce damage taken (and drain the power cell)
 			if (istype(R, /obj/item/roboupgrade/fireshield) && R.activated)
-				src.cell.use(burn * 25)
-				burn = ((burn * 0.5) < 4) ? 0 : (burn * 0.5)
-				playsound(get_turf(src), "sound/impact_sounds/Energy_Hit_1.ogg", 40, 1)
+				var/obj/item/roboupgrade/fireshield/S = R
+				var/damage_reduced_by = min(burn, S.damage_reduction)
+				src.cell.use(damage_reduced_by * S.cell_drain_per_damage_reduction)
+				burn -= damage_reduced_by
+				playsound(src, "sound/impact_sounds/Energy_Hit_1.ogg", 40, 1)
+				continue
 			if (istype(R, /obj/item/roboupgrade/physshield) && R.activated)
-				var/obj/item/roboupgrade/physshield/P = R
-				src.cell.use(brute * 50 * P.overheat())
-				brute = ((brute * 0.5) < 4) ? 0 : (brute * 0.5)
-				playsound(get_turf(src), "sound/impact_sounds/Energy_Hit_1.ogg", 40, 1)
+				var/obj/item/roboupgrade/physshield/S = R
+				var/damage_reduced_by = min(brute, S.damage_reduction)
+				src.cell.use(damage_reduced_by * S.cell_drain_per_damage_reduction)
+				brute -= damage_reduced_by
+				playsound(src, "sound/impact_sounds/Energy_Hit_1.ogg", 40, 1)
+				continue
 		if (burn == 0 && brute == 0)
 			boutput(usr, "<span class='notice'>Your shield completely blocks the attack!</span>")
 			return 0
@@ -2804,8 +2779,8 @@
 				return 0
 			if (!zones.len)
 				return 0
-			brute = brute / zones.len
-			burn = burn / zones.len
+			brute = brute / length(zones)
+			burn = burn / length(zones)
 			if (part_head)
 				if (part_head.ropart_take_damage(brute, burn) == 1)
 					src.compborg_lose_limb(part_head)
@@ -2862,8 +2837,8 @@
 				return 0
 			if (!zones.len)
 				return 0
-			brute = brute / zones.len
-			burn = burn / zones.len
+			brute = brute / length(zones)
+			burn = burn / length(zones)
 			if (part_head)
 				part_head.ropart_mend_damage(brute, burn)
 			if (part_chest)
@@ -2913,10 +2888,15 @@
 	get_valid_target_zones()
 		return list("head", "chest", "l_leg", "r_leg", "l_arm", "r_arm")
 
+	disposing()
+		if (src.shell)
+			available_ai_shells -= src
+		..()
+
 	proc/compborg_lose_limb(var/obj/item/parts/robot_parts/part)
 		if(!part) return
 
-		playsound(get_turf(src), "sound/impact_sounds/Metal_Hit_Light_1.ogg", 40, 1)
+		playsound(src, "sound/impact_sounds/Metal_Hit_Light_1.ogg", 40, 1)
 		if (istype(src.loc,/turf/)) make_cleanable(/obj/decal/cleanable/robot_debris, src.loc)
 		elecflash(src,power = 2)
 
@@ -2925,7 +2905,6 @@
 			src.part_chest = null
 		if (istype(part,/obj/item/parts/robot_parts/head/))
 			src.visible_message("<b>[src]'s</b> head breaks apart!")
-			borg_death_alert()//no head means you dead
 			if (src.brain)
 				src.brain.set_loc(get_turf(src))
 			src.part_head.brain = null
@@ -2979,20 +2958,6 @@
 
 	proc/compborg_take_critter_damage(var/zone = null, var/brute = 0, var/burn = 0)
 		TakeDamage(pick(get_valid_target_zones()), brute, burn)
-
-	proc/collapse_to_pieces()
-		src.visible_message("<span class='alert'><b>[src]</b> falls apart into a pile of components!</span>")
-		var/turf/T = get_turf(src)
-		for(var/obj/item/parts/robot_parts/R in src.contents)
-			R.set_loc(T)
-		src.part_chest = null
-		src.part_head = null
-		src.part_arm_l = null
-		src.part_arm_r = null
-		src.part_leg_l = null
-		src.part_leg_r = null
-		qdel(src)
-		return
 
 /mob/living/silicon/robot/var/image/i_batterydistress
 
@@ -3154,15 +3119,15 @@
 /mob/living/silicon/robot/spawnable/standard
 	New(loc, var/obj/item/parts/robot_parts/robot_frame/frame = null, var/starter = 0, var/syndie = 0, var/frame_emagged = 0)
 		if (!src.part_chest)
-			src.part_chest = new/obj/item/parts/robot_parts/chest(src)
+			src.part_chest = new/obj/item/parts/robot_parts/chest/standard(src)
 			src.part_chest.wires = 1
 			src.part_chest.cell = new/obj/item/cell/supercell/charged(src.part_chest)
 			src.cell = src.part_chest.cell
-		if (!src.part_head) src.part_head = new/obj/item/parts/robot_parts/head(src)
-		if (!src.part_arm_l) src.part_arm_l = new/obj/item/parts/robot_parts/arm/left(src)
-		if (!src.part_arm_r) src.part_arm_r = new/obj/item/parts/robot_parts/arm/right(src)
-		if (!src.part_leg_l) src.part_leg_l = new/obj/item/parts/robot_parts/leg/left(src)
-		if (!src.part_leg_r) src.part_leg_r = new/obj/item/parts/robot_parts/leg/right(src)
+		if (!src.part_head) src.part_head = new/obj/item/parts/robot_parts/head/standard(src)
+		if (!src.part_arm_l) src.part_arm_l = new/obj/item/parts/robot_parts/arm/left/standard(src)
+		if (!src.part_arm_r) src.part_arm_r = new/obj/item/parts/robot_parts/arm/right/standard(src)
+		if (!src.part_leg_l) src.part_leg_l = new/obj/item/parts/robot_parts/leg/left/standard(src)
+		if (!src.part_leg_r) src.part_leg_r = new/obj/item/parts/robot_parts/leg/right/standard(src)
 		..(loc, frame, starter, syndie, frame_emagged)
 
 	shell
@@ -3180,13 +3145,13 @@
 /mob/living/silicon/robot/spawnable/standard_thruster
 	New(loc, var/obj/item/parts/robot_parts/robot_frame/frame = null, var/starter = 0, var/syndie = 0, var/frame_emagged = 0)
 		if (!src.part_chest)
-			src.part_chest = new/obj/item/parts/robot_parts/chest(src)
+			src.part_chest = new/obj/item/parts/robot_parts/chest/standard(src)
 			src.part_chest.wires = 1
 			src.part_chest.cell = new/obj/item/cell/supercell/charged(src.part_chest)
 			src.cell = src.part_chest.cell
-		if (!src.part_head) src.part_head = new/obj/item/parts/robot_parts/head(src)
-		if (!src.part_arm_l) src.part_arm_l = new/obj/item/parts/robot_parts/arm/left(src)
-		if (!src.part_arm_r) src.part_arm_r = new/obj/item/parts/robot_parts/arm/right(src)
+		if (!src.part_head) src.part_head = new/obj/item/parts/robot_parts/head/standard(src)
+		if (!src.part_arm_l) src.part_arm_l = new/obj/item/parts/robot_parts/arm/left/standard(src)
+		if (!src.part_arm_r) src.part_arm_r = new/obj/item/parts/robot_parts/arm/right/standard(src)
 		if (!src.part_leg_l) src.part_leg_l = new/obj/item/parts/robot_parts/leg/left/thruster(src)
 		if (!src.part_leg_r) src.part_leg_r = new/obj/item/parts/robot_parts/leg/right/thruster(src)
 		..(loc, frame, starter, syndie, frame_emagged)
@@ -3195,7 +3160,7 @@
 /mob/living/silicon/robot/spawnable/sturdy
 	New(loc, var/obj/item/parts/robot_parts/robot_frame/frame = null, var/starter = 0, var/syndie = 0, var/frame_emagged = 0)
 		if (!src.part_chest)
-			src.part_chest = new/obj/item/parts/robot_parts/chest(src)
+			src.part_chest = new/obj/item/parts/robot_parts/chest/standard(src)
 			src.part_chest.wires = 1
 			src.part_chest.cell = new/obj/item/cell/cerenkite/charged(src.part_chest)
 			src.cell = src.part_chest.cell
@@ -3214,7 +3179,7 @@
 /mob/living/silicon/robot/spawnable/heavy
 	New(loc, var/obj/item/parts/robot_parts/robot_frame/frame = null, var/starter = 0, var/syndie = 0, var/frame_emagged = 0)
 		if (!src.part_chest)
-			src.part_chest = new/obj/item/parts/robot_parts/chest(src)
+			src.part_chest = new/obj/item/parts/robot_parts/chest/standard(src)
 			src.part_chest.wires = 1
 			src.part_chest.cell = new/obj/item/cell/cerenkite/charged(src.part_chest)
 			src.cell = src.part_chest.cell
@@ -3297,7 +3262,7 @@
 	src.color = "#ff0000"
 
 
-#define can_step_sfx(H)  (H.footstep >= 4 || (H.m_intent != "run" && H.footstep >= 3))
+#define can_step_sfx(H) (H.footstep >= 4 || (H.m_intent != "run" && H.footstep >= 3))
 
 /mob/living/silicon/robot/Move(var/turf/NewLoc, direct)
 	//var/oldloc = loc

@@ -6,7 +6,6 @@
 	force = 5.0
 	artifact = 1
 	is_syndicate = 1
-	module_research_no_diminish = 1
 	mat_changename = 0
 	mat_changedesc = 0
 
@@ -17,22 +16,19 @@
 			AS.validtypes = list("[forceartiorigin]")
 		src.artifact = AS
 		// The other three are normal for energy gun setup, so proceed as usual i guess
-		qdel(cell)
-		cell = null
 
 		SPAWN_DBG(0)
 			src.ArtifactSetup()
 			var/datum/artifact/A = src.artifact
-			cell = new/obj/item/ammo/power_cell/self_charging/artifact(src,A.artitype)
 
 
 			if(forceBullets)
-				for(var/datum/projectile/artifact/forceBullet as() in forceBullets)
+				for(var/datum/projectile/artifact/forceBullet as anything in forceBullets)
 					forceBullet.turretArt = null // not making this trigger faults on people who are shot, to prevent guns from feeling too unfair
 				AS.bullets = forceBullets
 			set_current_projectile(pick(AS.bullets))
 			projectiles = AS.bullets
-			cell.max_charge = max(cell.max_charge, current_projectile.cost)
+			AddComponent(/datum/component/cell_holder, new/obj/item/ammo/power_cell/self_charging/artifact(src,A.artitype,current_projectile.cost), swappable = FALSE)
 
 		src.setItemSpecial(null)
 
@@ -51,20 +47,15 @@
 		if (src.Artifact_attackby(W,user))
 			..()
 
-	process_ammo(var/mob/user)
-		if(isrobot(user))
-			var/mob/living/silicon/robot/R = user
-			if(R.cell)
-				if(R.cell.charge >= src.robocharge)
-					R.cell.charge -= src.robocharge
-					return 1
-			return 0
-		else
-			if(src.current_projectile)
-				if(src.cell)
-					if(src.cell.use(src.current_projectile.cost))
-						return 1
-			return 0
+	reagent_act(reagent_id,volume)
+		if (..())
+			return
+		src.Artifact_reagent_act(reagent_id, volume)
+		return
+
+	emp_act()
+		src.Artifact_emp_act()
+		..()
 
 	shoot(var/target,var/start,var/mob/user)
 		if (!src.ArtifactSanityCheck())
@@ -94,11 +85,16 @@
 		return
 
 	ArtifactDestroyed()
-		var/turf/T = get_turf(src)
-		if(T)
-			cell.set_loc(T)
+		SEND_SIGNAL(src, COMSIG_CELL_SWAP, null, null) //swap cell with nothing (drop cell on flooor)
 		. = ..()
 
+	ArtifactActivated()
+		. = ..()
+		AddComponent(/datum/component/cell_holder, swappable = TRUE)
+
+	ArtifactDeactivated()
+		. = ..()
+		AddComponent(/datum/component/cell_holder, swappable = FALSE)
 
 /datum/artifact/energygun
 	associated_object = /obj/item/gun/energy/artifact
@@ -109,8 +105,6 @@
 	react_xray = list(10,75,100,11,"CAVITY")
 	var/list/datum/projectile/artifact/bullets = list()
 	examine_hint = "It seems to have a handle you're supposed to hold it by."
-	module_research = list("weapons" = 8, "energy" = 8)
-	module_research_insight = 3
 
 	New()
 		..()

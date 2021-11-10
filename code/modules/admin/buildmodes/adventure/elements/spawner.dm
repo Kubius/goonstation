@@ -46,7 +46,7 @@
 
 /obj/adventurepuzzle/triggerable/spawnloc
 	name = "critter spawn location"
-	invisibility = 20
+	invisibility = INVIS_ADVENTURE
 	icon = 'icons/misc/critter.dmi'
 	icon_state = "critter_spawn"
 	density = 0
@@ -136,7 +136,7 @@
 		F["[path].spawn_delay"] << spawn_delay
 		F["[path].spawn_count"] << spawn_count
 
-		F["[path].critter_vars.COUNT"] << critter_vars.len
+		F["[path].critter_vars.COUNT"] << length(critter_vars)
 		for (var/i = 1, i <= critter_vars.len, i++)
 			var/varname = critter_vars[i]
 			var/varvalue = critter_vars[varname]

@@ -44,6 +44,12 @@
 #define TGUI_INTERACTIVE		 (1<<19)
 /// Has a click delay for attack_self()
 #define ATTACK_SELF_DELAY		 (1<<20)
+/// Counts as dense for purposes of fluids. *scream.
+#define FLUID_DENSE		 (1<<21)
+/// If click delay should be applied even if atom is in user's contents (e.g.: postit notes)
+#define CLICK_DELAY_IN_CONTENTS  (1<<22)
+/// If an item cannot be crushed by the crusher
+#define UNCRUSHABLE              (1<<23)
 
 
 //Item function flags
@@ -54,6 +60,10 @@
 #define USE_SPECIALS_ON_ALL_INTENTS 2
 /// prevents items from creating smoke while burning
 #define SMOKELESS 4
+/// makes items immune to acid
+#define IMMUNE_TO_ACID 8
+/// prevents items from heating anything up while burning
+#define COLD_BURN 16
 
 //tool flags
 #define TOOL_CLAMPING 1
@@ -99,26 +109,7 @@
 #define ITEM_RARITY_MYTHIC 7
 
 // item comp defs
-// For COMSIG_ITEM_CONSUMED_PRE returns
-/// Turns out its edible
-#define THING_IS_EDIBLE		(1<<0)
-/// Needs a fork
-#define EATING_NEEDS_A_FORK					(1<<1)
-/// Needs a spoon
-#define EATING_NEEDS_A_SPOON				(1<<2)
-
-// on_bite defs
-/// Mob can be healed by this food-thing
-#define MOB_HEALTH_ABOVE_FOODHEAL_CUTOFF (1<<0)
-
-// mob health foodheal threshold checks
-/// The typical food-heal health cutoff, if the mob's current health is less than their max health divided by this, food wont heal them
-/// So for a mob with 100 max health, they'll be healed by food as long as their current health is above ~55 HP
-#define FOODHEAL_CUTOFF_DIVISOR 1.8
-/// Same as above, but if the mob has the survivalist trait.
-/// For the same 100 max health mob, they'll be healed by food until their current health is below 10 HP
-#define FOODHEAL_CUTOFF_DIVISOR_SURVIVALIST 10
-
+#define FORCE_EDIBILITY 1
 //item attack bitflags
 /// The pre-attack signal doesnt want the attack to continue, so don't
 #define ATTACK_PRE_DONT_ATTACK 1
@@ -188,3 +179,17 @@
                        HAS_FLAG(x:kind_of_limb, LIMB_HEAVY) |\
                        HAS_FLAG(x:kind_of_limb, LIMB_HEAVIER) |\
                        HAS_FLAG(x:kind_of_limb, LIMB_TREADS))
+
+#define W_CLASS_TINY 1
+#define W_CLASS_SMALL 2
+#define W_CLASS_NORMAL 3
+#define W_CLASS_BULKY 4
+#define W_CLASS_HUGE 5
+#define W_CLASS_GIGANTIC 6
+#define W_CLASS_BUBSIAN 10
+
+// for firesource logging
+/// Firesource is capable of starting fires on its own when dropped
+#define FIRESOURCE_OPEN_FLAME 1
+/// Firesource can not cause fires on its own when dropped
+#define FIRESOURCE_IGNITER 2

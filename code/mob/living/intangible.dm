@@ -10,10 +10,11 @@
 
 	New()
 		. = ..()
-		src.invisibility = 10
+		APPLY_MOB_PROPERTY(src, PROP_INVISIBILITY, src, INVIS_GHOST)
 		src.sight |= SEE_TURFS | SEE_MOBS | SEE_OBJS | SEE_SELF
-		src.see_invisible = 15
+		src.see_invisible = INVIS_GHOST
 		src.see_in_dark = SEE_DARK_FULL
+		src.flags |= UNCRUSHABLE
 
 	can_strip()
 		return 0
@@ -23,7 +24,7 @@
 		return 0
 	say_understands(var/other)
 		return 1
-	CanPass(atom/movable/mover, turf/target, height=0, air_group=0)
+	CanPass(atom/movable/mover, turf/target)
 		return 1
 
 	meteorhit()

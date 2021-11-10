@@ -9,7 +9,7 @@
 	desc = "A piece of expansion circuitry for PDAs."
 	icon = 'icons/obj/module.dmi'
 	icon_state = "pdamod"
-	w_class = 2.0
+	w_class = W_CLASS_SMALL
 	mats = 4.0
 	var/obj/item/device/pda2/host = null
 
@@ -67,7 +67,7 @@
 		return
 
 	proc/add_abilities_to_host()
-		if (src.host && islist(src.ability_buttons) && src.ability_buttons.len)
+		if (src.host && islist(src.ability_buttons) && length(src.ability_buttons))
 			for (var/obj/ability_button/B in src.ability_buttons)
 				if (!islist(src.host.ability_buttons))
 					src.host.ability_buttons = list()
@@ -80,7 +80,7 @@
 				src.host.the_mob.update_item_abilities()
 
 	proc/remove_abilities_from_host()
-		if (src.host && islist(src.host.ability_buttons) && src.host.ability_buttons.len && islist(src.ability_buttons) && src.ability_buttons.len)
+		if (src.host && islist(src.host.ability_buttons) && src.host.ability_buttons.len && islist(src.ability_buttons) && length(src.ability_buttons))
 			for (var/obj/ability_button/B in src.ability_buttons)
 				src.host.ability_buttons.Remove(B)
 				if (src.host.the_mob?.item_abilities)
@@ -103,13 +103,16 @@
 	var/image/lensflare
 	var/use_simple_light = 0
 	var/use_medium_light = 1
+	var/light_r = 255
+	var/light_g = 255
+	var/light_b = 255
 
 	New()
 		..()
 		if (!use_simple_light && !use_medium_light)
 			light = new /datum/light/line
 			light.set_brightness(lumlevel)
-			light.set_color(1, 1, 1)
+			light.set_color(light_r,light_g,light_b)
 		src.lensflare = image(src.flashlight_icon, src.flashlight_icon_state)
 
 	relay_pickup(mob/user)
@@ -119,7 +122,7 @@
 		else if (on)
 			if (src.host)
 				src.host.remove_sm_light("pda\ref[src]")
-			user.add_sm_light("pda\ref[src]", list(255,255,255,lumlevel * 255), use_medium_light)
+			user.add_sm_light("pda\ref[src]", list(light_r,light_g,light_b,lumlevel * 255), use_medium_light)
 
 
 	relay_drop(mob/user)
@@ -131,7 +134,7 @@
 						light.attach(src.host.loc)
 					else if (on)
 						user.remove_sm_light("pda\ref[src]")
-						src.host.add_sm_light("pda\ref[src]", list(255,255,255,lumlevel * 255), use_medium_light)
+						src.host.add_sm_light("pda\ref[src]", list(light_r,light_g,light_b,lumlevel * 255), use_medium_light)
 
 
 	return_menu_badge()
@@ -143,7 +146,7 @@
 		if (!use_simple_light && !use_medium_light)
 			light.attach(pda)
 		else if (on)
-			pda.add_sm_light("pda\ref[src]", list(255,255,255,lumlevel * 255), use_medium_light)
+			pda.add_sm_light("pda\ref[src]", list(light_r,light_g,light_b,lumlevel * 255), use_medium_light)
 
 	uninstall()
 		if (!use_simple_light && !use_medium_light)
@@ -175,9 +178,9 @@
 			else
 				if (!isturf(src.host.loc))
 					var/atom/A = src.host.loc
-					A.add_sm_light("pda\ref[src]", list(255,255,255,lumlevel * 255), use_medium_light)
+					A.add_sm_light("pda\ref[src]", list(light_r,light_g,light_b,lumlevel * 255), use_medium_light)
 				else
-					src.host.add_sm_light("pda\ref[src]", list(255,255,255,lumlevel * 255), use_medium_light)
+					src.host.add_sm_light("pda\ref[src]", list(light_r,light_g,light_b,lumlevel * 255), use_medium_light)
 
 		else
 			src.host.underlays -= src.lensflare
@@ -202,8 +205,11 @@
 	lumlevel = 0.8
 
 	toggle_light()
+		src.light_r = rand(255)
+		src.light_g = rand(255)
+		src.light_b = rand(255)
+		light?.set_color(light_r,light_g,light_b)
 		..()
-		light.set_color(rand(255), rand(255), rand(255))
 
 
 /obj/item/device/pda_module/flashlight/high_power
@@ -270,8 +276,8 @@
 				if(O.level != 1)
 					continue
 
-				if(O.invisibility == 101)
-					O.invisibility = 0
+				if(O.invisibility == INVIS_ALWAYS)
+					O.invisibility = INVIS_NONE
 					O.alpha = 128
 					SPAWN_DBG(1 SECOND)
 						if(O)
@@ -279,15 +285,15 @@
 							if(!istype(U))
 								return
 							if(U.intact)
-								O.invisibility = 101
+								O.invisibility = INVIS_ALWAYS
 								O.alpha = 255
 
 			var/mob/living/M = locate() in T
-			if(M?.invisibility == 2)
-				M.invisibility = 0
+			if(M?.invisibility == INVIS_CLOAK)
+				M.invisibility = INVIS_NONE
 				SPAWN_DBG(0.2 SECONDS)
 					if(M)
-						M.invisibility = 2
+						M.invisibility = INVIS_CLOAK
 
 /obj/ability_button/pda_tray_toggle
 	name = "Toggle PDA T-Scanner"
@@ -321,12 +327,11 @@
 		if (!src.host)
 			boutput(usr, "<span class='alert'>No PDA detected.")
 			return
-		if (PROC_ON_COOLDOWN(5 MINUTES))
+		if (ON_COOLDOWN(src, "send_alert", 5 MINUTES))
 			boutput(usr, "<span class='alert'>[src] is still on cooldown mode!</span>")
 			return
 		var/datum/signal/signal = get_free_signal()
 		signal.source = src.host
-		signal.transmission_method = TRANSMISSION_RADIO
 		signal.data["address_1"] = "00000000"
 		signal.data["command"] = "text_message"
 		signal.data["sender_name"] = src.host.owner

@@ -157,8 +157,8 @@ Airlock index -> wire color are { 9, 4, 6, 7, 5, 8, 1, 2, 3 }.
 	var/welded_icon_state = "welded"
 
 	explosion_resistance = 2
-	health = 1200
-	health_max = 1200
+	health = 600
+	health_max = 600
 
 	var/ai_no_access = 0 //This is the dumbest var.
 	var/aiControlDisabled = 0 //If 1, AI control is disabled until the AI hacks back in and disables the lock. If 2, the AI has bypassed the lock. If -1, the control is enabled but the AI had bypassed it earlier, so if it is disabled again the AI would have no trouble getting back in.
@@ -205,6 +205,11 @@ Airlock index -> wire color are { 9, 4, 6, 7, 5, 8, 1, 2, 3 }.
 		src.net_access_code = rand(1, NET_ACCESS_OPTIONS)
 		START_TRACKING
 
+
+	was_built_from_frame(mob/user, newly_built)
+		. = ..()
+		req_access = list()
+
 	disposing()
 		. = ..()
 		STOP_TRACKING
@@ -216,24 +221,27 @@ Airlock index -> wire color are { 9, 4, 6, 7, 5, 8, 1, 2, 3 }.
 	.= ..()
 
 /obj/machinery/door/airlock/command
+	name = "command airlock"
 	icon = 'icons/obj/doors/Doorcom.dmi'
 	req_access = list(access_heads)
 
 /obj/machinery/door/airlock/security
+	name = "security airlock"
 	icon = 'icons/obj/doors/Doorsec.dmi'
 	req_access = list(access_security)
 
 /obj/machinery/door/airlock/engineering
-	name = "Engineering"
+	name = "engineering airlock"
 	icon = 'icons/obj/doors/Dooreng.dmi'
 	req_access = list(access_engineering)
 
 /obj/machinery/door/airlock/medical
+	name = "medical airlock"
 	icon = 'icons/obj/doors/doormed.dmi'
 	req_access = list(access_medical)
 
 /obj/machinery/door/airlock/maintenance
-	name = "Maintenance Access"
+	name = "maintenance airlock"
 	icon = 'icons/obj/doors/Doormaint.dmi'
 	req_access = list(access_maint_tunnels)
 
@@ -282,18 +290,22 @@ Airlock index -> wire color are { 9, 4, 6, 7, 5, 8, 1, 2, 3 }.
 	visible = 0
 
 /obj/machinery/door/airlock/glass/command
+		name = "command airlock"
 		icon = 'icons/obj/doors/Doorcom-glass.dmi'
 		req_access = list(access_heads)
 
 /obj/machinery/door/airlock/glass/engineering
+		name = "engineering airlock"
 		icon = 'icons/obj/doors/Dooreng-glass.dmi'
 		req_access = list(access_engineering)
 
 /obj/machinery/door/airlock/glass/medical
+		name = "medical airlock"
 		icon = 'icons/obj/doors/Doormed-glass.dmi'
 		req_access = list(access_medical)
 
 /obj/machinery/door/airlock/classic
+	name = "large airlock"
 	icon = 'icons/obj/doors/Doorclassic.dmi'
 	sound_airlock = 'sound/machines/airlock.ogg'
 	operation_time = 10
@@ -314,12 +326,12 @@ Airlock index -> wire color are { 9, 4, 6, 7, 5, 8, 1, 2, 3 }.
 	welded_icon_state = "2_welded"
 
 /obj/machinery/door/airlock/pyro/command
-	name = "Command"
+	name = "command airlock"
 	icon_state = "com_closed"
 	icon_base = "com"
 	req_access = list(access_heads)
-	health = 1600
-	health_max = 1600
+	health = 800
+	health_max = 800
 
 /obj/machinery/door/airlock/pyro/command/alt
 	icon_state = "com2_closed"
@@ -348,7 +360,7 @@ Airlock index -> wire color are { 9, 4, 6, 7, 5, 8, 1, 2, 3 }.
 
 
 /obj/machinery/door/airlock/pyro/security
-	name = "Security"
+	name = "security airlock"
 	icon_state = "sec_closed"
 	icon_base = "sec"
 	req_access = list(access_security)
@@ -361,7 +373,7 @@ Airlock index -> wire color are { 9, 4, 6, 7, 5, 8, 1, 2, 3 }.
 	req_access = null
 
 /obj/machinery/door/airlock/pyro/engineering
-	name = "Engineering"
+	name = "engineering airlock"
 	icon_state = "eng_closed"
 	icon_base = "eng"
 	req_access = list(access_engineering)
@@ -374,6 +386,7 @@ Airlock index -> wire color are { 9, 4, 6, 7, 5, 8, 1, 2, 3 }.
 	req_access = null
 
 /obj/machinery/door/airlock/pyro/medical
+	name = "medical airlock"
 	icon_state = "research_closed"
 	icon_base = "research"
 	req_access = list(access_medical)
@@ -400,6 +413,7 @@ Airlock index -> wire color are { 9, 4, 6, 7, 5, 8, 1, 2, 3 }.
 	req_access = null
 
 /obj/machinery/door/airlock/pyro/mining
+	name = "mining airlock"
 	icon_state = "mining_closed"
 	icon_base = "mining"
 	panel_icon_state = "2_panel_open"
@@ -407,7 +421,7 @@ Airlock index -> wire color are { 9, 4, 6, 7, 5, 8, 1, 2, 3 }.
 	req_access = null
 
 /obj/machinery/door/airlock/pyro/maintenance
-	name = "maintenance access"
+	name = "maintenance airlock"
 	icon_state = "maint_closed"
 	icon_base = "maint"
 	req_access = list(access_maint_tunnels)
@@ -462,46 +476,55 @@ Airlock index -> wire color are { 9, 4, 6, 7, 5, 8, 1, 2, 3 }.
 	req_access_txt = "2"
 
 /obj/machinery/door/airlock/pyro/glass/command
+	name = "command airlock"
 	icon_state = "com_glass_closed"
 	icon_base = "com_glass"
 	req_access = list(access_heads)
 
 /obj/machinery/door/airlock/pyro/glass/engineering
+	name = "engineering airlock"
 	icon_state = "eng_glass_closed"
 	icon_base = "eng_glass"
 	req_access = list(access_engineering)
 
 /obj/machinery/door/airlock/pyro/glass/security //Shitty Azungar recolor, no need to thank me.
+	name = "security airlock"
 	icon_state = "sec_glass_closed"
 	icon_base = "sec_glass"
 	req_access = list(access_security)
 
 /obj/machinery/door/airlock/pyro/glass/med
+	name = "medical airlock"
 	icon_state = "med_glass_closed"
 	icon_base = "med_glass"
 	req_access = null
 
 /obj/machinery/door/airlock/pyro/glass/sci
+	name = "research airlock"
 	icon_state = "sci_glass_closed"
 	icon_base = "sci_glass"
 	req_access = null
 
 /obj/machinery/door/airlock/pyro/glass/toxins
+	name = "toxins airlock"
 	icon_state = "toxins_glass_closed"
 	icon_base = "toxins_glass"
 	req_access = null
 
 /obj/machinery/door/airlock/pyro/glass/mining
+	name = "mining airlock"
 	icon_state = "mining_glass_closed"
 	icon_base = "mining_glass"
 	req_access = null
 
 /obj/machinery/door/airlock/pyro/glass/botany
+	name = "botany airlock"
 	icon_state = "botany_glass_closed"
 	icon_base = "botany_glass"
 	req_access = null
 
 /obj/machinery/door/airlock/pyro/classic
+	name = "old airlock"
 	icon_state = "old_closed"
 	icon_base = "old"
 	panel_icon_state = "old_panel_open"
@@ -510,14 +533,17 @@ Airlock index -> wire color are { 9, 4, 6, 7, 5, 8, 1, 2, 3 }.
 	operation_time = 10
 
 /obj/machinery/door/airlock/pyro/glass/windoor
+	name = "thin glass airlock"
 	icon_state = "windoor_closed"
 	icon_base = "windoor"
-	panel_icon_state = "windoor"
+	panel_icon_state = "windoor_panel_open"
 	welded_icon_state = "fdoor_weld"
 	sound_airlock = 'sound/machines/windowdoor.ogg'
-	has_panel = 0
 	has_crush = 0
+	health = 500
+	health_max = 500
 	layer = 3.5
+	object_flags = BOTS_DIRBLOCK | CAN_REPROGRAM_ACCESS | HAS_DIRECTIONAL_BLOCKING
 
 	bumpopen(mob/user as mob)
 		if (src.density)
@@ -532,14 +558,14 @@ Airlock index -> wire color are { 9, 4, 6, 7, 5, 8, 1, 2, 3 }.
 /obj/machinery/door/airlock/pyro/glass/windoor/alt
 	icon_state = "windoor2_closed"
 	icon_base = "windoor2"
-	panel_icon_state = "windoor2"
+	panel_icon_state = null
 	welded_icon_state = "windoor2_weld"
 	sound_airlock = 'sound/machines/windowdoor.ogg'
-	has_panel = 0
 	has_crush = 0
 	layer = 3.5
 
 /obj/machinery/door/airlock/pyro/sci_alt
+	name = "research airlock"
 	icon_state = "sci_closed"
 	icon_base = "sci"
 	panel_icon_state = "2_panel_open"
@@ -547,6 +573,7 @@ Airlock index -> wire color are { 9, 4, 6, 7, 5, 8, 1, 2, 3 }.
 	req_access = null
 
 /obj/machinery/door/airlock/pyro/toxins_alt
+	name = "toxins airlock"
 	icon_state = "toxins2_closed"
 	icon_base = "toxins2"
 	panel_icon_state = "2_panel_open"
@@ -565,6 +592,7 @@ Airlock index -> wire color are { 9, 4, 6, 7, 5, 8, 1, 2, 3 }.
 		welded_icon_state = "fgen_welded"
 
 	command
+		name = "command airlock"
 		icon_state = "com_closed"
 		icon_base = "com"
 		req_access = list(access_heads)
@@ -575,6 +603,7 @@ Airlock index -> wire color are { 9, 4, 6, 7, 5, 8, 1, 2, 3 }.
 		welded_icon_state = "fcom_welded"
 
 	security
+		name = "security airlock"
 		icon_state = "sec_closed"
 		icon_base = "sec"
 		req_access = list(access_security)
@@ -585,6 +614,7 @@ Airlock index -> wire color are { 9, 4, 6, 7, 5, 8, 1, 2, 3 }.
 		welded_icon_state = "fsec_welded"
 
 	engineering
+		name = "engineering airlock"
 		icon_state = "eng_closed"
 		icon_base = "eng"
 		req_access = list(access_engineering)
@@ -595,6 +625,7 @@ Airlock index -> wire color are { 9, 4, 6, 7, 5, 8, 1, 2, 3 }.
 		welded_icon_state = "feng_welded"
 
 	medical
+		name = "medical airlock"
 		icon_state = "med_closed"
 		icon_base = "med"
 		req_access = list(access_medical)
@@ -605,6 +636,7 @@ Airlock index -> wire color are { 9, 4, 6, 7, 5, 8, 1, 2, 3 }.
 		welded_icon_state = "fmed_welded"
 
 	morgue
+		name = "morgue airlock"
 		icon_state = "morg_closed"
 		icon_base = "morg"
 		req_access = list(access_morgue)
@@ -615,6 +647,7 @@ Airlock index -> wire color are { 9, 4, 6, 7, 5, 8, 1, 2, 3 }.
 		welded_icon_state = "fmorg_welded"
 
 	chemistry
+		name = "chemistry airlock"
 		icon_state = "chem_closed"
 		icon_base = "chem"
 		req_access = list(access_research)
@@ -625,6 +658,7 @@ Airlock index -> wire color are { 9, 4, 6, 7, 5, 8, 1, 2, 3 }.
 		welded_icon_state = "fchem_welded"
 
 	toxins
+		name = "toxins airlock"
 		icon_state = "tox_closed"
 		icon_base = "tox"
 		req_access = list(access_research)
@@ -635,6 +669,7 @@ Airlock index -> wire color are { 9, 4, 6, 7, 5, 8, 1, 2, 3 }.
 		welded_icon_state = "ftox_welded"
 
 	maintenance
+		name = "maintenance airlock"
 		icon_state = "maint_closed"
 		icon_base = "maint"
 		welded_icon_state = "maint_welded"
@@ -654,6 +689,7 @@ Airlock index -> wire color are { 9, 4, 6, 7, 5, 8, 1, 2, 3 }.
 		welded_icon_state = "fgen_welded"
 
 	command
+		name = "glass command airlock"
 		icon_state = "tcom_closed"
 		icon_base = "tcom"
 		req_access = list(access_heads)
@@ -664,6 +700,7 @@ Airlock index -> wire color are { 9, 4, 6, 7, 5, 8, 1, 2, 3 }.
 		welded_icon_state = "fcom_welded"
 
 	security
+		name = "glass security airlock"
 		icon_state = "tsec_closed"
 		icon_base = "tsec"
 		req_access = list(access_security)
@@ -674,6 +711,7 @@ Airlock index -> wire color are { 9, 4, 6, 7, 5, 8, 1, 2, 3 }.
 		welded_icon_state = "fsec_welded"
 
 	engineering
+		name = "glass engineering airlock"
 		icon_state = "teng_closed"
 		icon_base = "teng"
 		req_access = list(access_engineering)
@@ -684,6 +722,7 @@ Airlock index -> wire color are { 9, 4, 6, 7, 5, 8, 1, 2, 3 }.
 		welded_icon_state = "feng_welded"
 
 	medical
+		name = "glass medical airlock"
 		icon_state = "tmed_closed"
 		icon_base = "tmed"
 		req_access = list(access_medical)
@@ -694,6 +733,7 @@ Airlock index -> wire color are { 9, 4, 6, 7, 5, 8, 1, 2, 3 }.
 		welded_icon_state = "fmed_welded"
 
 	morgue
+		name = "glass morgue airlock"
 		icon_state = "tmorg_closed"
 		icon_base = "tmorg"
 		req_access = list(access_morgue)
@@ -704,6 +744,7 @@ Airlock index -> wire color are { 9, 4, 6, 7, 5, 8, 1, 2, 3 }.
 		welded_icon_state = "fmorg_welded"
 
 	chemistry
+		name = "glass chemistry airlock"
 		icon_state = "tchem_closed"
 		icon_base = "tchem"
 		req_access = list(access_research)
@@ -714,6 +755,7 @@ Airlock index -> wire color are { 9, 4, 6, 7, 5, 8, 1, 2, 3 }.
 		welded_icon_state = "fchem_welded"
 
 	toxins
+		name = "glass toxins airlock"
 		icon_state = "ttox_closed"
 		icon_base = "ttox"
 		req_access = list(access_research)
@@ -724,6 +766,7 @@ Airlock index -> wire color are { 9, 4, 6, 7, 5, 8, 1, 2, 3 }.
 		welded_icon_state = "ftox_welded"
 
 	maintenance
+		name = "glass maintenance airlock"
 		icon_state = "tmaint_closed"
 		icon_base = "tmaint"
 		welded_icon_state = "tmaint_welded"
@@ -742,7 +785,7 @@ About the new airlock wires panel:
 */
 /obj/machinery/door/airlock/proc/play_deny()
 	play_animation("deny")
-	playsound(get_turf(src), src.sound_deny_temp, 100, 0)
+	playsound(src, src.sound_deny_temp, 100, 0)
 
 /obj/machinery/door/airlock/proc/try_pulse(var/wire_color, mob/user)
 	if (!user.find_tool_in_hand(TOOL_PULSING))
@@ -1116,7 +1159,7 @@ About the new airlock wires panel:
 
 //		message_admins("<span class='internal'><B>ADMIN: </B>DEBUG: shock_damage = [shock_damage] PN.avail = [PN.avail] user = [user] netnum = [netnum]</span>")
 
-	if (user.bioHolder.HasEffect("resist_electric") == 2)
+	if (user.bioHolder.HasEffect("resist_electric_heal"))
 		var/healing = 0
 		if (shock_damage)
 			healing = shock_damage / 3
@@ -1124,7 +1167,7 @@ About the new airlock wires panel:
 		user.take_toxin_damage(0 - healing)
 		boutput(user, "<span class='notice'>You absorb the electrical shock, healing your body!</span>")
 		return
-	else if (user.bioHolder.HasEffect("resist_electric") == 1)
+	else if (user.bioHolder.HasEffect("resist_electric"))
 		boutput(user, "<span class='notice'>You feel electricity course through you harmlessly!</span>")
 		return
 
@@ -1136,8 +1179,8 @@ About the new airlock wires panel:
 		L.Virus_ShockCure(33)
 		L.shock_cyberheart(33)
 	sleep(0.1 SECONDS)
-	if(user.getStatusDuration("stunned") < shock_damage * 10) user.changeStatus("stunned", shock_damage * 10)
-	if(user.getStatusDuration("weakened") < shock_damage * 10) user.changeStatus("weakened", 10 * prot)
+	if(user.getStatusDuration("stunned") < shock_damage * 10) user.changeStatus("stunned", shock_damage SECONDS)
+	if(user.getStatusDuration("weakened") < shock_damage * 10) user.changeStatus("weakened", prot SECONDS)
 	for(var/mob/M in AIviewers(src))
 		if(M == user)	continue
 		M.show_message("<span class='alert'>[user.name] was shocked by the [src.name]!</span>", 3, "<span class='alert'>You hear a heavy electrical crack</span>", 2)
@@ -1262,7 +1305,7 @@ About the new airlock wires panel:
 		if(world.time - src.last_bump <= 30)
 			return
 
-		if (issilicon(AM) && (aiControlDisabled > 0 || cant_emag))
+		if (issilicon(AM) && (aiControlDisabled == 1 || cant_emag))
 			return
 
 		src.last_bump = world.time
@@ -1291,7 +1334,7 @@ About the new airlock wires panel:
 			if (src.shock(user, 100))
 				interact_particle(user,src)
 				return
-	else if (aiControlDisabled > 0 || cant_emag)
+	else if (aiControlDisabled == 1 || cant_emag)
 		return
 
 	if (ishuman(user) && src.density && src.brainloss_stumble && src.do_brainstumble(user) == 1)
@@ -1322,7 +1365,7 @@ About the new airlock wires panel:
 				boutput(user, "<span class='notice'>[bicon(C)] Regular electrical response received from access panel.</span>")
 		return
 
-	if (!issilicon(user))
+	if (!issilicon(user) && IN_RANGE(src, user, 1))
 		if (src.isElectrified())
 			if(src.shock(user, 75))
 				return
@@ -1359,11 +1402,11 @@ About the new airlock wires panel:
 		tgui_process.update_uis(src)
 		src.update_icon()
 	else if (issnippingtool(C) && src.p_open)
-		return src.attack_hand(user)
+		return src.Attackhand(user)
 	else if (ispulsingtool(C))
-		return src.attack_hand(user)
+		return src.Attackhand(user)
 	else if (istype(C, /obj/item/device/radio/signaler))
-		return src.attack_hand(user)
+		return src.Attackhand(user)
 	else if (ispryingtool(C))
 		src.unpowered_open_close()
 	else
@@ -1390,6 +1433,7 @@ About the new airlock wires panel:
 				else
 					src.RL_SetOpacity(0)
 			src.operating = 0
+			src.update_icon()
 
 	else if ((!src.density) && (!( src.welded ) && !( src.operating ) && !( src.locked )))
 		SPAWN_DBG( 0 )
@@ -1406,6 +1450,7 @@ About the new airlock wires panel:
 				else
 					src.RL_SetOpacity(1)
 			src.operating = 0
+			src.update_icon()
 	else if (src.welded)
 		boutput(usr, "<span class='alert'>You try to pry [src]  open, but it won't budge! The sides of \the [src] seem to be welded.</span>")
 
@@ -1415,7 +1460,8 @@ About the new airlock wires panel:
 	else if (src.arePowerSystemsOn())
 		boutput(usr, "<span class='alert'>You try to pry [src]  open, but it won't budge! The power of \the [src] must be disabled first.</span>")
 
-	playsound(src, 'sound/machines/airlock_pry.ogg', 50, 1)
+	if(!ON_COOLDOWN(src, "playsound", 1.5 SECONDS))
+		playsound(src, 'sound/machines/airlock_pry.ogg', 35, 1)
 
 	return
 
@@ -1483,12 +1529,11 @@ About the new airlock wires panel:
 // This code allows for airlocks to be controlled externally by setting an id_tag and comm frequency (disables ID access)
 obj/machinery/door/airlock
 	var/id_tag
-	var/frequency = 1411
+	var/frequency = FREQ_AIRLOCK
 	var/last_update_time = 0
 	var/last_radio_login = 0
 	mats = 18
 
-	var/datum/radio_frequency/radio_connection
 
 	receive_signal(datum/signal/signal)
 		if(!signal || signal.encryption)
@@ -1506,9 +1551,8 @@ obj/machinery/door/airlock
 				pingsignal.data["sender"] = src.net_id
 				pingsignal.data["address_1"] = signal.data["sender"]
 				pingsignal.data["command"] = "ping_reply"
-				pingsignal.transmission_method = TRANSMISSION_RADIO
 
-				radio_connection.post_signal(src, pingsignal, radiorange)
+				SEND_SIGNAL(src, COMSIG_MOVABLE_POST_RADIO_PACKET, pingsignal, radiorange)
 				return
 
 			else if (!id_tag || id_tag != signal.data["tag"])
@@ -1517,7 +1561,6 @@ obj/machinery/door/airlock
 		if (signal.data["command"] && signal.data["command"] == "help")
 			var/datum/signal/reply = get_free_signal()
 			reply.source = src
-			reply.transmission_method = TRANSMISSION_RADIO
 			reply.data["sender"] = src.net_id
 			reply.data["address_1"] = signal.data["sender"]
 			if (!signal.data["topic"])
@@ -1546,7 +1589,7 @@ obj/machinery/door/airlock
 						reply.data["args"] = "access_code"
 					else
 						reply.data["description"] = "ERROR: UNKNOWN TOPIC"
-			radio_connection.post_signal(src, reply, radiorange)
+			SEND_SIGNAL(src, COMSIG_MOVABLE_POST_RADIO_PACKET, reply, radiorange)
 			return
 
 		var/sent_code = text2num(signal.data["access_code"])
@@ -1561,9 +1604,8 @@ obj/machinery/door/airlock
 			rejectsignal.data["command"] = "nack"
 			rejectsignal.data["data"] = "badpass"
 			rejectsignal.data["sender"] = src.net_id
-			rejectsignal.transmission_method = TRANSMISSION_RADIO
 
-			radio_connection.post_signal(src, rejectsignal, radiorange)
+			SEND_SIGNAL(src, COMSIG_MOVABLE_POST_RADIO_PACKET, rejectsignal, radiorange)
 			return
 
 		if (!signal.data["command"])
@@ -1616,28 +1658,26 @@ obj/machinery/door/airlock
 					send_status(,senderid)
 
 	proc/send_status(userid,target)
-		if(radio_connection)
-			var/datum/signal/signal = get_free_signal()
-			signal.transmission_method = 1 //radio signal
-			signal.source = src
-			if (id_tag)
-				signal.data["tag"] = id_tag
-			signal.data["sender"] = net_id
-			signal.data["timestamp"] = "[air_master.current_cycle]"
+		var/datum/signal/signal = get_free_signal()
+		signal.source = src
+		if (id_tag)
+			signal.data["tag"] = id_tag
+		signal.data["sender"] = net_id
+		signal.data["timestamp"] = "[air_master.current_cycle]"
+		signal.data["address_tag"] = "airlock_listener" // prevents other doors from receiving this packet unnecessarily
 
-			if (userid)
-				signal.data["user_id"] = "[userid]"
-			if (target)
-				signal.data["address_1"] = target
-			signal.data["door_status"] = density?("closed"):("open")
-			signal.data["lock_status"] = locked?("locked"):("unlocked")
+		if (userid)
+			signal.data["user_id"] = "[userid]"
+		if (target)
+			signal.data["address_1"] = target
+		signal.data["door_status"] = density?("closed"):("open")
+		signal.data["lock_status"] = locked?("locked"):("unlocked")
 
-			radio_connection.post_signal(src, signal, radiorange)
+		SEND_SIGNAL(src, COMSIG_MOVABLE_POST_RADIO_PACKET, signal, radiorange)
 
 	proc/send_packet(userid,target,message) //For unique conditions like a rejection message instead of overall status
-		if(radio_connection && message)
+		if(message)
 			var/datum/signal/signal = get_free_signal()
-			signal.transmission_method = 1 //radio signal
 			signal.source = src
 			if (id_tag)
 				signal.data["tag"] = id_tag
@@ -1648,10 +1688,11 @@ obj/machinery/door/airlock
 				signal.data["user_id"] = "[userid]"
 			if (target)
 				signal.data["address_1"] = target
+			signal.data["address_tag"] = "door" // prevents other doors from receiving this packet unnecessarily
 
 			signal.data["data"] = "[message]"
 
-			radio_connection.post_signal(src, signal, radiorange)
+			SEND_SIGNAL(src, COMSIG_MOVABLE_POST_RADIO_PACKET, signal, radiorange)
 
 	open(surpress_send)
 		. = ..()
@@ -1707,29 +1748,13 @@ obj/machinery/door/airlock
 				send_packet(user_name, ,"denied")
 			src.last_update_time = ticker.round_elapsed_ticks
 
-	proc/set_frequency(new_frequency)
-		radio_controller.remove_object(src, "[frequency]")
-		if(new_frequency)
-			frequency = new_frequency
-			radio_connection = radio_controller.add_object(src, "[frequency]")
-
 	initialize()
 		..()
-		if(frequency)
-			set_frequency(frequency)
-
 		update_icon()
 
 	New()
 		..()
-
-		if(radio_controller)
-			set_frequency(frequency)
-
-	disposing()
-		if (radio_controller)
-			set_frequency(null)
-		..()
+		MAKE_DEFAULT_RADIO_PACKET_COMPONENT(null, frequency)
 
 /obj/machinery/door/airlock/emp_act()
 	..()
@@ -1743,13 +1768,21 @@ obj/machinery/door/airlock
 				src.secondsElectrified = 0
 	return
 
+/obj/machinery/door/airlock/emag_act(mob/user, obj/item/card/emag/E)
+	. = ..()
+	if(src.welded && !src.locked)
+		audible_message("<span class='alert'>[src] lets out a loud whirring and grinding noise!</span>")
+		animate_shake(src, 5, 2, 2, src.pixel_x, src.pixel_y)
+		playsound(src, 'sound/items/mining_drill.ogg', 25, 1, 0, 0.8)
+		src.take_damage(src.health * 0.8)
+
 /obj/machinery/door/airlock/receive_silicon_hotkey(var/mob/user)
 	..()
 
 	if (!isAI(user) && !issilicon(user))
 		return
 
-	if (src.aiControlDisabled) return
+	if (src.aiControlDisabled == 1) return
 
 	if (user.client.check_key(KEY_OPEN) && user.client.check_key(KEY_BOLT))
 		. = 1

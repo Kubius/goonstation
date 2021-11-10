@@ -87,6 +87,7 @@ Run `.\bin\tgui.bat` with any of the options listed below.
 doing development on IE8).
 - `bin/tgui --lint` - Show problems with the code.
 - `bin/tgui --fix` - Auto-fix problems with the code.
+- `bin/tgui --test` - Run tests.
 - `bin/tgui --analyze` - Run a bundle analyzer.
 - `bin/tgui --clean` - Clean up project repo.
 - `bin/tgui [webpack options]` - Build the project with custom webpack
@@ -143,6 +144,12 @@ directory between development and production build, it will start
 hallucinating.
 
 To fix this kind of problem, run `bin/tgui --clean` and try again.
+
+**Error: Unable to locate pnpapi, the module '...\goonstation\tgui\packages\tgui-dev-server\index.js' is controlled by multiple pnpapi instances.**
+
+At present, due to an issue with yarn the dev server cannot be ran if the path to your repo contains spaces. This could be caused if you have the repo in your Documents folder and your Windows user is your first name and last name (e.g. `C:\Users\Firstname Lastname\Documents\goonstation`).
+
+For now, you'll have to move the whole repo to a different location without spaces (e.g. `C:\Dev\goonstation`). Moving the whole `goonstation` folder in this way shouldn't cause any issues, but make sure to close down VS Code and anything else you have that might be accessing the files within.
 
 ## Developer Tools
 
@@ -205,11 +212,12 @@ For a list of all the icons you can use, see the [FontAwesome website](https://f
 
 ## License
 
-Source code is covered by /tg/station's parent license - **AGPL-3.0**
-(see the main [README](https://github.com/tgstation/tgstation/blob/master/README.md)), unless otherwise indicated.
+All tgui code in the Goonstation repository is licensed under **MIT** unless otherwise indicated.
+The original source code on the tgstation repository is covered by /tg/station's parent license - **AGPL-3.0**
+(see their main [README](https://github.com/tgstation/tgstation/blob/master/README.md)).
 
-Some files are annotated with a copyright header, which explicitly states
-the copyright holder and license of the file. Most of the core tgui
-source code is available under the **MIT** license.
+However, tgui files from tgstation used by us are annotated with a copyright header,
+which explicitly states the copyright holder and license of the file. 
+Most of the tgui source code is available under the **MIT** or **ISC** license.
 
 The Authors retain all copyright to their respective work here submitted.

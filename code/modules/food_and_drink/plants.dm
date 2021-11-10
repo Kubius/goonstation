@@ -27,21 +27,8 @@
 		if (!made_reagents)
 			make_reagents()
 
-	unpooled()
-		..()
-		if(ispath(src.planttype))
-			var/datum/plant/species = HY_get_species_from_path(src.planttype, src)
-			if (species)
-				src.planttype = species
-
-		src.plantgenes = new /datum/plantgenes(src)
-
-		if (!made_reagents)
-			make_reagents()
-
-	pooled()
-		src.plantgenes = 0
-		src.made_reagents = 0
+	disposing()
+		src.plantgenes = null
 		..()
 
 	proc/make_reagents()
@@ -73,7 +60,7 @@
 			if (ispath(src.planttype))
 				src.planttype = new src.planttype(src)
 			else
-				pool(src)
+				qdel(src)
 				return
 
 
@@ -105,7 +92,7 @@
 		var/obj/decal/cleanable/tomatosplat/splat = new /obj/decal/cleanable/tomatosplat(T)
 		if(istype(splat) && src.reagents)
 			src.reagents.trans_to(splat,5) //could be deleted immediately
-		pool(src)
+		qdel(src)
 
 /obj/item/reagent_containers/food/snacks/plant/tomato/incendiary
 	name = "tomato"
@@ -117,7 +104,7 @@
 		var/mob/living/carbon/human/H = A
 		var/datum/plantgenes/DNA = src.plantgenes
 		if(!T) return
-		if(!T || src.pooled) return
+		if(!T || src.disposed) return
 		fireflash(T,1,1)
 		if(istype(H))
 			H.TakeDamage("chest",0,clamp(DNA.potency/2,10,50) + max(DNA.potency/5-20, 0)*(1-H.get_heat_protection()/100),0)//burn damage is half of the potency, soft capped at 50, with a minimum of 10, any extra potency is divided by 5 and added on. The resulting number is then reduced by heat resistance, and applied to the target.
@@ -128,21 +115,8 @@
 		var/obj/decal/cleanable/tomatosplat/splat = new /obj/decal/cleanable/tomatosplat(T)
 		if(istype(splat) && src.reagents)
 			src.reagents.trans_to(splat,5) //could be deleted immediately
-		pool(src)
+		qdel(src)
 		//..()
-
-/obj/item/reagent_containers/food/snacks/plant/tomato/tomacco
-	name = "tomacco"
-	crop_suffix = " tomacco"
-	desc = "Refreshingly addictive."
-	icon_state = "tomato"
-	amount = 1
-	heal_amt = 1
-	throwforce = 0
-	force = 0
-	make_reagents()
-		..()
-		reagents.add_reagent("nicotine",15)
 
 /obj/item/reagent_containers/food/snacks/plant/corn
 	name = "corn cob"
@@ -175,7 +149,7 @@
 		flick("cornsplode", src)
 		SPAWN_DBG(1 SECOND)
 			new /obj/item/reagent_containers/food/snacks/popcorn(get_turf(src))
-			pool(src)
+			qdel(src)
 
 /obj/item/reagent_containers/food/snacks/plant/corn/clear
 	name = "clear corn cob"
@@ -187,6 +161,17 @@
 	food_color = "#FFFFFF"
 	plant_reagent = "ethanol"
 	brew_result = "ethanol"
+
+/obj/item/reagent_containers/food/snacks/plant/corn/pepper
+	name = "Pepper corn cob"
+	desc = "Wha? Why's this called corn? It's pepper!"
+	icon_state = "peppercorn"
+	planttype = /datum/plant/crop/corn
+	amount = 3
+	heal_amt = 3
+	food_color = "#373232"
+	plant_reagent = "pepper"
+	brew_result = "pepper"
 
 /obj/item/reagent_containers/food/snacks/plant/soy
 	name = "soybean pod"
@@ -228,6 +213,15 @@
 	force = 0
 	food_color = "#77AA77"
 
+/obj/item/reagent_containers/food/snacks/plant/peas/ammonia
+	name = "golden pea pod"
+	desc = "Golden peas. Like green peas, but not."
+	crop_prefix = "golden "
+	icon_state = "goldenpeapod"
+	food_color = "#bdbd35"
+	plant_reagent = "ammonia"
+	brew_result = "ammonia"
+
 /obj/item/reagent_containers/food/snacks/plant/soylent
 	name = "soylent chartreuse"
 	crop_suffix = " chartreuse"
@@ -265,7 +259,7 @@
 			if(DNA)
 				HYPpassplantgenes(DNA,PDNA)
 			qdel(W)
-			pool(src)
+			qdel(src)
 		else if (istype(W, /obj/item/axe) || istype(W, /obj/item/circular_saw) || istype(W, /obj/item/kitchen/utensil/knife) || istype(W, /obj/item/scalpel) || istype(W, /obj/item/sword) || istype(W,/obj/item/saw) || istype(W,/obj/item/knife/butcher) && !istype (src, /obj/item/reagent_containers/food/snacks/plant/orange/wedge))
 			if (istype (src, /obj/item/reagent_containers/food/snacks/plant/orange/wedge))
 				boutput(user, "<span class='alert'>You can't cut wedges into wedges! What kind of insanity is that!?</span>")
@@ -282,15 +276,20 @@
 				if(DNA)
 					HYPpassplantgenes(DNA,PDNA)
 				makeslices -= 1
-			pool (src)
+			qdel(src)
 		..()
+
+/obj/item/reagent_containers/food/snacks/plant/orange/blood
+	name = "blood orange"
+	desc = "Juicy."
+	plant_reagent = "bloodc"
 
 /obj/item/reagent_containers/food/snacks/plant/orange/wedge
 	name = "orange wedge"
 	icon = 'icons/obj/foodNdrink/drinks.dmi'
 	initial_volume = 6
 	throwforce = 0
-	w_class = 1.0
+	w_class = W_CLASS_TINY
 	amount = 1
 	validforhat = 0
 
@@ -309,7 +308,7 @@
 	get_desc()
 		. += "[pick("The time is", "It's", "It's currently", "It reads", "It says")] [o_clock_time()]."
 
-	on_bite(obj/item/I, mob/M, mob/user)
+	heal(var/mob/living/M)
 		..()
 		boutput(M, "<span class='alert'>Eating that was a terrible idea!</span>")
 		random_brute_damage(M, rand(5, 15))
@@ -369,14 +368,14 @@
 				if(DNA)
 					HYPpassplantgenes(DNA,PDNA)
 				makeslices -= 1
-			pool (src)
+			qdel(src)
 		..()
 
 /obj/item/reagent_containers/food/snacks/plant/grapefruit/wedge
 	name = "grapefruit wedge"
 	icon = 'icons/obj/foodNdrink/drinks.dmi'
 	throwforce = 0
-	w_class = 1.0
+	w_class = W_CLASS_TINY
 	amount = 1
 	initial_volume = 6
 
@@ -403,7 +402,7 @@
 	icon_state = "melon"
 	planttype = /datum/plant/fruit/melon
 	throwforce = 8
-	w_class = 3.0
+	w_class = W_CLASS_NORMAL
 	edible = 0
 	food_color = "#7FFF00"
 	validforhat = 1
@@ -430,7 +429,7 @@
 					src.reagents.trans_to(P, amount_per_slice)
 					P.reagents.inert = 0
 				makeslices -= 1
-			pool (src)
+			qdel(src)
 		..()
 
 /obj/item/reagent_containers/food/snacks/plant/melonslice/
@@ -439,7 +438,7 @@
 	icon_state = "melon-slice"
 	planttype = /datum/plant/fruit/melon
 	throwforce = 0
-	w_class = 1.0
+	w_class = W_CLASS_TINY
 	amount = 1
 	heal_amt = 2
 	food_color = "#7FFF00"
@@ -451,7 +450,7 @@
 	desc = "Sometime in the year 2472 these melons were required to have their name legally changed to protect the not-so-innocent. Also for tax evasion reasons."
 	icon_state = "george-melon"
 	throwforce = 0
-	w_class = 3.0
+	w_class = W_CLASS_NORMAL
 	edible = 0
 	initial_volume = 60
 
@@ -481,7 +480,7 @@
 					src.reagents.trans_to(P, amount_per_slice)
 					P.reagents.inert = 0
 				makeslices -= 1
-			pool (src)
+			qdel(src)
 		..()
 
 	throw_impact(atom/hit_atom, datum/thrown_thing/thr)
@@ -492,17 +491,17 @@
 			playsound(src.loc, "sound/impact_sounds/Metal_Hit_Heavy_1.ogg", 100, 1)
 			random_brute_damage(M, 10)//armour won't save you from George Melons
 			if (iscarbon(M))
-				M.changeStatus("paralysis", 30)
+				M.changeStatus("paralysis", 3 SECONDS)
 				M.changeStatus("stunned", 6 SECONDS)
 				M.take_brain_damage(15)
-			pool (src)
+			qdel(src)
 
 /obj/item/reagent_containers/food/snacks/plant/melonslice/george
 	name = "rainbow melon slice"
 	desc = "A slice of a particularly special melon. Previously went by a different name but then it got married or something THIS IS HOW MELON NAMES WORK OKAY"
 	icon_state = "george-melon-slice"
 	throwforce = 5
-	w_class = 1.0
+	w_class = W_CLASS_TINY
 	amount = 1
 	heal_amt = 2
 	plant_reagent = "george_melonium"
@@ -519,7 +518,7 @@
 	icon_state = "bowling-melon"
 	var/base_icon_state = "bowling-melon"
 	var/already_burst = 0
-	w_class = 3.0
+	w_class = W_CLASS_NORMAL
 	force = 5
 	throw_speed = 1
 
@@ -615,7 +614,7 @@
 	desc = "Caution: May or may not be red hot."
 	icon_state = "chili"
 	planttype = /datum/plant/fruit/chili
-	w_class = 1.0
+	w_class = W_CLASS_TINY
 	amount = 1
 	heal_amt = 2
 	plant_reagent = "capsaicin"
@@ -633,7 +632,7 @@
 	desc = "It's cold to the touch."
 	icon_state = "chilly"
 	//planttype = /datum/plant/fruit/chili
-	w_class = 1.0
+	w_class = W_CLASS_TINY
 	amount = 1
 	heal_amt = 2
 	food_color = "#00CED1"
@@ -645,7 +644,7 @@
 		var/datum/plantgenes/DNA = src.plantgenes
 		reagents.add_reagent("cryostylane", DNA.potency)
 
-	on_bite(obj/item/I, mob/M, mob/user)
+	heal(var/mob/M)
 		M:emote("shiver")
 		var/datum/plantgenes/DNA = src.plantgenes
 		M.bodytemperature -= DNA.potency
@@ -657,7 +656,7 @@
 	desc = "Naga Jolokia, or Ghost Chili, is a chili pepper previously recognized by Guinness World Records as the hottest pepper in the world. This one, found in space, is even hotter."
 	icon_state = "ghost_chili"
 	//planttype = /datum/plant/fruit/chili
-	w_class = 1.0
+	w_class = W_CLASS_TINY
 	amount = 1
 	heal_amt = 1
 	food_color = "#FFFF00"
@@ -668,7 +667,7 @@
 		..()
 		reagents.add_reagent("ghostchilijuice",25)
 
-	on_bite(obj/item/I, mob/M, mob/user)
+	heal(var/mob/M)
 		M:emote("twitch")
 		var/datum/plantgenes/DNA = src.plantgenes
 		boutput(M, "<span class='alert'>Fuck! Your mouth feels like it's on fire!</span>")
@@ -681,7 +680,7 @@
 	desc = "The go-to staple green vegetable in every good space diet, unlike Spinach."
 	icon_state = "lettuce-leaf"
 	planttype = /datum/plant/veg/lettuce
-	w_class = 1.0
+	w_class = W_CLASS_TINY
 	amount = 1
 	heal_amt = 1
 	food_color = "#008000"
@@ -691,7 +690,7 @@
 	desc = "A widely-cultivated gourd, often served on sandwiches or pickled.  Not actually known for saving any kingdoms."
 	icon_state = "cucumber"
 	planttype = /datum/plant/veg/cucumber
-	w_class = 1
+	w_class = W_CLASS_TINY
 	amount = 2
 	heal_amt = 1
 	food_color = "#008000"
@@ -718,6 +717,39 @@
 	heal_amt = 1
 	food_color = "#0000FF"
 	plant_reagent = "juice_blueberry"
+	food_effects = list("food_cold", "food_refreshed")
+
+/obj/item/reagent_containers/food/snacks/plant/blackberry/
+	name = "blackberry"
+	desc = "A freshly picked blackberry."
+	icon_state = "blackberry"
+	planttype = /datum/plant/fruit/raspberry
+	amount = 1
+	heal_amt = 1
+	food_color = "#1d222f"
+	plant_reagent = "juice_blackberry"
+	food_effects = list("food_cold", "food_refreshed")
+
+/obj/item/reagent_containers/food/snacks/plant/raspberry/
+	name = "raspberry"
+	desc = "A freshly picked raspberry."
+	icon_state = "raspberry"
+	planttype = /datum/plant/fruit/raspberry
+	amount = 1
+	heal_amt = 1
+	food_color = "#a30325"
+	plant_reagent = "juice_raspberry"
+	food_effects = list("food_cold", "food_refreshed")
+
+/obj/item/reagent_containers/food/snacks/plant/blueraspberry
+	name = "blue raspberry"
+	desc = "A freshly picked blue raspberry."
+	icon_state = "blueraspberry"
+	planttype = /datum/plant/fruit/raspberry
+	amount = 1
+	heal_amt = 1
+	food_color = "#65d8e6"
+	plant_reagent = "juice_blueraspberry"
 	food_effects = list("food_cold", "food_refreshed")
 
 /obj/item/reagent_containers/food/snacks/plant/pear/
@@ -779,7 +811,7 @@
 	validforhat = 1
 	food_effects = list("food_cold", "food_refreshed")
 
-	on_bite(obj/item/I, mob/M, mob/user)
+	heal(var/mob/M)
 		M.HealDamage("All", src.heal_amt, src.heal_amt)
 		M.take_toxin_damage(0 - src.heal_amt)
 		M.take_oxygen_deprivation(0 - src.heal_amt)
@@ -816,7 +848,7 @@
 			if(!W.amount) qdel(W)
 
 			// Consume apple
-			pool(src)
+			qdel(src)
 		else ..()
 
 /obj/item/reagent_containers/food/snacks/plant/apple/poison
@@ -863,11 +895,11 @@
 	validforhat = 1
 	food_effects = list("food_cold", "food_refreshed")
 
-	on_bite(obj/item/I, mob/M, mob/user)
+	heal(var/mob/M)
 		if (src.icon_state == "banana")
 			M.visible_message("<span class='alert'>[M] eats [src] without peeling it. What a dumb beast!</span>")
 			M.take_toxin_damage(5)
-			pool (src)
+			qdel(src)
 		else
 			..()
 
@@ -881,8 +913,8 @@
 
 				return
 			boutput(user, "<span class='notice'>You peel [src].</span>")
-			src.name = copytext(src.name, 10)	// "unpeeled "
-			//src.name = "banana"
+			var/index = findtext(src.name, "unpeeled")
+			src.name = splicetext(src.name, index, index + 9)
 			src.icon_state = "banana-fruit"
 			new /obj/item/bananapeel(user.loc)
 		else
@@ -893,7 +925,7 @@
 	desc = "Think of how many snowmen were mutilated to power the carrot industry."
 	icon_state = "carrot"
 	planttype = /datum/plant/veg/carrot
-	w_class = 1.0
+	w_class = W_CLASS_TINY
 	amount = 3
 	heal_amt = 1
 	food_color = "#FF9900"
@@ -918,7 +950,7 @@
 			user.visible_message("[user] carefully and creatively carves [src].", "You carefully and creatively carve [src]. Spooky!")
 			var/obj/item/clothing/head/pumpkin/P = new /obj/item/clothing/head/pumpkin(user.loc)
 			P.name = "carved [src.name]"
-			pool (src)
+			qdel(src)
 
 /obj/item/reagent_containers/food/snacks/plant/pumpkin/summon
 	New()
@@ -941,7 +973,7 @@
 			W.icon = 'icons/misc/halloween.dmi'
 			W.icon_state = "flight[W:on]"
 			W.item_state = "pumpkin"
-			pool (src)
+			qdel(src)
 		else
 			..()
 
@@ -974,14 +1006,14 @@
 				if(DNA)
 					HYPpassplantgenes(DNA,PDNA)
 				makeslices -= 1
-			pool (src)
+			qdel(src)
 		..()
 
 /obj/item/reagent_containers/food/snacks/plant/lime/wedge
 	name = "lime wedge"
 	icon = 'icons/obj/foodNdrink/drinks.dmi'
 	throwforce = 0
-	w_class = 1.0
+	w_class = W_CLASS_TINY
 	amount = 1
 	initial_volume = 6
 	validforhat = 0
@@ -1018,14 +1050,14 @@
 				if(DNA)
 					HYPpassplantgenes(DNA,PDNA)
 				makeslices -= 1
-			pool (src)
+			qdel(src)
 		..()
 
 /obj/item/reagent_containers/food/snacks/plant/lemon/wedge
 	name = "lemon wedge"
 	icon = 'icons/obj/foodNdrink/drinks.dmi'
 	throwforce = 0
-	w_class = 1.0
+	w_class = W_CLASS_TINY
 	amount = 1
 	initial_volume = 6
 	validforhat = 0
@@ -1080,7 +1112,7 @@
 			else if (src.icon_state == "potato-peeled")
 				user.visible_message("[user] chops up [src].", "You chop up [src].")
 				new /obj/item/reagent_containers/food/snacks/ingredient/chips(get_turf(src))
-				pool (src)
+				qdel(src)
 		else ..()
 	*/
 
@@ -1104,7 +1136,7 @@
 			else if (src.icon_state == "potato-peeled")
 				user.visible_message("[user] chops up [src].", "You chop up [src].")
 				new /obj/item/reagent_containers/food/snacks/ingredient/chips(get_turf(src))
-				pool (src)
+				qdel(src)
 				qdel(src)
 		var/obj/item/cable_coil/C = W
 		if (istype(C)) //kubius potato battery: creation operation
@@ -1124,7 +1156,7 @@
 				qdel (src)
 		else ..()
 
-	on_bite(obj/item/I, mob/M, mob/user)
+	heal(var/mob/M)
 		boutput(M, "<span class='alert'>Raw potato tastes pretty nasty...</span>")
 
 /obj/item/reagent_containers/food/snacks/plant/onion
@@ -1149,7 +1181,7 @@
 				P.name = "[src.name] ring"
 				P.transform = src.transform
 
-			pool(src)
+			qdel(src)
 		else
 			..()
 
@@ -1202,11 +1234,11 @@
 	icon_state = "coconut"
 	planttype = /datum/plant/fruit/coconut
 	throwforce = 9
-	w_class = 3.0
+	w_class = W_CLASS_NORMAL
 	edible = 0
 	food_color = "#4D2600"
 	validforhat = 1
-	event_handler_flags = USE_FLUID_ENTER | USE_HASENTERED
+	event_handler_flags = USE_FLUID_ENTER
 
 	make_reagents()
 		..()
@@ -1231,7 +1263,7 @@
 				HYPpassplantgenes(DNA,PDNA)
 			makeslices -= 1
 		new /obj/item/reagent_containers/food/drinks/coconut(T)
-		pool(src)
+		qdel(src)
 
 	proc/someone_landed_on_us(mob/living/L, datum/thrown_thing/thr)
 		src.UnregisterSignal(L, COMSIG_MOVABLE_THROW_END)
@@ -1247,7 +1279,7 @@
 				L.TakeDamage("chest", brute=12)
 			src.split()
 
-	HasEntered(atom/movable/AM, atom/OldLoc)
+	Crossed(atom/movable/AM)
 		. = ..()
 		if(isliving(AM))
 			var/mob/living/L = AM
@@ -1274,7 +1306,7 @@
 	icon_state = "pineapple"
 	planttype = /datum/plant/fruit/pineapple
 	throwforce = 7
-	w_class = 3.0
+	w_class = W_CLASS_NORMAL
 	edible = 0
 	food_color = "#F8D016"
 	validforhat = 1
@@ -1295,7 +1327,7 @@
 				var/datum/plantgenes/PDNA = P.plantgenes
 				if(DNA)
 					HYPpassplantgenes(DNA,PDNA)
-			pool (src)
+			qdel(src)
 		..()
 
 /obj/item/reagent_containers/food/snacks/plant/pineappleslice
@@ -1342,6 +1374,17 @@
 		..()
 		reagents.add_reagent("coffee",20)
 
+/obj/item/reagent_containers/food/snacks/plant/turmeric
+	name = "turmeric root"
+	crop_suffix = " root"
+	desc = "An aromatic root from the turmeric plant, a relative of ginger."
+	icon_state = "turmericroot"
+	planttype = /datum/plant/veg/turmeric
+	plant_reagent = "currypowder"
+	edible = 0
+	validforhat = 1
+	food_color = "#e0a80c"
+
 /obj/item/reagent_containers/food/snacks/plant/lashberry/
 	name = "lashberry"
 	desc = "Not nearly as violent as the plant it came from."
@@ -1372,6 +1415,17 @@
 		..()
 		reagents.add_reagent("yuck", 20)
 
+/obj/item/reagent_containers/food/snacks/plant/purplegoop/orangegoop
+	name = "orange goop"
+	desc = "Some sort of pulsating orange goop...."
+	icon_state = "yuckorange"
+	food_color = "#ff9900"
+	initial_volume = 30
+
+	make_reagents()
+		..()
+		reagents.add_reagent("oil", 10)
+
 /obj/item/reagent_containers/food/snacks/plant/glowfruit
 	name = "glowing fruit"
 	desc = "This is not a handy light source."
@@ -1389,3 +1443,4 @@
 		make_reagents()
 			..()
 			reagents.add_reagent("omnizine", 10)
+

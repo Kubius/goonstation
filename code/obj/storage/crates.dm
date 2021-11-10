@@ -41,6 +41,7 @@
 	icon_state = "dd_freezer"
 	icon_opened = "dd_freezeropen"
 	icon_closed = "dd_freezer"
+	weld_image_offset_Y = -1
 
 	beverages
 		name = "Discount Dans beverages crate"
@@ -48,10 +49,10 @@
 		spawn_contents = list(/obj/item/reagent_containers/food/drinks/noodlecup = 2,
 		/obj/item/reagent_containers/food/drinks/peach = 2,
 		/obj/item/reagent_containers/food/drinks/covfefe = 2,
-		/obj/item/reagent_containers/food/drinks/bottle/spooky = 2,
-		/obj/item/reagent_containers/food/drinks/bottle/spooky2 = 2,
-		/obj/item/reagent_containers/food/drinks/bottle/gingerale = 2,
-		/obj/item/reagent_containers/food/drinks/bottle/drowsy = 2)
+		/obj/item/reagent_containers/food/drinks/bottle/soda/spooky = 2,
+		/obj/item/reagent_containers/food/drinks/bottle/soda/spooky2 = 2,
+		/obj/item/reagent_containers/food/drinks/bottle/soda/gingerale = 2,
+		/obj/item/reagent_containers/food/drinks/bottle/soda/drowsy = 2)
 
 	snacks
 		name = "Discount Dans 'edibles' crate"
@@ -75,6 +76,7 @@
 	icon_state = "medicalcrate"
 	icon_opened = "medicalcrateopen"
 	icon_closed = "medicalcrate"
+	weld_image_offset_Y = -2
 
 
 /obj/storage/crate/medical/morgue
@@ -98,6 +100,12 @@
 	spawn_contents = list(/obj/item/rcd_ammo = 5,
 	/obj/item/rcd)
 
+/obj/storage/crate/rcd/CE
+	name = "\improper RCD crate"
+	desc = "A crate for the Chief Engineer's personal RCD."
+	spawn_contents = list(/obj/item/rcd_ammo = 5,
+	/obj/item/rcd/construction/chiefEngineer)
+
 /obj/storage/crate/abcumarker
 	name = "\improper ABCU-Marker crate"
 	desc = "A crate for ABCU marker devices."
@@ -109,10 +117,11 @@
 	icon_state = "freezer"
 	icon_opened = "freezeropen"
 	icon_closed = "freezer"
+	weld_image_offset_Y = -1
 
 /obj/storage/crate/bartending
 	name = "bartending crate"
-	spawn_contents = list(/obj/item/reagent_containers/food/drinks/bottle = 5,
+	spawn_contents = list(/obj/item/reagent_containers/food/drinks/bottle/soda/ = 5,
 	/obj/item/reagent_containers/glass/beaker/large = 2,
 	/obj/item/device/reagentscanner,
 	/obj/item/clothing/glasses/spectro,
@@ -128,6 +137,7 @@
 	icon_state = "biohazardcrate"
 	icon_opened = "biohazardcrateopen"
 	icon_closed = "biohazardcrate"
+	weld_image_offset_Y = -2
 
 	cdc
 		name = "CDC pathogen sample crate"
@@ -158,9 +168,10 @@
 	spawn_contents = list(/obj/item/device/radio/headset/multifreq = 4,
 	/obj/item/device/audio_log = 2,
 	/obj/item/audio_tape = 4,
-	/obj/item/camera_test = 2,
+	/obj/item/camera = 2,
 	/obj/item/device/light/flashlight = 2,
-	/obj/item/paper/book/critter_compendium,
+	/obj/item/paper/book/from_file/critter_compendium,
+	/obj/item/pinpointer/category/artifacts/safe,
 	/obj/item/reagent_containers/food/drinks/milk,
 	/obj/item/reagent_containers/food/snacks/sandwich/pb,
 	/obj/item/paper/note_from_mom)
@@ -190,12 +201,12 @@
 	/obj/item/sheet/glass/fullstack,
 	/obj/item/ai_interface,
 	/obj/item/parts/robot_parts/robot_frame,
-	/obj/item/parts/robot_parts/leg/left,
-	/obj/item/parts/robot_parts/leg/right,
-	/obj/item/parts/robot_parts/arm/left,
-	/obj/item/parts/robot_parts/arm/right,
-	/obj/item/parts/robot_parts/chest,
-	/obj/item/parts/robot_parts/head,
+	/obj/item/parts/robot_parts/leg/left/standard,
+	/obj/item/parts/robot_parts/leg/right/standard,
+	/obj/item/parts/robot_parts/arm/left/standard,
+	/obj/item/parts/robot_parts/arm/right/standard,
+	/obj/item/parts/robot_parts/chest/standard,
+	/obj/item/parts/robot_parts/head/standard,
 	/obj/item/cell/supercell = 4,
 	/obj/item/cable_coil = 2)
 
@@ -260,7 +271,7 @@
 		if (islist(syndi_buylist_cache))
 			for (var/datum/syndicate_buylist/S in syndi_buylist_cache)
 				var/blocked = 0
-				if (ticker?.mode && S.blockedmode && islist(S.blockedmode) && S.blockedmode.len)
+				if (ticker?.mode && S.blockedmode && islist(S.blockedmode) && length(S.blockedmode))
 					for (var/V in S.blockedmode)
 						if (ispath(V) && istype(ticker.mode, V))
 							blocked = 1
@@ -269,7 +280,7 @@
 				if (blocked == 0 && !S.not_in_crates)
 					possible_items += S
 
-		if (islist(possible_items) && possible_items.len)
+		if (islist(possible_items) && length(possible_items))
 			while(telecrystals < 18)
 				var/datum/syndicate_buylist/item_datum = pick(possible_items)
 				if(telecrystals + item_datum.cost > 24) continue
@@ -286,6 +297,8 @@
 	icon_state = "pizzabox"
 	icon_opened = "pizzabox_open"
 	icon_closed = "pizzabox"
+	icon_welded = "welded-short-horizontal"
+	weld_image_offset_Y = -10
 
 	New()
 		..()
@@ -311,6 +324,40 @@
 					carton.ourEgg.blog += blog
 				return 1
 
+//There is also /obj/storage/crate/robotics_supplies_borg that's on destiny & clarion, they only have the one crate
+//This one has just the bring-your-own-brain-and-cell borg parts (but does lovely pixel offsets I stole from cog1, thanks f1!)
+/obj/storage/crate/robotparts
+	make_my_stuff() //since we want offsets we're gonna have to do this manually (mimicking office closets)
+		if(..()) //obj/storage/proc/make_my_stuff returns 1 only the first time it's run, so this is how we only spawn stuff once. It's a bit of a weird system
+			new /obj/item/cable_coil/cut(src)
+
+			var/obj/item/parts/robot_parts/robot_frame/B1 = new /obj/item/parts/robot_parts/robot_frame(src)
+			B1.pixel_y = 3
+
+			new /obj/item/parts/robot_parts/head/standard(src) //Was B2 but no offsets needed
+
+			var/obj/item/parts/robot_parts/chest/standard/B3 = new /obj/item/parts/robot_parts/chest/standard/(src)
+			B3.pixel_y = -5
+
+
+			var/obj/item/parts/robot_parts/arm/left/standard/B4 = new /obj/item/parts/robot_parts/arm/left/standard(src)
+			B4.pixel_y = 0
+			B4.pixel_x = 11
+
+			var/obj/item/parts/robot_parts/arm/right/standard/B5 = new /obj/item/parts/robot_parts/arm/right/standard(src)
+
+			B5.pixel_y = 0
+			B5.pixel_x = -12
+
+			var/obj/item/parts/robot_parts/leg/left/standard/B6 = new /obj/item/parts/robot_parts/leg/left/standard(src)
+			B6.pixel_y = -6
+			B6.pixel_x = 7
+
+			var/obj/item/parts/robot_parts/leg/right/standard/B7 = new /obj/item/parts/robot_parts/leg/right/standard(src)
+			B7.pixel_y = -6
+			B7.pixel_x = -8
+			return TRUE
+
 // New crates woo. (Gannets)
 
 /obj/storage/crate/packing
@@ -319,12 +366,21 @@
 	icon_state = "packingcrate1"
 
 	New()
-		..()
 		var/n = rand(1,12)
+		switch(n)
+			if(1 to 3)
+				weld_image_offset_Y = 7
+			if(4 to 6)
+				icon_welded = "welded-short-horizontal"
+			if(7 to 9)
+				weld_image_offset_Y = 4
+			if(10 to 12)
+				icon_welded = "welded-short-vertical"
 		icon_state = "packingcrate[n]"
 		icon_opened = "packingcrate[n]_open"
 		icon_closed = "packingcrate[n]"
 		src.setMaterial(getMaterial("cardboard"), appearance = 0, setname = 0)
+		..()
 
 /obj/storage/crate/wooden
 	name = "wooden crate"
@@ -332,9 +388,18 @@
 	icon_state = "woodencrate1"
 	New()
 		var/n = rand(1,9)
+		switch(n)
+			if(1 to 3)
+				icon_welded = "welded-short-horizontal"
+			if(4 to 6)
+				weld_image_offset_Y = 5
+			if(7 to 9)
+				weld_image_offset_Y = 3
+
 		icon_state = "woodencrate[n]"
 		icon_opened = "woodencrate[n]_open"
 		icon_closed = "woodencrate[n]"
+		src.setMaterial(getMaterial("wood"), appearance = 0, setname = 0)
 		..()
 
 
@@ -346,7 +411,7 @@
 /obj/storage/crate/chest
 	name = "treasure chest"
 	desc = "Glittering gold, trinkets and baubles, paid for in blood."
-	icon = 'icons/obj/32x48.dmi'
+	icon = 'icons/obj/large/32x48.dmi'
 	icon_state = "chest"
 	icon_opened = "chest-open"
 	icon_closed = "chest"
@@ -384,6 +449,7 @@
 	icon_state = "attachecase"
 	icon_opened = "attachecase_open"
 	icon_closed = "attachecase"
+	weld_image_offset_Y = -5
 
 	demo
 		name = "Class Crate - Grenadier"
@@ -398,8 +464,9 @@
 		name = "Class Crate - Heavy Weapons Specialist"
 		desc = "A crate containing a Specialist Operative loadout. This one features a light machine gun, several belts of ammunition and a pouch of grenades."
 		spawn_contents = list(/obj/item/gun/kinetic/light_machine_gun,
-		/obj/item/ammo/bullets/lmg = 3,
+		/obj/item/storage/pouch/lmg,
 		/obj/item/storage/grenade_pouch/high_explosive,
+		/obj/item/storage/fanny/syndie,
 		/obj/item/clothing/suit/space/industrial/syndicate/specialist,
 		/obj/item/clothing/head/helmet/space/syndicate/specialist)
 
@@ -426,14 +493,30 @@
 		/obj/item/clothing/suit/space/syndicate/specialist/infiltrator,
 		/obj/item/clothing/head/helmet/space/syndicate/specialist/infiltrator)
 
-	agent_rework
-		name = "Class Crate - Infiltrator"
-		desc = "A crate containing a Specialist Operative loadout. Includes a tranquilizer pistol with a fast acting payload, a cloaking device with 5 uses, a combat knife and an electromagnetic card (EMAG)."
+	infiltrator
+		name = "Class Crate - Infiltrator" // for actually fitting in among the crew.
+		desc = "A crate containing a Specialist Operative loadout."
 		spawn_contents = list(/obj/item/gun/kinetic/tranq_pistol,
 		/obj/item/storage/pouch/tranq_pistol_dart,
-		/obj/item/clothing/glasses/nightvision,
-		/obj/item/cloaking_device/limited,
+		/obj/item/pinpointer/disk,
+		/obj/item/genetics_injector/dna_scrambler,
+		/obj/item/voice_changer,
 		/obj/item/card/emag,
+		/obj/item/clothing/under/chameleon,
+		/obj/item/device/chameleon,
+		/obj/item/clothing/suit/space/syndicate/specialist,
+		/obj/item/clothing/head/helmet/space/syndicate/specialist/infiltrator)
+
+	scout
+		name = "Class Crate - Scout" // sneaky invisible flanker
+		desc = "A crate containing a Specialist Operative loadout. Includes a submachine gun, a cloaking device and an electromagnetic card (EMAG)."
+		spawn_contents = list(/obj/item/gun/kinetic/smg,
+		/obj/item/storage/pouch/bullet_9mm/smg,
+		/obj/item/clothing/glasses/nightvision,
+		/obj/item/pinpointer/disk,
+		/obj/item/cloaking_device,
+		/obj/item/card/emag,
+		/obj/item/lightbreaker,
 		/obj/item/clothing/suit/space/syndicate/specialist/infiltrator,
 		/obj/item/clothing/head/helmet/space/syndicate/specialist/infiltrator)
 
@@ -482,7 +565,9 @@
 		desc = "A crate containing a Specialist Operative loadout."
 		spawn_contents = list(/obj/item/gun/flamethrower/backtank/napalm,
 		/obj/item/fireaxe,
+		/obj/item/storage/grenade_pouch/napalm,
 		/obj/item/storage/grenade_pouch/incendiary,
+		/obj/item/storage/fanny/syndie,
 		/obj/item/clothing/suit/space/syndicate/specialist/firebrand,
 		/obj/item/clothing/head/helmet/space/syndicate/specialist/firebrand)
 
@@ -492,18 +577,28 @@
 		spawn_contents = list(/obj/item/gun/kinetic/sniper,
 		/obj/item/storage/pouch/sniper,
 		/obj/item/storage/grenade_pouch/smoke,
+		/obj/item/storage/fanny/syndie,
 		/obj/item/clothing/glasses/thermal/traitor,
 		/obj/item/clothing/suit/space/syndicate/specialist/sniper,
 		/obj/item/clothing/head/helmet/space/syndicate/specialist/sniper)
 
 	melee //wip, not ready for use
-		name = "Class Crate - Templar"
+		name = "Class Crate - Knight"
 		desc = "A crate containing a Specialist Operative loadout."
 		spawn_contents = list(/obj/item/heavy_power_sword,
-		/obj/item/syndicate_barrier,
-		/obj/item/clothing/shoes/magnetic,
-		/obj/item/clothing/suit/space/syndicate/heavy,
-		/obj/item/clothing/head/helmet/space/syndicate/specialist)
+		/obj/item/clothing/shoes/swat/knight,
+		/obj/item/clothing/gloves/swat/knight,
+		/obj/item/clothing/suit/space/syndicate/knight,
+		/obj/item/clothing/head/helmet/space/syndicate/specialist/knight)
+
+	bard
+		name = "Class Crate - Rocker"
+		desc = "A crate containing a Specialist Operative loadout."
+		spawn_contents = list(/obj/item/breaching_hammer/rock_sledge,
+		/obj/item/device/radio/headset/syndicate/bard,
+		/obj/item/storage/fanny/syndie,
+		/obj/item/clothing/suit/space/syndicate/specialist/firebrand, // Gannets should make a cool suit
+		/obj/item/clothing/head/helmet/space/syndicate/specialist/infiltrator) // Gannet should make cool helm
 
 	qm //Hi Gannets, I like your crate and wanted to use it for some QM stuff. Come yell at Azungar if this is not ok.
 		name = "Weapons crate"
@@ -660,3 +755,6 @@
 		spawn_contents = list(/obj/item/radio_tape/advertisement/cargonia,
 		/obj/item/clothing/under/rank/cargo,/obj/decal/skeleton)
 
+	escape
+		spawn_contents = list(/obj/item/sea_ladder,
+		/obj/item/pipebomb/bomb/engineering = 2)

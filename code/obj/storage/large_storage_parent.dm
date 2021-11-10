@@ -31,6 +31,10 @@
 	var/max_capacity = 100 //Won't close past this many items.
 	var/open = 0
 	var/welded = 0
+	var/image/weld_image
+	//Offsets for the weld icon, rather than make icons for every slightly off crate or closet
+	var/weld_image_offset_X = 0 //Positive is right, negative is left
+	var/weld_image_offset_Y = 0 //Positive is up, negative is down
 	var/locked = 0
 	var/emagged = 0
 	var/jiggled = 0
@@ -38,7 +42,7 @@
 	var/health = 3
 	var/can_flip_bust = 0 // Can the trapped mob damage this container by flipping?
 	var/obj/item/card/id/scan = null
-	var/datum/data/record/account = null
+	var/datum/db_record/account = null
 	var/last_relaymove_time
 	var/is_short = 0 // can you not stand in it?  ie, crates?
 	var/open_fail_prob = 50
@@ -57,6 +61,9 @@
 	New()
 		..()
 		START_TRACKING
+		weld_image = image(src.icon, src.icon_welded)
+		weld_image.pixel_x = weld_image_offset_X
+		weld_image.pixel_y = weld_image_offset_Y
 		SPAWN_DBG(1 DECI SECOND)
 			src.update_icon()
 
@@ -92,12 +99,12 @@
 			src.icon_state = src.icon_closed
 
 		if (src.welded)
-			src.UpdateOverlays(image(src.icon, src.icon_welded), "welded")
+			src.UpdateOverlays(weld_image, "welded")
 		else
 			src.UpdateOverlays(null, "welded")
 
 	emp_act()
-		if (!src.open && src.contents.len)
+		if (!src.open && length(src.contents))
 			for (var/atom/A in src.contents)
 				if (ismob(A))
 					var/mob/M = A
@@ -125,7 +132,7 @@
 				user.unlock_medal("IT'S A TRAP", 1)
 				for (var/mob/M in hearers(src, null))
 					M.show_text("<font size=[max(0, 5 - get_dist(src, M))]>THUD, thud!</font>")
-				playsound(get_turf(src), "sound/impact_sounds/Wood_Hit_1.ogg", 15, 1, -3)
+				playsound(src, "sound/impact_sounds/Wood_Hit_1.ogg", 15, 1, -3)
 				var/shakes = 5
 				while (shakes > 0)
 					shakes--
@@ -163,7 +170,7 @@
 			user.show_text("It won't open!", "red")
 			return
 		else if (!src.toggle(user))
-			return src.attackby(null, user)
+			return src.Attackby(null, user)
 
 	attackby(obj/item/W as obj, mob/user as mob)
 		if (istype(W, /obj/item/cargotele))
@@ -172,7 +179,7 @@
 			return
 
 		else if (istype(W, /obj/item/satchel/))
-			var/amt = W.contents.len
+			var/amt = length(W.contents)
 			if (amt)
 				user.visible_message("<span class='notice'>[user] dumps out [W]'s contents into [src]!</span>")
 				var/amtload = 0
@@ -281,7 +288,7 @@
 					break
 
 		if (no_go) // no more scooting around walls and doors okay
-			if(!skip_penalty & istype(L))
+			if(!skip_penalty && istype(L))
 				L.visible_message("<span class='alert'><b>[L]</b> scoots around [src], right into [no_go]!</span>",\
 				"<span class='alert'>You scoot around [src], right into [no_go]!</span>")
 				if (!L.hasStatus("weakened"))
@@ -348,8 +355,18 @@
 			return
 
 		if (O.loc == user)
+			var/obj/item/I = O
+			if(istype(I) && I.cant_drop)
+				return
+			if(istype(I) && I.equipped_in_slot && I.cant_self_remove)
+				return
 			user.u_equip(O)
 			O.set_loc(get_turf(user))
+
+		else if(istype(O.loc, /obj/item/storage))
+			var/obj/item/storage/storage = O.loc
+			O.set_loc(get_turf(O))
+			storage.hud.remove_item(O)
 
 		SPAWN_DBG(0.5 SECONDS)
 			var/stuffed = FALSE
@@ -373,7 +390,7 @@
 					if(!istype(thing, drag_type))
 						continue
 					if (thing.material && thing.material.getProperty("radioactive") > 0)
-						user.changeStatus("radiation", (round(min(thing.material.getProperty("radioactive") / 2, 20)))*10, 2)
+						user.changeStatus("radiation", (round(min(thing.material.getProperty("radioactive") / 2, 20))) SECONDS, 2)
 					if (thing in user)
 						continue
 					if (thing.loc == src || thing.loc == src.loc) // we're already there!
@@ -403,15 +420,13 @@
 
 	attack_ai(mob/user)
 		if (can_reach(user, src) <= 1 && (isrobot(user) || isshell(user)))
-			. = src.attack_hand(user)
+			. = src.Attackhand(user)
 
 	alter_health()
 		. = get_turf(src)
 
-	CanPass(atom/movable/mover, turf/target, height=0, air_group=0)
+	CanPass(atom/movable/mover, turf/target)
 		. = open
-		if (air_group || (height==0))
-			return 1
 		if (src.is_short)
 			return 0
 
@@ -513,7 +528,7 @@
 			if (halloween_mode && prob(5)) //remove the prob() if you want, it's just a little broken if dudes are constantly teleporting
 				var/list/obj/storage/myPals = list()
 				for_by_tcl(O, /obj/storage)
-					if (O.z != src.z || O.open || !O.can_open())
+					if (O.z != src.z || O.open || !O.can_open() || isrestrictedz(O.z))
 						continue
 					myPals.Add(O)
 
@@ -703,6 +718,12 @@
 				src.close()
 		return
 
+	mob_flip_inside(var/mob/user)
+		..(user)
+		if (prob(33) && src.can_flip_bust)
+			user.show_text("<span class='alert'>[src] [pick("cracks","bends","shakes","groans")].</span>")
+			src.bust_out()
+
 /datum/action/bar/icon/storage_disassemble
 	id = "storage_disassemble"
 	interrupt_flags = INTERRUPT_MOVE | INTERRUPT_ACT | INTERRUPT_STUNNED | INTERRUPT_ACTION
@@ -739,12 +760,12 @@
 
 	onStart()
 		..()
-		playsound(get_turf(the_storage), "sound/items/Ratchet.ogg", 50, 1)
+		playsound(the_storage, "sound/items/Ratchet.ogg", 50, 1)
 		owner.visible_message("<span class='notice'>[owner] begins taking apart [the_storage].</span>")
 
 	onEnd()
 		..()
-		playsound(get_turf(the_storage), "sound/items/Deconstruct.ogg", 50, 1)
+		playsound(the_storage, "sound/items/Deconstruct.ogg", 50, 1)
 		owner.visible_message("<span class='notice'>[owner] takes apart [the_storage].</span>")
 		var/obj/item/I = new /obj/item/sheet(get_turf(the_storage))
 		if (the_storage.material)
@@ -767,17 +788,15 @@
 	var/icon_redlight = "redlight"
 	var/icon_sparks = "sparks"
 	var/always_display_locks = 0
-	var/datum/radio_frequency/radio_control = 1431
+	var/radio_control = FREQ_SECURE_STORAGE
 	var/net_id
 
 	New()
 		..()
-		SPAWN_DBG(1 SECOND)
-			if (isnum(src.radio_control) && radio_controller)
-				radio_control = max(1000, min(round(radio_control), 1500))
-				src.net_id = generate_net_id(src)
-				radio_controller.add_object(src, "[src.radio_control]")
-				src.radio_control = radio_controller.return_frequency("[src.radio_control]")
+		if (isnum(src.radio_control))
+			radio_control = max(1000, min(round(radio_control), 1500))
+			src.net_id = generate_net_id(src)
+			MAKE_DEFAULT_RADIO_PACKET_COMPONENT(null, radio_control)
 
 	update_icon()
 		..()
@@ -806,7 +825,6 @@
 		if (signal.data["address_1"] == src.net_id)
 			var/datum/signal/reply = get_free_signal()
 			reply.source = src
-			reply.transmission_method = TRANSMISSION_RADIO
 			reply.data["sender"] = src.net_id
 			reply.data["address_1"] = sender
 			switch (lowertext(signal.data["command"]))
@@ -856,18 +874,17 @@
 				else
 					return //COMMAND NOT RECOGNIZED
 			SPAWN_DBG(0.5 SECONDS)
-				src.radio_control.post_signal(src, reply, 2)
+				SEND_SIGNAL(src, COMSIG_MOVABLE_POST_RADIO_PACKET, reply, 2)
 
 		else if (signal.data["address_1"] == "ping")
 			var/datum/signal/reply = get_free_signal()
 			reply.source = src
-			reply.transmission_method = TRANSMISSION_RADIO
 			reply.data["address_1"] = sender
 			reply.data["command"] = "ping_reply"
 			reply.data["device"] = "WNET_SECLOCKER"
 			reply.data["netid"] = src.net_id
 			SPAWN_DBG(0.5 SECONDS)
-				src.radio_control.post_signal(src, reply, 2)
+				SEND_SIGNAL(src, COMSIG_MOVABLE_POST_RADIO_PACKET, reply, 2)
 
 	emag_act(var/mob/user, var/obj/item/card/emag/E)
 		if (!src.emagged) // secure crates checked for being locked/welded but so long as you aren't telling the thing to open I don't see why that was needed
@@ -889,12 +906,6 @@
 			if (user)
 				user.show_text("You repair the lock on [src].", "blue")
 			return 1
-
-	mob_flip_inside(var/mob/user)
-		..(user)
-		if (prob(33) && src.can_flip_bust)
-			user.show_text("<span class='alert'>[src] [pick("cracks","bends","shakes","groans")].</span>")
-			src.bust_out()
 
 #undef RELAYMOVE_DELAY
 

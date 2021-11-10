@@ -1,15 +1,19 @@
 var/RL_Generation = 0
 
 //#define DEBUG_LIGHT_STRIP_APPLY
-// #define DEBUG_MOVING_LIGHTS_STATS
+//#define DEBUG_MOVING_LIGHTS_STATS
 
 #ifdef DEBUG_MOVING_LIGHTS_STATS
 var/global/list/moving_lights_stats = list()
 var/global/list/moving_lights_stats_by_first_attached = list()
+var/global/list/color_changing_lights_stats = list()
+var/global/list/color_changing_lights_stats_by_first_attached = list()
 
 proc/get_moving_lights_stats()
 	boutput(usr, json_encode(moving_lights_stats))
 	boutput(usr, json_encode(moving_lights_stats_by_first_attached))
+	boutput(usr, json_encode(color_changing_lights_stats))
+	boutput(usr, json_encode(color_changing_lights_stats_by_first_attached))
 #endif
 
 // TODO readd counters for debugging
@@ -28,7 +32,7 @@ proc/get_moving_lights_stats()
 		) ; \
 	if (src.RL_NeedsAdditive || _E.RL_NeedsAdditive || _N.RL_NeedsAdditive || _NE.RL_NeedsAdditive) { \
 		if(!src.RL_AddOverlay) { \
-			src.RL_AddOverlay = unpool(/obj/overlay/tile_effect/lighting/add) ; \
+			src.RL_AddOverlay = new /obj/overlay/tile_effect/lighting/add ; \
 			src.RL_AddOverlay.set_loc(src) ; \
 			src.RL_AddOverlay.icon_state = src.RL_OverlayState ; \
 		} \
@@ -38,7 +42,7 @@ proc/get_moving_lights_stats()
 			_N.RL_AddLumR, _N.RL_AddLumG, _N.RL_AddLumB, 0, \
 			_NE.RL_AddLumR, _NE.RL_AddLumG, _NE.RL_AddLumB, 0, \
 			0, 0, 0, 1) ; \
-	} else { if(src.RL_AddOverlay) { pool(src.RL_AddOverlay); src.RL_AddOverlay = null; } } \
+	} else { if(src.RL_AddOverlay) { qdel(src.RL_AddOverlay); src.RL_AddOverlay = null; } } \
 	} while(false)
 
 
@@ -109,8 +113,8 @@ proc/get_moving_lights_stats()
 #define D_ENABLE 8
 #define D_MOVE 16
 						//only if lag				OR we already have stuff queued  OR lighting is suspeded 	also game needs to be started lol		and not doing a queue process currently
-//#define SHOULD_QUEUE ((world.tick_usage > LIGHTING_MAX_TICKUSAGE || light_update_queue.cur_size) && current_state > GAME_STATE_SETTING_UP && !queued_run)
-#define SHOULD_QUEUE (( light_update_queue.cur_size || world.tick_usage > LIGHTING_MAX_TICKUSAGE || RL_Suspended) && !queued_run && current_state > GAME_STATE_SETTING_UP)
+//#define SHOULD_QUEUE ((APPROX_TICK_USE > LIGHTING_MAX_TICKUSAGE || light_update_queue.cur_size) && current_state > GAME_STATE_SETTING_UP && !queued_run)
+#define SHOULD_QUEUE (( light_update_queue.cur_size || APPROX_TICK_USE > LIGHTING_MAX_TICKUSAGE || RL_Suspended) && !queued_run && current_state > GAME_STATE_SETTING_UP)
 datum/light
 	var/x
 	var/y
@@ -198,7 +202,7 @@ datum/light
 
 				APPLY_AND_UPDATE
 				if (RL_Started)
-					for (var/turf/T as() in affected)
+					for (var/turf/T as anything in affected)
 						if (T.RL_UpdateGeneration <= strip_gen)
 							RL_UPDATE_LIGHT(T)
 			else
@@ -209,6 +213,11 @@ datum/light
 
 			if (src.r == red && src.g == green && src.b == blue && !queued_run)
 				return
+#ifdef DEBUG_MOVING_LIGHTS_STATS
+			if(src.enabled)
+				color_changing_lights_stats["[src.attached_to?.type]"]++
+				color_changing_lights_stats_by_first_attached["[src.first_attached_to?.type]"]++
+#endif
 
 			if (src.enabled)
 				if (SHOULD_QUEUE)
@@ -229,7 +238,7 @@ datum/light
 
 				APPLY_AND_UPDATE
 				if (RL_Started)
-					for (var/turf/T as() in affected)
+					for (var/turf/T as anything in affected)
 						if (T.RL_UpdateGeneration <= strip_gen)
 							RL_UPDATE_LIGHT(T)
 			else
@@ -257,7 +266,7 @@ datum/light
 
 				APPLY_AND_UPDATE
 				if (RL_Started)
-					for (var/turf/T as() in affected)
+					for (var/turf/T as anything in affected)
 						if (T.RL_UpdateGeneration <= strip_gen)
 							RL_UPDATE_LIGHT(T)
 			else
@@ -291,7 +300,7 @@ datum/light
 			enabled = 0
 
 			if (RL_Started)
-				for (var/turf/T as() in src.strip(++RL_Generation))
+				for (var/turf/T as anything in src.strip(++RL_Generation))
 					RL_UPDATE_LIGHT(T)
 
 		detach()
@@ -351,7 +360,7 @@ datum/light
 		remove_from_turf()
 			var/turf/T = locate(src.x, src.y, src.z)
 			if (T)
-				if (T.RL_Lights && T.RL_Lights.len) //ZeWaka: Fix for null.len
+				if (T.RL_Lights && length(T.RL_Lights)) //ZeWaka: Fix for length(null)
 					T.RL_Lights -= src
 					if (!T.RL_Lights.len)
 						T.RL_Lights = null
@@ -397,7 +406,7 @@ datum/light
 
 			if (src.enabled && RL_Started)
 				APPLY_AND_UPDATE
-				for (var/turf/T as() in affected)
+				for (var/turf/T as anything in affected)
 					if (T.RL_UpdateGeneration <= strip_gen)
 						RL_UPDATE_LIGHT(T)
 
@@ -438,7 +447,7 @@ datum/light
 				T.RL_UpdateGeneration = generation
 				. += T
 
-			for (var/turf/T as() in .)
+			for (var/turf/T as anything in .)
 				var/E_new = 0
 				var/turf/E = get_step(T, EAST)
 				if (E && E.RL_ApplyGeneration < generation)
@@ -518,7 +527,7 @@ datum/light
 				T.RL_UpdateGeneration = generation
 				. += T
 
-			for (var/turf/T as() in .)
+			for (var/turf/T as anything in .)
 
 				var/turf/E = get_step(T, EAST)
 				if (E && E.RL_ApplyGeneration < generation)
@@ -551,7 +560,7 @@ datum/light
 
 			//account for blocked visibility (try to worm me way around somethin) also lol this is shit and doesnt work. maybe fix later :)
 			/*
-			if (dist_cast < radius && turfline.len)
+			if (dist_cast < radius && length(turfline))
 				var/turf/blockedturf = turfline[turfline.len]
 				if (vx)
 					if (vx > 0) vx -= dist_cast
@@ -623,9 +632,19 @@ proc
 	plane = PLANE_LIGHTING
 	blend_mode = BLEND_DEFAULT // this maybe (???) fixes a bug where lighting doesn't render on clients when teleporting
 	layer = LIGHTING_LAYER_ROBUST
+	disposing()
+		var/turf/T = src.loc
+		if(T?.RL_MulOverlay == src)
+			T.RL_MulOverlay = null
+		..()
 
 /obj/overlay/tile_effect/lighting/add
 	plane = PLANE_SELFILLUM
+	disposing()
+		var/turf/T = src.loc
+		if(T?.RL_AddOverlay == src)
+			T.RL_AddOverlay = null
+		..()
 
 
 turf
@@ -734,16 +753,16 @@ turf
 			/*
 			if (src.RL_MulOverlay)
 				src.RL_MulOverlay.set_loc(null)
-				pool(src.RL_MulOverlay)
+				qdel(src.RL_MulOverlay)
 				src.RL_MulOverlay = null
 			if (src.RL_AddOverlay)
 				src.RL_AddOverlay.set_loc(null)
-				pool(src.RL_AddOverlay)
+				qdel(src.RL_AddOverlay)
 				src.RL_AddOverlay = null
 			// cirr effort to remove redundant overlays that still persist EVEN THOUGH they shouldn't
 			for(var/obj/overlay/tile_effect/lighting/L in src.contents)
 				L.set_loc(null)
-				pool(L)
+				qdel(L)
 			*/
 
 		RL_Reset()
@@ -753,16 +772,16 @@ turf
 		RL_Init()
 			if (!fullbright && !loc:force_fullbright)
 				if(!src.RL_MulOverlay)
-					src.RL_MulOverlay = unpool(/obj/overlay/tile_effect/lighting/mul)
+					src.RL_MulOverlay = new /obj/overlay/tile_effect/lighting/mul
 					src.RL_MulOverlay.set_loc(src)
 					src.RL_MulOverlay.icon_state = src.RL_OverlayState
 				if (RL_Started) RL_UPDATE_LIGHT(src)
 			else
 				if(src.RL_MulOverlay)
-					pool(src.RL_MulOverlay)
+					qdel(src.RL_MulOverlay)
 					src.RL_MulOverlay = null
 				if(src.RL_AddOverlay)
-					pool(src.RL_AddOverlay)
+					qdel(src.RL_AddOverlay)
 					src.RL_AddOverlay = null
 
 atom
@@ -777,7 +796,7 @@ atom
 			var/old_loc = src.loc
 			. = ..()
 			if (src.loc != old_loc && src.RL_Attached)
-				for (var/datum/light/light as() in src.RL_Attached)
+				for (var/datum/light/light as anything in src.RL_Attached)
 					light.move(src.x + light.attach_x, src.y + light.attach_y, src.z, src.dir)
 			// commented out for optimization purposes, let's hope it doesn't matter too much
 			/*
@@ -804,7 +823,7 @@ atom
 						lights |= T.RL_Lights
 
 				var/list/affected = list()
-				for (var/datum/light/light as() in lights)
+				for (var/datum/light/light as anything in lights)
 					if (light.enabled)
 						affected |= light.strip(++RL_Generation)
 
@@ -815,24 +834,24 @@ atom
 
 				. = ..()
 
-				for (var/datum/light/light as() in lights)
+				for (var/datum/light/light as anything in lights)
 					if (light.enabled)
 						affected |= light.apply()
 				if (RL_Started)
-					for (var/turf/T as() in affected)
+					for (var/turf/T as anything in affected)
 						RL_UPDATE_LIGHT(T)
 			else
 				. = ..()
 
 			if (src.RL_Attached) // TODO: defer updates and update all affected tiles at once?
 				var/dont_queue = (loc == null) //if we are being thrown to a null loc, dont queue this move. we need it Now.
-				for (var/datum/light/light as() in src.RL_Attached)
+				for (var/datum/light/light as anything in src.RL_Attached)
 					light.move(src.x+0.5, src.y+0.5, src.z, src.dir, queued_run = dont_queue)
 
 	disposing()
 		..()
 		if (src.RL_Attached)
-			for (var/datum/light/attached as() in src.RL_Attached)
+			for (var/datum/light/attached as anything in src.RL_Attached)
 				attached.disable(queued_run = 1)
 				// Detach the light from its holder so that it gets cleaned up right if
 				// needed.
@@ -854,7 +873,7 @@ atom
 					lights |= T.RL_Lights
 
 			var/list/affected = list()
-			for (var/datum/light/light as() in lights)
+			for (var/datum/light/light as anything in lights)
 				if (light.enabled)
 					affected |= light.strip(++RL_Generation)
 
@@ -862,9 +881,9 @@ atom
 			if(src.loc == L && L) L.opaque_atom_count += new_opacity ? 1 : -1
 
 			src.opacity = new_opacity
-			for (var/datum/light/light as() in lights)
+			for (var/datum/light/light as anything in lights)
 				if (light.enabled)
 					affected |= light.apply()
 			if (RL_Started)
-				for (var/turf/T as() in affected)
+				for (var/turf/T as anything in affected)
 					RL_UPDATE_LIGHT(T)

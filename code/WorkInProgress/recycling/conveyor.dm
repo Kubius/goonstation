@@ -28,7 +28,7 @@
 	var/move_lag = 4	// The lag at which the movement happens. Lower = faster
 	var/obj/machinery/conveyor/next_conveyor = null
 	var/obj/machinery/conveyor_switch/owner = null
-	event_handler_flags = USE_HASENTERED | USE_FLUID_ENTER
+	event_handler_flags = USE_FLUID_ENTER
 
 
 /obj/machinery/conveyor/north
@@ -43,6 +43,7 @@
 	// create a conveyor
 
 /obj/machinery/conveyor/New()
+	src.flags |= UNCRUSHABLE
 	..()
 	basedir = dir
 	setdir()
@@ -50,6 +51,11 @@
 /obj/machinery/conveyor/initialize()
 	..()
 	setdir()
+
+/obj/machinery/conveyor/process()
+	if(status & NOPOWER || !operating)
+		return
+	use_power(power_usage)
 
 /obj/machinery/conveyor/disposing()
 	for(var/obj/machinery/conveyor/C in range(1,src))
@@ -81,30 +87,18 @@
 
 	if(!operable)
 		operating = 0
-	if(!operating)
-		for(var/atom/A in loc.contents)
+	if(!operating || (status & NOPOWER))
+		for(var/atom/movable/A in loc.contents)
 			walk(A, 0)
+	else
+		for(var/atom/movable/A in loc.contents)
+			move_thing(A)
 
 	icon_state = "conveyor[(operating != 0) && !(status & NOPOWER)]"
 
 
-	// machine process
-	// move items to the target location
-/obj/machinery/conveyor/process()
-	if(status & (BROKEN | NOPOWER))
-		return
-	if(!operating)
-		return
-	if(!loc)
-		return
-
-	..()
-
-	for(var/atom/A in loc.contents)
-		move_thing(A)
-
 /obj/machinery/conveyor/proc/move_thing(var/atom/movable/A)
-	if (A.anchored)
+	if (A.anchored || A.temp_flags & BEING_CRUSHERED)
 		return
 	if(isobserver(A))
 		return
@@ -113,12 +107,9 @@
 	if(istype(A, /obj/critter) && A:flying)		//They are flying above it, ok.
 		return
 	var/movedir = dir	// base movement dir
-	if(divert && dir==divdir)	// update if diverter present
+	if(divert && dir == divdir)	// update if diverter present
 		movedir = divert
 
-	/* if (A.l_move_time == world.timeofday)
-		continue // already moved by another conveyor
-		*/
 	var/mob/M = A
 	if(istype(M) && M.buckled == src)
 		M.glide_size = (32 / move_lag) * world.tick_lag
@@ -135,7 +126,7 @@
 		walk(A, movedir, move_lag, (32 / move_lag) * world.tick_lag)
 		A.glide_size = (32 / move_lag) * world.tick_lag
 
-/obj/machinery/conveyor/HasEntered(var/atom/movable/AM, atom/oldloc)
+/obj/machinery/conveyor/Crossed(atom/movable/AM)
 	..()
 	if(status & (BROKEN | NOPOWER))
 		return
@@ -143,10 +134,9 @@
 		return
 	if(!loc)
 		return
-	//DEBUG_MESSAGE("[AM] entered conveyor at [showCoords(src.x, src.y, src.z)] and is being moved.")
 	move_thing(AM)
 
-/obj/machinery/conveyor/HasExited(var/atom/movable/AM, var/atom/newloc)
+/obj/machinery/conveyor/Uncrossed(var/atom/movable/AM)
 	..()
 	if(status & (BROKEN | NOPOWER))
 		return
@@ -155,9 +145,8 @@
 	if(!loc)
 		return
 
-	if(src.next_conveyor && src.next_conveyor.loc == newloc)
+	if(src.next_conveyor && src.next_conveyor.loc == AM.loc)
 		//Ok, they will soon walk() according to the new conveyor
-		//DEBUG_MESSAGE("[AM] exited conveyor at [showCoords(src.x, src.y, src.z)] onto another conveyor! Wow!.")
 		var/mob/M = AM
 		if(istype(M) && M.buckled == src) //Transfer the buckle
 			M.buckled = next_conveyor
@@ -167,7 +156,6 @@
 
 	else
 		//Stop walking, we left the belt
-		//DEBUG_MESSAGE("[AM] exited conveyor at [showCoords(src.x, src.y, src.z)] onto the cold, hard floor.")
 		var/mob/M = AM
 		if(istype(M) && M.buckled == src) //Unbuckle
 			M.buckled = null
@@ -225,12 +213,12 @@
 		return
 	if (ismob(user.pulling))
 		var/mob/M = user.pulling
-		M.pulling = null
+		M.remove_pulling()
 		step(user.pulling, get_dir(user.pulling.loc, src))
-		user.pulling = null
+		user.remove_pulling()
 	else
 		step(user.pulling, get_dir(user.pulling.loc, src))
-		user.pulling = null
+		user.remove_pulling()
 	return
 
 
@@ -421,7 +409,7 @@
 
 	SPAWN_DBG(0.5 SECONDS)		// allow map load
 		conveyors = list()
-		for(var/obj/machinery/conveyor/C as() in machine_registry[MACHINES_CONVEYORS])
+		for(var/obj/machinery/conveyor/C as anything in machine_registry[MACHINES_CONVEYORS])
 			if(C.id == id)
 				conveyors += C
 				C.owner = src
@@ -620,5 +608,5 @@
 				break
 
 	proc/update_icon()
-		var/ico = (speedup / speedup_max) * icon_levels
+		var/ico = clamp(((speedup / speedup_max) * icon_levels), 0, 6)
 		icon_state = "[icon_base][round(ico)]"

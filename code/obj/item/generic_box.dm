@@ -7,7 +7,7 @@
 	icon_state = "item_box"
 	force = 1
 	throwforce = 1
-	w_class = 2
+	w_class = W_CLASS_SMALL
 	inventory_counter_enabled = 1
 	var/contained_item = /obj/item/sticker/gold_star
 	var/list/contained_items = null
@@ -84,6 +84,25 @@
 		name = "box of bee stickers"
 		contained_item = /obj/item/sticker/bee
 
+	glow_sticker
+		name = "glow stickers"
+		desc = "A box of stickers that glow when stuck to things."
+		contained_item = null
+		item_amount = 20
+
+		New()
+			. = ..()
+			contained_item = pick(concrete_typesof(/obj/item/sticker/glow))
+
+	googly_eyes
+		name = "box of googly eyes"
+		desc = "If you give it googly eyes, it immediately becomes better!"
+		contained_item = /obj/item/sticker/googly_eye
+
+		angry
+			name ="box of angry googly eyes"
+			contained_item = /obj/item/sticker/googly_eye/angry
+
 	award_ribbon
 		name = "box of award ribbons"
 		contained_item = /obj/item/sticker/ribbon
@@ -142,7 +161,7 @@
 			desc = "Oh my god.. ALL THE STICKERS! ALL IN ONE PLACE? WHAT CAN THIS MEAN!!!"
 
 			set_contained_items()
-				contained_items = childrentypesof( /obj/item/sticker/ ) - /obj/item/sticker/spy - childrentypesof( /obj/item/sticker/barcode )
+				contained_items = concrete_typesof( /obj/item/sticker/ ) - /obj/item/sticker/spy - typesof( /obj/item/sticker/barcode, /obj/item/sticker/glow )
 
 			robot//this type sticks things by clicking on them with a cooldown
 				name = "box shaped sticker dispenser"
@@ -173,7 +192,16 @@
 				max_item_amount = 10
 
 				set_contained_items()
-					contained_items = childrentypesof( /obj/item/sticker/ ) - childrentypesof( /obj/item/sticker/barcode ) - /obj/item/sticker/spy - /obj/item/sticker/ribbon/first_place - /obj/item/sticker/ribbon/second_place - /obj/item/sticker/ribbon/third_place
+					contained_items = concrete_typesof( /obj/item/sticker/ ) - typesof( /obj/item/sticker/barcode, /obj/item/sticker/glow ) - /obj/item/sticker/spy - /obj/item/sticker/ribbon/first_place - /obj/item/sticker/ribbon/second_place - /obj/item/sticker/ribbon/third_place
+
+			glow_sticker
+				name = "glow stickers"
+				desc = "A box of stickers that glow various colors when stuck to things."
+				contained_item = null
+				item_amount = 20
+
+				set_contained_items()
+					contained_items = concrete_typesof(/obj/item/sticker/glow)
 
 		ornaments
 			name = "box of assorted ornaments"
@@ -193,6 +221,7 @@
 				set_contained_items()
 					contained_items = typesof(/obj/item/sticker/xmas_ornament)
 
+
 		take_from()
 			if( !contained_items.len )
 				boutput( usr, "Dag, this box has nothing special about it. Oh well." )
@@ -211,6 +240,7 @@
 		icon_empty = "patchbox-med-empty"
 		var/icon_color = "patchbox-med-coloring"
 		var/image/box_color
+		flags = FPRINT | TABLEPASS | EXTRADELAY
 
 		proc/build_overlay(var/datum/color/average = null) //ChemMasters provide average for medical boxes
 			var/obj/item/reagent_containers/patch/temp = src.take_from()
@@ -305,7 +335,7 @@
 					logTheThing("debug", src, null, "has a non-path contained_item, \"[src.contained_item]\", and is being disposed of to prevent errors")
 					qdel(src)
 					return
-				else if (src.item_amount == 0 && src.contents.len) // count if we already have things inside!
+				else if (src.item_amount == 0 && length(src.contents)) // count if we already have things inside!
 					for (var/obj/item/thing in src.contents)
 						if (istype(thing, src.contained_item))
 							src.item_amount++
@@ -399,6 +429,8 @@
 			if (!istype(thing, src.contained_item))
 				continue
 			if (thing in user)
+				continue
+			if (thing in src)
 				continue
 			src.add_to(thing, user, 0)
 			sleep(0.2 SECONDS)

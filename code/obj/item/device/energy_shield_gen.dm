@@ -6,7 +6,7 @@
 	density = 0
 	opacity = 0
 	anchored = 0
-	w_class = 2.0
+	w_class = W_CLASS_SMALL
 	pressure_resistance = 2*ONE_ATMOSPHERE
 	var/list/tiles = new/list()
 	var/active = 0
@@ -150,11 +150,17 @@
 	var/health_max = 10
 	var/health = 10
 	var/broken = 0
+	gas_impermeable = TRUE
 
 	CanPass(atom/A, turf/T)
 		if (broken) return 1
 		if (ismob(A)) return 1
 		else return 0
+
+	gas_cross(turf/target)
+		. = ..()
+		if(broken)
+			. = 1
 
 	ex_act(severity)
 		if(broken) return

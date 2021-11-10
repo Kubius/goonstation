@@ -12,8 +12,9 @@
 		return TRUE
 	for(var/A in targetList)
 		var/obj/trait/T = getTraitById(A)
-		if(T.category == C.category)
-			return FALSE
+		for (var/cat in T.category)
+			if (cat in C.category)
+				return FALSE
 
 /datum/traitPreferences
 	var/list/traits_selected = list()
@@ -49,11 +50,13 @@
 			//	if(usr.client.qualifiedXpRewards != null)
 			//		if(!usr.client.qualifiedXpRewards.Find(T.requiredUnlock))
 			//			return 0
-			if(T.category != null)
-				if(T.category in categories)
-					return 0
-				else
-					categories.Add(T.category)
+			if(islist(T.category))
+				for (var/cat in T.category)
+					if (cat in categories)
+						return 0
+					else
+						categories.Add(cat)
+
 		return (calcTotal() >= 0)
 
 	proc/updateTraits(var/mob/user)
@@ -180,7 +183,7 @@
 	proc/onRemove(var/mob/owner)
 		return
 
-	proc/onLife(var/mob/owner)
+	proc/onLife(var/mob/owner, var/mult)
 		return
 
 	proc/onMove(var/mob/owner)
@@ -227,7 +230,7 @@
 	icon_state = "robotarmsR"
 	points = 0
 	isPositive = 1
-	category = "body"
+	category = list("body")
 
 	onAdd(var/mob/owner)
 		SPAWN_DBG(4 SECONDS) //Fuck this. Fuck the way limbs are added with a delay. FUCK IT
@@ -248,7 +251,7 @@
 	icon_state = "robotarmsR"
 	points = -2
 	isPositive = 0
-	category = "body"
+	category = list("body")
 
 	onAdd(var/mob/owner)
 		SPAWN_DBG(4 SECONDS)
@@ -266,7 +269,7 @@
 	cleanName = "Adamantium Skeleton"
 	desc = "Halves the chance that an explosion will blow off your limbs."
 	id = "explolimbs"
-	category = "body"
+	category = list("body")
 	points = -2
 	isPositive = 1
 
@@ -275,7 +278,8 @@
 	cleanName = "Deaf"
 	desc = "Spawn with permanent deafness and an auditory headset."
 	id = "deaf"
-	category = "body"
+	icon_state = "deaf"
+	category = list("body")
 	points = 1
 	isPositive = 0
 
@@ -300,7 +304,7 @@
 	icon_state = "swedenY"
 	points = 0
 	isPositive = 1
-	category = "language"
+	category = list("language")
 
 	onAdd(var/mob/owner)
 		owner.bioHolder?.AddEffect("accent_swedish", 0, 0, 0, 1)
@@ -313,7 +317,7 @@
 	icon_state = "frY"
 	points = 0
 	isPositive = 1
-	category = "language"
+	category = list("language")
 
 	onAdd(var/mob/owner)
 		owner.bioHolder?.AddEffect("accent_french", 0, 0, 0, 1)
@@ -323,9 +327,10 @@
 	cleanName = "Scottish"
 	desc = "Hear the pipes are calling, down thro' the glen. Och aye!"
 	id = "scottish"
+	icon_state = "scott"
 	points = 0
 	isPositive = 1
-	category = "language"
+	category = list("language")
 
 	onAdd(var/mob/owner)
 		owner.bioHolder?.AddEffect("accent_scots", 0, 0, 0, 1)
@@ -338,7 +343,7 @@
 	icon_state = "ukY"
 	points = 0
 	isPositive = 1
-	category = "language"
+	category = list("language")
 
 	onAdd(var/mob/owner)
 		owner.bioHolder?.AddEffect("accent_chav", 0, 0, 0, 1)
@@ -348,9 +353,10 @@
 	cleanName = "Funky Accent"
 	desc = "Give a man a banana and he will clown for a day. Teach a man to clown and he will live in a cold dark corner of a space station for the rest of his days. - Elvis, probably."
 	id = "elvis"
+	icon_state = "elvis"
 	points = 0
 	isPositive = 1
-	category = "language"
+	category = list("language")
 
 	onAdd(var/mob/owner)
 		owner.bioHolder?.AddEffect("accent_elvis", 0, 0, 0, 1)
@@ -363,7 +369,7 @@
 	icon_state = "whatY"
 	points = 0
 //	isPositive = 1
-	category = "language"
+	category = list("language")
 	unselectable = 1 // this was not supposed to be a common thing!!
 /*
 	onAdd(var/mob/owner)
@@ -379,7 +385,7 @@
 	icon_state = "finnish"
 	points = 0
 	isPositive = 1
-	category = "language"
+	category = list("language")
 
 	onAdd(var/mob/owner)
 		owner.bioHolder?.AddEffect("accent_finnish", 0, 0, 0, 1)
@@ -392,7 +398,7 @@
 	icon_state = "yorkshire"
 	points = 0
 	isPositive = 1
-	category = "language"
+	category = list("language")
 
 	onAdd(var/mob/owner)
 		owner.bioHolder?.AddEffect("accent_tyke")
@@ -407,7 +413,7 @@
 	icon_state = "catseyeG"
 	points = -1
 	isPositive = 1
-	category = "vision"
+	category = list("vision")
 
 /obj/trait/infravision
 	name = "Infravision (-1) \[Vision\]"
@@ -417,7 +423,7 @@
 	icon_state = "infravisionG"
 	points = -1
 	isPositive = 0
-	category = "vision"
+	category = list("vision")
 
 /obj/trait/shortsighted
 	name = "Short-sighted (+1) \[Vision\]"
@@ -425,7 +431,7 @@
 	desc = "Spawn with permanent short-sightedness and glasses."
 	id = "shortsighted"
 	icon_state = "glassesG"
-	category = "vision"
+	category = list("vision")
 	points = 1
 	isPositive = 0
 
@@ -444,8 +450,9 @@
 	name = "Blind (+2)"
 	cleanName = "Blind"
 	desc = "Spawn with permanent blindness and a VISOR."
+	icon_state = "blind"
 	id = "blind"
-	category = "vision"
+	category = list("vision")
 	points = 2
 	isPositive = 0
 
@@ -462,18 +469,19 @@
 
 // GENETICS - Blue Border
 
-/obj/trait/robustgenetics
-	name = "Robust Genetics (-2) \[Genetics\]"
-	cleanName = "Robust Genetics"
-	desc = "You gain an additional 20 genetic stability."
-	id = "robustgenetics"
-	icon_state = "stablegenesB"
-	points = -2
+/obj/trait/mildly_mutated
+	name = "Mildly Mutated (0) \[Genetics\]"
+	cleanName = "Mildly Mutated"
+	desc = "A random mutation in your gene pool starts activated."
+	id = "mildly_mutated"
+	icon_state = "mildly_mutatedB"
+	points = 0
 	isPositive = 0
-	category = "genetics"
+	category = list("genetics")
 
 	onAdd(var/mob/owner)
-		owner.bioHolder?.genetic_stability = 120
+		var/datum/bioHolder/B = owner.bioHolder
+		B.ActivatePoolEffect(B.effectPool[pick(B.effectPool)], 1, 0)
 
 /obj/trait/stablegenes
 	name = "Stable Genes (-2) \[Genetics\]"
@@ -483,7 +491,7 @@
 	icon_state = "dontmutateB"
 	points = -2
 	isPositive = 0
-	category = "genetics"
+	category = list("genetics")
 
 // TRINKETS/ITEMS - Purple Border
 
@@ -495,7 +503,7 @@
 	icon_state = "beretP"
 	points = -1
 	isPositive = 1
-	category = "trinkets"
+	category = list("trinkets")
 
 /obj/trait/petasusaphilic
 	name = "Petasusaphilic (-1) \[Trinkets\]"
@@ -505,7 +513,7 @@
 	icon_state = "hatP"
 	points = -1
 	isPositive = 1
-	category = "trinkets"
+	category = list("trinkets")
 
 /obj/trait/conspiracytheorist
 	name = "Conspiracy Theorist (-1) \[Trinkets\]"
@@ -515,7 +523,7 @@
 	icon_state = "conspP"
 	points = -1
 	isPositive = 1
-	category = "trinkets"
+	category = list("trinkets")
 
 /obj/trait/pawnstar
 	name = "Pawn Star (-1) \[Trinkets\]"
@@ -525,34 +533,55 @@
 	icon_state = "pawnP"
 	points = -1
 	isPositive = 1
-	category = "trinkets"
+	category = list("trinkets")
 
 /obj/trait/beestfriend
 	name = "BEEst friend (-1) \[Trinkets\]"
 	cleanName = "BEEst friend"
 	desc = "Start with a bee egg as your trinket."
 	id = "beestfriend"
+	icon_state = "bee"
 	points = -1
 	isPositive = 1
-	category = "trinkets"
+	category = list("trinkets")
 
 /obj/trait/lunchbox
 	name = "Lunchbox (-1) \[Trinkets\]"
 	cleanName = "Lunchbox"
 	desc = "Start your shift with a cute little lunchbox, packed with all your favourite foods!"
 	id = "lunchbox"
+	icon_state = "lunchbox"
 	points = -1
 	isPositive = 1
-	category = "trinkets"
+	category = list("trinkets")
 
-// Skill - Undetermined Border
+/obj/trait/bald
+	name = "Bald (0) \[Trinkets, species\]"
+	cleanName = "Bald"
+	desc = "Start your shift with a wig instead of hair. I'm sure no one will be able to tell."
+	id = "bald"
+	icon_state = "placeholder"
+	points = 0
+	isPositive = 1
+	category = list("trinkets")
+
+/obj/trait/one_armed
+	name = "One Armed Spaceman (-2)"	//it's so expensive cause right now, one arm is a benefit in that you can't be handcuffed...
+	cleanName = "One Armed Spaceman"
+	desc = "You only have one arm. But which one? It's a mystery... or is it a thriller?"
+	id = "onearmed"
+	icon_state = "placeholder"
+	points = -2
+	isPositive = 1
+
+// Skill - White Border
 
 /obj/trait/smoothtalker
 	name = "Smooth talker (-1) \[Skill\]"
 	cleanName = "Smooth talker"
 	desc = "Traders will tolerate 50% more when you are haggling with them."
 	id = "smoothtalker"
-	category = "skill"
+	category = list("skill")
 	points = -1
 	isPositive = 1
 
@@ -561,7 +590,7 @@
 	cleanName = "Matrix Flopout"
 	desc = "Flipping lets you dodge bullets and attacks for a higher stamina cost!"
 	id = "matrixflopout"
-	category = "skill"
+	category = list("skill")
 	points = -2
 	isPositive = 1
 
@@ -570,7 +599,7 @@
 	cleanName = "Happyfeet"
 	desc = "Sometimes people can't help but dance along with you."
 	id = "happyfeet"
-	category = "skill"
+	category = list("skill")
 	points = -1
 	isPositive = 1
 
@@ -579,7 +608,8 @@
 	cleanName = "Claw School Graduate"
 	desc = "Your skill at claw machines is unparalleled."
 	id = "claw"
-	category = "skill"
+	icon_state = "claw"
+	category = list("skill")
 	points = -1
 	isPositive = 1
 
@@ -592,7 +622,7 @@
 	points = 0
 	isPositive = 1
 	unselectable = 1
-	category = "job"
+	category = list("job")
 
 	onAdd(mob/owner)
 		return
@@ -624,6 +654,18 @@
 	desc = "Subject is trained in generalized robustness and asskicking."
 	id = "training_security"
 
+/obj/trait/job/quartermaster
+	name = "Quartermaster Training"
+	cleanName = "Quartermaster Training"
+	desc = "Subject is proficent at haggling."
+	id = "training_quartermaster"
+
+/obj/trait/job/chef
+	name = "Kitchen Training"
+	cleanName = "Kitchen Training"
+	desc = "Subject is experienced in foodstuffs and their effects."
+	id = "training_chef"
+
 // bartender, detective, HoS
 /obj/trait/job/drinker
 	name = "Professional Drinker"
@@ -650,41 +692,19 @@
 		if(!owner.stat && can_act(owner) && istype(owner.loc, /turf/space))
 			if(prob(2))
 				owner.emote("faint")
-				owner.changeStatus("paralysis", 80)
+				owner.changeStatus("paralysis", 8 SECONDS)
 			else if (prob(8))
 				owner.emote("scream")
 				owner.changeStatus("stunned", 2 SECONDS)
 
 // Stats - Undetermined Border
 
-/obj/trait/meathead
-	name = "Meathead (-1) \[Stats\]"
-	cleanName = "Meathead"
-	desc = "You can take quite a beating! You suffer from brain trauma, though."
-	id = "meathead"
-	category = "stats"
-	points = -1
-	isPositive = 1
-
-	onAdd(var/mob/owner)
-		if(ishuman(owner))
-			var/mob/living/carbon/human/H = owner
-			H.max_health = 150
-			H.health = 150
-			H.take_brain_damage(60)
-
-	onLife(var/mob/owner) //Just to be safe.
-		if(ishuman(owner))
-			var/mob/living/carbon/human/H = owner
-			if(H.get_brain_damage() < 60)
-				H.take_brain_damage(60-H.get_brain_damage())
-
 /obj/trait/athletic
 	name = "Athletic (-2) \[Stats\]"
 	cleanName = "Athletic"
 	desc = "Great stamina! Frail body."
 	id = "athletic"
-	category = "stats"
+	category = list("stats")
 	points = -2
 	isPositive = 1
 
@@ -699,7 +719,7 @@
 	cleanName = "Big Bruiser"
 	desc = "Stronger punches but higher stamina cost!"
 	id = "bigbruiser"
-	category = "stats"
+	category = list("stats")
 	points = -2
 	isPositive = 1
 
@@ -708,10 +728,10 @@
 /obj/trait/immigrant
 	name = "Stowaway (+1) \[Background\]"
 	cleanName = "Stowaway"
-	desc = "You spawn hidden away on-station without an ID or PDA."
+	desc = "You spawn hidden away on-station without an ID, PDA, or entry in NT records."
 	id = "immigrant"
 	icon_state = "stowaway"
-	category = "background"
+	category = list("background")
 	points = 1
 	isPositive = 0
 
@@ -721,7 +741,7 @@ obj/trait/pilot
 	desc = "You spawn in a pod off-station with a Space GPS, Emergency Oxygen Tank, Breath Mask and proper protection, but you have no PDA and your pod cannot open wormholes."
 	id = "pilot"
 	icon_state = "pilot"
-	category = "background"
+	category = list("background")
 	points = 0
 	isPositive = 0
 
@@ -822,8 +842,8 @@ obj/trait/pilot
 			selected_reagent = addicted_players[owner]
 			addAddiction(owner)
 
-	onLife(var/mob/owner) //Just to be safe.
-		if(isliving(owner) && prob(1))
+	onLife(var/mob/owner, var/mult) //Just to be safe.
+		if(isliving(owner) && probmult(1))
 			var/mob/living/M = owner
 			selected_reagent = addicted_players[owner]
 			for(var/datum/ailment_data/addiction/A in M.ailments)
@@ -858,6 +878,42 @@ obj/trait/pilot
 	points = 1
 	isPositive = 0
 
+/obj/trait/clown_disbelief
+	name = "Clown Disbelief (0)"
+	cleanName = "Clown Disbelief"
+	desc = "You refuse to acknowledge that clowns could exist on a space station."
+	id = "clown_disbelief"
+	icon_state = "clown_disbelief"
+	points = 0
+	isPositive = 0
+
+	onAdd(mob/owner)
+		OTHER_START_TRACKING_CAT(owner, TR_CAT_CLOWN_DISBELIEF_MOBS)
+		if(owner.client)
+			src.turnOn(owner)
+		src.RegisterSignal(owner, COMSIG_MOB_LOGIN, .proc/turnOn)
+		src.RegisterSignal(owner, COMSIG_MOB_LOGOUT, .proc/turnOff)
+		src.RegisterSignal(owner, COMSIG_ATOM_EXAMINE, .proc/examined)
+
+	proc/turnOn(mob/owner)
+		for(var/image/I as anything in global.clown_disbelief_images)
+			owner.client.images += I
+
+	proc/examined(mob/owner, mob/examiner, list/lines)
+		if(examiner.job == "Clown")
+			lines += "<br>[capitalize(he_or_she(owner))] doesn't seem to notice you."
+
+	onRemove(mob/owner)
+		OTHER_STOP_TRACKING_CAT(owner, TR_CAT_CLOWN_DISBELIEF_MOBS)
+		if(owner.client)
+			src.turnOff(owner)
+		src.UnregisterSignal(owner, list(COMSIG_MOB_LOGIN, COMSIG_MOB_LOGOUT, COMSIG_ATOM_EXAMINE))
+
+	proc/turnOff(mob/owner)
+		for(var/image/I as anything in global.clown_disbelief_images)
+			owner.last_client.images -= I
+
+
 /obj/trait/unionized
 	name = "Unionized (-1)"
 	cleanName = "Unionized"
@@ -872,6 +928,7 @@ obj/trait/pilot
 	cleanName = "Jailbird"
 	desc = "You have a criminal record and are currently on the run!"
 	id = "jailbird"
+	icon_state = "jail"
 	points = 0
 	isPositive = 0
 
@@ -899,6 +956,8 @@ obj/trait/pilot
 	id = "puritan"
 	points = 2
 	isPositive = 0
+	category = list("cloner_stuff")
+
 
 /obj/trait/survivalist
 	name = "Survivalist (-1)"
@@ -947,6 +1006,7 @@ obj/trait/pilot
 	name = "Carpenter (-1)"
 	cleanName = "Carpenter"
 	desc = "You can construct things more quickly than other people."
+	icon_state = "carpenter"
 	id = "carpenter"
 	points = -1
 	isPositive = 1
@@ -959,12 +1019,12 @@ obj/trait/pilot
 	points = 1
 	isPositive = 0
 
-	onLife(var/mob/owner)
-		if(!owner.stat && can_act(owner) && prob(9))
+	onLife(var/mob/owner, var/mult)
+		if(!owner.stat && can_act(owner) && probmult(9))
 			if(!owner.equipped())
 				for(var/obj/item/I in view(1, owner))
 					if(!I.anchored && isturf(I.loc))
-						I.attack_hand(owner)
+						I.Attackhand(owner)
 						if(prob(12))
 							owner.emote(pick("grin", "smirk", "chuckle", "smug"))
 						break
@@ -1004,10 +1064,9 @@ obj/trait/pilot
 	isPositive = 0
 
 /obj/trait/allears
-	name = "All Ears (0) \[Trinkets\]"
+	name = "All Ears (0)"
 	cleanName="All ears"
 	desc = "You lost your headset on the way to work."
-	category = "trinkets"
 	id = "allears"
 	points = 0
 	isPositive = 0
@@ -1028,7 +1087,7 @@ obj/trait/pilot
 	id = "lizard"
 	points = -1
 	isPositive = 1
-	category = "species"
+	category = list("species")
 	mutantRace = /datum/mutantrace/lizard
 
 /obj/trait/cow
@@ -1039,18 +1098,18 @@ obj/trait/pilot
 	id = "cow"
 	points = -1
 	isPositive = 1
-	category = "species"
+	category = list("species")
 	mutantRace = /datum/mutantrace/cow
 
 /obj/trait/skeleton
-	name = "Skeleton (-2) \[Species\]"
+	name = "Skeleton (-1) \[Species\]"
 	cleanName = "Skeleton"
 	icon_state = "skeletonT"
 	desc = "Compress all of your skin and flesh into your bones, making you resemble a skeleton. Not as uncomfortable as it sounds."
 	id = "skeleton"
-	points = -2
+	points = -1
 	isPositive = 1
-	category = "species"
+	category = list("species", "cloner_stuff")
 	mutantRace = /datum/mutantrace/skeleton
 
 /obj/trait/roach
@@ -1061,7 +1120,7 @@ obj/trait/pilot
 	id = "roach"
 	points = -1
 	isPositive = 1
-	category = "species"
+	category = list("species")
 	mutantRace = /datum/mutantrace/roach
 
 //Infernal Contract Traits
@@ -1083,3 +1142,22 @@ obj/trait/pilot
 		if(ishuman(owner) && prob(35))
 			var/mob/living/carbon/human/H = owner
 			omega_hairgrownium_grow_hair(H, 1)
+
+/obj/trait/contractlimbs
+	name = "Wacky Waving Limbs"
+	desc = "Sold your soul for ever shifting limbs"
+	id = "contract_limbs"
+	points = 0
+	isPositive = 1
+	unselectable = 1
+
+	onAdd(var/mob/owner)
+		if(ishuman(owner))
+			var/mob/living/carbon/human/H = owner
+			randomize_mob_limbs(H)
+		return
+
+	onLife(var/mob/owner) //Just to be safe.
+		if(ishuman(owner) && prob(10))
+			var/mob/living/carbon/human/H = owner
+			randomize_mob_limbs(H)

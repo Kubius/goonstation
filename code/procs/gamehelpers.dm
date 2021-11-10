@@ -25,7 +25,7 @@ var/list/stinkExclamations = list("Ugh","Good lord","Good grief","Christ","Fuck"
 var/list/stinkThings = list("garbage can","trash heap","cesspool","toilet","pile of poo",
 	"butt","skunk","outhouse","corpse","fart","devil")
 var/list/stinkVerbs = list("took a shit","died","farted","threw up","wiped its ass")
-var/list/stinkThingies = list("ass","taint","armpit","excretions","leftovers","Readster")
+var/list/stinkThingies = list("ass","taint","armpit","excretions","leftovers","administrator")
 
 /proc/stinkString()
 	// i am five - ISN
@@ -81,7 +81,6 @@ var/list/stinkThingies = list("ass","taint","armpit","excretions","leftovers","R
 /proc/get_area_name(N) //get area by it's name
 
 	for(var/area/A in world)
-		LAGCHECK(LAG_LOW)
 		if(A.name == N)
 			return A
 	return 0
@@ -150,7 +149,7 @@ var/obj/item/dummy/click_dummy = new
 				return 0
 	for (var/atom/A in target)
 		if (A.flags & ON_BORDER)
-			if (!A.CanPass(click_dummy, from, 1, 0))
+			if (!A.CanPass(click_dummy, from))
 				return 0
 	return 1
 
@@ -224,7 +223,7 @@ var/obj/item/dummy/click_dummy = new
 	for_by_tcl(theAI, /mob/living/silicon/ai)
 		if (theAI.deployed_to_eyecam)
 			var/mob/dead/aieye/AIeye = theAI.eyecam
-			if(IN_RANGE(center, AIeye, distance) && T.cameras && T.cameras.len)
+			if(IN_RANGE(center, AIeye, distance) && T.cameras && length(T.cameras))
 				. += AIeye
 				. += theAI
 
@@ -247,7 +246,7 @@ var/obj/item/dummy/click_dummy = new
 
 	. = viewers(Depth, Center) + get_viewing_AIs(Center, 7)
 	if(length(by_cat[TR_CAT_OMNIPRESENT_MOBS]))
-		for(var/mob/M as() in by_cat[TR_CAT_OMNIPRESENT_MOBS])
+		for(var/mob/M as anything in by_cat[TR_CAT_OMNIPRESENT_MOBS])
 			if(get_step(M, 0)?.z == get_step(Center, 0)?.z)
 				. |= M
 
@@ -264,18 +263,14 @@ var/obj/item/dummy/click_dummy = new
 	if(!the_atom) return
 	. = format_net_id("\ref[the_atom]")
 
-/proc/can_act(var/mob/M, var/include_cuffs = 1)
-	if(!M) return 0 //Please pass the M, I need a sprinkle of it on my potatoes.
-	if(include_cuffs && M.hasStatus("handcuffed")) return 0
-	if(M.getStatusDuration("stunned")) return 0
-	if(M.getStatusDuration("weakened")) return 0
-	if(M.getStatusDuration("paralysis")) return 0
-	if(M.stat) return 0
-	return 1
-
 #define CLUWNE_NOISE_DELAY 50
 
 /proc/process_accents(var/mob/living/carbon/human/H, var/message)
+	// Separate the radio prefix (if it exists) and message so the accent can't destroy the prefix
+	var/prefixAndMessage = separate_radio_prefix_and_message(message)
+	var/prefix = prefixAndMessage[1]
+	message = prefixAndMessage[2]
+
 	if (!H || !istext(message))
 		return
 
@@ -286,7 +281,7 @@ var/obj/item/dummy/click_dummy = new
 			if (istype(S,/datum/bioEffect/speech/))
 				message = S.OnSpeak(message)
 
-	if (H.grabbed_by && H.grabbed_by.len)
+	if (H.grabbed_by && length(H.grabbed_by))
 		for (var/obj/item/grab/rag_muffle/RM in H.grabbed_by)
 			if (RM.state > 0)
 				message = mufflespeech(message)
@@ -295,12 +290,12 @@ var/obj/item/dummy/click_dummy = new
 	if (iscluwne(H))
 		message = honk(message)
 		if (world.time >= (H.last_cluwne_noise + CLUWNE_NOISE_DELAY))
-			playsound(get_turf(H), pick("sound/voice/cluwnelaugh1.ogg","sound/voice/cluwnelaugh2.ogg","sound/voice/cluwnelaugh3.ogg"), 35, 0, 0, H.get_age_pitch())
+			playsound(H, pick("sound/voice/cluwnelaugh1.ogg","sound/voice/cluwnelaugh2.ogg","sound/voice/cluwnelaugh3.ogg"), 35, 0, 0, H.get_age_pitch())
 			H.last_cluwne_noise = world.time
 	if (ishorse(H))
 		message = neigh(message)
 		if (world.time >= (H.last_cluwne_noise + CLUWNE_NOISE_DELAY))
-			playsound(get_turf(H), pick("sound/voice/cluwnelaugh1.ogg","sound/voice/cluwnelaugh2.ogg","sound/voice/cluwnelaugh3.ogg"), 35, 0, 0, H.get_age_pitch())
+			playsound(H, pick("sound/voice/cluwnelaugh1.ogg","sound/voice/cluwnelaugh2.ogg","sound/voice/cluwnelaugh3.ogg"), 35, 0, 0, H.get_age_pitch())
 			H.last_cluwne_noise = world.time
 
 	if ((H.reagents && H.reagents.get_reagent_amount("ethanol") > 30 && !isdead(H)) || H.traitHolder.hasTrait("alcoholic"))
@@ -350,7 +345,7 @@ var/obj/item/dummy/click_dummy = new
 	if (prob(30)) message = replacetext(message, "?", " Eh?")
 #endif
 
-	return message
+	return prefix + message
 
 
 /proc/can_see(atom/source, atom/target, length=5) // I couldnt be arsed to do actual raycasting :I This is horribly inaccurate.
@@ -570,7 +565,7 @@ var/obj/item/dummy/click_dummy = new
 
 	var/src_min_x = 0
 	var/src_min_y = 0
-	for (var/turf/T as() in turfs_src)
+	for (var/turf/T as anything in turfs_src)
 		if(T.x < src_min_x || !src_min_x) src_min_x	= T.x
 		if(T.y < src_min_y || !src_min_y) src_min_y	= T.y
 	DEBUG_MESSAGE("src_min_x = [src_min_x], src_min_y = [src_min_y]")
@@ -578,7 +573,7 @@ var/obj/item/dummy/click_dummy = new
 	var/trg_min_x = 0
 	var/trg_min_y = 0
 	var/trg_z = 0
-	for (var/turf/T as() in turfs_trg)
+	for (var/turf/T as anything in turfs_trg)
 		if(T.x < trg_min_x || !trg_min_x) trg_min_x	= T.x
 		if(T.y < trg_min_y || !trg_min_y) trg_min_y	= T.y
 		trg_z = T.z
@@ -594,7 +589,7 @@ var/obj/item/dummy/click_dummy = new
 
 	for (var/turf/S in turfs_src)
 		var/turf/T = locate(S.x - src_min_x + trg_min_x, S.y - src_min_y + trg_min_y, trg_z)
-		for (var/atom/movable/AM as() in S)
+		for (var/atom/movable/AM as anything in S)
 			if (istype(AM, /obj/forcefield) || istype(AM, /obj/overlay/tile_effect)) continue
 			if (!ignore_fluid && istype(AM, /obj/fluid)) continue
 			AM.set_loc(T)
@@ -691,3 +686,70 @@ proc/ThrowRandom(var/atom/movable/A, var/dist = 10, var/speed = 1, var/list/para
 	if(istype(A))
 		var/turf/Y = GetRandomPerimeterTurf(A, dist)
 		A.throw_at(Y, dist, speed, params, thrown_from, throw_type, allow_anchored, bonus_throwforce, end_throw_callback)
+
+
+
+/// get_ouija_word_list
+// get a list of words for an ouija board
+proc/get_ouija_word_list(var/atom/movable/source = null, var/words_min = 5, var/words_max = 8, var/include_nearby_mobs_chance = 40, var/include_most_mobs_chance = 20, include_said_phrases_chance = 10)
+	var/list/words = list()
+
+	// Generic Ouija words
+	for(var/i in 1 to rand(words_min, words_max))
+		var/picked = pick(strings("ouija_board.txt", "ouija_board_words"))
+		words |= picked
+
+	if (prob(include_nearby_mobs_chance))
+		var/list/mobs = observersviewers(Center = source)
+		if (length(mobs))
+			var/mob/M = pick(mobs)
+			words |= (M.real_name ? M.real_name : M.name)
+
+	if(prob(include_said_phrases_chance))
+		words |= phrase_log.random_phrase("say")
+
+	if (prob(include_most_mobs_chance))
+
+		var/roll = rand(0, 200)
+		switch (roll)
+			if (0)
+				// any actual antag
+				var/list/player_pool = list()
+				for (var/mob/M in mobs)
+					if (!M.client || istype(M, /mob/new_player) || !checktraitor(M))
+						continue
+					player_pool += M
+				if (length(player_pool))
+					var/mob/M = pick(player_pool)
+					words |= (M.real_name ? M.real_name : M.name)
+			if (1 to 5)
+				// fake wraith
+				words |= call(/mob/wraith/proc/make_name)()
+			if (6 to 10)
+				// fake blob (heh)
+				var/blobname = phrase_log.random_phrase("name-blob")
+				words |= strip_html(copytext(blobname, 1, 26) + " the Blob")
+			if (10 to 20)
+				// fake nukeop (uses the real nukeop company name, too)
+				// Copied from gamemodes/nuclear.dm
+				var/list/callsign_pool_keys = list("nato", "melee_weapons", "colors", "birds", "mammals", "moons")
+				//Alphabetical agent callsign lists are delcared here, seperated in to catagories.
+				var/list/callsign_list = strings("agent_callsigns.txt", pick(callsign_pool_keys))
+				words |= "[syndicate_name()] Operative [pick(callsign_list)]"
+			if (20 to 30)
+				// fake wizard
+				var/wizname = phrase_log.random_phrase("name-wizard")
+				words |= strip_html(copytext(wizname, 1, 26))
+
+			else
+				// any random living mob
+				var/list/player_pool = list()
+				for (var/mob/M in mobs)
+					if (!M.client || istype(M, /mob/new_player))
+						continue
+					player_pool += M
+				if (length(player_pool))
+					var/mob/M = pick(player_pool)
+					words |= (M.real_name ? M.real_name : M.name)
+
+	return words

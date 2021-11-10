@@ -10,7 +10,7 @@ var/global/list/material_cache = list()
 /atom/var/datum/material/material = null
 
 /proc/isExploitableObject(var/atom/A)
-	if(istype(A, /obj/item/tile) || istype(A, /obj/item/rods) || istype(A, /obj/item/sheet)) return 1
+	if(istype(A, /obj/item/tile) || istype(A, /obj/item/rods) || istype(A, /obj/item/sheet) || istype(A, /obj/item/cable_coil) || istype(A, /obj/item/raw_material/shard)) return 1
 	return 0
 
 /// This contains the names of the trigger lists on materials. Required for copying materials. Remember to keep this updated if you add new triggers.
@@ -52,17 +52,16 @@ var/global/list/triggerVars = list("triggersOnBullet", "triggersOnEat", "trigger
 		var/datum/material/M = new base.type ()
 		M.properties = mergeProperties(base.properties)
 		for(var/X in base.vars)
-			if(X == "type" || X == "parent_type" || X == "tag" || X == "vars" || X == "properties") continue
+			if(X == "type" || X == "parent_type" || X == "tag" || X == "vars" || X == "properties" || X == "datum_components" || X == "comp_lookup" || X == "signal_procs" || X == "signal_enabled") continue
 
 			if(X in triggerVars)
-				M.vars[X] = getFusedTriggers(base.vars[X], list()) //Pass in an empty list to basically copy the first one.
+				M.vars[X] = getFusedTriggers(base.vars[X], list(), M) //Pass in an empty list to basically copy the first one.
 			else
-				if(X in M.vars)
-					if(istype(base.vars[X],/list))
-						var/list/oldList = base.vars[X]
-						M.vars[X] = oldList.Copy()
-					else
-						M.vars[X] = base.vars[X]
+				if(istype(base.vars[X],/list))
+					var/list/oldList = base.vars[X]
+					M.vars[X] = oldList.Copy()
+				else
+					M.vars[X] = base.vars[X]
 		return M
 
 /proc/isSameMaterial(var/datum/material/M1, var/datum/material/M2) //Compares two materials to determine if stacking should be allowed.
@@ -101,6 +100,9 @@ var/global/list/triggerVars = list("triggersOnBullet", "triggersOnEat", "trigger
 
 /// Simply removes a material from an object.
 /atom/proc/removeMaterial()
+	if(src.material)
+		src.material.UnregisterSignal(src, COMSIG_ATOM_CROSSED)
+
 	if(src.mat_changename)
 		src.remove_prefixes(99)
 		src.remove_suffixes(99)
@@ -112,12 +114,6 @@ var/global/list/triggerVars = list("triggersOnBullet", "triggersOnEat", "trigger
 
 	src.alpha = initial(src.alpha)
 	src.color = initial(src.color)
-
-	if(src.material?.owner_hasentered_added)
-		if (isturf(src.loc))
-			var/turf/T = src.loc
-			T.checkinghasentered = max(T.checkinghasentered-1, 0)
-		src.event_handler_flags &= ~USE_HASENTERED
 
 	src.UpdateOverlays(null, "material")
 
@@ -159,6 +155,12 @@ var/global/list/triggerVars = list("triggersOnBullet", "triggersOnEat", "trigger
 	var/strPrefix = jointext(mat1.prefixes, " ")
 	var/strSuffix = jointext(mat1.suffixes, " ")
 
+	if(src.material)
+		src.material.UnregisterSignal(src, COMSIG_ATOM_CROSSED)
+
+	if(length(mat1?.triggersOnEntered))
+		mat1.RegisterSignal(src, COMSIG_ATOM_CROSSED, /datum/material/proc/triggerOnEntered)
+
 	for(var/X in getMaterialPrefixList(mat1))
 		strPrefix += " [X]"
 	trim(strPrefix)
@@ -187,7 +189,7 @@ var/global/list/triggerVars = list("triggersOnBullet", "triggersOnEat", "trigger
 	src.alpha = 255
 	src.color = null
 	src.UpdateOverlays(null, "material")
-	if (islist(src.mat_appearances_to_ignore) && src.mat_appearances_to_ignore.len)
+	if (islist(src.mat_appearances_to_ignore) && length(src.mat_appearances_to_ignore))
 		if (mat1.name in src.mat_appearances_to_ignore)
 			set_color_alpha = 0
 	if (set_color_alpha && src.mat_changeappearance && appearance && mat1.applyColor)
@@ -235,13 +237,14 @@ var/global/list/triggerVars = list("triggersOnBullet", "triggersOnEat", "trigger
 	var/list/newList = list()
 	for(var/datum/materialProc/toCopy in L1) //Copy list 1 with new instances of trigger datum.
 		var/datum/materialProc/P = new toCopy.type()
-		P.owner = newMat
 		newList.Add(P)	//Add new instance of datum
 		newList[P] = L1[toCopy] //Set generation
 		for(var/varCopy in toCopy.vars)
 			if(varCopy == "type" || varCopy == "id" || varCopy == "parent_type" || varCopy == "tag" || varCopy == "vars") continue
 			if(!issaved(toCopy.vars[varCopy])) continue
 			P.vars[varCopy] = toCopy.vars[varCopy]
+		if(newMat)
+			P.owner = newMat
 
 	for(var/datum/materialProc/A in L2) //Go through second list
 		if((locate(A.type) in newList))	//We already have that trigger type from the other list
@@ -250,13 +253,14 @@ var/global/list/triggerVars = list("triggersOnBullet", "triggersOnEat", "trigger
 			else newList[existing] = L2[A]			//Otherwise set the generation to the generation of the second copy because it is lower.
 		else	//Trigger type isnt in the list yet.
 			var/datum/materialProc/newProc = new A.type()	//Create a new instance
-			newProc.owner = newMat
 			newList.Add(newProc)	//Add to list
 			newList[newProc] = L2[A]	//Set generation
 			for(var/varCopy in A.vars)
 				if(varCopy == "type" || varCopy == "id" || varCopy == "parent_type" || varCopy == "tag" || varCopy == "vars") continue
 				if(!issaved(A.vars[varCopy])) continue
 				newProc.vars[varCopy] = A.vars[varCopy]
+			if(newMat)
+				newProc.owner = newMat
 	return newList
 
 /// Merges two materials and returns result as new material.

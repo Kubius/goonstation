@@ -5,20 +5,20 @@
 /mob/proc/checkContextActions(atom/target)
 	. = list()
 	if(length(target?.contextActions))
-		for(var/datum/contextAction/C as() in target.contextActions)
+		for(var/datum/contextAction/C as anything in target.contextActions)
 			var/action = C.checkRequirements(target, src)
 			if(action)
 				. += C
 
 	var/obj/item/W = src.equipped()
 	if(W && W != target && length(W.contextActions))
-		for(var/datum/contextAction/C as() in W.contextActions)
+		for(var/datum/contextAction/C as anything in W.contextActions)
 			var/action = C.checkRequirements(target, src)
 			if(action)
 				. += C
 
 	if(src != target && length(src.contextActions))
-		for(var/datum/contextAction/C as() in src.contextActions)
+		for(var/datum/contextAction/C as anything in src.contextActions)
 			var/action = C.checkRequirements(target, src)
 			if(action)
 				. += C
@@ -26,10 +26,11 @@
 /mob/proc/showContextActions(list/datum/contextAction/applicable, atom/target, datum/contextLayout/customContextLayout)
 	if(length(contextButtons))
 		closeContextActions()
+		return
 
 	var/list/buttons = list()
-	for(var/datum/contextAction/C as() in applicable)
-		var/atom/movable/screen/contextButton/B = unpool(/atom/movable/screen/contextButton)
+	for(var/datum/contextAction/C as anything in applicable)
+		var/atom/movable/screen/contextButton/B = new /atom/movable/screen/contextButton
 		B.setup(C, src, target)
 		B.alpha = 0
 		buttons.Add(B)
@@ -44,7 +45,7 @@
 	contextButtons = buttons
 
 /mob/proc/closeContextActions()
-	for(var/atom/movable/screen/contextButton/C as() in contextButtons) //todo: stop typechecking our mob every iter
+	for(var/atom/movable/screen/contextButton/C as anything in contextButtons) //todo: stop typechecking our mob every iter
 		if(ishuman(src))
 			var/mob/living/carbon/human/H = src
 			H.hud.remove_screen(C)
@@ -83,7 +84,7 @@
 		contextButtons.Remove(C)
 		if(C.overlays)
 			C.overlays = list()
-		pool(C)
+		qdel(C)
 
 /atom/New()
 	if(contextActions != null)
@@ -107,13 +108,13 @@
 
 /atom/proc/removeContextAction(var/contextType)
 	if(!ispath(contextType)) return
-	for(var/datum/contextAction/C as() in contextActions)
+	for(var/datum/contextAction/C as anything in contextActions)
 		if(C.type == contextType)
 			contextActions.Remove(C)
 
 /proc/buildContextActions()
 	globalContextActions = list()
-	for(var/datum/contextAction/A as() in childrentypesof(/datum/contextAction))
+	for(var/datum/contextAction/A as anything in childrentypesof(/datum/contextAction))
 		globalContextActions[A] = new A()
 
 /atom/movable/screen/contextButton
@@ -135,7 +136,7 @@
 		icon_state = action.getIconState(target, user)
 		name = action.getName(target, user)
 
-		var/matrix/trans = unpool(/matrix)
+		var/matrix/trans = new /matrix
 		trans = trans.Reset()
 		trans.Translate(8, 16)
 		transform = trans

@@ -4,6 +4,7 @@
 	id = "lizard"
 	mutantrace_option = "Lizard"
 	effectType = EFFECT_TYPE_MUTANTRACE
+	effect_group = "mutantrace"
 	probability = 33
 	msgGain = "Your skin feels oddly dry."
 	msgLose = "Your scales fall off."
@@ -76,16 +77,6 @@
 	msgLose = "You feel dry."
 	icon_state  = "squid"
 
-/datum/bioEffect/mutantrace/dwarf
-	name = "Dwarfism"
-	desc = "Greatly reduces the overall size of the subject, resulting in markedly dimished height."
-	id = "dwarf"
-	mutantrace_option = "Dwarf"
-	mutantrace_path = /datum/mutantrace/dwarf
-	msgGain = "Did everything just get bigger?"
-	msgLose = "You feel tall!"
-	icon_state  = "dwarf"
-
 /datum/bioEffect/mutantrace/roach
 	name = "Blattodean Genetics"
 	desc = "Re-enables ancient vestigal genes in the subject's body."
@@ -141,7 +132,7 @@
 	can_scramble = 0
 	curable_by_mutadone = 0
 	reclaim_fail = 100
-	stability_loss = 25
+	stability_loss = 50 //nya~~ *gurgle*
 	mutantrace_option = "Cat"
 	mutantrace_path = /datum/mutantrace/cat
 	msgGain = "You feel especially hairy."

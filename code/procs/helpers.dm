@@ -100,7 +100,7 @@ var/global/obj/flashDummy
 	var/list/affected = DrawLine(from, O, /obj/line_obj/elec ,'icons/obj/projectiles.dmi',"WholeLghtn",1,1,"HalfStartLghtn","HalfEndLghtn",OBJ_LAYER,1,PreloadedIcon='icons/effects/LghtLine.dmi')
 
 	for(var/obj/Q in affected)
-		SPAWN_DBG(0.6 SECONDS) pool(Q)
+		SPAWN_DBG(0.6 SECONDS) qdel(Q)
 
 	for(var/mob/living/M in get_turf(target))
 		M.shock(from, wattage, "chest", 1, 1)
@@ -120,7 +120,7 @@ var/global/obj/flashDummy
 	elecflash(target,power = elecflashpower)
 	O.set_loc(null)
 
-/proc/arcFlash(var/atom/from, var/atom/target, var/wattage)
+/proc/arcFlash(var/atom/from, var/atom/target, var/wattage, stun_coeff = 1)
 	var/target_r = target
 	if (isturf(target))
 		var/obj/O = getFlashDummy()
@@ -132,10 +132,10 @@ var/global/obj/flashDummy
 	var/list/affected = DrawLine(from, target_r, /obj/line_obj/elec ,'icons/obj/projectiles.dmi',"WholeLghtn",1,1,"HalfStartLghtn","HalfEndLghtn",OBJ_LAYER,1,PreloadedIcon='icons/effects/LghtLine.dmi')
 
 	for(var/obj/O in affected)
-		SPAWN_DBG(0.6 SECONDS) pool(O)
+		SPAWN_DBG(0.6 SECONDS) qdel(O)
 
 	if(wattage && isliving(target)) //Probably unsafe.
-		target:shock(from, wattage, "chest", 1, 1)
+		target:shock(from, wattage, "chest", stun_coeff, 1)
 
 	var/elecflashpower = 0
 	if (wattage > 12000)
@@ -307,6 +307,7 @@ proc/get_angle(atom/a, atom/b)
 		index = findtext(t, "\t")
 	return t // fuk.
 
+// This function is literally the exact same as sanitize(). ???
 /proc/sanitize_noencode(var/t)
 	var/index = findtext(t, "\n")
 	while(index)
@@ -325,14 +326,19 @@ proc/get_angle(atom/a, atom/b)
 		var/list/bad_characters = list("_", "'", "\"", "<", ">", ";", "[", "]", "{", "}", "|", "\\", "/")
 		for(var/c in bad_characters)
 			t = replacetext(t, c, "")
-	var/index = findtext(t, "<")
-	while(index)
-		t = copytext(t, 1, index) + copytext(t, index+1)
-		index = findtext(t, "<")
-	index = findtext(t, ">")
-	while(index)
-		t = copytext(t, 1, index) + copytext(t, index+1)
-		index = findtext(t, ">")
+
+	// html_encode(t) will convert < and > to &lt; and &gt;
+	// which will allow them to be used (safely) in messages
+	t = html_encode(t)
+
+	// var/index = findtext(t, "<")
+	// while(index)
+	// 	t = copytext(t, 1, index) + "&lt;" + copytext(t, index+1)
+	// 	index = findtext(t, "<")
+	// index = findtext(t, ">")
+	// while(index)
+	// 	t = copytext(t, 1, index) + "&gt;" + copytext(t, index+1)
+	// 	index = findtext(t, ">")
 	. = sanitize(t)
 
 /proc/strip_html_tags(var/t,var/limit=MAX_MESSAGE_LEN)
@@ -342,14 +348,18 @@ proc/get_angle(atom/a, atom/b)
 
 /proc/adminscrub(var/t,var/limit=MAX_MESSAGE_LEN)
 	t = html_decode(copytext(t,1,limit))
-	var/index = findtext(t, "<")
-	while(index)
-		t = copytext(t, 1, index) + copytext(t, index+1)
-		index = findtext(t, "<")
-	index = findtext(t, ">")
-	while(index)
-		t = copytext(t, 1, index) + copytext(t, index+1)
-		index = findtext(t, ">")
+
+	// html_encode(t) will convert < and > to &lt; and &gt;
+	// which will allow them to be used (safely) in messages
+
+	// var/index = findtext(t, "<")
+	// while(index)
+	// 	t = copytext(t, 1, index) + "&lt;" + copytext(t, index+1)
+	// 	index = findtext(t, "<")
+	// index = findtext(t, ">")
+	// while(index)
+	// 	t = copytext(t, 1, index) + "&gt;" + copytext(t, index+1)
+	// 	index = findtext(t, ">")
 	. = html_encode(t)
 
 /proc/map_numbers(var/x, var/in_min, var/in_max, var/out_min, var/out_max)
@@ -445,10 +455,29 @@ proc/get_angle(atom/a, atom/b)
 		. = findtext(text, suffix, start, null) //was findtextEx
 
 /**
+ * Given a message, returns a list containing the radio prefix and the message,
+ * so that the message can be manipulated seperately in various functions.
+ */
+/proc/separate_radio_prefix_and_message(var/message)
+	var/prefix = null
+
+	if (dd_hasprefix(message, ":lh") || dd_hasprefix(message, ":rh") || dd_hasprefix(message, ":in"))
+		prefix = copytext(message, 1, 4)
+		message = copytext(message, 4)
+	else if (dd_hasprefix(message, ":"))
+		prefix = copytext(message, 1, 3)
+		message = copytext(message, 3)
+	else if (dd_hasprefix(message, ";"))
+		prefix = ";"
+		message = copytext(message, 2)
+
+	return list(prefix, message)
+
+/**
 	* Given a list, returns a text string representation of the list's contents.
 	*/
 /proc/english_list(var/list/input, nothing_text = "nothing", and_text = " and ", comma_text = ", ", final_comma_text = "," )
-	var/total = input.len
+	var/total = length(input)
 	if (!total)
 		return "[nothing_text]"
 	else if (total == 1)
@@ -715,6 +744,7 @@ proc/get_angle(atom/a, atom/b)
 	var/mob/the_mob = null
 	var/client/the_client = null
 	var/the_key = ""
+	var/last_ckey = null
 
 	if (isnull(whom))
 		return "*null*"
@@ -726,6 +756,7 @@ proc/get_angle(atom/a, atom/b)
 		the_mob = whom
 		the_client = the_mob.client
 		the_key = html_encode(the_mob.key)
+		last_ckey = the_mob.last_ckey
 	else if (istype(whom, /datum))
 		if (ismind(whom))
 			var/datum/mind/the_mind = whom
@@ -757,7 +788,10 @@ proc/get_angle(atom/a, atom/b)
 	var/text = ""
 
 	if (!the_key)
-		text += "*no client*"
+		if(last_ckey)
+			text += "*last ckey: [last_ckey]*"
+		else
+			text += "*no client*"
 	else
 		if (!isnull(the_mob))
 			if(custom_href) text += "<a href=\"[custom_href]\">"
@@ -899,9 +933,45 @@ proc/get_angle(atom/a, atom/b)
 	var/y = min(world.maxy, max(1, A.y + dy))
 	return locate(x,y,A.z)
 
+
+/// Returns the turf facing the fab for cardinal directions (which should also be the user's turf),
+///		but for diagonals it returns a neighbouring turf depending on where you click
+/// Just in case you're attacking a corner diagonally. (made initially for lamp manufacturers, probably behaves funky above range 1)
+proc/get_adjacent_floor(atom/W, mob/user, px, py)
+	var/dir_temp = get_dir(user, W) //Our W is to the ___ of the user
+	//These two expressions divide a 32*32 turf into diagonal halves
+	var/diag1 = (px > py) //up-left vs down-right
+	var/diag2 = ((px + py) > 32) //up-right vs down-left
+	switch(dir_temp)
+		if (NORTH)
+			return get_turf(get_step(W,SOUTH))
+		if (NORTHEAST)
+			if (diag1)
+				return get_turf(get_step(W,SOUTH))
+			return get_turf(get_step(W,WEST))
+		if (EAST)
+			return get_turf(get_step(W,WEST))
+		if (SOUTHEAST)
+			if (diag2)
+				return get_turf(get_step(W,NORTH))
+			return get_turf(get_step(W,WEST))
+		if (SOUTH)
+			return get_turf(get_step(W,NORTH))
+		if (SOUTHWEST)
+			if (diag1)
+				return get_turf(get_step(W,EAST))
+			return get_turf(get_step(W,NORTH))
+		if (WEST)
+			return get_turf(get_step(W,EAST))
+		if (NORTHWEST)
+			if (diag2)
+				return get_turf(get_step(W,EAST))
+			return get_turf(get_step(W,SOUTH))
+
+
 // extends pick() to associated lists
 /proc/alist_pick(var/list/L)
-	if(!L || !L.len)
+	if(!L || !length(L))
 		return null
 	return L[pick(L)]
 
@@ -962,27 +1032,26 @@ proc/get_angle(atom/a, atom/b)
 // you couldnt have gone for "msg" or something that makes 10 times more sense?!?
 // In summary: aaaaaaaAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 // <3 Fire
-/proc/stars(n, pr)
-
-	if (pr == null)
-		pr = 25
-	if (pr <= 0)
+// I'm preserving the above comment block, let it be known this proc used to use the variables "n", "pr", "te", "t", "p." I have fixed them. You're welcome.
+// <3 FlamingLily
+/proc/stars(input_text, probability)
+	if(probability == null)
+		probability = 25
+	if(probability <= 0)
 		return null
 	else
-		if (pr >= 100)
-			return n
-	var/te = n
-	var/t = ""
-	n = length(n)
-	var/p = null
-	p = 1
-	while(p <= n)
-		if ((copytext(te, p, p + 1) == " " || prob(pr)))
-			t = text("[][]", t, copytext(te, p, p + 1))
+		if (probability >= 100)
+			return input_text
+	var/output_text = ""
+	var/input_length = length(input_text)
+	var/cycle = 1
+	while(cycle <= input_length)
+		if ((copytext(input_text, cycle, cycle + 1) == " " || prob(probability)))
+			output_text = text("[][]", output_text, copytext(input_text, cycle, cycle + 1))
 		else
-			t = text("[]*", t)
-		p++
-	return t
+			output_text = text("[]*", output_text)
+		cycle++
+	return output_text
 
 /proc/stutter(n)
 	var/te = html_decode(n)
@@ -1195,7 +1264,7 @@ proc/get_angle(atom/a, atom/b)
 
 /proc/all_hearers(var/range,var/centre)
 	. = list()
-	for(var/atom/A as() in (view(range,centre) | hearers(range, centre))) //Why was this view(). Oh no, the invisible man hears naught 'cause the sound can't find his ears.
+	for(var/atom/A as anything in (view(range,centre) | hearers(range, centre))) //Why was this view(). Oh no, the invisible man hears naught 'cause the sound can't find his ears.
 		if (ismob(A))
 			. += A
 		if (isobj(A) || ismob(A))
@@ -1212,7 +1281,7 @@ proc/get_angle(atom/a, atom/b)
 				if (can_hear)
 					. += M
 	if(length(by_cat[TR_CAT_OMNIPRESENT_MOBS]))
-		for(var/mob/M as() in by_cat[TR_CAT_OMNIPRESENT_MOBS])
+		for(var/mob/M as anything in by_cat[TR_CAT_OMNIPRESENT_MOBS])
 			if(get_step(M, 0)?.z == get_step(centre, 0)?.z)
 				. |= M
 
@@ -1220,20 +1289,20 @@ proc/get_angle(atom/a, atom/b)
 
 /proc/all_viewers(var/range,var/centre)
 	. = list()
-	for (var/atom/A as() in viewers(range,centre))
+	for (var/atom/A as anything in viewers(range,centre))
 		if (ismob(A))
 			. += A
 		else if (isobj(A))
 			for(var/mob/M in A.contents)
 				. += M
 	if(length(by_cat[TR_CAT_OMNIPRESENT_MOBS]))
-		for(var/mob/M as() in by_cat[TR_CAT_OMNIPRESENT_MOBS])
+		for(var/mob/M as anything in by_cat[TR_CAT_OMNIPRESENT_MOBS])
 			if(get_step(M, 0)?.z == get_step(centre, 0)?.z)
 				. |= M
 
 /proc/all_range(var/range,var/centre) //above two are blocked by opaque objects
 	. = list()
-	for (var/atom/A as() in range(range,centre))
+	for (var/atom/A as anything in range(range,centre))
 		if (ismob(A))
 			. += A
 		else if (isobj(A))
@@ -1421,7 +1490,7 @@ var/list/hex_chars = list("0","1","2","3","4","5","6","7","8","9","A","B","C","D
 var/list/all_functional_reagent_ids = list()
 
 proc/get_all_functional_reagent_ids()
-	for (var/datum/reagent/R as() in filtered_concrete_typesof(/datum/reagent, /proc/filter_blacklisted_chem))
+	for (var/datum/reagent/R as anything in filtered_concrete_typesof(/datum/reagent, /proc/filter_blacklisted_chem))
 		all_functional_reagent_ids += initial(R.id)
 
 
@@ -1430,7 +1499,7 @@ proc/filter_blacklisted_chem(type)
 	return !initial(fakeInstance.random_chem_blacklisted)
 
 proc/reagent_id_to_name(var/reagent_id)
-	if (!reagent_id || !reagents_cache.len)
+	if (!reagent_id || !length(reagents_cache))
 		return
 	var/datum/reagent/R = reagents_cache[reagent_id]
 	if (!R)
@@ -1448,7 +1517,7 @@ proc/RarityClassRoll(var/scalemax = 100, var/mod = 0, var/list/category_boundari
 
 	var/picker = rand(1,scalemax)
 	picker += mod
-	var/list_counter = category_boundaries.len
+	var/list_counter = length(category_boundaries)
 
 	for (var/X in category_boundaries)
 		if (!isnum(X))
@@ -1589,7 +1658,7 @@ var/list/english_num = list("0" = "zero", "1" = "one", "2" = "two", "3" = "three
 "20" = "twenty", "30" = "thirty", "40" = "forty", "50" = "fifty", "60" = "sixty", "70" = "seventy", "80" = "eighty", "90" = "ninety")
 
 /proc/get_english_num(var/num, var/sep) // can only do up to 999,999 because of scientific notation kicking in after 6 digits
-	if (!num || !english_num.len)
+	if (!num || !length(english_num))
 		return
 
 	DEBUG_MESSAGE("<b>get_english_num recieves num \"[num]\"</b>")
@@ -1827,7 +1896,11 @@ proc/countJob(rank)
 /proc/dead_player_list_helper(var/mob/G, var/allow_dead_antags = 0, var/require_client = FALSE)
 	if (!G?.mind || G.mind.dnr)
 		return 0
-	if (!isobserver(G) && !(isliving(G) && isdead(G))) // if (NOT /mob/dead) AND NOT (/mob/living AND dead)
+	// if (!isobserver(G) && !(isliving(G) && isdead(G))) // if (NOT /mob/dead) AND NOT (/mob/living AND dead)
+	// 	return 0
+	// If (alive) and (not in the afterlife, or in the afterlife but in hell) and (not a VR ghost)
+	// (basically, allow people who are alive in the afterlife or in VR to get respawn popups)
+	if (!isdead(G) && !(istype(get_area(G), /area/afterlife) && !istype(get_area(G), /area/afterlife/hell)) && !isVRghost(G))
 		return 0
 	if (istype(G, /mob/new_player) || G.respawning)
 		return 0
@@ -1891,7 +1964,7 @@ proc/countJob(rank)
 		return
 
 	// Find our master's mob reference (if any).
-	var/mob/mymaster = whois_ckey_to_mob_reference(M.mind.master)
+	var/mob/mymaster = ckey_to_mob(M.mind.master)
 
 	switch (slave_type)
 		if ("mslave")
@@ -1909,8 +1982,8 @@ proc/countJob(rank)
 
 			remove_antag(M, null, 1, 0)
 			if (M.mind && ticker.mode && !(M.mind in ticker.mode.former_antagonists))
-				if (!M.mind.former_antagonist_roles.Find("mindslave"))
-					M.mind.former_antagonist_roles.Add("mindslave")
+				if (!M.mind.former_antagonist_roles.Find(ROLE_MINDSLAVE))
+					M.mind.former_antagonist_roles.Add(ROLE_MINDSLAVE)
 				ticker.mode.former_antagonists += M.mind
 
 		if ("vthrall")
@@ -1922,8 +1995,8 @@ proc/countJob(rank)
 
 			remove_antag(M, null, 1, 0)
 			if (M.mind && ticker.mode && !(M.mind in ticker.mode.former_antagonists))
-				if (!M.mind.former_antagonist_roles.Find("vampthrall"))
-					M.mind.former_antagonist_roles.Add("vampthrall")
+				if (!M.mind.former_antagonist_roles.Find(ROLE_VAMPTHRALL))
+					M.mind.former_antagonist_roles.Add(ROLE_VAMPTHRALL)
 				ticker.mode.former_antagonists += M.mind
 
 		// This is only used for spy slaves and mindslaved antagonists at the moment.
@@ -1946,8 +2019,8 @@ proc/countJob(rank)
 			else
 				M.mind.master = null
 			if (M.mind && ticker.mode && !(M.mind in ticker.mode.former_antagonists))
-				if (!M.mind.former_antagonist_roles.Find("mindslave"))
-					M.mind.former_antagonist_roles.Add("mindslave")
+				if (!M.mind.former_antagonist_roles.Find(ROLE_MINDSLAVE))
+					M.mind.former_antagonist_roles.Add(ROLE_MINDSLAVE)
 				ticker.mode.former_antagonists += M.mind
 
 		else
@@ -1997,7 +2070,7 @@ proc/countJob(rank)
 /**
   * A universal ckey -> mob reference lookup proc, adapted from whois() (Convair880).
   */
-/proc/whois_ckey_to_mob_reference(target as text, exact=1)
+/proc/ckey_to_mob(target as text, exact=1)
 	if(isnull(target))
 		return
 	target = ckey(target)
@@ -2035,14 +2108,14 @@ proc/countJob(rank)
 var/global/nextDectalkDelay = 5 //seconds
 var/global/lastDectalkUse = 0
 /proc/dectalk(msg)
-	if (!msg) return 0
+	if (!msg || !config.spacebee_api_key) return 0
 	if (world.timeofday > (lastDectalkUse + (nextDectalkDelay * 10)))
 		lastDectalkUse = world.timeofday
 		msg = copytext(msg, 1, 2000)
 
 		// Fetch via HTTP from goonhub
 		var/datum/http_request/request = new()
-		request.prepare(RUSTG_HTTP_METHOD_GET, "http://spacebee.goonhub.com/api/tts?dectalk=[url_encode(msg)]&api_key=[url_encode(ircbot.apikey)]", "", "")
+		request.prepare(RUSTG_HTTP_METHOD_GET, "https://spacebee.goonhub.com/api/tts?dectalk=[url_encode(msg)]&api_key=[config.spacebee_api_key]", "", "")
 		request.begin_async()
 		UNTIL(request.is_complete())
 		var/datum/http_response/response = request.into_response()
@@ -2118,7 +2191,7 @@ var/global/list/allowed_restricted_z_areas
 	if (!center || !isnum(range) || range <= 0)
 		return 0
 
-	if (!islist(smash) || !smash.len)
+	if (!islist(smash) || !length(smash))
 		return 0
 
 	var/turf/CT
@@ -2193,7 +2266,7 @@ var/global/list/allowed_restricted_z_areas
 	if (new_tone == "Custom...")
 		var/tone = input(user, "Please select skin tone level: 1-220 (1=albino, 35=caucasian, 150=black, 220='very' black)", "Skin tone picker") as null|num
 		if (!isnull(tone))
-			tone = 35 - min(max(tone, 1), 220)
+			tone = 35 - min(max(tone, 1), 220) // range is 34 to -194
 			//new_tone = rgb(220 + tone, 220 + tone, 220 + tone)
 			new_tone = blend_skintone(tone,tone,tone)
 		else
@@ -2208,9 +2281,9 @@ var/global/list/allowed_restricted_z_areas
   */
 /proc/blend_skintone(var/r1, var/g1, var/b1)
 	//I expect we will only need to darken the already pale white image.
-	var/r = min(r1 + 255, 255) //ff
-	var/g = min(g1 + 202, 255) //ca
-	var/b = min(b1 + 149, 255) //95
+	var/r = min(r1 + 255, 255) //ff min 61 max 255
+	var/g = min(g1 + 202, 255) //ca min 8 max 236
+	var/b = min(b1 + 149, 255) //95 min 0 max 183
 	return rgb(r,g,b)
 
 /**
@@ -2352,16 +2425,10 @@ proc/getIconSize()
   * Finds a client by ckey, throws exception if not found
   */
 proc/getClientFromCkey(ckey)
-	var/client/C
-	for (var/client/LC in clients)
-		if (LC.ckey == ckey)
-			C = LC
-			break
-
-	if (!C)
+	var/datum/player/player = find_player(ckey)
+	if(!player?.client)
 		throw EXCEPTION("Client not found")
-
-	return C
+	return player.client
 
 /**
 	* Returns true if the given atom is within src's contents (deeply/recursively)
@@ -2375,80 +2442,6 @@ proc/getClientFromCkey(ckey)
 			return TRUE
 
 /**
-  * Returns the vector magnitude of an x value and a y value
-  */
-proc/vector_magnitude(x,y)
-	//can early out
-	.= sqrt(x*x + y*y);
-
-/**
-  * Transforms a supplied vector x & y to a direction
-  */
-proc/vector_to_dir(x,y)
-	.= angle_to_dir(arctan(y,x))
-
-/**
-  * Transforms a given angle to a cardinal/ordinal direction
-  */
-proc/angle_to_dir(angle)
-	.= 0
-	if (angle >= 360)
-		return angle_to_dir(angle-360)
-	if (angle >= 0)
-		if (angle < 22.5)
-			.= NORTH
-		else if (angle <= 67.5)
-			.= NORTHEAST
-		else if (angle < 112.5)
-			.= EAST
-		else if (angle <= 157.5)
-			.= SOUTHEAST
-		else
-			.= SOUTH
-	else if (angle < 0)
-		if (angle > -22.5)
-			.= NORTH
-		else if (angle >= -67.5)
-			.= NORTHWEST
-		else if (angle > -112.5)
-			.= WEST
-		else if (angle >= -157.5)
-			.= SOUTHWEST
-		else
-			.= SOUTH
-
-/**
-  * Transforms a cardinal/ordinal direction to an angle
-  */
-proc/dir_to_angle(dir)
-	.= 0
-	switch(dir)
-		if(NORTH)
-			.= 0
-		if(NORTHEAST)
-			.= 45
-		if(EAST)
-			.= 90
-		if(SOUTHEAST)
-			.= 135
-		if(SOUTH)
-			.= 180
-		if(SOUTHWEST)
-			.= 225
-		if(WEST)
-			.= 270
-		if(NORTHWEST)
-			.= 315
-
-/**
-  * Transforms a given angle to vec2 in a list
-  */
-proc/angle_to_vector(ang)
-	.= list()
-	. += cos(ang)
-	. += sin(ang)
-
-/**
   * Removes non-whitelisted reagents from the reagents of TA
 	*
   * * user: the mob that adds a reagent to an atom that has a reagent whitelist
@@ -2456,7 +2449,7 @@ proc/angle_to_vector(ang)
   * * TA: Target Atom. The thing that the user is adding the reagent to
   */
 proc/check_whitelist(var/atom/TA, var/list/whitelist, var/mob/user as mob, var/custom_message = "")
-	if (!whitelist || (!TA || !TA.reagents) || (islist(whitelist) && !whitelist.len))
+	if (!whitelist || (!TA || !TA.reagents) || (islist(whitelist) && !length(whitelist)))
 		return
 	if (!custom_message)
 		custom_message = "<span class='alert'>[TA] identifies and removes a harmful substance.</span>"
@@ -2559,12 +2552,8 @@ proc/inline_bicon(the_thing, height=32)
 	</span>"}
 
 
-/// fucking clients.len doesnt work, filled with null values
 proc/total_clients()
-	.= 0
-	for (var/C in clients)
-		if (C)
-			.++
+	return length(clients)
 
 
 //total clients used for player cap (which pretends admins don't exist)
@@ -2586,40 +2575,11 @@ proc/client_has_cap_grace(var/client/C)
 		.= (player_cap_grace[C.ckey] > TIME)
 
 
-/**
-	* Returns the maximal subtype (i.e. the most subby) in a list of given types
-	*/
-proc/maximal_subtype(var/list/L)
-	if (!(length(L)))
-		.= null
-	else
-		.= L[1]
-		for (var/t in L)
-			if (ispath(t, .))
-				.= t
-			else if (!(ispath(., t)))
-				return null // paths in L aren't linearly ordered
+//TODO: refactor the below two into one proc
 
-/**
- * Takes associative list of the form list(thing = weight), returns weighted random choice of keys based on weights.
- */
-proc/weighted_pick(list/choices)
-	var/total = 0
-	for(var/key in choices)
-		total += choices[key]
-	var/weighted_num = rand(1, total)
-	var/running_total = 0
-	for(var/key in choices)
-		running_total += choices[key]
-		if(weighted_num <= running_total)
-			return key
-	return
-
-proc/keep_truthy(some_list)
-	. = list()
-	for(var/x in some_list)
-		if(x)
-			. += x
+/// Returns true if not incapicitated and unhandcuffed (by default)
+proc/can_act(var/mob/M, var/include_cuffs = 1)
+	return !((include_cuffs && M.restrained()) || is_incapacitated(M))
 
 /// Returns true if the given mob is incapacitated
 proc/is_incapacitated(mob/M)
@@ -2632,7 +2592,7 @@ proc/is_incapacitated(mob/M)
 /// sets up the list of ringtones players can select through character setup
 proc/get_all_character_setup_ringtones()
 	if(!length(selectable_ringtones))
-		for (var/datum/ringtone/R as() in filtered_concrete_typesof(/datum/ringtone, /proc/filter_is_character_setup_ringtone))
+		for (var/datum/ringtone/R as anything in filtered_concrete_typesof(/datum/ringtone, /proc/filter_is_character_setup_ringtone))
 			var/datum/ringtone/R_prime = new R
 			selectable_ringtones[R_prime.name] = R_prime
 	return selectable_ringtones

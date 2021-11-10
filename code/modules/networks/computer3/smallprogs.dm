@@ -113,7 +113,7 @@
 
 
 			if("view")
-				if(!src.working_signal || !src.working_signal.len)
+				if(!src.working_signal || !length(src.working_signal))
 					src.print_text("Error, no signal loaded.")
 					return
 				else
@@ -257,7 +257,7 @@
 				src.peripheral_command("ping", null, "\ref[src.ping_card]")
 
 			if("view")
-				if(!src.replies || !src.replies.len)
+				if(!src.replies || !length(src.replies))
 					src.print_text("Error, no reply data found.")
 					return
 				else
@@ -1352,8 +1352,9 @@ file_save - Save file to local disk."}
 
 		var/dat = "Crew Manifest<br>Entries cannot be modified from this terminal.<br>"
 
-		for (var/datum/data/record/t in data_core.general)
-			dat += "[t.fields["name"]] - [t.fields["rank"]]<br>"
+
+		dat += get_manifest()
+
 
 		src.master.temp = null
 		src.print_text("[dat]Now exiting...")

@@ -64,19 +64,29 @@
 	else
 		playsound(src.loc, "sound/items/Deconstruct.ogg", 50, 1)
 		if (!connected)
-			src.connected = new /obj/m_tray(src.loc)
-		else
-			src.connected.set_loc(src.loc)
-		step(src.connected, src.dir)//EAST)
-		src.connected.layer = OBJ_LAYER
-		var/turf/T = get_step(src, src.dir)//EAST)
-		if (T.contents.Find(src.connected))
+			src.connected = new /obj/m_tray(src)
+			src.connected.set_dir(src.dir)
 			src.connected.connected = src
-			for(var/atom/movable/A as mob|obj in src)
-				A.set_loc(src.connected.loc)
-			src.connected.icon_state = "morguet"
-		else
-			src.connected.set_loc(src)
+			src.connected.layer = OBJ_LAYER - 0.02
+
+		var/turf/T_src = get_turf(src)
+		var/turf/T = get_step(src, src.dir)
+
+		//handle animation and ejection of contents
+		for(var/atom/movable/AM as anything in src)
+			AM.set_loc(T)
+			AM.pixel_x = 28 * (T_src.x - T.x) // 28 instead of 32 to obscure the double handle
+			AM.pixel_y = 28 * (T_src.y - T.y)
+
+			var/orig_layer = AM.layer
+			if (AM != src.connected)
+				AM.layer = OBJ_LAYER - 0.01
+
+			animate(AM, 1 SECOND, easing = BOUNCE_EASING, pixel_x = 0, pixel_y = 0)
+			animate(layer = orig_layer, easing = JUMP_EASING)
+
+		src.connected.icon_state = "morguet"
+
 	src.add_fingerprint(user)
 	src.update()
 	return
@@ -107,7 +117,6 @@
 	else
 		src.connected.set_loc(src.loc)
 	step(src.connected, src.dir)//EAST)
-	src.connected.layer = OBJ_LAYER
 	var/turf/T = get_step(src, src.dir)//EAST)
 	if (T.contents.Find(src.connected))
 		src.connected.connected = src
@@ -136,7 +145,7 @@
 		src.connected = null
 		. = ..()
 
-/obj/m_tray/CanPass(atom/movable/mover, turf/target, height=0, air_group=0)
+/obj/m_tray/CanPass(atom/movable/mover, turf/target)
 	if (istype(mover, /obj/item/dummy))
 		return 1
 	else
@@ -198,7 +207,7 @@
 		STOP_TRACKING
 
 /obj/crematorium/proc/update()
-	if (src.connected.loc != src.loc)
+	if (src.connected.loc != src)
 		src.icon_state = "crema0"
 	else
 		if (src.contents.len > 1)  //the tray lives in contents
@@ -313,7 +322,7 @@
 		return
 	if (src.cremating)
 		return //don't let you cremate something twice or w/e
-	if (!src.contents || !src.contents.len)
+	if (!src.contents || !length(src.contents))
 		src.visible_message("<span class='alert'>You hear a hollow crackle, but nothing else happens.</span>")
 		return
 
@@ -380,7 +389,7 @@
 		src.connected = null
 		. = ..()
 
-/obj/c_tray/CanPass(atom/movable/mover, turf/target, height=0, air_group=0)
+/obj/c_tray/CanPass(atom/movable/mover, turf/target)
 	if (istype(mover, /obj/item/dummy))
 		return 1
 	else
@@ -440,7 +449,7 @@
 				if (C.id == src.id)
 					src.crematoriums.Add(C)
 					C.igniter = src
-		for (var/obj/crematorium/C as() in src.crematoriums)
+		for (var/obj/crematorium/C as anything in src.crematoriums)
 			if (!C.cremating)
 				C.cremate(user)
 	else
@@ -559,7 +568,7 @@
 			return
 		if (src.cremating)
 			return //don't let you cremate something twice or w/e
-		if (!src.contents || !src.contents.len)
+		if (!src.contents || !length(src.contents))
 			src.visible_message("<span class='alert'>You hear the lights turn on for a second, then turn off.</span>")
 			return
 
@@ -659,7 +668,7 @@
 
 	attackby(var/obj/item/P as obj, mob/user as mob)
 		..()
-		if (istype(P, /obj/item/light/tube) && !src.contents.len)
+		if (istype(P, /obj/item/light/tube) && !length(src.contents))
 			var/obj/item/light/tube/G = P
 			boutput(user, "<span class='notice'>You put \the [G.name] into \the [src.name].</span>")
 			user.drop_item()
@@ -672,7 +681,7 @@
 				light.set_color(tanningtube.color_r, tanningtube.color_g, tanningtube.color_b)
 				light.set_brightness(0.5)
 
-		if (ispryingtool(P) && src.contents.len) //pry out the tube with a crowbar
+		if (ispryingtool(P) && length(src.contents)) //pry out the tube with a crowbar
 			boutput(user, "<span class='notice'>You pry out \the [src.tanningtube.name] from \the [src.name].</span>")
 			src.tanningtube.set_loc(src.loc)
 			src.tanningtube = null
@@ -689,7 +698,7 @@
 	desc = "Used to control a tanning bed."
 	icon = 'icons/obj/stationobjs.dmi'
 	mats = 20
-	var/id = 2
+	id = 2
 	icon_state = "tanconsole"
 	var/state_str = ""
 	var/obj/crematorium/tanning/linked = null //The linked tanning bed
