@@ -146,6 +146,12 @@
 	dir = 5
 	},
 /area)
+"ba" = (
+/obj/machinery/vending/floppy,
+/turf/simulated/floor/green/corner{
+	dir = 1
+	},
+/area)
 "bb" = (
 /obj/table/reinforced/auto,
 /obj/item/device/radio,
@@ -306,13 +312,11 @@
 /turf/simulated/floor/plating/jen,
 /area)
 "bV" = (
-/obj/table/auto,
-/obj/item/storage/box/diskbox,
-/obj/machinery/light/small{
-	dir = 4
+/obj/machinery/door/airlock/pyro/engineering{
+	name = "Mechanic's Lab";
+	req_access = null
 	},
-/obj/item/clothing/glasses/meson,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/orangeblack,
 /area)
 "bW" = (
 /obj/machinery/atmospherics/pipe/simple/insulated{
@@ -601,16 +605,14 @@
 	},
 /area/shuttle/research/outpost)
 "dU" = (
-/obj/machinery/light_switch{
-	name = "N light switch";
-	pixel_y = 24
-	},
-/obj/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/turf/simulated/floor/plating,
+/obj/table/auto,
+/obj/item/clothing/gloves/yellow,
+/obj/item/clothing/gloves/yellow,
+/obj/item/device/t_scanner,
+/obj/item/device/t_scanner,
+/obj/item/device/multitool,
+/obj/item/device/multitool,
+/turf/simulated/floor/orangeblack,
 /area)
 "dV" = (
 /obj/machinery/conveyor{
@@ -912,17 +914,12 @@
 	},
 /area)
 "fL" = (
-/obj/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/cable{
-	d1 = 1;
-	d2 = 4;
-	icon_state = "1-4"
-	},
-/turf/simulated/floor/plating,
+/obj/table/auto,
+/obj/item/storage/belt/utility,
+/obj/item/storage/belt/utility,
+/obj/item/storage/belt/utility,
+/obj/item/electronics/soldering,
+/turf/simulated/floor/orangeblack,
 /area)
 "fO" = (
 /obj/table/reinforced/auto,
@@ -1003,9 +1000,11 @@
 /area)
 "gP" = (
 /obj/table/auto,
-/obj/item/peripheral/sound_card,
-/obj/item/peripheral/printer,
-/turf/simulated/floor/plating,
+/obj/item/storage/toolbox/mechanical,
+/obj/item/storage/toolbox/mechanical,
+/obj/item/storage/toolbox/mechanical,
+/obj/item/electronics/soldering,
+/turf/simulated/floor/orangeblack,
 /area)
 "gR" = (
 /obj/machinery/the_singularitygen{
@@ -1507,16 +1506,15 @@
 /turf/simulated/floor/black,
 /area)
 "jS" = (
-/obj/wingrille_spawn/auto,
-/obj/cable{
-	d2 = 4;
-	icon_state = "0-4"
-	},
-/obj/cable{
-	d2 = 8;
-	icon_state = "0-8"
-	},
-/turf/simulated/floor/plating,
+/obj/storage/cart/mechcart,
+/obj/item/electronics/scanner,
+/obj/item/deconstructor,
+/obj/item/storage/toolbox/electrical,
+/obj/item/storage/toolbox/mechanical,
+/obj/item/storage/box/lightbox/bulbs,
+/obj/item/storage/box/lightbox/tubes,
+/obj/item/device/multitool,
+/turf/simulated/floor/yellow,
 /area)
 "jT" = (
 /obj/machinery/light{
@@ -1691,14 +1689,8 @@
 	},
 /area)
 "lj" = (
-/obj/cable{
-	icon_state = "1-2"
-	},
-/obj/machinery/door/airlock/pyro/maintenance{
-	name = "Tech Storage";
-	req_access_txt = "23"
-	},
-/turf/simulated/floor/plating,
+/obj/machinery/vending/mechanics,
+/turf/simulated/floor/orangeblack,
 /area)
 "lm" = (
 /obj/grille/catwalk,
@@ -1895,23 +1887,11 @@
 /turf/simulated/floor/escape,
 /area)
 "mH" = (
-/obj/table/auto,
-/obj/item/disk/data/cartridge/diagnostics{
-	pixel_x = 4;
-	pixel_y = -2
+/obj/table/reinforced/auto,
+/obj/machinery/door/airlock/pyro/glass/windoor{
+	dir = 8
 	},
-/obj/item/disk/data/cartridge/atmos{
-	pixel_x = -6;
-	pixel_y = 4
-	},
-/obj/item/disk/data/cartridge{
-	desc = "A programmable data cartridge for portable microcomputers.";
-	name = "EEPROM Cart"
-	},
-/obj/item/device/audio_log,
-/obj/item/peripheral/card_scanner,
-/obj/item/peripheral/card_scanner,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/orangeblack,
 /area)
 "mI" = (
 /obj/item/storage/wall/emergency{
@@ -2021,13 +2001,13 @@
 /turf/simulated/floor/shuttlebay,
 /area)
 "ng" = (
-/obj/machinery/power/data_terminal,
-/obj/cable{
-	d2 = 2;
-	icon_state = "0-2"
+/obj/stool/chair/yellow{
+	dir = 8
 	},
-/obj/machinery/computer3/generic/radio,
-/turf/simulated/floor/plating,
+/obj/landmark/start{
+	name = "Mechanic"
+	},
+/turf/simulated/floor/orangeblack,
 /area)
 "nh" = (
 /obj/machinery/camera{
@@ -2386,18 +2366,8 @@
 /turf/simulated/floor/engine,
 /area)
 "qg" = (
-/obj/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/stool,
-/obj/cable{
-	d1 = 1;
-	d2 = 4;
-	icon_state = "1-4"
-	},
-/turf/simulated/floor/plating,
+/obj/machinery/manufacturer/mechanic,
+/turf/simulated/floor/orangeblack,
 /area)
 "ql" = (
 /obj/rack,
@@ -2474,8 +2444,8 @@
 	},
 /area)
 "qI" = (
-/obj/machinery/vending/computer3,
-/turf/simulated/floor/plating,
+/obj/machinery/disposal/mail/autoname/mechanics,
+/turf/simulated/floor/orangeblack,
 /area)
 "qL" = (
 /obj/stool,
@@ -2982,12 +2952,8 @@
 /turf/simulated/floor/wood,
 /area)
 "tL" = (
-/obj/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/turf/simulated/floor/plating,
+/obj/machinery/rkit,
+/turf/simulated/floor/orangeblack,
 /area)
 "tO" = (
 /turf/simulated/floor/wood,
@@ -3166,6 +3132,20 @@
 	dir = 4;
 	intact = 0
 	},
+/area)
+"uW" = (
+/obj/table/auto,
+/obj/item/screwdriver,
+/obj/item/disk/data/fixed_disk,
+/obj/item/disk/data/floppy/computer3boot,
+/obj/item/disk/data/floppy/read_only/network_progs,
+/obj/item/disk/data/floppy/read_only/security_progs,
+/obj/item/disk/data/floppy/read_only/communications,
+/obj/item/disk/data/floppy/read_only/medical_progs,
+/obj/item/disk/data/floppy/read_only/terminal_os,
+/obj/item/peripheral/printer,
+/obj/item/device/flash,
+/turf/simulated/floor/grey/blackgrime/other,
 /area)
 "uY" = (
 /turf/simulated/floor/green/side,
@@ -3424,6 +3404,12 @@
 /obj/fitness/weightlifter,
 /turf/simulated/floor/grime,
 /area)
+"wK" = (
+/obj/machinery/vending/computer3,
+/turf/simulated/floor/green/corner{
+	dir = 1
+	},
+/area)
 "wN" = (
 /obj/wingrille_spawn/auto/crystal,
 /obj/machinery/door/poddoor/pyro{
@@ -3543,13 +3529,8 @@
 /turf/simulated/floor/grime,
 /area)
 "xx" = (
-/obj/wingrille_spawn/auto,
-/obj/cable,
-/obj/cable{
-	d2 = 4;
-	icon_state = "0-4"
-	},
-/turf/simulated/floor/plating,
+/obj/storage/secure/closet/engineering/mechanic,
+/turf/simulated/floor/orangeblack,
 /area)
 "xz" = (
 /obj/machinery/door/airlock/pyro/external,
@@ -3702,12 +3683,9 @@
 /turf/simulated/floor/grime,
 /area)
 "yE" = (
-/obj/wingrille_spawn/auto,
-/obj/cable{
-	d2 = 8;
-	icon_state = "0-8"
-	},
-/turf/simulated/floor/plating,
+/obj/machinery/power/data_terminal,
+/obj/storage/secure/closet/engineering/mechanic,
+/turf/simulated/floor/bot/caution,
 /area)
 "yF" = (
 /obj/machinery/door/airlock/pyro/security{
@@ -4401,6 +4379,12 @@
 	},
 /turf/simulated/floor/specialroom/gym,
 /area)
+"Dr" = (
+/obj/machinery/vending/coffee,
+/turf/simulated/floor/green/corner{
+	dir = 1
+	},
+/area)
 "Ds" = (
 /obj/stool/chair{
 	dir = 8
@@ -4697,15 +4681,8 @@
 	},
 /area)
 "Fs" = (
-/obj/machinery/power/apc{
-	name = "S APC";
-	pixel_y = -24
-	},
-/obj/cable{
-	d2 = 8;
-	icon_state = "0-8"
-	},
-/turf/simulated/floor/plating,
+/obj/machinery/power/data_terminal,
+/turf/simulated/floor/bot/caution,
 /area)
 "Fu" = (
 /obj/cable{
@@ -4814,29 +4791,24 @@
 /turf/simulated/floor/redblack,
 /area)
 "Gv" = (
-/obj/rack,
-/obj/item/circuitboard/teleporter,
-/obj/item/circuitboard/card,
-/obj/item/circuitboard/robot_module_rewriter,
-/obj/item/circuitboard/cloning,
-/obj/item/circuitboard/barcode_qm,
-/obj/item/circuitboard/barcode,
-/turf/simulated/floor/plating,
+/obj/table/auto,
+/obj/machinery/cell_charger,
+/obj/item/cell/supercell/charged,
+/obj/item/cell/supercell/charged,
+/obj/item/cell/supercell/charged,
+/turf/simulated/floor/yellow,
 /area)
 "Gw" = (
 /obj/stool,
 /turf/simulated/floor/grime,
 /area)
 "Gz" = (
-/obj/cable{
-	d1 = 1;
-	d2 = 4;
-	icon_state = "1-4"
-	},
-/obj/machinery/light/small{
+/obj/table/auto,
+/obj/item/device/camera_viewer,
+/obj/item/device/audio_log,
+/turf/simulated/floor/green/corner{
 	dir = 8
 	},
-/turf/simulated/floor/plating,
 /area)
 "GA" = (
 /obj/stool/bed,
@@ -4974,13 +4946,11 @@
 /turf/space,
 /area)
 "Hv" = (
-/obj/rack,
-/obj/item/circuitboard/arcade,
-/obj/item/circuitboard/powermonitor,
-/obj/item/circuitboard/powermonitor_smes,
-/obj/item/circuitboard/operating,
-/obj/item/circuitboard/genetics,
-/turf/simulated/floor/plating,
+/obj/table/auto,
+/obj/machinery/computer3/generic/personal,
+/turf/simulated/floor/green/corner{
+	dir = 8
+	},
 /area)
 "Hz" = (
 /obj/table/reinforced/auto,
@@ -5094,9 +5064,10 @@
 /turf/simulated/floor/white,
 /area)
 "It" = (
-/obj/table/auto,
-/obj/machinery/computer3/luggable,
-/turf/simulated/floor/plating,
+/obj/machinery/computer3/generic/radio,
+/turf/simulated/floor/green/corner{
+	dir = 8
+	},
 /area)
 "Iw" = (
 /obj/stool/chair/comfy,
@@ -5116,6 +5087,11 @@
 /obj/item/toy/judge_block,
 /obj/item/toy/judge_gavel,
 /turf/simulated/floor/black,
+/area)
+"IA" = (
+/obj/machinery/power/data_terminal,
+/obj/item/device/net_sniffer,
+/turf/simulated/floor/plating,
 /area)
 "IC" = (
 /obj/machinery/recharge_station,
@@ -5559,14 +5535,15 @@
 	},
 /area)
 "LK" = (
-/obj/machinery/bot/guardbot/bootleg,
-/obj/machinery/power/data_terminal,
-/obj/cable{
-	d2 = 8;
-	icon_state = "0-8"
-	},
-/obj/machinery/guardbot_dock,
-/turf/simulated/floor/plating,
+/obj/rack,
+/obj/item/circuitboard/teleporter,
+/obj/item/circuitboard/card,
+/obj/item/circuitboard/robot_module_rewriter,
+/obj/item/circuitboard/cloning,
+/obj/item/circuitboard/barcode_qm,
+/obj/item/circuitboard/barcode,
+/obj/item/circuitboard/qmsupply,
+/turf/simulated/floor/grey/blackgrime/other,
 /area)
 "LN" = (
 /obj/table/reinforced/auto,
@@ -5731,28 +5708,7 @@
 /turf/simulated/floor/plating/jen,
 /area)
 "MO" = (
-/obj/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/machinery/firealarm{
-	dir = 1;
-	layer = 3.5;
-	pixel_y = -24
-	},
-/obj/item/device/radio/intercom{
-	broadcasting = 0;
-	frequency = 1441;
-	name = "Station Intercom (Engineering)"
-	},
-/obj/machinery/camera{
-	c_tag = "autotag";
-	dir = 1;
-	name = "autoname - SS13";
-	tag = ""
-	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/grey/blackgrime/other,
 /area)
 "MP" = (
 /obj/decal/boxingropeenter,
@@ -5884,17 +5840,16 @@
 /area)
 "NH" = (
 /obj/table/auto,
-/obj/machinery/light/small{
-	dir = 8
+/obj/item/peripheral/network/radio/locked{
+	pixel_y = 9
 	},
-/obj/item/peripheral/printer,
-/obj/item/device/flash,
-/obj/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
+/obj/item/peripheral/network/powernet_card{
+	pixel_y = 4
 	},
-/turf/simulated/floor/plating,
+/obj/item/peripheral/printer{
+	pixel_y = -2
+	},
+/turf/simulated/floor/grey/blackgrime/other,
 /area)
 "NK" = (
 /obj/rack,
@@ -5982,6 +5937,17 @@
 /turf/simulated/floor/airless/plating/catwalk{
 	dir = 10
 	},
+/area)
+"Ol" = (
+/obj/table/auto,
+/obj/item/peripheral/drive/cart_reader,
+/obj/item/peripheral/drive{
+	pixel_y = 4
+	},
+/obj/item/peripheral/sound_card{
+	pixel_y = 7
+	},
+/turf/simulated/floor/grey/blackgrime/other,
 /area)
 "On" = (
 /turf/simulated/floor/shuttlebay,
@@ -6107,13 +6073,10 @@
 	},
 /area)
 "Pd" = (
-/obj/cable{
-	d2 = 2;
-	icon_state = "0-2"
+/obj/machinery/photocopier,
+/turf/simulated/floor/green/corner{
+	dir = 4
 	},
-/obj/machinery/power/data_terminal,
-/obj/item/device/net_sniffer,
-/turf/simulated/floor/plating,
 /area)
 "Pg" = (
 /turf/simulated/floor/caution/corner/ne,
@@ -6650,10 +6613,12 @@
 	},
 /area)
 "Tu" = (
-/obj/table/auto,
-/obj/item/peripheral/network/powernet_card,
-/obj/item/peripheral/network/radio/locked,
-/turf/simulated/floor/plating,
+/obj/stool/chair{
+	dir = 1
+	},
+/turf/simulated/floor/green/corner{
+	dir = 4
+	},
 /area)
 "Tz" = (
 /obj/machinery/nanofab/refining,
@@ -6791,10 +6756,15 @@
 /turf/simulated/floor/bluewhite,
 /area)
 "Uq" = (
-/obj/table/auto,
-/obj/item/peripheral/drive,
-/obj/item/peripheral/drive/cart_reader,
-/turf/simulated/floor/plating,
+/obj/rack,
+/obj/item/circuitboard/powermonitor,
+/obj/item/circuitboard/powermonitor_smes,
+/obj/item/circuitboard/genetics,
+/obj/item/circuitboard/bank_data,
+/obj/item/circuitboard/arcade,
+/obj/item/circuitboard/qmorder,
+/obj/item/circuitboard/telescope,
+/turf/simulated/floor/grey/blackgrime/other,
 /area)
 "Ur" = (
 /turf/simulated/floor/bluewhite{
@@ -6854,18 +6824,12 @@
 /turf/space,
 /area)
 "UV" = (
-/obj/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
+/obj/machinery/door/airlock/pyro/maintenance{
+	dir = 4;
+	name = "Technical Storage";
+	req_access = null
 	},
-/obj/cable{
-	d1 = 1;
-	d2 = 8;
-	icon_state = "1-8"
-	},
-/obj/landmark/gps_waypoint,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/grey/blackgrime/other,
 /area)
 "UX" = (
 /obj/wingrille_spawn/auto/crystal,
@@ -6960,6 +6924,12 @@
 	icon_state = "alt_propulsion"
 	},
 /turf/space,
+/area)
+"VB" = (
+/obj/stool/chair/office/blue{
+	dir = 1
+	},
+/turf/simulated/floor/grey/blackgrime/other,
 /area)
 "VF" = (
 /obj/table/reinforced/auto,
@@ -7181,15 +7151,26 @@
 	},
 /area)
 "Xi" = (
-/obj/machinery/power/data_terminal,
-/obj/cable{
-	d2 = 2;
-	icon_state = "0-2"
+/obj/table/auto,
+/obj/item/disk/data/cartridge/diagnostics{
+	pixel_x = 4;
+	pixel_y = -2
 	},
-/obj/machinery/computer3/terminal/zeta{
-	setup_os_string = "ZETA_MAINFRAME"
+/obj/item/disk/data/cartridge/atmos{
+	pixel_x = -6;
+	pixel_y = 4
 	},
-/turf/simulated/floor/plating,
+/obj/item/disk/data/cartridge{
+	desc = "A programmable data cartridge for portable microcomputers.";
+	name = "EEPROM Cart"
+	},
+/obj/item/device/audio_log,
+/obj/item/peripheral/card_scanner,
+/obj/item/peripheral/card_scanner,
+/obj/item/device/multitool{
+	pixel_x = -7
+	},
+/turf/simulated/floor/grey/blackgrime/other,
 /area)
 "Xj" = (
 /turf/simulated/wall/auto/reinforced/supernorn,
@@ -7301,26 +7282,7 @@
 /turf/simulated/floor/wood,
 /area)
 "XN" = (
-/obj/table/auto,
-/obj/item/screwdriver,
-/obj/item/disk/data/fixed_disk,
-/obj/item/disk/data/floppy/computer3boot,
-/obj/item/disk/data/floppy/read_only/network_progs,
-/obj/item/disk/data/floppy/read_only/security_progs,
-/obj/item/disk/data/floppy/read_only/communications,
-/obj/item/disk/data/floppy/read_only/medical_progs,
-/obj/item/disk/data/floppy/read_only/terminal_os,
-/obj/cable{
-	d1 = 1;
-	d2 = 4;
-	icon_state = "1-4"
-	},
-/obj/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/green/corner,
 /area)
 "XO" = (
 /obj/machinery/computer3/generic/secure_data{
@@ -7614,17 +7576,7 @@
 /turf/simulated/floor/orangeblack,
 /area)
 "ZM" = (
-/obj/cable{
-	icon_state = "1-2"
-	},
-/obj/cable{
-	d1 = 1;
-	d2 = 4;
-	icon_state = "1-4"
-	},
-/obj/machinery/light/small{
-	dir = 8
-	},
+/obj/machinery/power/data_terminal,
 /turf/simulated/floor/plating,
 /area)
 "ZR" = (
@@ -51036,9 +50988,9 @@ Cn
 AM
 Ez
 AM
-Xi
-Gz
-gP
+Ez
+Ez
+Ez
 AM
 Ps
 Ps
@@ -51338,9 +51290,9 @@ Cn
 tj
 Ez
 AM
-Pd
-qg
-Tu
+Ez
+Ez
+Ez
 AM
 Ps
 Ps
@@ -51640,9 +51592,9 @@ Cn
 AM
 Ez
 AM
-ng
-fL
-Uq
+Ez
+Ez
+Ez
 AM
 Ps
 Ps
@@ -51942,9 +51894,9 @@ Cn
 AM
 Ez
 AM
-AM
-MO
-AM
+Ez
+Ez
+Ez
 AM
 AM
 Ps
@@ -52231,24 +52183,24 @@ Cn
 Cn
 Cn
 YX
-xL
-xL
+mH
+mH
 YX
 Xj
 YX
 YX
-Cn
+Ux
 YX
 YX
 AM
 AM
 Ez
-lj
-ZM
-UV
-XN
-NH
-xx
+AM
+Ez
+Ez
+Ez
+Ez
+AM
 Ps
 Ps
 Ps
@@ -52533,24 +52485,24 @@ Cn
 Cn
 YX
 YX
-xL
-xL
-xL
+ng
+ng
+qg
 Xj
+Gz
+Pd
 Cn
-Cn
-Cn
-Cn
-Cn
+XN
+Dr
 AM
 Ez
 Ez
 AM
-dU
 Ez
-tL
-Gv
-jS
+Ez
+Ez
+Ez
+AM
 Ps
 Ps
 Ps
@@ -52834,25 +52786,25 @@ Cn
 Cn
 Cn
 YX
+dU
 xL
 xL
-xL
-xL
-Xj
-Cn
-Cn
-Cn
-Cn
-Cn
-AM
-Ez
-Ez
-AM
-LK
-Ez
 tL
+Xj
 Hv
-yE
+Tu
+Cn
+XN
+ba
+AM
+Ez
+Ez
+AM
+Ez
+Ez
+Ez
+Ez
+AM
 Ps
 Ps
 Ps
@@ -53136,23 +53088,23 @@ Cn
 Cn
 Cn
 YX
+fL
 xL
 xL
-xL
-xL
+xx
 Xj
-Cn
-Cn
-Cn
-Cn
-Cn
-AM
-Ez
-Ez
-AM
 It
+Tu
+Cn
+XN
+wK
+AM
 Ez
-Fs
+Ez
+AM
+Ez
+Ez
+Ez
 AM
 AM
 Ps
@@ -53438,23 +53390,23 @@ Cn
 Cn
 Cn
 YX
+gP
 xL
 xL
-xL
-xL
+yE
 Xj
 AM
 AM
-Cn
+UV
 AM
 AM
 AM
 Ez
 Ez
 AM
-bV
-qI
-mH
+Ez
+Ez
+Ez
 AM
 Ps
 Ps
@@ -53739,17 +53691,17 @@ Et
 Cn
 Cn
 Cn
+bV
 xL
 xL
 xL
-xL
-xL
+Fs
 Xj
-Ez
-Ez
-Ez
-Ez
-Ez
+LK
+Uq
+MO
+ZM
+IA
 AM
 Ez
 Xj
@@ -54042,16 +53994,16 @@ Cn
 Cn
 Cn
 YX
+jS
 xL
 xL
 xL
-xL
-xL
-Ez
-Ez
-Ez
-Ez
-Ez
+bV
+MO
+MO
+MO
+MO
+VB
 AM
 wb
 Xj
@@ -54344,19 +54296,19 @@ Cn
 Cn
 Cn
 YX
-xL
-xL
-xL
-xL
+lj
+qg
+qI
+Gv
 Xj
-Ez
-Ez
-Ez
-Ez
-AM
+NH
+MO
+Xi
+uW
+Ol
 AM
 wb
-Xj
+Ez
 Ez
 Ez
 Xj
@@ -54652,13 +54604,13 @@ Xj
 Xj
 Xj
 AM
+UV
 AM
-Ez
+AM
 AM
 AM
 wb
-wb
-Ez
+Xj
 Ez
 Ez
 Ez
