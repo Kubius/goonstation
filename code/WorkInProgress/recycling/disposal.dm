@@ -1833,7 +1833,7 @@
 	icon_state = "transit"
 
 	expel(var/obj/disposalholder/H)
-		if (message && (mailgroup || mailgroup2) && radio_connection)
+		if (message && (mailgroup || mailgroup2))
 			var/groups = list()
 			if (mailgroup)
 				groups += mailgroup
@@ -1851,7 +1851,7 @@
 			newsignal.data["group"] = groups
 			newsignal.data["sender"] = src.net_id
 
-			radio_connection.post_signal(src, newsignal)
+			SEND_SIGNAL(src, COMSIG_MOVABLE_POST_RADIO_PACKET, newsignal)
 
 		flick("transit-open", src)
 		playsound(src, "sound/machines/warning-buzzer.ogg", 50, 0, 0)
@@ -1864,7 +1864,7 @@
 		for(var/atom/movable/AM in H)
 			AM.set_loc(src.loc)
 		H.vent_gas(src.loc)
-		pool(H)
+		qdel(H)
 
 		return
 // --------------------------------------------
