@@ -85,9 +85,9 @@ var/list/snd_macho_idle = list('sound/voice/macho/macho_alert16.ogg', 'sound/voi
 		..()
 		return
 
-	Bump(atom/movable/AM, yes)
+	bump(atom/movable/AM)
 		if (src.stance == "offensive")
-			if ((!( yes ) || src.now_pushing))
+			if ( src.now_pushing)
 				return
 			now_pushing = 1
 			if (ismob(AM))
@@ -187,7 +187,7 @@ var/list/snd_macho_idle = list('sound/voice/macho/macho_alert16.ogg', 'sound/voi
 			src.put_in_hand(G, src.hand)
 			M.changeStatus("stunned", 10 SECONDS)
 			G.state = 2
-			G.update_icon()
+			G.UpdateIcon()
 			src.set_dir(get_dir(src, M))
 			playsound(src.loc, "sound/impact_sounds/Generic_Shove_1.ogg", 65, 1)
 
@@ -1050,7 +1050,7 @@ var/list/snd_macho_idle = list('sound/voice/macho/macho_alert16.ogg', 'sound/voi
 					src.transforming = 0
 					src.bioHolder.AddEffect("fire_resist")
 					src.transforming = 1
-					playsound(src.loc, "sound/weapons/phaseroverload.ogg", 100)
+					playsound(src.loc, "sound/effects/mindkill.ogg", 50)
 					src.visible_message("<span class='alert'><b>[src] begins intensely staring [H] in the eyes!</b></span>")
 					boutput(H, "<span class='alert'>You feel a horrible pain in your head!</span>")
 					sleep(0.5 SECONDS)
@@ -1190,7 +1190,7 @@ var/list/snd_macho_idle = list('sound/voice/macho/macho_alert16.ogg', 'sound/voi
 				for (var/area/R in A.related)
 					SPAWN_DBG(0)
 						R.eject = 1
-						R.updateicon()
+						R.UpdateIcon()
 			siren.repeat = 1
 			siren.channel = 5
 			boutput(world, siren)
@@ -1226,7 +1226,7 @@ var/list/snd_macho_idle = list('sound/voice/macho/macho_alert16.ogg', 'sound/voi
 					for (var/area/R in A.related)
 						SPAWN_DBG(0)
 							R.eject = 0
-							R.updateicon()
+							R.UpdateIcon()
 				src.verbs += /mob/living/carbon/human/machoman/verb/macho_meteor
 */
 	emote(var/act, var/emoteTarget = null)
@@ -1331,7 +1331,7 @@ var/list/snd_macho_idle = list('sound/voice/macho/macho_alert16.ogg', 'sound/voi
 	name = "tiger stripe vest"
 	desc = "A flamboyant showman's vest."
 	icon = 'icons/obj/clothing/overcoats/item_suit_gimmick.dmi'
-	wear_image_icon = 'icons/mob/overcoats/worn_suit_gimmick.dmi'
+	wear_image_icon = 'icons/mob/clothing/overcoats/worn_suit_gimmick.dmi'
 	icon_state = "machovest"
 	item_state = "machovest"
 
@@ -1659,7 +1659,7 @@ ABSTRACT_TYPE(/datum/targetable/macho)
 			holder.owner.put_in_hand(G, holder.owner.hand)
 			M.changeStatus("stunned", 10 SECONDS)
 			G.state = 2
-			G.update_icon()
+			G.UpdateIcon()
 			holder.owner.set_dir(get_dir(holder.owner, M))
 			playsound(holder.owner.loc, "sound/impact_sounds/Generic_Shove_1.ogg", 65, 1)
 
@@ -2416,7 +2416,7 @@ ABSTRACT_TYPE(/datum/targetable/macho)
 					holder.owner.transforming = 0
 					holder.owner.bioHolder.AddEffect("fire_resist")
 					holder.owner.transforming = 1
-					playsound(holder.owner.loc, "sound/weapons/phaseroverload.ogg", 100)
+					playsound(holder.owner.loc, "sound/effects/mindkill.ogg", 50)
 					holder.owner.visible_message("<span class='alert'><b>[holder.owner] begins intensely staring [H] in the eyes!</b></span>")
 					boutput(H, "<span class='alert'>You feel a horrible pain in your head!</span>")
 					sleep(0.5 SECONDS)

@@ -263,8 +263,8 @@
 		synd_mob.equip_if_possible(new /obj/item/clothing/head/helmet/space/syndicate/commissar_cap(synd_mob), synd_mob.slot_head)
 		synd_mob.equip_if_possible(new /obj/item/clothing/suit/space/syndicate/commissar_greatcoat(synd_mob), synd_mob.slot_wear_suit)
 		synd_mob.equip_if_possible(new /obj/item/device/radio/headset/syndicate/leader(synd_mob), synd_mob.slot_ears)
-		synd_mob.equip_if_possible(new /obj/item/katana_sheath/nukeop(synd_mob), synd_mob.slot_l_hand)
-		synd_mob.equip_if_possible(new /obj/item/remote/nuke_summon_remote(synd_mob), synd_mob.slot_r_hand)
+		synd_mob.equip_if_possible(new /obj/item/katana_sheath/nukeop(synd_mob), synd_mob.slot_r_hand)
+		synd_mob.equip_if_possible(new /obj/item/device/nukeop_commander_uplink(synd_mob), synd_mob.slot_l_hand)
 	else
 		//synd_mob.equip_if_possible(new /obj/item/clothing/head/helmet/swat(synd_mob), synd_mob.slot_head)
 		//synd_mob.equip_if_possible(new /obj/item/clothing/suit/armor/vest(synd_mob), synd_mob.slot_wear_suit)
@@ -358,3 +358,31 @@
 		return 0
 	else
 		return ((dead - observer) / all)
+
+/// Associative list of role defines and their respective client preferences.
+var/list/roles_to_prefs = list(
+	ROLE_TRAITOR = "be_traitor",
+	ROLE_SPY_THIEF = "be_spy",
+	ROLE_NUKEOP = "be_syndicate",
+	ROLE_VAMPIRE = "be_vampire",
+	ROLE_GANG_LEADER = "be_gangleader",
+	ROLE_WIZARD = "be_wizard",
+	ROLE_CHANGELING = "be_changeling",
+	ROLE_WEREWOLF = "be_werewolf",
+	ROLE_BLOB = "be_blob",
+	ROLE_WRAITH = "be_wraith",
+	ROLE_HEAD_REV = "be_revhead",
+	ROLE_CONSPIRATOR = "be_conspirator",
+	ROLE_ARCFIEND = "be_arcfiend",
+	ROLE_FLOCKMIND = "be_flock",
+	ROLE_MISC = "be_misc"
+	)
+
+/**
+  * Return the name of a preference variable for the given role define.
+  *
+  * Arguments:
+  * * role - role to return a client preference for.
+  */
+/proc/get_preference_for_role(var/role)
+	return roles_to_prefs[role]

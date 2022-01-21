@@ -69,7 +69,7 @@
 	// hide called by levelupdate if turf intact status changes
 	// change visibility status and force update of icon
 	hide(var/intact)
-		invisibility = (intact && level==1) ? 101: 0	// hide if floor is intact
+		invisibility = (intact && level==1) ? INVIS_ALWAYS : INVIS_NONE	// hide if floor is intact
 		update()
 
 	// returns the type path of disposalpipe corresponding to this item dtype
@@ -183,7 +183,7 @@
 					P.set_dir(dir)
 					P.dpdir = dpdir
 					P.mail_tag = mail_tag
-					P.updateicon()
+					P.UpdateIcon()
 					boutput(user, "You weld [P] in place.")
 
 					qdel(src)

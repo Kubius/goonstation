@@ -5,7 +5,7 @@
 	icon_state = "repo"
 	item_state = "repo"
 	icon = 'icons/obj/clothing/overcoats/item_suit_hazard.dmi'
-	wear_image_icon = 'icons/mob/overcoats/worn_suit_hazard.dmi'
+	wear_image_icon = 'icons/mob/clothing/overcoats/worn_suit_hazard.dmi'
 	item_function_flags = IMMUNE_TO_ACID
 	contraband = 3
 	body_parts_covered = TORSO|LEGS|ARMS
@@ -24,9 +24,8 @@
 	desc = "How is the visor glowing like that?"
 	icon_state = "repo"
 	item_state = "repo"
-	icon = 'icons/obj/clothing/item_hats.dmi'
-	wear_image_icon = 'icons/mob/head.dmi'
 	item_function_flags = IMMUNE_TO_ACID
+	blocked_from_petasusaphilic = TRUE
 	color_r = 0.7
 	color_g = 0.7
 	color_b = 0.9
@@ -97,6 +96,7 @@
 	name = "syndicate beret"
 	desc = "A Syndicate officer's beret."
 	icon_state = "beret_base"
+	blocked_from_petasusaphilic = TRUE
 
 	New()
 		..()
@@ -160,11 +160,11 @@ obj/item/ammo/bullets/flechette_mag
 	can_dual_wield = 0
 	two_handed = 1
 	auto_eject = 1
-	object_flags = NO_ARM_ATTACH
 	w_class = W_CLASS_NORMAL
 	spread_angle = 3
+	default_magazine = /obj/item/ammo/bullets/flechette_mag
 
 	New()
-		ammo = new/obj/item/ammo/bullets/flechette_mag
+		ammo = new default_magazine
 		set_current_projectile(new/datum/projectile/bullet/flechette)
 		..()

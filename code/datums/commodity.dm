@@ -15,7 +15,7 @@
 	var/haggleattempts = 0
 	var/amount = -1 // Used for QM traders - how much of a thing they have for sale, unlim if -1
 	///if true, subtypes of this item will be accepted by NPC traders
-	var/subtype_valid = FALSE
+	var/subtype_valid = TRUE
 	// if its in the shopping cart, this is how many you're buying instead
 
 /*
@@ -952,6 +952,15 @@
 	upperfluc = 5000
 	lowerfluc = -5000
 
+/datum/commodity/contraband/command_helmet
+	comname = "Armored Helmet"
+	comtype = /obj/item/clothing/head/helmet/space/industrial/syndicate/
+	desc = "An armored helmet issued to Syndicate squad leaders."
+	price = 15000
+	baseprice = 15000
+	upperfluc = 5000
+	lowerfluc = -2000
+
 /datum/commodity/contraband/swatmask
 	comname = "Scary Gasmask"
 	comtype = /obj/item/clothing/mask/gas/swat
@@ -1068,6 +1077,15 @@
 	baseprice = 1000
 	upperfluc = 200
 	lowerfluc = -200
+
+/datum/commodity/contraband/ai_kit_syndie
+	comname = "Red AI Kit"
+	comtype = /obj/item/ai_plating_kit/syndicate
+	desc = "A dubiously colored AI core kit, which doesn't match standard designs. It's sold at a discount though, because it's just the casing pieces."
+	price = 1000
+	baseprice = 1000
+	upperfluc = 100
+	lowerfluc = -100
 
 //NT stuff
 
@@ -1245,6 +1263,22 @@
 	upperfluc = 750
 	lowerfluc = -500
 
+/datum/commodity/junk/speedyclone
+	comname = "SpeedyClone2000"
+	comtype = /obj/item/cloneModule/speedyclone
+	price = 5000
+	baseprice = 5000
+	upperfluc = 750
+	lowerfluc = -500
+
+/datum/commodity/junk/efficientclone
+	comname = "Biomatter recycling unit"
+	comtype = /obj/item/cloneModule/efficientclone
+	price = 5000
+	baseprice = 5000
+	upperfluc = 750
+	lowerfluc = -500
+
 /datum/commodity/junk/circus_board
 	comname = "Circus board"
 	comtype = /obj/item/peripheral/card_scanner/clownifier
@@ -1271,6 +1305,15 @@
 	baseprice = 15
 	upperfluc = 3
 	lowerfluc = -3
+
+/datum/commodity/junk/ai_kit_clown
+	comname = "Circus AI Parts"
+	comtype = /obj/item/ai_plating_kit/clown
+	desc = "The parts required to plate an AI frame to make it fit for running a circus."
+	price = 800
+	baseprice = 800
+	upperfluc = 50
+	lowerfluc = -50
 
 /////////////////////////////////
 ///////food trader //////////////
@@ -2158,6 +2201,24 @@
 	upperfluc = 150
 	lowerfluc = -100
 
+/datum/commodity/costume/purpwitch
+	comname = "Purple Witch Costume Set"
+	comtype = /obj/item/storage/box/costume/purpwitch
+	desc = "It won't give you any real magic, but you always have the magic of Imagination."
+	price = 300
+	baseprice = 100
+	upperfluc = 150
+	lowerfluc = -100
+
+/datum/commodity/costume/mintwitch
+	comname = "Mint Witch Costume Set"
+	comtype = /obj/item/storage/box/costume/mintwitch
+	desc = "It won't give you any real magic, but you always have the magic of Imagination."
+	price = 300
+	baseprice = 100
+	upperfluc = 150
+	lowerfluc = -100
+
 /datum/commodity/costume/mime
 	comname = "Mime Clothes"
 	comtype = /obj/item/storage/box/costume/mime
@@ -2664,7 +2725,7 @@
 
 /datum/commodity/banana_grenade
 	comname = "Banana grenade"
-	comtype = /obj/item/old_grenade/banana
+	comtype = /obj/item/old_grenade/spawner/banana
 	desc = "Perfect for magic tricks and slips, and some clown's birthday present."
 	price = 2000
 	baseprice = 2000
@@ -2673,7 +2734,7 @@
 
 /datum/commodity/cheese_grenade
 	comname = "Cheese Sandwich grenade"
-	comtype = /obj/item/old_grenade/banana/cheese_sandwich
+	comtype = /obj/item/old_grenade/spawner/cheese_sandwich
 	desc = "Contains only one type of cheese, unfortunately."
 	onmarket = 0
 	price = 2500
@@ -2683,7 +2744,7 @@
 
 /datum/commodity/corndog_grenade
 	comname = "Banana Corndog grenade"
-	comtype = /obj/item/old_grenade/banana/banana_corndog
+	comtype = /obj/item/old_grenade/spawner/banana_corndog
 	desc = "A very space efficient party pleaser. No ketchup or mustard included."
 	onmarket = 0
 	price = 3000

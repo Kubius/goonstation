@@ -115,31 +115,8 @@
 
 	execute_ability()
 		var/obj/item/clothing/head/helmet/welding/W = the_item
-		if(W.up)
-			W.up = !W.up
-			W.icon_state = "welding"
-			boutput(the_mob, "You flip the mask down. The mask is now protecting you from eye damage.")
-			if (!W.nodarken) //Used for The Welder
-				W.see_face = !W.see_face
-				W.color_r = 0.3 // darken
-				W.color_g = 0.3
-				W.color_b = 0.3
-			the_mob.set_clothing_icon_dirty()
-			icon_state = "weldup"
-
-			W.flip_down()
-		else
-			W.up = !W.up
-			W.see_face = !W.see_face
-			W.icon_state = "welding-up"
-			boutput(the_mob, "You flip the mask up. The mask is now providing greater armor to your head.")
-			W.color_r = 1 // default
-			W.color_g = 1
-			W.color_b = 1
-			the_mob.set_clothing_icon_dirty()
-			icon_state = "welddown"
-
-			W.flip_up()
+		W.up ? W.flip_down(the_mob) : W.flip_up(the_mob)
+		icon_state = "[W.up ? "welddown" : "weldup"]"
 		..()
 
 
@@ -258,12 +235,12 @@
 				for(var/i=0, i<15, i++)
 					if(isnull(the_mob))
 						break
-					var/obj/effect/smoketemp/A = unpool(/obj/effect/smoketemp)
+					var/obj/effect/smoketemp/A = new /obj/effect/smoketemp
 					A.set_loc(the_mob.loc)
 					SPAWN_DBG(1 SECOND)
 						src = null // Detatch this from the parent proc so we get to stay alive if the shoes blow up.
 						if(A)
-							pool(A)
+							qdel(A)
 					sleep(0.1 SECONDS)
 
 			the_mob.throw_at(curr, 16, 3)
@@ -287,12 +264,12 @@
 		SPAWN_DBG(0)
 			for(var/i=0, i<R.soniclength, i++)
 				if(!the_mob) break
-				var/obj/effect/smoketemp/A = unpool(/obj/effect/smoketemp)
+				var/obj/effect/smoketemp/A = new /obj/effect/smoketemp
 				A.set_loc(the_mob.loc)
 				SPAWN_DBG(1 SECOND)
 					src = null
 					if(A)
-						pool(A)
+						qdel(A)
 				if (!step(the_mob, the_mob.dir) && R.sonicbreak) break
 				sleep(10 - R.soniclevel)
 			..()
@@ -304,16 +281,6 @@
 	opacity = 0
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "smoke"
-
-	pooled()
-		..()
-		icon = null
-		icon_state = null
-
-	unpooled()
-		..()
-		icon = initial(icon)
-		icon_state = initial(icon_state)
 
 ////////////////////////////////////////////////////////////
 

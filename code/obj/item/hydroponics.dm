@@ -53,7 +53,7 @@
 		..()
 		SPAWN_DBG(0.5 SECONDS)
 			if (src)
-				src.update_icon()
+				src.UpdateIcon()
 		BLOCK_SETUP(BLOCK_ROD)
 		return
 
@@ -72,7 +72,7 @@
 		src.check_health()
 		return
 
-	proc/update_icon()
+	update_icon()
 		set_icon_state("[src.base_state][src.active ? null : "_off"]")
 		return
 
@@ -166,7 +166,7 @@
 			boutput(user, "<span class='notice'>[src] is now off.</span>")
 			src.force = off_force
 		tooltip_rebuild = 1
-		src.update_icon()
+		src.UpdateIcon()
 		user.update_inhands()
 		src.add_fingerprint(user)
 		return
@@ -222,7 +222,7 @@
 	var/mob/living/carbon/human/H = target
 
 	if(!active)
-		src.visible_message("<span class='notify'>[user] gently taps [target] with the turned off [src].</span>")
+		src.visible_message("<span class='notice'>[user] gently taps [target] with the turned off [src].</span>")
 
 	if(active && prob(35))
 		gibs(target.loc, blood_DNA=H.bioHolder.Uid, blood_type=H.bioHolder.bloodType, headbits=FALSE, source=H)
@@ -400,10 +400,10 @@
 			// 	S = new /obj/item/seed(src.loc,0)
 			// S.generic_seed_setup(selected)
 			if (selected.unique_seed)
-				S = unpool(selected.unique_seed)
+				S = new selected.unique_seed
 				S.set_loc(src.loc)
 			else
-				S = unpool(/obj/item/seed)
+				S = new /obj/item/seed
 				S.set_loc(src.loc)
 				S.removecolor()
 			S.generic_seed_setup(selected)
@@ -448,14 +448,14 @@
 			var/obj/machinery/plantpot/pot = target
 			if(pot.current)
 				var/datum/plant/p = pot.current
+				if(p.growthmode == "weed")
+					user.visible_message("<b>[user]</b> tries to uproot the [p.name], but it's roots hold firmly to the [pot]!","<span class='alert'>The [p.name] is too strong for you traveller...</span>")
+					return
 				if(pot.GetOverlayImage("plant"))
 					plantyboi = pot.GetOverlayImage("plant")
 					plantyboi.pixel_x = 2
 					src.icon_state = "trowel_full"
 				else
-					return
-				if(p.growthmode == "weed")
-					user.visible_message("<b>[user]</b> tries to uproot the [p.name], but it's roots hold firmly to the [pot]!","<span class='alert'>The [p.name] is too strong for you traveller...</span>")
 					return
 				pot.HYPdestroyplant()
 

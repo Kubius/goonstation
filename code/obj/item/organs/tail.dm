@@ -33,6 +33,13 @@
 			build_mob_tail_image()
 			update_tail_icon()
 
+	disposing()
+		if(holder)
+			on_removal()
+			holder.tail = null
+			holder.donor.update_body()
+		. = ..()
+
 	proc/colorize_tail(var/datum/appearanceHolder/AHL)
 		if(src.colorful)
 			if (AHL && istype(AHL, /datum/appearanceHolder))
@@ -124,8 +131,8 @@
 				src.holder?.donor?.bioHolder?.AddEffect(src.failure_ability, 0, 0, 0, 1)
 
 	unbreakme()
-		. = ..()
-		src.holder?.donor?.bioHolder?.RemoveEffect(src.failure_ability)
+		if(..())
+			src.holder?.donor?.bioHolder?.RemoveEffect(src.failure_ability)
 
 
 	// builds the mob tail image, the one that gets displayed on the mob when attached
@@ -211,6 +218,16 @@
 	organ_image_under_suit_1 = "cow_under_suit"
 	organ_image_under_suit_2 = null
 	organ_image_over_suit = "cow_over_suit_1"	// just the tail, no nose
+
+/obj/item/organ/tail/pug
+	name = "pug tail"
+	desc = "A rather stubby tail, covered in wiry hair."
+	icon_state = "tail-pug"
+	organ_image_icon = 'icons/mob/pug/fawn.dmi'
+	tail_num = TAIL_PUG
+	organ_image_under_suit_1 = "pug_under_suit"
+	organ_image_under_suit_2 = null
+	organ_image_over_suit = "pug_over_suit"
 
 /obj/item/organ/tail/wolf
 	name = "wolf tail"
