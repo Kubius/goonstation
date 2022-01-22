@@ -2502,7 +2502,7 @@
 	icon_state = "0-4"
 	},
 /obj/table/auto,
-/obj/towelbin,
+/obj/item/paper_bin,
 /turf/simulated/floor/sanitary/white,
 /area/station/engine/engineering{
 	name = "Maru Primary Zone"
@@ -4022,6 +4022,12 @@
 	dir = 4;
 	pixel_x = 12
 	},
+/obj/item/storage/wall{
+	dir = 4;
+	name = "bath cabinet";
+	pixel_x = -32;
+	spawn_contents = list(/obj/item/clothing/under/towel,/obj/item/clothing/under/towel)
+	},
 /turf/simulated/floor/sanitary/white,
 /area/station/hallway)
 "ect" = (
@@ -5144,6 +5150,12 @@
 /obj/machinery/light/small{
 	dir = 4;
 	pixel_x = 12
+	},
+/obj/item/storage/wall{
+	dir = 4;
+	name = "bath cabinet";
+	pixel_x = -32;
+	spawn_contents = list(/obj/item/clothing/under/towel,/obj/item/clothing/under/towel)
 	},
 /turf/simulated/floor/sanitary/white,
 /area/station/maintenance/outer/north)
@@ -9439,7 +9451,7 @@
 "jFW" = (
 /obj/machinery/light/small,
 /obj/table/auto,
-/obj/towelbin,
+/obj/item/paper_bin,
 /turf/simulated/floor/sanitary/white,
 /area/station/maintenance/outer/north)
 "jGc" = (
@@ -10130,6 +10142,12 @@
 	dir = 4;
 	pixel_x = 12
 	},
+/obj/item/storage/wall{
+	dir = 4;
+	name = "bath cabinet";
+	pixel_x = -32;
+	spawn_contents = list(/obj/item/clothing/under/towel,/obj/item/clothing/under/towel)
+	},
 /turf/simulated/floor/sanitary/white,
 /area/station/science/tenebrae)
 "kmk" = (
@@ -10818,7 +10836,7 @@
 "kUf" = (
 /obj/machinery/light/small,
 /obj/table/auto,
-/obj/towelbin,
+/obj/item/paper_bin,
 /turf/simulated/floor/sanitary/white,
 /area/station/crew_quarters/captain{
 	name = "Meridian Primary Zone"
@@ -11150,7 +11168,7 @@
 "lsU" = (
 /obj/machinery/light/small,
 /obj/table/auto,
-/obj/towelbin,
+/obj/item/paper_bin,
 /turf/simulated/floor/sanitary/white,
 /area/station/crew_quarters/cafeteria{
 	name = "Dionysus Primary Zone"
@@ -13115,6 +13133,12 @@
 	dir = 4;
 	pixel_x = 12
 	},
+/obj/item/storage/wall{
+	dir = 4;
+	name = "bath cabinet";
+	pixel_x = -32;
+	spawn_contents = list(/obj/item/clothing/under/towel,/obj/item/clothing/under/towel)
+	},
 /turf/simulated/floor/sanitary/white,
 /area/station/crew_quarters/cafeteria{
 	name = "Dionysus Primary Zone"
@@ -13173,6 +13197,13 @@
 /obj/machinery/light/small,
 /turf/simulated/floor/grey/blackgrime/other,
 /area/station/storage/tech)
+"nBo" = (
+/obj/airbridge_controller{
+	id = "escape";
+	tunnel_width = 3
+	},
+/turf/space,
+/area/space)
 "nBJ" = (
 /obj/disposalpipe/segment/mail/bent/north,
 /turf/simulated/floor/darkblue,
@@ -13723,6 +13754,12 @@
 /obj/machinery/light/small{
 	dir = 4;
 	pixel_x = 12
+	},
+/obj/item/storage/wall{
+	dir = 4;
+	name = "bath cabinet";
+	pixel_x = -32;
+	spawn_contents = list(/obj/item/clothing/under/towel,/obj/item/clothing/under/towel)
 	},
 /turf/simulated/floor/sanitary/white,
 /area/station/engine/engineering{
@@ -16192,6 +16229,14 @@
 /obj/item/bee_egg_carton,
 /turf/simulated/floor/grass,
 /area/station/hydroponics/bay)
+"qBL" = (
+/obj/airbridge_controller{
+	id = "escape";
+	primary_controller = 1;
+	tunnel_width = 3
+	},
+/turf/space,
+/area/space)
 "qCn" = (
 /obj/landmark/start/latejoin,
 /turf/simulated/floor/grey,
@@ -17404,7 +17449,7 @@
 "rUZ" = (
 /obj/machinery/light/small,
 /obj/table/auto,
-/obj/towelbin,
+/obj/item/paper_bin,
 /turf/simulated/floor/sanitary/white,
 /area/station/science/tenebrae)
 "rVc" = (
@@ -18717,7 +18762,7 @@
 "txR" = (
 /obj/machinery/light/small,
 /obj/table/auto,
-/obj/towelbin,
+/obj/item/paper_bin,
 /turf/simulated/floor/sanitary/white,
 /area/station/hallway)
 "tyi" = (
@@ -19293,12 +19338,13 @@
 	},
 /area/space)
 "ucY" = (
-/obj/airbridge_controller{
-	id = "escape";
-	tunnel_width = 2
-	},
-/turf/space,
-/area/space)
+/obj/rack,
+/obj/item/sponge,
+/obj/item/sponge,
+/turf/simulated/floor/sanitary,
+/area/station/crew_quarters/captain{
+	name = "Meridian Primary Zone"
+	})
 "udo" = (
 /obj/table/auto,
 /obj/item/game_kit{
@@ -20254,7 +20300,7 @@
 "uWC" = (
 /obj/machinery/light/small,
 /obj/table/auto,
-/obj/towelbin,
+/obj/item/paper_bin,
 /turf/simulated/floor/sanitary/white,
 /area/station/medical/medbay{
 	name = "Asclepius Primary Zone"
@@ -20434,13 +20480,12 @@
 /turf/simulated/floor/greenblack,
 /area/station/turret_protected/Zeta)
 "vgn" = (
-/obj/airbridge_controller{
-	id = "escape";
-	primary_controller = 1;
-	tunnel_width = 2
+/turf/simulated/floor/escape{
+	dir = 10
 	},
-/turf/space,
-/area/space)
+/area/station/crew_quarters/captain{
+	name = "Meridian Primary Zone"
+	})
 "vgE" = (
 /obj/decal/tile_edge/line/yellow{
 	dir = 6;
@@ -21283,6 +21328,12 @@
 	dir = 4;
 	pixel_x = 12
 	},
+/obj/item/storage/wall{
+	dir = 4;
+	name = "bath cabinet";
+	pixel_x = -32;
+	spawn_contents = list(/obj/item/clothing/under/towel,/obj/item/clothing/under/towel)
+	},
 /turf/simulated/floor/sanitary/white,
 /area/station/medical/medbay{
 	name = "Asclepius Primary Zone"
@@ -22027,6 +22078,12 @@
 /obj/machinery/light/small{
 	dir = 4;
 	pixel_x = 12
+	},
+/obj/item/storage/wall{
+	dir = 4;
+	name = "bath cabinet";
+	pixel_x = -32;
+	spawn_contents = list(/obj/item/clothing/under/towel,/obj/item/clothing/under/towel)
 	},
 /turf/simulated/floor/sanitary/white,
 /area/station/crew_quarters/captain{
@@ -42504,7 +42561,7 @@ pto
 pto
 pto
 pto
-dsP
+eWO
 miw
 jIz
 vNP
@@ -42518,7 +42575,7 @@ uFu
 hLs
 rbC
 miw
-irW
+eWO
 pto
 pto
 pto
@@ -42806,7 +42863,7 @@ pto
 pto
 pto
 pto
-dsP
+eWO
 iSG
 rbC
 rbC
@@ -42820,7 +42877,7 @@ rbC
 rbC
 rbC
 iSG
-irW
+eWO
 pto
 pto
 pto
@@ -43109,7 +43166,7 @@ pto
 pto
 pto
 iSG
-iSG
+ucY
 kUf
 eWO
 tUD
@@ -43121,7 +43178,7 @@ tOa
 vMG
 vMG
 udR
-iSG
+vgn
 iSG
 pto
 pto
@@ -43425,10 +43482,10 @@ jqf
 ahg
 ukD
 fUx
+qBL
 pto
 pto
-pto
-pto
+nBo
 mdk
 mdk
 mdk
@@ -43727,10 +43784,10 @@ ahg
 noF
 egJ
 iSG
-vgn
 pto
 pto
-ucY
+pto
+pto
 mdk
 mdk
 mdk
