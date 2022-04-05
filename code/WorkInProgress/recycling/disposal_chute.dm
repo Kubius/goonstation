@@ -39,7 +39,7 @@
 	New()
 		..()
 		src.AddComponent(/datum/component/obj_projectile_damage)
-		SPAWN_DBG(0.5 SECONDS)
+		SPAWN(0.5 SECONDS)
 			if (src)
 				trunk = locate() in src.loc
 				if(!trunk)
@@ -64,6 +64,16 @@
 			qdel(air_contents)
 			air_contents = null
 		..()
+
+	was_deconstructed_to_frame(mob/user)
+		if (trunk)
+			trunk.linked = null
+		else
+			trunk = locate() in src.loc //idk maybe this can happens
+			if (trunk)
+				trunk.linked = null
+		trunk = null
+		return ..()
 
 	onDestroy()
 		if (src.powered())
@@ -101,7 +111,11 @@
 				user.visible_message("<b>[user.name]</b> dumps out [S] into [src].")
 				return
 		if (istype(I,/obj/item/storage/) && I.contents.len)
-			var/action = input(user, "What do you want to do with [I]?") as null|anything in list("Place it in the Chute","Empty it into the chute","Never Mind")
+			var/action
+			if (istype(I, /obj/item/storage/mechanics/housing_handheld))
+				action = input(user, "What do you want to do with [I]?") as null|anything in list("Place it in the Chute","Never Mind")
+			else
+				action = input(user, "What do you want to do with [I]?") as null|anything in list("Place it in the Chute","Empty it into the chute","Never Mind")
 			if (!action || action == "Never Mind")
 				return
 			if (!in_interact_range(src, user))
@@ -146,7 +160,7 @@
 	//
 	MouseDrop_T(atom/target, mob/user)
 		//jesus fucking christ
-		if (!IN_RANGE(src,user,1) || !IN_RANGE(src,target,1) || isAI(user) || is_incapacitated(user) || isghostcritter(user))
+		if (BOUNDS_DIST(user, src) > 0 || BOUNDS_DIST(target, src) > 0 || isAI(user) || is_incapacitated(user) || isghostcritter(user))
 			return
 
 		if (iscritter(target))
@@ -187,13 +201,13 @@
 				else	//Aaaa the tension!
 					src.visible_message("<span class='alert'>\The [I] teeters on the edge of \the [src]!</span>")
 					var/delay = rand(5, 15)
-					SPAWN_DBG(0)
+					SPAWN(0)
 						var/in_x = I.pixel_x
 						for(var/d = 0; d < delay; d++)
 							if(I) I.pixel_x = in_x + rand(-1, 1)
 							sleep(0.1 SECONDS)
 						if(I) I.pixel_x = in_x
-					SPAWN_DBG(delay)
+					SPAWN(delay)
 						if(I && I.loc == src.loc)
 							if(prob(40)) //It goes in!
 								src.visible_message("<span class='alert'>\The [I] slips into \the [src]!</span>")
@@ -364,7 +378,7 @@
 		..()
 
 		if(flush && MIXTURE_PRESSURE(air_contents) >= 2*ONE_ATMOSPHERE)	// flush can happen even without power
-			SPAWN_DBG(0) //Quit holding up the process you fucker
+			SPAWN(0) //Quit holding up the process you fucker
 				flush()
 
 		if(status & NOPOWER)			// won't charge if no power
@@ -473,7 +487,7 @@
 		if (user) //ZeWaka: Fix for null.loc
 			make_cleanable( /obj/decal/cleanable/blood,user.loc)
 			health_update_queue |= user
-		SPAWN_DBG(50 SECONDS)
+		SPAWN(50 SECONDS)
 			if (user && !isdead(user))
 				user.suiciding = 0
 		return 1
@@ -583,7 +597,7 @@
 	plane = PLANE_NOSHADOW_BELOW
 
 	MouseDrop_T(obj/storage/cart/target, mob/user)
-		if (!istype(target) || target.loc != src.loc || get_dist(user, src) > 1 || get_dist(user, target) > 1 || is_incapacitated(user) || isAI(user))
+		if (!istype(target) || target.loc != src.loc || BOUNDS_DIST(user, src) > 0 || BOUNDS_DIST(user, target) > 0 || is_incapacitated(user) || isAI(user))
 			return ..()
 
 		if (!target.contents.len)
@@ -592,7 +606,7 @@
 		src.visible_message("[user] begins depositing [target]'s contents into [src].")
 		playsound(src.loc ,"sound/items/Deconstruct.ogg", 80, 0)
 		for (var/atom/movable/AM in target)
-			if (get_dist(user, src) > 1 || get_dist(user, target) > 1 || is_incapacitated(user))
+			if (BOUNDS_DIST(user, src) > 0 || BOUNDS_DIST(user, target) > 0 || is_incapacitated(user))
 				break
 			if (AM.anchored || AM.loc != target)
 				continue
@@ -617,7 +631,7 @@
 		return
 
 	MouseDrop_T(mob/target, mob/user)
-		if (!istype(target) || target.buckled || get_dist(user, src) > 1 || get_dist(user, target) > 1 || is_incapacitated(user) || isAI(user) || isAI(target) || isghostcritter(user))
+		if (!istype(target) || target.buckled || BOUNDS_DIST(user, src) > 0 || BOUNDS_DIST(user, target) > 0 || is_incapacitated(user) || isAI(user) || isAI(target) || isghostcritter(user))
 			return
 		..()
 		flush = 1
@@ -672,7 +686,7 @@
 
 	onEnd()
 		if(checkStillValid())
-			if (target.buckled || get_dist(user, chute) > 1 || get_dist(user, target) > 1 || ((is_incapacitated(user) && user != target)))
+			if (target.buckled || BOUNDS_DIST(user, chute) > 0 || BOUNDS_DIST(user, target) > 0 || ((is_incapacitated(user) && user != target)))
 				..()
 				return
 

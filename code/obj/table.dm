@@ -37,10 +37,10 @@
 			xmasify()
 		#endif
 
-		SPAWN_DBG(0)
+		SPAWN(0)
 			if (src.auto && ispath(src.auto_type) && src.icon_state == "0") // if someone's set up a special icon state don't mess with it
 				src.set_up()
-				SPAWN_DBG(0)
+				SPAWN(0)
 					for (var/obj/table/T in orange(1,src))
 						if (T.auto)
 							T.set_up()
@@ -69,73 +69,43 @@
 	proc/set_up()
 		if (!ispath(src.auto_type))
 			return
-		var/dirs = 0
-		for (var/direction in cardinal)
-			var/turf/T = get_step(src, direction)
-			if (locate(src.auto_type) in T)
-				dirs |= direction
-		icon_state = num2text(dirs)
 
-		//christ this is ugly
-		//seconded, its also broken for tables in diagonal directions // maybe not any more?
-		var/obj/table/WT = locate(src.auto_type) in get_step(src, WEST)
-		var/obj/table/ST = locate(src.auto_type) in get_step(src, SOUTH)
-		var/obj/table/ET = locate(src.auto_type) in get_step(src, EAST)
-		var/obj/table/NT = locate(src.auto_type) in get_step(src, NORTH)
+		var/connections = get_connected_directions_bitflag(list(src.auto_type), connect_diagonal = 1)
+		var/cardinals = connections % 16
+		icon_state = num2text(cardinals)
+		var/ordinals = connectdirs_to_byonddirs(connections)
 
-		// west, south, and southwest
-		if (WT && ST)
-			var/obj/table/SWT = locate(src.auto_type) in get_step(src, SOUTHWEST)
-			if (SWT)
-				if (!src.working_image)
-					src.working_image = image(src.icon, "SW")
-				else
-					working_image.icon_state = "SW"
-				src.UpdateOverlays(working_image, "SWcorner")
+		if((NORTHEAST & ordinals) == NORTHEAST)
+			if (!src.working_image)
+				src.working_image = image(src.icon, "NE")
 			else
-				src.UpdateOverlays(null, "SWcorner")
+				working_image.icon_state = "NE"
+			src.UpdateOverlays(working_image, "NEcorner")
+		else
+			src.UpdateOverlays(null, "NEcorner")
+		if((SOUTHEAST & ordinals) == SOUTHEAST)
+			if (!src.working_image)
+				src.working_image = image(src.icon, "SE")
+			else
+				working_image.icon_state = "SE"
+			src.UpdateOverlays(working_image, "SEcorner")
+		else
+			src.UpdateOverlays(null, "SEcorner")
+		if((SOUTHWEST & ordinals) == SOUTHWEST)
+			if (!src.working_image)
+				src.working_image = image(src.icon, "SW")
+			else
+				working_image.icon_state = "SW"
+			src.UpdateOverlays(working_image, "SWcorner")
 		else
 			src.UpdateOverlays(null, "SWcorner")
 
-		// south, east, and southeast
-		if (ST && ET)
-			var/obj/table/SET = locate(src.auto_type) in get_step(src, SOUTHEAST)
-			if (SET)
-				if (!src.working_image)
-					src.working_image = image(src.icon, "SE")
-				else
-					working_image.icon_state = "SE"
-				src.UpdateOverlays(working_image, "SEcorner")
+		if((NORTHWEST & ordinals) == NORTHWEST)
+			if (!src.working_image)
+				src.working_image = image(src.icon, "NW")
 			else
-				src.UpdateOverlays(null, "SEcorner")
-		else
-			src.UpdateOverlays(null, "SEcorner")
-
-		// north, east, and northeast
-		if (NT && ET)
-			var/obj/table/NET = locate(src.auto_type) in get_step(src, NORTHEAST)
-			if (NET)
-				if (!src.working_image)
-					src.working_image = image(src.icon, "NE")
-				else
-					working_image.icon_state = "NE"
-				src.UpdateOverlays(working_image, "NEcorner")
-			else
-				src.UpdateOverlays(null, "NEcorner")
-		else
-			src.UpdateOverlays(null, "NEcorner")
-
-		// north, west, and northwest
-		if (NT && WT)
-			var/obj/table/NWT = locate(src.auto_type) in get_step(src, NORTHWEST)
-			if (NWT)
-				if (!src.working_image)
-					src.working_image = image(src.icon, "NW")
-				else
-					working_image.icon_state = "NW"
-				src.UpdateOverlays(working_image, "NWcorner")
-			else
-				src.UpdateOverlays(null, "NWcorner")
+				working_image.icon_state = "NW"
+			src.UpdateOverlays(working_image, "NWcorner")
 		else
 			src.UpdateOverlays(null, "NWcorner")
 
@@ -164,7 +134,7 @@
 		var/hisher = his_or_her(user)
 		user.visible_message("<span class='alert'><b>[user] contorts [him_or_her(user)]self so that [hisher] head is underneath one of [src]'s legs and [hisher] heels are resting on top of it, then raises [hisher] feet and slams them back down over and over again!</b></span>")
 		user.TakeDamage("head", 175, 0)
-		SPAWN_DBG(50 SECONDS)
+		SPAWN(50 SECONDS)
 			if (user && !isdead(user))
 				user.suiciding = 0
 		return 1
@@ -298,12 +268,17 @@
 		else
 			return ..()
 
-	attack_hand(mob/user as mob)
+	attack_hand(mob/user)
 		if (user.is_hulk() && !hulk_immune)
 			user.visible_message("<span class='alert'>[user] destroys the table!</span>")
 			if (prob(40))
 				playsound(src.loc, "sound/impact_sounds/Generic_Hit_Heavy_1.ogg", 50, 1)
 			deconstruct()
+			return
+
+		if (src.has_storage && src.desk_drawer)
+			src.mouse_drop(user, src.loc, user.loc)
+
 		if (ishuman(user))
 			var/mob/living/carbon/human/H = user
 			if (istype(H.w_uniform, /obj/item/clothing/under/misc/lawyer))
@@ -367,7 +342,7 @@
 			step(I, get_dir(I, src))
 		return
 
-	MouseDrop(atom/over_object, src_location, over_location)
+	mouse_drop(atom/over_object, src_location, over_location)
 		if (usr && usr == over_object && src.desk_drawer)
 			return src.desk_drawer.MouseDrop(over_object, src_location, over_location)
 		..()
@@ -542,6 +517,14 @@
 	icon = 'icons/obj/furniture/table_syndicate.dmi'
 	auto_type = /obj/table/syndicate
 	parts_type = /obj/item/furniture_parts/table/syndicate
+
+	New()
+		..()
+		START_TRACKING_CAT(TR_CAT_NUKE_OP_STYLE)
+
+	disposing()
+		STOP_TRACKING_CAT(TR_CAT_NUKE_OP_STYLE)
+		..()
 
 	auto
 		auto = TRUE
@@ -720,7 +703,7 @@
 		src.glass_broken = GLASS_BROKEN
 		src.set_density(0)
 		src.set_up()
-		SPAWN_DBG(rand(2 SECONDS, 3 SECONDS))
+		SPAWN(rand(2 SECONDS, 3 SECONDS))
 			if(src.glass_broken == GLASS_BROKEN)
 				src.glass_broken = GLASS_REFORMING
 				src.set_up()
@@ -861,7 +844,7 @@
 		else if (istype(W, /obj/item/reagent_containers/food/drinks/bottle) && user.a_intent == "harm")
 			var/obj/item/reagent_containers/food/drinks/bottle/B = W
 			B.smash_on_thing(user, src)
-			SPAWN_DBG(0)
+			SPAWN(0)
 				if (B)
 					smashprob += 15
 				else
@@ -1041,7 +1024,7 @@
 
 	onUpdate()
 		..()
-		if (the_table == null || the_tool == null || owner == null || get_dist(owner, the_table) > 1)
+		if (the_table == null || the_tool == null || owner == null || BOUNDS_DIST(owner, the_table) > 0)
 			interrupt(INTERRUPT_ALWAYS)
 			return
 		var/mob/source = owner
@@ -1133,7 +1116,7 @@
 
 	onUpdate()
 		..()
-		if (the_table == null || owner == null || get_dist(owner, the_table) > 1)
+		if (the_table == null || owner == null || BOUNDS_DIST(owner, the_table) > 0)
 			interrupt(INTERRUPT_ALWAYS)
 			return
 		var/mob/source = owner
