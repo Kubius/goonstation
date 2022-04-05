@@ -17,6 +17,9 @@
 /obj/cable{
 	icon_state = "2-8"
 	},
+/obj/cable{
+	icon_state = "2-9"
+	},
 /turf/simulated/floor/sanitary/white,
 /area/station/engine/engineering{
 	name = "Maru Primary Zone"
@@ -263,6 +266,9 @@
 	})
 "amO" = (
 /obj/disposalpipe/segment/mail/horizontal,
+/obj/cable{
+	icon_state = "1-4"
+	},
 /turf/simulated/floor/engine,
 /area/station/routing/depot{
 	name = "Routing Buoy"
@@ -404,6 +410,14 @@
 "asf" = (
 /turf/simulated/floor/green/side,
 /area/station/hydroponics/bay)
+"asj" = (
+/obj/disposalpipe/segment/mail/vertical,
+/obj/foamedmetal,
+/obj/cable{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/metalfoam,
+/area/space)
 "ast" = (
 /turf/simulated/floor/plating,
 /area/station/maintenance/west{
@@ -415,6 +429,9 @@
 	icon_state = "lattice-dir"
 	},
 /obj/machinery/light/runway_light/delay5,
+/obj/cable{
+	icon_state = "1-6"
+	},
 /turf/simulated/floor/metalfoam,
 /area/space)
 "atK" = (
@@ -607,6 +624,15 @@
 /obj/wingrille_spawn/auto,
 /turf/simulated/floor/plating,
 /area/station/medical/medbay/pharmacy)
+"aBD" = (
+/obj/machinery/door/airlock/pyro/external,
+/obj/cable{
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/grey,
+/area/station/maintenance/west{
+	name = "Meridian Maintenance"
+	})
 "aBT" = (
 /obj/machinery/shuttle/engine/heater{
 	dir = 8;
@@ -2193,6 +2219,9 @@
 	dir = 4;
 	pixel_x = 12
 	},
+/obj/cable{
+	icon_state = "2-8"
+	},
 /turf/simulated/floor/grey,
 /area/station/maintenance/west{
 	name = "Meridian Maintenance"
@@ -2323,6 +2352,11 @@
 /obj/cable{
 	icon_state = "4-8"
 	},
+/obj/cable{
+	d1 = 2;
+	d2 = 4;
+	icon_state = "4-6"
+	},
 /turf/simulated/floor/black,
 /area/station/security/processing)
 "cil" = (
@@ -2398,6 +2432,15 @@
 /area/station/janitor{
 	name = "Dionysus Janitorial"
 	})
+"cnf" = (
+/obj/cable{
+	icon_state = "1-4"
+	},
+/obj/cable{
+	icon_state = "2-4"
+	},
+/turf/space,
+/area/space)
 "cnh" = (
 /obj/machinery/door/airlock/pyro/medical{
 	dir = 4;
@@ -2979,6 +3022,12 @@
 	dir = 6
 	},
 /area/space)
+"cSb" = (
+/obj/cable{
+	icon_state = "5-8"
+	},
+/turf/space,
+/area/space)
 "cSe" = (
 /obj/storage/secure/closet/command/hop,
 /turf/simulated/floor/wood/two,
@@ -3550,6 +3599,16 @@
 /obj/decal/poster/wallsign/stencil/left/h,
 /turf/simulated/wall/auto/reinforced/supernorn,
 /area/station/security/quarters)
+"dzg" = (
+/obj/lattice{
+	dir = 8;
+	icon_state = "lattice-dir"
+	},
+/obj/cable{
+	icon_state = "6-8"
+	},
+/turf/space,
+/area/space)
 "dzt" = (
 /obj/cable{
 	d1 = 4;
@@ -4019,6 +4078,9 @@
 	})
 "ehY" = (
 /obj/disposalpipe/switch_junction/left/north,
+/obj/cable{
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/engine,
 /area/station/routing/depot{
 	name = "Routing Buoy"
@@ -4094,6 +4156,9 @@
 	name = "Maru Hangar"
 	})
 "elh" = (
+/obj/cable{
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/grey,
 /area/station/science/construction{
 	name = "Tenebrae Maintenance"
@@ -4282,6 +4347,14 @@
 /obj/machinery/light,
 /turf/simulated/floor/orangeblack/side,
 /area/station/mining/refinery)
+"exd" = (
+/obj/cable{
+	d1 = 2;
+	d2 = 4;
+	icon_state = "9-10"
+	},
+/turf/space,
+/area/space)
 "eyF" = (
 /obj/machinery/mass_driver{
 	dir = 4;
@@ -4300,6 +4373,12 @@
 	dir = 5
 	},
 /area/station/science/tenebrae)
+"eAl" = (
+/obj/cable{
+	icon_state = "5-10"
+	},
+/turf/space,
+/area/space)
 "eAr" = (
 /obj/machinery/shuttle/engine/heater{
 	dir = 4;
@@ -4407,6 +4486,13 @@
 /area/station/hangar/sec{
 	name = "Hammer Primary Dock"
 	})
+"eIX" = (
+/obj/foamedmetal,
+/obj/cable{
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/metalfoam,
+/area/space)
 "eJq" = (
 /obj/table/auto,
 /obj/machinery/cell_charger,
@@ -4442,6 +4528,12 @@
 /area/station/security/main{
 	name = "Hammer Primary Concourse"
 	})
+"eKT" = (
+/obj/cable{
+	icon_state = "2-4"
+	},
+/turf/space,
+/area/space)
 "eMe" = (
 /turf/simulated/floor/redblack{
 	dir = 1
@@ -5010,6 +5102,16 @@
 	},
 /turf/simulated/floor/purplewhite,
 /area/station/science/teleporter)
+"fvq" = (
+/obj/lattice{
+	dir = 9;
+	icon_state = "lattice-dir"
+	},
+/obj/cable{
+	icon_state = "1-10"
+	},
+/turf/space,
+/area/space)
 "fvF" = (
 /obj/machinery/recharge_station,
 /turf/simulated/floor/caution/north,
@@ -5136,6 +5238,9 @@
 /obj/machinery/light/small{
 	dir = 4;
 	pixel_x = 12
+	},
+/obj/cable{
+	icon_state = "2-8"
 	},
 /turf/simulated/floor/grey,
 /area/station/science/construction{
@@ -5354,6 +5459,9 @@
 "fQe" = (
 /obj/stool/chair/yellow{
 	dir = 1
+	},
+/obj/cable{
+	icon_state = "4-8"
 	},
 /turf/simulated/floor/engine/caution/west,
 /area/station/routing/depot{
@@ -5895,6 +6003,9 @@
 	powerlevel = 1
 	},
 /obj/disposalpipe/segment/mail/horizontal,
+/obj/cable{
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/engine,
 /area/station/routing/depot{
 	name = "Routing Buoy"
@@ -6212,6 +6323,9 @@
 /obj/decal/tile_edge/stripe/extra_big,
 /obj/machinery/door/airlock/pyro/external,
 /obj/disposalpipe/segment/mail/bent/west,
+/obj/cable{
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/engine/caution/corner2{
 	dir = 5
 	},
@@ -6376,6 +6490,16 @@
 /obj/grille/catwalk,
 /turf/simulated/floor/airless/plating/catwalk,
 /area/station/mining/refinery)
+"hab" = (
+/obj/disposalpipe/segment/mail/horizontal,
+/obj/cable{
+	icon_state = "2-8"
+	},
+/obj/cable{
+	icon_state = "1-8"
+	},
+/turf/simulated/floor/metalfoam,
+/area/space)
 "hcd" = (
 /obj/machinery/light/small{
 	dir = 1;
@@ -6598,6 +6722,10 @@
 /obj/disposalpipe/segment/mail/horizontal,
 /obj/machinery/disposal_pipedispenser,
 /obj/machinery/light_switch/west,
+/obj/cable,
+/obj/cable{
+	icon_state = "0-2"
+	},
 /turf/simulated/floor/engine/caution/east,
 /area/station/routing/depot{
 	name = "Routing Buoy"
@@ -6891,6 +7019,14 @@
 /obj/disposalpipe/segment/mail/vertical,
 /turf/simulated/floor/plating,
 /area/station/engine/elect)
+"hEH" = (
+/obj/cable{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plating,
+/area/station/maintenance/west{
+	name = "Meridian Maintenance"
+	})
 "hFj" = (
 /obj/cable{
 	icon_state = "1-2"
@@ -7557,6 +7693,11 @@
 /obj/item/storage/box/evidence,
 /obj/item/hand_labeler,
 /obj/machinery/light,
+/obj/cable{
+	d1 = 2;
+	d2 = 4;
+	icon_state = "6-9"
+	},
 /turf/simulated/floor/black,
 /area/station/security/processing)
 "iyV" = (
@@ -8079,6 +8220,25 @@
 /area/station/maintenance/west{
 	name = "Meridian Maintenance"
 	})
+"iYs" = (
+/obj/lattice{
+	dir = 5;
+	icon_state = "lattice-dir"
+	},
+/obj/cable{
+	icon_state = "1-10"
+	},
+/turf/space,
+/area/space)
+"iZf" = (
+/obj/cable{
+	icon_state = "1-6"
+	},
+/obj/cable{
+	icon_state = "6-8"
+	},
+/turf/space,
+/area/space)
 "iZi" = (
 /turf/simulated/floor/carpet/blue/fancy/innercorner/ne_sw,
 /area/station/chapel/sanctuary)
@@ -8639,6 +8799,12 @@
 	},
 /turf/simulated/wall/auto/reinforced/supernorn,
 /area/station/medical/robotics)
+"jKB" = (
+/obj/cable{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/metalfoam,
+/area/space)
 "jKH" = (
 /obj/machinery/light,
 /obj/storage/closet/welding_supply,
@@ -8871,6 +9037,17 @@
 /area/station/medical/research{
 	name = "Genetic Research"
 	})
+"jZa" = (
+/obj/cable{
+	icon_state = "1-2"
+	},
+/obj/cable{
+	icon_state = "1-4"
+	},
+/turf/simulated/floor/plating,
+/area/station/maintenance/west{
+	name = "Meridian Maintenance"
+	})
 "jZf" = (
 /obj/cable{
 	icon_state = "0-8"
@@ -9047,6 +9224,15 @@
 	},
 /turf/simulated/floor/sanitary/white,
 /area/station/science/tenebrae)
+"kmj" = (
+/obj/disposalpipe/segment/mail,
+/obj/cable{
+	icon_state = "1-8"
+	},
+/turf/simulated/floor/plating,
+/area/station/routing/depot{
+	name = "Routing Buoy"
+	})
 "kmk" = (
 /obj/machinery/power/apc/autoname_east,
 /obj/cable{
@@ -10295,6 +10481,14 @@
 	},
 /turf/simulated/floor/wood/two,
 /area/station/bridge/hos)
+"lUG" = (
+/obj/cable{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plating,
+/area/station/science/construction{
+	name = "Tenebrae Maintenance"
+	})
 "lVy" = (
 /obj/machinery/optable{
 	id = "robotics"
@@ -10461,6 +10655,20 @@
 /area/station/routing/depot{
 	name = "Routing Buoy"
 	})
+"mhR" = (
+/obj/grille/catwalk{
+	dir = 4
+	},
+/obj/cable{
+	icon_state = "4-8"
+	},
+/obj/cable{
+	icon_state = "1-10"
+	},
+/turf/simulated/floor/airless/plating/catwalk{
+	dir = 4
+	},
+/area/space)
 "miw" = (
 /obj/lattice,
 /turf/space,
@@ -10506,6 +10714,16 @@
 	},
 /turf/simulated/floor,
 /area/station/mining/refinery)
+"mkk" = (
+/obj/lattice{
+	dir = 9;
+	icon_state = "lattice-dir-b"
+	},
+/obj/cable{
+	icon_state = "2-8"
+	},
+/turf/space,
+/area/space)
 "mkt" = (
 /obj/machinery/manufacturer/uniform,
 /turf/simulated/floor/grey,
@@ -10586,6 +10804,14 @@
 /area/station/medical/medbay{
 	name = "Asclepius Primary Zone"
 	})
+"mnS" = (
+/obj/cable{
+	d1 = 2;
+	d2 = 4;
+	icon_state = "8-9"
+	},
+/turf/space,
+/area/space)
 "moS" = (
 /obj/cable{
 	icon_state = "1-2"
@@ -11417,6 +11643,12 @@
 /obj/disposalpipe/segment/mail/horizontal,
 /turf/simulated/floor/grey,
 /area/station/crew_quarters/tenebrae)
+"nkj" = (
+/obj/cable{
+	icon_state = "1-10"
+	},
+/turf/space,
+/area/space)
 "nkD" = (
 /obj/machinery/r_door_control/podbay{
 	id = "deeobay";
@@ -11617,6 +11849,14 @@
 /area/station/security/main{
 	name = "Hammer Primary Concourse"
 	})
+"nub" = (
+/obj/cable{
+	d1 = 2;
+	d2 = 4;
+	icon_state = "4-10"
+	},
+/turf/space,
+/area/space)
 "nuQ" = (
 /turf/simulated/floor/black,
 /area/station/chapel/sanctuary)
@@ -11835,6 +12075,17 @@
 /obj/foamedmetal,
 /turf/simulated/floor/metalfoam,
 /area/space)
+"nGQ" = (
+/obj/cable{
+	icon_state = "1-2"
+	},
+/obj/cable{
+	icon_state = "1-4"
+	},
+/turf/simulated/floor/plating,
+/area/station/science/construction{
+	name = "Tenebrae Maintenance"
+	})
 "nHt" = (
 /obj/machinery/light_switch/north,
 /obj/machinery/vending/medical_public,
@@ -12300,6 +12551,9 @@
 /turf/simulated/floor/wood,
 /area/station/bridge/hos)
 "ogh" = (
+/obj/cable{
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/grey,
 /area/station/maintenance/west{
 	name = "Meridian Maintenance"
@@ -12332,6 +12586,9 @@
 /area/station/crew_quarters/tenebrae)
 "ohA" = (
 /obj/machinery/light/small/floor,
+/obj/cable{
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/grey,
 /area/station/science/construction{
 	name = "Tenebrae Maintenance"
@@ -12485,6 +12742,9 @@
 /area/station/storage/tech)
 "oqg" = (
 /obj/disposalpipe/junction/left/east,
+/obj/cable{
+	icon_state = "2-8"
+	},
 /turf/simulated/floor/engine/caution/east,
 /area/station/routing/depot{
 	name = "Routing Buoy"
@@ -13868,6 +14128,16 @@
 /area/station/medical/maintenance{
 	name = "Asclepius Equipment Room"
 	})
+"pPs" = (
+/obj/lattice{
+	dir = 8;
+	icon_state = "lattice-dir"
+	},
+/obj/cable{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/metalfoam,
+/area/space)
 "pPK" = (
 /obj/disposalpipe/segment/mail/bent/north,
 /turf/simulated/wall/auto/supernorn,
@@ -15318,6 +15588,9 @@
 	dir = 1;
 	pixel_y = 21
 	},
+/obj/cable{
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/engine,
 /area/station/routing/depot{
 	name = "Routing Buoy"
@@ -15527,6 +15800,9 @@
 	icon_state = "lattice-dir"
 	},
 /obj/disposalpipe/segment/mail/vertical,
+/obj/cable{
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/metalfoam,
 /area/space)
 "rOS" = (
@@ -15708,6 +15984,13 @@
 	},
 /turf/simulated/floor/caution/westeast,
 /area/station/science/artifact)
+"sfw" = (
+/obj/foamedmetal,
+/obj/cable{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/metalfoam,
+/area/space)
 "sgb" = (
 /obj/disposalpipe/segment/mail/bent/south,
 /turf/simulated/floor/caution/corner/misc{
@@ -15783,6 +16066,14 @@
 	},
 /turf/simulated/floor/carpet/blue/fancy/edge/west,
 /area/station/bridge/hos)
+"ski" = (
+/obj/cable{
+	d1 = 2;
+	d2 = 4;
+	icon_state = "1-5"
+	},
+/turf/space,
+/area/space)
 "slc" = (
 /obj/disposalpipe/segment/bent/east,
 /obj/cable{
@@ -15877,6 +16168,18 @@
 	},
 /turf/simulated/floor/plating/airless,
 /area/space)
+"spP" = (
+/obj/lattice{
+	dir = 6;
+	icon_state = "lattice-dir-b"
+	},
+/obj/cable{
+	d1 = 2;
+	d2 = 4;
+	icon_state = "6-8"
+	},
+/turf/space,
+/area/space)
 "sqW" = (
 /obj/cable{
 	icon_state = "4-8"
@@ -15895,6 +16198,19 @@
 /turf/simulated/floor/black/grime,
 /area/station/maintenance/storage{
 	name = "Maru Power Room"
+	})
+"srh" = (
+/obj/machinery/conveyor{
+	id = "tenebelt";
+	name = "Tenebrae disposal belt";
+	operating = 1
+	},
+/obj/cable{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/grey,
+/area/station/science/construction{
+	name = "Tenebrae Maintenance"
 	})
 "ssd" = (
 /obj/cable{
@@ -16297,6 +16613,9 @@
 /obj/machinery/door/airlock/pyro/external{
 	dir = 4
 	},
+/obj/cable{
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/grey,
 /area/station/science/construction{
 	name = "Tenebrae Maintenance"
@@ -16330,6 +16649,12 @@
 	dir = 8
 	},
 /area/station/chapel/sanctuary)
+"sQP" = (
+/obj/cable{
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/metalfoam,
+/area/space)
 "sRQ" = (
 /obj/machinery/portable_atmospherics/canister/air/large,
 /turf/simulated/floor/orangeblack/side,
@@ -16404,6 +16729,9 @@
 /obj/disposalpipe/switch_junction/right/south{
 	mail_tag = "buoy";
 	name = "mail junction (to routing buoy)"
+	},
+/obj/cable{
+	icon_state = "2-4"
 	},
 /turf/simulated/floor/plating,
 /area/station/routing/depot{
@@ -17194,6 +17522,14 @@
 /area/station/crew_quarters/captain{
 	name = "Meridian Primary Zone"
 	})
+"tVi" = (
+/obj/cable{
+	icon_state = "1-10"
+	},
+/turf/simulated/wall/auto/reinforced/supernorn,
+/area/station/routing/depot{
+	name = "Routing Buoy"
+	})
 "tVj" = (
 /obj/submachine/chef_oven,
 /obj/machinery/phone/wall{
@@ -17206,6 +17542,9 @@
 "tVL" = (
 /obj/machinery/door/airlock/pyro/external{
 	dir = 4
+	},
+/obj/cable{
+	icon_state = "4-8"
 	},
 /turf/simulated/floor/grey,
 /area/station/maintenance/west{
@@ -17244,6 +17583,9 @@
 /obj/lattice{
 	dir = 8;
 	icon_state = "lattice-dir"
+	},
+/obj/cable{
+	icon_state = "4-9"
 	},
 /turf/simulated/floor/metalfoam,
 /area/space)
@@ -17620,6 +17962,15 @@
 /area/station/solar/small_backup3{
 	name = "Tenebrae Solar Array"
 	})
+"usU" = (
+/obj/machinery/door/airlock/pyro/external,
+/obj/cable{
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/grey,
+/area/station/science/construction{
+	name = "Tenebrae Maintenance"
+	})
 "uum" = (
 /obj/disposalpipe/segment/mail/bent/west,
 /turf/simulated/wall/auto/reinforced/supernorn,
@@ -17779,6 +18130,21 @@
 /area/station/science/bot_storage{
 	name = "Net Center"
 	})
+"uAp" = (
+/obj/disposalpipe/segment/mail/horizontal,
+/obj/foamedmetal,
+/obj/cable{
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/metalfoam,
+/area/space)
+"uBO" = (
+/obj/foamedmetal,
+/obj/cable{
+	icon_state = "1-4"
+	},
+/turf/simulated/floor/metalfoam,
+/area/space)
 "uBY" = (
 /obj/cable{
 	icon_state = "1-2"
@@ -17873,6 +18239,12 @@
 /obj/machinery/power/data_terminal,
 /obj/machinery/computer/general_alert{
 	dir = 4
+	},
+/obj/cable{
+	icon_state = "0-2"
+	},
+/obj/cable{
+	icon_state = "0-4"
 	},
 /turf/simulated/floor/engine/caution/east,
 /area/station/routing/depot{
@@ -18071,6 +18443,9 @@
 /area/station/science/chemistry)
 "uQh" = (
 /obj/machinery/light/small/floor,
+/obj/cable{
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/grey,
 /area/station/maintenance/west{
 	name = "Meridian Maintenance"
@@ -18128,6 +18503,9 @@
 	req_access = null
 	},
 /obj/access_spawn/engineering,
+/obj/cable{
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/engine,
 /area/station/routing/depot{
 	name = "Routing Buoy"
@@ -18206,6 +18584,12 @@
 /obj/disposalpipe/segment/vertical,
 /turf/simulated/wall/auto/reinforced/supernorn,
 /area/station/quartermaster/office)
+"uYI" = (
+/obj/cable{
+	icon_state = "5-9"
+	},
+/turf/space,
+/area/space)
 "uYT" = (
 /obj/stool/bed,
 /obj/cable{
@@ -18776,6 +19160,9 @@
 /obj/landmark{
 	name = "Observer-Start"
 	},
+/obj/cable{
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/engine/caution/east,
 /area/station/routing/depot{
 	name = "Routing Buoy"
@@ -18985,11 +19372,35 @@
 /area/station/solar/small_backup2{
 	name = "Maru Solar Array"
 	})
+"vWU" = (
+/obj/wingrille_spawn/auto,
+/obj/cable{
+	d1 = 2;
+	d2 = 4;
+	icon_state = "6-9"
+	},
+/turf/simulated/floor/plating,
+/area/station/engine/engineering{
+	name = "Maru Primary Zone"
+	})
 "vXs" = (
 /obj/disposalpipe/segment/mail/vertical,
 /obj/wingrille_spawn/auto,
 /turf/simulated/floor/plating,
 /area/station/science/artifact)
+"vXJ" = (
+/obj/machinery/conveyor{
+	id = "meridbelt";
+	name = "Meridian disposal belt";
+	operating = 1
+	},
+/obj/cable{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/grey,
+/area/station/maintenance/west{
+	name = "Meridian Maintenance"
+	})
 "vYb" = (
 /obj/wingrille_spawn/auto,
 /turf/simulated/floor/plating,
@@ -19253,6 +19664,9 @@
 	})
 "wmJ" = (
 /obj/disposalpipe/segment/mail,
+/obj/cable{
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/plating,
 /area/station/routing/depot{
 	name = "Routing Buoy"
@@ -19368,6 +19782,14 @@
 	},
 /turf/simulated/floor/darkblue,
 /area/station/bridge)
+"wvy" = (
+/obj/cable{
+	d1 = 2;
+	d2 = 4;
+	icon_state = "6-8"
+	},
+/turf/space,
+/area/space)
 "wxy" = (
 /obj/disposalpipe/switch_junction/left/west{
 	mail_tag = "meridian";
@@ -19996,6 +20418,22 @@
 /area/station/maintenance/southeast{
 	name = "Dionysus Maintenance"
 	})
+"xdA" = (
+/obj/wingrille_spawn/auto/crystal,
+/obj/machinery/door/poddoor/pyro{
+	density = 0;
+	icon_state = "pdoor0";
+	id = "ham_brace";
+	name = "Hammer Combat Shield";
+	opacity = 0
+	},
+/obj/cable{
+	d1 = 2;
+	d2 = 4;
+	icon_state = "6-9"
+	},
+/turf/simulated/floor/plating,
+/area/station/security/processing)
 "xdT" = (
 /obj/cable{
 	icon_state = "2-8"
@@ -20826,6 +21264,21 @@
 /area/station/maintenance/southeast{
 	name = "Dionysus Maintenance"
 	})
+"ybb" = (
+/obj/lattice{
+	dir = 4;
+	icon_state = "lattice-dir"
+	},
+/obj/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/cable{
+	icon_state = "4-9"
+	},
+/turf/space,
+/area/space)
 "ybi" = (
 /obj/disposalpipe/segment/brig{
 	dir = 1
@@ -47084,7 +47537,7 @@ anS
 dQV
 nby
 krU
-aYA
+jZa
 aYA
 qWO
 ast
@@ -47386,7 +47839,7 @@ ibw
 hYX
 iyV
 iyV
-ast
+hEH
 ast
 ast
 ast
@@ -47688,7 +48141,7 @@ iXG
 jiQ
 sbx
 efJ
-iXG
+vXJ
 gKn
 gYL
 ork
@@ -49501,11 +49954,11 @@ pMz
 pMz
 isA
 bYP
-isA
-pto
-pto
-pto
-jpG
+aBD
+cSh
+cSh
+cSh
+uBO
 gMd
 jpG
 pto
@@ -49807,7 +50260,7 @@ hYX
 pto
 pto
 pto
-jpG
+sfw
 gMd
 jpG
 pto
@@ -50109,7 +50562,7 @@ cLo
 pto
 pto
 pto
-jpG
+sfw
 gMd
 jpG
 pto
@@ -50411,7 +50864,7 @@ pto
 pto
 pto
 pto
-jpG
+sfw
 gMd
 jpG
 pto
@@ -50713,7 +51166,7 @@ pto
 pto
 pto
 pto
-jpG
+sfw
 gMd
 jpG
 pto
@@ -51015,7 +51468,7 @@ pto
 pto
 pto
 pto
-jpG
+sfw
 gMd
 jpG
 pto
@@ -51317,7 +51770,7 @@ pto
 pto
 pto
 pto
-jpG
+sfw
 gMd
 jpG
 pto
@@ -51619,7 +52072,7 @@ pto
 pto
 pto
 pto
-jpG
+sfw
 gMd
 jpG
 pto
@@ -51921,7 +52374,7 @@ pto
 pto
 pto
 pto
-jpG
+sfw
 gMd
 jpG
 pto
@@ -52223,7 +52676,7 @@ pto
 pto
 pto
 pto
-jpG
+sfw
 gMd
 jpG
 pto
@@ -52525,7 +52978,7 @@ pto
 pto
 pto
 pto
-jpG
+sfw
 gMd
 jpG
 pto
@@ -52827,7 +53280,7 @@ pto
 pto
 pto
 pto
-jpG
+sfw
 gMd
 jpG
 pto
@@ -53129,7 +53582,7 @@ pto
 pto
 pto
 pto
-uii
+jKB
 blv
 uii
 pto
@@ -53431,7 +53884,7 @@ pto
 pto
 pto
 pto
-uii
+jKB
 blv
 uii
 pto
@@ -53733,7 +54186,7 @@ pto
 pto
 pto
 pto
-uii
+jKB
 blv
 uii
 pto
@@ -54035,7 +54488,7 @@ pto
 pto
 pto
 pto
-jpG
+sfw
 gMd
 jpG
 pto
@@ -54337,7 +54790,7 @@ pto
 pto
 pto
 pto
-jpG
+sfw
 gMd
 jpG
 pto
@@ -54639,7 +55092,7 @@ pto
 pto
 pto
 pto
-jpG
+sfw
 gMd
 jpG
 pto
@@ -54941,7 +55394,7 @@ pto
 pto
 pto
 pto
-jpG
+sfw
 gMd
 jpG
 pto
@@ -55243,7 +55696,7 @@ pto
 pto
 pto
 pto
-jpG
+sfw
 gMd
 jpG
 pto
@@ -55545,7 +55998,7 @@ pto
 pto
 pto
 pto
-jpG
+sfw
 gMd
 jpG
 pto
@@ -55847,7 +56300,7 @@ pto
 pto
 pto
 pto
-jpG
+sfw
 gMd
 jpG
 pto
@@ -56149,7 +56602,7 @@ pto
 pto
 pto
 pto
-jpG
+sfw
 gMd
 jpG
 pto
@@ -56451,7 +56904,7 @@ pto
 pto
 pto
 pto
-jpG
+sfw
 gMd
 pnW
 hsQ
@@ -56753,7 +57206,7 @@ pto
 pto
 pto
 pto
-jpG
+sfw
 gMd
 pnW
 fEM
@@ -57055,7 +57508,7 @@ pto
 pto
 pto
 pto
-jpG
+sfw
 gMd
 pnW
 fEM
@@ -57357,7 +57810,7 @@ pto
 pto
 pto
 pto
-jpG
+sfw
 gMd
 pnW
 fEM
@@ -57659,7 +58112,7 @@ pto
 pto
 pto
 pto
-jpG
+sfw
 gMd
 pnW
 fEM
@@ -57961,7 +58414,7 @@ pto
 pto
 pto
 pto
-jpG
+sfw
 gMd
 pnW
 fEM
@@ -58263,7 +58716,7 @@ pto
 pto
 pto
 pto
-jpG
+sfw
 gMd
 uyB
 usQ
@@ -58565,7 +59018,7 @@ pto
 pto
 pto
 pto
-jpG
+sfw
 gMd
 uyB
 ksZ
@@ -58867,7 +59320,7 @@ pto
 pto
 pto
 pto
-jpG
+sfw
 gMd
 uyB
 usQ
@@ -59169,7 +59622,7 @@ pto
 pto
 pto
 pto
-jpG
+sfw
 gMd
 pnW
 fEM
@@ -59184,7 +59637,7 @@ bwp
 uOf
 bzD
 ehk
-lHL
+nGQ
 lHL
 kxq
 wXH
@@ -59471,7 +59924,7 @@ pto
 pto
 pto
 pto
-jpG
+sfw
 gMd
 pnW
 fEM
@@ -59486,7 +59939,7 @@ gSm
 liC
 vLn
 vLn
-wXH
+lUG
 wXH
 wXH
 wXH
@@ -59773,7 +60226,7 @@ pto
 pto
 pto
 pto
-jpG
+sfw
 gMd
 pnW
 fEM
@@ -59788,7 +60241,7 @@ vFR
 cXD
 cKp
 wPz
-vFR
+srh
 wpE
 tJq
 bTp
@@ -60075,7 +60528,7 @@ pto
 pto
 pto
 pto
-jpG
+sfw
 gMd
 pnW
 fEM
@@ -60377,7 +60830,7 @@ pto
 pto
 pto
 pto
-jpG
+sfw
 gMd
 pnW
 fEM
@@ -60679,7 +61132,7 @@ pto
 pto
 pto
 pto
-jpG
+sfw
 gMd
 pnW
 hnV
@@ -60981,7 +61434,7 @@ cSh
 tZQ
 pto
 pto
-jpG
+sfw
 fzc
 bbf
 whg
@@ -61283,7 +61736,7 @@ pto
 pto
 hRH
 pto
-pto
+sVX
 jpG
 jpG
 gMd
@@ -61585,7 +62038,7 @@ pto
 pto
 pto
 npt
-tZQ
+iZf
 pto
 jpG
 gMd
@@ -61601,9 +62054,9 @@ tKB
 tKB
 ffk
 fBL
-ffk
-pto
-pto
+usU
+cnf
+tZQ
 pto
 pto
 pto
@@ -61904,10 +62357,10 @@ tKB
 liC
 liC
 liC
+cSb
 pto
-pto
-pto
-pto
+npt
+qhP
 pto
 pto
 pto
@@ -62204,12 +62657,12 @@ tKB
 tKB
 tKB
 cLo
-pto
-cLo
-pto
-pto
+pUu
+iYs
 pto
 pto
+pto
+kkZ
 pto
 pto
 pto
@@ -62505,14 +62958,14 @@ pto
 pto
 pto
 pto
+aQm
 pto
 pto
 pto
 pto
 pto
 pto
-pto
-pto
+hRH
 pto
 pto
 pto
@@ -62807,16 +63260,16 @@ pto
 pto
 pto
 pto
+pUu
+pjv
 pto
 pto
 pto
 pto
 pto
 pto
-pto
-pto
-pto
-pto
+npt
+tZQ
 pto
 pto
 pto
@@ -63107,6 +63560,8 @@ pto
 pto
 pto
 pto
+pUu
+nkj
 pto
 pto
 pto
@@ -63117,10 +63572,8 @@ pto
 pto
 pto
 pto
-pto
-pto
-pto
-pto
+npt
+ski
 pto
 pto
 pto
@@ -63408,6 +63861,7 @@ pto
 pto
 pto
 pto
+eAl
 pto
 pto
 pto
@@ -63420,8 +63874,7 @@ pto
 pto
 pto
 pto
-pto
-pto
+aQm
 pto
 pto
 pto
@@ -63706,6 +64159,10 @@ csm
 aXN
 csm
 aXN
+pUu
+cSh
+tZQ
+avG
 pto
 pto
 pto
@@ -63720,12 +64177,8 @@ pto
 pto
 pto
 pto
-pto
-pto
-pto
-pto
-pto
-pto
+npt
+tZQ
 pto
 pto
 pto
@@ -64007,10 +64460,11 @@ mhF
 wyA
 uId
 hmy
-aXN
+tVi
 aXN
 kfG
 pto
+mnS
 pto
 pto
 pto
@@ -64027,8 +64481,7 @@ pto
 pto
 pto
 pto
-pto
-pto
+hRH
 pto
 yio
 dsP
@@ -64331,7 +64784,7 @@ pto
 pto
 pto
 pto
-pto
+hRH
 eDb
 eDb
 bDv
@@ -65213,7 +65666,7 @@ jdp
 aXN
 eVL
 sVU
-wmJ
+kmj
 oFF
 boO
 aXN
@@ -65238,7 +65691,7 @@ jpG
 uii
 uii
 uii
-uaq
+pPs
 pKM
 qfC
 kam
@@ -65540,7 +65993,7 @@ pto
 pto
 pto
 cbM
-dsP
+dzg
 lMX
 imn
 imn
@@ -65843,7 +66296,7 @@ pto
 pto
 eDb
 lMX
-lMX
+vWU
 ctM
 roY
 wYo
@@ -67024,9 +67477,9 @@ pto
 pto
 pto
 pKL
-pto
-uii
-blv
+pUu
+sQP
+hab
 atC
 pto
 gVO
@@ -67325,12 +67778,12 @@ pto
 pto
 pto
 pto
-pto
+eAl
 pto
 jpG
 gMd
 jpG
-pto
+pRd
 gVO
 gVO
 gVO
@@ -67623,16 +68076,16 @@ pto
 pto
 pto
 pto
+pUu
+tZQ
 pto
-pto
-pto
-pto
+eAl
 pto
 pto
 jpG
 gMd
 jpG
-pto
+sVX
 pto
 pto
 pto
@@ -67924,17 +68377,17 @@ jpG
 pto
 pto
 pto
+aQm
 pto
 pto
-pto
-pto
+exd
 pto
 jpG
 jpG
 jpG
 gMd
 jpG
-pto
+sVX
 pto
 pto
 pto
@@ -68224,10 +68677,10 @@ jpG
 gMd
 jpG
 pto
-pto
-pto
-pto
-pto
+pUu
+cSh
+cSh
+pjv
 pto
 pto
 pto
@@ -68236,7 +68689,7 @@ oYT
 dIA
 gGO
 jpG
-pto
+wvy
 pto
 pto
 pto
@@ -68521,25 +68974,25 @@ pto
 pto
 pto
 pto
+pUu
+eIX
+uAp
+eIX
+nkj
+pto
+pto
+pto
+pto
+pto
+pto
 pto
 jpG
 gMd
 jpG
-pto
-pto
-pto
-pto
-pto
-pto
-pto
-pto
-jpG
-gMd
-jpG
 jpG
 pto
 pto
-pto
+uYI
 pto
 pto
 pto
@@ -68822,25 +69275,25 @@ pto
 pto
 pto
 pto
+nub
+pto
+jpG
+gMd
+jpG
+pto
+pto
+pto
+pto
+pto
+pto
 pto
 pto
 jpG
 gMd
 jpG
-pto
-pto
-pto
-pto
-pto
-pto
-pto
-pto
 jpG
-gMd
-jpG
-jpG
-pto
-dlW
+eKT
+fvq
 pto
 pto
 pto
@@ -69124,7 +69577,7 @@ uii
 jpG
 jpG
 jpG
-jpG
+sfw
 jpG
 jpG
 gMd
@@ -69141,7 +69594,7 @@ jpG
 gMd
 jpG
 jpG
-xnR
+spP
 spy
 mlE
 pto
@@ -69426,7 +69879,7 @@ epP
 dIA
 dIA
 dIA
-dIA
+asj
 dIA
 dIA
 gGO
@@ -69444,7 +69897,7 @@ blv
 uii
 uii
 eDb
-bQl
+ybb
 eDb
 pto
 pto
@@ -69728,7 +70181,7 @@ uii
 uii
 jpG
 jpG
-jpG
+sfw
 jpG
 jpG
 jpG
@@ -70030,7 +70483,7 @@ pto
 pto
 pto
 pto
-pto
+sVX
 pto
 pto
 pto
@@ -70332,7 +70785,7 @@ pto
 pto
 pto
 pto
-pto
+cSb
 pto
 pto
 pto
@@ -70633,7 +71086,7 @@ pto
 pto
 pto
 pto
-pto
+avG
 pto
 pto
 pto
@@ -70935,7 +71388,7 @@ pto
 pto
 pto
 pto
-pto
+sVX
 pto
 pto
 pto
@@ -71237,7 +71690,7 @@ pto
 pto
 pto
 pto
-pto
+sVX
 pto
 pto
 pto
@@ -71539,7 +71992,7 @@ pto
 pto
 pto
 pto
-pto
+cSb
 pto
 pto
 pto
@@ -71833,14 +72286,14 @@ jmK
 nyb
 civ
 iAh
-cAg
+xdA
 pto
 pto
 pto
 pto
 eVz
 pto
-pto
+eAl
 pto
 pto
 pto
@@ -72136,12 +72589,12 @@ bwY
 cll
 bwY
 bwY
-pto
+pRd
 pto
 pto
 pto
 gpT
-pto
+eAl
 pto
 pto
 pto
@@ -72438,11 +72891,11 @@ bwY
 tQQ
 nFB
 bwY
-mlE
+mkk
+tZQ
 pto
-pto
-pto
-gpT
+pUu
+mhR
 pto
 pto
 pto
@@ -72742,7 +73195,7 @@ uHe
 bwY
 hPI
 pto
-pto
+exd
 tAn
 xAh
 iDc
