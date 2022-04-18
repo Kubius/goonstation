@@ -178,7 +178,7 @@
 
 			if (istype(src, /obj/machinery/disposal/mail))
 				//Is this mob allowed to ride mailchutes?
-				if (!mobtarget.canRideMailchutes())
+				if (src.mail_only && !mobtarget.canRideMailchutes())
 					boutput(user, "<span class='alert'>That won't fit!</span>")
 					return
 

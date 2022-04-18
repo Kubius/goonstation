@@ -398,6 +398,15 @@
 	},
 /turf/simulated/floor/caution/misc,
 /area/station/quartermaster/office)
+"arM" = (
+/obj/decal/cleanable/oil,
+/obj/cable{
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/engine,
+/area/station/medical/maintenance{
+	name = "Asclepius Equipment Room"
+	})
 "ase" = (
 /obj/machinery/shuttle/engine/heater{
 	dir = 4;
@@ -458,9 +467,6 @@
 "auI" = (
 /obj/stool/chair/yellow{
 	dir = 4
-	},
-/obj/landmark/start{
-	name = "Mechanic"
 	},
 /obj/disposalpipe/segment/mail/horizontal,
 /turf/simulated/floor/yellow/side{
@@ -596,6 +602,13 @@
 /obj/machinery/power/apc/autoname_west,
 /obj/cable{
 	icon_state = "0-4"
+	},
+/obj/machinery/camera{
+	c_tag = "autotag";
+	dir = 6;
+	name = "autoname - SS13";
+	pixel_y = 20;
+	tag = ""
 	},
 /turf/simulated/floor/grass/leafy,
 /area/station/ranch)
@@ -981,7 +994,7 @@
 	name = "Meridian Primary Zone"
 	})
 "aRR" = (
-/turf/space,
+/turf/simulated/wall/airbridge,
 /area/station/maintenance/inner/hammer)
 "aSg" = (
 /obj/cable{
@@ -1171,6 +1184,13 @@
 	},
 /obj/item/card/id/captains_spare{
 	pixel_y = -8
+	},
+/obj/machinery/camera{
+	c_tag = "autotag";
+	dir = 8;
+	name = "autoname - SS13";
+	pixel_x = 10;
+	tag = ""
 	},
 /turf/simulated/floor/black,
 /area/station/bridge)
@@ -1491,6 +1511,20 @@
 /area/station/crew_quarters/cafeteria{
 	name = "Dionysus Primary Zone"
 	})
+"bmg" = (
+/obj/cable{
+	icon_state = "4-8"
+	},
+/obj/machinery/camera{
+	c_tag = "autotag";
+	dir = 1;
+	name = "autoname - SS13";
+	tag = ""
+	},
+/turf/simulated/floor/plating,
+/area/station/maintenance/southeast{
+	name = "Dionysus Maintenance"
+	})
 "bmL" = (
 /obj/cable{
 	d2 = 4;
@@ -1525,6 +1559,9 @@
 	pixel_y = 32
 	},
 /obj/stool/chair/yellow,
+/obj/landmark/start{
+	name = "Miner"
+	},
 /turf/simulated/floor,
 /area/station/hangar/engine{
 	name = "Maru Hangar"
@@ -2056,6 +2093,13 @@
 	})
 "bTu" = (
 /obj/machinery/portable_reclaimer,
+/obj/machinery/camera{
+	c_tag = "autotag";
+	dir = 4;
+	name = "autoname - SS13";
+	pixel_x = -10;
+	tag = ""
+	},
 /turf/simulated/floor/grey,
 /area/station/science/construction{
 	name = "Tenebrae Maintenance"
@@ -2222,9 +2266,30 @@
 /obj/cable{
 	icon_state = "2-8"
 	},
+/obj/machinery/camera{
+	c_tag = "autotag";
+	dir = 9;
+	name = "autoname - SS13";
+	pixel_x = 10;
+	tag = ""
+	},
 /turf/simulated/floor/grey,
 /area/station/maintenance/west{
 	name = "Meridian Maintenance"
+	})
+"bZk" = (
+/obj/marker/supplymarker,
+/obj/cable{
+	icon_state = "4-8"
+	},
+/obj/machinery/activation_button/driver_button{
+	id = "clown_comfort";
+	name = "light switch";
+	pixel_y = -20
+	},
+/turf/simulated/floor/carpet/arcade,
+/area/station/crew_quarters/clown{
+	name = "Clown Limpet"
 	})
 "bZl" = (
 /obj/grille/catwalk{
@@ -2319,6 +2384,9 @@
 /obj/cable{
 	icon_state = "1-2"
 	},
+/obj/landmark/start{
+	name = "Staff Assistant"
+	},
 /turf/simulated/floor/purplewhite,
 /area/station/science/tenebrae)
 "ccw" = (
@@ -2356,6 +2424,13 @@
 	d1 = 2;
 	d2 = 4;
 	icon_state = "4-6"
+	},
+/obj/machinery/camera{
+	c_tag = "autotag";
+	dir = 6;
+	name = "autoname - SS13";
+	pixel_y = 20;
+	tag = ""
 	},
 /turf/simulated/floor/black,
 /area/station/security/processing)
@@ -2500,6 +2575,13 @@
 /area/station/chapel/sanctuary)
 "cqn" = (
 /obj/blind_switch/area/east,
+/obj/machinery/camera{
+	c_tag = "autotag";
+	dir = 8;
+	name = "autoname - SS13";
+	pixel_x = 10;
+	tag = ""
+	},
 /turf/simulated/floor/black,
 /area/station/security/quarters)
 "cqB" = (
@@ -2620,6 +2702,13 @@
 	icon_state = "0-4"
 	},
 /obj/machinery/power/data_terminal,
+/obj/machinery/camera{
+	c_tag = "autotag";
+	dir = 4;
+	name = "autoname - SS13";
+	pixel_x = -10;
+	tag = ""
+	},
 /turf/simulated/floor/black,
 /area/station/security/hos{
 	name = "Hammer Command"
@@ -2907,6 +2996,13 @@
 	pixel_y = 4
 	},
 /obj/machinery/light_switch/west,
+/obj/machinery/camera{
+	c_tag = "autotag";
+	dir = 4;
+	name = "autoname - SS13";
+	pixel_x = -10;
+	tag = ""
+	},
 /turf/simulated/floor/purpleblack{
 	dir = 8
 	},
@@ -2941,6 +3037,9 @@
 /obj/stool/chair/pew/fancy/center{
 	dir = 1
 	},
+/obj/landmark/start{
+	name = "Staff Assistant"
+	},
 /turf/simulated/floor/specialroom/chapel{
 	dir = 8
 	},
@@ -2958,6 +3057,15 @@
 	},
 /turf/simulated/floor/grey,
 /area/station/crew_quarters)
+"cLw" = (
+/obj/machinery/shuttle/engine/heater{
+	dir = 4;
+	icon_state = "alt_heater-M"
+	},
+/turf/simulated/wall/auto/supernorn,
+/area/station/crew_quarters/clown{
+	name = "Clown Limpet"
+	})
 "cLY" = (
 /obj/cable{
 	icon_state = "1-2"
@@ -2971,6 +3079,15 @@
 /turf/space,
 /area/station/solar/west{
 	name = "Meridian Solar Array"
+	})
+"cMF" = (
+/obj/machinery/shuttle/engine/heater{
+	dir = 4;
+	icon_state = "alt_heater-L"
+	},
+/turf/simulated/wall/auto/supernorn,
+/area/station/crew_quarters/clown{
+	name = "Clown Limpet"
 	})
 "cOl" = (
 /obj/disposalpipe/switch_junction/left/west{
@@ -3272,6 +3389,9 @@
 /obj/stool/chair{
 	dir = 4
 	},
+/obj/landmark/start{
+	name = "Staff Assistant"
+	},
 /turf/simulated/floor/orangeblack/side,
 /area/station/hangar/catering{
 	name = "Dionysus Hangar"
@@ -3501,6 +3621,14 @@
 	dir = 8
 	},
 /area/station/science/teleporter)
+"dsb" = (
+/obj/cable{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plating,
+/area/station/medical/maintenance{
+	name = "Asclepius Equipment Room"
+	})
 "dsO" = (
 /obj/machinery/light/small{
 	dir = 4;
@@ -3548,6 +3676,12 @@
 	},
 /area/station/ranch)
 "dtJ" = (
+/obj/machinery/camera{
+	c_tag = "autotag";
+	dir = 10;
+	name = "autoname - SS13";
+	tag = ""
+	},
 /turf/simulated/floor/sanitary/white,
 /area/station/engine/engineering{
 	name = "Maru Primary Zone"
@@ -3565,6 +3699,13 @@
 /obj/machinery/disposal/mail/transit{
 	mail_tag = "dionysus";
 	name = "Transit Chute: Dionysus"
+	},
+/obj/machinery/camera{
+	c_tag = "autotag";
+	dir = 6;
+	name = "autoname - SS13";
+	pixel_y = 20;
+	tag = ""
 	},
 /turf/simulated/floor/black,
 /area/station/crew_quarters/cafeteria{
@@ -3709,6 +3850,9 @@
 	},
 /obj/machinery/power/data_terminal,
 /obj/machinery/networked/telepad,
+/obj/landmark/spawner{
+	name = "monkeyspawn_albert"
+	},
 /turf/simulated/floor/engine,
 /area/station/science/teleporter)
 "dGm" = (
@@ -3860,6 +4004,15 @@
 /area/station/medical/head{
 	name = "Asclepius Command"
 	})
+"dTc" = (
+/obj/machinery/shuttle/engine/heater{
+	dir = 4;
+	icon_state = "alt_heater-R"
+	},
+/turf/simulated/wall/auto/supernorn,
+/area/station/crew_quarters/clown{
+	name = "Clown Limpet"
+	})
 "dUh" = (
 /obj/disposalpipe/trunk/mail/south,
 /obj/disposaloutlet/transit,
@@ -3872,6 +4025,9 @@
 	},
 /obj/cable{
 	icon_state = "1-2"
+	},
+/obj/landmark/start{
+	name = "Staff Assistant"
 	},
 /turf/simulated/floor/specialroom/chapel{
 	dir = 1
@@ -4100,9 +4256,23 @@
 	pixel_x = 1;
 	pixel_y = 10
 	},
+/obj/machinery/camera{
+	c_tag = "autotag";
+	dir = 8;
+	name = "autoname - SS13";
+	pixel_x = 10;
+	tag = ""
+	},
 /turf/simulated/floor/wood/two,
 /area/station/bridge/hos)
 "ejt" = (
+/obj/machinery/camera{
+	c_tag = "autotag";
+	dir = 6;
+	name = "autoname - SS13";
+	pixel_y = 20;
+	tag = ""
+	},
 /turf/simulated/floor/grey/side{
 	dir = 9
 	},
@@ -4273,6 +4443,13 @@
 	})
 "eui" = (
 /obj/shrub,
+/obj/machinery/camera{
+	c_tag = "autotag";
+	dir = 4;
+	name = "autoname - SS13";
+	pixel_x = -10;
+	tag = ""
+	},
 /turf/simulated/floor/wood/two,
 /area/station/bridge/hos)
 "euu" = (
@@ -4315,6 +4492,18 @@
 /turf/simulated/floor/carpet/blue/fancy/edge/nw,
 /area/station/medical/head{
 	name = "Asclepius Command"
+	})
+"evk" = (
+/obj/machinery/camera{
+	c_tag = "autotag";
+	dir = 8;
+	name = "autoname - SS13";
+	pixel_x = 10;
+	tag = ""
+	},
+/turf/simulated/floor/shuttlebay,
+/area/station/hangar/engine{
+	name = "Maru Hangar"
 	})
 "evO" = (
 /obj/cable{
@@ -4584,6 +4773,19 @@
 /obj/disposalpipe/segment/mail/horizontal,
 /turf/simulated/wall/auto/reinforced/supernorn,
 /area/station/security/brig)
+"ePa" = (
+/obj/machinery/conveyor{
+	id = "ascbelt";
+	name = "Asclepius disposal belt";
+	operating = 1
+	},
+/obj/cable{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/grey,
+/area/station/medical/maintenance{
+	name = "Asclepius Equipment Room"
+	})
 "ePn" = (
 /obj/wingrille_spawn/auto,
 /turf/simulated/floor/plating,
@@ -4682,6 +4884,9 @@
 	},
 /obj/stool/chair{
 	dir = 8
+	},
+/obj/landmark/start{
+	name = "Staff Assistant"
 	},
 /turf/simulated/floor/white,
 /area/station/medical/medbay{
@@ -4784,6 +4989,19 @@
 /obj/wingrille_spawn/auto,
 /turf/simulated/floor/plating,
 /area/station/quartermaster/office)
+"eXX" = (
+/obj/cable{
+	icon_state = "1-2"
+	},
+/obj/machinery/camera{
+	c_tag = "autotag";
+	dir = 9;
+	name = "autoname - SS13";
+	pixel_x = 10;
+	tag = ""
+	},
+/turf/simulated/floor/specialroom/chapel,
+/area/station/chapel/sanctuary)
 "eYf" = (
 /obj/lattice{
 	dir = 8;
@@ -4903,6 +5121,9 @@
 	layer = 9.1;
 	pixel_x = 10
 	},
+/obj/landmark/start{
+	name = "Staff Assistant"
+	},
 /turf/simulated/floor/carpet/red/fancy/edge/north,
 /area/station/crew_quarters/cafeteria{
 	name = "Dionysus Primary Zone"
@@ -4928,6 +5149,9 @@
 	},
 /obj/stool/chair{
 	dir = 8
+	},
+/obj/landmark/start{
+	name = "Staff Assistant"
 	},
 /turf/simulated/floor/purple,
 /area/station/science/tenebrae)
@@ -5114,6 +5338,13 @@
 /area/space)
 "fvF" = (
 /obj/machinery/recharge_station,
+/obj/machinery/camera{
+	c_tag = "autotag";
+	dir = 8;
+	name = "autoname - SS13";
+	pixel_x = 10;
+	tag = ""
+	},
 /turf/simulated/floor/caution/north,
 /area/station/hangar/catering{
 	name = "Dionysus Hangar"
@@ -5128,17 +5359,18 @@
 /obj/cable{
 	icon_state = "1-8"
 	},
+/obj/landmark/start{
+	name = "Geneticist"
+	},
 /turf/simulated/floor/blue/checker,
 /area/station/medical/research{
 	name = "Genetic Research"
 	})
 "fvX" = (
-/obj/machinery/door/airlock/pyro{
-	name = "Vessel Quarters"
-	},
 /obj/cable{
 	icon_state = "1-2"
 	},
+/obj/machinery/door/airlock/pyro,
 /turf/simulated/floor/orangeblack,
 /area/station/hangar/medical)
 "fwD" = (
@@ -5241,6 +5473,13 @@
 	},
 /obj/cable{
 	icon_state = "2-8"
+	},
+/obj/machinery/camera{
+	c_tag = "autotag";
+	dir = 9;
+	name = "autoname - SS13";
+	pixel_x = 10;
+	tag = ""
 	},
 /turf/simulated/floor/grey,
 /area/station/science/construction{
@@ -5542,6 +5781,7 @@
 /area/station/medical/medbay/pharmacy)
 "fUx" = (
 /obj/machinery/door/airlock/pyro/external,
+/obj/forcefield/energyshield/perma/doorlink,
 /turf/simulated/floor/caution/northsouth,
 /area/station/crew_quarters/captain{
 	name = "Meridian Primary Zone"
@@ -5587,6 +5827,13 @@
 "fWg" = (
 /obj/reagent_dispensers/fueltank,
 /obj/disposalpipe/segment/mail/horizontal,
+/obj/machinery/camera{
+	c_tag = "autotag";
+	dir = 8;
+	name = "autoname - SS13";
+	pixel_x = 10;
+	tag = ""
+	},
 /turf/simulated/floor/caution/north,
 /area/station/hangar/science{
 	name = "Tenebrae Hangar"
@@ -5837,6 +6084,13 @@
 	dir = 4;
 	pixel_x = 12
 	},
+/obj/machinery/camera{
+	c_tag = "autotag";
+	dir = 9;
+	name = "autoname - SS13";
+	pixel_x = 10;
+	tag = ""
+	},
 /turf/simulated/floor/grey,
 /area/station/maintenance/inner/hammer)
 "gow" = (
@@ -5869,6 +6123,22 @@
 /turf/simulated/floor/orangeblack/side,
 /area/station/hangar/engine{
 	name = "Maru Hangar"
+	})
+"gqB" = (
+/obj/stool/bed,
+/obj/cable{
+	icon_state = "1-8"
+	},
+/obj/machinery/mass_driver{
+	id = "clown_comfort";
+	name = "Naptime Enhancer"
+	},
+/obj/landmark/start{
+	name = "Clown"
+	},
+/turf/simulated/floor/carpet/arcade,
+/area/station/crew_quarters/clown{
+	name = "Clown Limpet"
 	})
 "gqH" = (
 /obj/machinery/light/small{
@@ -5985,6 +6255,13 @@
 "gvS" = (
 /obj/cable{
 	icon_state = "2-8"
+	},
+/obj/machinery/camera{
+	c_tag = "autotag";
+	dir = 6;
+	name = "autoname - SS13";
+	pixel_y = 20;
+	tag = ""
 	},
 /turf/simulated/floor/grey/side{
 	dir = 5
@@ -6315,6 +6592,9 @@
 /obj/machinery/door/airlock/pyro/external{
 	dir = 4
 	},
+/obj/cable{
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/grey,
 /area/station/medical/maintenance{
 	name = "Asclepius Equipment Room"
@@ -6372,6 +6652,9 @@
 	},
 /obj/cable{
 	icon_state = "4-8"
+	},
+/obj/landmark/start{
+	name = "Geneticist"
 	},
 /turf/simulated/floor/bluewhite/corner{
 	dir = 4
@@ -6458,6 +6741,13 @@
 	})
 "gYv" = (
 /obj/reagent_dispensers/fueltank,
+/obj/machinery/camera{
+	c_tag = "autotag";
+	dir = 8;
+	name = "autoname - SS13";
+	pixel_x = 10;
+	tag = ""
+	},
 /turf/simulated/floor/caution/north,
 /area/station/hangar/escape{
 	name = "Meridian Hangar"
@@ -6604,6 +6894,9 @@
 /area/station/hydroponics/bay)
 "hhd" = (
 /obj/stool/bar,
+/obj/landmark/start{
+	name = "Staff Assistant"
+	},
 /turf/simulated/floor/carpet/red/fancy/edge/north,
 /area/station/crew_quarters/cafeteria{
 	name = "Dionysus Primary Zone"
@@ -6819,6 +7112,18 @@
 	dir = 4
 	},
 /area/station/chapel/sanctuary)
+"hrK" = (
+/obj/lattice{
+	dir = 2;
+	icon_state = "lattice-dir"
+	},
+/obj/machinery/camera{
+	c_tag = "autotag";
+	dir = 1;
+	name = "autoname - SS13"
+	},
+/turf/space,
+/area/space)
 "hsc" = (
 /obj/machinery/conveyor{
 	id = "ascbelt";
@@ -6981,6 +7286,20 @@
 /area/station/solar/small_backup2{
 	name = "Maru Solar Array"
 	})
+"hzp" = (
+/obj/machinery/conveyor{
+	dir = 1;
+	id = "qmin"
+	},
+/obj/machinery/camera{
+	c_tag = "autotag";
+	dir = 9;
+	name = "autoname - SS13";
+	pixel_x = 10;
+	tag = ""
+	},
+/turf/simulated/floor/caution/westeast,
+/area/station/quartermaster/office)
 "hAc" = (
 /turf/simulated/wall/auto/reinforced/supernorn,
 /area/station/turret_protected/Zeta)
@@ -6988,6 +7307,12 @@
 /obj/table/reinforced/auto,
 /obj/machinery/computer/security/wooden_tv/small{
 	pixel_y = 8
+	},
+/obj/machinery/camera{
+	c_tag = "autotag";
+	dir = 1;
+	name = "autoname - SS13";
+	tag = ""
 	},
 /turf/simulated/floor/black/grime,
 /area/station/security/brig)
@@ -7005,6 +7330,13 @@
 	name = "Heisenbee's birthday cupcake"
 	},
 /obj/machinery/light_switch/east,
+/obj/machinery/camera{
+	c_tag = "autotag";
+	dir = 8;
+	name = "autoname - SS13";
+	pixel_x = 10;
+	tag = ""
+	},
 /turf/simulated/floor/black,
 /area/station/science/research_director{
 	name = "Tenebrae Command Center"
@@ -7059,12 +7391,27 @@
 /obj/cable{
 	icon_state = "1-2"
 	},
+/obj/landmark/start{
+	name = "Miner"
+	},
+/obj/machinery/camera{
+	c_tag = "autotag";
+	dir = 1;
+	name = "autoname - SS13"
+	},
 /turf/simulated/floor/orangeblack/side,
 /area/station/hangar/engine{
 	name = "Maru Hangar"
 	})
 "hHW" = (
 /obj/machinery/portable_reclaimer,
+/obj/machinery/camera{
+	c_tag = "autotag";
+	dir = 4;
+	name = "autoname - SS13";
+	pixel_x = -10;
+	tag = ""
+	},
 /turf/simulated/floor/grey,
 /area/station/maintenance/west{
 	name = "Meridian Maintenance"
@@ -7381,6 +7728,9 @@
 "idB" = (
 /obj/stool/bar,
 /obj/disposalpipe/segment/vertical,
+/obj/landmark/start{
+	name = "Staff Assistant"
+	},
 /turf/simulated/floor/carpet/red/fancy/edge/north,
 /area/station/crew_quarters/cafeteria{
 	name = "Dionysus Primary Zone"
@@ -7415,6 +7765,15 @@
 "ihA" = (
 /turf/simulated/wall/auto/reinforced/supernorn,
 /area/station/maintenance/inner/hammer)
+"ihK" = (
+/obj/stool/chair/syndicate,
+/obj/npc/trader/exclown{
+	trader_area = "/area/station/crew_quarters/clown"
+	},
+/turf/simulated/floor/carpet/arcade,
+/area/station/crew_quarters/clown{
+	name = "Clown Limpet"
+	})
 "ihM" = (
 /obj/disposalpipe/segment/mail/vertical,
 /obj/disposalpipe/segment/mail/horizontal,
@@ -7460,6 +7819,9 @@
 "ikd" = (
 /obj/stool/chair/yellow{
 	dir = 4
+	},
+/obj/landmark/start{
+	name = "Miner"
 	},
 /turf/simulated/floor/orangeblack/side,
 /area/station/hangar/engine{
@@ -7547,6 +7909,9 @@
 "ipt" = (
 /obj/stool/chair/pew/fancy/right{
 	dir = 1
+	},
+/obj/landmark/start{
+	name = "Staff Assistant"
 	},
 /turf/simulated/floor/specialroom/chapel{
 	dir = 1
@@ -7717,6 +8082,13 @@
 	icon_state = "4-8"
 	},
 /obj/disposalpipe/segment/bent/east,
+/obj/machinery/camera{
+	c_tag = "autotag";
+	dir = 6;
+	name = "autoname - SS13";
+	pixel_y = 20;
+	tag = ""
+	},
 /turf/simulated/floor/redblack{
 	dir = 1
 	},
@@ -7812,6 +8184,15 @@
 /obj/access_spawn/medical,
 /turf/simulated/floor/white,
 /area/station/medical/medbay/surgery)
+"iDl" = (
+/obj/machinery/door/airlock/pyro/external,
+/obj/cable{
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/grey,
+/area/station/medical/maintenance{
+	name = "Asclepius Equipment Room"
+	})
 "iDM" = (
 /turf/simulated/floor/yellow/side{
 	dir = 4
@@ -7826,6 +8207,13 @@
 "iEr" = (
 /obj/cable{
 	icon_state = "1-4"
+	},
+/obj/machinery/camera{
+	c_tag = "autotag";
+	dir = 4;
+	name = "autoname - SS13";
+	pixel_x = -10;
+	tag = ""
 	},
 /turf/simulated/floor/grey/side{
 	dir = 9
@@ -7861,6 +8249,13 @@
 /obj/disposalpipe/segment/mail/vertical,
 /obj/disposalpipe/segment/horizontal,
 /obj/machinery/portable_reclaimer,
+/obj/machinery/camera{
+	c_tag = "autotag";
+	dir = 4;
+	name = "autoname - SS13";
+	pixel_x = -10;
+	tag = ""
+	},
 /turf/simulated/floor/orangeblack/side,
 /area/station/hangar/engine{
 	name = "Maru Hangar"
@@ -8410,6 +8805,13 @@
 	mail_tag = "asclepius";
 	name = "Transit Chute: Asclepius"
 	},
+/obj/machinery/camera{
+	c_tag = "autotag";
+	dir = 6;
+	name = "autoname - SS13";
+	pixel_y = 20;
+	tag = ""
+	},
 /turf/simulated/floor/black,
 /area/station/medical/medbay{
 	name = "Asclepius Primary Zone"
@@ -8456,6 +8858,13 @@
 	operating = 1
 	},
 /obj/disposaloutlet/east,
+/obj/machinery/camera{
+	c_tag = "autotag";
+	dir = 4;
+	name = "autoname - SS13";
+	pixel_x = -10;
+	tag = ""
+	},
 /turf/simulated/floor/grey,
 /area/station/medical/maintenance{
 	name = "Asclepius Equipment Room"
@@ -8584,6 +8993,11 @@
 /area/station/security/main{
 	name = "Hammer Primary Concourse"
 	})
+"jrk" = (
+/turf/simulated/wall/auto/reinforced/supernorn,
+/area/station/crew_quarters/clown{
+	name = "Clown Limpet"
+	})
 "jrV" = (
 /obj/cable{
 	icon_state = "1-8"
@@ -8630,6 +9044,9 @@
 /obj/cable{
 	icon_state = "2-4"
 	},
+/obj/landmark/start{
+	name = "Captain"
+	},
 /turf/simulated/floor/carpet/blue/fancy/edge/west,
 /area/station/bridge)
 "jwN" = (
@@ -8648,6 +9065,15 @@
 /obj/storage/secure/closet/research/uniform,
 /turf/simulated/floor/grey,
 /area/station/crew_quarters/tenebrae)
+"jzf" = (
+/obj/machinery/shuttle/engine/propulsion{
+	dir = 4;
+	icon_state = "alt_propulsion"
+	},
+/turf/space,
+/area/station/crew_quarters/clown{
+	name = "Clown Limpet"
+	})
 "jzm" = (
 /obj/machinery/nanofab/mining,
 /turf/simulated/floor,
@@ -8979,6 +9405,9 @@
 	name = "Asclepius Solar Array"
 	})
 "jTE" = (
+/obj/cable{
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/grey,
 /area/station/medical/maintenance{
 	name = "Asclepius Equipment Room"
@@ -9028,6 +9457,22 @@
 /turf/simulated/floor/black,
 /area/station/science/research_director{
 	name = "Tenebrae Command Center"
+	})
+"jXn" = (
+/obj/cable{
+	icon_state = "4-8"
+	},
+/obj/machinery/camera{
+	c_tag = "autotag";
+	dir = 0;
+	name = "autoname - SS13";
+	pixel_y = 20
+	},
+/turf/simulated/floor/redblack{
+	dir = 1
+	},
+/area/station/security/main{
+	name = "Hammer Primary Concourse"
 	})
 "jXM" = (
 /obj/cable{
@@ -9099,6 +9544,13 @@
 /obj/item/device/light/zippo{
 	pixel_y = 16
 	},
+/obj/machinery/camera{
+	c_tag = "autotag";
+	dir = 4;
+	name = "autoname - SS13";
+	pixel_x = -10;
+	tag = ""
+	},
 /turf/simulated/floor/grey,
 /area/station/bridge)
 "kbk" = (
@@ -9153,6 +9605,16 @@
 /obj/machinery/light/runway_light/delay3,
 /turf/space,
 /area/space)
+"kgb" = (
+/obj/machinery/camera{
+	c_tag = "autotag";
+	dir = 4;
+	name = "autoname - SS13";
+	pixel_x = -10;
+	tag = ""
+	},
+/turf/simulated/floor/engine,
+/area/station/science/teleporter)
 "kiJ" = (
 /obj/disposalpipe/trunk/east,
 /obj/machinery/disposal,
@@ -9340,6 +9802,11 @@
 /obj/stool/chair{
 	dir = 8
 	},
+/obj/machinery/camera{
+	c_tag = "autotag";
+	dir = 1;
+	name = "autoname - SS13"
+	},
 /turf/simulated/floor/grey,
 /area/station/crew_quarters/tenebrae)
 "krb" = (
@@ -9509,6 +9976,11 @@
 "kAk" = (
 /turf/simulated/wall/auto/reinforced/supernorn,
 /area/station/chapel/sanctuary)
+"kAn" = (
+/turf/simulated/wall/airbridge,
+/area/station/medical/maintenance{
+	name = "Asclepius Equipment Room"
+	})
 "kCn" = (
 /obj/machinery/vending/standard,
 /obj/machinery/light_switch/west,
@@ -9556,6 +10028,17 @@
 	dir = 5
 	},
 /area/station/science/tenebrae)
+"kFy" = (
+/obj/machinery/door/poddoor/pyro{
+	autoclose = 1;
+	id = "clown_comfort";
+	name = "Ordinary Wall"
+	},
+/obj/forcefield/energyshield/perma/doorlink,
+/turf/simulated/floor/engine,
+/area/station/crew_quarters/clown{
+	name = "Clown Limpet"
+	})
 "kHV" = (
 /obj/stool/bed,
 /obj/landmark/start{
@@ -9850,6 +10333,13 @@
 /obj/machinery/light/small,
 /obj/table/auto,
 /obj/item/paper_bin,
+/obj/machinery/camera{
+	c_tag = "autotag";
+	dir = 4;
+	name = "autoname - SS13";
+	pixel_x = -10;
+	tag = ""
+	},
 /turf/simulated/floor/sanitary/white,
 /area/station/crew_quarters/captain{
 	name = "Meridian Primary Zone"
@@ -9859,6 +10349,13 @@
 /obj/item/clothing/suit/rad,
 /obj/item/clothing/head/rad_hood,
 /obj/machinery/light_switch/east,
+/obj/machinery/camera{
+	c_tag = "autotag";
+	dir = 9;
+	name = "autoname - SS13";
+	pixel_x = 10;
+	tag = ""
+	},
 /turf/simulated/floor/yellowblack,
 /area/station/bridge)
 "kWm" = (
@@ -9877,6 +10374,12 @@
 /turf/simulated/floor/black/grime,
 /area/station/maintenance/storage{
 	name = "Maru Power Room"
+	})
+"kXa" = (
+/obj/wingrille_spawn/auto,
+/turf/simulated/floor/plating,
+/area/station/crew_quarters/clown{
+	name = "Clown Limpet"
 	})
 "kZM" = (
 /obj/machinery/vending/coffee,
@@ -9980,6 +10483,12 @@
 "lhZ" = (
 /obj/machinery/computer/arcade,
 /obj/machinery/light_switch/north,
+/obj/machinery/camera{
+	c_tag = "autotag";
+	dir = 0;
+	name = "autoname - SS13";
+	pixel_y = 20
+	},
 /turf/simulated/floor/wood,
 /area/station/crew_quarters/cafeteria{
 	name = "Dionysus Primary Zone"
@@ -10078,6 +10587,13 @@
 /obj/cable{
 	icon_state = "0-2"
 	},
+/obj/machinery/camera{
+	c_tag = "autotag";
+	dir = 8;
+	name = "autoname - SS13";
+	pixel_x = 10;
+	tag = ""
+	},
 /turf/simulated/floor/caution/misc{
 	dir = 1
 	},
@@ -10140,6 +10656,13 @@
 /obj/machinery/light/small,
 /obj/table/auto,
 /obj/item/paper_bin,
+/obj/machinery/camera{
+	c_tag = "autotag";
+	dir = 4;
+	name = "autoname - SS13";
+	pixel_x = -10;
+	tag = ""
+	},
 /turf/simulated/floor/sanitary/white,
 /area/station/crew_quarters/cafeteria{
 	name = "Dionysus Primary Zone"
@@ -10195,6 +10718,9 @@
 "lAI" = (
 /obj/stool/chair{
 	dir = 4
+	},
+/obj/landmark/start{
+	name = "Staff Assistant"
 	},
 /turf/simulated/floor/bluewhite,
 /area/station/medical/medbay{
@@ -10616,6 +11142,13 @@
 /area/station/hangar/sec{
 	name = "Hammer Primary Dock"
 	})
+"meQ" = (
+/obj/disposalpipe/segment/horizontal,
+/obj/machinery/light,
+/turf/simulated/floor/redblack,
+/area/station/security/main{
+	name = "Hammer Primary Concourse"
+	})
 "mfq" = (
 /obj/disposalpipe/segment/mail/horizontal,
 /obj/stool/chair/pew/fancy/center{
@@ -10848,6 +11381,20 @@
 /obj/machinery/portable_atmospherics/canister/air/large,
 /turf/simulated/floor/orangeblack/side,
 /area/station/hangar/medical)
+"msj" = (
+/obj/lattice{
+	dir = 9;
+	icon_state = "lattice-dir-b"
+	},
+/obj/machinery/camera{
+	c_tag = "autotag";
+	dir = 6;
+	name = "autoname - SS13";
+	pixel_y = 20;
+	tag = ""
+	},
+/turf/space,
+/area/space)
 "msm" = (
 /obj/submachine/chef_sink/chem_sink{
 	pixel_y = 16
@@ -10892,6 +11439,13 @@
 /obj/item/wrapping_paper,
 /obj/item/wirecutters,
 /obj/machinery/light_switch/north,
+/obj/machinery/camera{
+	c_tag = "autotag";
+	dir = 6;
+	name = "autoname - SS13";
+	pixel_y = 20;
+	tag = ""
+	},
 /turf/simulated/floor/orangeblack/side{
 	dir = 1
 	},
@@ -11002,6 +11556,13 @@
 /turf/simulated/floor/specialroom/chapel,
 /area/station/chapel/sanctuary)
 "mEK" = (
+/obj/machinery/camera{
+	c_tag = "autotag";
+	dir = 6;
+	name = "autoname - SS13";
+	pixel_y = 20;
+	tag = ""
+	},
 /turf/simulated/floor/carpet/blue/fancy/edge/nw,
 /area/station/chapel/sanctuary)
 "mFT" = (
@@ -11249,6 +11810,11 @@
 /area/station/medical/medbay/pharmacy)
 "mSs" = (
 /obj/machinery/vending/coffee,
+/obj/machinery/camera{
+	c_tag = "autotag";
+	dir = 1;
+	name = "autoname - SS13"
+	},
 /turf/simulated/floor/grey,
 /area/station/crew_quarters/utility{
 	name = "Dionysus Cryocore"
@@ -11274,6 +11840,9 @@
 	id = "ascbay";
 	name = "Asclepius pod bay door control";
 	pixel_x = -24
+	},
+/obj/landmark/start{
+	name = "Staff Assistant"
 	},
 /turf/simulated/floor/caution/north,
 /area/station/hangar/medical)
@@ -12673,6 +13242,13 @@
 	pixel_x = 6;
 	pixel_y = -7
 	},
+/obj/machinery/camera{
+	c_tag = "autotag";
+	dir = 8;
+	name = "autoname - SS13";
+	pixel_x = 10;
+	tag = ""
+	},
 /turf/simulated/floor/blueblack{
 	dir = 1
 	},
@@ -12723,10 +13299,33 @@
 	glass_amt = 5;
 	pixel_y = 4
 	},
+/obj/machinery/camera{
+	c_tag = "autotag";
+	dir = 4;
+	name = "autoname - SS13";
+	pixel_x = -10;
+	tag = ""
+	},
 /turf/simulated/floor/purpleblack{
 	dir = 4
 	},
 /area/station/science/chemistry)
+"ooI" = (
+/obj/table/auto,
+/obj/deskclutter,
+/obj/decal/cleanable/dirt,
+/obj/item/instrument/bikehorn,
+/obj/decal/cleanable/dirt,
+/obj/machinery/light/small{
+	dir = 1;
+	pixel_y = 21
+	},
+/obj/item/stamp/clown,
+/obj/item/reagent_containers/food/snacks/pie/cream,
+/turf/simulated/floor/carpet/arcade,
+/area/station/crew_quarters/clown{
+	name = "Clown Limpet"
+	})
 "opp" = (
 /obj/disposalpipe/segment/horizontal,
 /obj/machinery/computer/ordercomp,
@@ -12780,6 +13379,13 @@
 /area/station/chapel/sanctuary)
 "osT" = (
 /obj/machinery/portable_reclaimer,
+/obj/machinery/camera{
+	c_tag = "autotag";
+	dir = 4;
+	name = "autoname - SS13";
+	pixel_x = -10;
+	tag = ""
+	},
 /turf/simulated/floor/grey,
 /area/station/medical/maintenance{
 	name = "Asclepius Equipment Room"
@@ -12927,6 +13533,9 @@
 "oAg" = (
 /obj/stool/chair{
 	dir = 8
+	},
+/obj/landmark/start{
+	name = "Staff Assistant"
 	},
 /turf/simulated/floor/purplewhite,
 /area/station/science/tenebrae)
@@ -13142,6 +13751,9 @@
 /obj/stool/chair{
 	dir = 8
 	},
+/obj/landmark/start{
+	name = "Staff Assistant"
+	},
 /turf/simulated/floor/grey/side{
 	dir = 8
 	},
@@ -13297,6 +13909,9 @@
 	id = "meribay";
 	name = "Meridian pod bay door control";
 	pixel_x = -24
+	},
+/obj/landmark/start{
+	name = "Staff Assistant"
 	},
 /turf/simulated/floor/caution/north,
 /area/station/hangar/escape{
@@ -13687,6 +14302,13 @@
 	mail_tag = "maru";
 	name = "Transit Chute: Maru"
 	},
+/obj/machinery/camera{
+	c_tag = "autotag";
+	dir = 6;
+	name = "autoname - SS13";
+	pixel_y = 20;
+	tag = ""
+	},
 /turf/simulated/floor/black,
 /area/station/engine/engineering{
 	name = "Maru Primary Zone"
@@ -13886,6 +14508,11 @@
 /turf/space,
 /area/space)
 "pDG" = (
+/obj/machinery/camera{
+	c_tag = "autotag";
+	dir = 10;
+	name = "autoname - SS13"
+	},
 /turf/simulated/floor/purplewhite,
 /area/station/science/teleporter)
 "pEo" = (
@@ -13997,6 +14624,13 @@
 /obj/table/auto,
 /obj/item/shipcomponent/mainweapon/phaser,
 /obj/item/shipcomponent/mainweapon/phaser,
+/obj/machinery/camera{
+	c_tag = "autotag";
+	dir = 9;
+	name = "autoname - SS13";
+	pixel_x = 10;
+	tag = ""
+	},
 /turf/simulated/floor/black,
 /area/station/hangar/sec{
 	name = "Hammer Primary Dock"
@@ -14033,6 +14667,13 @@
 	operating = 1
 	},
 /obj/disposaloutlet/east,
+/obj/machinery/camera{
+	c_tag = "autotag";
+	dir = 4;
+	name = "autoname - SS13";
+	pixel_x = -10;
+	tag = ""
+	},
 /turf/simulated/floor/grey,
 /area/station/maintenance/west{
 	name = "Meridian Maintenance"
@@ -14426,6 +15067,13 @@
 /area/station/crew_quarters)
 "qgQ" = (
 /obj/storage/secure/closet/engineering/cargo,
+/obj/machinery/camera{
+	c_tag = "autotag";
+	dir = 4;
+	name = "autoname - SS13";
+	pixel_x = -10;
+	tag = ""
+	},
 /turf/simulated/floor/orangeblack/side{
 	dir = 8
 	},
@@ -14510,6 +15158,13 @@
 	id = "tenebelt";
 	name = "Tenebrae disposal belt";
 	operating = 1
+	},
+/obj/machinery/camera{
+	c_tag = "autotag";
+	dir = 4;
+	name = "autoname - SS13";
+	pixel_x = -10;
+	tag = ""
 	},
 /turf/simulated/floor/grey,
 /area/station/science/construction{
@@ -15242,6 +15897,13 @@
 	id = "crematorium";
 	pixel_y = 28
 	},
+/obj/machinery/camera{
+	c_tag = "autotag";
+	dir = 4;
+	name = "autoname - SS13";
+	pixel_x = -10;
+	tag = ""
+	},
 /turf/simulated/floor/black,
 /area/station/chapel/sanctuary)
 "rgH" = (
@@ -15582,6 +16244,18 @@
 /area/station/security/detectives_office{
 	name = "Detective's Vessel"
 	})
+"rzt" = (
+/obj/machinery/camera{
+	c_tag = "autotag";
+	dir = 9;
+	name = "autoname - SS13";
+	pixel_x = 10;
+	tag = ""
+	},
+/turf/simulated/floor/specialroom/cafeteria,
+/area/station/crew_quarters/cafeteria{
+	name = "Dionysus Primary Zone"
+	})
 "rzJ" = (
 /obj/disposalpipe/segment/mail/horizontal,
 /obj/machinery/light/small{
@@ -15594,6 +16268,16 @@
 /turf/simulated/floor/engine,
 /area/station/routing/depot{
 	name = "Routing Buoy"
+	})
+"rzT" = (
+/obj/machinery/light/small{
+	dir = 8;
+	pixel_x = -12
+	},
+/obj/storage/crate/clown,
+/turf/simulated/floor/carpet/arcade,
+/area/station/crew_quarters/clown{
+	name = "Clown Limpet"
 	})
 "rAv" = (
 /turf/simulated/floor/sanitary/white,
@@ -15665,6 +16349,15 @@
 	},
 /turf/simulated/floor/black,
 /area/station/security/quarters)
+"rFf" = (
+/obj/machinery/door/airlock/pyro/external,
+/obj/cable{
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/grey,
+/area/station/crew_quarters/clown{
+	name = "Clown Limpet"
+	})
 "rFj" = (
 /obj/table/auto,
 /obj/item/wrench{
@@ -15682,6 +16375,13 @@
 	},
 /obj/item/clothing/glasses/spectro,
 /obj/machinery/light_switch/east,
+/obj/machinery/camera{
+	c_tag = "autotag";
+	dir = 9;
+	name = "autoname - SS13";
+	pixel_x = 10;
+	tag = ""
+	},
 /turf/simulated/floor/grass,
 /area/station/hydroponics/bay)
 "rGB" = (
@@ -15873,6 +16573,13 @@
 	icon_state = "1-4"
 	},
 /obj/disposalpipe/segment/mail/bent/north,
+/obj/machinery/camera{
+	c_tag = "autotag";
+	dir = 4;
+	name = "autoname - SS13";
+	pixel_x = -10;
+	tag = ""
+	},
 /turf/simulated/floor/grey/side{
 	dir = 9
 	},
@@ -15904,6 +16611,13 @@
 /obj/machinery/light/small,
 /obj/table/auto,
 /obj/item/paper_bin,
+/obj/machinery/camera{
+	c_tag = "autotag";
+	dir = 4;
+	name = "autoname - SS13";
+	pixel_x = -10;
+	tag = ""
+	},
 /turf/simulated/floor/sanitary/white,
 /area/station/science/tenebrae)
 "rVc" = (
@@ -16104,6 +16818,13 @@
 	req_access_txt = "5"
 	},
 /obj/item/paper/book/from_file/pharmacopia,
+/obj/machinery/camera{
+	c_tag = "autotag";
+	dir = 4;
+	name = "autoname - SS13";
+	pixel_x = -10;
+	tag = ""
+	},
 /turf/simulated/floor/blueblack{
 	dir = 4
 	},
@@ -16247,6 +16968,16 @@
 	dir = 4;
 	pixel_x = 12
 	},
+/obj/cable{
+	icon_state = "1-8"
+	},
+/obj/machinery/camera{
+	c_tag = "autotag";
+	dir = 9;
+	name = "autoname - SS13";
+	pixel_x = 10;
+	tag = ""
+	},
 /turf/simulated/floor/grey,
 /area/station/medical/maintenance{
 	name = "Asclepius Equipment Room"
@@ -16353,6 +17084,22 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/storage{
 	name = "Maru Power Room"
+	})
+"szL" = (
+/turf/simulated/floor/airbridge,
+/area/station/maintenance/inner/hammer)
+"szQ" = (
+/obj/cable{
+	icon_state = "1-2"
+	},
+/obj/cable{
+	d1 = 2;
+	d2 = 4;
+	icon_state = "2-4"
+	},
+/turf/simulated/floor/plating,
+/area/station/medical/maintenance{
+	name = "Asclepius Equipment Room"
 	})
 "sAt" = (
 /obj/machinery/shuttle/engine/heater{
@@ -16645,6 +17392,9 @@
 /obj/stool/chair/pew/fancy/right{
 	dir = 1
 	},
+/obj/landmark/start{
+	name = "Staff Assistant"
+	},
 /turf/simulated/floor/specialroom/chapel{
 	dir = 8
 	},
@@ -16922,9 +17672,27 @@
 /area/station/mining/refinery)
 "tfT" = (
 /obj/machinery/chem_dispenser/alcohol,
+/obj/machinery/camera{
+	c_tag = "autotag";
+	dir = 10;
+	name = "autoname - SS13"
+	},
 /turf/simulated/floor/black,
 /area/station/crew_quarters/cafeteria{
 	name = "Dionysus Primary Zone"
+	})
+"tho" = (
+/obj/machinery/emitter{
+	dir = 8
+	},
+/obj/machinery/camera{
+	c_tag = "autotag";
+	dir = 1;
+	name = "autoname - SS13"
+	},
+/turf/simulated/floor/black,
+/area/station/engine/storage{
+	name = "Maru Equipment"
 	})
 "thy" = (
 /obj/table/auto,
@@ -17108,6 +17876,11 @@
 /obj/machinery/computer/telescope{
 	dir = 4
 	},
+/obj/machinery/camera{
+	c_tag = "autotag";
+	dir = 1;
+	name = "autoname - SS13"
+	},
 /turf/simulated/floor/purplewhite{
 	dir = 8
 	},
@@ -17157,6 +17930,13 @@
 /obj/machinery/light/small,
 /obj/table/auto,
 /obj/item/paper_bin,
+/obj/machinery/camera{
+	c_tag = "autotag";
+	dir = 4;
+	name = "autoname - SS13";
+	pixel_x = -10;
+	tag = ""
+	},
 /turf/simulated/floor/sanitary/white,
 /area/station/security/main{
 	name = "Hammer Primary Concourse"
@@ -17174,6 +17954,13 @@
 /obj/machinery/disposal/mail/transit{
 	mail_tag = "tenebrae";
 	name = "Transit Chute: Tenebrae"
+	},
+/obj/machinery/camera{
+	c_tag = "autotag";
+	dir = 6;
+	name = "autoname - SS13";
+	pixel_y = 20;
+	tag = ""
 	},
 /turf/simulated/floor/black,
 /area/station/science/tenebrae)
@@ -17325,6 +18112,18 @@
 /area/station/crew_quarters/cafeteria{
 	name = "Dionysus Primary Zone"
 	})
+"tIw" = (
+/obj/machinery/camera{
+	c_tag = "autotag";
+	dir = 4;
+	name = "autoname - SS13";
+	pixel_x = -10;
+	tag = ""
+	},
+/turf/simulated/floor/shuttlebay,
+/area/station/hangar/sec{
+	name = "Hammer Primary Dock"
+	})
 "tIy" = (
 /obj/machinery/shuttle/engine/heater{
 	dir = 4;
@@ -17433,6 +18232,17 @@
 "tPx" = (
 /turf/simulated/wall/auto/reinforced/supernorn,
 /area/station/crew_quarters/baroffice)
+"tQa" = (
+/obj/stool/chair{
+	dir = 8
+	},
+/obj/machinery/camera{
+	c_tag = "autotag";
+	dir = 1;
+	name = "autoname - SS13"
+	},
+/turf/simulated/floor/grey,
+/area/station/crew_quarters)
 "tQF" = (
 /obj/machinery/traymachine/morgue{
 	dir = 2
@@ -17537,6 +18347,13 @@
 	},
 /obj/machinery/light_switch/west,
 /obj/disposalpipe/segment/mail/bent/north,
+/obj/machinery/camera{
+	c_tag = "autotag";
+	dir = 4;
+	name = "autoname - SS13";
+	pixel_x = -10;
+	tag = ""
+	},
 /turf/simulated/floor/specialroom/cafeteria,
 /area/station/crew_quarters/kitchen)
 "tVL" = (
@@ -17610,6 +18427,9 @@
 	pixel_x = -10
 	},
 /obj/stool/bar,
+/obj/landmark/start{
+	name = "Staff Assistant"
+	},
 /turf/simulated/floor/carpet/red/fancy/edge/north,
 /area/station/crew_quarters/cafeteria{
 	name = "Dionysus Primary Zone"
@@ -17618,7 +18438,7 @@
 /obj/rack,
 /obj/item/sponge,
 /obj/item/sponge,
-/turf/simulated/floor/sanitary,
+/turf/simulated/floor/sanitary/white,
 /area/station/crew_quarters/captain{
 	name = "Meridian Primary Zone"
 	})
@@ -17656,6 +18476,13 @@
 "udR" = (
 /obj/shrub{
 	dir = 1
+	},
+/obj/machinery/camera{
+	c_tag = "autotag";
+	dir = 4;
+	name = "autoname - SS13";
+	pixel_x = -10;
+	tag = ""
 	},
 /turf/simulated/floor/escape{
 	dir = 8
@@ -17802,6 +18629,9 @@
 /obj/stool/bar,
 /obj/cable{
 	icon_state = "1-2"
+	},
+/obj/landmark/start{
+	name = "Staff Assistant"
 	},
 /turf/simulated/floor/carpet/red/fancy/edge/north,
 /area/station/crew_quarters/cafeteria{
@@ -18176,6 +19006,9 @@
 	pixel_y = 32
 	},
 /obj/stool/chair/red,
+/obj/landmark/start{
+	name = "Security Assistant"
+	},
 /turf/simulated/floor/redblack{
 	dir = 1
 	},
@@ -18512,6 +19345,12 @@
 	})
 "uUA" = (
 /obj/machinery/computer/security/wooden_tv,
+/obj/machinery/camera{
+	c_tag = "autotag";
+	dir = 1;
+	name = "autoname - SS13";
+	tag = ""
+	},
 /turf/simulated/floor/specialroom/arcade,
 /area/station/janitor{
 	name = "Dionysus Janitorial"
@@ -18553,6 +19392,13 @@
 /obj/machinery/light/small,
 /obj/table/auto,
 /obj/item/paper_bin,
+/obj/machinery/camera{
+	c_tag = "autotag";
+	dir = 4;
+	name = "autoname - SS13";
+	pixel_x = -10;
+	tag = ""
+	},
 /turf/simulated/floor/sanitary/white,
 /area/station/medical/medbay{
 	name = "Asclepius Primary Zone"
@@ -18638,6 +19484,22 @@
 /obj/machinery/power/data_terminal,
 /turf/simulated/floor/grey,
 /area/station/bridge)
+"vaf" = (
+/obj/table/auto,
+/obj/decal/cleanable/dirt,
+/obj/decal/cleanable/molten_item,
+/obj/item/storage/goodybag,
+/obj/item/peripheral/videocard,
+/obj/item/storage/pill_bottle/cyberpunk,
+/obj/item/paper/book/from_file/the_trial,
+/obj/machinery/power/apc/autoname_north,
+/obj/cable{
+	icon_state = "0-2"
+	},
+/turf/simulated/floor/carpet/arcade,
+/area/station/crew_quarters/clown{
+	name = "Clown Limpet"
+	})
 "vaD" = (
 /obj/cable{
 	icon_state = "0-4"
@@ -18758,6 +19620,9 @@
 /area/station/crew_quarters/kitchen)
 "vkf" = (
 /obj/machinery/light/small/floor,
+/obj/cable{
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/grey,
 /area/station/medical/maintenance{
 	name = "Asclepius Equipment Room"
@@ -18910,6 +19775,23 @@
 	},
 /turf/simulated/floor/specialroom/cafeteria,
 /area/station/crew_quarters/kitchen)
+"vxL" = (
+/obj/machinery/conveyor{
+	dir = 4;
+	id = "diobelt";
+	name = "Dionysus disposal belt";
+	operating = 1
+	},
+/obj/machinery/camera{
+	c_tag = "autotag";
+	dir = 0;
+	name = "autoname - SS13";
+	pixel_y = 20
+	},
+/turf/simulated/floor/grey,
+/area/station/maintenance/southeast{
+	name = "Dionysus Maintenance"
+	})
 "vzd" = (
 /turf/simulated/floor/carpet/blue/fancy/edge/sw,
 /area/station/chapel/sanctuary)
@@ -18969,6 +19851,13 @@
 /obj/item/peripheral/drive,
 /obj/item/peripheral/network/radio/locked,
 /obj/machinery/light_switch/north,
+/obj/machinery/camera{
+	c_tag = "autotag";
+	dir = 6;
+	name = "autoname - SS13";
+	pixel_y = 20;
+	tag = ""
+	},
 /turf/simulated/floor/grey/blackgrime/other,
 /area/station/storage/tech)
 "vBo" = (
@@ -19072,6 +19961,9 @@
 	dir = 4
 	},
 /area/station/mining/refinery)
+"vHm" = (
+/turf/space,
+/area/station/shield_zone)
 "vIs" = (
 /obj/rack,
 /obj/item/mop,
@@ -19198,6 +20090,9 @@
 /obj/stool/chair/blue{
 	dir = 4
 	},
+/obj/landmark/start{
+	name = "Staff Assistant"
+	},
 /turf/simulated/floor/escape{
 	dir = 8
 	},
@@ -19271,6 +20166,13 @@
 	mail_tag = "meridian";
 	name = "Transit Chute: Meridian"
 	},
+/obj/machinery/camera{
+	c_tag = "autotag";
+	dir = 6;
+	name = "autoname - SS13";
+	pixel_y = 20;
+	tag = ""
+	},
 /turf/simulated/floor/black,
 /area/station/crew_quarters/captain{
 	name = "Meridian Primary Zone"
@@ -19289,6 +20191,9 @@
 /obj/disposalpipe/segment/mail/horizontal,
 /obj/stool/chair/pew/fancy/center{
 	dir = 1
+	},
+/obj/landmark/start{
+	name = "Staff Assistant"
 	},
 /turf/simulated/floor/specialroom/chapel{
 	dir = 8
@@ -19633,6 +20538,13 @@
 	})
 "wlS" = (
 /obj/reagent_dispensers/fueltank,
+/obj/machinery/camera{
+	c_tag = "autotag";
+	dir = 8;
+	name = "autoname - SS13";
+	pixel_x = 10;
+	tag = ""
+	},
 /turf/simulated/floor/caution/north,
 /area/station/hangar/medical)
 "wmy" = (
@@ -19915,10 +20827,23 @@
 /obj/stool/chair/pew/fancy/left{
 	dir = 1
 	},
+/obj/landmark/start{
+	name = "Staff Assistant"
+	},
 /turf/simulated/floor/specialroom/chapel{
 	dir = 8
 	},
 /area/station/chapel/sanctuary)
+"wDw" = (
+/obj/cable{
+	d1 = 2;
+	d2 = 4;
+	icon_state = "2-4"
+	},
+/turf/simulated/floor/carpet/arcade,
+/area/station/crew_quarters/clown{
+	name = "Clown Limpet"
+	})
 "wEr" = (
 /obj/submachine/chef_sink/chem_sink{
 	pixel_y = 16
@@ -20100,6 +21025,13 @@
 /obj/cable{
 	icon_state = "2-8"
 	},
+/obj/machinery/camera{
+	c_tag = "autotag";
+	dir = 6;
+	name = "autoname - SS13";
+	pixel_y = 20;
+	tag = ""
+	},
 /turf/simulated/floor/grey/side{
 	dir = 5
 	},
@@ -20235,6 +21167,13 @@
 	mail_tag = "meridian";
 	name = "Transit Chute: Meridian"
 	},
+/obj/machinery/camera{
+	c_tag = "autotag";
+	dir = 6;
+	name = "autoname - SS13";
+	pixel_y = 20;
+	tag = ""
+	},
 /turf/simulated/floor/engine,
 /area/station/security/main{
 	name = "Hammer Primary Concourse"
@@ -20304,6 +21243,9 @@
 	dir = 8
 	},
 /obj/disposalpipe/segment/mail/horizontal,
+/obj/landmark/start{
+	name = "Staff Assistant"
+	},
 /turf/simulated/floor/yellow/side{
 	dir = 8
 	},
@@ -20414,6 +21356,13 @@
 	name = "Hammer Primary Concourse"
 	})
 "xdj" = (
+/obj/machinery/camera{
+	c_tag = "autotag";
+	dir = 4;
+	name = "autoname - SS13";
+	pixel_x = -10;
+	tag = ""
+	},
 /turf/simulated/floor/grey,
 /area/station/maintenance/southeast{
 	name = "Dionysus Maintenance"
@@ -20610,6 +21559,13 @@
 /area/space)
 "xom" = (
 /obj/storage/secure/closet/command/hos,
+/obj/machinery/camera{
+	c_tag = "autotag";
+	dir = 9;
+	name = "autoname - SS13";
+	pixel_x = 10;
+	tag = ""
+	},
 /turf/simulated/floor/redblack,
 /area/station/security/hos{
 	name = "Hammer Command"
@@ -20957,6 +21913,13 @@
 	pixel_y = 8
 	},
 /obj/item/clothing/gloves/yellow,
+/obj/machinery/camera{
+	c_tag = "autotag";
+	dir = 4;
+	name = "autoname - SS13";
+	pixel_x = -10;
+	tag = ""
+	},
 /turf/simulated/floor/yellow/side{
 	dir = 8
 	},
@@ -21157,6 +22120,13 @@
 /obj/cable{
 	icon_state = "1-4"
 	},
+/obj/machinery/camera{
+	c_tag = "autotag";
+	dir = 4;
+	name = "autoname - SS13";
+	pixel_x = -10;
+	tag = ""
+	},
 /turf/simulated/floor/grey/side{
 	dir = 9
 	},
@@ -21285,6 +22255,13 @@
 	},
 /obj/cable{
 	icon_state = "1-2"
+	},
+/obj/machinery/camera{
+	c_tag = "autotag";
+	dir = 4;
+	name = "autoname - SS13";
+	pixel_x = -10;
+	tag = ""
 	},
 /turf/simulated/floor/black,
 /area/station/security/processing)
@@ -21472,6 +22449,9 @@
 	},
 /obj/stool/chair/blue{
 	dir = 8
+	},
+/obj/landmark/start{
+	name = "Staff Assistant"
 	},
 /turf/simulated/floor/escape{
 	dir = 4
@@ -36357,19 +37337,19 @@ pto
 pto
 pto
 pto
+vHm
+vHm
+vHm
+vHm
+vHm
+vHm
 pto
-pto
-pto
-pto
-pto
-pto
-pto
-pto
-pto
-pto
-pto
-pto
-pto
+vHm
+vHm
+vHm
+vHm
+vHm
+vHm
 pto
 pto
 pto
@@ -36654,6 +37634,12 @@ pto
 pto
 pto
 pto
+vHm
+vHm
+vHm
+vHm
+vHm
+vHm
 pto
 pto
 pto
@@ -36665,18 +37651,12 @@ pto
 pto
 pto
 pto
-pto
-pto
-pto
-pto
-pto
-pto
-pto
-pto
-pto
-pto
-pto
-pto
+vHm
+vHm
+vHm
+vHm
+vHm
+vHm
 pto
 pto
 pto
@@ -36951,12 +37931,12 @@ pto
 pto
 pto
 pto
-pto
-pto
-pto
-pto
-pto
-pto
+vHm
+vHm
+vHm
+vHm
+vHm
+vHm
 pto
 pto
 pto
@@ -36978,12 +37958,12 @@ pto
 pto
 pto
 pto
-pto
-pto
-pto
-pto
-pto
-pto
+vHm
+vHm
+vHm
+vHm
+vHm
+vHm
 pto
 pto
 pto
@@ -37252,8 +38232,8 @@ pto
 pto
 pto
 pto
-pto
-pto
+vHm
+vHm
 pto
 pto
 pto
@@ -37285,12 +38265,12 @@ pto
 pto
 pto
 pto
-pto
-pto
-pto
-pto
-pto
-pto
+vHm
+vHm
+vHm
+vHm
+vHm
+vHm
 pto
 pto
 pto
@@ -37554,7 +38534,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -37592,13 +38572,13 @@ pto
 pto
 pto
 pto
-pto
-pto
-pto
-pto
-pto
-pto
-pto
+vHm
+vHm
+vHm
+vHm
+vHm
+vHm
+vHm
 pto
 pto
 pto
@@ -37856,7 +38836,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -37900,8 +38880,8 @@ pto
 pto
 pto
 pto
-pto
-pto
+vHm
+vHm
 pto
 pto
 pto
@@ -38158,7 +39138,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -38203,7 +39183,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -38460,7 +39440,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -38505,7 +39485,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -38761,8 +39741,8 @@ pto
 pto
 pto
 pto
-pto
-pto
+vHm
+vHm
 pto
 pto
 pto
@@ -38807,7 +39787,7 @@ mdk
 mdk
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -39063,7 +40043,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -39109,7 +40089,7 @@ mdk
 mdk
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -39365,7 +40345,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -39411,8 +40391,8 @@ mdk
 mdk
 pto
 pto
-pto
-pto
+vHm
+vHm
 pto
 pto
 pto
@@ -39667,7 +40647,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -39714,7 +40694,7 @@ mdk
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -39969,7 +40949,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -40016,7 +40996,7 @@ mdk
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -40270,8 +41250,8 @@ pto
 pto
 pto
 pto
-pto
-pto
+vHm
+vHm
 pto
 pto
 pto
@@ -40318,7 +41298,7 @@ mdk
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -40572,7 +41552,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -40620,7 +41600,7 @@ mdk
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -40874,7 +41854,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -40922,8 +41902,8 @@ mdk
 pto
 pto
 pto
-pto
-pto
+vHm
+vHm
 pto
 pto
 pto
@@ -41176,7 +42156,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -41225,7 +42205,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -41478,7 +42458,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -41527,7 +42507,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -41779,8 +42759,8 @@ pto
 pto
 pto
 pto
-pto
-pto
+vHm
+vHm
 pto
 pto
 pto
@@ -41829,7 +42809,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -42081,7 +43061,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -42131,7 +43111,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -42383,7 +43363,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -42433,8 +43413,8 @@ pto
 pto
 pto
 pto
-pto
-pto
+vHm
+vHm
 pto
 pto
 pto
@@ -42685,7 +43665,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -42736,7 +43716,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -42987,7 +43967,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -43038,7 +44018,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -43288,8 +44268,8 @@ pto
 pto
 pto
 pto
-pto
-pto
+vHm
+vHm
 pto
 pto
 pto
@@ -43340,7 +44320,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -43590,7 +44570,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -43642,7 +44622,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -43892,7 +44872,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -43944,8 +44924,8 @@ pto
 pto
 pto
 pto
-pto
-pto
+vHm
+vHm
 pto
 pto
 pto
@@ -44194,7 +45174,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -44247,7 +45227,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -44496,7 +45476,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -44549,7 +45529,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -44797,8 +45777,8 @@ pto
 pto
 pto
 pto
-pto
-pto
+vHm
+vHm
 pto
 pto
 pto
@@ -44851,7 +45831,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -45099,7 +46079,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -45153,7 +46133,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -45401,7 +46381,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -45455,8 +46435,8 @@ pto
 pto
 pto
 pto
-pto
-pto
+vHm
+vHm
 pto
 pto
 pto
@@ -45703,7 +46683,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -45758,7 +46738,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -46005,7 +46985,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -46060,7 +47040,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -46306,8 +47286,8 @@ pto
 pto
 pto
 pto
-pto
-pto
+vHm
+vHm
 pto
 pto
 pto
@@ -46362,7 +47342,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -46608,7 +47588,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -46632,7 +47612,7 @@ otY
 yfw
 oTX
 sXc
-mDE
+eXX
 yfw
 mmW
 bJR
@@ -46664,7 +47644,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -46910,7 +47890,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -46966,8 +47946,8 @@ pto
 pto
 pto
 pto
-pto
-pto
+vHm
+vHm
 pto
 pto
 pto
@@ -47212,7 +48192,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -47269,7 +48249,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -47514,7 +48494,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -47571,7 +48551,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -47815,8 +48795,8 @@ pto
 pto
 pto
 pto
-pto
-pto
+vHm
+vHm
 pto
 pto
 pto
@@ -47873,7 +48853,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -48117,7 +49097,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -48175,7 +49155,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -48419,7 +49399,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -48477,8 +49457,8 @@ pto
 pto
 pto
 pto
-pto
-pto
+vHm
+vHm
 pto
 pto
 pto
@@ -48721,7 +49701,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -48780,7 +49760,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -49023,7 +50003,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -49082,7 +50062,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -49324,8 +50304,8 @@ pto
 pto
 pto
 pto
-pto
-pto
+vHm
+vHm
 pto
 pto
 pto
@@ -49384,7 +50364,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -49626,7 +50606,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -49686,7 +50666,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -49928,7 +50908,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -49988,8 +50968,8 @@ pto
 pto
 pto
 pto
-pto
-pto
+vHm
+vHm
 pto
 pto
 pto
@@ -50230,7 +51210,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -50291,7 +51271,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -50532,7 +51512,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -50593,7 +51573,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -50833,8 +51813,8 @@ pto
 pto
 pto
 pto
-pto
-pto
+vHm
+vHm
 pto
 pto
 pto
@@ -50895,7 +51875,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -51135,7 +52115,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -51197,7 +52177,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -51437,7 +52417,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -51499,8 +52479,8 @@ pto
 pto
 pto
 pto
-pto
-pto
+vHm
+vHm
 pto
 pto
 pto
@@ -51739,7 +52719,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -51802,7 +52782,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -52041,7 +53021,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -52104,7 +53084,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -52342,8 +53322,8 @@ pto
 pto
 pto
 pto
-pto
-pto
+vHm
+vHm
 pto
 pto
 pto
@@ -52406,7 +53386,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -52644,7 +53624,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -52708,7 +53688,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -52946,7 +53926,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -53010,8 +53990,8 @@ pto
 pto
 pto
 pto
-pto
-pto
+vHm
+vHm
 pto
 pto
 pto
@@ -53248,7 +54228,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -53313,7 +54293,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -53550,7 +54530,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -53615,7 +54595,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -53851,8 +54831,8 @@ pto
 pto
 pto
 pto
-pto
-pto
+vHm
+vHm
 pto
 pto
 pto
@@ -53917,7 +54897,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -54153,7 +55133,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -54219,7 +55199,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -54455,7 +55435,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -54521,8 +55501,8 @@ pto
 pto
 pto
 pto
-pto
-pto
+vHm
+vHm
 pto
 pto
 pto
@@ -54757,7 +55737,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -54824,7 +55804,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -55059,7 +56039,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -55126,7 +56106,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -55360,8 +56340,8 @@ pto
 pto
 pto
 pto
-pto
-pto
+vHm
+vHm
 pto
 pto
 pto
@@ -55428,7 +56408,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -55662,7 +56642,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -55730,8 +56710,8 @@ pto
 pto
 pto
 pto
-pto
-pto
+vHm
+vHm
 pto
 pto
 pto
@@ -55964,7 +56944,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -56017,7 +56997,7 @@ iwF
 ijs
 nOj
 nOj
-nOj
+kgb
 cOV
 kua
 pDG
@@ -56032,8 +57012,8 @@ pto
 pto
 pto
 pto
-pto
-pto
+vHm
+vHm
 pto
 pto
 pto
@@ -56266,7 +57246,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -56335,7 +57315,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -56568,7 +57548,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -56637,7 +57617,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -56869,8 +57849,8 @@ pto
 pto
 pto
 pto
-pto
-pto
+vHm
+vHm
 pto
 pto
 pto
@@ -56939,7 +57919,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -57171,7 +58151,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -57241,8 +58221,8 @@ pto
 pto
 pto
 pto
-pto
-pto
+vHm
+vHm
 pto
 pto
 pto
@@ -57473,7 +58453,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -57544,7 +58524,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -57775,7 +58755,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -57846,7 +58826,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -58077,7 +59057,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -58148,7 +59128,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -58378,8 +59358,8 @@ pto
 pto
 pto
 pto
-pto
-pto
+vHm
+vHm
 pto
 pto
 pto
@@ -58450,7 +59430,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -58680,7 +59660,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -58752,8 +59732,8 @@ pto
 pto
 pto
 pto
-pto
-pto
+vHm
+vHm
 pto
 pto
 pto
@@ -58982,7 +59962,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -59055,7 +60035,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -59284,7 +60264,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -59308,7 +60288,7 @@ lTA
 pOJ
 rIh
 pOJ
-pOJ
+rzt
 uiO
 luU
 mlE
@@ -59357,7 +60337,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -59586,7 +60566,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -59659,7 +60639,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -59887,8 +60867,8 @@ pto
 pto
 pto
 pto
-pto
-pto
+vHm
+vHm
 pto
 pto
 pto
@@ -59961,7 +60941,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -60189,7 +61169,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -60263,8 +61243,8 @@ pto
 pto
 pto
 pto
-pto
-pto
+vHm
+vHm
 pto
 pto
 pto
@@ -60491,7 +61471,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -60566,12 +61546,12 @@ pto
 pto
 pto
 pto
-pto
-pto
-pto
-pto
-pto
-pto
+vHm
+vHm
+vHm
+vHm
+vHm
+vHm
 pto
 pto
 pto
@@ -60793,7 +61773,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -60873,12 +61853,12 @@ pto
 pto
 pto
 pto
-pto
-pto
-pto
-pto
-pto
-pto
+vHm
+vHm
+vHm
+vHm
+vHm
+vHm
 pto
 pto
 pto
@@ -61095,7 +62075,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -61180,8 +62160,8 @@ pto
 pto
 pto
 pto
-pto
-pto
+vHm
+vHm
 pto
 pto
 pto
@@ -61396,8 +62376,8 @@ pto
 pto
 pto
 pto
-pto
-pto
+vHm
+vHm
 pto
 pto
 pto
@@ -61483,7 +62463,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -61698,7 +62678,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -61785,7 +62765,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -62000,7 +62980,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -62087,7 +63067,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -62302,7 +63282,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -62317,7 +63297,7 @@ iah
 bXv
 nje
 ggq
-qdP
+vxL
 qXd
 awi
 vpi
@@ -62389,7 +63369,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -62604,7 +63584,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -62691,8 +63671,8 @@ pto
 pto
 pto
 pto
-pto
-pto
+vHm
+vHm
 pto
 pto
 pto
@@ -62905,8 +63885,8 @@ pto
 pto
 pto
 pto
-pto
-pto
+vHm
+vHm
 pto
 pto
 pto
@@ -62927,7 +63907,7 @@ tGd
 gwW
 etI
 qdP
-eWA
+bmg
 pKY
 rog
 hmV
@@ -62994,7 +63974,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -63207,7 +64187,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -63296,7 +64276,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -63509,7 +64489,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -63598,7 +64578,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -63811,7 +64791,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -63900,7 +64880,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -64113,7 +65093,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -64202,8 +65182,8 @@ pto
 pto
 pto
 pto
-pto
-pto
+vHm
+vHm
 pto
 pto
 pto
@@ -64414,8 +65394,8 @@ pto
 pto
 pto
 pto
-pto
-pto
+vHm
+vHm
 pto
 pto
 pto
@@ -64505,7 +65485,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -64716,7 +65696,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -64807,7 +65787,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -65018,7 +65998,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -65109,7 +66089,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -65320,7 +66300,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -65411,7 +66391,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -65622,7 +66602,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -65713,8 +66693,8 @@ pto
 pto
 pto
 pto
-pto
-pto
+vHm
+vHm
 pto
 pto
 pto
@@ -65923,8 +66903,8 @@ pto
 pto
 pto
 pto
-pto
-pto
+vHm
+vHm
 pto
 pto
 pto
@@ -66016,7 +66996,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -66225,7 +67205,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -66318,7 +67298,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -66527,7 +67507,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -66620,7 +67600,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -66829,7 +67809,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -66922,7 +67902,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -67131,7 +68111,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -67224,8 +68204,8 @@ pto
 pto
 pto
 pto
-pto
-pto
+vHm
+vHm
 pto
 pto
 pto
@@ -67432,8 +68412,8 @@ pto
 pto
 pto
 pto
-pto
-pto
+vHm
+vHm
 pto
 pto
 pto
@@ -67527,7 +68507,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -67734,7 +68714,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -67829,7 +68809,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -68036,7 +69016,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -68131,7 +69111,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -68338,7 +69318,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -68425,7 +69405,7 @@ qVT
 aJb
 qLw
 leP
-mlE
+msj
 pto
 pto
 pto
@@ -68433,7 +69413,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -68640,7 +69620,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -68723,7 +69703,7 @@ anT
 fca
 evO
 tRB
-wER
+hzp
 pIw
 wER
 nWr
@@ -68735,8 +69715,8 @@ pto
 pto
 pto
 pto
-pto
-pto
+vHm
+vHm
 pto
 pto
 pto
@@ -68941,8 +69921,8 @@ pto
 pto
 pto
 pto
-pto
-pto
+vHm
+vHm
 pto
 pto
 pto
@@ -69038,7 +70018,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -69243,7 +70223,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -69340,7 +70320,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -69545,7 +70525,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -69619,7 +70599,7 @@ xnR
 yhK
 vow
 fSx
-vow
+evk
 vow
 gMN
 vIA
@@ -69642,7 +70622,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -69847,7 +70827,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -69933,7 +70913,7 @@ rJr
 eZa
 oiL
 hFK
-uit
+tho
 eWm
 eWm
 pto
@@ -69944,7 +70924,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -70149,7 +71129,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -70246,7 +71226,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -70450,8 +71430,8 @@ pto
 pto
 pto
 pto
-pto
-pto
+vHm
+vHm
 pto
 pto
 pto
@@ -70526,7 +71506,7 @@ aGA
 aZc
 jLZ
 pls
-pls
+tQa
 uLf
 ill
 gdg
@@ -70548,7 +71528,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -70752,7 +71732,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -70850,7 +71830,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -71054,7 +72034,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -71152,7 +72132,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -71356,7 +72336,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -71454,7 +72434,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -71658,7 +72638,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -71756,7 +72736,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -71959,8 +72939,8 @@ pto
 pto
 pto
 pto
-pto
-pto
+vHm
+vHm
 pto
 pto
 pto
@@ -72058,7 +73038,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -72261,7 +73241,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -72360,7 +73340,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -72563,7 +73543,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -72579,7 +73559,7 @@ dle
 dle
 dle
 dle
-agb
+jXn
 wyO
 mnP
 fWF
@@ -72662,7 +73642,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -72865,7 +73845,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -72875,7 +73855,7 @@ pto
 pto
 xnR
 wJI
-rIg
+tIw
 aCj
 rIg
 rIg
@@ -72964,7 +73944,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -73167,7 +74147,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 tAn
@@ -73266,7 +74246,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -73469,7 +74449,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 tAn
@@ -73568,7 +74548,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -73771,7 +74751,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 tAn
@@ -73870,7 +74850,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -74073,14 +75053,14 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 tAn
 xAh
 iDc
 nOu
-nOu
+hrK
 adV
 adV
 wyU
@@ -74172,7 +75152,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -74375,7 +75355,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 tAn
@@ -74392,7 +75372,7 @@ eHa
 mdF
 adV
 beg
-wyO
+meQ
 bFt
 kNV
 fgC
@@ -74474,7 +75454,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -74677,7 +75657,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 tAn
@@ -74776,7 +75756,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -74979,7 +75959,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 dsP
@@ -75077,8 +76057,8 @@ pto
 pto
 pto
 pto
-pto
-pto
+vHm
+vHm
 pto
 pto
 pto
@@ -75281,7 +76261,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 dsP
@@ -75379,7 +76359,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -75583,7 +76563,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 dsP
@@ -75681,7 +76661,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -75885,7 +76865,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 cLo
@@ -75983,7 +76963,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -76187,7 +77167,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -76285,7 +77265,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -76489,7 +77469,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -76586,8 +77566,8 @@ pto
 pto
 pto
 pto
-pto
-pto
+vHm
+vHm
 pto
 pto
 pto
@@ -76791,7 +77771,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -76888,7 +77868,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -77093,7 +78073,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -77190,7 +78170,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -77395,7 +78375,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -77492,7 +78472,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -77697,7 +78677,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -77745,7 +78725,7 @@ aGA
 aZc
 jLZ
 pls
-pls
+tQa
 uLf
 mAE
 mnQ
@@ -77794,7 +78774,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -77999,7 +78979,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -78095,8 +79075,8 @@ pto
 pto
 pto
 pto
-pto
-pto
+vHm
+vHm
 pto
 pto
 pto
@@ -78301,7 +79281,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -78315,8 +79295,8 @@ pto
 bsQ
 jsq
 aPu
-aRR
-aRR
+szL
+szL
 nSj
 goa
 nSj
@@ -78397,7 +79377,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -78603,7 +79583,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -78699,7 +79679,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -78905,8 +79885,8 @@ pto
 pto
 pto
 pto
-pto
-pto
+vHm
+vHm
 pto
 pto
 pto
@@ -79001,7 +79981,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -79208,7 +80188,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -79303,7 +80283,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -79510,7 +80490,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -79604,8 +80584,8 @@ pto
 pto
 pto
 pto
-pto
-pto
+vHm
+vHm
 pto
 pto
 pto
@@ -79812,7 +80792,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -79863,7 +80843,7 @@ pYv
 ekr
 pxm
 uMS
-mFT
+szQ
 mFT
 xkK
 ltl
@@ -79906,7 +80886,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -80114,7 +81094,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -80165,7 +81145,7 @@ ssT
 gkz
 eNH
 eNH
-ltl
+dsb
 ltl
 ltl
 ltl
@@ -80208,7 +81188,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -80416,8 +81396,8 @@ pto
 pto
 pto
 pto
-pto
-pto
+vHm
+vHm
 pto
 pto
 pto
@@ -80467,7 +81447,7 @@ rvq
 hsc
 pYS
 bgd
-rvq
+ePa
 fhg
 eyF
 obl
@@ -80510,7 +81490,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -80719,7 +81699,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -80812,7 +81792,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -81021,7 +82001,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -81113,8 +82093,8 @@ pto
 pto
 pto
 pto
-pto
-pto
+vHm
+vHm
 pto
 pto
 pto
@@ -81323,7 +82303,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -81415,7 +82395,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -81625,7 +82605,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -81670,9 +82650,9 @@ pto
 pto
 pto
 pto
-pto
-pto
-pto
+kXa
+kXa
+jrk
 pto
 eNH
 jTE
@@ -81717,7 +82697,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -81927,6 +82907,8 @@ pto
 pto
 pto
 pto
+vHm
+vHm
 pto
 pto
 pto
@@ -81969,13 +82951,11 @@ pto
 pto
 pto
 pto
-pto
-pto
-pto
-pto
-pto
-pto
-pto
+kXa
+kXa
+rzT
+jrk
+kAn
 gkz
 gOr
 gkz
@@ -82019,7 +82999,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -82230,6 +83210,12 @@ pto
 pto
 pto
 pto
+vHm
+vHm
+vHm
+vHm
+vHm
+vHm
 pto
 pto
 pto
@@ -82267,18 +83253,12 @@ pto
 pto
 pto
 pto
-pto
-pto
-pto
-pto
-pto
-pto
-pto
-pto
-pto
-pto
-pto
-dRx
+kXa
+ihK
+wDw
+rFf
+arM
+iDl
 ssO
 dRx
 pto
@@ -82321,7 +83301,7 @@ pto
 pto
 pto
 pto
-pto
+vHm
 pto
 pto
 pto
@@ -82537,6 +83517,28 @@ pto
 pto
 pto
 pto
+vHm
+vHm
+vHm
+vHm
+vHm
+vHm
+vHm
+vHm
+vHm
+vHm
+vHm
+vHm
+vHm
+vHm
+vHm
+vHm
+vHm
+vHm
+vHm
+vHm
+vHm
+vHm
 pto
 pto
 pto
@@ -82553,33 +83555,11 @@ pto
 pto
 pto
 pto
-pto
-pto
-pto
-pto
-pto
-pto
-pto
-pto
-pto
-pto
-pto
-pto
-pto
-pto
-pto
-pto
-pto
-pto
-pto
-pto
-pto
-pto
-pto
-pto
-pto
-pto
-pto
+kXa
+ooI
+bZk
+jrk
+kAn
 gkz
 gkz
 gkz
@@ -82622,8 +83602,8 @@ pto
 pto
 pto
 pto
-pto
-pto
+vHm
+vHm
 pto
 pto
 pto
@@ -82860,6 +83840,12 @@ pto
 pto
 pto
 pto
+vHm
+vHm
+vHm
+vHm
+vHm
+vHm
 pto
 pto
 pto
@@ -82871,21 +83857,14 @@ pto
 pto
 pto
 pto
-pto
-pto
-pto
-pto
-pto
-pto
-pto
-pto
-pto
-pto
-pto
-cLo
+jrk
+vaf
+gqB
+kFy
 pto
 cLo
 pto
+cLo
 pto
 pto
 pto
@@ -82920,11 +83899,12 @@ pto
 pto
 pto
 pto
-pto
-pto
-pto
-pto
-pto
+vHm
+vHm
+vHm
+vHm
+vHm
+vHm
 pto
 pto
 pto
@@ -83167,6 +84147,22 @@ pto
 pto
 pto
 pto
+vHm
+vHm
+vHm
+vHm
+vHm
+vHm
+pto
+pto
+pto
+pto
+pto
+pto
+jrk
+dTc
+cLw
+cMF
 pto
 pto
 pto
@@ -83200,28 +84196,12 @@ pto
 pto
 pto
 pto
-pto
-pto
-pto
-pto
-pto
-pto
-pto
-pto
-pto
-pto
-pto
-pto
-pto
-pto
-pto
-pto
-pto
-pto
-pto
-pto
-pto
-pto
+vHm
+vHm
+vHm
+vHm
+vHm
+vHm
 pto
 pto
 pto
@@ -83474,6 +84454,17 @@ pto
 pto
 pto
 pto
+vHm
+vHm
+vHm
+vHm
+vHm
+vHm
+pto
+pto
+jzf
+jzf
+jzf
 pto
 pto
 pto
@@ -83502,23 +84493,12 @@ pto
 pto
 pto
 pto
-pto
-pto
-pto
-pto
-pto
-pto
-pto
-pto
-pto
-pto
-pto
-pto
-pto
-pto
-pto
-pto
-pto
+vHm
+vHm
+vHm
+vHm
+vHm
+vHm
 pto
 pto
 pto
@@ -83781,41 +84761,41 @@ pto
 pto
 pto
 pto
-pto
-pto
-pto
-pto
-pto
-pto
-pto
-pto
-pto
-pto
-pto
-pto
-pto
-pto
-pto
-pto
-pto
-pto
-pto
-pto
-pto
-pto
-pto
-pto
-pto
-pto
-pto
-pto
-pto
-pto
-pto
-pto
-pto
-pto
-pto
+vHm
+vHm
+vHm
+vHm
+vHm
+vHm
+vHm
+vHm
+vHm
+vHm
+vHm
+vHm
+vHm
+vHm
+vHm
+vHm
+vHm
+vHm
+vHm
+vHm
+vHm
+vHm
+vHm
+vHm
+vHm
+vHm
+vHm
+vHm
+vHm
+vHm
+vHm
+vHm
+vHm
+vHm
+vHm
 pto
 pto
 pto

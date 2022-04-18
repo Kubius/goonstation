@@ -130,6 +130,13 @@
 	name = "CENTCOM Terminal";
 	setup_os_string = "MAIN_DISH_SS13"
 	},
+/obj/machinery/camera{
+	c_tag = "autotag";
+	dir = 4;
+	name = "autoname - SS13";
+	pixel_x = -10;
+	tag = ""
+	},
 /turf/simulated/floor/grey,
 /area/station/bridge/customs)
 "df" = (
@@ -155,6 +162,13 @@
 /obj/machinery/light/small,
 /obj/table/auto,
 /obj/item/paper_bin,
+/obj/machinery/camera{
+	c_tag = "autotag";
+	dir = 4;
+	name = "autoname - SS13";
+	pixel_x = -10;
+	tag = ""
+	},
 /turf/simulated/floor/sanitary/white,
 /area/station/maintenance/outer/north)
 "dG" = (
@@ -548,6 +562,13 @@
 /area/space)
 "lG" = (
 /obj/machinery/portable_reclaimer,
+/obj/machinery/camera{
+	c_tag = "autotag";
+	dir = 4;
+	name = "autoname - SS13";
+	pixel_x = -10;
+	tag = ""
+	},
 /turf/simulated/floor/grey,
 /area/station/maintenance/outer/east)
 "lU" = (
@@ -799,6 +820,13 @@
 /obj/machinery/light/lamp{
 	pixel_x = 1;
 	pixel_y = 10
+	},
+/obj/machinery/camera{
+	c_tag = "autotag";
+	dir = 8;
+	name = "autoname - SS13";
+	pixel_x = 10;
+	tag = ""
 	},
 /turf/simulated/floor/black,
 /area/station/bridge/customs)
@@ -1291,6 +1319,17 @@
 "GW" = (
 /turf/simulated/wall/auto/reinforced/supernorn,
 /area/station/hangar)
+"Hj" = (
+/obj/stool/chair{
+	dir = 8
+	},
+/obj/machinery/camera{
+	c_tag = "autotag";
+	dir = 1;
+	name = "autoname - SS13"
+	},
+/turf/simulated/floor/grey,
+/area/station/crew_quarters)
 "Hz" = (
 /obj/machinery/door/airlock/pyro{
 	name = "Vessel Quarters"
@@ -1319,6 +1358,13 @@
 /area/station/maintenance/outer/north)
 "HR" = (
 /obj/reagent_dispensers/fueltank,
+/obj/machinery/camera{
+	c_tag = "autotag";
+	dir = 8;
+	name = "autoname - SS13";
+	pixel_x = 10;
+	tag = ""
+	},
 /turf/simulated/floor/caution/north,
 /area/station/hangar)
 "HU" = (
@@ -1679,6 +1725,13 @@
 	mail_tag = "meridian";
 	name = "Transit Chute: Meridian"
 	},
+/obj/machinery/camera{
+	c_tag = "autotag";
+	dir = 6;
+	name = "autoname - SS13";
+	pixel_y = 20;
+	tag = ""
+	},
 /turf/simulated/floor/black,
 /area/station/maintenance/outer/north)
 "MQ" = (
@@ -1746,6 +1799,13 @@
 "OT" = (
 /obj/cable{
 	icon_state = "1-4"
+	},
+/obj/machinery/camera{
+	c_tag = "autotag";
+	dir = 4;
+	name = "autoname - SS13";
+	pixel_x = -10;
+	tag = ""
 	},
 /turf/simulated/floor/grey/side{
 	dir = 9
@@ -1896,6 +1956,13 @@
 	dir = 4
 	},
 /obj/disposaloutlet/east,
+/obj/machinery/camera{
+	c_tag = "autotag";
+	dir = 4;
+	name = "autoname - SS13";
+	pixel_x = -10;
+	tag = ""
+	},
 /turf/simulated/floor/grey,
 /area/station/maintenance/outer/east)
 "TG" = (
@@ -3646,7 +3713,7 @@ FY
 IF
 Iv
 ya
-ya
+Hj
 fM
 rh
 Ex
