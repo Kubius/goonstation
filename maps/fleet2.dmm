@@ -256,6 +256,18 @@
 /area/station/science/bot_storage{
 	name = "Net Center"
 	})
+"akP" = (
+/obj/machinery/camera{
+	c_tag = "autotag";
+	dir = 9;
+	name = "autoname - SS13";
+	pixel_x = 10;
+	tag = ""
+	},
+/turf/simulated/floor/engine,
+/area/station/routing/depot{
+	name = "Routing Buoy"
+	})
 "amb" = (
 /obj/machinery/door/airlock/pyro{
 	dir = 4
@@ -399,10 +411,10 @@
 /turf/simulated/floor/caution/misc,
 /area/station/quartermaster/office)
 "arM" = (
-/obj/decal/cleanable/oil,
 /obj/cable{
 	icon_state = "1-2"
 	},
+/obj/decal/cleanable/oil,
 /turf/simulated/floor/engine,
 /area/station/medical/maintenance{
 	name = "Asclepius Equipment Room"
@@ -642,6 +654,7 @@
 /obj/cable{
 	icon_state = "1-2"
 	},
+/obj/forcefield/energyshield/perma/doorlink,
 /turf/simulated/floor/grey,
 /area/station/maintenance/west{
 	name = "Meridian Maintenance"
@@ -651,7 +664,7 @@
 	dir = 8;
 	icon_state = "alt_heater-M"
 	},
-/turf/space,
+/turf/simulated/wall/auto/reinforced/supernorn,
 /area/station/security/detectives_office{
 	name = "Detective's Vessel"
 	})
@@ -905,6 +918,7 @@
 /area/station/turret_protected/Zeta)
 "aPu" = (
 /obj/machinery/door/airlock/pyro/external,
+/obj/forcefield/energyshield/perma/doorlink,
 /turf/simulated/floor/black/grime,
 /area/station/security/detectives_office{
 	name = "Detective's Vessel"
@@ -1641,6 +1655,7 @@
 /obj/cable{
 	icon_state = "2-9"
 	},
+/obj/forcefield/energyshield/perma/doorlink,
 /turf/simulated/floor/black/grime,
 /area/station/security/detectives_office{
 	name = "Detective's Vessel"
@@ -2281,11 +2296,6 @@
 /obj/marker/supplymarker,
 /obj/cable{
 	icon_state = "4-8"
-	},
-/obj/machinery/activation_button/driver_button{
-	id = "clown_comfort";
-	name = "light switch";
-	pixel_y = -20
 	},
 /turf/simulated/floor/carpet/arcade,
 /area/station/crew_quarters/clown{
@@ -3432,6 +3442,13 @@
 	dir = 4;
 	pixel_x = 12
 	},
+/obj/machinery/camera{
+	c_tag = "autotag";
+	dir = 8;
+	name = "autoname - SS13";
+	pixel_x = 10;
+	tag = ""
+	},
 /turf/simulated/floor/engine/vacuum{
 	icon_state = "engine_caution_north"
 	},
@@ -3973,6 +3990,7 @@
 	})
 "dRx" = (
 /obj/machinery/door/airlock/pyro/external,
+/obj/forcefield/energyshield/perma/doorlink,
 /turf/simulated/floor/grey,
 /area/station/medical/maintenance{
 	name = "Asclepius Equipment Room"
@@ -5139,6 +5157,7 @@
 	})
 "ffk" = (
 /obj/machinery/door/airlock/pyro/external,
+/obj/forcefield/energyshield/perma/doorlink,
 /turf/simulated/floor/grey,
 /area/station/science/construction{
 	name = "Tenebrae Maintenance"
@@ -5691,6 +5710,12 @@
 /obj/item/audio_tape,
 /obj/item/device/detective_scanner,
 /obj/item/pen,
+/obj/machinery/camera{
+	c_tag = "autotag";
+	dir = 10;
+	name = "autoname - SS13";
+	tag = ""
+	},
 /turf/simulated/floor/carpet/grime,
 /area/station/security/detectives_office{
 	name = "Detective's Vessel"
@@ -6011,6 +6036,13 @@
 /area/station/engine/elect)
 "gio" = (
 /obj/machinery/recharge_station,
+/obj/machinery/camera{
+	c_tag = "autotag";
+	dir = 6;
+	name = "autoname - SS13";
+	pixel_y = 20;
+	tag = ""
+	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/storage{
 	name = "Maru Power Room"
@@ -6517,6 +6549,9 @@
 /obj/machinery/door/airlock/pyro/external{
 	dir = 4
 	},
+/obj/forcefield/energyshield/perma/doorlink{
+	dir = 1
+	},
 /turf/simulated/floor/grey,
 /area/station/maintenance/southeast{
 	name = "Dionysus Maintenance"
@@ -6550,6 +6585,13 @@
 /obj/item/storage/box/stma_kit,
 /obj/item/reagent_containers/iv_drip/saline,
 /obj/item/staple_gun,
+/obj/machinery/camera{
+	c_tag = "autotag";
+	dir = 4;
+	name = "autoname - SS13";
+	pixel_x = -10;
+	tag = ""
+	},
 /turf/simulated/floor/caution/east,
 /area/station/medical/robotics)
 "gMK" = (
@@ -7112,18 +7154,6 @@
 	dir = 4
 	},
 /area/station/chapel/sanctuary)
-"hrK" = (
-/obj/lattice{
-	dir = 2;
-	icon_state = "lattice-dir"
-	},
-/obj/machinery/camera{
-	c_tag = "autotag";
-	dir = 1;
-	name = "autoname - SS13"
-	},
-/turf/space,
-/area/space)
 "hsc" = (
 /obj/machinery/conveyor{
 	id = "ascbelt";
@@ -7460,6 +7490,13 @@
 	name = "Maru Solar Array"
 	})
 "hJY" = (
+/obj/machinery/camera{
+	c_tag = "autotag";
+	dir = 5;
+	name = "autoname - SS13";
+	pixel_x = -10;
+	tag = ""
+	},
 /turf/simulated/floor/plating/airless,
 /area/station/mining/refinery)
 "hKK" = (
@@ -7992,6 +8029,7 @@
 /area/space)
 "isA" = (
 /obj/machinery/door/airlock/pyro/external,
+/obj/forcefield/energyshield/perma/doorlink,
 /turf/simulated/floor/grey,
 /area/station/maintenance/west{
 	name = "Meridian Maintenance"
@@ -8027,6 +8065,10 @@
 	})
 "iuN" = (
 /obj/reagent_dispensers/watertank/fountain,
+/obj/machinery/light/small{
+	dir = 8;
+	pixel_x = -12
+	},
 /turf/simulated/floor/carpet/grime,
 /area/station/security/detectives_office{
 	name = "Detective's Vessel"
@@ -8189,6 +8231,7 @@
 /obj/cable{
 	icon_state = "1-2"
 	},
+/obj/forcefield/energyshield/perma/doorlink,
 /turf/simulated/floor/grey,
 /area/station/medical/maintenance{
 	name = "Asclepius Equipment Room"
@@ -8312,7 +8355,7 @@
 	dir = 8;
 	icon_state = "alt_heater-R"
 	},
-/turf/space,
+/turf/simulated/wall/auto/reinforced/supernorn,
 /area/station/security/detectives_office{
 	name = "Detective's Vessel"
 	})
@@ -8964,6 +9007,20 @@
 /obj/disposalpipe/segment/vertical,
 /turf/simulated/wall/auto/reinforced/supernorn,
 /area/station/crew_quarters/kitchen)
+"jpp" = (
+/obj/lattice{
+	dir = 6;
+	icon_state = "lattice-dir-b"
+	},
+/obj/machinery/camera{
+	c_tag = "autotag";
+	dir = 8;
+	name = "autoname - SS13";
+	pixel_x = 10;
+	tag = ""
+	},
+/turf/space,
+/area/space)
 "jpG" = (
 /obj/foamedmetal,
 /turf/simulated/floor/metalfoam,
@@ -9691,6 +9748,13 @@
 /obj/cable{
 	icon_state = "1-8"
 	},
+/obj/machinery/camera{
+	c_tag = "autotag";
+	dir = 8;
+	name = "autoname - SS13";
+	pixel_x = 10;
+	tag = ""
+	},
 /turf/simulated/floor/plating,
 /area/station/routing/depot{
 	name = "Routing Buoy"
@@ -9735,6 +9799,11 @@
 /obj/stool/chair{
 	dir = 8;
 	icon_state = "chair"
+	},
+/obj/machinery/camera{
+	c_tag = "autotag";
+	dir = 1;
+	name = "autoname - SS13"
 	},
 /turf/simulated/floor/carpet/grime,
 /area/station/crew_quarters/baroffice)
@@ -9925,6 +9994,13 @@
 /obj/item/storage/toilet{
 	dir = 8
 	},
+/obj/machinery/camera{
+	c_tag = "autotag";
+	dir = 6;
+	name = "autoname - SS13";
+	pixel_y = 20;
+	tag = ""
+	},
 /turf/simulated/floor/grey/blackgrime,
 /area/station/security/brig)
 "kyk" = (
@@ -10028,17 +10104,6 @@
 	dir = 5
 	},
 /area/station/science/tenebrae)
-"kFy" = (
-/obj/machinery/door/poddoor/pyro{
-	autoclose = 1;
-	id = "clown_comfort";
-	name = "Ordinary Wall"
-	},
-/obj/forcefield/energyshield/perma/doorlink,
-/turf/simulated/floor/engine,
-/area/station/crew_quarters/clown{
-	name = "Clown Limpet"
-	})
 "kHV" = (
 /obj/stool/bed,
 /obj/landmark/start{
@@ -10545,6 +10610,13 @@
 /area/station/chapel/sanctuary)
 "lke" = (
 /obj/machinery/portable_reclaimer,
+/obj/machinery/camera{
+	c_tag = "autotag";
+	dir = 4;
+	name = "autoname - SS13";
+	pixel_x = -10;
+	tag = ""
+	},
 /turf/simulated/floor/grey,
 /area/station/maintenance/inner/hammer)
 "llo" = (
@@ -10732,6 +10804,16 @@
 /area/station/hangar/engine{
 	name = "Maru Hangar"
 	})
+"lBv" = (
+/obj/machinery/camera{
+	c_tag = "autotag";
+	dir = 8;
+	name = "autoname - SS13";
+	pixel_x = 10;
+	tag = ""
+	},
+/turf/simulated/floor/sanitary/white,
+/area/station/medical/morgue)
 "lCA" = (
 /obj/machinery/macrofab/emergency_pod{
 	color = "#DDDDDD";
@@ -11913,6 +11995,10 @@
 /obj/deskclutter{
 	pixel_y = -8
 	},
+/obj/machinery/light/small{
+	dir = 8;
+	pixel_x = -12
+	},
 /turf/simulated/floor/carpet/grime,
 /area/station/security/detectives_office{
 	name = "Detective's Vessel"
@@ -12825,6 +12911,7 @@
 /area/space)
 "nSj" = (
 /obj/machinery/door/airlock/pyro/external,
+/obj/forcefield/energyshield/perma/doorlink,
 /turf/simulated/floor/grey,
 /area/station/maintenance/inner/hammer)
 "nUs" = (
@@ -14038,6 +14125,13 @@
 	},
 /obj/item/storage/wall/emergency{
 	pixel_y = 32
+	},
+/obj/machinery/camera{
+	c_tag = "autotag";
+	dir = 8;
+	name = "autoname - SS13";
+	pixel_x = 10;
+	tag = ""
 	},
 /turf/simulated/floor,
 /area/station/routing/depot{
@@ -15358,6 +15452,10 @@
 	icon_state = "0-2"
 	},
 /obj/machinery/power/data_terminal,
+/obj/machinery/light/small{
+	dir = 4;
+	pixel_x = 12
+	},
 /turf/simulated/floor/carpet/grime,
 /area/station/security/detectives_office{
 	name = "Detective's Vessel"
@@ -16239,6 +16337,10 @@
 /obj/machinery/power/data_terminal,
 /obj/machinery/computer3/generic/communications{
 	dir = 8
+	},
+/obj/machinery/light/small{
+	dir = 4;
+	pixel_x = 12
 	},
 /turf/simulated/floor/carpet/grime,
 /area/station/security/detectives_office{
@@ -18797,6 +18899,7 @@
 /obj/cable{
 	icon_state = "1-2"
 	},
+/obj/forcefield/energyshield/perma/doorlink,
 /turf/simulated/floor/grey,
 /area/station/science/construction{
 	name = "Tenebrae Maintenance"
@@ -19090,6 +19193,18 @@
 	},
 /turf/space,
 /area/space)
+"uIp" = (
+/obj/machinery/camera{
+	c_tag = "autotag";
+	dir = 8;
+	name = "autoname - SS13";
+	pixel_x = 10;
+	tag = ""
+	},
+/turf/simulated/floor/shuttlebay,
+/area/station/ai_monitored/armory{
+	name = "Hammer Armory"
+	})
 "uIS" = (
 /obj/grille/catwalk{
 	dir = 9
@@ -21308,6 +21423,13 @@
 	name = "Hammer disposal belt";
 	operating = 1
 	},
+/obj/machinery/camera{
+	c_tag = "autotag";
+	dir = 4;
+	name = "autoname - SS13";
+	pixel_x = -10;
+	tag = ""
+	},
 /turf/simulated/floor/grey,
 /area/station/maintenance/inner/hammer)
 "xav" = (
@@ -21674,6 +21796,13 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/vending/book,
+/obj/machinery/camera{
+	c_tag = "autotag";
+	dir = 8;
+	name = "autoname - SS13";
+	pixel_x = 10;
+	tag = ""
+	},
 /turf/simulated/floor/white,
 /area/station/medical/medbay{
 	name = "Asclepius Primary Zone"
@@ -22026,6 +22155,13 @@
 /obj/table/auto,
 /obj/item/storage/firstaid/brain,
 /obj/item/crowbar,
+/obj/machinery/camera{
+	c_tag = "autotag";
+	dir = 8;
+	name = "autoname - SS13";
+	pixel_x = 10;
+	tag = ""
+	},
 /turf/simulated/floor/bluewhite{
 	dir = 5
 	},
@@ -22177,7 +22313,7 @@
 	dir = 8;
 	icon_state = "alt_heater-L"
 	},
-/turf/space,
+/turf/simulated/wall/auto/reinforced/supernorn,
 /area/station/security/detectives_office{
 	name = "Detective's Vessel"
 	})
@@ -22359,6 +22495,10 @@
 /obj/machinery/computer/security/wooden_tv,
 /obj/item/clothing/head/fedora{
 	pixel_y = 11
+	},
+/obj/machinery/light/small{
+	dir = 4;
+	pixel_x = 12
 	},
 /turf/simulated/floor/carpet/grime,
 /area/station/security/detectives_office{
@@ -45488,7 +45628,7 @@ pto
 hde
 pto
 pto
-xnR
+jpp
 hli
 fQS
 qJS
@@ -57588,7 +57728,7 @@ jpG
 pto
 pto
 pto
-xnR
+jpp
 bmV
 usk
 rTK
@@ -60273,7 +60413,7 @@ pto
 pto
 pto
 pto
-xnR
+jpp
 sni
 wmL
 nVK
@@ -67856,7 +67996,7 @@ pbM
 vBo
 aXN
 rzJ
-kMU
+akP
 nsu
 gVO
 gVO
@@ -70595,7 +70735,7 @@ pto
 pto
 pto
 pto
-xnR
+jpp
 yhK
 vow
 fSx
@@ -73252,7 +73392,7 @@ pto
 pto
 uTt
 wXy
-hUT
+uIp
 sOl
 mVw
 kAc
@@ -75060,7 +75200,7 @@ tAn
 xAh
 iDc
 nOu
-hrK
+nOu
 adV
 adV
 wyU
@@ -77814,7 +77954,7 @@ pto
 pto
 pto
 pto
-xnR
+jpp
 jNF
 lqj
 cYr
@@ -77829,7 +77969,7 @@ wek
 fDx
 fDx
 rAI
-fDx
+lBv
 ajC
 ret
 mlE
@@ -83860,7 +84000,7 @@ pto
 jrk
 vaf
 gqB
-kFy
+jrk
 pto
 cLo
 pto

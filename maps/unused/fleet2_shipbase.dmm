@@ -1491,6 +1491,13 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/vending/book,
+/obj/machinery/camera{
+	c_tag = "autotag";
+	dir = 8;
+	name = "autoname - SS13";
+	pixel_x = 10;
+	tag = ""
+	},
 /turf/simulated/floor/grey/side{
 	dir = 1
 	},
@@ -2039,6 +2046,20 @@
 /obj/machinery/light_switch/west,
 /turf/simulated/floor/grey,
 /area/station/crew_quarters)
+"XL" = (
+/obj/lattice{
+	dir = 6;
+	icon_state = "lattice-dir-b"
+	},
+/obj/machinery/camera{
+	c_tag = "autotag";
+	dir = 8;
+	name = "autoname - SS13";
+	pixel_x = 10;
+	tag = ""
+	},
+/turf/space,
+/area/space)
 "XN" = (
 /obj/cable{
 	icon_state = "2-8"
@@ -3552,7 +3573,7 @@ nK
 nK
 nK
 nK
-rc
+XL
 Sp
 Wd
 eh
