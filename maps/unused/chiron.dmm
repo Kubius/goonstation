@@ -1424,10 +1424,6 @@
 	pixel_x = -13;
 	pixel_y = 4
 	},
-/obj/machinery/light/small/warm/very{
-	dir = 4;
-	pixel_x = 12
-	},
 /turf/simulated/floor/black/grime,
 /area/station/maintenance/south)
 "ecO" = (
@@ -4169,7 +4165,10 @@
 /obj/stool/chair/couch{
 	dir = 8
 	},
-/obj/blind_switch/area/north,
+/obj/machinery/light/small/warm/very{
+	dir = 1;
+	pixel_y = 21
+	},
 /turf/simulated/floor/black/grime,
 /area/station/maintenance/south)
 "kah" = (
@@ -5029,6 +5028,11 @@
 	},
 /turf/simulated/floor/wood,
 /area/station/crew_quarters/fitness)
+"lZP" = (
+/obj/decal/cleanable/dirt/jen,
+/obj/landmark/random_room/size3x3,
+/turf/simulated/floor/plating/jen,
+/area/station/maintenance/northwest)
 "mbq" = (
 /obj/machinery/optable,
 /obj/machinery/drainage,
@@ -6216,6 +6220,10 @@
 /obj/machinery/portable_atmospherics/canister/empty,
 /turf/simulated/floor/grime,
 /area/space)
+"pmk" = (
+/obj/landmark/random_room/size3x3,
+/turf/simulated/floor/plating/jen,
+/area/station/maintenance/east)
 "pnn" = (
 /turf/simulated/floor/carpet/red/standard/edge/nw,
 /area/space)
@@ -7302,10 +7310,7 @@
 	pixel_x = -10;
 	pixel_y = -2
 	},
-/obj/machinery/light/small/warm/very{
-	dir = 4;
-	pixel_x = 12
-	},
+/obj/blind_switch/area/north,
 /turf/simulated/floor/black/grime,
 /area/station/maintenance/south)
 "rEw" = (
@@ -8757,6 +8762,10 @@
 /turf/simulated/floor,
 /area/station/storage/emergency2)
 "uPs" = (
+/obj/machinery/light/small/warm/very{
+	dir = 4;
+	pixel_x = 12
+	},
 /turf/simulated/floor/carpet/red/fancy/narrow/north,
 /area/station/maintenance/south)
 "uPH" = (
@@ -9186,10 +9195,6 @@
 	desc = "These channels seem to mostly be about robuddies. What is this, some kind of reality show?";
 	name = "Television";
 	network = "Zeta"
-	},
-/obj/machinery/light/small/warm/very{
-	dir = 8;
-	pixel_x = -12
 	},
 /turf/simulated/floor/black/grime,
 /area/station/maintenance/south)
@@ -42456,7 +42461,7 @@ swj
 swj
 sWj
 swj
-oSu
+hdD
 oSu
 oSu
 oSu
@@ -42759,7 +42764,7 @@ swj
 swj
 cth
 swj
-oSu
+hdD
 oSu
 oSu
 oSu
@@ -43355,9 +43360,9 @@ kXH
 kXH
 kXH
 mYa
-xtu
-xtu
-swj
+kCx
+kCx
+kCx
 swj
 swj
 swj
@@ -43657,10 +43662,10 @@ kXH
 kXH
 kXH
 mYa
-xtu
-xtu
-xtu
-swj
+kCx
+kCx
+kCx
+kCx
 swj
 swj
 bWg
@@ -43962,7 +43967,7 @@ mYa
 kCx
 kCx
 kCx
-swj
+kCx
 swj
 wKI
 spx
@@ -44260,12 +44265,12 @@ mYa
 wiM
 mYa
 mYa
+gWB
+gWB
+lZP
 kCx
 kCx
 kCx
-kCx
-kCx
-swj
 swj
 tBI
 swj
@@ -44561,10 +44566,10 @@ kCx
 kCx
 pVQ
 cMJ
-kCx
-kCx
-kCx
-kCx
+gWB
+gWB
+gWB
+gWB
 tmf
 kCx
 kCx
@@ -44863,8 +44868,8 @@ kCx
 lzU
 xcD
 fYF
-fYF
 oWX
+gWB
 gWB
 gWB
 tmf
@@ -45166,7 +45171,7 @@ pVQ
 gWB
 btq
 xcD
-xcD
+tbh
 tbh
 tbh
 rXQ
@@ -58778,7 +58783,7 @@ rUv
 eUo
 kwJ
 kwJ
-hnB
+pmk
 hnB
 mON
 tNy
@@ -59079,8 +59084,8 @@ uNJ
 rUv
 eUo
 kwJ
-hnB
-hnB
+kwJ
+kwJ
 hnB
 hnB
 hnB
@@ -59380,9 +59385,9 @@ rUv
 ihn
 rUv
 eUo
-hnB
-hnB
-hnB
+kwJ
+kwJ
+kwJ
 hnB
 hnB
 swj
