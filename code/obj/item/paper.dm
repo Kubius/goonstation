@@ -30,7 +30,7 @@
 	icon = 'icons/obj/writing.dmi'
 	icon_state = "paper_blank"
 	uses_multiple_icon_states = 1
-	wear_image_icon = 'icons/mob/head.dmi'
+	wear_image_icon = 'icons/mob/clothing/head.dmi'
 	inhand_image_icon = 'icons/mob/inhand/hand_books.dmi'
 	item_state = "paper"
 	var/info = ""
@@ -44,18 +44,11 @@
 	burn_point = 220
 	burn_output = 900
 	burn_possible = 2
-	health = 10
 	var/list/form_startpoints
 	var/list/form_endpoints
 	var/font_css_crap = null
 	var/list/fonts = list()
 
-	var/see_face = 1
-	var/body_parts_covered = HEAD
-	var/protective_temperature = T0C + 10
-	var/heat_transfer_coefficient = 0.99
-	var/permeability_coefficient = 0.99
-	var/siemens_coefficient = 0.80
 	var/stampNum = 0
 	var/sizex = 0
 	var/sizey = 0
@@ -74,7 +67,7 @@
 	..()
 	src.create_reagents(10)
 	reagents.add_reagent("paper", 10)
-	SPAWN_DBG(0)
+	SPAWN(0)
 		if (src.info && src.icon_state == "paper_blank")
 			icon_state = "paper"
 	if (!src.rand_pos)
@@ -96,14 +89,14 @@
 	return 1
 
 /obj/item/paper/attack_self(mob/user as mob)
-	var/menuchoice = alert("What would you like to do with [src]?",,"Fold","Read","Nothing")
-	if (menuchoice == "Nothing")
+	var/menuchoice = tgui_alert(user, "What would you like to do with [src]?", "Use paper", list("Fold", "Read", "Nothing"))
+	if (!menuchoice || menuchoice == "Nothing")
 		return
 	else if (menuchoice == "Read")
 		src.examine(user)
 	else
-		var/fold = alert("What would you like to fold [src] into?",,"Paper hat","Paper plane","Paper ball")
-		if(src.disposed) //It's possible to queue multiple of these menus before resolving any.
+		var/fold = tgui_alert(user, "What would you like to fold [src] into?", "Fold paper", list("Paper hat", "Paper plane", "Paper ball"))
+		if(src.disposed || !fold) //It's possible to queue multiple of these menus before resolving any.
 			return
 		user.u_equip(src)
 		if (fold == "Paper hat")
@@ -128,7 +121,7 @@
 /obj/item/paper/attack_ai(var/mob/AI as mob)
 	var/mob/living/silicon/ai/user
 	if (isAIeye(AI))
-		var/mob/dead/aieye/E = AI
+		var/mob/living/intangible/aieye/E = AI
 		user = E.mainframe
 	else
 		user = AI
@@ -181,15 +174,16 @@
 			if(!src.stampable)
 				boutput(usr, "<span class='alert'>You can't stamp [src].</span>")
 				return
-			var/stamp_x = text2num(params["x"])
-			var/stamp_y = text2num(params["y"])
-			var/stamp_r = text2num(params["r"])	// rotation in degrees
+			var/stamp_x = text2num_safe(params["x"])
+			var/stamp_y = text2num_safe(params["y"])
+			var/stamp_r = text2num_safe(params["r"])	// rotation in degrees
 			var/obj/item/stamp/stamp = ui.user.equipped()
 
 			if(length(stamps) < PAPER_MAX_STAMPS)
 				stamp(stamp_x, stamp_y, stamp_r, stamp.current_state, stamp.icon_state)
 				update_static_data(usr, ui)
 				boutput(usr, "<span class='notice'>[ui.user] stamps [src] with \the [stamp.name]!</span>")
+				playsound(usr.loc, "sound/misc/stamp_paper.ogg", 50, 0.5)
 			else
 				boutput(usr, "There is no where else you can stamp!")
 			. = TRUE
@@ -200,7 +194,7 @@
 			var/in_paper = params["text"]
 			var/paper_len = length(in_paper)
 
-			field_counter = params["fieldCounter"] ? text2num(params["fieldCounter"]) : field_counter
+			field_counter = params["fieldCounter"] ? text2num_safe(params["fieldCounter"]) : field_counter
 
 			if(paper_len > PAPER_MAX_LENGTH)
 				// Side note, the only way we should get here is if
@@ -327,6 +321,17 @@
 		user.put_in_hand_or_drop(M)
 		user.u_equip(src)
 		qdel(src)
+	else if (istype(P, /obj/item/paper))
+		var/obj/item/staple_gun/S = user.find_type_in_hand(/obj/item/staple_gun)
+		if (S?.ammo)
+			var/obj/item/paper_booklet/booklet = new(src.loc)
+			user.drop_item()
+			booklet.pages += src
+			src.set_loc(booklet)
+			booklet.Attackby(P, user, params)
+			return
+		else
+			boutput(user, "<span class='alert'>You need a loaded stapler in hand to staple the sheets into a booklet.</span>")
 	else
 		// cut paper?  the sky is the limit!
 		ui_interact(user)	// The other ui will be created with just read mode outside of this
@@ -547,6 +552,27 @@ ASC: Aux. Solar Control<BR>
 	<BR>\n\t\tMove to the back of ship<BR>\n\t\tAfter<BR>\n\t\t\tRepair damage<BR>\n\t\t\tIf needed, Evacuate<BR>\n\tAccidental Reentry:<BR>\n\t\tActivate fire alrms in front of ship.
 	<BR>\n\t\tMove volatile matter to a fire proof area!<BR>\n\t\tGet a fire suit.<BR>\n\t\tStay secure until an emergency ship arrives.<BR>\n<BR>\n\t\tIf ship does not arrive-
 	<BR>\n\t\t\tEvacuate to a nearby safe area!"}
+
+/obj/item/paper/martian_manifest
+	name = "Tattered paper"
+	icon_state = "paper_burned"
+	info = {"
+	<br>      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>PPIN </b>░█=-<b>IFEST</b><br>
+	<br><br>  &nbsp;&nbsp;&nbsp;<b><u>ent:</u></b> Kingsw ░░█tems ░9A
+	<br><br>- rate of x4 dat† tap s \[FRAG░LE\]
+	<br><br>- EVA equipment f   = ▓  -- ▀█ ency aid
+	<br><br>- Prot▓ ▓e= AI- ██░█c▓re \[EXTR█▓░Y FRAGILE\]
+	<br><br>- \[CO▓░IDENTIAL\]&nbsp;&nbsp;█▓ ▓
+	<br><br>- mergency com░dy resu███ ▓█░
+	<br><br>- Pro█░ssio-al cl=wns (x▓)
+	<br><br>- Asso ted civil▓n grad▓█ goods
+	<br><i>Note: Shipment exp▓▓ted to a███ve no late than J█░▓░20█░</i>
+	<br><i>Client wil&nbsp;&nbsp;██rate a late or damaged shipment</i>
+	"}
+
+	New()
+		. = ..()
+		src.stamp(200, 20, rand(-5,5), "stamp-qm.png", "stamp-qm")
 
 /obj/item/paper/engine
 	name = "'Generator Startup Procedure'"
@@ -898,6 +924,18 @@ as it may become compromised.
 	unable to close his trash-pod he arrived in. Now we gotta deal with some mutant mice problem!</i>
 	"}
 
+/obj/item/paper/cruiser_bought
+	name = "My very own space cruiser"
+	icon_state = "paper"
+	desc = "The first entry in a collection of never to be finished memoirs."
+	info = {"<center><h2>Finally, my own ship!</h2></center>
+	<hr>
+	<i>This is the begining of my log, I figured since I made it rich after all this time, I ought to recount my thoughts now in a log of sorts.
+	Years of working in a damm cubicle, my only worthwile cash comming from transfering dead crew members credits to my own account.
+	But it has all paid off, I got a beautiful ship, my dog, a whole damm vault, and plenty of room for guests!
+	I even got this bottle of blue label! I was going to save it for my first cruise with others, but I suppose it wont hurt to dip into a bit of it.</i>
+	"}
+
 /obj/item/paper/fortune
 	name = "fortune"
 	info = {"<center>YOUR FORTUNE</center>"}
@@ -1124,7 +1162,6 @@ as it may become compromised.
 	burn_point = 600
 	burn_output = 800
 	burn_possible = 1
-	health = 100
 
 
 /obj/item/paper_bin/proc/update()
@@ -1132,12 +1169,12 @@ as it may become compromised.
 	src.icon_state = "paper_bin[(src.amount || locate(/obj/item/paper, src)) ? "1" : null]"
 	return
 
-/obj/item/paper_bin/MouseDrop(mob/user as mob)
+/obj/item/paper_bin/mouse_drop(mob/user as mob)
 	if (user == usr && !user.restrained() && !user.stat && (user.contents.Find(src) || in_interact_range(src, user)))
 		if (!user.put_in_hand(src))
 			return ..()
 
-/obj/item/paper_bin/attack_hand(mob/user as mob)
+/obj/item/paper_bin/attack_hand(mob/user)
 	src.add_fingerprint(user)
 	var/obj/item/paper = locate(/obj/item/paper) in src
 	if (paper)
@@ -1157,7 +1194,7 @@ as it may become compromised.
 	..()
 	src.Attackhand(user)
 
-/obj/item/paper_bin/attackby(obj/item/paper/P as obj, mob/user as mob) // finally you can write on all the paper AND put it back in the bin to mess with whoever shows up after you ha ha
+/obj/item/paper_bin/attackby(obj/item/paper/P, mob/user) // finally you can write on all the paper AND put it back in the bin to mess with whoever shows up after you ha ha
 	if (istype(P))
 		user.drop_item()
 		P.set_loc(src)
@@ -1227,7 +1264,7 @@ as it may become compromised.
 		src.assignment = null
 		src.desc = "A rubber stamp for stamping important documents."
 		return
-/obj/item/stamp/attackby(obj/item/C as obj, mob/user as mob)// assignment with ID
+/obj/item/stamp/attackby(obj/item/C, mob/user)// assignment with ID
 	if (istype(C, /obj/item/card/id))
 		var/obj/item/card/id/ID = C
 		if (!src.is_reassignable)
@@ -1407,16 +1444,22 @@ as it may become compromised.
 	throw_spin = 0
 
 /obj/item/paper/folded/plane/hit_check(datum/thrown_thing/thr)
-	if(src.throwing)
+	if(src.throwing && src.sealed)
 		src.throw_unlimited = 1
+
+/obj/item/paper/folded/plane/attack_self(mob/user as mob)
+	if (src.sealed) //Set throwing vars when unfolding (mostly in the parent call) so that an unfolded paper "plane" behaves like regular paper
+		throw_speed = 3 //default for paper
+		throw_spin = 1
+	..()
 
 /obj/item/paper/folded/ball
 	name = "paper ball"
 	desc = "It's really fun pelting your coworkers with these."
 	icon_state = "paperball"
 
-/obj/item/paper/folded/ball/attack(mob/M as mob, mob/user as mob)
-	if (iscarbon(M) && M == user)
+/obj/item/paper/folded/ball/attack(mob/M, mob/user)
+	if (iscarbon(M) && M == user && src.sealed)
 		M.visible_message("<span class='notice'>[M] stuffs [src] into [his_or_her(M)] mouth and eats it.</span>")
 		playsound(M,"sound/misc/gulp.ogg", 30, 1)
 		eat_twitch(M)
@@ -1594,6 +1637,12 @@ exposed to overconfident outbursts on the part of individuals unqualifed to embo
 But please, please do something about the fact it's hanging on by just the data cables, they're not remotely capable of tugging this kind of mass.<br><br>
 That clump of dirt has a metal substrate, we can just ask Rachid to weld it to the station while we keep the lovebirds at a safe distance. A little wrangling never hurt a bee."}
 
+/obj/item/paper/artists_anger // for starved artist random maint room
+	name = "stained note"
+	desc = "This paper is stained yellow from old age."
+	icon_state = "paper_caution"
+	info = {"God damnit, why is drawing a simple rubber duck so fucking hard?!"}
+
 /obj/item/paper/synd_lab_note
 	name = "scribbled note"
 	info = {"So, we've been out here for a week already, and our insurmountable task isn't looking any easier.<br><br>
@@ -1637,3 +1686,221 @@ That clump of dirt has a metal substrate, we can just ask Rachid to weld it to t
 	icon_state = "paper_caution"
 	info = {"<i>Facing threats from the crew for putting pineapple on your pizzas and letting your chicken corpses spill out into the hall? Turn those trials into smiles when you serve up this scrumptious dish!</i><br><h3>Chicken Pineapple Curry</h3><br><h4>Ingredients:</h4><br> -a bag of curry powder <br> -some fresh chicken meat <br> -a tasty ring of pineapple <br> -a nice spicy chili pepper <br><br><i>With your oven, you don't even have to mix! Just add everything, set the heat to low, and let it all cook for 7 seconds!</i>"}
 
+/obj/item/paper/reinforcement_info
+	name = "Reinforcement Disclaimer"
+	icon_state = "paper"
+	info = {"<b>Thank you for buying a Syndicate brand reinforcement!</b><br>To deploy the reinforcement, simply activate it somewhere on station, set it down, and wait. If a reinforcement is found, they'll be deployed within the minute. The nearby Listening Post should do you well, but it cannot be activated on the Cairngorm!<br><br><i>Disclaimer: Capability of reinforcement not guaranteed. The beacon may pose a choking hazard to those under 3 years old.<br>If no reinforcement is available, you may simply hit your uplink with the beacon to return it for a full refund.</i>"}
+
+/obj/item/paper/designator_info
+	name = "Laser Designator Pamphlet"
+	icon_state = "paper"
+	info = {"<b>So, you've purchased a Laser Designator!</b><br><br>The operation of one is simple, the first step is to ensure the Cairngorm has an in-tact, working gun. Once you've done this, you can just pull out the designator, hold shift and move if you want to do longer-range designation, and point at anywhere to designate a target, at which point the Cairngorm will fire the artillery weapon, and the designated area will shortly explode."}
+
+/obj/item/paper/deployment_info
+	name = "Deployment Remote Note"
+	icon_state = "paper"
+	info = {"<b>Congratulations for purchasing the Syndicate Rapid-Deployment Remote (SRDR)!</b><br><br>To use it, first of all, you need to either be onboard the Cairngorm or at the Listening Post. <br>Once you're there, activate the SRDR in-hand to choose a location, then once more to teleport everyone (along with any nuclear devices you possess) within 4 tiles of you to the forward assault pod, at which point it will begin head to the station, taking about one minute. During this time, Space Station 13's sensors will indicate the quickly-arriving pod, and will likely warn the crew.<br> Once the minute ends, everyone will be deployed to the specified area through personnel missiles."}
+
+/obj/item/paper/nukeop_uplink_purchases
+	name = "Shipping Manifest"
+	icon_state = "paper"
+
+	New()
+		. = ..()
+		if(!length(syndi_buylist_cache))
+			SPAWN(30 SECONDS) //This spawns empty on-map otherwise, 30s is a safe bet
+				build_paper()
+		else
+			build_paper()
+
+	proc/build_paper()
+		var/placeholder_info
+		placeholder_info += "<b>Syndicate Shipping Manifest</b><br>"
+		for(var/datum/syndicate_buylist/commander/commander_item in syndi_buylist_cache)
+			var/item_info = world.load_intra_round_value("NuclearCommander-[commander_item]-Purchased")
+			if(isnull(item_info))
+				item_info = 0
+			placeholder_info += "<br><br><b>[commander_item.name]</b>: [item_info]"
+		info = placeholder_info
+
+/obj/item/paper/band_notice
+	name = "Internal Memo - NT Marching Band"
+	icon_state = "paper"
+	info = {"
+	-----------------|HEAD|-----------------<br>
+	MAILNET: PUBLIC_NT<br>
+	WORKGROUP: *MARCHING_BAND<br>
+	FROM: OGOTDAM@NT13<br>
+	TO: NTMARCHINGBAND@NT13<br>
+	PRIORITY: HIGH<br>
+	SUBJECT: Imminent Closure<br>
+	----------------------------------------<br>
+	Dearest friends,<br><br>
+
+	It is my great displeasure to inform you all of the imminent cessation of financial support from the Station Morale
+	Organization to all performing arts activities due to budgetary constraints. This therefore means that the NanoTrasen
+	Marching Band will have to close down and stop paying all of its employees.<br><br>
+
+	Off the record, what BUFFOONISH bean-counter cut off our funding?! Do they not know how IMPORTANT the arts are in
+	maintaining our collective sanity in this HELLHOLE of a station?! For Capital-G God's sake, I spend forty hours a
+	day in the engine room, is it so hard to spare us but one of those hours doing something, ANYTHING to keep us from
+	resorting to savagery?! So what if our uniforms make us look like dorks and that half the crew wish to puncture their
+	eardrums, music is all I have, all that ANY of us have!<br><br>
+
+	You know what, these bastards don't even deserve us. I'm out of here.<br><br>
+
+	Yours faithfully,<br><br>
+
+	Ovidius Gotdam<br>
+	NT Marching Band Director
+	"}
+
+
+/obj/item/paper/businesscard
+	name = "business card"
+	icon_state = "businesscard"
+	desc = "A generic looking business card, offering printing services for more business cards."
+
+	sizex = 640
+	sizey = 400
+
+
+	New()
+		..()
+		info = "<html><body style='margin:2px'><img src='[resource("images/arts/business_blank.png")]'></body></html>"
+
+
+/obj/item/paper/businesscard/banjo
+	name = "business card - Tum Tum Phillips"
+	icon_state = "businesscard"
+	desc = "A business card for the famous Tum Tum Phillips, Frontier banjoist."
+
+	New()
+		..()
+		info = "<html><body style='margin:2px'><img src='[resource("images/arts/business_banjo.png")]'></body></html>"
+
+
+/obj/item/paper/businesscard/biteylou
+	name = "business card - Bitey Lou's Bodyshop"
+	icon_state = "businesscard"
+	desc = "A business card for some sorta mechanic's shop."
+	color = "gray"
+
+	New()
+		..()
+		info = "<html><body style='margin:2px'><img src='[resource("images/arts/business_biteylou.png")]'></body></html>"
+
+
+/obj/item/paper/businesscard/bonktek
+	name = "business card - Bonktek Shopping Pyramid"
+	icon_state = "businesscard"
+	desc = "A business card for the Bonktek Shopping Pyramid of New Memphis."
+
+	New()
+		..()
+		info = "<html><body style='margin:2px'><img src='[resource("images/arts/business_bonktek.png")]'></body></html>"
+
+/obj/item/paper/businesscard/clowntown
+	name = "business card - Clown Town"
+	icon_state = "businesscard"
+	desc = "A business card for the Bonktek Shopping Pyramid of New Memphis."
+	color = "blue"
+
+	New()
+		..()
+		info = "<html><body style='margin:2px'><img src='[resource("images/arts/business_clowntown.png")]'></body></html>"
+
+/obj/item/paper/businesscard/cosmicacres
+	name = "business card - Cosmic Acres"
+	icon_state = "businesscard-alt"
+	desc = "A business card for a retirement community on Earth's moon."
+
+	New()
+		..()
+		info = "<html><body style='margin:2px'><img src='[resource("images/arts/business_cosmicacres.png")]'></body></html>"
+
+/obj/item/paper/businesscard/ezekian
+	name = "business card - Ezekian Veterinary Clinic"
+	icon_state = "businesscard"
+	desc = "A business card for a Frontier veterinarian's office."
+	color = "gray"
+
+	New()
+		..()
+		info = "<html><body style='margin:2px'><img src='[resource("images/arts/business_ezekian.png")]'></body></html>"
+
+/obj/item/paper/businesscard/gragg1
+	name = "business card - Amantes Mini Golf"
+	icon_state = "businesscard-alt"
+	desc = "A business card for a mini golf course."
+
+	New()
+		..()
+		info = "<html><body style='margin:2px'><img src='[resource("images/arts/business_gragg1.png")]'></body></html>"
+
+/obj/item/paper/businesscard/gragg2
+	name = "business card - Amantes Rock Shop"
+	icon_state = "businesscard-alt"
+	desc = "A business card for a rock collector's shop."
+
+	New()
+		..()
+		info = "<html><body style='margin:2px'><img src='[resource("images/arts/business_gragg2.png")]'></body></html>"
+
+/obj/item/paper/businesscard/josh
+	name = "business card - Josh"
+	icon_state = "businesscard"
+	desc = "A business card for someone's personal business. Looks like it's based at a flea market, in space. Hopefully there aren't any space fleas there."
+	color = "green"
+
+	New()
+		..()
+		info = "<html><body style='margin:2px'><img src='[resource("images/arts/business_josh.png")]'></body></html>"
+
+/obj/item/paper/businesscard/lawyers
+	name = "business card - Hogge & Wylde"
+	icon_state = "businesscard-alt"
+	desc = "A business card for a personal injury law firm. You've heard their ads way, way too many times."
+
+	New()
+		..()
+		info = "<html><body style='margin:2px'><img src='[resource("images/arts/business_law.png")]'></body></html>"
+
+/obj/item/paper/businesscard/hemera_rcd
+	name = "info card - Rapid Construction Device"
+	icon_state = "businesscard-alt"
+	desc = "An information card for the Mark III Rapid Construction Device from Hemera Astral Research Corporation."
+
+	New()
+		..()
+		info = "<html><body style='margin:2px'><img src='[resource("images/arts/business_RCD.png")]'></body></html>"
+
+
+/obj/item/paper/businesscard/skulls
+	name = "business card - Skulls for Cash"
+	icon_state = "businesscard"
+	desc = "A business card for someone's personal business. Looks like it's based at a flea market, in space. Hopefully there aren't any space fleas there."
+
+	New()
+		..()
+		info = "<html><body style='margin:2px'><img src='[resource("images/arts/business_skulls.png")]'></body></html>"
+
+/obj/item/paper/businesscard/taxi
+	name = "business card - Old Fortuna Taxi Company"
+	icon_state = "businesscard"
+	desc = "A business card for a Frontier space-taxi and shuttle company."
+	color = "yellow"
+
+	New()
+		..()
+		info = "<html><body style='margin:2px'><img src='[resource("images/arts/business_taxi.png")]'></body></html>"
+
+/obj/item/paper/businesscard/vurdulak
+	name = "business card - Emporium Vurdulak"
+	icon_state = "businesscard"
+	desc = "A business card for someone's personal business. Looks like it's based at a flea market, in space. Hopefully there aren't any space fleas there."
+	color = "purple"
+
+	New()
+		..()
+		info = "<html><body style='margin:2px'><img src='[resource("images/arts/business_vurdulak.png")]'></body></html>"

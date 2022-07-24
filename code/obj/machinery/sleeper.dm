@@ -33,7 +33,7 @@
 	New()
 		..()
 		if (src.find_sleeper_in_range)
-			SPAWN_DBG(0.5 SECONDS)
+			SPAWN(0.5 SECONDS)
 				our_sleeper = locate() in get_step(src,src.dir)
 				if (!our_sleeper)
 					our_sleeper = locate() in orange(src,1)
@@ -58,9 +58,7 @@
 		src.add_fingerprint(user)
 		if (!src.our_sleeper)
 			return 0
-		switch (src.our_sleeper.emag_act(user, E))
-			if (0) return 0
-			if (1) return 1
+		return src.our_sleeper.emag_act(user, E)
 
 	proc/wake_occupant()
 		if (!src || !src.our_sleeper)
@@ -240,7 +238,7 @@
 	anchored = 1
 	mats = 25
 	deconstruct_flags = DECON_CROWBAR | DECON_WIRECUTTERS | DECON_MULTITOOL
-	event_handler_flags = USE_FLUID_ENTER | USE_CANPASS
+	event_handler_flags = USE_FLUID_ENTER
 	var/mob/occupant = null
 	var/image/image_lid = null
 	var/obj/machinery/power/data_terminal/link = null
@@ -269,8 +267,8 @@
 
 	New()
 		..()
-		src.update_icon()
-		SPAWN_DBG(0.6 SECONDS)
+		src.UpdateIcon()
+		SPAWN(0.6 SECONDS)
 			if (src && !src.link)
 				var/turf/T = get_turf(src)
 				var/obj/machinery/power/data_terminal/test_link = locate() in T
@@ -285,7 +283,7 @@
 			occupant = null
 		..()
 
-	proc/update_icon()
+	update_icon()
 		ENSURE_IMAGE(src.image_lid, src.icon, "sleeperlid[!isnull(occupant)]")
 		src.UpdateOverlays(src.image_lid, "lid")
 		return
@@ -346,7 +344,7 @@
 	allow_drop()
 		return 0
 
-	attackby(obj/item/grab/G as obj, mob/user as mob)
+	attackby(obj/item/grab/G, mob/user)
 		src.add_fingerprint(user)
 
 		if (!istype(G) || !ishuman(G.affecting))
@@ -359,7 +357,7 @@
 		var/mob/living/carbon/human/H = G.affecting
 		H.set_loc(src)
 		src.occupant = H
-		src.update_icon()
+		src.UpdateIcon()
 #ifdef DATALOGGER
 		game_stats.Increment("sleeper")
 #endif
@@ -514,7 +512,10 @@
 		if (!src || !src.occupant)
 			return
 		if (src.occupant.loc == src)
-			src.occupant.set_loc(src.loc)
+			src.occupant.set_loc(get_turf(src))
+
+	was_deconstructed_to_frame(mob/user)
+		src.go_out()
 
 	Exited(Obj, newloc)
 		. = ..()
@@ -527,19 +528,17 @@
 			src.occupant.changeStatus("weakened", 1 SECOND)
 			src.occupant.force_laydown_standup()
 			src.occupant = null
-			src.update_icon()
+			src.UpdateIcon()
 			playsound(src.loc, "sound/machines/sleeper_open.ogg", 50, 1)
-			return
 
 	relaymove(mob/user as mob, dir)
 		eject_occupant(user)
-		return
 
 	MouseDrop_T(mob/living/target, mob/user)
 		if (!istype(target) || isAI(user))
 			return
 
-		if (get_dist(src,user) > 1 || get_dist(user, target) > 1)
+		if (BOUNDS_DIST(src, user) > 0 || BOUNDS_DIST(user, target) > 0)
 			return
 
 		if (target == user)
@@ -549,18 +548,17 @@
 				return
 		else if (can_operate(user))
 			var/previous_user_intent = user.a_intent
-			user.a_intent = INTENT_GRAB
+			user.set_a_intent(INTENT_GRAB)
 			user.drop_item()
 			target.Attackhand(user)
-			user.a_intent = previous_user_intent
-			SPAWN_DBG(user.combat_click_delay + 2)
+			user.set_a_intent(previous_user_intent)
+			SPAWN(user.combat_click_delay + 2)
 				if (can_operate(user))
 					if (istype(user.equipped(), /obj/item/grab))
 						src.Attackby(user.equipped(), user)
-		return
 
 	proc/can_operate(var/mob/M)
-		if (!IN_RANGE(src, M, 1))
+		if (!(BOUNDS_DIST(src, M) == 0))
 			return FALSE
 		if (istype(M) && is_incapacitated(M))
 			return FALSE
@@ -587,7 +585,7 @@
 		usr.remove_pulling()
 		usr.set_loc(src)
 		src.occupant = usr
-		src.update_icon()
+		src.UpdateIcon()
 		for (var/obj/O in src)
 			if (O == src.our_console) // don't barf out the internal sleeper console tia
 				continue
@@ -595,11 +593,11 @@
 		playsound(src.loc, "sound/machines/sleeper_close.ogg", 50, 1)
 		return
 
-	attack_hand(mob/user as mob)
+	attack_hand(mob/user)
 		..()
 		eject_occupant(user)
 
-	MouseDrop(mob/user as mob)
+	mouse_drop(mob/user as mob)
 		if (can_operate(user))
 			eject_occupant(user)
 		else
@@ -638,7 +636,7 @@
 				pingsignal.data["command"] = "ping_reply"
 				pingsignal.data["sender"] = src.net_id
 				pingsignal.transmission_method = TRANSMISSION_WIRE
-				SPAWN_DBG(0.5 SECONDS) //Send a reply for those curious jerks
+				SPAWN(0.5 SECONDS) //Send a reply for those curious jerks
 					src.link.post_signal(src, pingsignal)
 
 			return
@@ -659,7 +657,7 @@
 				reply.data["address_1"] = signal.data["sender"]
 				reply.data["sender"] = src.net_id
 				reply.transmission_method = TRANSMISSION_WIRE
-				SPAWN_DBG(0.5 SECONDS)
+				SPAWN(0.5 SECONDS)
 					src.link.post_signal(src, reply)
 
 			if("inject")
@@ -669,7 +667,7 @@
 
 /obj/machinery/sleeper/port_a_medbay
 	name = "Port-A-Medbay"
-	desc = "An emergency transportation device for critically injured patients."
+	desc = "A transportation and stabilization device for critically injured patients."
 	icon = 'icons/obj/porters.dmi'
 	anchored = 0
 	mats = 30
@@ -688,6 +686,7 @@
 		our_console.our_sleeper = src
 		src.homeloc = src.loc
 		animate_bumble(src, Y1 = 1, Y2 = -1, slightly_random = 0)
+		APPLY_ATOM_PROPERTY(src, PROP_ATOM_FLOATING, src)
 		MAKE_SENDER_RADIO_PACKET_COMPONENT("pda", FREQ_PDA)
 
 	disposing()
@@ -699,7 +698,7 @@
 		..()
 		animate_bumble(src, Y1 = 1, Y2 = -1, slightly_random = 0)
 
-	attack_hand(mob/user as mob)
+	attack_hand(mob/user)
 		if (our_console)
 			our_console.Attackhand(user)
 			interact_particle(user,src)
@@ -709,7 +708,7 @@
 		. += "Home turf: [get_area(src.homeloc)]."
 
 	// Could be useful (Convair880).
-	MouseDrop(over_object, src_location, over_location)
+	mouse_drop(over_object, src_location, over_location)
 		if (src.occupant)
 			..()
 			return
@@ -719,17 +718,17 @@
 			return
 		if (usr.stat || usr.getStatusDuration("stunned") || usr.getStatusDuration("weakened"))
 			return
-		if (get_dist(src, usr) > 1)
+		if (BOUNDS_DIST(src, usr) > 0)
 			usr.show_text("You are too far away to do this!", "red")
 			return
-		if (get_dist(over_object, src) > 1)
+		if (BOUNDS_DIST(over_object, src) > 0)
 			usr.show_text("The [src.name] is too far away from the target!", "red")
 			return
 		if (!istype(over_object,/turf/simulated/floor/))
 			usr.show_text("You can't set this target as the home location.", "red")
 			return
 
-		if (alert("Set selected turf as home location?",,"Yes","No") == "Yes")
+		if (tgui_alert(usr, "Set selected turf as home location?", "Set home location", list("Yes", "No")) == "Yes")
 			src.homeloc = over_object
 			usr.visible_message("<span class='notice'><b>[usr.name]</b> changes the [src.name]'s home turf.</span>", "<span class='notice'>New home turf selected: [get_area(src.homeloc)].</span>")
 			// The crusher, hell fires etc. This feature enables quite a bit of mischief.
@@ -765,7 +764,7 @@
 
 /obj/machinery/sleeper/compact
 	name = "Compact Sleeper"
-	desc = "Your usual sleeper, but compact this time. Wow!"
+	desc = "Has the same air supply and stabilization capabilites as your usual model, but compact this time. Wow!"
 	icon = 'icons/obj/compact_machines.dmi'
 	icon_state = "compact_sleeper"
 	anchored = 1
@@ -783,7 +782,7 @@
 		if (islist(portable_machinery))
 			portable_machinery.Remove(src)
 
-	attack_hand(mob/user as mob)
+	attack_hand(mob/user)
 		if (our_console)
 			our_console.Attackhand(user)
 			interact_particle(user,src)

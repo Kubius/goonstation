@@ -36,6 +36,7 @@ export interface CharacterPreferencesData {
   pdaColor: string;
   pdaRingtone: string;
   skinTone: string;
+  specialStyle: string;
   eyeColor: string;
   customColor1: string;
   customStyle1: string;
@@ -55,7 +56,9 @@ export interface CharacterPreferencesData {
   autoCapitalization: BooleanLike;
   localDeadchat: BooleanLike;
   targetingCursor: string;
+  targetingCursorPreview: string;
   hudTheme: string;
+  hudThemePreview: string;
   tooltipOption: CharacterPreferencesTooltip;
   tguiFancy: BooleanLike;
   tguiLock: BooleanLike;

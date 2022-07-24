@@ -1,10 +1,12 @@
 datum/mind
 	var/key
 	var/ckey
+	var/displayed_key
 	var/mob/current
 	var/mob/virtual
 
 	var/memory
+	var/remembered_pin = null
 	var/last_memory_time = 0 //Give a small delay when adding memories to prevent spam. It could happen!
 	var/miranda // sec's miranda rights thingy.
 	var/last_miranda_time = 0 // this is different than last_memory_time, this is when the rights were last SAID, not last CHANGED
@@ -20,6 +22,9 @@ datum/mind
 	var/special_role
 	var/late_special_role = 0
 	var/random_event_special_role = 0
+
+	/// A list of every antagonist datum that we have.
+	var/list/datum/antagonist/antagonists = list()
 
 	// This used for dead/released/etc mindslaves and rogue robots we still want them to show up
 	// in the game over stats. It's a list because former mindslaves could also end up as an emagged
@@ -49,10 +54,8 @@ datum/mind
 	var/dnr = 0
 	var/joined_observer = 0 //keep track of whether this player joined round as an observer (blocks them from bank payouts)
 
-	var/luck = 50 // todo:
-	var/sanity = 100 // implement dis
-
 	var/handwriting = null
+	var/color = null
 
 	var/obj/item/organ/brain/brain
 
@@ -71,13 +74,18 @@ datum/mind
 	//avoid some otherwise frequent istype checks
 	var/stealth_objective = 0
 
+	var/show_respawn_prompts = TRUE
+
 	New(mob/M)
 		..()
 		if (M)
 			current = M
 			key = M.key
 			ckey = M.ckey
+			displayed_key = M.key
 			src.handwriting = pick(handwriting_styles)
+			src.color = pick_string("colors.txt", "colors")
+			SEND_SIGNAL(src, COMSIG_MIND_ATTACH_TO_MOB, M)
 		src.last_death_time = world.timeofday // I DON'T KNOW SHUT UP YOU'RE NOT MY REAL DAD
 
 	proc/transfer_to(mob/new_character)
@@ -106,6 +114,7 @@ datum/mind
 				if(isghostdrone(src.current)) //clear the static overlays on death, qdel, being cloned, etc.
 					current.client.images.Remove(mob_static_icons)
 			current.mind = null
+			SEND_SIGNAL(src, COMSIG_MIND_DETACH_FROM_MOB, current)
 
 		new_character.mind = src
 		current = new_character
@@ -131,11 +140,9 @@ datum/mind
 			Z_LOG_DEBUG("Mind/TransferTo", "Transferring abilityHolder")
 			new_character.abilityHolder.transferOwnership(new_character)
 
-
-		if (isrobot(new_character))
-			var/mob/living/silicon/robot/R = new_character
-			R.show_laws()
 		Z_LOG_DEBUG("Mind/TransferTo", "Complete")
+
+		SEND_SIGNAL(src, COMSIG_MIND_ATTACH_TO_MOB, current)
 
 
 	proc/swap_with(mob/target)
@@ -210,12 +217,65 @@ datum/mind
 		src.store_memory("Time of death: [tod]", 0)
 		// stuff for critter respawns
 		src.last_death_time = world.timeofday
+	
+	/// Gets an existing antagonist datum of the provided ID role_id.
+	proc/get_antagonist(role_id)
+		for (var/datum/antagonist/A as anything in src.antagonists)
+			if (A.id == role_id)
+				return A
+		return null
+
+	/// Attempts to add the antagonist datum of ID role_id to this mind.
+	proc/add_antagonist(role_id, do_equip = TRUE, do_objectives = TRUE, do_relocate = TRUE, silent = FALSE, source = ANTAGONIST_SOURCE_ROUND_START, respect_mutual_exclusives = TRUE)
+		// Check for mutual exclusivity
+		if (respect_mutual_exclusives && length(src.antagonists))
+			for (var/datum/antagonist/A as anything in src.antagonists)
+				if (A.mutually_exclusive)
+					return FALSE
+		// To avoid wacky shenanigans, refuse to add multiple types of the same antagonist
+		if (!isnull(src.get_antagonist(role_id)))
+			return FALSE
+		for (var/V in concrete_typesof(/datum/antagonist))
+			var/datum/antagonist/A = V
+			if (initial(A.id) == role_id)
+				src.antagonists.Add(new A(src, do_equip, do_objectives, do_relocate, silent, source))
+				src.current.antagonist_overlay_refresh(TRUE, FALSE)
+				return TRUE
+		return FALSE
+
+	/// Attempts to remove existing antagonist datums of ID role_id from this mind.
+	proc/remove_antagonist(role_id)
+		for (var/datum/antagonist/A as anything in src.antagonists)
+			if (A.id == role_id)
+				A.remove_self(TRUE, FALSE)
+				antagonists.Remove(A)
+				qdel(A)
+				return TRUE
+		return FALSE
+	
+	/// Removes ALL antagonists from this mind. Use with caution!
+	proc/wipe_antagonists()
+		for (var/datum/antagonist/A as anything in src.antagonists)
+			A.remove_self(TRUE, FALSE)
+			src.antagonists.Remove(A)
+			qdel(A)
+		return length(src.antagonists) <= 0
 
 	disposing()
 		logTheThing("debug", null, null, "<b>Mind</b> Mind for \[[src.key ? src.key : "NO KEY"]] deleted!")
 		Z_LOG_DEBUG("Mind/Disposing", "Mind \ref[src] [src.key ? "([src.key])" : ""] deleted")
 		src.brain?.owner = null
+		if(src.current)
+			SEND_SIGNAL(src, COMSIG_MIND_DETACH_FROM_MOB, current)
 		..()
+
+	/// Output of this gets logged when the mind is added to the game ticker
+	proc/on_ticker_add_log()
+		var/list/traits = list()
+		for(var/trait_id in src.current.traitHolder.traits)
+			var/obj/trait/trait = src.current.traitHolder.traits[trait_id]
+			traits += trait.name
+		. = "<br>Traits: [jointext(traits, ", ")]"
 
 /datum/mind/proc/add_karma(how_much)
 	src.karma += how_much

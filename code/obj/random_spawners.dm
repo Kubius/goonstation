@@ -18,7 +18,7 @@
 	// TODO: initialize
 	New()
 		..()
-		SPAWN_DBG(1 DECI SECOND)
+		SPAWN(1 DECI SECOND)
 			src.spawn_items()
 			sleep(10 SECONDS)
 			qdel(src)
@@ -791,7 +791,7 @@
 	/obj/item/clothing/mask/gas,
 	/obj/item/clothing/mask/medical,
 	/obj/item/clothing/mask/surgical,
-	/obj/item/clothing/shoes,
+	/obj/item/clothing/shoes/black,
 	/obj/item/coin,
 	/obj/item/device/infra_sensor,
 	/obj/item/device/radio,
@@ -942,7 +942,7 @@
 
 	New()
 		..()
-		SPAWN_DBG(1 DECI SECOND)
+		SPAWN(1 DECI SECOND)
 			src.set_up()
 			sleep(1 SECOND)
 			qdel(src)
@@ -1340,7 +1340,7 @@
 		/obj/item/clothing/under/gimmick/fake_waldo,
 		/obj/item/clothing/under/gimmick/johnny,
 		/obj/item/clothing/under/gimmick/police,
-		/obj/item/clothing/under/gimmick/blackstronaut,
+		/obj/item/clothing/under/gimmick/donk,
 		/obj/item/clothing/under/gimmick/duke,
 		/obj/item/clothing/under/gimmick/mj_clothes,
 		/obj/item/clothing/under/gimmick/viking,
@@ -1860,7 +1860,7 @@
 /obj/random_item_spawner/organs/bloody
 	New()
 		. = ..()
-		SPAWN_DBG(1 DECI SECOND) //sync with the organs spawn
+		SPAWN(1 DECI SECOND) //sync with the organs spawn
 			make_cleanable(/obj/decal/cleanable/blood/gibs, src.loc)
 
 	one_to_three

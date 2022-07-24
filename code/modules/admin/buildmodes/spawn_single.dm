@@ -14,12 +14,14 @@ change the direction of created objects.<br>
 	icon_state = "buildmode2"
 	var/objpath = null
 	var/cinematic = "Blink"
-	var/matrix/mtx = matrix()
+	var/tmp/matrix/mtx = matrix()
 	click_mode_right(var/ctrl, var/alt, var/shift)
 		if(ctrl)
-			cinematic = (input("Cinematic spawn mode") as null|anything in list("Telepad", "Blink", "Supplydrop", "Supplydrop (no lootbox)", "Lethal Supplydrop", "Lethal Supplydrop (no lootbox)", "Spawn Heavenly", "Spawn Demonically", "None")) || cinematic
+			cinematic = (input("Cinematic spawn mode") as null|anything in list("Telepad", "Blink", "Supplydrop", "Supplydrop (no lootbox)", "Lethal Supplydrop", "Lethal Supplydrop (no lootbox)", "Spawn Heavenly", "Spawn Demonically", "Missile", "Pop in", "None")) || cinematic
 			return
-		objpath = get_one_match(input("Type path", "Type path", "/obj/closet"), /atom)
+		if (!objpath)
+			objpath = /obj/critter/domestic_bee/heisenbee
+		objpath = get_one_match(input("Type path", "Type path", "[objpath]"), /atom)
 		update_button_text(objpath)
 
 	click_left(atom/object, var/ctrl, var/alt, var/shift)
@@ -40,7 +42,7 @@ change the direction of created objects.<br>
 					mtx.Translate(0, 64)
 					pad.transform = mtx
 					animate(pad, alpha = 255, transform = mtx.Reset(), time = 5, easing=SINE_EASING)
-					SPAWN_DBG(0.7 SECONDS)
+					SPAWN(0.7 SECONDS)
 						swirl.loc = T
 						flick("portswirl", swirl)
 
@@ -102,6 +104,24 @@ change the direction of created objects.<br>
 						T.ReplaceWith(objpath, keep_old_material=0, handle_air=0, force=1)
 					else
 						new objpath(T)
+				if("Missile")
+					if (ispath(objpath, /atom/movable))
+						var/image/marker = image('icons/effects/64x64.dmi', T, "impact_marker")
+						marker.pixel_x = -16
+						marker.pixel_y = -16
+						marker.plane = PLANE_OVERLAY_EFFECTS
+						marker.layer = NOLIGHT_EFFECTS_LAYER_BASE
+						marker.appearance_flags = RESET_ALPHA | RESET_COLOR | NO_CLIENT_COLOR | KEEP_APART | RESET_TRANSFORM
+						marker.alpha = 100
+						usr.client.images += marker
+						SPAWN(0)
+							launch_with_missile(new objpath, T, (holder.dir in cardinal) ? holder.dir : null)
+							qdel(marker)
+							usr.client.images -= marker
+					else if(ispath(objpath, /turf))
+						T.ReplaceWith(objpath, keep_old_material=0, handle_air=0, force=1)
+					else
+						new objpath(T)
 				if("Spawn Heavenly")
 					if (ispath(objpath, /atom/movable))
 						var/atom/movable/A = new objpath(T)
@@ -114,6 +134,15 @@ change the direction of created objects.<br>
 					if (ispath(objpath, /atom/movable))
 						var/atom/movable/A = new objpath(T)
 						demonic_spawn(A)
+					else if(ispath(objpath, /turf))
+						T.ReplaceWith(objpath, keep_old_material=0, handle_air=0, force=1)
+					else
+						new objpath(T)
+				if("Pop in")
+					if (ispath(objpath, /atom/movable))
+						var/atom/movable/A = new objpath(T)
+						A.Scale(0,0)
+						animate(A, transform = matrix(), time = 0.8 SECONDS, easing = ELASTIC_EASING)
 					else if(ispath(objpath, /turf))
 						T.ReplaceWith(objpath, keep_old_material=0, handle_air=0, force=1)
 					else
