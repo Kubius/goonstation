@@ -6936,6 +6936,9 @@
 /area/station/solar/west{
 	name = "Meridian Solar Array"
 	})
+"hdq" = (
+/turf/simulated/wall/auto/supernorn,
+/area/station/turret_protected/ai)
 "hdF" = (
 /obj/table/reinforced/chemistry/auto,
 /obj/item/storage/box/beakerbox,
@@ -11599,12 +11602,12 @@
 /turf/simulated/floor/grass/leafy,
 /area/station/ranch)
 "msz" = (
-/obj/machinery/smelter,
 /obj/machinery/light{
 	dir = 8;
 	layer = 9.1;
 	pixel_x = -10
 	},
+/obj/machinery/neosmelter,
 /turf/simulated/floor/airless/engine,
 /area/station/mining/refinery)
 "mtO" = (
@@ -12453,19 +12456,19 @@
 	pixel_x = -6;
 	pixel_y = -5
 	},
-/obj/item/hand_labeler{
-	pixel_x = 5;
-	pixel_y = 10
-	},
 /obj/machinery/camera{
 	c_tag = "autotag";
 	dir = 10;
 	name = "autoname - SS13";
 	tag = ""
 	},
-/obj/artifact_paper_dispenser{
+/obj/item/paper_bin/artifact_paper{
 	pixel_x = -6;
 	pixel_y = 8
+	},
+/obj/item/hand_labeler{
+	pixel_x = 5;
+	pixel_y = 10
 	},
 /turf/simulated/floor/darkblue/checker,
 /area/station/science/artifact)
@@ -18555,7 +18558,7 @@
 	pixel_x = -22
 	},
 /turf/simulated/floor/grey/blackgrime/other,
-/area/station/storage/tech)
+/area/station/turret_protected/ai)
 "tSn" = (
 /obj/cable{
 	icon_state = "1-2"
@@ -50397,7 +50400,7 @@ bUg
 oKV
 aqf
 pPK
-nvy
+hdq
 aFE
 aFE
 aFE
