@@ -67,7 +67,7 @@
 
 		var/mob/M = holder.owner
 		check_mutantrace(M)
-		if (get_dist(M,target) > dist)
+		if (GET_DIST(M,target) > dist)
 			var/steps = 0
 			var/turf/T = get_turf(M)
 			while (steps < dist)
@@ -112,7 +112,7 @@
 
 	if (src.throwing & THROW_CHAIRFLIP)
 		var/turf/T = locate(src.last_throw_x, src.last_throw_y, src.z)
-		var/dist_traveled = get_dist(hit_atom,T)
+		var/dist_traveled = GET_DIST(hit_atom,T)
 		var/effect_mult = 1
 		if (dist_traveled <=1)
 			effect_mult = 0.6
@@ -122,7 +122,7 @@
 
 		if (isliving(hit_atom))
 			var/mob/living/M = hit_atom
-			SEND_SIGNAL(src, COMSIG_CLOAKING_DEVICE_DEACTIVATE)
+			SEND_SIGNAL(src, COMSIG_MOB_CLOAKING_DEVICE_DEACTIVATE)
 			if (check_target_immunity(M, source = src))
 				src.visible_message("<b><span class='alert'>[src] bounces off [M] harmlessly!</span></b>")
 				return

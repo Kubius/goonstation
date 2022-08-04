@@ -100,7 +100,7 @@
 		return
 	if (src?.holder)
 		M.playsound_local(M, "sound/misc/prayerchime.ogg", 100, flags = SOUND_IGNORE_SPACE, channel = VOLUME_CHANNEL_MENTORPM)
-		boutput(Mclient.mob, __blue("You hear a voice in your head... <i>[msg]</i>"))
+		boutput(Mclient.mob, "<span class='notice'>You hear a voice in your head... <i>[msg]</i></span>")
 
 	logTheThing("admin", src.mob, Mclient.mob, "Subtle Messaged [constructTarget(Mclient.mob,"admin")]: [msg]")
 	logTheThing("diary", src.mob, Mclient.mob, "Subtle Messaged [constructTarget(Mclient.mob,"diary")]: [msg]", "admin")
@@ -339,7 +339,7 @@
 	if (ticker.ai_law_rack_manager == null)
 		boutput(usr, "Oh god somehow the law rack manager is null. This is real bad. Contact an admin. You are an admin? Oh no...")
 	else
-		boutput(usr,ticker.ai_law_rack_manager.format_for_logs())
+		boutput(usr,ticker.ai_law_rack_manager.format_for_logs(round_end = TRUE))
 	return
 
 /client/proc/cmd_admin_reset_ai()
@@ -403,18 +403,20 @@
 	SET_ADMIN_CAT(ADMIN_CAT_FUN)
 	set name = "Create Command Report"
 	ADMIN_ONLY
-	var/input = input(usr, "Please enter anything you want. Anything. Serious.", "What?", "") as null|message
+	var/input = input(usr, "Enter the text for the alert. Anything. Serious.", "What?", "") as null|message
 	if(!input)
 		return
-	var/input2 = input(usr, "Add a headline for this alert?", "What?", "") as null|text
+	var/input2 = input(usr, "Add a headline for this alert? leaving this blank creates no headline", "What?", "") as null|text
+	var/input3 = input(usr, "Add an origin to the transmission, leaving this blank 'Central Command Update'", "What?", "") as null|text
+	if(!input3)
+		input3 = "Central Command Update"
 
-	if (alert(src, "Headline: [input2 ? "\"[input2]\"" : "None"]\nBody: \"[input]\"", "Confirmation", "Send Report", "Cancel") == "Send Report")
+	if (alert(src, "Origin: [input3 ? "\"[input3]\"" : "None"]\nHeadline: [input2 ? "\"[input2]\"" : "None"]\nBody: \"[input]\"", "Confirmation", "Send Report", "Cancel") == "Send Report")
 		for_by_tcl(C, /obj/machinery/communications_dish)
-			C.add_centcom_report("[command_name()] Update", input)
+			C.add_centcom_report(input2, input)
 
 		var/sound_to_play = "sound/misc/announcement_1.ogg"
-		if (!input2) command_alert(input, "", sound_to_play);
-		else command_alert(input, input2, sound_to_play);
+		command_alert(input, input2, sound_to_play, alert_origin = input3);
 
 		logTheThing("admin", src, null, "has created a command report: [input]")
 		logTheThing("diary", src, null, "has created a command report: [input]", "admin")
@@ -527,13 +529,13 @@
 		return
 
 	boutput(usr, "<b>[V.name]'s Occupants:</b>")
+	var/obj/machinery/vehicle/MV = V
+	ENSURE_TYPE(MV)
 	for(var/mob/M in V.contents)
-		var/obj/machinery/vehicle/MV = V
 		var/info = ""
-		if(istype(MV))
-			info = M == MV.pilot ? "*Pilot*" : ""
-
-		boutput(usr, "[M.real_name] ([M.key || "**No Key**"]) [info]")
+		info = M == MV?.pilot ? "*Pilot*" : ""
+		var/role = getRole(M)
+		boutput(usr, "<span class='notice'><b>[key_name(M, 1, 0)][role ? " ([role])" : ""] [info]</b></span>")
 
 /client/proc/cmd_admin_remove_plasma()
 	SET_ADMIN_CAT(ADMIN_CAT_SERVER)
@@ -934,7 +936,7 @@
 				qdel(target_mob.r_hand)
 				target_mob.equip_if_possible(new /obj/item/clothing/suit/wizrobe, target_mob.slot_wear_suit)
 				target_mob.equip_if_possible(new /obj/item/clothing/head/wizard, target_mob.slot_head)
-				target_mob.equip_if_possible(new /obj/item/clothing/shoes/sandal, target_mob.slot_shoes)
+				target_mob.equip_if_possible(new /obj/item/clothing/shoes/sandal/wizard, target_mob.slot_shoes)
 				target_mob.put_in_hand(new /obj/item/staff(target_mob))
 
 				var/datum/effects/system/harmless_smoke_spread/smoke = new /datum/effects/system/harmless_smoke_spread()
@@ -1129,7 +1131,7 @@
 	set name = "Possess"
 	SET_ADMIN_CAT(ADMIN_CAT_UNUSED)
 	set popup_menu = 0
-	new /mob/living/object(O, usr)
+	new /mob/living/object(get_turf(O), O, usr)
 
 /proc/possessmob(mob/M as mob in world)
 	set name = "Possess Mob"
@@ -1167,7 +1169,7 @@
 	target = trim(lowertext(target))
 	if (!target) return 0
 
-	var/msg = "<span class='notice'>"
+	var/list/msg = list("<span class='notice'>")
 	var/whois = whois(target)
 	if (whois)
 		var/list/whoisR = whois
@@ -1179,7 +1181,7 @@
 		msg += "No players found for '[target]'"
 
 	msg += "</span>"
-	boutput(src, msg)
+	boutput(src, msg.Join())
 
 /client/proc/cmd_whodead()
 	set name = "Whodead"
@@ -1188,7 +1190,7 @@
 	set popup_menu = 0
 	ADMIN_ONLY
 
-	var/msg = "<span class='notice'>"
+	var/list/msg = list("<span class='notice'>")
 	var/list/whodead = whodead()
 	if (whodead.len)
 		msg += "<b>Dead player[(whodead.len == 1 ? "" : "s")] found:</b><br>"
@@ -1199,7 +1201,7 @@
 		msg += "No dead players found"
 
 	msg += "</span>"
-	boutput(src, msg)
+	boutput(src, msg.Join())
 
 /client/proc/debugreward()
 	set background = 1
@@ -1252,7 +1254,7 @@
 		return
 		//target = input(usr, "Target", "Target") as mob in world
 
-	boutput(usr, scan_health(target, 1, 255, 1))
+	boutput(usr, scan_health(target, 1, 255, 1, syndicate = TRUE))
 	return
 
 /client/proc/cmd_admin_check_reagents(var/atom/target as null|mob|obj|turf in world)
@@ -1616,8 +1618,7 @@
 		message_admins("[key_name(src)] moved [selection.ckey] into [M].")
 		logTheThing("admin", src, selection, "ckey transferred [constructTarget(selection,"admin")]")
 		if (istype(selection.mob,/mob/dead/target_observer))
-			var/mob/dead/target_observer/O = src
-			O.stop_observing()
+			qdel(src)
 
 		M.client = selection
 
@@ -1665,13 +1666,13 @@
 	former_role = text("[M.mind.special_role]")
 
 	message_admins("[key_name(M)]'s antagonist status ([former_role]) was removed. Source: [admin ? "[key_name(admin)]" : "*automated*"].")
-	if (admin) // Log entries for automated antag status removal is handled in helpers.dm, remove_mindslave_status().
+	if (admin) // Log entries for automated antag status removal is handled in helpers.dm, remove_mindhack_status().
 		logTheThing("admin", admin, M, "removed the antagonist status of [constructTarget(M,"admin")].")
 		logTheThing("diary", admin, M, "removed the antagonist status of [constructTarget(M,"diary")].", "admin")
 
 	if (show_message == 1)
 		M.show_text("<h2><font color=red><B>Your antagonist status has been revoked by an admin! If this is an unexpected development, please inquire about it in adminhelp.</B></font></h2>", "red")
-		SHOW_ANTAG_REMOVED_TIPS(M)
+		M.show_antag_popup("antagremoved")
 
 	// Replace the mind first, so the new mob doesn't automatically end up with changeling etc. abilities.
 	var/datum/mind/newMind = new /datum/mind()
@@ -1684,10 +1685,13 @@
 	newMind.is_target = M.mind.is_target
 	if (M.mind.former_antagonist_roles.len)
 		newMind.former_antagonist_roles.Add(M.mind.former_antagonist_roles)
+	if (M.mind in ticker.mode.Agimmicks)
+		ticker.mode.Agimmicks -= M.mind
 	qdel(M.mind)
 	if (!(newMind in ticker.minds))
 		ticker.minds.Add(newMind)
 	M.mind = newMind
+	M.mind.brain.owner = M.mind
 
 	M.antagonist_overlay_refresh(1, 1)
 
@@ -1695,7 +1699,7 @@
 		return
 
 	// Then spawn a new mob to delete all mob-/client-bound antagonist verbs.
-	// Complete overkill for mindslaves, though. Blobs and wraiths need special treatment as well.
+	// Complete overkill for mindhacks, though. Blobs and wraiths need special treatment as well.
 	// Synthetic mobs aren't really included yet, because it would be a complete pain to account for them properly.
 	if (issilicon(M))
 		var/mob/living/silicon/S = M
@@ -1719,9 +1723,9 @@
 			E.playsound_local(E, "sound/misc/lawnotify.ogg", 100, flags = SOUND_IGNORE_SPACE)
 
 	switch (former_role)
-		if (ROLE_MINDSLAVE) return
+		if (ROLE_MINDHACK) M.delStatus("mindhack")
 		if (ROLE_VAMPTHRALL) return
-		if ("spyslave") return
+		if ("spyminion") return
 		if (ROLE_BLOB) M.humanize(1)
 		if (ROLE_WRAITH) M.humanize(1)
 		else
@@ -1955,8 +1959,7 @@
 		return
 
 	if (istype(src.mob, /mob/dead/target_observer))
-		var/mob/dead/target_observer/TO = src.mob
-		TO.stop_observing()
+		qdel(src.mob)
 
 	var/mob/dead/observer/O = src.mob
 	var/client/C

@@ -21,109 +21,103 @@
 
 	var/point_total = TRAIT_STARTING_POINTS
 	var/free_points = TRAIT_STARTING_POINTS
+	var/max_traits = TRAIT_MAX
+	var/list/hidden_categories = list(
+		"nopug",
+		"cloner_stuff",
+		"hemophilia",
+	)
 
 	proc/selectTrait(var/id)
-		if(id in traitList)
-			traits_selected |= id
-		calcTotal()
-		return 1
+		var/list/future_selected = traits_selected.Copy()
+		if (id in traitList)
+			future_selected |= id
+
+		if (!isValid(future_selected))
+			return FALSE
+
+		traits_selected = future_selected
+		updateTotal()
+		return TRUE
 
 	proc/unselectTrait(var/id)
-		traits_selected -= id
-		calcTotal()
-		return 1
+		var/list/future_selected = traits_selected.Copy()
+		future_selected -= id
 
-	proc/calcTotal()
+		if (!isValid(future_selected))
+			return FALSE
+
+		traits_selected = future_selected
+		updateTotal()
+		return TRUE
+
+	proc/resetTraits()
+		traits_selected = list()
+		updateTotal()
+
+	proc/calcTotal(var/list/selected = traits_selected)
 		. = free_points
-		for(var/T in traits_selected)
+		for(var/T in selected)
 			if(T in traitList)
 				var/obj/trait/O = traitList[T]
 				. += O.points
-		point_total = .
 
-	proc/isValid()
+	proc/updateTotal()
+		point_total = calcTotal()
+
+	proc/isValid(var/list/selected = traits_selected)
+		if (length(selected) > TRAIT_MAX)
+			return FALSE
+
 		var/list/categories = list()
-		for(var/A in traits_selected)
+		for(var/A in selected)
 			var/obj/trait/T = getTraitById(A)
 			if(T.unselectable) return 0
-			//if(T.requiredUnlock != null && usr.client)  //This will likely fail since the unlocks will not have loaded by the time the trait preferences are created. getscores is too slow.
-			//	if(usr.client.qualifiedXpRewards != null)
-			//		if(!usr.client.qualifiedXpRewards.Find(T.requiredUnlock))
-			//			return 0
+
 			if(islist(T.category))
 				for (var/cat in T.category)
-					if (cat in categories)
-						return 0
+					if(cat in categories)
+						return FALSE
 					else
 						categories.Add(cat)
 
-		return (calcTotal() >= 0)
+		return (calcTotal(selected) >= 0)
 
-	proc/updateTraits(var/mob/user)
+	proc/isAvailableTrait(var/id, var/unselect = FALSE)
+		var/list/future_selected = traits_selected.Copy()
+		if (unselect)
+			future_selected -= id
+		else
+			future_selected += id
 
-		// Not passed a user, try to gracefully recover.
-		if (!user)
-			user = usr
-			if (!user)
-				return
+		if (!isValid(future_selected))
+			return FALSE
 
-		if(!user.client)
-			return
+		return TRUE
 
-		if(!winexists(user, "traitssetup_[user.ckey]"))
-			winclone(user, "traitssetup", "traitssetup_[user.ckey]")
-
-		var/list/selected = list()
-		var/list/available = list()
+	proc/getTraits(var/mob/user)
+		. = list()
 
 		var/skipUnlocks = 0
 		for(var/X in traitList)
 			var/obj/trait/C = getTraitById(X)
+
 			if(C.unselectable) continue
+
 			if(C.requiredUnlock != null && skipUnlocks) continue
+
 			if(C.requiredUnlock != null && user.client) //If this needs an xp unlock, check against the pre-generated list of related xp unlocks for this person.
 				if(!isnull(user.client.qualifiedXpRewards))
 					if(!(C.requiredUnlock in user.client.qualifiedXpRewards))
 						continue
 				else
 					boutput(user, "<span class='alert'><b>WARNING: XP unlocks failed to update. Some traits may not be available. Please try again in a moment.</b></span>")
-					SPAWN(0) user.client.updateXpRewards()
+					SPAWN(0)
+						user.client.updateXpRewards()
 					skipUnlocks = 1
 					continue
 
-			if(X in traits_selected)
-				selected += X
-			else
-				available += X
-
-		winset(user, "traitssetup_[user.ckey].traitsSelected", "cells=\"1x[selected.len]\"")
-		var/countSel = 0
-		for(var/S in selected)
-			winset(user, "traitssetup_[user.ckey].traitsSelected", "current-cell=1,[++countSel]")
-			user << output(traitList[S], "traitssetup_[user.ckey].traitsSelected")
-
-		winset(user, "traitssetup_[user.ckey].traitsAvailable", "cells=\"1x[available.len]\"")
-		var/countAvail = 0
-		for(var/A in available)
-			winset(user, "traitssetup_[user.ckey].traitsAvailable", "current-cell=1,[++countAvail]")
-			user << output(traitList[A], "traitssetup_[user.ckey].traitsAvailable")
-
-		winset(user, "traitssetup_[user.ckey].traitPoints", "text=\"Points left : [calcTotal()]\"&text-color=\"[calcTotal() > 0 ? "#00AA00" : "#AA0000"]\"")
-		return
-
-	proc/showTraits(var/mob/user)
-		if(!user.client)
-			return
-
-		if(!winexists(user, "traitssetup_[user.ckey]"))
-			winclone(user, "traitssetup", "traitssetup_[user.ckey]")
-
-		winshow(user, "traitssetup_[user.ckey]")
-		updateTraits(user)
-
-		user.Browse(null, "window=preferences")
-		return
-
+			. += C
 
 /datum/traitHolder
 	var/list/traits = list()
@@ -191,12 +185,23 @@
 	icon_state = "placeholder"
 	var/id = ""        //Unique ID
 	var/points = 0	   //The change in points when this is selected.
-	var/category = null //If set to a non-null string, People will only be able to pick one trait of any given category
+	var/list/category = null //If set to a non-null string, People will only be able to pick one trait of any given category
 	var/unselectable = FALSE //If TRUE, trait can not be select at char setup
 	var/requiredUnlock = null //If set to a string, the xp unlock of that name is required for this to be selectable.
 	var/cleanName = ""   //Name without any additional information.
 	var/isMoveTrait = FALSE // If TRUE, onMove will be called each movement step from the holder's mob
 	var/datum/mutantrace/mutantRace = null //If set, should be in the "species" category.
+
+	New()
+		..()
+
+		// Clean name should always be set, but if not, this replaces the (...) and [...]
+		// from the name and sets that as the clean name. Should probably just remove this and move cleanName to name as normal name never gets used anymore.
+		if (!cleanName)
+			cleanName = name
+			cleanName = replacetext(cleanName, regex(@"\\(\d+\\)"), "")
+			cleanName = replacetext(cleanName, regex(@"\\\[\w+\\\]"), "")
+			cleanName = trim(cleanName)
 
 	proc/onAdd(var/mob/owner)
 		if(mutantRace && ishuman(owner))
@@ -213,37 +218,6 @@
 
 	proc/onMove(var/mob/owner)
 		return
-
-	Click(location,control,params)
-		if(!usr)
-			return
-		if(control)
-			if(control == "traitssetup_[usr.ckey].traitsAvailable")
-				if(!(id in usr.client.preferences.traitPreferences.traits_selected))
-					if(traitCategoryAllowed(usr.client.preferences.traitPreferences.traits_selected, id))
-						if(usr.client.preferences.traitPreferences.traits_selected.len >= TRAIT_MAX)
-							alert(usr, "You can not select more than [TRAIT_MAX] traits.")
-						else
-							if(((usr.client.preferences.traitPreferences.calcTotal()) + points) < 0)
-								alert(usr, "You do not have enough points available to select this trait.")
-							else
-								usr.client.preferences.traitPreferences.selectTrait(id)
-					else
-						alert(usr, "You can only select one trait of this category.")
-			else if (control == "traitssetup_[usr.ckey].traitsSelected")
-				if(id in usr.client.preferences.traitPreferences.traits_selected)
-					if(((usr.client.preferences.traitPreferences.calcTotal()) - points) < 0)
-						alert(usr, "Removing this trait would leave you with less than 0 points. Please remove a different trait.")
-					else
-						usr.client.preferences.traitPreferences.unselectTrait(id)
-
-			usr.client.preferences.traitPreferences.updateTraits(usr)
-		return
-
-	MouseEntered(location,control,params)
-		if(winexists(usr, "traitssetup_[usr.ckey]"))
-			winset(usr, "traitssetup_[usr.ckey].traitName", "text=\"[name]\"")
-			winset(usr, "traitssetup_[usr.ckey].traitDesc", "text=\"[desc]\"")
 
 // BODY - Red Border
 
@@ -307,9 +281,7 @@
 	onAdd(var/mob/owner)
 		if(owner.bioHolder)
 			if(ishuman(owner))
-				var/mob/living/carbon/human/H = owner
 				owner.bioHolder.AddEffect("deaf", 0, 0, 0, 1)
-				H.equip_new_if_possible(/obj/item/device/radio/headset/deaf, H.slot_ears)
 
 	onLife(var/mob/owner) //Just to be super safe.
 		if(!owner.ear_disability)
@@ -448,9 +420,7 @@
 	onAdd(var/mob/owner)
 		if(owner.bioHolder)
 			if(ishuman(owner))
-				var/mob/living/carbon/human/H = owner
 				owner.bioHolder.AddEffect("bad_eyesight", 0, 0, 0, 1)
-				H.equip_if_possible(new /obj/item/clothing/glasses/regular(H), H.slot_glasses)
 
 	onLife(var/mob/owner) //Just to be super safe.
 		if(owner.bioHolder && !owner.bioHolder.HasEffect("bad_eyesight"))
@@ -468,9 +438,7 @@
 	onAdd(var/mob/owner)
 		if(owner.bioHolder)
 			if(istype(owner, /mob/living/carbon/human))
-				var/mob/living/carbon/human/H = owner
 				owner.bioHolder.AddEffect("blind", 0, 0, 0, 1)
-				H.equip_if_possible(new /obj/item/clothing/glasses/visor(H), H.slot_glasses)
 
 	onLife(var/mob/owner) //Just to be safe.
 		if(owner.bioHolder && !owner.bioHolder.HasEffect("blind"))
@@ -530,12 +498,12 @@
 	category = list("trinkets")
 
 /obj/trait/pawnstar
-	name = "Pawn Star (-1) \[Trinkets\]"
+	name = "Pawn Star (0) \[Trinkets\]"
 	cleanName = "Pawn Star"
 	desc = "You sold your trinket before you departed for the station. You start with a bonus of 25% of your starting cash in your inventory."
 	id = "pawnstar"
 	icon_state = "pawnP"
-	points = -1
+	points = 0
 	category = list("trinkets")
 
 /obj/trait/beestfriend
@@ -736,6 +704,13 @@ ABSTRACT_TYPE(/obj/trait/job)
 	points = 1
 	category = list("hemophilia")
 
+/obj/trait/weakorgans
+	name = "Frail Constitution (+2)"
+	cleanName = "Frail Constitution"
+	desc = "Your internal organs (brain included) are extremely vulnerable to damage."
+	id = "weakorgans"
+	points = 2
+
 /obj/trait/slowmetabolism
 	name = "Slow Metabolism (0)"
 	cleanName = "Slow Metabolism"
@@ -889,12 +864,12 @@ ABSTRACT_TYPE(/obj/trait/job)
 	points = -1
 
 /obj/trait/jailbird
-	name = "Jailbird (0)"
+	name = "Jailbird (-1)"
 	cleanName = "Jailbird"
 	desc = "You have a criminal record and are currently on the run!"
 	id = "jailbird"
 	icon_state = "jail"
-	points = 0
+	points = -1
 
 /obj/trait/clericalerror
 	name = "Clerical Error (0)"
@@ -952,12 +927,12 @@ ABSTRACT_TYPE(/obj/trait/job)
 		OTHER_STOP_TRACKING_CAT(owner, TR_CAT_NERVOUS_MOBS)
 
 /obj/trait/burning
-	name = "Human Torch (+1)"
+	name = "Human Torch (+2)"
 	cleanName = "Human Torch"
-	desc = "Extends the time that you remain on fire for, when burning."
+	desc = "Fire no longer slowly peters out when you're burning."
 	id = "burning"
 	icon_state = "onfire"
-	points = 1
+	points = 2
 
 /obj/trait/carpenter
 	name = "Carpenter (-1)"
@@ -1079,12 +1054,9 @@ ABSTRACT_TYPE(/obj/trait/job)
 	category = list("species", "nopug")
 	mutantRace = /datum/mutantrace/pug
 
-	onAdd(var/mob/owner)
-		..()
-		owner.put_in_hand_or_drop(new /obj/item/reagent_containers/food/snacks/cookie/dog)
-
 /obj/trait/super_slips
 	name = "Slipping Hazard (+1)"
+	cleanName = "Slipping Hazard"
 	id = "super_slips"
 	desc = "You never were good at managing yourself slipping."
 	points = 1
@@ -1092,6 +1064,7 @@ ABSTRACT_TYPE(/obj/trait/job)
 //Infernal Contract Traits
 /obj/trait/hair
 	name = "Wickedly Good Hair"
+	cleanName = "Wickedly Good Hair"
 	desc = "Sold your soul for the best hair around"
 	id = "contract_hair"
 	points = 0
@@ -1110,6 +1083,7 @@ ABSTRACT_TYPE(/obj/trait/job)
 
 /obj/trait/contractlimbs
 	name = "Wacky Waving Limbs"
+	cleanName = "Wacky Waving Limbs"
 	desc = "Sold your soul for ever shifting limbs"
 	id = "contract_limbs"
 	points = 0

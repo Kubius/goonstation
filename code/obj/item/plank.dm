@@ -3,7 +3,7 @@
 	desc = "My best friend plank!"
 	icon = 'icons/obj/materials.dmi'
 	icon_state = "plank"
-	force = 4.0
+	force = 4
 	//cogwerks - burn vars
 	burn_point = 400
 	burn_output = 1500
@@ -58,7 +58,7 @@
 		else
 			return
 
-	attackby(obj/item/C as obj, mob/user as mob)
+	attackby(obj/item/C, mob/user)
 		if (istype(C, /obj/item/plank))
 			actions.start(new /datum/action/bar/icon/plank_build_door(C, src, 30), user)
 

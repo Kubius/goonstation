@@ -28,7 +28,7 @@ Fibre wire
 			M.show_text("<B><I>It burns...!</I></B>", "red")
 			if(ishuman(M)) evil_act(M)
 /* oops didn't quite think this through
-	attackby(obj/item/W as obj, mob/user as mob)
+	attackby(obj/item/W, mob/user)
 		if (istype(W, /obj/item/parts/robot_parts/leg))
 			var/obj/machinery/bot/skullbot/B = new /obj/machinery/bot/skullbot
 			B.icon = icon('icons/obj/bots/aibots.dmi', "skullbot-ominous")
@@ -47,7 +47,7 @@ Fibre wire
 
 		if(ticker?.mode) //Yes, I'm sure my runtimes will matter if the goddamn TICKER is gone.
 			for(var/datum/mind/M in (ticker.mode.Agimmicks | ticker.mode.traitors)) //We want an EVIL ghost
-				if(!M.dnr && M.current && isobserver(M.current) && M.current.client && M.special_role != ROLE_VAMPTHRALL && M.special_role != ROLE_MINDSLAVE)
+				if(!M.dnr && M.current && isobserver(M.current) && M.current.client && M.special_role != ROLE_VAMPTHRALL && M.special_role != ROLE_MINDHACK)
 					priority_targets.Add(M.current)
 
 		if(!priority_targets.len) //Okay, fine. Any ghost. *sigh
@@ -183,7 +183,7 @@ proc/Create_Tommyname()
 //How many tiles till it starts to lose power
 	dissipation_delay = 10
 //Kill/Stun ratio
-	ks_ratio = 0.0
+	ks_ratio = 0
 //name of the projectile setting, used when you change a guns setting
 	sname = "Tommify"
 //file location for the sound you want it to play
@@ -213,7 +213,7 @@ proc/Create_Tommyname()
 	icon_state = "tommygun"
 	m_amt = 4000
 	rechargeable = 1
-	force = 0.0
+	force = 0
 	cell_type = /obj/item/ammo/power_cell/high_power
 	desc = "It smells of cheap cologne and..."
 
@@ -847,7 +847,7 @@ proc/Create_Tommyname()
 	desc = "A sturdy wire between two handles. Could be used with both hands to really ruin someone's day."
 	w_class = W_CLASS_TINY
 	c_flags = EQUIPPED_WHILE_HELD
-	object_flags = NO_ARM_ATTACH
+	object_flags = NO_ARM_ATTACH | NO_GHOSTCRITTER
 
 	icon = 'icons/obj/items/items.dmi'
 	icon_state = "garrote0"
@@ -945,8 +945,8 @@ proc/Create_Tommyname()
 /obj/item/garrote/try_grab(var/mob/living/target, var/mob/living/assailant)
 	if(..())
 		assailant.visible_message("<span class='combat bold'>[assailant] wraps \the [src] around [target]'s neck!</span>")
-		chokehold.state = GRAB_NECK
-		chokehold.upgrade_to_kill()
+		chokehold.state = GRAB_AGGRESSIVE
+		chokehold.upgrade_to_choke()
 		update_state()
 
 // Drop the grab

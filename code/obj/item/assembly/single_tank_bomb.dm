@@ -48,7 +48,7 @@
 	var/obj/item/device/prox_sensor/part1 = null
 	var/obj/item/device/igniter/part2 = null
 	var/obj/item/tank/plasma/part3 = null
-	status = 0.0
+	status = 0
 	flags = FPRINT | TABLEPASS| CONDUCT
 	event_handler_flags = USE_PROXIMITY | USE_FLUID_ENTER
 
@@ -73,7 +73,7 @@
 	..()
 	return
 
-/obj/item/assembly/proximity_bomb/attackby(obj/item/W as obj, mob/user as mob)
+/obj/item/assembly/proximity_bomb/attackby(obj/item/W, mob/user)
 	if (iswrenchingtool(W) && !(src.status))
 		var/obj/item/assembly/prox_ignite/R = new /obj/item/assembly/prox_ignite(  )
 		R.part1 = src.part1
@@ -179,7 +179,7 @@
 	var/obj/item/device/timer/part1 = null
 	var/obj/item/device/igniter/part2 = null
 	var/obj/item/tank/plasma/part3 = null
-	status = 0.0
+	status = 0
 	flags = FPRINT | TABLEPASS| CONDUCT
 
 /obj/item/assembly/time_bomb/c_state(n)
@@ -201,7 +201,7 @@
 	..()
 	return
 
-/obj/item/assembly/time_bomb/attackby(obj/item/W as obj, mob/user as mob)
+/obj/item/assembly/time_bomb/attackby(obj/item/W, mob/user)
 	if (iswrenchingtool(W) && !(src.status))
 		var/obj/item/assembly/time_ignite/R = new /obj/item/assembly/time_ignite(  )
 		R.part1 = src.part1
@@ -267,7 +267,7 @@
 	var/obj/item/device/radio/signaler/part1 = null
 	var/obj/item/device/igniter/part2 = null
 	var/obj/item/tank/plasma/part3 = null
-	status = 0.0
+	status = 0
 	flags = FPRINT | TABLEPASS| CONDUCT
 
 /obj/item/assembly/radio_bomb/examine()
@@ -285,7 +285,7 @@
 	..()
 	return
 
-/obj/item/assembly/radio_bomb/attackby(obj/item/W as obj, mob/user as mob)
+/obj/item/assembly/radio_bomb/attackby(obj/item/W, mob/user)
 	if (iswrenchingtool(W) && !(src.status))
 		var/obj/item/assembly/rad_ignite/R = new /obj/item/assembly/rad_ignite(  )
 		R.part1 = src.part1

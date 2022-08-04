@@ -4,7 +4,7 @@
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "itemspawn"
 	density = 0
-	anchored = 1.0
+	anchored = 1
 	invisibility = INVIS_ALWAYS
 	layer = 99
 	var/amt2spawn = 0
@@ -791,7 +791,7 @@
 	/obj/item/clothing/mask/gas,
 	/obj/item/clothing/mask/medical,
 	/obj/item/clothing/mask/surgical,
-	/obj/item/clothing/shoes,
+	/obj/item/clothing/shoes/black,
 	/obj/item/coin,
 	/obj/item/device/infra_sensor,
 	/obj/item/device/radio,
@@ -920,7 +920,7 @@
 		/obj/item/material_piece/plasmastone,
 		/obj/item/material_piece/uqill,
 		/obj/item/material_piece/koshmarite,
-		/obj/item/material_piece/gold,
+		/obj/item/stamped_bullion,
 		/obj/item/raw_material/cotton,
 		/obj/item/raw_material/miracle,
 		/obj/item/raw_material/uqill,
@@ -935,7 +935,7 @@
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "podspawn"
 	density = 0
-	anchored = 1.0
+	anchored = 1
 	invisibility = INVIS_ALWAYS
 	layer = 99
 	var/obj/machinery/vehicle/pod2spawn = null
@@ -1340,7 +1340,7 @@
 		/obj/item/clothing/under/gimmick/fake_waldo,
 		/obj/item/clothing/under/gimmick/johnny,
 		/obj/item/clothing/under/gimmick/police,
-		/obj/item/clothing/under/gimmick/blackstronaut,
+		/obj/item/clothing/under/gimmick/donk,
 		/obj/item/clothing/under/gimmick/duke,
 		/obj/item/clothing/under/gimmick/mj_clothes,
 		/obj/item/clothing/under/gimmick/viking,

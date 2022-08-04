@@ -537,7 +537,7 @@
 					holder.owner.show_message("<span class='alert'>You were interrupted!</span>")
 					RH.channeling = 0
 					break
-				if (get_dist(holder.owner, H) > 7)
+				if (GET_DIST(holder.owner, H) > 7)
 					holder.owner.show_message("<span class='alert'>[H] is pulled from your telekinetic grip!</span>")
 					RH.channeling = 0
 					break
@@ -549,6 +549,7 @@
 					H.emote("scream")
 				if (iterations > 12 && prob((iterations - 12) * 5))
 					H.visible_message("<span class='alert'>[H]'s body gives in to the telekinetic grip!</span>", "<span class='alert'>You are completely crushed.</span>")
+					logTheThing("combat", holder.owner, H, "gibs [constructTarget(H,"combat")] with the Revenant crush ability at [log_loc(holder.owner)].")
 					H.gib()
 					return
 				sleep(0.7 SECONDS)

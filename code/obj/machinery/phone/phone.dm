@@ -79,7 +79,7 @@
 		..()
 
 	// Attempt to pick up the handset
-	attack_hand(mob/living/user as mob,var/cellmode = 0)
+	attack_hand(mob/living/user,var/cellmode = 0)
 		..(user)
 		if(cellmode)
 			return
@@ -120,7 +120,7 @@
 	attack_ai(mob/user as mob)
 		return
 
-	attackby(obj/item/P as obj, mob/living/user as mob)
+	attackby(obj/item/P, mob/living/user)
 		if(istype(P, /obj/item/phone_handset))
 			var/obj/item/phone_handset/PH = P
 			if(PH.parent == src)
@@ -307,7 +307,7 @@
 
 	talk_into(mob/M as mob, text, secure, real_name, lang_id)
 		..()
-		if(get_dist(src,holder) > 0 || !src.parent.linked) // Guess they dropped it? *shrug
+		if(GET_DIST(src,holder) > 0 || !src.parent.linked) // Guess they dropped it? *shrug
 			return
 		var/processed = "<span class='game say'><span class='bold'>[M.name] \[<span style=\"color:[src.color]\"> [bicon(src)] [src.parent.phone_id]</span>\] says, </span> <span class='message'>\"[text[1]]\"</span></span>"
 		var/mob/T = src.parent.linked.handset.holder

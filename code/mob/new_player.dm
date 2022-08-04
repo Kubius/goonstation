@@ -1,3 +1,5 @@
+
+var/global/datum/mutex/limited/latespawning = new(5 SECONDS)
 mob/new_player
 	anchored = 1
 
@@ -18,7 +20,7 @@ mob/new_player
 
 	anchored = 1	//  don't get pushed around
 
-	var/chui/window/spend_spacebux/bank_menu
+	var/datum/spend_spacebux/bank_menu
 
 	New()
 		. = ..()
@@ -185,13 +187,13 @@ mob/new_player
 
 		if(href_list["ready"])
 			if(!ready)
-				if(alert(src,"Are you sure you are ready? This will lock-in your preferences.","Player Setup","Yes","No") == "Yes")
+				if(tgui_alert(src, "Are you sure you are ready? This will lock-in your preferences.", "Player Setup", list("Yes", "No")) == "Yes")
 					ready = 1
 
 		if(href_list["observe"])
-			if(alert(src,"Are you sure you wish to observe? You will not be able to play this round!","Player Setup","Yes","No") == "Yes")
+			if(tgui_alert(src, "Are you sure you wish to observe? You will not be able to play this round!", "Player Setup", list("Yes", "No")) == "Yes")
 				if(!src.client) return
-				var/mob/dead/observer/observer = new()
+				var/mob/dead/observer/observer = new(src)
 
 				src.spawning = 1
 
@@ -246,7 +248,10 @@ mob/new_player
 					var/obj/item/organ/brain/latejoin/latejoin = IsSiliconAvailableForLateJoin(S)
 					if(latejoin)
 						close_spawn_windows()
-						latejoin.activated = 1
+						latejoin.activated = TRUE
+						latejoin.name_prefix("activated")
+						latejoin.UpdateName()
+						latejoin.color = json_decode("\[-0.152143,1.02282,-0.546681,1.28769,-0.143153,0.610996,-0.135547,0.120332,0.935685\]") //spriters beware
 						latejoin.owner = src.mind
 						src.mind.transfer_to(S)
 						SPAWN(1 DECI SECOND)
@@ -313,9 +318,13 @@ mob/new_player
 	proc/AttemptLateSpawn(var/datum/job/JOB, force=0)
 		if (!JOB)
 			return
+
+		global.latespawning.lock()
+
 		if (JOB && (force || IsJobAvailable(JOB)))
 			var/mob/character = create_character(JOB, JOB.allow_traitors)
 			if (isnull(character))
+				global.latespawning.unlock()
 				return
 
 			if(istype(ticker.mode, /datum/game_mode/football))
@@ -405,9 +414,11 @@ mob/new_player
 					participationRecorder.record(character.mind.ckey)
 			SPAWN(0)
 				qdel(src)
+			global.latespawning.unlock()
 
 		else
-			src << alert("[JOB.name] is not available. Please try another.")
+			global.latespawning.unlock()
+			tgui_alert(src, "[JOB.name] is not available. Please try another.", "Job unavailable")
 
 		return
 
@@ -616,7 +627,7 @@ a.latejoin-card:hover {
 		src.Browse(dat, "window=latechoices;size=800x666")
 		if(!bank_menu)
 			bank_menu = new
-		bank_menu.Subscribe( usr.client )
+		bank_menu.ui_interact(usr ,null)
 
 	proc/create_character(var/datum/job/J, var/allow_late_antagonist = 0)
 		if (!src || !src.mind || !src.client)
@@ -646,7 +657,7 @@ a.latejoin-card:hover {
 		if(ishuman(new_character))
 			var/mob/living/carbon/human/H = new_character
 			H.update_colorful_parts()
-		var/client/C = client
+
 		mind.transfer_to(new_character)
 
 		if (ticker?.mode && istype(ticker.mode, /datum/game_mode/assday))
@@ -655,7 +666,7 @@ a.latejoin-card:hover {
 			new_character.mind.late_special_role = 1
 			logTheThing("debug", new_character, null, "<b>Late join</b>: assigned antagonist role: [bad_type].")
 		else
-			if (ishuman(new_character) && allow_late_antagonist && current_state == GAME_STATE_PLAYING && ticker.round_elapsed_ticks >= 6000 && emergency_shuttle.timeleft() >= 300 && !C.hellbanned && !src.is_respawned_player) // no new evils for the first 10 minutes or last 5 before shuttle
+			if (ishuman(new_character) && allow_late_antagonist && current_state == GAME_STATE_PLAYING && ticker.round_elapsed_ticks >= 6000 && emergency_shuttle.timeleft() >= 300 && !src.is_respawned_player) // no new evils for the first 10 minutes or last 5 before shuttle
 				if (late_traitors && ticker.mode && ticker.mode.latejoin_antag_compatible == 1)
 					var/livingtraitor = 0
 
@@ -704,13 +715,15 @@ a.latejoin-card:hover {
 		return new_character
 
 	Move()
+		SHOULD_CALL_PARENT(FALSE) // Heeding the warning
+
 		return 1 // do not return 0 in here for the love of god, let me tell you the tale of why:
 		// the default mob/Login (which got called before we actually set our loc onto the start screen), will attempt to put the mob at (1, 1, 1) if the loc is null
 		// however, the documentation actually says "near" (1, 1, 1), and will count Move returning 0 as that it cannot be placed there
 		// by "near" it means anywhere on the goddamn map where Move will return 1, this meant that anyone logging in would cause the server to
 		// grind itself to a slow death in a caciphony of endless Move calls
 
-	proc/makebad(var/mob/living/carbon/human/traitormob, type)
+	proc/makebad(mob/living/carbon/human/traitormob, type)
 		if (!traitormob || !ismob(traitormob) || !traitormob.mind)
 			return
 
@@ -719,14 +732,14 @@ a.latejoin-card:hover {
 
 		var/objective_set_path = null
 		switch (type)
-
 			if (ROLE_TRAITOR)
-				traitor.special_role = ROLE_TRAITOR
-			#ifdef RP_MODE
-				objective_set_path = pick(typesof(/datum/objective_set/traitor/rp_friendly))
-			#else
-				objective_set_path = pick(typesof(/datum/objective_set/traitor))
-			#endif
+				var/datum/antagonist/A = traitor.add_antagonist(type, do_equip = FALSE, source = ANTAGONIST_SOURCE_LATE_JOIN)
+				SPAWN (1 SECOND) // Give the mob some time to be equipped with their job gear, as otherwise the uplink will fail to add properly
+					if (A)
+						A.give_equipment()
+
+			if (ROLE_ARCFIEND)
+				traitor.add_antagonist(type, source = ANTAGONIST_SOURCE_LATE_JOIN)
 
 			if (ROLE_CHANGELING)
 				traitor.special_role = ROLE_CHANGELING
@@ -762,15 +775,6 @@ a.latejoin-card:hover {
 				traitor.special_role = ROLE_WRAITH
 				traitormob.make_wraith()
 				generate_wraith_objectives(traitor)
-
-			if (ROLE_ARCFIEND)
-				traitor.special_role = ROLE_ARCFIEND
-				traitormob.make_arcfiend()
-			#ifdef RP_MODE
-				objective_set_path = pick(typesof(/datum/objective_set/traitor/rp_friendly))
-			#else
-				objective_set_path = pick(typesof(/datum/objective_set/traitor))
-			#endif
 
 			else // Fallback if role is unrecognized.
 				traitor.special_role = ROLE_TRAITOR
@@ -846,9 +850,9 @@ a.latejoin-card:hover {
 				if (usr.client) winset(src, "joinmenu.button_cancel", "is-disabled=false;is-visible=true")
 				if (usr.client) winset(src, "joinmenu.button_ready_antag", "is-disabled=true")
 				usr.Browse(null, "window=mob_occupation")
-
-				bank_menu = new
-				bank_menu.Subscribe( usr.client )
+				if(!bank_menu)
+					bank_menu = new
+				bank_menu.ui_interact( usr, null )
 				src.client.loadResources()
 		else
 			LateChoices()
@@ -861,7 +865,7 @@ a.latejoin-card:hover {
 			return
 
 		if (ticker)
-			if(ticker.pregame_timeleft <= 3)
+			if(ticker.pregame_timeleft <= 3 && !isadmin(usr))
 				boutput(usr, "<span class='alert'>It is too close to roundstart for you to unready. Please wait until setup finishes.</span>")
 				return
 			if (ticker.mode)
@@ -888,9 +892,9 @@ a.latejoin-card:hover {
 		if (src.client.has_login_notice_pending(TRUE))
 			return
 
-		if(alert(src,"Are you sure you wish to observe? You will not be able to play this round!","Player Setup","Yes","No") == "Yes")
+		if(tgui_alert(src, "Are you sure you wish to observe? You will not be able to play this round!", "Player Setup", list("Yes", "No")) == "Yes")
 			if(!src.client) return
-			var/mob/dead/observer/observer = new()
+			var/mob/dead/observer/observer = new(src)
 			if (src.client && src.client.using_antag_token) //ZeWaka: Fix for null.using_antag_token
 				src.client.using_antag_token = 0
 				src.show_text("Token refunded, your new total is [src.client.antag_tokens].", "red")

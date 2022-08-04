@@ -5,7 +5,7 @@
 	density = 1
 	var/failchance = 5
 	var/obj/item/target = null
-	anchored = 1.0
+	anchored = 1
 	var/portal_lums = 2
 	var/datum/light/light
 	event_handler_flags = USE_FLUID_ENTER
@@ -32,7 +32,7 @@
 	SPAWN(0)
 		src.teleport(AM)
 
-/obj/portal/attack_hand(mob/M as mob)
+/obj/portal/attack_hand(mob/M)
 	SPAWN(0)
 		src.teleport(M)
 
@@ -114,7 +114,7 @@
 				M.ghostize()
 			qdel(src)
 
-	attack_hand(mob/M as mob)
+	attack_hand(mob/M)
 		SPAWN(0)
 			M.ghostize()
 			qdel(src)

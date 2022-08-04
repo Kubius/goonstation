@@ -19,7 +19,7 @@
 		safe_area_names = list()
 		safe_areas = list()
 		if (!final)
-			var/num_safe_areas = clamp(6 - activations, 1, 5)
+			var/num_safe_areas = clamp(5 - activations, 1, 4)
 			var/area/temp = null
 			var/list/locations_copy = list()
 			for(var/A in safe_locations)
@@ -31,9 +31,6 @@
 				safe_areas.Add(safe_locations[temp])
 				safe_locations[temp].icon_state = "blue"
 
-		for (var/mob/M in mobs)
-			if (M.z == Z_LEVEL_STATION)
-				M.flash(3 SECONDS)
 		var/sound/siren = sound('sound/misc/airraid_loop_short.ogg')
 		siren.repeat = TRUE
 		siren.channel = 5
@@ -47,9 +44,6 @@
 			siren.channel = 5
 			siren.volume = 50
 
-			for (var/mob/M in mobs)
-				if (M.z == Z_LEVEL_STATION)
-					M.flash(3 SECONDS)
 
 	#ifndef UNDERWATER_MAP
 			for (var/turf/space/S in world)
@@ -87,7 +81,7 @@
 			for (var/mob/M in mobs)
 				SPAWN(0)
 					if (!inafterlife(M) && !isVRghost(M))
-						shake_camera(M, 100, 16) // wire note: lowered strength from 840 to 400, by popular request
+						shake_camera(M, 100, 6)
 
 			if (final)
 				// Yes we are going forever

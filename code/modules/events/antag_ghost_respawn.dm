@@ -22,7 +22,7 @@
 			message_admins("Setup of previous Antagonist Spawn hasn't finished yet, aborting.")
 			return
 
-		var/type = input(usr, "Select antagonist type.", "Antagonists", "Blob") as null|anything in list("Blob", "Blob (AI)", "Hunter", "Werewolf", "Wizard", "Wraith", "Wrestler", "Wrestler_Doodle", "Vampire", "Changeling", "Headspider", "Arcfiend")
+		var/type = input(usr, "Select antagonist type.", "Antagonists", "Blob") as null|anything in list("Blob", "Blob (AI)", "Hunter", "Werewolf", "Wizard", "Wraith", "Wrestler", "Wrestler_Doodle", "Vampire", "Changeling", "Headspider", "Arcfiend", "Flockmind")
 		if (!type)
 			return
 		else
@@ -43,7 +43,7 @@
 				message_admins("Antagonist Spawn (non-admin) is disabled in this game mode, aborting.")
 				return
 
-			src.antagonist_type = pick(list("Blob", "Hunter", "Werewolf", "Wizard", "Wraith", "Wrestler", "Wrestler_Doodle", "Vampire", "Changeling"))
+			src.antagonist_type = pick(list("Blob", "Hunter", "Werewolf", "Wizard", "Wraith", "Wrestler", "Wrestler_Doodle", "Vampire", "Changeling", "Flockmind"))
 
 		switch (src.antagonist_type)
 			if ("Blob", "Blob (AI)")
@@ -117,7 +117,6 @@
 			/*
 			// Latejoin antagonists ignore antag prefs and so should this
 			// Nobody even realized that it checked this!
-			// @todo add hellban check (are hellbans even used still?)
 			if (lucky_dude.current.client.preferences)
 				var/datum/preferences/P = lucky_dude.current.client.preferences
 				switch (src.antagonist_type)
@@ -198,7 +197,7 @@
 				if (F && istype(F))
 					M3 = F
 					role = ROLE_FLOCKMIND
-					//objective_path = /datum/objective_set/blob
+					objective_path = /datum/objective/specialist/flock
 					send_to = 3
 				else
 					failed = 1
@@ -315,13 +314,7 @@
 			if ("Arcfiend")
 				var/mob/living/L = M3.humanize()
 				if (istype(L))
-					L.make_arcfiend()
-					role = ROLE_ARCFIEND
-#ifdef RP_MODE
-					objective_path = /datum/objective_set/traitor/rp_friendly
-#else
-					objective_path = /datum/objective_set/traitor
-#endif
+					L.mind?.add_antagonist(ROLE_ARCFIEND)
 				else
 					failed = 1
 			else

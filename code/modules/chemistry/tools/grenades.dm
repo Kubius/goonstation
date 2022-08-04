@@ -10,7 +10,7 @@
 	inhand_image_icon = 'icons/mob/inhand/hand_weapons.dmi'
 	item_state = "flashbang"
 	w_class = W_CLASS_SMALL
-	force = 2.0
+	force = 2
 	var/stage = 0
 	var/state = 0
 	var/icon_state_armed = "grenade-chem-armed"
@@ -24,6 +24,7 @@
 	stamina_cost = 0
 	stamina_crit_chance = 0
 	move_triggered = 1
+	duration_put = 0.25 SECONDS //crime
 	var/is_dangerous = TRUE
 	var/detonating = 0
 
@@ -37,7 +38,7 @@
 	is_open_container()
 		return src.detonating
 
-	attackby(obj/item/W as obj, mob/user as mob)
+	attackby(obj/item/W, mob/user)
 		if (istype(W,/obj/item/grenade_fuse) && !stage)
 			boutput(user, "<span class='notice'>You add [W] to the metal casing.</span>")
 			playsound(src, "sound/items/Screwdriver2.ogg", 25, -3)
@@ -335,14 +336,16 @@
 		var/obj/item/reagent_containers/glass/B1 = new(src)
 		var/obj/item/reagent_containers/glass/B2 = new(src)
 
-		B1.reagents.add_reagent("aluminium", 10)
-		B1.reagents.add_reagent("potassium", 10)
-		B1.reagents.add_reagent("cola", 10)
-		B1.reagents.add_reagent("chlorine", 10)
+		B1.reagents.maximum_volume = 100
+		B1.reagents.add_reagent("aluminium", 25)
+		B1.reagents.add_reagent("potassium", 25)
+		B1.reagents.add_reagent("cola", 25)
+		B1.reagents.add_reagent("chlorine", 25)
 
-		B2.reagents.add_reagent("sulfur", 10)
-		B2.reagents.add_reagent("oxygen", 10)
-		B2.reagents.add_reagent("phosphorus", 10)
+		B2.reagents.maximum_volume = 100
+		B2.reagents.add_reagent("sulfur", 25)
+		B2.reagents.add_reagent("oxygen", 25)
+		B2.reagents.add_reagent("phosphorus", 25)
 
 		beakers += B1
 		beakers += B2

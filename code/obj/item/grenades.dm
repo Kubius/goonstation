@@ -29,10 +29,12 @@ PIPE BOMBS + CONSTRUCTION
 	stamina_damage = 0
 	stamina_cost = 0
 	stamina_crit_chance = 0
+	duration_put = 0.25 SECONDS //crime
 	var/is_dangerous = TRUE
 	var/sound_armed = null
 	var/icon_state_armed = null
 	var/not_in_mousetraps = 0
+	var/issawfly = FALSE //for sawfly remote
 
 	attack_self(mob/user as mob)
 		if (!src.state)
@@ -43,7 +45,7 @@ PIPE BOMBS + CONSTRUCTION
 			logGrenade(user)
 			if (user?.bioHolder.HasEffect("clumsy"))
 				boutput(user, "<span class='alert'>Huh? How does this thing work?!</span>")
-				src.icon_state = src.icon_state_armed
+				src.UpdateIcon()
 				playsound(src.loc, src.sound_armed, 75, 1, -3)
 				src.add_fingerprint(user)
 				SPAWN(0.5 SECONDS)
@@ -51,13 +53,13 @@ PIPE BOMBS + CONSTRUCTION
 					return
 			else
 				boutput(user, "<span class='alert'>You prime [src]! [det_time/10] seconds!</span>")
-				src.icon_state = src.icon_state_armed
+				src.UpdateIcon()
 				playsound(src.loc, src.sound_armed, 75, 1, -3)
 				src.add_fingerprint(user)
 				SPAWN(src.det_time)
 					if (src) prime(user)
 					return
-		return
+
 // warcrimes: Why the fuck is autothrow a feature why would this ever be a feature WHY. Now it wont do it unless it's primed i think.
 	afterattack(atom/target as mob|obj|turf, mob/user as mob)
 		if (src.state)
@@ -67,7 +69,7 @@ PIPE BOMBS + CONSTRUCTION
 		if (user.equipped() == src)
 			if (!src.state)
 				src.state = 1
-				src.icon_state = src.icon_state_armed
+				src.UpdateIcon()
 				logGrenade(user)
 				boutput(user, "<span class='alert'>You prime [src]! [det_time/10] seconds!</span>")
 				playsound(src.loc, src.sound_armed, 75, 1, -3)
@@ -77,9 +79,8 @@ PIPE BOMBS + CONSTRUCTION
 			user.drop_item()
 			src.throw_at(get_turf(target), 10, 3)
 			src.add_fingerprint(user)
-		return
 
-	attackby(obj/item/W as obj, mob/user as mob)
+	attackby(obj/item/W, mob/user)
 		if (isscrewingtool(W))
 			if (src.det_time == src.org_det_time)
 				src.det_time = src.alt_det_time
@@ -90,7 +91,13 @@ PIPE BOMBS + CONSTRUCTION
 				user.show_message("<span class='notice'>You set [src] for a [det_time/10] second detonation time.</span>")
 				src.desc = "It is set to detonate in [det_time/10] seconds."
 			src.add_fingerprint(user)
-		return
+
+	update_icon()
+		..()
+		if (src.state)
+			src.icon_state = src.icon_state_armed
+		else
+			src.icon_state = initial(src.icon_state)
 
 	proc/prime(mob/user) // Most grenades require a turf reference.
 		var/turf/T = get_turf(src)
@@ -152,7 +159,7 @@ ABSTRACT_TYPE(/obj/item/old_grenade/spawner)
 	name = "suspicious looking grenade"
 	icon_state = "wasp"
 	icon_state_armed = "wasp1"
-	payload = /obj/critter/spacebee
+	payload = /obj/critter/wasp
 	is_dangerous = TRUE
 
 /obj/item/old_grenade/thing_thrower
@@ -231,18 +238,13 @@ ABSTRACT_TYPE(/obj/item/old_grenade/spawner)
 				elecflash(src,power = 4)
 				qdel(src)
 				return
-			for (var/atom/X in orange(9, T))
-				if (istype(X,/obj/machinery/containment_field))
+			for (var/atom/movable/X in orange(9, T))
+				if (istypes(X, list(/obj/machinery/containment_field, /obj/machinery/field_generator, /obj/fluid, /obj/effect, /obj/overlay)))
 					continue
-				if (istype(X,/obj/machinery/field_generator))
-					continue
-				if (istype(X,/turf))
-					continue
-				if (istype(X, /obj))
-					var/area/t = get_area(X)
-					if(t?.sanctuary) continue
-					if (prob(50) && X:anchored != 2)
-						step_towards(X,src)
+				var/area/t = get_area(X)
+				if(t?.sanctuary) continue
+				if (prob(50) && X.anchored != 2)
+					step_towards(X,src)
 		qdel(src)
 		return
 
@@ -505,7 +507,7 @@ ABSTRACT_TYPE(/obj/item/old_grenade/spawner)
 
 			for (var/mob/living/M in hearers(8, T))
 				if(check_target_immunity(M)) continue
-				var/loud = 16 / (get_dist(M, T) + 1)
+				var/loud = 16 / (GET_DIST(M, T) + 1)
 				if (src.loc == M.loc || src.loc == M)
 					loud = 16
 
@@ -607,8 +609,8 @@ ABSTRACT_TYPE(/obj/item/old_grenade/spawner)
 					else
 						T.assume_air(GM)
 
-			for (var/mob/living/HH in range(8, src))
-				var/checkdist = get_dist(HH.loc, T)
+			for (var/mob/living/HH in hearers(8, T))
+				var/checkdist = GET_DIST(HH.loc, T)
 				var/misstep = clamp(1 + 10 * (5 - checkdist), 0, 40)
 				var/ear_damage = max(0, 5 * 0.2 * (3 - checkdist))
 				var/ear_tempdeaf = max(0, 5 * 0.2 * (5 - checkdist))
@@ -720,7 +722,7 @@ ABSTRACT_TYPE(/obj/item/old_grenade/spawner)
 			src.state = 1
 		return
 
-	attack_hand(mob/user as mob)
+	attack_hand(mob/user)
 		if (src.state == 0)
 			..()
 		else
@@ -746,7 +748,7 @@ ABSTRACT_TYPE(/obj/item/old_grenade/spawner)
 					user.unequip_all()
 
 				for (var/mob/N in viewers(user, null))
-					if (get_dist(N, user) <= 6)
+					if (GET_DIST(N, user) <= 6)
 						N.flash(3 SECONDS)
 				sleep(0.2 SECONDS)
 				if (old_light_grenade)
@@ -767,7 +769,7 @@ ABSTRACT_TYPE(/obj/item/old_grenade/spawner)
 						user.set_loc(locate(40,19,2))
 		return
 
-	attackby(obj/item/W as obj, mob/user as mob)
+	attackby(obj/item/W, mob/user)
 		return
 
 ////////////////////////// Gimmick bombs /////////////////////////////////
@@ -978,9 +980,9 @@ ABSTRACT_TYPE(/obj/item/old_grenade/spawner)
 	icon_state = "firework"
 	opacity = 0
 	density = 0
-	anchored = 0.0
-	force = 1.0
-	throwforce = 1.0
+	anchored = 0
+	force = 1
+	throwforce = 1
 	throw_speed = 1
 	throw_range = 5
 	w_class = W_CLASS_TINY
@@ -1075,7 +1077,7 @@ ABSTRACT_TYPE(/obj/item/old_grenade/spawner)
 					boom(user)
 					return
 
-	attackby(obj/A as obj, mob/user as mob) // adapted from iv_drips.dm
+	attackby(obj/A, mob/user) // adapted from iv_drips.dm
 		if (iscuttingtool(A) && !(src.slashed) && !(src.primed))
 			boutput(user, "You carefully cut [src] open and dump out the contents.")
 			src.slashed = TRUE
@@ -1132,7 +1134,7 @@ ABSTRACT_TYPE(/obj/item/old_grenade/spawner)
 
 		..()
 
-	attackby(obj/A as obj, mob/user as mob) // adapted from iv_drips.dm
+	attackby(obj/A, mob/user) // adapted from iv_drips.dm
 		if (iscuttingtool(A) && !(src.slashed) && (src.bootleg_level > 0))
 			boutput(user, "You try to cut [src] open, but the contents spontaneously ignite!")
 			boom(user)
@@ -1148,7 +1150,7 @@ ABSTRACT_TYPE(/obj/item/old_grenade/spawner)
 	icon = 'icons/obj/items/grenade.dmi'
 	icon_state = "bcharge"
 	var/state = null
-	var/det_time = 50.0
+	var/det_time = 50
 	w_class = W_CLASS_SMALL
 	item_state = "flashbang"
 	throw_speed = 4
@@ -1272,6 +1274,7 @@ ABSTRACT_TYPE(/obj/item/old_grenade/spawner)
 	name = "Thermite Breaching Charge"
 	desc = "When applied to a wall, causes a thermite reaction which totally destroys it."
 	flags = ONBELT
+	object_flags = NO_GHOSTCRITTER
 	w_class = W_CLASS_TINY
 	expl_range = 2
 
@@ -1347,11 +1350,17 @@ ABSTRACT_TYPE(/obj/item/old_grenade/spawner)
 				else
 					O.set_density(0)
 
-				var/distance = get_dist(T, location)
+				var/distance = GET_DIST(T, location)
 				if (distance < 2)
 					var/turf/simulated/floor/F = null
 
-					if (istype(T, /turf/simulated/wall))
+					if (istype(T, /turf/simulated/wall/auto/feather))
+						var/turf/simulated/wall/auto/feather/flockwall = T
+						flockwall.takeDamage("fire", 1)
+						O.icon_state = "2"
+						if (flockwall.health <= 0)
+							flockwall.destroy()
+					else if (istype(T, /turf/simulated/wall))
 						var/turf/simulated/wall/W = T
 						F = W.ReplaceWithFloor()
 					else if (istype(T, /turf/simulated/floor/))
@@ -1367,6 +1376,10 @@ ABSTRACT_TYPE(/obj/item/old_grenade/spawner)
 						var/turf/simulated/floor/F = T
 						F.burn_tile()
 
+			for (var/obj/machinery/door/DR in src.loc)
+				var/area/a = get_area(DR)
+				if (!DR.cant_emag && !a.sanctuary)
+					DR.take_damage(DR.health)
 			for (var/obj/structure/girder/G in range(src.expl_range, location))
 				var/area/a = get_area(G)
 				if (G && istype(G) && !a.sanctuary)
@@ -1382,7 +1395,7 @@ ABSTRACT_TYPE(/obj/item/old_grenade/spawner)
 
 			for (var/mob/living/M in range(src.expl_range, location))
 				if(check_target_immunity(M)) continue
-				var/damage = 30 / (get_dist(M, src) + 1)
+				var/damage = 30 / (GET_DIST(M, src) + 1)
 				M.TakeDamage("chest", 0, damage)
 				M.update_burning(damage)
 
@@ -1404,12 +1417,14 @@ ABSTRACT_TYPE(/obj/item/old_grenade/spawner)
 /obj/item/pipebomb
 	icon = 'icons/obj/items/assemblies.dmi'
 	item_state = "r_hands"
+	duration_put = 0.5 SECONDS //crime
 
 /obj/item/pipebomb/frame
 	name = "pipe frame"
 	desc = "Two small pipes joined together with grooves cut into the side."
 	icon_state = "Pipe_Frame"
 	burn_possible = 0
+	material_amt = 0.3
 	var/state = 1
 	var/strength = 5
 	var/list/item_mods = new/list() //stuff something into one or both of the pipes to change the finished product
@@ -1421,7 +1436,7 @@ ABSTRACT_TYPE(/obj/item/old_grenade/spawner)
 
 	attack_self(mob/user as mob)
 		if (state == 3)
-			if(alert(user, "Pour out the pipebomb reagents?",,"Yes","No") == "No")
+			if(tgui_alert(user, "Pour out the pipebomb reagents?", "Empty reagents", list("Yes", "No")) != "Yes")
 				return
 			boutput(user, "<span class='notice'>The reagents inside spill out!</span>")
 			src.reagents = null
@@ -1429,6 +1444,16 @@ ABSTRACT_TYPE(/obj/item/old_grenade/spawner)
 		return
 
 	attackby(obj/item/W, mob/user)
+		if(istype(W, /obj/item/pipebomb/frame))
+			var/obj/item/pipebomb/frame/other_frame = W
+			if((src.state + other_frame.state == 3)) // one of pipes is welded, other one is not
+				user.u_equip(src)
+				user.u_equip(W)
+				playsound(src, "sound/items/Deconstruct.ogg", 50, 1)
+				var/obj/item/gun/kinetic/slamgun/S = new/obj/item/gun/kinetic/slamgun
+				user.put_in_hand_or_drop(S)
+				qdel(W)
+				qdel(src)
 
 		if(isweldingtool(W) && state == 1)
 			if(!W:try_weld(user, 1))
@@ -1443,6 +1468,13 @@ ABSTRACT_TYPE(/obj/item/old_grenade/spawner)
 			else
 				name = "hollow pipe frame"
 			src.flags |= NOSPLASH
+
+		if(issnippingtool(W) && state == 2) //pipeshot crafting
+			name = "hollow pipe hulls"
+			boutput(user, "<span class='notice'>You cut the pipe into four neat hulls.</span>")
+			src.state = 5
+			icon_state = "Pipeshot"
+			desc = "Four open pipe shells. They're currently empty."
 
 		if (allowed_items.len && item_mods.len < 3 && state == 2)
 			var/ok = 0
@@ -1488,6 +1520,27 @@ ABSTRACT_TYPE(/obj/item/old_grenade/spawner)
 				else
 					name = "filled pipe frame"
 
+		if(istype(W, /obj/item/reagent_containers/) && state == 5) //pipeshot crafting cont'd
+			var/amount = 20
+			var/avg_volatility = 0
+
+			for (var/id in W.reagents.reagent_list)
+				var/datum/reagent/R = W.reagents.reagent_list[id]
+				avg_volatility += R.volatility
+			avg_volatility /= W.reagents.reagent_list.len
+
+			if (avg_volatility < 1) // invalid ingredients/concentration
+				boutput(user, "<span class='notice'>You realize that the contents of [W] aren't actually all too explosive and decide not to pour it into the [src].</span>")
+			else
+				//consume the reagents
+				src.reagents = new /datum/reagents(amount)
+				src.reagents.my_atom = src
+				W.reagents.trans_to(src, amount)
+				qdel(src.reagents)
+				//make the hulls
+				boutput(user, "<span class='notice'>You add some propellant to the hulls.</span>")
+				new /obj/item/assembly/makeshiftshell(get_turf(src))
+				qdel(src)
 
 		if(istype(W, /obj/item/cable_coil) && state == 3)
 			boutput(user, "<span class='notice'>You link the cable, fuel and pipes.</span>")
@@ -1814,9 +1867,10 @@ ABSTRACT_TYPE(/obj/item/old_grenade/spawner)
 			boutput(M, "<span class='alert'><b>Your armor blocks the shrapnel!</b></span>")
 		else
 			var/obj/item/implant/projectile/shrapnel/implanted = new /obj/item/implant/projectile/shrapnel(M)
+			implanted.bleed_time = 25 * sqstrength
 			implanted.owner = M
 			M.implant += implanted
-			implanted.implanted(M, null, 25 * sqstrength)
+			implanted.implanted(M, null)
 			boutput(M, "<span class='alert'><b>You are struck by shrapnel!</b></span>")
 			if (!M.stat)
 				M.emote("scream")
@@ -1868,9 +1922,10 @@ ABSTRACT_TYPE(/obj/item/old_grenade/spawner)
 				boutput(M, "<span class='alert'><b>Your armor blocks the chunks of [src.name]!</b></span>")
 			else
 				var/obj/item/implant/projectile/shrapnel/implanted = new /obj/item/implant/projectile/shrapnel(M)
+				implanted.bleed_time = 25 * sqstrength
 				implanted.owner = M
 				M.implant += implanted
-				implanted.implanted(M, null, 25 * sqstrength)
+				implanted.implanted(M, null)
 				boutput(M, "<span class='alert'><b>You are struck by chunks of [src.name]!</b></span>")
 				if (!M.stat)
 					M.emote("scream")

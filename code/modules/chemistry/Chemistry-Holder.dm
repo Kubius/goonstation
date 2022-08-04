@@ -99,6 +99,7 @@ datum
 			src.total_temperature = new_temp
 			if (react)
 				temperature_react()
+				handle_reactions()
 
 		proc/temperature_react() //Calls the temperature reaction procs without changing the temp.
 			for(var/reagent_id in reagent_list)
@@ -527,6 +528,7 @@ datum
 					//Copy+paste to reduce proc calls
 					//var/amount = get_reagent_amount(reagent)
 					if (!(reagent in reagent_list))
+						speed = 0
 						continue
 					var/datum/reagent/current_reagent = reagent_list[reagent]
 					var/amount = current_reagent ? current_reagent.volume : 0
@@ -623,6 +625,8 @@ datum
 																				//	paramslist thingy can override the can_burn oh god im sorry		paramslist only used for mobs for now, feeel free to paste in for turfs objs
 		proc/reaction(var/atom/A, var/method=TOUCH, var/react_volume, var/can_spawn_fluid = 1, var/minimum_react = 0.01, var/can_burn = 1, var/list/paramslist = 0)
 			if (src.total_volume <= 0)
+				return
+			if (isintangible(A))
 				return
 			if (isobserver(A)) // errrr
 				return
@@ -992,7 +996,7 @@ datum
 
 				// weigh contribution of each reagent to the average color by amount present and it's transparency
 
-				var/weight = current_reagent.volume * current_reagent.transparency / 255.0
+				var/weight = current_reagent.volume * current_reagent.transparency / 255
 				total_weight += weight
 
 				average.r += weight * current_reagent.fluid_r
@@ -1021,7 +1025,11 @@ datum
 			for (var/current_id in src.reagent_list)
 				var/datum/reagent/current_reagent = src.reagent_list[current_id]
 				if (current_reagent.taste)
-					reag_list[current_reagent.taste] += current_reagent.volume
+					if (islist(current_reagent.taste))
+						for (var/taste in current_reagent.taste)
+							reag_list[taste] += current_reagent.volume
+					else
+						reag_list[current_reagent.taste] += current_reagent.volume
 			// restrict number of tastes
 			num_val = min(num_val, length(reag_list))
 			// make empty lists for results

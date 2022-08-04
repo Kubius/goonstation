@@ -459,7 +459,8 @@
 		if(src.client && src.client.preferences)
 			sec_note = src.client.preferences.security_note
 			med_note = src.client.preferences.medical_note
-		data_core.addManifest(src, sec_note, med_note)
+		var/obj/item/device/pda2/pda = locate() in src
+		data_core.addManifest(src, sec_note, med_note, pda?.net_id)
 
 	if (ishuman(src))
 		var/mob/living/carbon/human/H = src
@@ -478,6 +479,7 @@
 
 			if(SL.len > 0)
 				src.set_loc(pick(SL))
+				logTheThing("station", src, null, "has the Stowaway trait and spawns in storage at [log_loc(src)]")
 
 		if (src.traitHolder && src.traitHolder.hasTrait("pilot"))		//Has the Pilot trait - they're drifting off-station in a pod. Note that environmental checks are not needed here.
 			var/turf/pilotSpawnLocation = null
@@ -522,10 +524,6 @@
 				if (src.mind)
 					src.mind.store_memory("The unlock code to your pod ([V]) is: [V.lock.code]")
 
-		if (istraitor(src) && src.mind.late_special_role == 1)
-			//put this here because otherwise it's called before they have a PDA
-			equip_traitor(src)
-
 		set_clothing_icon_dirty()
 		sleep(0.1 SECONDS)
 		update_icons_if_needed()
@@ -550,6 +548,12 @@
 	return
 
 /mob/living/carbon/human/proc/Equip_Job_Slots(var/datum/job/JOB)
+	if (src.traitHolder.hasTrait("blind"))
+		src.equip_if_possible(new /obj/item/clothing/glasses/visor(src), src.slot_glasses)
+	if (src.traitHolder.hasTrait("shortsighted"))
+		src.equip_if_possible(new /obj/item/clothing/glasses/regular(src), src.slot_glasses)
+	if (src.traitHolder.hasTrait("deaf"))
+		src.equip_if_possible(new /obj/item/device/radio/headset/deaf(src), src.slot_ears)
 	equip_job_items(JOB, src)
 	if (JOB.slot_back)
 		if (istype(src.back, /obj/item/storage))
@@ -681,6 +685,12 @@
 					if (src.limbs.r_arm)
 						qdel(src.limbs.r_arm.remove(0))
 				boutput(src, "<b>Your singular arm makes you feel responsible for crimes you couldn't possibly have committed.</b>" )
+
+	// Special mutantrace items
+	if (src.traitHolder && src.traitHolder.hasTrait("pug"))
+		src.put_in_hand_or_drop(new /obj/item/reagent_containers/food/snacks/cookie/dog)
+	else if (src.traitHolder && src.traitHolder.hasTrait("skeleton"))
+		src.put_in_hand_or_drop(new /obj/item/joint_wax)
 	return
 
 /mob/living/carbon/human/proc/spawnId(rank)
@@ -731,7 +741,7 @@
 	src.mind?.remembered_pin = C.pin
 
 	if (wagesystem.jobs[JOB.name])
-		var/cashModifier = 1.0
+		var/cashModifier = 1
 		if (src.traitHolder && src.traitHolder.hasTrait("pawnstar"))
 			cashModifier = 1.25
 
@@ -783,11 +793,11 @@ proc/antagify(mob/H, var/traitor_role, var/agimmick)
 		for(var/i = 0, i < num_objectives, i++)
 			var/select_objective = pick(eligible_objectives)
 			new select_objective(null, H.mind)
-			H << browse(grabResource("html/traitorTips/traitorhardTips.html"),"window=antagTips;titlebar=1;size=600x400;can_minimize=0;can_resize=0")
+			H.show_antag_popup("traitorhard")
 			ticker.mode.traitors |= H.mind
 	else
 		ticker.mode.Agimmicks |= H.mind
-		H << browse(grabResource("html/traitorTips/traitorGenericTips.html"),"window=antagTips;titlebar=1;size=600x400;can_minimize=0;can_resize=0")
+		H.show_antag_popup("traitorgeneric")
 	if (traitor_role)
 		H.mind.special_role = traitor_role
 	else
@@ -800,12 +810,12 @@ proc/antagify(mob/H, var/traitor_role, var/agimmick)
 /////////////////////////////////////////////
 
 var/list/trinket_safelist = list(/obj/item/basketball,/obj/item/instrument/bikehorn, /obj/item/brick, /obj/item/clothing/glasses/eyepatch,
-/obj/item/clothing/glasses/regular, /obj/item/clothing/glasses/sunglasses, /obj/item/clothing/gloves/boxing,
+/obj/item/clothing/glasses/regular, /obj/item/clothing/glasses/sunglasses/tanning, /obj/item/clothing/gloves/boxing,
 /obj/item/clothing/mask/horse_mask, /obj/item/clothing/mask/clown_hat, /obj/item/clothing/head/cowboy, /obj/item/clothing/shoes/cowboy, /obj/item/clothing/shoes/moon,
 /obj/item/clothing/suit/sweater, /obj/item/clothing/suit/sweater/red, /obj/item/clothing/suit/sweater/green, /obj/item/clothing/suit/sweater/grandma, /obj/item/clothing/under/shorts,
 /obj/item/clothing/under/suit/pinstripe, /obj/item/cigpacket, /obj/item/coin, /obj/item/crowbar, /obj/item/pen/crayon/lipstick,
 /obj/item/dice, /obj/item/dice/d20, /obj/item/device/light/flashlight, /obj/item/device/key/random, /obj/item/extinguisher, /obj/item/firework,
-/obj/item/football, /obj/item/material_piece/gold, /obj/item/instrument/harmonica, /obj/item/horseshoe,
+/obj/item/football, /obj/item/stamped_bullion, /obj/item/instrument/harmonica, /obj/item/horseshoe,
 /obj/item/kitchen/utensil/knife, /obj/item/raw_material/rock, /obj/item/pen/fancy, /obj/item/pen/odd, /obj/item/plant/herb/cannabis/spawnable,
 /obj/item/razor_blade,/obj/item/rubberduck, /obj/item/instrument/saxophone, /obj/item/scissors, /obj/item/screwdriver, /obj/item/skull, /obj/item/stamp,
 /obj/item/instrument/vuvuzela, /obj/item/wrench, /obj/item/device/light/zippo, /obj/item/reagent_containers/food/drinks/bottle/beer, /obj/item/reagent_containers/food/drinks/bottle/vintage,

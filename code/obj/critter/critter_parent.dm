@@ -11,7 +11,7 @@
 	icon = 'icons/misc/critter.dmi'
 	var/living_state = null
 	var/dead_state = null
-	layer = 5.0
+	layer = 5
 	density = 1
 	anchored = 0
 	flags = FPRINT | CONDUCT | USEDELAY | FLUID_SUBMERGE
@@ -221,7 +221,7 @@
 
 	proc/on_grump()
 
-	attackby(obj/item/W as obj, mob/living/user as mob)
+	attackby(obj/item/W, mob/living/user)
 		..()
 		if (!src.alive)
 			if (src.skinresult && max_skins)
@@ -363,11 +363,10 @@
 			return 1 // so things can do if (..())
 		return
 
-	attack_hand(var/mob/user as mob)
+	attack_hand(var/mob/user)
 		..()
 		if (!src.alive)
-			..()
-			return
+			return ..()
 
 		if (src.sleeping)
 			sleeping = 0
@@ -460,12 +459,12 @@
 		on_damaged()
 
 		switch(severity)
-			if(1.0)
+			if(1)
 				src.health -= 200
 				if (src.health <= 0)
 					src.CritterDeath()
 				return
-			if(2.0)
+			if(2)
 				src.health -= 75
 				if (src.health <= 0)
 					src.CritterDeath()
@@ -545,7 +544,7 @@
 
 		for (var/client/C)
 			var/mob/M = C.mob
-			if (M && src.z == M.z && BOUNDS_DIST(src, M) == 00)
+			if (M && src.z == M.z && GET_DIST(src, M) <= 10)
 				if (isliving(M))
 					waking = 1
 					break
@@ -580,7 +579,7 @@
 
 		for (var/client/C)
 			var/mob/M = C.mob
-			if (M && src.z == M.z && BOUNDS_DIST(src, M) == 00)
+			if (M && src.z == M.z && GET_DIST(src, M) <= 10)
 				if (isliving(M))
 					stay_awake = 1
 					break
@@ -649,7 +648,7 @@
 					current_target = src.food_target
 
 				if (current_target)
-					if (get_dist(src, current_target) <= src.attack_range)
+					if (GET_DIST(src, current_target) <= src.attack_range)
 						if (current_target == src.corpse_target)
 							src.task = "scavenging"
 						else if (current_target == src.food_target)
@@ -662,15 +661,15 @@
 							src.target_lastloc = current_target.loc
 					else
 						if (mobile)
-							var/turf/olddist = get_dist(src, current_target)
+							var/turf/olddist = GET_DIST(src, current_target)
 							walk_to(src, current_target,1,4)
-							if ((get_dist(src, current_target)) >= (olddist))
+							if ((GET_DIST(src, current_target)) >= (olddist))
 								src.frustration++
 								step_towards(src, current_target, 4)
 							else
 								src.frustration = 0
 						else
-							if (get_dist(src, current_target) > attack_range)
+							if (GET_DIST(src, current_target) > attack_range)
 								src.frustration++
 							else
 								src.frustration = 0
@@ -681,30 +680,30 @@
 
 				if (!src.chases_food || src.food_target == null)
 					src.task = "thinking"
-				else if (get_dist(src, src.food_target) <= src.attack_range)
+				else if (GET_DIST(src, src.food_target) <= src.attack_range)
 					src.task = "eating"
 				else if (src.mobile)
 					walk_to(src, src.food_target,1,4)
 
 			if ("eating")
 
-				if (get_dist(src, src.food_target) > src.attack_range)
+				if (GET_DIST(src, src.food_target) > src.attack_range)
 					src.task = "chasing"// food"
 				else
 					src.task = "eating2"
 
 			if ("eating2")
 
-				if (get_dist(src, src.food_target) > src.attack_range)
+				if (GET_DIST(src, src.food_target) > src.attack_range)
 					src.task = "chasing"// food"
 				else
 					src.visible_message("<b>[src]</b> [src.eat_text] [src.food_target].")
 					playsound(src.loc,"sound/items/eatfood.ogg", rand(10,50), 1)
 					if (food_target)
-						if (food_target.amount) src.food_target.amount-- //ZeWaka: Fix for null. amount
+						if (food_target.bites_left) src.food_target.bites_left-- //ZeWaka: Fix for null. bites_left
 						if (food_target.reagents && food_target.reagents.total_volume > 0 && src.reagents.total_volume < 30)
 							food_target.reagents.trans_to(src, 5)
-					if (src.food_target != null && src.food_target.amount <= 0)
+					if (src.food_target != null && src.food_target.bites_left <= 0)
 						src.food_target.set_loc(null)
 						SPAWN(1 SECOND)
 							qdel(src.food_target)
@@ -716,7 +715,7 @@
 
 				if (!src.scavenger || src.corpse_target == null)
 					src.task = "thinking"
-				else if (get_dist(src, src.corpse_target) <= src.attack_range)
+				else if (GET_DIST(src, src.corpse_target) <= src.attack_range)
 					src.task = "scavenging"
 				else if (src.mobile)
 					walk_to(src, src.corpse_target,1,4)
@@ -725,7 +724,7 @@
 
 				if (!src.scavenger || src.corpse_target == null)
 					src.task = "thinking"
-				if (get_dist(src, src.corpse_target) > src.attack_range)
+				if (GET_DIST(src, src.corpse_target) > src.attack_range)
 					src.task = "chasing"// corpse"
 				var/mob/living/carbon/human/C = src.corpse_target
 				src.visible_message("<b>[src]</b> gnaws some meat off [src.corpse_target]'s body!")
@@ -748,11 +747,11 @@
 			if ("attacking")
 
 				// see if he got away
-				if ((get_dist(src, src.target) > src.attack_range) || ((src.target:loc != src.target_lastloc)))
+				if ((GET_DIST(src, src.target) > src.attack_range) || ((src.target:loc != src.target_lastloc)))
 					src.anchored = initial(src.anchored)
 					src.task = "chasing"
 				else
-					if (get_dist(src, src.target) <= src.attack_range)
+					if (GET_DIST(src, src.target) <= src.attack_range)
 						var/mob/living/carbon/M = src.target
 						if (!src.attacking)
 							if(ATTACK_CHECK(src.target))
@@ -1008,13 +1007,13 @@
 		if (src.reagents && src.critter_reagent)
 			src.reagents.add_reagent(src.critter_reagent, 10)
 
-	attack_hand(mob/user as mob)
+	attack_hand(mob/user)
 		if (src.anchored)
 			return
 		else
 			..()
 
-	attackby(obj/item/W as obj, mob/user as mob)
+	attackby(obj/item/W, mob/user)
 		if (istype(W, /obj/item/pen))
 			var/t = input(user, "Enter new name", src.name, src.critter_name) as null|text
 			logTheThing("debug", user, null, "names a critter egg \"[t]\"")
@@ -1067,45 +1066,44 @@
 					user.u_equip(src)
 				src.set_loc(get_turf(src))
 
-			SPAWN(0)
-				if (shouldThrow && T)
-					src.visible_message("<span class='alert'>[src] splats onto the floor messily!</span>")
-					playsound(T, "sound/impact_sounds/Slimy_Splat_1.ogg", 100, 1)
+			if (shouldThrow && T)
+				src.visible_message("<span class='alert'>[src] splats onto the floor messily!</span>")
+				playsound(T, "sound/impact_sounds/Slimy_Splat_1.ogg", 100, 1)
+			else
+				var/hatch_wiggle_counter = rand(3,8)
+				while (hatch_wiggle_counter-- > 0)
+					src.pixel_x++
+					sleep(0.2 SECONDS)
+					src.pixel_x--
+					sleep(1 SECOND)
+				src.visible_message("[src] hatches!")
+
+			if (!ispath(critter_type))
+				if (istext(critter_type))
+					critter_type = text2path(critter_type)
 				else
-					var/hatch_wiggle_counter = rand(3,8)
-					while (hatch_wiggle_counter-- > 0)
-						src.pixel_x++
-						sleep(0.2 SECONDS)
-						src.pixel_x--
-						sleep(1 SECOND)
-					src.visible_message("[src] hatches!")
+					logTheThing("debug", null, null, "EGG: [src] has invalid critter path!")
+					src.visible_message("Looks like there wasn't anything inside of [src]!")
+					qdel(src)
+					return
 
-				if (!ispath(critter_type))
-					if (istext(critter_type))
-						critter_type = text2path(critter_type)
-					else
-						logTheThing("debug", null, null, "EGG: [src] has invalid critter path!")
-						src.visible_message("Looks like there wasn't anything inside of [src]!")
-						qdel(src)
-						return
+			var/obj/critter/newCritter = new critter_type(T ? T : get_turf(src), src.parent)
 
-				var/obj/critter/newCritter = new critter_type(T ? T : get_turf(src), src.parent)
+			if (critter_name)
+				newCritter.name = critter_name
 
-				if (critter_name)
-					newCritter.name = critter_name
+			if (shouldThrow && T)
+				newCritter.throw_at(get_edge_target_turf(src, src.dir), 2, 1)
 
-				if (shouldThrow && T)
-					newCritter.throw_at(get_edge_target_turf(src, src.dir), 2, 1)
+			//hack. Clownspider queens keep track of their babies.
+			if (istype(src.parent, /mob/living/critter/spider/clownqueen))
+				var/mob/living/critter/spider/clownqueen/queen = src.parent
+				if (islist(queen.babies))
+					queen.babies += newCritter
 
-				//hack. Clownspider queens keep track of their babies.
-				if (istype(src.parent, /mob/living/critter/spider/clownqueen))
-					var/mob/living/critter/spider/clownqueen/queen = src.parent
-					if (islist(queen.babies))
-						queen.babies += newCritter
-
-				sleep(0.1 SECONDS)
-				qdel(src)
-				return
+			sleep(0.1 SECONDS)
+			qdel(src)
+			return newCritter
 		else
 			return
 

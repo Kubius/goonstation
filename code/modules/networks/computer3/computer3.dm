@@ -6,7 +6,7 @@
 	icon = 'icons/obj/computer.dmi'
 	icon_state = "computer_generic"
 	density = 1
-	anchored = 1.0
+	anchored = 1
 	var/base_icon_state = "computer_generic"
 	var/temp = "<b>Thinktronic BIOS V2.1</b><br>"
 	var/temp_add = null
@@ -338,7 +338,7 @@
 
 	return
 
-/obj/machinery/computer3/attack_hand(mob/user as mob)
+/obj/machinery/computer3/attack_hand(mob/user)
 	if(..() && !istype(user, /mob/dead/target_observer/mentor_mouse_observer))
 		return
 
@@ -667,7 +667,7 @@ function lineEnter (ev)
 			if(glow_in_dark_screen)
 				src.ClearSpecificOverlays("screen_image")
 
-/obj/machinery/computer3/attackby(obj/item/W as obj, mob/user as mob)
+/obj/machinery/computer3/attackby(obj/item/W, mob/user)
 	if (istype(W, /obj/item/disk/data/floppy)) //INSERT SOME DISKETTES
 		if ((!src.diskette) && src.setup_has_internal_disk)
 			user.drop_item()
@@ -745,14 +745,14 @@ function lineEnter (ev)
 
 /obj/machinery/computer3/ex_act(severity)
 	switch(severity)
-		if(1.0)
+		if(1)
 			//dispose()
 			src.dispose()
 			return
-		if(2.0)
+		if(2)
 			if (prob(50))
 				set_broken()
-		if(3.0)
+		if(3)
 			if (prob(25))
 				set_broken()
 		else
@@ -980,7 +980,7 @@ function lineEnter (ev)
 	item_state = "briefcase"
 	desc = "A common item to find in an office.  Is that an antenna?"
 	flags = FPRINT | TABLEPASS| CONDUCT | NOSPLASH
-	force = 8.0
+	force = 8
 	throw_speed = 1
 	throw_range = 4
 	w_class = W_CLASS_BULKY
@@ -1075,7 +1075,7 @@ function lineEnter (ev)
 		src.deployed = 0
 		return
 
-	attackby(obj/item/W as obj, mob/user as mob)
+	attackby(obj/item/W, mob/user)
 		if (istype(W, /obj/item/disk/data/floppy)) //INSERT SOME DISKETTES
 			if ((!src.diskette) && src.setup_has_internal_disk)
 				user.drop_item()

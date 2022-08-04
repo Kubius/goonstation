@@ -73,6 +73,19 @@
 
 	playsound(src.loc, 'sound/impact_sounds/Generic_Shove_1.ogg', 50, 1, -1)
 	if (src == target)
+		var/mob/living/M = src
+
+		var/obj/item/implant/projectile/body_visible/P = locate(/obj/item/implant/projectile/body_visible) in M.implant
+
+		if (P)
+			if (P.barbed == FALSE)
+				SETUP_GENERIC_ACTIONBAR(src, target, 1 SECOND, /mob/living/proc/pull_out_implant, list(target, P), P.icon, P.icon_state, \
+					src.visible_message("<span class='alert'><B>[src] pulls a [P.pull_out_name] out of themselves!</B></span>"), \
+					INTERRUPT_ACT | INTERRUPT_STUNNED | INTERRUPT_ACTION | INTERRUPT_MOVE)
+			else
+				src.visible_message("<span class='alert'><B>[src] tries to pull a [P.pull_out_name] out of themselves, but it's stuck in!</B></span>")
+			return
+
 		var/obj/stool/S = (locate(/obj/stool) in src.loc)
 		if (S)
 			S.buckle_in(src,src)
@@ -93,6 +106,19 @@
 				src.visible_message("<span class='notice'>[src] pats themselves on the back. Feel better, [src].</span>")
 
 	else
+		var/mob/living/M = target
+
+		var/obj/item/implant/projectile/body_visible/P = locate(/obj/item/implant/projectile/body_visible) in M.implant
+
+		if (P)
+			if (P.barbed == FALSE)
+				SETUP_GENERIC_ACTIONBAR(src, target, 1 SECOND, /mob/living/proc/pull_out_implant, list(src, P), P.icon, P.icon_state, \
+					src.visible_message("<span class='alert'><B>[src] pulls a [P.pull_out_name] out of [target]!</B></span>"), \
+					INTERRUPT_ACT | INTERRUPT_STUNNED | INTERRUPT_ACTION | INTERRUPT_MOVE)
+			else
+				src.visible_message("<span class='alert'><B>[src] tries to pull a [P.pull_out_name] out of [target], but it's stuck in!</B></span>")
+			return
+
 		if (target.lying)
 			src.visible_message("<span class='notice'>[src] shakes [target], trying to wake them up!</span>")
 		else if(target.hasStatus("shivering"))
@@ -134,6 +160,10 @@
 				src.visible_message("<span class='notice'>[src] shakes [target], trying to grab their attention!</span>")
 	hit_twitch(target)
 
+/mob/living/proc/pull_out_implant(var/mob/living/user, var/obj/item/implant/dart)
+	dart.on_remove(src)
+	src.implant.Remove(dart)
+	user.put_in_hand_or_drop(dart)
 
 /mob/proc/administer_CPR(var/mob/living/carbon/human/target)
 	boutput(src, "<span class='alert'>You have no idea how to perform CPR.</span>")
@@ -1037,17 +1067,23 @@
 					if ((owner.mind in R.revolutionaries) || (owner.mind in R.head_revolutionaries))	//attacker is rev, all heads who see the attack get mutiny buff
 						for (var/datum/mind/M in R.get_living_heads())
 							if (M.current)
-								if (get_dist(owner,M.current) <= 7)
+								if (GET_DIST(owner,M.current) <= 7)
 									if (owner in viewers(7,M.current))
 										M.current.changeStatus("mutiny", 10 SECONDS)
 
 				if(target.client && target.health < 0 && ishuman(target)) //Only do rev stuff if they have a client and are low health
 					if ((owner.mind in R.revolutionaries) || (owner.mind in R.head_revolutionaries))
 						if (R.add_revolutionary(target.mind))
+							for (var/datum/mind/M in target)
+								if (M.current)
+									M.current.changeStatus("newcause", 5 SECONDS)
 							target.HealDamage("All", max(30 - target.health,0), 0)
 							target.HealDamage("All", 0, max(30 - target.health,0))
 					else
 						if (R.remove_revolutionary(target.mind))
+							for (var/datum/mind/M in target)
+								if (M.current)
+									M.current.changeStatus("newcause", 5 SECONDS)
 							target.HealDamage("All", max(30 - target.health,0), 0)
 							target.HealDamage("All", 0, max(30 - target.health,0))
 		clear(null)
@@ -1174,8 +1210,6 @@
 	return 0
 
 /mob/living/carbon/human/get_head_pierce_prot()
-	if (client?.hellbanned)
-		return 0
 	if ((head && head.body_parts_covered & HEAD) || (wear_mask && wear_mask.body_parts_covered & HEAD))
 		if (head && !wear_mask)
 			return max(0, head.getProperty("pierceprot"))
@@ -1189,8 +1223,6 @@
 	return 0
 
 /mob/living/carbon/human/get_chest_pierce_prot()
-	if (client?.hellbanned)
-		return 0
 	if ((wear_suit && wear_suit.body_parts_covered & TORSO) || (w_uniform && w_uniform.body_parts_covered & TORSO))
 		if (wear_suit && !w_uniform)
 			return max(0, wear_suit.getProperty("pierceprot"))
@@ -1275,7 +1307,7 @@
 	.= 0
 	if (prob(60) && M && src.stance == "defensive" && iswerewolf(src) && src.stat)
 		src.set_dir(get_dir(src, M))
-		playsound(src.loc, "sound/weapons/punchmiss.ogg", 50, 1)
+		playsound(src.loc, "sound/impact_sounds/Generic_Swing_1.ogg", 50, 1)
 		//dodge more likely, we're more agile than macho
 		if (prob(60))
 			src.visible_message("<span class='alert'><B>[src] dodges the blow by [M]!</B></span>")

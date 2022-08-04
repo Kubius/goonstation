@@ -16,6 +16,7 @@
 	firevuln = 0.5
 	brutevuln = 1
 	miscvuln = 0
+	attack_range = 7
 	luminosity = 5
 	seekrange = 15
 	flying = 1
@@ -126,7 +127,7 @@
 
 		for (var/atom in by_cat[TR_CAT_PODS_AND_CRUISERS])
 			var/atom/A = atom
-			if (A && src.z == A.z && get_dist(src,A) <= src.seekrange)
+			if (A && src.z == A.z && GET_DIST(src,A) <= src.seekrange)
 				if (istype(atom, /obj/machinery/vehicle))
 					var/obj/machinery/vehicle/C = atom
 					if (C.health < 0) continue
@@ -276,7 +277,7 @@
 
 			for (var/client/C)
 				var/mob/M = C.mob
-				if (M && src.z == M.z && BOUNDS_DIST(src, M) == 00)
+				if (M && src.z == M.z && GET_DIST(src, M) <= 10)
 					if (isliving(M))
 						waking = 1
 						break
@@ -288,7 +289,7 @@
 
 			for (var/atom in by_cat[TR_CAT_PODS_AND_CRUISERS])
 				var/atom/A = atom
-				if (A && src.z == A.z && BOUNDS_DIST(src, A) == 00)
+				if (A && src.z == A.z && GET_DIST(src, A) <= 10)
 					waking = 1
 					break
 
@@ -314,7 +315,7 @@
 
 			for (var/client/C)
 				var/mob/M = C.mob
-				if (M && src.z == M.z && BOUNDS_DIST(src, M) == 00)
+				if (M && src.z == M.z && GET_DIST(src, M) <= 10)
 					if (isliving(M))
 						stay_awake = 1
 						break
@@ -326,7 +327,7 @@
 
 			for (var/atom in by_cat[TR_CAT_PODS_AND_CRUISERS])
 				var/atom/A = atom
-				if (A && src.z == A.z && BOUNDS_DIST(src, A) == 00)
+				if (A && src.z == A.z && GET_DIST(src, A) <= 10)
 					stay_awake = 1
 					break
 
@@ -362,7 +363,7 @@
 					src.task = "thinking"
 					walk_to(src,0)
 				if (target)
-					if (get_dist(src, src.target) <= 7)
+					if (GET_DIST(src, src.target) <= src.attack_range)
 						var/mob/living/carbon/M = src.target
 						if (M)
 							if(!src.attacking) ChaseAttack(M)
@@ -372,7 +373,7 @@
 							if(prob(15)) walk_rand(src,4) // juke around and dodge shots
 
 					else
-						var/turf/olddist = get_dist(src, src.target)
+						var/turf/olddist = GET_DIST(src, src.target)
 
 						if(smashes_shit) //Break another thing near the drone
 							//There be shit near us what can block our way.
@@ -390,7 +391,7 @@
 							walk_towards(src, src.target, 1, 4)*/
 						else walk_to(src, src.target,1,4)
 
-						if ((get_dist(src, src.target)) >= (olddist))
+						if ((GET_DIST(src, src.target)) >= (olddist))
 							src.frustration++
 
 						else
@@ -545,7 +546,7 @@
 		projectile_type = /datum/projectile/bullet/aex
 		current_projectile = new/datum/projectile/bullet/aex
 		attack_cooldown = 50
-		mats = list("POW-3" = 15, "MET-3" = 17, "CON-2" = 13, "DEN-3" =17, "erebite" =16)
+		mats = list("POW-3" = 15, "MET-3" = 17, "CON-2" = 13, "CRY-2" =17, "erebite" =16)
 		New()
 			..()
 			name = "Drone AR-[rand(1,999)]"
@@ -565,7 +566,7 @@
 		projectile_type = /datum/projectile/bullet/ak47
 		current_projectile = new/datum/projectile/bullet/ak47
 		attack_cooldown = 20
-		mats = list("POW-3" = 13, "MET-3" = 24, "CON-2" = 20, "DEN-3" =17)
+		mats = list("POW-3" = 13, "MET-3" = 24, "CON-2" = 20, "CRY-2" =17)
 		New()
 			..()
 			name = "Drone BML-[rand(1,999)]"
@@ -646,6 +647,7 @@
 		projectile_type = /datum/projectile/laser/drill/cutter
 		current_projectile = new/datum/projectile/laser/drill/cutter
 		smashes_shit = 1
+		attack_range = 1
 		mats = 	list("POW-2" = 19, "MET-2" = 12, "CON-2" = 14, "DEN-2" =26)
 
 		ChaseAttack(atom/M)
@@ -675,6 +677,13 @@
 			..()
 			name = "Drone CR-[rand(1,999)]"
 			return
+
+		bullet_act(var/obj/projectile/P)
+			if (isobj(P.shooter))
+				var/obj/O = P.shooter
+				if(istype(O, /obj/critter/gunbot/drone/buzzdrone)) //No more friendly fire at melee range
+					return
+			..()
 
 		fish
 			name = "Syndicate FishDrone"
@@ -755,7 +764,7 @@
 		dead_state = "vrdrone_orange"
 		projectile_type = /datum/projectile/laser/mining
 		current_projectile = new/datum/projectile/laser/mining
-		mats = 	list("POW-1" = 9, "MET-3" = 15, "CON-1" = 7, "DEN-3" =20)
+		mats = 	list("POW-1" = 9, "MET-3" = 15, "CON-1" = 7, "CRY-2" =20)
 		New()
 			..()
 			name = "Drone PC-[rand(1,999)]"
@@ -770,7 +779,7 @@
 		dead_state = "vrdrone_blue"
 		projectile_type = /datum/projectile/laser/asslaser
 		current_projectile = new/datum/projectile/laser/asslaser
-		mats = 	list("POW-3" = 30, "MET-3" = 14, "CON-2" = 23, "DEN-3" =22, "butt"=10) //heh
+		mats = 	list("POW-3" = 30, "MET-3" = 14, "CON-2" = 23, "CRY-2" =22, "butt"=10) //heh
 
 		New()
 			..()

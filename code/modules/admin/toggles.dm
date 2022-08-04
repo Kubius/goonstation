@@ -53,6 +53,7 @@ var/list/server_toggles_tab_verbs = list(\
 /client/proc/toggle_banlogin_announcements,\
 /client/proc/toggle_literal_disarm,\
 /client/proc/toggle_spooky_light_plane,\
+/client/proc/toggle_cloning_with_records,\
 /datum/admins/proc/toggleooc,\
 /datum/admins/proc/togglelooc,\
 /datum/admins/proc/toggleoocdead,\
@@ -75,6 +76,7 @@ var/list/server_toggles_tab_verbs = list(\
 /datum/admins/proc/toggleaprilfools,\
 /datum/admins/proc/togglespeechpopups,\
 /datum/admins/proc/togglemonkeyspeakhuman,\
+/datum/admins/proc/toggletraitorsseeeachother,\
 /datum/admins/proc/togglelatetraitors,\
 /datum/admins/proc/togglesoundwaiting,\
 /datum/admins/proc/adjump,\
@@ -170,6 +172,18 @@ var/global/IP_alerts = 1
 	src.only_local_looc = !src.only_local_looc
 	boutput(usr, "<span class='notice'>Toggled seeing all LOOC messages [src.only_local_looc ?"off":"on"]!</span>")
 
+/client/proc/toggle_hearing_all()
+	SET_ADMIN_CAT(ADMIN_CAT_SELF)
+	set name = "Toggle Hearing All"
+	set desc = "Toggles the ability to hear all messages regardless of where you are, like a ghost."
+	ADMIN_ONLY
+
+	if(src.mob)
+		src.mob.mob_flags ^= MOB_HEARS_ALL
+		boutput(usr, "<span class='notice'>Toggled seeing all messages [src.mob.mob_flags & MOB_HEARS_ALL ? "on" : "off"]!</span>")
+	else
+		boutput(usr, "<span class='notice'>You don't have a mob, somehow, what!</span>")
+
 /client/proc/toggle_attack_messages()
 	SET_ADMIN_CAT(ADMIN_CAT_SELF)
 	set name = "Toggle Attack Alerts"
@@ -204,9 +218,9 @@ client/proc/toggle_ghost_respawns()
 	ADMIN_ONLY
 	src.holder.rp_word_filtering = !src.holder.rp_word_filtering
 	if(src.holder.rp_word_filtering)
-		src.RegisterSignal(GLOBAL_SIGNAL, COMSIG_SUSSY_PHRASE, .proc/message_one_admin)
+		src.RegisterSignal(GLOBAL_SIGNAL, COMSIG_GLOBAL_SUSSY_PHRASE, .proc/message_one_admin)
 	else
-		src.UnregisterSignal(GLOBAL_SIGNAL, COMSIG_SUSSY_PHRASE)
+		src.UnregisterSignal(GLOBAL_SIGNAL, COMSIG_GLOBAL_SUSSY_PHRASE)
 	boutput(usr, "<span class='notice'>Toggled RP word filter notifications [src.holder.rp_word_filtering ?"on":"off"]!</span>")
 
 /client/proc/toggle_hear_prayers()
@@ -807,6 +821,20 @@ client/proc/toggle_ghost_respawns()
 	logTheThing("diary", usr, null, "toggled Monkey/Human communication [monkeysspeakhuman ? "on" : "off"].", "admin")
 	message_admins("[key_name(usr)] toggled Monkey/Human communication [monkeysspeakhuman ? "on" : "off"]")
 
+/datum/admins/proc/toggletraitorsseeeachother()
+	SET_ADMIN_CAT(ADMIN_CAT_SERVER_TOGGLES)
+	set desc = "Toggle traitors being able to see each other."
+	set name = "Toggle Traitors Seeing Each Other"
+	NOT_IF_TOGGLES_ARE_OFF
+	traitorsseeeachother = !traitorsseeeachother
+	if (traitorsseeeachother)
+		boutput(world, "<B>Traitors can now see each other.</B>")
+	else
+		boutput(world, "<B>Traitors can no longer see each other.</B>")
+	logTheThing("admin", usr, null, "toggled traitors seeing each other [traitorsseeeachother ? "on" : "off"].")
+	logTheThing("diary", usr, null, "toggled traitors seeing each other [traitorsseeeachother ? "on" : "off"].", "admin")
+	message_admins("[key_name(usr)] toggled traitors seeing each other [traitorsseeeachother ? "on" : "off"]")
+
 /datum/admins/proc/toggleautoending()
 	SET_ADMIN_CAT(ADMIN_CAT_SERVER_TOGGLES)
 	set desc = "Toggle the round automatically ending in invasive round types."
@@ -1031,3 +1059,15 @@ client/proc/toggle_ghost_respawns()
 	logTheThing("admin", usr, null, "toggled Spooky Light Mode [spooky_light_mode ? "on at threshold [inp]" : "off"]")
 	logTheThing("diary", usr, null, "toggled Spooky Light Mode [spooky_light_mode ? "on at threshold [inp]" : "off"]")
 	message_admins("[key_name(usr)] toggled Spooky Light Mode [spooky_light_mode ? "on at threshold [inp]" : "off"]")
+
+/client/proc/toggle_cloning_with_records()
+	set name = "Toggle Cloning With Records"
+	set desc = "toggles the cloning method between record and non-record"
+	SET_ADMIN_CAT(ADMIN_CAT_SERVER_TOGGLES)
+	ADMIN_ONLY
+
+	cloning_with_records = !cloning_with_records
+
+	logTheThing("admin", usr, null, "toggled the cloning with records [cloning_with_records ? "on" : "off"]")
+	logTheThing("diary", usr, null, "toggled the cloning with records [cloning_with_records ? "on" : "off"]")
+	message_admins("[key_name(usr)] toggled the cloning with records [cloning_with_records ? "on" : "off"]")

@@ -7,7 +7,7 @@
 	var/timer = 0
 	var/cooldown = 0 SECONDS
 	var/inuse = FALSE
-	anchored = 1.0
+	anchored = 1
 	layer = EFFECTS_LAYER_UNDER_1
 	plane = PLANE_NOSHADOW_ABOVE
 
@@ -400,7 +400,7 @@
 		return
 	return src.Attackhand(user)
 
-/obj/machinery/door_control/attack_hand(mob/user as mob)
+/obj/machinery/door_control/attack_hand(mob/user)
 	if((status & (NOPOWER|BROKEN)) || inuse)
 		return
 
@@ -409,6 +409,7 @@
 
 	use_power(5)
 	icon_state = "doorctrl1"
+	playsound(src.loc, 'sound/machines/button.ogg', 40, 0.5)
 
 	if (!src.id)
 		return
@@ -466,7 +467,7 @@
 	else
 		icon_state = "doorctrl0"
 
-/obj/machinery/door_control/oneshot/attack_hand(mob/user as mob)
+/obj/machinery/door_control/oneshot/attack_hand(mob/user)
 	..()
 	if (!(status & BROKEN))
 		src.status |= BROKEN
@@ -487,7 +488,7 @@ ABSTRACT_TYPE(/obj/machinery/activation_button)
 	/// compatible machines with a matching id will be activated
 	var/id = null
 	var/active = FALSE
-	anchored = 1.0
+	anchored = 1
 
 	proc/activate()
 		return
@@ -500,14 +501,14 @@ ABSTRACT_TYPE(/obj/machinery/activation_button)
 		return
 	return src.Attackhand(user)
 
-/obj/machinery/activation_button/attack_hand(mob/user as mob)
+/obj/machinery/activation_button/attack_hand(mob/user)
 	if(status & (NOPOWER|BROKEN))
 		return
 	if(active)
 		return
 
 	use_power(5)
-
+	playsound(src.loc, 'sound/machines/button.ogg', 40, 0.5)
 	src.active = TRUE
 	icon_state = "launcheract"
 
@@ -573,7 +574,7 @@ ABSTRACT_TYPE(/obj/machinery/activation_button)
 	var/frequency = FREQ_DOOR_CONTROL
 	var/open = 0 //open or not?
 	var/access_type = POD_ACCESS_STANDARD
-	anchored = 1.0
+	anchored = 1
 	var/datum/light/light
 
 	syndicate
@@ -980,7 +981,7 @@ ABSTRACT_TYPE(/obj/machinery/activation_button)
 		light.enable()
 
 	Click(var/location,var/control,var/params)
-		if(get_dist(usr, src) < 16)
+		if(GET_DIST(usr, src) < 16)
 			if(istype(usr.loc, /obj/machinery/vehicle))
 				var/obj/machinery/vehicle/V = usr.loc
 				if (!V.com_system)
@@ -1007,7 +1008,7 @@ ABSTRACT_TYPE(/obj/machinery/activation_button)
 			return
 		return src.Attackhand(user)
 
-	attack_hand(mob/user as mob)
+	attack_hand(mob/user)
 		boutput(user, "<span class='notice'>The password is \[[src.pass]\]</span>")
 		return
 

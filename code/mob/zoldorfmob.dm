@@ -91,7 +91,7 @@
 
 		the_zoldorf = list()
 		spawn(0)
-			src << browse(grabResource("html/traitorTips/souldorfTips.htm"),"window=antagTips;titlebar=1;size=600x400;can_minimize=0;can_resize=0")
+			src.show_antag_popup("souldorf")
 
 	Login()
 		..()
@@ -169,7 +169,7 @@
 			return 1
 		return ..()
 
-	Move(NewLoc, direct) //just a copy paste from ghost move
+	Move(NewLoc, direct) //just a copy paste from ghost move // YEAH IT SURE FUCKING IS
 		if(!canmove) return
 
 		if (NewLoc && isrestrictedz(src.z) && !restricted_z_allowed(src, NewLoc) && !(src.client && src.client.holder))
@@ -196,6 +196,8 @@
 			src.x++
 		if((direct & WEST) && src.x > 1)
 			src.x--
+
+		. = ..()
 
 	is_active()
 		return 0
@@ -287,6 +289,7 @@
 					src.pixel_y = 0
 
 	death(gibbed)
+		. = ..()
 		var/mob/dead/observer/o = src.ghostize()
 
 		if(o.client)
@@ -308,6 +311,13 @@
 		src.free()
 		src.set_loc(get_turf(src.loc))
 		pz.remove_simple_light("zoldorf")
+
+	stopObserving()
+		if(src.homebooth)
+			src.set_loc(homebooth)
+		else
+			src.ghostize()
+		src.observing = null
 
 /mob/proc/make_zoldorf(var/obj/machinery/playerzoldorf/pz) //ok this is a little weird, but its the other portion of the booth proc that handles the mob-side things and some of the booth things that need to be set before the original player is deleted
 	if (src.mind || src.client)

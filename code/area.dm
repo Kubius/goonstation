@@ -121,7 +121,10 @@ ABSTRACT_TYPE(/area) // don't instantiate this directly dummies, use /area/space
 	var/waking_critters = 0
 
 	// this chunk zone is for Area Ambience
+
+	/// Set to a sound you want to loop in an area
 	var/sound_loop = null
+	/// Volume for [sound_loop]
 	var/sound_loop_vol = 50
 	var/sound_fx_1 = null
 	var/sound_fx_2 = null
@@ -296,7 +299,7 @@ ABSTRACT_TYPE(/area) // don't instantiate this directly dummies, use /area/space
 				return null
 		return R
 
-	/*
+	/**
 	 * returns a list of objects matching type in an area
 	 */
 	proc/get_type(var/type)
@@ -333,7 +336,7 @@ ABSTRACT_TYPE(/area) // don't instantiate this directly dummies, use /area/space
 			C.wake_from_hibernation()
 		if(enteringM?.client)
 			for (var/mob/living/M as anything in src.mobs_not_in_global_mobs_list)
-				if(!M.skipped_mobs_list)
+				if(!M.skipped_mobs_list && get_area(M) == src)
 					stack_trace("Attempting to add [M] to global mobs list but its flag is not set.")
 				if(M.skipped_mobs_list & SKIPPED_AI_MOBS_LIST)
 					global.ai_mobs |= M
@@ -443,6 +446,7 @@ ABSTRACT_TYPE(/area) // don't instantiate this directly dummies, use /area/space
 
 	Del()
 		STOP_TRACKING
+		dispose()
 		..()
 
 /area/space // the base area you SHOULD be using for space/ocean/etc.
@@ -490,6 +494,13 @@ ABSTRACT_TYPE(/area) // don't instantiate this directly dummies, use /area/space
 	ambient_light = rgb(79, 164, 184)
 	dont_log_combat = TRUE
 	// filler_turf = "/turf/unsimulated/floor/setpieces/gauntlet"
+
+	fullbright
+		ambient_light = null
+		force_fullbright = 1
+
+	dark
+		ambient_light = null
 
 /area/cavetiny
 	name = "Caves"
@@ -1232,6 +1243,8 @@ ABSTRACT_TYPE(/area/prefab)
 	icon_state = "orange"
 	requires_power = FALSE
 
+/area/prefab/vault
+	name = "Secure Vault"
 /area/prefab/discount_dans_asteroid
 	name = "Discount Dan's Delivery Asteroid"
 	icon_state = "orange"
@@ -1822,6 +1835,10 @@ ABSTRACT_TYPE(/area/station/maintenance/outer)
 
 /area/station/maintenance/disposal
 	name = "Waste Disposal"
+	icon_state = "disposal"
+
+/area/station/maintenance/scidisposal
+	name = "Outpost Zeta Waste Disposal"
 	icon_state = "disposal"
 
 /area/station/maintenance/lowerstarboard
@@ -3572,6 +3589,7 @@ ABSTRACT_TYPE(/area/mining)
 	name = "Kosmicheskoi Stantsii 13"
 	icon_state = "yellow"
 	permarads = 1
+	irradiated = 1
 
 // // // // // // // // // // // //
 

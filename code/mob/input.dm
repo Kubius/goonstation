@@ -132,7 +132,7 @@
 						qdel(G)
 				for (var/obj/item/grab/G as anything in src.grabbed_by)
 					if (istype(G) && BOUNDS_DIST(src, G.assailant) > 0)
-						if (G.state > 1)
+						if (G.state > GRAB_STRONG)
 							delay += G.assailant.p_class
 						qdel(G)
 
@@ -200,9 +200,14 @@
 
 					var/do_step = 1 //robust grab : don't even bother if we are in a chokehold. Assailant gets moved below. Makes the tile glide better without having a chain of step(src)->step(assailant)->step(me)
 					for (var/obj/item/grab/G as anything in src.grabbed_by)
-						if (G?.state < GRAB_NECK) continue
+						if (G?.state < GRAB_AGGRESSIVE) continue
 						do_step = 0
 						break
+
+					if(ishuman(src) && !src?.client?.flying && !src.hasStatus("resting") && !src.buckled && !H.limbs.l_leg && !H.limbs.r_leg)	//do this before we move, so we can dump stuff on the old tile. Just to be mean.
+						boutput(src, "<span class='alert'>Without a leg to walk with, you flop over!</span>")
+						src.setStatus("resting", duration = INFINITE_STATUS)
+						src.force_laydown_standup()
 
 					if (do_step)
 						step(src, move_dir)
@@ -220,7 +225,7 @@
 
 						for (var/obj/item/grab/G as anything in src.grabbed_by)
 							if (G.assailant == pushing || G.affecting == pushing) continue
-							if (G.state < GRAB_NECK) continue
+							if (G.state < GRAB_AGGRESSIVE) continue
 							if (!G.assailant || !isturf(G.assailant.loc) || G.assailant.anchored)
 								return
 							src.set_density(0) //assailant shouldn't be able to bump us here. Density is set to 0 by the grab stuff but *SAFETY!*
@@ -235,7 +240,7 @@
 								src.remove_stamina((src.lying ? 3 : 1) * (STAMINA_COST_SPRINT-1))
 
 						if(src.get_stamina() < STAMINA_COST_SPRINT && HAS_ATOM_PROPERTY(src, PROP_MOB_FAILED_SPRINT_FLOP)) //Check after move rather than before so we cleanly transition from sprint to flop
-							if (!src.client.flying && !src.hasStatus("resting")) //no flop if laying or noclipping
+							if (!src?.client?.flying && !src.hasStatus("resting")) //no flop if laying or noclipping
 								//just fall over in place when in space (to prevent zooming)
 								var/turf/current_turf = get_turf(src)
 								if (!(current_turf.turf_flags & CAN_BE_SPACE_SAMPLE))
@@ -256,7 +261,7 @@
 							pulling += G.affecting
 
 						for (var/atom/movable/A in pulling)
-							if (get_dist(src, A) == 0) // if we're moving onto the same tile as what we're pulling, don't pull
+							if (GET_DIST(src, A) == 0) // if we're moving onto the same tile as what we're pulling, don't pull
 								continue
 							if (A == src || A == pushing)
 								continue

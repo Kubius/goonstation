@@ -28,7 +28,6 @@
 	var/next_deny = 0
 	var/icon_base = "door"
 	var/brainloss_stumble = 0 // Can a mob stumble into this door if they have enough brain damage? Won't work if you override Bumped() or attackby() and don't check for it separately.
-	var/brainloss_nospam = 1 // In relation to world time.
 	var/crush_delay = 60
 	var/sound_deny = 0
 	var/has_crush = 1 //flagged to true when the door has a secret admirer. also if the var == 1 then the door doesn't have the ability to crush items.
@@ -44,7 +43,7 @@
 	var/ignore_light_or_cam_opacity = 0
 
 /obj/machinery/door/Bumped(atom/AM)
-	if (src.p_open || src.operating) return
+	if (src.operating) return
 	if (src.isblocked()) return
 
 	if (ismob(AM))
@@ -95,29 +94,24 @@
 		return 0
 
 	if (ishuman(user))
-		var/mob/living/carbon/human/C = user
-		if (isdead(C)) //No need to call for dead people!
+		var/mob/living/carbon/human/H = user
+		if (isdead(H)) //No need to call for dead people!
 			return 0
-		if (C.get_brain_damage() >= 60)
+		if (H.get_brain_damage() >= 60)
 			// No text spam, please. Bumped() is called more than once by some doors, though.
 			// If we just return 0, they will be able to bump-open the door and get past regardless
 			// because mob paralysis doesn't take effect until the next tick.
-			if (src.brainloss_nospam && world.time < src.brainloss_nospam + 10)
-				return 1
-
-			if (prob(20))
+			if (prob(20) && !ON_COOLDOWN(H,"brainstumble_cooldown", 1 SECOND))
 				playsound(src.loc, "sound/impact_sounds/Metal_Clang_3.ogg", 50, 1)
-				src.visible_message("<span class='alert'><b>[C]</b> stumbles into [src] head-first. [pick("Ouch", "Damn", "Woops")]!</span>")
-				if (!istype(C.head, /obj/item/clothing/head/helmet))
-					var/obj/item/affecting = C.organs["head"]
+				src.visible_message("<span class='alert'><b>[H]</b> stumbles into [src] head-first. [pick("Ouch", "Damn", "Woops")]!</span>")
+				if (!istype(H.head, /obj/item/clothing/head/helmet))
+					var/obj/item/affecting = H.organs["head"]
 					if (affecting)
 						affecting.take_damage(9, 0)
-						C.UpdateDamageIcon()
-					C.changeStatus("weakened", 1 SECOND)
+						H.UpdateDamageIcon()
+					H.changeStatus("weakened", 1 SECOND)
 				else
-					boutput(C, "<span class='notice'>Your helmet protected you from injury!</span>")
-
-				src.brainloss_nospam = world.time
+					boutput(H, "<span class='notice'>Your helmet protected you from injury!</span>")
 				return 1
 	return 0
 
@@ -169,6 +163,7 @@
 		UnsubscribeProcess()
 		AddComponent(/datum/component/mechanics_holder)
 		SEND_SIGNAL(src,COMSIG_MECHCOMP_ADD_INPUT,"toggle", .proc/toggleinput)
+		AddComponent(/datum/component/bullet_holes, 15, hardened ? 999 : 5) // no bullet holes if hardened; wouldn't want to get their hopes up
 		update_nearby_tiles(need_rebuild=1)
 		START_TRACKING
 		for (var/turf/simulated/wall/auto/T in orange(1))
@@ -207,7 +202,7 @@
 /obj/machinery/door/attack_ai(mob/user as mob)
 	return src.Attackhand(user)
 
-/obj/machinery/door/attack_hand(mob/user as mob)
+/obj/machinery/door/attack_hand(mob/user)
 	interact_particle(user,src)
 	return src.Attackby(null, user)
 
@@ -301,7 +296,7 @@
 	close()
 	return 1
 
-/obj/machinery/door/attackby(obj/item/I as obj, mob/user as mob)
+/obj/machinery/door/attackby(obj/item/I, mob/user)
 	if (user.getStatusDuration("stunned") || user.getStatusDuration("weakened") || user.stat || user.restrained())
 		return
 	if(istype(I, /obj/item/grab))
@@ -407,14 +402,14 @@
 	if (isrestrictedz(src.z))
 		return
 	switch(severity)
-		if(1.0)
+		if(1)
 			qdel(src)
-		if(2.0)
+		if(2)
 			if(prob(25))
 				qdel(src)
 			else
 				take_damage(health_max/2)
-		if(3.0)
+		if(3)
 			if(prob(80))
 				elecflash(src,power=2)
 			take_damage(health_max/6)
@@ -436,9 +431,9 @@
 	var/armor = 0
 
 	if (src.material)
-		if (src.material.getProperty("density") >= 10)
-			armor += round(src.material.getProperty("density") / 10)
-		else if (src.material.hasProperty("density") && src.material.getProperty("density") < 10)
+		if (src.material.getProperty("density") >= 3)
+			armor += round(src.material.getProperty("density"))
+		else
 			amount += rand(1,3)
 
 	amount = get_damage_after_percentage_based_armor_reduction(armor,amount)
@@ -580,6 +575,8 @@
 			// We don't care watever is inside the airlock when we close the airlock if we are unsafe, crush em.
 			//Maybe moving this until just after the animation looks better.
 			for(var/mob/living/L in get_turf(src))
+				if(isintangible(L))
+					continue
 				var/mob_layer = L.layer	//Make it look like we're inside the door
 				L.layer = src.layer - 0.01
 				playsound(src, 'sound/impact_sounds/Flesh_Break_1.ogg', 100, 1)
@@ -631,8 +628,7 @@
 	else return
 
 /obj/machinery/door/proc/knockOnDoor(mob/user)
-	if(world.time >= user.last_door_knock_time) //slow the fuck down cowboy
-		user.last_door_knock_time = world.time + KNOCK_DELAY
+	if(!ON_COOLDOWN(user,"knocking_cooldown",KNOCK_DELAY)) //slow the fuck down cowboy
 		attack_particle(user,src)
 		playsound(src.loc, src.knocksound, 100, 1) //knock knock
 
@@ -664,10 +660,10 @@
 /obj/machinery/door/unpowered/attack_ai(mob/user as mob)
 	return src.Attackhand(user)
 
-/obj/machinery/door/unpowered/attack_hand(mob/user as mob)
+/obj/machinery/door/unpowered/attack_hand(mob/user)
 	return src.Attackby(null, user)
 
-/obj/machinery/door/unpowered/attackby(obj/item/I as obj, mob/user as mob)
+/obj/machinery/door/unpowered/attackby(obj/item/I, mob/user)
 	if (src.operating)
 		return
 	src.add_fingerprint(user)
@@ -679,7 +675,7 @@
 	return
 
 /obj/machinery/door/unpowered/shuttle
-	icon = 'icons/turf/shuttle.dmi'
+	icon = 'icons/obj/doors/shuttle.dmi';
 	name = "door"
 	icon_state = "door1"
 	#ifdef UPSCALED_MAP
@@ -723,6 +719,7 @@
 	density = 1
 	p_open = 0
 	operating = 0
+	layer = EFFECTS_LAYER_UNDER_1
 	anchored = 1
 	autoclose = 1
 	var/blocked = null
@@ -733,6 +730,10 @@
 	..()
 	if (!src.simple_lock)
 		src.verbs -= /obj/machinery/door/unpowered/wood/verb/simple_lock
+	if (istype(get_area(src), /area/centcom/offices))
+		var/area/centcom/offices/O = get_area(src)
+		if (O.icon_state == "blue")
+			src.locked = TRUE
 
 /obj/machinery/door/unpowered/wood/pyro
 	icon = 'icons/obj/doors/SL_doors.dmi'
@@ -753,7 +754,7 @@
 	. = ..()
 	. += " It's [!src.locked ? "un" : null]locked."
 
-/obj/machinery/door/unpowered/wood/attackby(obj/item/I as obj, mob/user as mob)
+/obj/machinery/door/unpowered/wood/attackby(obj/item/I, mob/user)
 	if (I) // eh, this'll work well enough.
 		src.material?.triggerOnHit(src, I, user, 1)
 	if (src.operating)

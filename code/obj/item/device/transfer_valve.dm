@@ -28,8 +28,8 @@
 
 	New()
 		..()
-		RegisterSignal(src, COMSIG_BOMB_SIGNAL_START, .proc/signal_start)
-		RegisterSignal(src, COMSIG_BOMB_SIGNAL_CANCEL, .proc/signal_cancel)
+		RegisterSignal(src, COMSIG_ITEM_BOMB_SIGNAL_START, .proc/signal_start)
+		RegisterSignal(src, COMSIG_ITEM_BOMB_SIGNAL_CANCEL, .proc/signal_cancel)
 		processing_items |= src
 
 	disposing()
@@ -186,8 +186,6 @@
 	receive_signal(signal)
 		if(toggle)
 			toggle = 0
-			if (ishellbanned(usr))
-				force_dud = 1
 			toggle_valve()
 			SPAWN(5 SECONDS) // To stop a signal being spammed from a proxy sensor constantly going off or whatever
 				toggle = 1
@@ -315,9 +313,9 @@
 				var/power = min(MIXTURE_PRESSURE(T.air_contents) / TANK_RUPTURE_PRESSURE, 2)
 				DEBUG_MESSAGE("Power: [power]")
 
-				if(power < 0.30) //Really weak
+				if(power < 0.3) //Really weak
 					return
-				else if (power < 0.50)
+				else if (power < 0.5)
 					visible_message("<span class='combat'>\The [src] farts [pick_string("descriptors.txt", "mopey")]</span>")
 					playsound(src, 'sound/voice/farts/poo2.ogg', 30, 2, channel=VOLUME_CHANNEL_EMOTE)
 					return
@@ -404,8 +402,8 @@
 		SPAWN(2 SECONDS)
 			if (user)
 				user.suiciding = 0
-				if(isalive(user) && src && get_dist(user,src) <= 7)
-					user.visible_message("<span class='alert'>[user] stares at the [src.name], a confused expression on \his face.</span>") //It didn't blow up!
+				if(isalive(user) && src && GET_DIST(user,src) <= 7)
+					user.visible_message("<span class='alert'>[user] stares at the [src.name], a confused expression on [his_or_her(user)] face.</span>") //It didn't blow up!
 		return 1
 
 /obj/item/device/transfer_valve/briefcase
@@ -426,7 +424,7 @@
 	var/updates_before_halt = 10 //So we don't keep updating on a dud bomb forever.
 	var/update_counter = 0
 
-	attack_hand(mob/user as mob)
+	attack_hand(mob/user)
 		return
 
 	disposing()

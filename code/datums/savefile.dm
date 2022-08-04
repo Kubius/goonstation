@@ -46,6 +46,7 @@
 		F["[profileNum]_name_first"] << src.name_first
 		F["[profileNum]_name_middle"] << src.name_middle
 		F["[profileNum]_name_last"] << src.name_last
+		F["[profileNum]_robot_name"] << src.robot_name
 		F["[profileNum]_gender"] << src.gender
 		F["[profileNum]_age"] << src.age
 		F["[profileNum]_fartsound"] << AH.fartsound
@@ -209,6 +210,7 @@
 		F["[profileNum]_name_first"] >> src.name_first
 		F["[profileNum]_name_middle"] >> src.name_middle
 		F["[profileNum]_name_last"] >> src.name_last
+		F["[profileNum]_robot_name"] >> src.robot_name
 		F["[profileNum]_gender"] >> src.gender
 		F["[profileNum]_age"] >> src.age
 		F["[profileNum]_fartsound"] >> AH.fartsound
@@ -354,7 +356,7 @@
 		if (!src.traitPreferences.isValid())
 			src.traitPreferences.traits_selected.Cut()
 			src.traitPreferences.calcTotal()
-			alert(user, "Your traits couldn't be loaded. Please reselect your traits.")
+			tgui_alert(user, "Your traits couldn't be loaded. Please reselect your traits.", "Reselect traits")
 
 
 		if(!src.radio_music_volume) // We can take this out some time, when we're decently sure that most people will have this var set to something

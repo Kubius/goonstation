@@ -32,6 +32,8 @@ ABSTRACT_TYPE(/obj/vehicle)
 	var/booster_upgrade = 0 //do we go through space?
 	var/booster_image = null //what overlay icon do we use for the booster upgrade? (we have to initialize this in new)
 	var/emagged = FALSE
+	var/health = null
+	var/health_max = null
 
 	New()
 		. = ..()
@@ -54,7 +56,7 @@ ABSTRACT_TYPE(/obj/vehicle)
 	return_air()
 		return src.loc.return_air()
 
-	attackby(obj/item/W as obj, mob/user as mob)
+	attackby(obj/item/W, mob/user)
 		if(src.rider && src.rider_visible && W.force)
 			W.attack(src.rider, user)
 			user.lastattacked = src
@@ -69,6 +71,31 @@ ABSTRACT_TYPE(/obj/vehicle)
 			eject_rider()
 		else
 			..()
+			var/obj/projectile/P = flag
+			if (health_max != null)
+				var/damage_unscaled = P.power * P.proj_data.ks_ratio //stam component does nothing- can't tase a grille
+				switch(P.proj_data.damage_type)
+					if (D_PIERCING)
+						src.take_damage(damage_unscaled)
+						playsound(src.loc, 'sound/impact_sounds/Metal_Hit_Light_1.ogg', 50, 1)
+					if (D_BURNING)
+						src.take_damage(damage_unscaled / 2)
+					if (D_KINETIC)
+						src.take_damage(damage_unscaled / 2)
+					if (D_ENERGY)
+						src.take_damage(damage_unscaled / 4)
+					if (D_SPECIAL) //random guessing
+						src.take_damage(damage_unscaled / 4)
+						src.take_damage(damage_unscaled / 8)
+
+	proc/take_damage(var/amount)
+		if (!isnum(amount) || amount <= 0)
+			return
+
+		src.health = clamp(src.health - amount, 0, src.health_max)
+		if (src.health == 0)
+			robogibs(src.loc)
+			qdel(src)
 
 	meteorhit()
 		if (src.rider && ismob(src.rider))
@@ -78,20 +105,20 @@ ABSTRACT_TYPE(/obj/vehicle)
 
 	ex_act(severity)
 		switch(severity)
-			if(1.0)
+			if(1)
 				for(var/atom/movable/A as mob|obj in src)
 					A.set_loc(src.loc)
 					A.ex_act(severity)
 				qdel(src)
 
-			if(2.0)
+			if(2)
 				if (prob(50))
 					for(var/atom/movable/A as mob|obj in src)
 						A.set_loc(src.loc)
 						A.ex_act(severity)
 					qdel(src)
 
-			if(3.0)
+			if(3)
 				if (prob(25))
 					for(var/atom/movable/A as mob|obj in src)
 						A.set_loc(src.loc)
@@ -127,6 +154,9 @@ ABSTRACT_TYPE(/obj/vehicle)
 			src.rider = null
 		if (ejectall)
 			src.eject_other_stuff()
+
+	was_deconstructed_to_frame(mob/user)
+		eject_rider(FALSE, FALSE, TRUE)
 
 	/// remove the ability buttons from the rider
 	proc/handle_button_removal()
@@ -245,6 +275,8 @@ ABSTRACT_TYPE(/obj/vehicle)
 	var/image/image_under = null
 	layer = MOB_LAYER + 1
 	mats = 8
+	health = 30
+	health_max = 30
 	var/weeoo_in_progress = 0
 	var/icon_weeoo_state = 2
 	soundproofing = 0
@@ -320,7 +352,7 @@ ABSTRACT_TYPE(/obj/vehicle)
 	update()
 	..()
 	in_bump = 1
-	if((isturf(AM) || istype(AM, /mob/living/carbon/wall)) && (rider.bioHolder.HasEffect("clumsy") || (rider.reagents && rider.reagents.has_reagent("ethanol"))))
+	if(isturf(AM) && (rider.bioHolder.HasEffect("clumsy") || (rider.reagents && rider.reagents.has_reagent("ethanol"))))
 		boutput(rider, "<span class='alert'><B>You crash into the wall!</B></span>")
 		for (var/mob/C in AIviewers(src))
 			if(C == rider)
@@ -572,7 +604,7 @@ ABSTRACT_TYPE(/obj/vehicle)
 		eject_rider(0, 1)
 	return
 
-/obj/vehicle/segway/attack_hand(mob/living/carbon/human/M as mob)
+/obj/vehicle/segway/attack_hand(mob/living/carbon/human/M)
 	if(!M || !rider)
 		..()
 		return
@@ -631,6 +663,8 @@ ABSTRACT_TYPE(/obj/vehicle)
 	layer = MOB_LAYER + 1
 	is_syndicate = 1
 	mats = 8
+	health = 80
+	health_max = 80
 	var/low_reagents_warning = 0
 	var/zamboni = 0
 	var/sprayer_active = 0
@@ -748,7 +782,7 @@ ABSTRACT_TYPE(/obj/vehicle)
 
 			qdel(D)
 
-/obj/vehicle/floorbuffer/attackby(obj/item/W as obj, mob/user as mob)
+/obj/vehicle/floorbuffer/attackby(obj/item/W, mob/user)
 	if(istype(W, /obj/item/reagent_containers) && W.is_open_container() && W.reagents)
 		if(!W.reagents.total_volume)
 			boutput(user, "<span class='alert'>[W] is empty.</span>")
@@ -884,7 +918,7 @@ ABSTRACT_TYPE(/obj/vehicle)
 		eject_rider(0, 1)
 	return
 
-/obj/vehicle/floorbuffer/attack_hand(mob/living/carbon/human/M as mob)
+/obj/vehicle/floorbuffer/attack_hand(mob/living/carbon/human/M)
 	if(!M || !rider)
 		..()
 		return
@@ -992,7 +1026,7 @@ ABSTRACT_TYPE(/obj/vehicle)
 		eject_rider(0, 1, 0)
 	return
 
-/obj/vehicle/clowncar/attack_hand(mob/living/carbon/human/M as mob)
+/obj/vehicle/clowncar/attack_hand(mob/living/carbon/human/M)
 	if(!M)
 		..()
 		return
@@ -1082,7 +1116,7 @@ ABSTRACT_TYPE(/obj/vehicle)
 			clown_tally += 1
 		if(istype(user:wear_mask, /obj/item/clothing/mask/clown_hat))
 			clown_tally += 1
-	if(clown_tally < 2)
+	if(clown_tally < 2 && !IS_LIVING_OBJECT_USING_SELF(user))
 		boutput(user, "<span class='notice'>You don't feel funny enough to use the [src].</span>")
 		return
 
@@ -1120,7 +1154,7 @@ ABSTRACT_TYPE(/obj/vehicle)
 	icon_state = "clowncar"
 	..()
 	in_bump = 1
-	if((isturf(AM) || istype(AM, /mob/living/carbon/wall)))
+	if(isturf(AM))
 		boutput(rider, "<span class='alert'><B>You crash into the wall!</B></span>")
 		for (var/mob/C in AIviewers(src))
 			if(C == rider)
@@ -1172,6 +1206,7 @@ ABSTRACT_TYPE(/obj/vehicle)
 			C.show_message("<span class='alert'><B>[rider] crashes into [M] with the [src]!</B></span>", 1)
 		M.changeStatus("stunned", 8 SECONDS)
 		M.changeStatus("weakened", 5 SECONDS)
+		M.force_laydown_standup()
 		playsound(src.loc, "sound/impact_sounds/Generic_Hit_Heavy_1.ogg", 40, 1)
 
 /obj/vehicle/clowncar/bullet_act(flag, A as obj)
@@ -1388,7 +1423,7 @@ obj/vehicle/clowncar/proc/log_me(var/mob/rider, var/mob/pax, var/action = "", va
 	walk(src, 0)
 	..()
 	in_bump = 1
-	if((isturf(AM) || istype(AM, /mob/living/carbon/wall)) && (rider.bioHolder.HasEffect("clumsy") || rider.reagents.has_reagent("ethanol")))
+	if(isturf(AM) && (rider.bioHolder.HasEffect("clumsy") || rider.reagents.has_reagent("ethanol")))
 		boutput(rider, "<span class='alert'><B>You run to the wall!</B></span>")
 		for (var/mob/C in AIviewers(src))
 			if(C == rider)
@@ -1515,7 +1550,7 @@ obj/vehicle/clowncar/proc/log_me(var/mob/rider, var/mob/pax, var/action = "", va
 		eject_rider(0, 1)
 	return
 
-/obj/vehicle/cat/attack_hand(mob/living/carbon/human/M as mob)
+/obj/vehicle/cat/attack_hand(mob/living/carbon/human/M)
 	if(!M || !rider)
 		..()
 		return
@@ -1565,6 +1600,10 @@ obj/vehicle/clowncar/proc/log_me(var/mob/rider, var/mob/pax, var/action = "", va
 	booster_upgrade =1
 	delay = 1
 	soundproofing = 5
+
+	New()
+		..()
+		booster_image = image('icons/obj/vehicles.dmi', "boost-bus")
 
 /obj/vehicle/adminbus/Move()
 	if(src.darkness)
@@ -1690,7 +1729,7 @@ obj/vehicle/clowncar/proc/log_me(var/mob/rider, var/mob/pax, var/action = "", va
 		eject_rider(0, 1, 0)
 	return
 
-/obj/vehicle/adminbus/attack_hand(mob/living/carbon/human/M as mob)
+/obj/vehicle/adminbus/attack_hand(mob/living/carbon/human/M)
 	if(!M || !(M.client && M.client.holder))
 		..()
 		return
@@ -2150,6 +2189,8 @@ obj/vehicle/clowncar/proc/log_me(var/mob/rider, var/mob/pax, var/action = "", va
 	icon_state = "forklift"
 	anchored = 1
 	mats = 12
+	health = 80
+	health_max = 80
 	var/list/helditems = list()	//Items being held by the forklift
 	var/helditems_maximum = 3
 	var/openpanel = 0			//1 when the back panel is opened
@@ -2341,7 +2382,7 @@ obj/vehicle/clowncar/proc/log_me(var/mob/rider, var/mob/pax, var/action = "", va
 		boutput(user, "You don't think [src] has enough utensil strength to pick this up.")
 		return
 
-	if(ishuman(A) && BOUNDS_DIST(user, src) == 01  && BOUNDS_DIST(A, user) == 0 && !rider)
+	if(ishuman(A) && BOUNDS_DIST(user, src) == 0  && BOUNDS_DIST(A, user) == 0 && !rider)
 		if (A == user)
 			boutput(user, "You get into [src].")
 		else
@@ -2351,7 +2392,7 @@ obj/vehicle/clowncar/proc/log_me(var/mob/rider, var/mob/pax, var/action = "", va
 		src.update_overlays()
 		return
 
-/obj/vehicle/forklift/attack_hand(mob/living/carbon/human/M as mob)
+/obj/vehicle/forklift/attack_hand(mob/living/carbon/human/M)
 	if(!M || !rider)
 		..()
 		return

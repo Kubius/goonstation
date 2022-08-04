@@ -163,7 +163,7 @@
 			using = FALSE
 			return TRUE
 
-		if (!(the_object in get_filtered_atoms_in_touch_range(owner, base_path)))
+		if (!(the_object in get_filtered_atoms_in_touch_range(owner, base_path)) && !istype(the_object, /obj/the_server_ingame_whoa))
 			owner.show_text("<span class='alert'>Man, that thing is long gone, far away, just let it go.</span>")
 			return TRUE
 
@@ -179,24 +179,45 @@
 			the_server.eaten(owner)
 			using = FALSE
 			return
-		owner.visible_message("<span class='alert'>[owner] eats [the_object].</span>")
-		playsound(owner.loc, "sound/items/eatfood.ogg", 50, FALSE)
 
 		if (ishuman(owner))
 			var/mob/living/carbon/human/H = owner
+
+			// First, restore a little hunger, and heal our organs
 			if (isitem(the_object))
 				var/obj/item/the_item = the_object
 				H.sims?.affectMotive("Hunger", (the_item.w_class + 1) * 5) // +1 so tiny items still give a small boost
-			for(var/A in owner.organs)
-				var/obj/item/affecting = null
-				if (!owner.organs[A])    continue
-				affecting = owner.organs[A]
-				if (!isitem(affecting))
-					continue
-				affecting.heal_damage(4, 0)
-			owner.UpdateDamageIcon()
+				for(var/A in owner.organs)
+					var/obj/item/affecting = null
+					if (!owner.organs[A])
+						continue
+					affecting = owner.organs[A]
+					if (!isitem(affecting))
+						continue
+					affecting.heal_damage(4, 0)
+				owner.UpdateDamageIcon()
 
-		qdel(the_object)
+		if (!QDELETED(the_object)) // Finally, ensure that the item is deleted regardless of what it is
+			var/obj/item/I = the_object
+			if(I)
+				if(I.Eat(owner, owner, TRUE)) //eating can return false to indicate it failed
+					// Organs and body parts have special behaviors we need to account for
+					if (ishuman(owner))
+						var/mob/living/carbon/human/H = owner
+						if (istype(the_object, /obj/item/organ))
+							var/obj/item/organ/organ_obj = the_object
+							if (organ_obj.donor)
+								H.organHolder.drop_organ(the_object,H) //hide it inside self so it doesn't hang around until the eating is finished
+						else if (istype(the_object, /obj/item/parts))
+							var/obj/item/parts/part = the_object
+							part.delete()
+							H.hud.update_hands()
+			else //Eat() handles qdel, visible message and sound playing, so only do that when we don't have Eat()
+				owner.visible_message("<span class='alert'>[owner] eats [the_object].</span>")
+				playsound(owner.loc, "sound/items/eatfood.ogg", 50, FALSE)
+				qdel(the_object)
+
+
 
 		using = FALSE
 
@@ -296,8 +317,6 @@
 			return 1
 
 		//store both x and y as transforms mid jump can cause unwanted pixel offsetting
-		var/original_x_offset = owner.pixel_x
-		var/original_y_offset = owner.pixel_y
 		var/jump_tiles = 10 * linked_power.power
 		var/pixel_move = 8 * linked_power.power
 		var/sleep_time = 1 / linked_power.power
@@ -308,17 +327,22 @@
 			var/prevLayer = owner.layer
 			owner.layer = EFFECTS_LAYER_BASE
 
+			animate(owner,
+				pixel_y = pixel_move * jump_tiles / 2,
+				time = sleep_time * jump_tiles / 2,
+				easing = EASE_OUT | CIRCULAR_EASING,
+				flags = ANIMATION_RELATIVE | ANIMATION_PARALLEL)
+			animate(
+				pixel_y = -pixel_move * jump_tiles / 2,
+				time = sleep_time * jump_tiles / 2,
+				easing = EASE_IN | CIRCULAR_EASING,
+				flags = ANIMATION_RELATIVE)
+
 			SPAWN(0)
 				for(var/i=0, i < jump_tiles, i++)
 					step(owner, owner.dir)
-					if(i < jump_tiles / 2)
-						owner.pixel_y += pixel_move
-					else
-						owner.pixel_y -= pixel_move
 					sleep(sleep_time)
 
-				owner.pixel_x = original_x_offset
-				owner.pixel_y = original_y_offset
 				owner.layer = prevLayer
 
 		if (istype(owner.loc,/obj/))
@@ -327,16 +351,7 @@
 			owner.changeStatus("paralysis", 5 SECONDS)
 			owner.changeStatus("weakened", 5 SECONDS)
 			container.visible_message("<span class='alert'><b>[owner.loc]</b> emits a loud thump and rattles a bit.</span>")
-			playsound(owner.loc, "sound/impact_sounds/Metal_Hit_Heavy_1.ogg", 50, 1)
-			SPAWN(0)
-				var/wiggle = 6
-				while(wiggle > 0)
-					wiggle--
-					container.pixel_x = rand(-3,3)
-					container.pixel_y = rand(-3,3)
-					sleep(0.1 SECONDS)
-				container.pixel_x = 0
-				container.pixel_y = 0
+			animate_storage_thump(container)
 
 		return
 
@@ -980,6 +995,7 @@
 			if(owner.reagents.has_reagent("anti_fart"))
 				owner.visible_message("<span class='alert'><b>[owner.name]</b> swells up. That can't be good.</span>")
 				boutput(owner, "<span class='alert'><b>Oh god.</b></span>")
+				logTheThing("combat", owner, null, "was gibbed by superfarting while containing anti_fart at [log_loc(owner)].")
 				indigestion_gib()
 				return 1
 
@@ -1145,7 +1161,7 @@
 	color_blue = 1
 
 /datum/projectile/laser/eyebeams/stun
-	ks_ratio = 0.0
+	ks_ratio = 0
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1654,7 +1670,7 @@
 				break
 			if (F == get_turf(owner))
 				continue
-			if (get_dist(owner,F) > range)
+			if (GET_DIST(owner,F) > range)
 				continue
 			tfireflash(F,0.5,temp)
 
@@ -2039,7 +2055,7 @@
 				break
 			if (F == get_turf(owner))
 				continue
-			if (get_dist(owner,F) > range)
+			if (GET_DIST(owner,F) > range)
 				continue
 			affected_turfs += F
 		for(var/turf/F in affected_turfs)

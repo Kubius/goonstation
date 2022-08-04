@@ -17,8 +17,8 @@ MATERIAL
 	flags = FPRINT | TABLEPASS| CONDUCT
 	health = 3
 	w_class = W_CLASS_NORMAL
-	force = 9.0
-	throwforce = 15.0
+	force = 9
+	throwforce = 15
 	throw_speed = 5
 	throw_range = 20
 	m_amt = 1875
@@ -37,7 +37,7 @@ MATERIAL
 		. = ..()
 		. += "There are [amount] rod\s in this stack."
 
-	attack_hand(mob/user as mob)
+	attack_hand(mob/user)
 		if((user.r_hand == src || user.l_hand == src) && src.amount > 1)
 			var/splitnum = round(input("How many rods do you want to take from the stack?","Stack of [src.amount]",1) as num)
 			var/diff = src.amount - splitnum
@@ -54,7 +54,7 @@ MATERIAL
 		else
 			..(user)
 
-	attackby(obj/item/W as obj, mob/user as mob)
+	attackby(obj/item/W, mob/user)
 		if (isweldingtool(W))
 			if(src.amount < 2)
 				boutput(user, "<span class='alert'>You need at least two rods to make a metal sheet.</span>")
@@ -130,6 +130,7 @@ MATERIAL
 					var/atom/G = new /obj/grille(user.loc)
 					G.setMaterial(src.material)
 					logTheThing("station", user, null, "builds a Grille in [user.loc.loc] ([log_loc(user)])")
+					G.add_fingerprint(user)
 		if (src.amount < 1)
 			qdel(src)
 			return
@@ -149,7 +150,7 @@ MATERIAL
 	icon_state = "sheet"
 	desc = "A heavy sheet of metal."
 	m_amt = 3750
-	throwforce = 10.0
+	throwforce = 10
 	throw_speed = 1
 	throw_range = 4
 	w_class = W_CLASS_NORMAL
@@ -172,7 +173,7 @@ MATERIAL
 		. = ..()
 		. += "There are [src.amount] metal sheet\s on the stack."
 
-	attack_hand(mob/user as mob)
+	attack_hand(mob/user)
 		if((user.r_hand == src || user.l_hand == src) && src.amount > 1)
 			var/splitnum = round(input("How many sheets do you want to take from the stack?","Stack of [src.amount]",1) as num)
 			var/diff = src.amount - splitnum
@@ -189,7 +190,7 @@ MATERIAL
 		else
 			..(user)
 
-	attackby(obj/item/sheet/metal/W as obj, mob/user as mob)
+	attackby(obj/item/sheet/metal/W, mob/user)
 		if (!( istype(W, /obj/item/sheet/metal) ))
 			return
 		if (W.material && src.material && !isSameMaterial(W.material, src.material))
@@ -399,10 +400,10 @@ MATERIAL
 	desc = "A very heavy sheet of metal."
 	icon = 'icons/obj/metal.dmi'
 	icon_state = "sheet-r"
-	force = 5.0
+	force = 5
 	item_state = "sheet-metal"
 	m_amt = 7500
-	throwforce = 15.0
+	throwforce = 15
 	throw_speed = 1
 	throw_range = 4
 	w_class = W_CLASS_NORMAL
@@ -432,7 +433,7 @@ MATERIAL
 		onclose(user, "met_sheet")
 		return
 
-	attack_hand(mob/user as mob)
+	attack_hand(mob/user)
 		if((user.r_hand == src || user.l_hand == src) && src.amount > 1)
 			var/splitnum = round(input("How many sheets do you want to take from the stack?","Stack of [src.amount]",1) as num)
 			var/diff = src.amount - splitnum
@@ -449,7 +450,7 @@ MATERIAL
 		else
 			..(user)
 
-	attackby(obj/item/sheet/r_metal/W as obj, mob/user as mob)
+	attackby(obj/item/sheet/r_metal/W, mob/user)
 		if (!( istype(W, /obj/item/sheet/r_metal) ))
 			return
 		if (W.material && src.material && !isSameMaterial(W.material, src.material))

@@ -76,7 +76,7 @@
 			return 100
 		actions.interrupt(src, INTERRUPT_ACTION)
 		SPAWN(0)
-			B.execute_ability(target)
+			B.execute_ability(target, params)
 			src.targeting_ability = null
 			src.update_cursor()
 		return 100
@@ -97,7 +97,7 @@
 	//circumvented by some rude hack in client.dm; uncomment if hack ceases to exist
 	//if (istype(target, /atom/movable/screen/ability))
 	//	target:clicked(params)
-	if (get_dist(src, target) > 0)
+	if (GET_DIST(src, target) > 0)
 		if(!src.dir_locked)
 			set_dir(get_dir(src, target))
 			if(dir & (dir-1))

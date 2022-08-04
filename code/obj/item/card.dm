@@ -12,6 +12,7 @@ GAUNTLET CARDS
 	icon_state = "id"
 	wear_image_icon = 'icons/mob/clothing/card.dmi'
 	w_class = W_CLASS_TINY
+	object_flags = NO_GHOSTCRITTER
 	burn_type = 1
 	stamina_damage = 0
 	stamina_cost = 0
@@ -45,7 +46,7 @@ GAUNTLET CARDS
 
 /obj/item/card/emag/fake
 //delicious fake emag
-	attack_hand(mob/user as mob)
+	attack_hand(mob/user)
 		boutput(user, "<span class='combat'>Turns out that card was actually a kind of [pick("deadly chameleon","spiny anteater","Discount Dan's latest product prototype","Syndicate Top Trumps Card","bag of neckbeard shavings")] in disguise! It stabs you!</span>")
 		user.changeStatus("paralysis", 10 SECONDS)
 		SPAWN(1 SECOND)
@@ -86,7 +87,7 @@ GAUNTLET CARDS
 
 	// YOU START WITH  NO  CREDITS
 	// WOW
-	var/money = 0.0
+	var/money = 0
 	var/pin = 0000
 
 	//It's a..smart card.  Sure.
@@ -249,6 +250,7 @@ GAUNTLET CARDS
 		O.icon = 'icons/effects/214x246.dmi'
 		O.icon_state = "explosion"
 		SPAWN(3.5 SECONDS) qdel(O)
+		logTheThing("combat", user, null, "was gibbed by the explosive Captain's Spare at [log_loc(user)].")
 		user.gib()
 
 /obj/item/card/id/attack_self(mob/user as mob)
@@ -319,7 +321,7 @@ GAUNTLET CARDS
 	else
 		..()
 
-/obj/item/card/id/syndicate/attackby(obj/item/W as obj, mob/user as mob)
+/obj/item/card/id/syndicate/attackby(obj/item/W, mob/user)
 	var/obj/item/card/id/sourceCard = W
 	if (istype(sourceCard))
 		boutput(user, "You copy [sourceCard]'s accesses to [src].")

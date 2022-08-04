@@ -101,11 +101,11 @@
 /obj/machinery/conveyor/proc/move_thing(var/atom/movable/A)
 	if (A.anchored || A.temp_flags & BEING_CRUSHERED)
 		return
-	if(isobserver(A))
-		return
 	if(istype(A, /obj/machinery/bot) && A:on)	//They drive against the motion of the conveyor, ok.
 		return
 	if(istype(A, /obj/critter) && A:flying)		//They are flying above it, ok.
+		return
+	if(HAS_ATOM_PROPERTY(A, PROP_ATOM_FLOATING)) // Don't put new checks here, apply this atom prop instead.
 		return
 	var/movedir = dir	// base movement dir
 	if(divert && dir == divdir)	// update if diverter present
@@ -151,7 +151,7 @@
 		var/mob/M = AM
 		if(istype(M) && M.buckled == src) //Transfer the buckle
 			M.buckled = next_conveyor
-		if(!next_conveyor.operating)
+		if(!next_conveyor.operating || next_conveyor.status & NOPOWER)
 			walk(AM, 0)
 			return
 
@@ -205,7 +205,7 @@
 
 // attack with hand, move pulled object onto conveyor
 
-/obj/machinery/conveyor/attack_hand(mob/user as mob)
+/obj/machinery/conveyor/attack_hand(mob/user)
 	if ((!( user.canmove ) || user.restrained() || !( user.pulling )))
 		return
 	if (user.pulling.anchored)

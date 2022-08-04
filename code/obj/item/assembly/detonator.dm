@@ -27,8 +27,8 @@
 	var/mob/builtBy = null
 
 	flags = FPRINT | TABLEPASS | CONDUCT
-	force = 1.0
-	throwforce = 2.0
+	force = 1
+	throwforce = 2
 	throw_speed = 1
 	throw_range = 5
 	w_class = W_CLASS_SMALL
@@ -81,7 +81,7 @@
 			src.icon_state = "m-i-p-w-timer"
 			src.det_state = 4
 
-/obj/item/assembly/detonator/attackby(obj/item/W as obj, mob/user as mob)
+/obj/item/assembly/detonator/attackby(obj/item/W, mob/user)
 	switch (src.det_state)
 		if (0)
 			if (istype(W, /obj/item/tank/plasma))

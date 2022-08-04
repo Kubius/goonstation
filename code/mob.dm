@@ -47,7 +47,6 @@
 	var/emote_allowed = 1
 	var/last_emote_time = 0
 	var/last_emote_wait = 0
-	var/last_door_knock_time = 0 //anti door knock spam, now seperate from emote anti-spam
 	var/computer_id = null
 	var/lastattacker = null
 	var/lastattacked = null //tell us whether or not to use Combat or Default click delays depending on whether this var was set.
@@ -56,7 +55,7 @@
 	var/memory = ""
 	var/atom/movable/pulling = null
 	var/mob/pulled_by = null
-	var/stat = 0.0
+	var/stat = 0
 	var/next_click = 0
 	var/transforming = null
 	var/hand = 0
@@ -69,14 +68,16 @@
 	var/stuttering = null
 	var/real_name = null
 	var/blinded = null
+	var/disfigured = FALSE
+	var/vdisfigured = FALSE
 	var/druggy = 0
-	var/sleeping = 0.0
-	var/lying = 0.0
+	var/sleeping = 0
+	var/lying = 0
 	var/lying_old = 0
 	var/can_lie = 0
-	var/canmove = 1.0
+	var/canmove = 1
 	var/incrit = 0
-	var/timeofdeath = 0.0
+	var/timeofdeath = 0
 	var/fakeloss = 0
 	var/fakedead = 0
 	var/health = 100
@@ -91,10 +92,10 @@
 	var/is_jittery = 0
 	var/is_zombie = 0
 	var/jitteriness = 0
-	var/charges = 0.0
-	var/urine = 0.0
+	var/charges = 0
+	var/urine = 0
 	var/nutrition = 100
-	var/losebreath = 0.0
+	var/losebreath = 0
 	var/intent = null
 	var/shakecamera = 0
 	var/a_intent = "help"
@@ -213,8 +214,13 @@
 	var/last_move_dir = null
 
 	var/datum/aiHolder/ai = null
+	/// used for load balancing mob_ai ticks
+	var/ai_tick_schedule = null
 
 	var/last_pulled_time = 0
+
+	/// set to observed mob if you're currently observing a mob, otherwise null
+	var/mob/observing = null
 
 //obj/item/setTwoHanded calls this if the item is inside a mob to enable the mob to handle UI and hand updates as the item changes to or from 2-hand
 /mob/proc/updateTwoHanded(var/obj/item/I, var/twoHanded = 1)
@@ -294,7 +300,7 @@
 /mob/proc/update_grab_loc()
 	//robust grab : keep em close
 	for (var/obj/item/grab/G in equipped_list(check_for_magtractor = 0))
-		if (G.state < GRAB_NECK) continue
+		if (G.state < GRAB_AGGRESSIVE) continue
 		if (BOUNDS_DIST(src, G.affecting) > 0)
 			qdel(G)
 			continue
@@ -319,12 +325,17 @@
 		observers -= TO
 		TO.ghostize()
 
-	for(var/mob/m in src) //just in case...
-		m.set_loc(src.loc)
-		m.ghostize()
+	for(var/mob/m in src) //zoldorfs, aieyes, other terrible code
+		if(m.observing == src)
+			m.stopObserving()
+		else
+			m.set_loc(src.loc)
+			m.ghostize()
 
-	if (ghost && ghost.corpse == src)
-		ghost.corpse = null
+	// this looks sketchy, but ghostize is fairly safe- we check for an existing ghost or NPC status, and only make a new ghost if we need to
+	src.ghost = src.ghostize()
+	if (src.ghost?.corpse == src)
+		src.ghost.corpse = null
 
 	if (traitHolder)
 		traitHolder.removeAll()
@@ -710,7 +721,7 @@
 			for (var/obj/item/grab/G in src.equipped_list(check_for_magtractor = 0))
 				pulling += G.affecting
 			for (var/atom/movable/pulled in pulling)
-				if (get_dist(src, pulled) == 0) // if we're moving onto the same tile as what we're pulling, don't pull
+				if (GET_DIST(src, pulled) == 0) // if we're moving onto the same tile as what we're pulling, don't pull
 					continue
 				if (pulled == src || pulled == AM)
 					continue
@@ -810,8 +821,10 @@
 
 /// used to set the a_intent var of a mob
 /mob/proc/set_a_intent(intent)
-	if (!intent) return
-	SEND_SIGNAL(src, COMSIG_MOB_SET_A_INTENT, intent)
+	if (!intent)
+		return
+	if(SEND_SIGNAL(src, COMSIG_MOB_SET_A_INTENT, intent))
+		return
 	src.a_intent = intent
 
 // medals
@@ -910,37 +923,33 @@
 /mob/verb/setdnr()
 	set name = "Set DNR"
 	set desc = "Set yourself as Do Not Resuscitate."
-	var/confirm = alert("Set yourself as Do Not Resuscitate (WARNING: This is one-use only and will prevent you from being revived in any manner)", "Set Do Not Resuscitate", "Yes", "Cancel")
-	if (confirm == "Cancel")
+	var/confirm = tgui_alert(src, "Set yourself as Do Not Resuscitate (WARNING: This is one-use only and will prevent you from being revived in any manner)", "Set Do Not Resuscitate", list("Yes", "Cancel"))
+	if (confirm != "Yes")
+		return
+	if (!src.mind)
+		tgui_alert(src, "There was an error setting this status. Perhaps you are a ghost?", "Error")
 		return
 //So that players can leave their team and spectate. Since normal dying get's you instantly cloned.
 #if defined(MAP_OVERRIDE_POD_WARS)
-	if (confirm == "Yes")
-		if (src.mind)
-			if (isliving(src) && !isdead(src))
-				var/double_confirm = alert("Setting DNR here will kill you and remove you from your team. Do you still want to set DNR?", "Set Do Not Resuscitate", "Yes", "No")
-				if (double_confirm == "No")
-					return
-				src.death()
-			src.verbs -= list(/mob/verb/setdnr)
-			src.mind.dnr = 1
-			boutput(src, "<span class='alert'>DNR status set!</span>")
-			boutput(src, "<span class='alert'>You've been removed from your team for desertion!</span>")
-			if (istype(ticker.mode, /datum/game_mode/pod_wars))
-				var/datum/game_mode/pod_wars/mode = ticker.mode
-				mode.team_NT.members -= src.mind
-				mode.team_SY.members -= src.mind
-				message_admins("[src]([src.ckey]) just set DNR and was removed from their team. which was probably [src.mind.special_role]!")
+	if (isliving(src) && !isdead(src))
+		var/double_confirm = tgui_alert(src, "Setting DNR here will kill you and remove you from your team. Do you still want to set DNR?", "Set Do Not Resuscitate", list("Yes", "No"))
+		if (double_confirm != "Yes")
+			return
+		src.death()
+	src.verbs -= list(/mob/verb/setdnr)
+	src.mind.dnr = 1
+	boutput(src, "<span class='alert'>DNR status set!</span>")
+	boutput(src, "<span class='alert'>You've been removed from your team for desertion!</span>")
+	if (istype(ticker.mode, /datum/game_mode/pod_wars))
+		var/datum/game_mode/pod_wars/mode = ticker.mode
+		mode.team_NT.members -= src.mind
+		mode.team_SY.members -= src.mind
+		message_admins("[src]([src.ckey]) just set DNR and was removed from their team. which was probably [src.mind.special_role]!")
 #else
-	if (confirm == "Yes")
-		if (src.mind)
-			src.verbs -= list(/mob/verb/setdnr)
-			src.mind.dnr = 1
-			boutput(src, "<span class='alert'>DNR status set!</span>")
+	src.verbs -= list(/mob/verb/setdnr)
+	src.mind.dnr = 1
+	boutput(src, "<span class='alert'>DNR status set!</span>")
 #endif
-		else
-			src << alert("There was an error setting this status. Perhaps you are a ghost?")
-	return
 
 /mob/proc/unequip_all(var/delete_stuff=0)
 	var/list/obj/item/to_unequip = src.get_unequippable()
@@ -1037,6 +1046,7 @@
 		. *= max(src.pushing.p_class, 1)
 
 /mob/proc/Life(datum/controller/process/mobs/parent)
+	SHOULD_CALL_PARENT(TRUE)
 	return
 
 // for mobs without organs
@@ -1066,7 +1076,7 @@
 	if(src.pulling)
 		src.remove_pulling()
 
-	if(!can_reach(src, A))
+	if(!can_reach(src, A) || src.restrained())
 		return
 
 	pulling = A
@@ -1079,9 +1089,9 @@
 	//this is so much simpler than pulling the victim and invoking movment on the captor through that chain of events.
 	if (ishuman(pulling))
 		var/mob/living/carbon/human/H = pulling
-		if (H.grabbed_by.len)
+		if (length(H.grabbed_by))
 			for (var/obj/item/grab/G in src.grabbed_by)
-				if (G.state < GRAB_NECK) continue
+				if (G.state < GRAB_AGGRESSIVE) continue
 				pulling = G.assailant
 				G.assailant.pulled_by = src
 
@@ -1163,10 +1173,9 @@
 #undef CLOTHING
 #undef DAMAGE
 
-/mob/proc/death(gibbed)
-	#ifdef COMSIG_MOB_DEATH
+/mob/proc/death(gibbed = FALSE)
+	SHOULD_CALL_PARENT(TRUE)
 	SEND_SIGNAL(src, COMSIG_MOB_DEATH)
-	#endif
 	//Traitor's dead! Oh no!
 	if (src.mind && src.mind.special_role && !istype(get_area(src),/area/afterlife))
 		message_admins("<span class='alert'>Antagonist [key_name(src)] ([src.mind.special_role]) died at [log_loc(src)].</span>")
@@ -1221,6 +1230,10 @@
 			if (held && !istype(held, /obj/ability_button))
 				W = held
 		if (!istype(W) || W.cant_drop) return
+
+		if (W.chokehold != null)
+			W.drop_grab()
+			return
 
 		if (W && !W.qdeled)
 			if (istype(src.loc, /obj/vehicle))
@@ -1631,7 +1644,7 @@
 	var/difference = abs(actual-desired)   // get difference
 	var/increments = difference * divisor  //find how many increments apart they are
 	var/change = increments*incrementboost // Get the amount to change by (x per increment)
-	//change = change * 0.10
+	//change = change * 0.1
 
 	if (actual < desired) // Too cold
 		temperature += change
@@ -1651,7 +1664,7 @@
 	if (istype(src, /mob/dead/observer) || istype(src, /mob/dead/target_observer))
 		return
 
-	src.death()
+	src.death(TRUE)
 	src.transforming = 1
 	src.canmove = 0
 	src.icon = null
@@ -1704,7 +1717,7 @@
 		if(organ.donor == src)
 			organ.on_removal()
 	if (!custom_gib_handler)
-		if (iscarbon(src))
+		if (iscarbon(src) || (ismobcritter(src) & !isrobocritter(src)))
 			if (bdna && btype)
 				. = gibs(src.loc, viral_list, ejectables, bdna, btype, source=src) // For forensics (Convair880).
 			else
@@ -1768,7 +1781,7 @@
 
 	var/col_r = 0.4
 	var/col_g = 0.8
-	var/col_b = 1.0
+	var/col_b = 1
 	var/brightness = 0.7
 	var/height = 1
 	var/datum/light/light
@@ -1799,7 +1812,7 @@
 		animation.delaydispose()
 	qdel(src)
 
-/mob/proc/firegib()
+/mob/proc/firegib(var/drop_clothes = TRUE)
 	if (isobserver(src)) return
 #ifdef DATALOGGER
 	game_stats.Increment("violence")
@@ -1816,12 +1829,13 @@
 		animation = new(src.loc)
 		animation.master = src
 		flick("firegibbed", animation)
-		for (var/obj/item/W in src)
-			if (istype(W, /obj/item/clothing))
-				var/obj/item/clothing/C = W
-				C.stains += "singed"
-				C.UpdateName()
-		unequip_all()
+		if (drop_clothes)
+			for (var/obj/item/W in src)
+				if (istype(W, /obj/item/clothing))
+					var/obj/item/clothing/C = W
+					C.stains += "singed"
+					C.UpdateName()
+			unequip_all()
 
 	if ((src.mind || src.client) && !istype(src, /mob/living/carbon/human/npc))
 		var/mob/dead/observer/newmob = ghostize()
@@ -2136,6 +2150,14 @@
 		animation.delaydispose()
 	qdel(src)
 
+/mob/proc/flockbit_gib()
+	src.visible_message("<span class='alert bold'>[src] is torn apart from the inside as some weird floaty thing rips its way out of their body! Holy fuck!!</span>")
+	var/mob/living/critter/flock/bit/B = new()
+	var/turf/T = get_turf(src)
+	B.set_loc(T)
+	make_cleanable(/obj/decal/cleanable/flockdrone_debris, T)
+	src.gib()
+
 // Man, there's a lot of possible inventory spaces to store crap. This should get everything under normal circumstances.
 // Well, it's hard to account for every possible matryoshka scenario (Convair880).
 /mob/proc/get_all_items_on_mob()
@@ -2415,6 +2437,7 @@
 	src.take_brain_damage(-INFINITY)
 	src.health = src.max_health
 	src.buckled = null
+	src.disfigured = FALSE
 	if (src.hasStatus("handcuffed"))
 		src.handcuffs.destroy_handcuffs(src)
 	src.bodytemperature = src.base_body_temp
@@ -2749,7 +2772,7 @@
 				src.show_text("That name was too short after removing bad characters from it. Please choose a different name.", "red")
 				continue
 			else
-				if (force_instead || alert(src, "Use the name [newname]?", newname, "Yes", "No") == "Yes")
+				if (force_instead || tgui_alert(src, "Use the name [newname]?", newname, list("Yes", "No")) == "Yes")
 					if(!src.traitHolder.hasTrait("immigrant"))// stowaway entertainers shouldn't be on the manifest
 						for (var/datum/record_database/DB in list(data_core.bank, data_core.security, data_core.general, data_core.medical))
 							var/datum/db_record/R = DB.find_record("id", src.datacore_id)
@@ -2833,6 +2856,15 @@
 		. = TRUE
 
 /mob/proc/update_equipped_modifiers()
+	var/datum/movement_modifier/equipment/equipment_proxy = locate() in src.movement_modifiers
+	if (!equipment_proxy)
+		equipment_proxy = new
+		APPLY_MOVEMENT_MODIFIER(src, equipment_proxy, /obj/item)
+
+	// reset the modifiers to defaults
+	equipment_proxy.additive_slowdown = GET_ATOM_PROPERTY(src, PROP_MOB_EQUIPMENT_MOVESPEED)
+	equipment_proxy.space_movement = GET_ATOM_PROPERTY(src, PROP_MOB_EQUIPMENT_MOVESPEED_SPACE)
+	equipment_proxy.aquatic_movement = GET_ATOM_PROPERTY(src, PROP_MOB_EQUIPMENT_MOVESPEED_FLUID)
 
 // alright this is copy pasted a million times across the code, time for SOME unification - cirr
 // no text description though, because it's all different everywhere
@@ -3052,7 +3084,7 @@
 		unpull_particle(src,src.pulling)
 		src.set_pulling(null)
 	else
-		A.pull()
+		A.pull(src)
 
 
 /mob/verb/examine_verb(atom/A as mob|obj|turf in view(,usr))
@@ -3088,11 +3120,6 @@
 /mob/proc/on_eat(var/atom/A)
 	return
 
-/mob/set_density(var/newdensity)
-	if(HAS_ATOM_PROPERTY(src, PROP_MOB_NEVER_DENSE))
-		..(0)
-	else
-		..(newdensity)
 
 // to check if someone is abusing cameras with stuff like artifacts, power gloves, etc
 /mob/proc/in_real_view_range(var/turf/T)
@@ -3120,3 +3147,14 @@
 				. = get_singleton(/datum/pronouns/itIts)
 			else
 				. = get_singleton(/datum/pronouns/theyThem)
+
+/// set_loc(mob) and set src.observing properly - use this to observe a mob, so it can be handled properly on deletion
+/mob/proc/observeMob(mob/target)
+	src.set_loc(target)
+	src.observing = target
+
+/// called when the observed mob is deleted, override for custom behaviour.
+/mob/proc/stopObserving()
+	src.set_loc(get_turf(src.observing))
+	src.observing = null
+	src.ghostize()

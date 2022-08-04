@@ -126,6 +126,14 @@ var/global/obj/flashDummy
 		var/obj/O = getFlashDummy()
 		O.set_loc(target)
 		target_r = O
+	if(wattage && isliving(target)) //Grilles can reroute arcflashes
+		for(var/obj/grille/L in range(target,1)) // check for nearby grilles
+			var/arcprob = L.material?.getProperty("electrical") >= 6 ? 60 : 30
+			if(!L.ruined && L.anchored)
+				if (prob(arcprob) && L.get_connection()) // hopefully half the default is low enough
+					target = L
+					target_r = L
+					continue
 
 	playsound(target, "sound/effects/elec_bigzap.ogg", 30, 1)
 
@@ -252,6 +260,15 @@ proc/get_angle(atom/a, atom/b)
 		if(A?.density)//&&A.anchored
 			return 1
 	return 0
+
+//is_blocked_turf for flock
+/proc/flock_is_blocked_turf(var/turf/T)
+	if (!T) return FALSE
+	if(T.density) return TRUE
+	for(var/atom/A in T)
+		if(A?.density && !isflockmob(A))//ignores flockdrones/flockbits
+			return TRUE
+	return FALSE
 
 /proc/get_edge_cheap(var/atom/A, var/direction)
 	. = A.loc
@@ -727,9 +744,6 @@ proc/get_angle(atom/a, atom/b)
 	for(var/mob/new_player/M in mobs)
 		. += M
 		LAGCHECK(LAG_REALTIME)
-	for(var/mob/living/carbon/wall/M in mobs)
-		. += M
-		LAGCHECK(LAG_REALTIME)
 	for(var/mob/living/silicon/ghostdrone/M in mobs)
 		. += M
 		LAGCHECK(LAG_REALTIME)
@@ -891,8 +905,11 @@ proc/get_angle(atom/a, atom/b)
 // used for mass driver
 /proc/get_edge_target_turf(var/atom/A, var/direction)
 
+	if (isnull(A))
+		stack_trace("get_edge_target_turf called with null reference atom.")
+
 	var/turf/target = locate(A.x, A.y, A.z)
-	if (!A || !target)
+	if (!target)
 		return 0
 		//since NORTHEAST == NORTH & EAST, etc, doing it this way allows for diagonal mass drivers in the future
 		//and isn't really any more complicated
@@ -915,6 +932,9 @@ proc/get_angle(atom/a, atom/b)
 // used for disposal system
 /proc/get_ranged_target_turf(var/atom/A, var/direction, var/range)
 
+	if (isnull(A))
+		stack_trace("get_ranged_target_turf called with null reference atom.")
+
 	var/x = A.x
 	var/y = A.y
 	if(direction & NORTH)
@@ -932,6 +952,9 @@ proc/get_angle(atom/a, atom/b)
 // returns turf relative to A offset in dx and dy tiles
 // bound to map limits
 /proc/get_offset_target_turf(var/atom/A, var/dx, var/dy)
+
+	if (isnull(A))
+		stack_trace("get_offset_target_turf called with null reference atom.")
 	var/x = clamp(A.x + dx, 1, world.maxx)
 	var/y = clamp(A.y + dy, 1, world.maxy)
 	return locate(x,y,A.z)
@@ -1271,6 +1294,11 @@ proc/get_adjacent_floor(atom/W, mob/user, px, py)
 		if (ismob(A))
 			. += A
 		if (isobj(A) || ismob(A))
+			if (istype(A, /obj/item/organ/head))	//Skeletons can hear from their heads!
+				var/obj/item/organ/head/found_head = A
+				if (found_head.head_type == HEAD_SKELETON && found_head.linked_human != null)
+					var/mob/linked_mob = found_head.linked_human
+					. += linked_mob
 			for(var/mob/M in A.contents)
 				var/can_hear = 0 //this check prevents observers from hearing their target's messages twice
 
@@ -1546,7 +1574,7 @@ proc/RarityClassRoll(var/scalemax = 100, var/mod = 0, var/list/category_boundari
 		current_range++
 		total_distance = 0
 		for (var/turf/T in range(size,center))
-			if (get_dist(T,center) == current_range)
+			if (GET_DIST(T,center) == current_range)
 				total_distance = abs(center.x - T.x) + abs(center.y - T.y) + (current_range / 2)
 				if (total_distance > corner_range)
 					continue
@@ -1941,8 +1969,8 @@ proc/countJob(rank)
 
 		if (istype(G, /mob/dead/target_observer))
 			var/mob/dead/target_observer/TO = G
-			if (TO.my_ghost && istype(TO.my_ghost, /mob/dead/observer))
-				the_ghost = TO.my_ghost
+			if (TO.ghost && istype(TO.ghost, /mob/dead/observer))
+				the_ghost = TO.ghost
 
 		if (!the_ghost || !isobserver(the_ghost) || !isdead(the_ghost))
 			return 0
@@ -1981,31 +2009,31 @@ proc/countJob(rank)
 	return is_immune
 
 // Their antag status is revoked on death/implant removal/expiration, but we still want them to show up in the game over stats (Convair880).
-/proc/remove_mindslave_status(var/mob/M, var/slave_type ="", var/removal_type ="")
-	if (!M || !M.mind || !slave_type || !removal_type)
+/proc/remove_mindhack_status(var/mob/M, var/hack_type ="", var/removal_type ="")
+	if (!M || !M.mind || !hack_type || !removal_type)
 		return
 
 	// Find our master's mob reference (if any).
 	var/mob/mymaster = ckey_to_mob(M.mind.master)
 
-	switch (slave_type)
-		if ("mslave")
+	switch (hack_type)
+		if ("mindhack")
 			switch (removal_type)
 				if ("expired")
-					logTheThing("combat", M, mymaster, "'s mindslave implant (implanted by [mymaster ? "[constructTarget(mymaster,"combat")]" : "*NOKEYFOUND*"]) has worn off.")
+					logTheThing("combat", M, mymaster, "'s mindhack implant (implanted by [mymaster ? "[constructTarget(mymaster,"combat")]" : "*NOKEYFOUND*"]) has worn off.")
 				if ("surgery")
-					logTheThing("combat", M, mymaster, "'s mindslave implant (implanted by [mymaster ? "[constructTarget(mymaster,"combat")]" : "*NOKEYFOUND*"]) was removed surgically.")
+					logTheThing("combat", M, mymaster, "'s mindhack implant (implanted by [mymaster ? "[constructTarget(mymaster,"combat")]" : "*NOKEYFOUND*"]) was removed surgically.")
 				if ("override")
-					logTheThing("combat", M, mymaster, "'s mindslave implant (implanted by [mymaster ? "[constructTarget(mymaster,"combat")]" : "*NOKEYFOUND*"]) was overridden by a different implant.")
+					logTheThing("combat", M, mymaster, "'s mindhack implant (implanted by [mymaster ? "[constructTarget(mymaster,"combat")]" : "*NOKEYFOUND*"]) was overridden by a different implant.")
 				if ("death")
-					logTheThing("combat", M, mymaster, "(implanted by [mymaster ? "[constructTarget(mymaster,"combat")]" : "*NOKEYFOUND*"]) has died, removing mindslave status.")
+					logTheThing("combat", M, mymaster, "(implanted by [mymaster ? "[constructTarget(mymaster,"combat")]" : "*NOKEYFOUND*"]) has died, removing mindhack status.")
 				else
-					logTheThing("combat", M, mymaster, "'s mindslave implant (implanted by [mymaster ? "[constructTarget(mymaster,"combat")]" : "*NOKEYFOUND*"]) has vanished mysteriously.")
+					logTheThing("combat", M, mymaster, "'s mindhack implant (implanted by [mymaster ? "[constructTarget(mymaster,"combat")]" : "*NOKEYFOUND*"]) has vanished mysteriously.")
 
 			remove_antag(M, null, 1, 0)
 			if (M.mind && ticker.mode && !(M.mind in ticker.mode.former_antagonists))
-				if (!M.mind.former_antagonist_roles.Find(ROLE_MINDSLAVE))
-					M.mind.former_antagonist_roles.Add(ROLE_MINDSLAVE)
+				if (!(ROLE_MINDHACK in M.mind.former_antagonist_roles))
+					M.mind.former_antagonist_roles.Add(ROLE_MINDHACK)
 				ticker.mode.former_antagonists += M.mind
 
 		if ("vthrall")
@@ -2021,43 +2049,43 @@ proc/countJob(rank)
 					M.mind.former_antagonist_roles.Add(ROLE_VAMPTHRALL)
 				ticker.mode.former_antagonists += M.mind
 
-		// This is only used for spy slaves and mindslaved antagonists at the moment.
-		if ("otherslave")
+		// This is only used for spy minions and mindhacked antagonists at the moment.
+		if ("otherhack")
 			switch (removal_type)
 				if ("expired")
-					logTheThing("combat", M, mymaster, "'s mindslave implant (implanted by [mymaster ? "[constructTarget(mymaster,"combat")]" : "*NOKEYFOUND*"]) has worn off.")
+					logTheThing("combat", M, mymaster, "'s mindhack implant (implanted by [mymaster ? "[constructTarget(mymaster,"combat")]" : "*NOKEYFOUND*"]) has worn off.")
 				if ("surgery")
-					logTheThing("combat", M, mymaster, "'s mindslave implant (implanted by [mymaster ? "[constructTarget(mymaster,"combat")]" : "*NOKEYFOUND*"]) was removed surgically.")
+					logTheThing("combat", M, mymaster, "'s mindhack implant (implanted by [mymaster ? "[constructTarget(mymaster,"combat")]" : "*NOKEYFOUND*"]) was removed surgically.")
 				if ("override")
-					logTheThing("combat", M, mymaster, "'s mindslave implant (implanted by [mymaster ? "[constructTarget(mymaster,"combat")]" : "*NOKEYFOUND*"]) was overridden by a different implant.")
+					logTheThing("combat", M, mymaster, "'s mindhack implant (implanted by [mymaster ? "[constructTarget(mymaster,"combat")]" : "*NOKEYFOUND*"]) was overridden by a different implant.")
 				if ("death")
-					logTheThing("combat", M, mymaster, "(enslaved by [mymaster ? "[constructTarget(mymaster,"combat")]" : "*NOKEYFOUND*"]) has died, removing mindslave status.")
+					logTheThing("combat", M, mymaster, "(mindhacked by [mymaster ? "[constructTarget(mymaster,"combat")]" : "*NOKEYFOUND*"]) has died, removing mindhack status.")
 				else
-					logTheThing("combat", M, mymaster, "(enslaved by [mymaster ? "[constructTarget(mymaster,"combat")]" : "*NOKEYFOUND*"]) has been freed mysteriously, removing mindslave status.")
+					logTheThing("combat", M, mymaster, "(mindhacked by [mymaster ? "[constructTarget(mymaster,"combat")]" : "*NOKEYFOUND*"]) has been freed mysteriously, removing mindhack status.")
 
-			// Fix for mindslaved traitors etc losing their antagonist status.
-			if (M.mind && (M.mind.special_role == "spyslave"))
+			// Fix for mindhacked traitors etc losing their antagonist status.
+			if (M.mind && (M.mind.special_role == "spyminion"))
 				remove_antag(M, null, 1, 0)
 			else
 				M.mind.master = null
 			if (M.mind && ticker.mode && !(M.mind in ticker.mode.former_antagonists))
-				if (!M.mind.former_antagonist_roles.Find(ROLE_MINDSLAVE))
-					M.mind.former_antagonist_roles.Add(ROLE_MINDSLAVE)
+				if (!(ROLE_MINDHACK in M.mind.former_antagonist_roles))
+					M.mind.former_antagonist_roles.Add(ROLE_MINDHACK)
 				ticker.mode.former_antagonists += M.mind
 
 		else
-			logTheThing("debug", M, null, "<b>Convair880</b>: [M] isn't a mindslave or vampire thrall, can't remove mindslave status.")
+			logTheThing("debug", M, null, "<b>Convair880</b>: [M] isn't mindhacked or vampire thrall, can't remove mindhack status.")
 			return
 
 	if (removal_type == "death")
-		boutput(M, "<h2><span class='alert'>Since you have died, you are no longer a mindslave! Do not obey your former master's orders even if you've been brought back to life somehow.</span></h2>")
-		SHOW_MINDSLAVE_DEATH_TIPS(M)
+		boutput(M, "<h2><span class='alert'>Since you have died, you are no longer mindhacked! Do not obey your former master's orders even if you've been brought back to life somehow.</span></h2>")
+		M.show_antag_popup("mindhackdeath")
 	else if (removal_type == "override")
-		boutput(M, "<h2><span class='alert'>Your mindslave implant has been overridden by a new one, cancelling out your former allegiances!</span></h2>")
-		SHOW_MINDSLAVE_OVERRIDE_TIPS(M)
+		boutput(M, "<h2><span class='alert'>Your mindhack implant has been overridden by a new one, cancelling out your former allegiances!</span></h2>")
+		M.show_antag_popup("mindhackoverride")
 	else
 		boutput(M, "<h2><span class='alert'>Your mind is your own again! You no longer feel the need to obey your former master's orders.</span></h2>")
-		SHOW_MINDSLAVE_EXPIRED_TIPS(M)
+		M.show_antag_popup("mindhackexpired")
 
 	return
 
@@ -2230,7 +2258,7 @@ var/global/list/allowed_restricted_z_areas
 	for (var/S in smash)
 		if (S == "window" || S == "r_window")
 			for (var/obj/window/W in view(CT, range))
-				if (prob(get_dist(W, CT) * 6))
+				if (prob(GET_DIST(W, CT) * 6))
 					continue
 				//W.health = 0
 				//W.smash()
@@ -2604,6 +2632,7 @@ proc/is_incapacitated(mob/M)
 		M.hasStatus("stunned") || \
 		M.hasStatus("weakened") || \
 		M.hasStatus("paralysis") || \
+		M.hasStatus("pinned") || \
 		M.stat)
 
 /// sets up the list of ringtones players can select through character setup
@@ -2622,3 +2651,18 @@ proc/connectdirs_to_byonddirs(var/connectdir_bitflag)
 	if(32 & connectdir_bitflag) .|= SOUTHEAST
 	if(64 & connectdir_bitflag) .|= SOUTHWEST
 	if(128 & connectdir_bitflag) .|= NORTHWEST
+
+/proc/get_random_station_turf()
+	var/list/areas = get_areas(/area/station)
+	if (!areas.len)
+		return
+	var/area/A = pick(areas)
+	if (!A)
+		return
+	var/list/turfs = get_area_turfs(A, 1)
+	if (!turfs.len)
+		return
+	var/turf/T = pick(turfs)
+	if (!T)
+		return
+	return T

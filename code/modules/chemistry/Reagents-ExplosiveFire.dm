@@ -306,42 +306,7 @@ datum
 					var/location = covered.len ? covered[1] : 0
 					var/hootmode = prob(5)
 
-					if (src.no_fluff == 0)
-						if (hootmode)
-							playsound(location, "sound/voice/animal/hoot.ogg", 100, 1)
-						else
-							playsound(location, "sound/weapons/flashbang.ogg", 25, 1)
-
-					for (var/mob/living/M in all_hearers(world.view, location))
-						if (issilicon(M) || isintangible(M))
-							continue
-
-						if (src.no_fluff == 0)
-							if (!M.ears_protected_from_sound())
-								boutput(M, "<span class='alert'><b>[hootmode ? "HOOT" : "BANG"]</b></span>")
-							else
-								continue
-
-						var/checkdist = get_dist(M, location)
-						var/weak = max(0, holder.get_reagent_amount(id) * 0.2 * (3 - checkdist))
-						var/misstep = clamp(1 + 6 * (5 - checkdist), 0, 40)
-						var/ear_damage = max(0, holder.get_reagent_amount(id) * 0.2 * (3 - checkdist))
-						var/ear_tempdeaf = max(0, holder.get_reagent_amount(id) * 0.2 * (5 - checkdist)) //annoying and unfun so reduced dramatically
-						var/stamina = clamp(holder.get_reagent_amount(id) * (5 + 1 * (7 - checkdist)), 0, 120)
-
-						M.apply_sonic_stun(weak, 0, misstep, 0, 0, ear_damage, ear_tempdeaf, stamina)
-
-					for (var/mob/living/silicon/S in all_hearers(world.view, location))
-						if (src.no_fluff == 0)
-							if (!S.ears_protected_from_sound())
-								boutput(S, "<span class='alert'><b>[hootmode ? "HOOT" : "BANG"]</b></span>")
-							else
-								continue
-
-						var/checkdist = get_dist(S, location)
-						var/C_weak = max(0, holder.get_reagent_amount(id) * 0.2 * (3 - checkdist))
-
-						S.apply_sonic_stun(C_weak, 0)
+					sonicpowder_reaction(location, volume, hootmode, no_fluff)
 
 				holder?.del_reagent(id)
 
@@ -356,8 +321,6 @@ datum
 			name = "hootingium"
 			id = "sonicpowder_nofluff"
 			no_fluff = 1
-
-// Don't forget to update Reagents-Recipes.dm too, we have duplicate code for sonic and flash powder there (Convair880).
 
 		combustible/flashpowder
 			name = "flash powder"
@@ -506,9 +469,9 @@ datum
 					L.update_burning(50 * mult)
 				..()
 
-		combustible/thalmerite // COGWERKS CHEM REVISION PROJECT. pretty much a magic chem, can leave alone
+		combustible/pyrosium // COGWERKS CHEM REVISION PROJECT. pretty much a magic chem, can leave alone
 			name = "pyrosium"
-			id = "thalmerite"
+			id = "pyrosium"
 			description = "This strange compound seems to slowly heat up all by itself. Very sticky."
 			reagent_state = LIQUID
 			fluid_r = 100
@@ -525,14 +488,14 @@ datum
 				if (O)
 					if(!O.reagents)
 						O.create_reagents(50)
-					O.reagents.add_reagent("thalmerite", 5, null)
+					O.reagents.add_reagent("pyrosium", 5, null)
 				return
 
 			reaction_turf(var/turf/T, var/volume)
 				if (T)
 					if(!T.reagents)
 						T.create_reagents(50)
-					T.reagents.add_reagent("thalmerite", 5, null)
+					T.reagents.add_reagent("pyrosium", 5, null)
 				return
 
 		combustible/argine
@@ -661,7 +624,7 @@ datum
 
 
 			var/caused_fireflash = 0
-			var/min_req_fluid = 0.10 //at least 10% of the fluid needs to be oil for it to ignite
+			var/min_req_fluid = 0.1 //at least 10% of the fluid needs to be oil for it to ignite
 
 			reaction_temperature(exposed_temperature, exposed_volume)
 				if(volume < 1)

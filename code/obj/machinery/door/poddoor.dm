@@ -1,6 +1,6 @@
 /obj/machinery/door/poddoor
 	name = "podlock"
-	icon = 'icons/obj/doors/rapid_pdoor.dmi'
+	icon = 'icons/obj/doors/SL_doors.dmi'
 	icon_state = "pdoor1"
 	icon_base = "pdoor"
 	cant_emag = 1
@@ -10,7 +10,7 @@
 	health = 1800
 	health_max = 1800
 
-	var/id = 1.0
+	var/id = 1
 
 	New()
 		. = ..()
@@ -359,6 +359,9 @@
 
 			vertical
 				dir = EAST
+
+	// meant for use inside station, or if connected to space, not a door
+	shutters
 
 /obj/machinery/door/poddoor/blast/pyro
 	icon = 'icons/obj/doors/SL_doors.dmi'
@@ -950,7 +953,7 @@
 				icon_state = "bdoorsingle1"
 				doordir = "single"
 
-/obj/machinery/door/poddoor/attackby(obj/item/C as obj, mob/user as mob)
+/obj/machinery/door/poddoor/attackby(obj/item/C, mob/user)
 	src.add_fingerprint(user)
 	if (C && !ispryingtool(C))
 		if (src.density && !src.operating)
@@ -1063,7 +1066,7 @@
 	if(icon_state == "[icon_base]single1")
 		doordir = "single"
 
-/obj/machinery/door/poddoor/blast/attackby(obj/item/C as obj, mob/user as mob)
+/obj/machinery/door/poddoor/blast/attackby(obj/item/C, mob/user)
 	src.add_fingerprint(user)
 	if (!ispryingtool(C))
 		return

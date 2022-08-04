@@ -25,13 +25,13 @@ datum
 			on_mob_life(var/mob/M, var/mult = 1)
 				if(!M)
 					M = holder.my_atom
+				..()
 				if (!isliving(M) || !ispath(disease))
 					return
 				if (src.volume < minimum_to_infect)
 					return
 				var/mob/living/L = M
 				L.contract_disease(disease, null, null, 1)
-				..()
 
 		disease/rainbow_fluid // Clowning Around
 			name = "rainbow fluid"
@@ -288,6 +288,11 @@ datum
 			random_chem_blacklisted = 1
 			disease = /datum/ailment/disease/necrotic_degeneration
 
+			infectious
+				name = "concentrated necrovirus"
+				id = "necrovirus_infectious"
+				disease = /datum/ailment/disease/necrotic_degeneration/can_infect_more
+
 		disease/viral_curative // Panacaea
 			name = "viral curative"
 			id = "viral curative"
@@ -473,6 +478,17 @@ datum
 			fluid_g = 185
 			fluid_b = 120
 			transparency = 255
+
+		disease/leprosybacteria
+			name = "mycobacterium leprae"
+			id = "mycobacterium leprae"
+			description = "A bacterial strain that is known to cause leprosy in humans."
+			reagent_state = LIQUID
+			fluid_r = 255
+			fluid_g = 40
+			fluid_b = 40
+			transparency = 50
+			disease = /datum/ailment/disease/leprosy
 
 		// Marquesas' one stop pathology shop
 		blood/pathogen

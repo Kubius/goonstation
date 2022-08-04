@@ -26,6 +26,9 @@
 	if(!src.arePowerSystemsOn() || (status & NOPOWER))
 		boutput(user, "The door has no power - you can't electrify it.")
 		return
+	if(!src.can_shock)
+		boutput(user, "This door is unable to be electrified, you cannot shock it.")
+		return
 	if (src.isWireCut(AIRLOCK_WIRE_ELECTRIFY))
 		boutput(user, text("<span class='alert'>The electrification wire has been cut.<br><br></span>"))
 	else if (src.secondsElectrified==-1)
@@ -63,6 +66,8 @@
 		boutput(user, "<span class='alert'>The door has no power - you can't electrify it.</span>")
 		return
 	//electrify door indefinitely
+	if(!src.can_shock)
+		boutput(user, text("<span class='alert'>This door is unable to be electrified.<br><br></span>"))
 	if (src.isWireCut(AIRLOCK_WIRE_ELECTRIFY))
 		boutput(user, text("<span class='alert'>The electrification wire has been cut.<br><br></span>"))
 	else if (src.secondsElectrified==-1)
@@ -144,9 +149,8 @@ Airlock index -> wire color are { 9, 4, 6, 7, 5, 8, 1, 2, 3 }.
 
 /obj/machinery/door/airlock
 	name = "airlock"
-	icon = 'icons/obj/doors/doorint.dmi'
+	icon = 'icons/obj/doors/SL_doors.dmi'
 	icon_state = "door_closed"
-
 	deconstruct_flags = DECON_ACCESS | DECON_WRENCH | DECON_CROWBAR | DECON_WELDER | DECON_SCREWDRIVER | DECON_MULTITOOL
 	object_flags = BOTS_DIRBLOCK | CAN_REPROGRAM_ACCESS
 
@@ -184,13 +188,12 @@ Airlock index -> wire color are { 9, 4, 6, 7, 5, 8, 1, 2, 3 }.
 	var/id = null
 	var/radiorange = AIRLOCK_CONTROL_RANGE
 	var/safety = 1
+	var/can_shock = TRUE
 	var/hackingProgression = 0
 	var/HTML = null
 	var/has_panel = 1
 	var/hackMessage = ""
 	var/net_access_code = null
-        /// Set nameOverride to FALSE to stop New() from overwriting door name with Area name
-	var/nameOverride = TRUE
 
 	var/no_access = 0
 
@@ -201,7 +204,7 @@ Airlock index -> wire color are { 9, 4, 6, 7, 5, 8, 1, 2, 3 }.
 
 	New()
 		..()
-		if(!isrestrictedz(src.z) && nameOverride)
+		if(!isrestrictedz(src.z) && src.name == initial(src.name)) //The second half prevents varedited names being overwritten
 			var/area/station/A = get_area(src)
 			src.name = A.name
 		src.net_access_code = rand(1, NET_ACCESS_OPTIONS)
@@ -317,11 +320,10 @@ Airlock index -> wire color are { 9, 4, 6, 7, 5, 8, 1, 2, 3 }.
 /obj/machinery/door/airlock/pyro
 	name = "airlock"
 	icon = 'icons/obj/doors/SL_doors.dmi'
-	icon_state = "generic_closed"
-	icon_base = "generic"
-	panel_icon_state = "panel_open"
-	welded_icon_state = "welded"
 	flags = FPRINT | IS_PERSPECTIVE_FLUID | ALWAYS_SOLID_FLUID
+
+/obj/machinery/door/airlock/pyro/safe
+	can_shock = FALSE
 
 /obj/machinery/door/airlock/pyro/alt
 	icon_state = "generic2_closed"
@@ -574,7 +576,7 @@ Airlock index -> wire color are { 9, 4, 6, 7, 5, 8, 1, 2, 3 }.
 			src.autoclose = 1
 		..(user)
 
-	attack_hand(mob/user as mob)
+	attack_hand(mob/user)
 		if (src.density)
 			src.autoclose = 0
 		..(user)
@@ -607,20 +609,20 @@ Airlock index -> wire color are { 9, 4, 6, 7, 5, 8, 1, 2, 3 }.
 		if (istype(mover, /obj/projectile))
 			var/obj/projectile/P = mover
 			if (P.proj_data.window_pass)
-				return 1
+				return TRUE
 		if (get_dir(loc, mover.movement_newloc) & dir)
 			if(density && mover && mover.flags & DOORPASS && !src.cant_emag)
 				if (ismob(mover) && mover:pulling && src.bumpopen(mover))
 					// If they're pulling something and the door would open anyway,
 					// just let the door open instead.
-					. = 0
+					. = FALSE
 					UNCROSS_BUMP_CHECK(mover)
 					return
 				animate_door_squeeze(mover)
-				. = 1 // they can pass through a closed door
+				return TRUE // they can pass through a closed door
 			. = !density
 		else
-			. = 1
+			. = TRUE
 		UNCROSS_BUMP_CHECK(mover)
 
 	update_nearby_tiles(need_rebuild)
@@ -880,7 +882,7 @@ About the new airlock wires panel:
 */
 /obj/machinery/door/airlock/proc/play_deny()
 	play_animation("deny")
-	playsound(src, src.sound_deny_temp, 100, 0)
+	playsound(src, src.sound_deny_temp, 35, 0, 0.8) //if this doesn't carry far enough, tweak the extrarange number, not the volume
 
 /obj/machinery/door/airlock/proc/try_pulse(var/wire_color, mob/user)
 	if (!user.find_tool_in_hand(TOOL_PULSING))
@@ -946,6 +948,8 @@ About the new airlock wires panel:
 				src.shock(usr, 25)
 		if (AIRLOCK_WIRE_ELECTRIFY)
 			//one wire for electrifying the door. Sending a pulse through this electrifies the door for 30 seconds.
+			if (src.can_shock == 0)
+				return
 			if (src.secondsElectrified==0)
 				src.secondsElectrified = 30
 				logTheThing("station", usr, null, "temporarily electrified an airlock at [log_loc(src)] with a pulse.")
@@ -993,6 +997,7 @@ About the new airlock wires panel:
 	R.airlock_wire = wire_color
 	src.signalers[wire_color] = R
 	tgui_process.update_uis(src)
+	logTheThing("station", user, null, "attaches a remote signaller on frequency [R.frequency] to [src] at [log_loc(src)].")
 	return TRUE
 
 /obj/machinery/door/airlock/proc/detach_signaler(var/wire_color, mob/user)
@@ -1050,7 +1055,7 @@ About the new airlock wires panel:
 
 		if (AIRLOCK_WIRE_ELECTRIFY)
 			//Cutting this wire electrifies the door, so that the next person to touch the door without insulated gloves gets electrocuted.
-			if (src.secondsElectrified != -1)
+			if (src.secondsElectrified != -1 && can_shock)
 				logTheThing("station", usr, null, "permanently electrified an airlock at [log_loc(src)] by cutting the shock wire.")
 				src.secondsElectrified = -1
 
@@ -1192,94 +1197,17 @@ About the new airlock wires panel:
 	if(!prob(prb))
 		return 0 //you lucked out, no shock for you
 
-	var/net = get_connection()		// find the powernet of the connected cable
+	var/net = get_connection() //find the powernet of the connected cable
 
-	if(!net)		// cable is unpowered
+	if(!net) // cable is unpowered
 		return 0
 
-
-	//if (src.airlockelectrocute(user, net))
-		//return 1
-	/// cogwerks: unifying this with cabl electrocution
-	//var/atom/A = src
 	if(src.electrocute(user, prb, net))
 		return 1
 
 	else
 		return 0
 
-/obj/machinery/door/airlock/proc/airlockelectrocute(mob/user, netnum) // cogwerks - this should be commented out or removed later but i am too tired right now
-	//You're probably getting shocked deal w/ it
-
-	if(!netnum)		// unconnected cable is unpowered
-		return 0
-
-	var/prot = 1
-
-	if(ishuman(user))
-		var/mob/living/carbon/human/H = user
-
-		if(H.gloves && H.gloves.hasProperty("conductivity"))
-			var/obj/item/clothing/gloves/G = H.gloves
-			prot = G.getProperty("conductivity")
-
-	else if (issilicon(user))
-		return 0
-
-	if(prot <= 0.29)		// elec insulted gloves protect completely
-		return 0
-
-	//ok you're getting shocked now
-	var/datum/powernet/PN			// find the powernet
-	if(powernets && powernets.len >= netnum)
-		PN = powernets[netnum]
-
-	elecflash(user,power = 2)
-
-	var/shock_damage = 0
-	if(PN.avail > 750000)	//someone juiced up the grid enough, people going to die!
-		shock_damage = min(rand(70,145),rand(70,145))*prot
-	else if(PN.avail > 100000)
-		shock_damage = min(rand(35,110),rand(35,110))*prot
-	else if(PN.avail > 75000)
-		shock_damage = min(rand(30,100),rand(30,100))*prot
-	else if(PN.avail > 50000)
-		shock_damage = min(rand(25,90),rand(25,90))*prot
-	else if(PN.avail > 25000)
-		shock_damage = min(rand(20,80),rand(20,80))*prot
-	else if(PN.avail > 10000)
-		shock_damage = min(rand(20,65),rand(20,65))*prot
-	else
-		shock_damage = min(rand(20,45),rand(20,45))*prot
-
-//		message_admins("<span class='internal'><B>ADMIN: </B>DEBUG: shock_damage = [shock_damage] PN.avail = [PN.avail] user = [user] netnum = [netnum]</span>")
-
-	if (user.bioHolder.HasEffect("resist_electric_heal"))
-		var/healing = 0
-		if (shock_damage)
-			healing = shock_damage / 3
-		user.HealDamage("All", healing, healing)
-		user.take_toxin_damage(0 - healing)
-		boutput(user, "<span class='notice'>You absorb the electrical shock, healing your body!</span>")
-		return
-	else if (user.bioHolder.HasEffect("resist_electric"))
-		boutput(user, "<span class='notice'>You feel electricity course through you harmlessly!</span>")
-		return
-
-	user.TakeDamage(user.hand == 1 ? "l_arm" : "r_arm", 0, shock_damage)
-	boutput(user, "<span class='alert'><B>You feel a powerful shock course through your body!</B></span>")
-	user.unlock_medal("HIGH VOLTAGE", 1)
-	if (isliving(user))
-		var/mob/living/L = user
-		L.Virus_ShockCure(33)
-		L.shock_cyberheart(33)
-	sleep(0.1 SECONDS)
-	if(user.getStatusDuration("stunned") < shock_damage * 10) user.changeStatus("stunned", shock_damage SECONDS)
-	if(user.getStatusDuration("weakened") < shock_damage * 10) user.changeStatus("weakened", prot SECONDS)
-	for(var/mob/M in AIviewers(src))
-		if(M == user)	continue
-		M.show_message("<span class='alert'>[user.name] was shocked by the [src.name]!</span>", 3, "<span class='alert'>You hear a heavy electrical crack</span>", 2)
-	return 1
 
 /obj/machinery/door/airlock/update_icon(var/toggling = 0, override_parent = TRUE)
 	if(toggling ? !density : density)
@@ -1426,8 +1354,94 @@ About the new airlock wires panel:
 		tgui_not_incapacitated_state.can_use_topic(src, user)
 	)
 
+/obj/machinery/door/airlock/proc/get_welding_positions(mob/user)
+	var/start
+	var/stop
+	var/rel_dir = get_dir(user, src)
+	if(istype(src, /obj/machinery/door/airlock/gannets)) //Gannets why your airlocks have so many welded icon states!!
+		if(rel_dir == NORTH || rel_dir == NORTHWEST || rel_dir == NORTHEAST)
+			start = list(0,-15)
+			stop = list(0,15)
+		else
+			start = list(0,15)
+			stop = list(0,-15)
+	else
+		switch(welded_icon_state)
+			if("welded")
+				if(dir == NORTH || dir == SOUTH)
+					if(rel_dir == NORTH || rel_dir == NORTHWEST || rel_dir == NORTHEAST)
+						start = list(0,-15)
+						stop = list(0,15)
+					else
+						start = list(0,15)
+						stop = list(0,-15)
+				else
+					if(rel_dir == EAST || rel_dir == SOUTHEAST || rel_dir == NORTHEAST)
+						start = list(-15,0)
+						stop = list(15,0)
+					else
+						start = list(15,0)
+						stop = list(-15,0)
+			if("2_welded")
+				if(dir == NORTH || dir == SOUTH)
+					if(rel_dir == NORTH || rel_dir == NORTHWEST || rel_dir == NORTHEAST)
+						start = list(0,-15)
+						stop = list(0,15)
+					else
+						start = list(0,15)
+						stop = list(0,-15)
+				else
+					if(rel_dir == EAST || rel_dir == SOUTHEAST || rel_dir == NORTHEAST)
+						start = list(-15,0)
+						stop = list(15,0)
+					else
+						start = list(15,0)
+						stop = list(-15,0)
+			if("old_welded")
+				if(dir == NORTH || dir == SOUTH)
+					start = list(0,-15)
+					stop = list(0,5)
+				else
+					if(rel_dir == EAST || rel_dir == SOUTHEAST || rel_dir == NORTHEAST)
+						start = list(-15,0)
+						stop = list(15,0)
+					else
+						start = list(15,0)
+						stop = list(-15,0)
+			if("fdoor_weld")
+				if(dir == EAST)
+					start = list(15,-15)
+					stop = list(15,15)
+				else if(dir == WEST)
+					start = list(-15,-15)
+					stop = list(-15,15)
+				else
+					start = list(-15,-15)
+					stop = list(15,-15)
+			else
+				if(dir == NORTH || dir == SOUTH)
+					start = list(-15,-15)
+					stop = list(15,-15)
+				else
+					if(rel_dir == EAST || rel_dir == SOUTHEAST || rel_dir == NORTHEAST)
+						start = list(-15,-15)
+						stop = list(-15,15)
+					else
+						start = list(15,-15)
+						stop = list(15,15)
 
-/obj/machinery/door/airlock/attack_hand(mob/user as mob)
+	if(welded)
+		. = list(stop,start)
+	else
+		. = list(start,stop)
+
+/obj/machinery/door/airlock/attack_hand(mob/user)
+	var/valid_tool_found = FALSE
+	if(length(user.equipped_list()))
+		for(var/obj/item/I in user.equipped_list())
+			if(issnippingtool(I) || ispulsingtool(I) || istype(I, /obj/item/device/radio/signaler))
+				valid_tool_found = TRUE
+
 	if (!issilicon(user))
 		if (src.isElectrified())
 			if (src.shock(user, 100))
@@ -1439,10 +1453,11 @@ About the new airlock wires panel:
 	if (ishuman(user) && src.density && src.brainloss_stumble && src.do_brainstumble(user) == 1)
 		return
 
-	if (src.p_open)
+	if (src.p_open && valid_tool_found)
 		ui_interact(user)
 		interact_particle(user,src)
-	//clicking with no access, door closed, and help intent, and panel closed to knock
+
+	//clicking with no access, door closed, and help intent to knock
 	else if (!src.allowed(user) && (user.a_intent == INTENT_HELP) && src.density && src.requiresID())
 		knockOnDoor(user)
 		return //Opening the door just because knocks are on cooldown is rude!
@@ -1450,7 +1465,7 @@ About the new airlock wires panel:
 		..(user)
 	return
 
-/obj/machinery/door/airlock/attackby(obj/item/C as obj, mob/user as mob)
+/obj/machinery/door/airlock/attackby(obj/item/C, mob/user)
 	//boutput(world, text("airlock attackby src [] obj [] mob []", src, C, user))
 
 	src.add_fingerprint(user)
@@ -1476,19 +1491,16 @@ About the new airlock wires panel:
 	if ((isweldingtool(C) && !( src.operating ) && src.density))
 		if(!C:try_weld(user, 1, burn_eyes = 1))
 			return
-		if (!src.welded)
-			src.welded = 1
-			logTheThing("station", user, null, "welded [name] shut at [log_loc(user)].")
-			user.unlock_medal("Lock Block", 1)
-		else
-			logTheThing("station", user, null, "un-welded [name] at [log_loc(user)].")
-			src.welded = null
+
+		var/positions = src.get_welding_positions(user)
+
+		actions.start(new /datum/action/bar/private/welding(user, src, 2 SECONDS, /obj/machinery/door/airlock/proc/weld_action, \
+			list(user), null, positions[1], positions[2]),user)
 
 		if (src.health < src.health_max)
 			src.heal_damage()
 			boutput(user, "<span class='notice'>Your repair the damage to [src].</span>")
 
-		src.UpdateIcon()
 		return
 	else if (isscrewingtool(C))
 		if (src.hardened == 1)
@@ -1511,6 +1523,18 @@ About the new airlock wires panel:
 	else
 		..()
 	return
+
+/obj/machinery/door/airlock/proc/weld_action(mob/user)
+	if(!src.density)
+		return
+	if (!src.welded)
+		src.welded = 1
+		logTheThing("station", user, null, "welded [name] shut at [log_loc(user)].")
+		user.unlock_medal("Lock Block", 1)
+	else
+		logTheThing("station", user, null, "un-welded [name] at [log_loc(user)].")
+		src.welded = null
+	src.UpdateIcon()
 
 /obj/machinery/door/airlock/proc/unpowered_open_close()
 	if (!src || !istype(src))
@@ -1917,7 +1941,11 @@ obj/machinery/door/airlock
 			if(!src.arePowerSystemsOn() || (status & NOPOWER))
 				boutput(user, "The door has no power - you can't electrify it.")
 				return
-			if(alert("Are you sure? Electricity might harm a human!",,"No","Yes") == "Yes") // fix for holding spacebar clicking yes
+
+			while (user.client.check_key(KEY_SHOCK))
+				sleep(0.2 SECONDS) // num seems to work fine
+
+			if (tgui_alert(user, "Are you sure? Electricity might harm a human!", "Electrification Confirmation", list("Yes", "No")) == "Yes")
 				shock_temp(user)
 
 /obj/machinery/door/airlock/ui_interact(mob/user, datum/tgui/ui)
@@ -1930,7 +1958,7 @@ obj/machinery/door/airlock
 /obj/machinery/door/airlock/ui_data(mob/user)
 	. = list(
 		"userStates" = list(
-			"distance" = get_dist(src, user),
+			"distance" = GET_DIST(src, user),
 			"isBorg" = ishivebot(user) || isrobot(user),
 			"isAi" = isAI(user),
 			"isCarbon" = iscarbon(user),

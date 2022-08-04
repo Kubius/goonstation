@@ -1,11 +1,14 @@
 /mob/dead
 	stat = 2
 	event_handler_flags =  IMMUNE_MANTA_PUSH | IMMUNE_SINGULARITY
+	///Our corpse, if one exists
+	var/mob/living/corpse
 
 // dead
 /mob/dead/New()
 	..()
 	src.flags |= UNCRUSHABLE
+	APPLY_ATOM_PROPERTY(src, PROP_ATOM_FLOATING, src)
 
 // No log entries for unaffected mobs (Convair880).
 /mob/dead/ex_act(severity)
@@ -25,7 +28,7 @@
 	if (targeting_ability)
 		..()
 	else
-		if (get_dist(src, target) > 0)
+		if (GET_DIST(src, target) > 0)
 			src.set_dir(get_dir(src, target))
 		src.examine_verb(target)
 

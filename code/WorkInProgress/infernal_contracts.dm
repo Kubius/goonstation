@@ -204,7 +204,7 @@ proc/is_weak_rollable_contract(type)
 			take_bleeding_damage(A, null, total_souls_value, DAMAGE_STAB)
 		..()
 
-	attack(target as mob, mob/user as mob)
+	attack(target, mob/user)
 		playsound(target, "sound/impact_sounds/Flesh_Stab_1.ogg", 60, 1)
 		if(iscarbon(target))
 			var/mob/living/carbon/C = target
@@ -254,7 +254,7 @@ proc/is_weak_rollable_contract(type)
 	burn_possible = 0 //Only makes sense since it's from hell.
 	item_function_flags = IMMUNE_TO_ACID // we don't get a spare, better make sure it lasts.
 	w_class = W_CLASS_BULKY
-	max_wclass = 3
+	max_wclass = W_CLASS_NORMAL
 	desc = "A diabolical human leather-bound briefcase, capable of holding a number of small objects and tormented souls. All those tormented souls give it a good deal of heft; you could use it as a great improvised bludgeoning weapon."
 	stamina_damage = 80 //buffed from 40
 	stamina_cost = 20 //nerfed from 10
@@ -286,7 +286,7 @@ proc/is_weak_rollable_contract(type)
 				var/obj/item/contract/T = new tempcontract(src)
 				T.merchant = src.merchant
 
-	attack(mob/M as mob, mob/user as mob, def_zone)
+	attack(mob/M, mob/user, def_zone)
 		..()
 		if (total_souls_value >= 6)
 			var/mob/living/L = M
@@ -362,7 +362,7 @@ END GUIDE
 	name = "infernal contract"
 	icon = 'icons/obj/wizard.dmi'
 	icon_state = "scroll_seal"
-	var/uses = 4.0
+	var/uses = 4
 	flags = FPRINT | TABLEPASS
 	w_class = W_CLASS_SMALL
 	inhand_image_icon = 'icons/mob/inhand/hand_books.dmi'
@@ -427,37 +427,28 @@ END GUIDE
 		SPAWN(1 DECI SECOND)
 			qdel(src)
 
-	attack(mob/M as mob, mob/user as mob, def_zone)
-		if (!isliving(M) || isghostdrone(M) || issilicon(M))
+	attack(mob/M, mob/user, def_zone)
+		if (!isliving(M) || isghostdrone(M) || issilicon(M) || isintangible(M))
 			return
 		if (!user.find_type_in_hand(/obj/item/pen/fancy/satan))
 			return
 		else if (isdiabolical(user))
-			if (M == user)
+			if (isnpc(M))
+				boutput(user, "<span class='notice'>They don't have a soul to sell!</span>")
+				return
+			else if (M == user)
 				boutput(user, "<span class='notice'>You can't sell your soul to yourself!</span>")
 				return
 			else if (!M.literate)
 				boutput(user, "<span class='notice'>Unfortunately they don't know how to write. Their signature will mean nothing.</span>")
 				return
 			else if (src.inuse != 1)
-				src.inuse = 1
-				M.visible_message("<span class='alert'><B>[user] is guiding [M]'s hand to the signature field of [src]!</B></span>")
-				if (!do_mob(user, M, 4 SECONDS)) //150 (or 15 seconds) was way too long to actually be useful, turns out that 7 seconds was too long too
-					if (user && ismob(user))
-						user.show_text("You were interrupted!", "red")
-						src.inuse = 0
-						return
-				M.visible_message("<span class='alert'>[user] forces [M] to sign [src]!</span>")
-				logTheThing("combat", user, M, "forces [M] to sign a [src] at [log_loc(user)].")
-				MagicEffect(M, user)
-				SPAWN(1 DECI SECOND)
-					src.inuse = 0
-					soulcheck(user)
-					updateuses(M, user)
+				actions.start(new/datum/action/bar/icon/force_sign(user, M, src), user)
+
 		else
 			return
 
-	attackby(obj/item/W as obj, mob/user as mob)
+	attackby(obj/item/W, mob/user)
 		if (istype(W, /obj/item/pen))
 			if (isdiabolical(user))
 				boutput(user, "<span class='notice'>You can't sell your soul to yourself!</span>")
@@ -479,6 +470,61 @@ END GUIDE
 				return
 		else
 			return
+
+/datum/action/bar/icon/force_sign
+	var/mob/living/target
+	var/obj/item/contract/my_contract
+	interrupt_flags = INTERRUPT_MOVE | INTERRUPT_ACT | INTERRUPT_STUNNED | INTERRUPT_ACTION
+	duration = 4 SECONDS
+
+	New(owner, target, contract)
+		. = ..()
+		src.owner = owner
+		src.target = target
+		src.my_contract = contract
+		icon = my_contract.icon
+		icon_state = my_contract.icon_state
+
+	onStart()
+		. = ..()
+		if (!isliving(target) || isghostdrone(target) || issilicon(target) || isintangible(target))
+			interrupt(INTERRUPT_ALWAYS)
+			return
+		if (BOUNDS_DIST(owner, target) > 0 || target == null || owner == null || my_contract == null)
+			interrupt(INTERRUPT_ALWAYS)
+			return
+		var/mob/living/user = owner
+		if (!user.find_type_in_hand(/obj/item/pen/fancy/satan))
+			interrupt(INTERRUPT_ALWAYS)
+			return
+		target.visible_message("<span class='alert'><B>[owner] is guiding [target]'s hand to the signature field of [my_contract]!</B></span>")
+
+
+	onUpdate()
+		..()
+		if (BOUNDS_DIST(owner, target) > 0 || target == null || owner == null || my_contract == null)
+			interrupt(INTERRUPT_ALWAYS)
+			return
+		var/mob/living/user = owner
+		if (!user.find_type_in_hand(/obj/item/pen/fancy/satan))
+			interrupt(INTERRUPT_ALWAYS)
+			return
+
+	onInterrupt(flag)
+		. = ..()
+		var/mob/living/user = owner
+		user.show_text("You were interrupted!", "red")
+		my_contract.inuse = 0
+
+	onEnd()
+		. = ..()
+		target.visible_message("<span class='alert'>[owner] forces [target] to sign [my_contract]!</span>")
+		logTheThing("combat", owner, target, "forces [target] to sign a [my_contract] at [log_loc(owner)].")
+		my_contract.MagicEffect(target, owner)
+		SPAWN(1 DECI SECOND)
+			my_contract.inuse = 0
+			soulcheck(owner)
+			my_contract.updateuses(target, owner)
 
 obj/item/contract/satan
 	desc = "A contract that promises to bestow upon whomever signs it near immortality, great power, and some other stuff you can't be bothered to read."
@@ -535,7 +581,6 @@ obj/item/contract/wrestle
 			boutput(user, "<span style=\"color:red; font-size:150%\"><b>Note that you are not an antagonist (unless you were already one), you simply have some of the powers of one.</b></span>")
 			user.visible_message("<span class='alert'>[user]'s pupils dilate.</span>")
 			user.changeStatus("stunned", 100 SECONDS)
-			ticker.mode.Agimmicks.Add(user)
 
 		return 1
 
@@ -575,7 +620,6 @@ obj/item/contract/genetic
 					SPAWN(0.2 SECONDS)
 						boutput(user, "<span class='success'>You have ascended beyond mere humanity!</span>")
 						user.mind.special_role = "Genetic Demigod"
-						ticker.mode.Agimmicks.Add(user)
 
 		return 1
 
@@ -619,7 +663,6 @@ obj/item/contract/horse
 			user.traitHolder.addTrait("soggy")
 			boutput(user, "<span class='alert'><font size=6><B>NEIGH</b></font></span>")
 			user.mind.special_role = "Faustian Horse"
-			ticker.mode.Agimmicks.Add(user)
 
 		return 1
 
@@ -661,7 +704,6 @@ obj/item/contract/vampire
 		SPAWN(1 DECI SECOND)
 			user.mind.special_role = ROLE_VAMPIRE
 			user.make_vampire(1)
-			ticker.mode.Agimmicks.Add(user)
 			boutput(user, "<span style=\"color:red; font-size:150%\"><b>Note that you are not an antagonist (unless you were already one), you simply have some of the powers of one.</b></span>")
 
 		return 1

@@ -4,12 +4,13 @@
 	icon = 'icons/obj/furniture/table.dmi'
 	icon_state = "0"
 	density = 1
-	anchored = 1.0
+	anchored = 1
 	flags = NOSPLASH
 	event_handler_flags = USE_FLUID_ENTER
 	layer = OBJ_LAYER-0.1
 	stops_space_move = TRUE
 	mat_changename = 1
+	mechanics_interaction = MECHANICS_INTERACTION_SKIP_IF_FAIL
 	var/auto_type = /obj/table/auto
 	var/parts_type = /obj/item/furniture_parts/table
 	var/auto = 0
@@ -127,6 +128,25 @@
 			if (T.auto)
 				T.set_up()
 
+	/// Slam a dude on a table (harmfully)
+	proc/harm_slam(mob/user, mob/victim)
+		if (!victim.hasStatus("weakened"))
+			victim.changeStatus("weakened", 3 SECONDS)
+			victim.force_laydown_standup()
+		src.visible_message("<span class='alert'><b>[user] slams [victim] onto \the [src]!</b></span>")
+		playsound(src, "sound/impact_sounds/Generic_Hit_Heavy_1.ogg", 50, 1)
+		if (src.material)
+			src.material.triggerOnAttacked(src, user, victim, src)
+
+
+	/// Slam a dude on the table (gently, with great care)
+	proc/gentle_slam(mob/user, mob/victim)
+		if (!victim.hasStatus("weakened"))
+			victim.changeStatus("weakened", 2 SECONDS)
+			victim.force_laydown_standup()
+		src.visible_message("<span class='alert'>[user] puts [victim] on \the [src].</span>")
+
+
 	custom_suicide = 1
 	suicide(var/mob/user as mob) //if this is TOO ridiculous just remove it idc
 		if (!src.user_can_suicide(user))
@@ -141,17 +161,17 @@
 
 	ex_act(severity)
 		switch (severity)
-			if (1.0)
+			if (1)
 				qdel(src)
 				return
-			if (2.0)
+			if (2)
 				if (prob(50))
 					qdel(src)
 					return
 				else
 					src.deconstruct()
 					return
-			if (3.0)
+			if (3)
 				if (prob(25))
 					src.deconstruct()
 					return
@@ -184,37 +204,27 @@
 	meteorhit()
 		deconstruct()
 
-	attackby(obj/item/W as obj, mob/user as mob, params)
+	attackby(obj/item/W, mob/user, params)
 		if (istype(W, /obj/item/grab))
 			var/obj/item/grab/G = W
 			if (!G.affecting || G.affecting.buckled)
 				return
-			if (!G.state)
+			if (G.state == GRAB_PASSIVE)
 				boutput(user, "<span class='alert'>You need a tighter grip!</span>")
 				return
-			G.affecting.set_loc(src.loc)
+			var/mob/grabbed = G.affecting
+
+			var/remove_tablepass = HAS_FLAG(grabbed.flags, TABLEPASS) ? FALSE : TRUE //this sucks and should be a mob property. love
+			grabbed.flags |= TABLEPASS
+			step(grabbed, get_dir(grabbed, src))
+			if (remove_tablepass) REMOVE_FLAG(grabbed.flags, TABLEPASS)
+
 			if (user.a_intent == "harm")
-				logTheThing("combat", user, G.affecting, "slams [constructTarget(G.affecting,"combat")] onto a table")
-				if (istype(src, /obj/table/folding))
-					if (!G.affecting.hasStatus("weakened"))
-						G.affecting.changeStatus("weakened", 4 SECONDS)
-						G.affecting.force_laydown_standup()
-					src.visible_message("<span class='alert'><b>[G.assailant] slams [G.affecting] onto \the [src], collapsing it instantly!</b></span>")
-					playsound(src, "sound/impact_sounds/Generic_Hit_Heavy_1.ogg", 50, 1)
-					deconstruct()
-				else
-					if (!G.affecting.hasStatus("weakened"))
-						G.affecting.changeStatus("weakened", 3 SECONDS)
-						G.affecting.force_laydown_standup()
-					src.visible_message("<span class='alert'><b>[G.assailant] slams [G.affecting] onto \the [src]!</b></span>")
-					playsound(src, "sound/impact_sounds/Generic_Hit_Heavy_1.ogg", 50, 1)
-					if (src.material)
-						src.material.triggerOnAttacked(src, G.assailant, G.affecting, src)
+				src.harm_slam(user, grabbed)
+				logTheThing("combat", user, grabbed, "slams [constructTarget(grabbed,"combat")] onto a table at [log_loc(grabbed)]")
 			else
-				if (!G.affecting.hasStatus("weakened"))
-					G.affecting.changeStatus("weakened", 2 SECONDS)
-					G.affecting.force_laydown_standup()
-				src.visible_message("<span class='alert'>[G.assailant] puts [G.affecting] on \the [src].</span>")
+				src.gentle_slam(user, grabbed)
+				logTheThing("station", user, grabbed, "puts [constructTarget(grabbed,"combat")] onto a table at [log_loc(grabbed)]")
 			qdel(W)
 			return
 
@@ -237,6 +247,9 @@
 					boutput(user, "<span class='notice'>\The [src] is too weak to be modified!</span>")
 			else
 				boutput(user, "<span class='notice'>\The [src] is too weak to be modified!</span>")
+
+		else if (istype(W, /obj/item/paint_can))
+			return
 
 		else if (isscrewingtool(W))
 			if (istype(src.desk_drawer) && src.desk_drawer.locked)
@@ -262,6 +275,9 @@
 			src.desk_drawer.Attackby(W, user)
 			return
 
+		else if (istype(W, /obj/item/cloth/towel))
+			user.visible_message("<span class='notice'>[user] wipes down [src] with [W].</span>")
+
 		else if (istype(W) && src.place_on(W, user, params))
 			return
 
@@ -273,6 +289,7 @@
 			user.visible_message("<span class='alert'>[user] destroys the table!</span>")
 			if (prob(40))
 				playsound(src.loc, "sound/impact_sounds/Generic_Hit_Heavy_1.ogg", 50, 1)
+			logTheThing("combat", user, null, "uses hulk to smash a table at [log_loc(src)].")
 			deconstruct()
 			return
 
@@ -301,10 +318,13 @@
 		return
 
 	Cross(atom/movable/mover)
-		if (!src.density || (mover.flags & TABLEPASS || istype(mover, /obj/newmeteor)) )
-			return 1
-		else
-			return 0
+
+		if (!src.density || (mover.flags & TABLEPASS || istype(mover, /obj/newmeteor)))
+			return TRUE
+		var/obj/table = locate(/obj/table) in mover.loc
+		if (table && table.density)
+			return TRUE
+		return FALSE
 
 	MouseDrop_T(atom/O, mob/user as mob)
 		if (!in_interact_range(user, src) || !in_interact_range(user, O) || user.restrained() || user.getStatusDuration("paralysis") || user.sleeping || user.stat || user.lying)
@@ -362,6 +382,7 @@
 	id = "table_jump"
 	var/const/throw_range = 7
 	var/const/iteration_limit = 5
+	resumable = TRUE
 
 	getLandingLoc()
 		var/iteration = 0
@@ -395,7 +416,6 @@
 			if (is_athletic_jump) // athletic jumps are more athletic!!
 				the_text = "[ownerMob] swooces right over [the_railing]!"
 			M.show_text("[the_text]", "red")
-		// logTheThing("combat", ownerMob, the_railing, "[is_athletic_jump ? "leaps over [the_railing] with [his_or_her(ownerMob)] athletic trait" : "crawls over [the_railing%]].")
 
 /* ======================================== */
 /* ---------------------------------------- */
@@ -490,7 +510,7 @@
 	icon = 'icons/obj/furniture/table_folding.dmi'
 	parts_type = /obj/item/furniture_parts/table/folding
 
-	attack_hand(mob/user as mob)
+	attack_hand(mob/user)
 		if (user.is_hulk())
 			user.visible_message("<span class='alert'>[user] collapses the [src] in one slam!</span>")
 			playsound(src.loc, "sound/impact_sounds/Generic_Hit_Heavy_1.ogg", 50, 1)
@@ -510,6 +530,14 @@
 			else
 				actions.start(new /datum/action/bar/icon/fold_folding_table(src, null), user)
 		return
+
+	harm_slam(mob/user, mob/victim)
+		if (!victim.hasStatus("weakened"))
+			victim.changeStatus("weakened", 4 SECONDS)
+			victim.force_laydown_standup()
+		src.visible_message("<span class='alert'><b>[user] slams [victim] onto \the [src], collapsing it instantly!</b></span>")
+		playsound(src, "sound/impact_sounds/Generic_Hit_Heavy_1.ogg", 50, 1)
+		deconstruct()
 
 /obj/table/syndicate
 	name = "crimson glass table"
@@ -542,6 +570,66 @@
 /* ---------------------------------------- */
 /* ======================================== */
 
+/obj/table/endtable_classic
+	name = "vintage endtable"
+	desc = "A vintage-styled wooden endtable, complete with decorative doily."
+	icon = 'icons/obj/furniture/single_tables.dmi'
+	icon_state = "endtable-classic"
+	parts_type = /obj/item/furniture_parts/endtable_classic
+
+/obj/table/endtable_gothic
+	name = "gothic endtable"
+	desc = "A gothic-styled wooden endtable, complete with decorative doily."
+	icon = 'icons/obj/furniture/single_tables.dmi'
+	icon_state = "endtable-gothic"
+	parts_type = /obj/item/furniture_parts/endtable_gothic
+
+/obj/table/podium_wood
+	name = "wooden podium"
+	desc = "A wooden podium. Looks official."
+	icon = 'icons/obj/furniture/single_tables.dmi'
+	icon_state = "podiumwood"
+	parts_type = /obj/item/furniture_parts/podium_wood
+
+/obj/table/podium_wood/nanotrasen
+	name = "wooden podium"
+	desc = "A wooden podium. Looks official. Comes with a NT-themed banner attached to the front."
+	icon = 'icons/obj/furniture/single_tables.dmi'
+	icon_state = "podiumwood-nt"
+	parts_type = /obj/item/furniture_parts/podium_wood/nt
+
+/obj/table/podium_wood/syndicate
+	name = "wooden podium"
+	desc = "A wooden podium. Looks official. Comes with a Syndicate-themed banner attached to the front."
+	icon = 'icons/obj/furniture/single_tables.dmi'
+	icon_state = "podiumwood-snd"
+	parts_type = /obj/item/furniture_parts/podium_wood/syndie
+
+/obj/table/podium_white
+	name = "white podium"
+	desc = "A white podium. Looks official."
+	icon = 'icons/obj/furniture/single_tables.dmi'
+	icon_state = "podiumwhite"
+	parts_type = /obj/item/furniture_parts/podium_white
+
+/obj/table/podium_white/nanotrasen
+	name = "white podium"
+	desc = "A white podium. Looks official. Comes with a NT-themed banner attached to the front."
+	icon = 'icons/obj/furniture/single_tables.dmi'
+	icon_state = "podiumwhite-nt"
+	parts_type = /obj/item/furniture_parts/podium_white/nt
+
+/obj/table/podium_white/syndicate
+	name = "white podium"
+	desc = "A white podium. Looks official. Comes with a Syndicate-themed banner attached to the front."
+	icon = 'icons/obj/furniture/single_tables.dmi'
+	icon_state = "podiumwhite-snd"
+	parts_type = /obj/item/furniture_parts/podium_white/syndie
+
+/* ======================================== */
+/* ---------------------------------------- */
+/* ======================================== */
+
 /obj/table/reinforced
 	name = "reinforced table"
 	desc = "A table made from reinforced metal, it is quite strong and it requires welding and wrenching to disassemble it."
@@ -553,7 +641,7 @@
 	auto
 		auto = 1
 
-	attackby(obj/item/W as obj, mob/user as mob)
+	attackby(obj/item/W, mob/user)
 		if (isweldingtool(W) && W:try_weld(user,1))
 			if (src.status == 2)
 				actions.start(new /datum/action/bar/icon/table_tool_interact(src, W, TABLE_WEAKEN), user)
@@ -568,7 +656,8 @@
 				actions.start(new /datum/action/bar/icon/table_tool_interact(src, W, TABLE_DISASSEMBLE), user)
 				return
 			else
-				return ..()
+				boutput(user, "<span class='alert'>You need to weaken the [src.name] with a welding tool before you can disassemble it!</span>")
+				return
 		else
 			return ..()
 
@@ -685,7 +774,7 @@
 		if (src.material?.mat_id in list("gnesis", "gnesisglass"))
 			gnesis_smash()
 		else
-			for (var/i=rand(3,4), i>0, i--)
+			for (var/i=0, i<2, i++)
 				var/obj/item/raw_material/shard/glass/G = new /obj/item/raw_material/shard/glass
 				G.set_loc(src.loc)
 				if (src.material)
@@ -743,7 +832,7 @@
 	ex_act(severity)
 		if (src.glass_broken)
 			return ..()
-		if (severity == 2.0)
+		if (severity == 2)
 			if (prob(25))
 				src.smash()
 				return
@@ -764,7 +853,7 @@
 		else
 			return ..()
 
-	attack_hand(mob/user as mob)
+	attack_hand(mob/user)
 		if (src.glass_broken)
 			return ..()
 		..()
@@ -785,7 +874,7 @@
 		if (prob(smashprob))
 			src.smash()
 
-	attackby(obj/item/W as obj, mob/user as mob, params)
+	attackby(obj/item/W, mob/user, params)
 		if (src.glass_broken == GLASS_BROKEN)
 			if (istype(W, /obj/item/sheet))
 				var/obj/item/sheet/S = W
@@ -807,36 +896,22 @@
 			var/obj/item/grab/G = W
 			if (!G.affecting || G.affecting.buckled)
 				return
-			if (!G.state)
+			if (G.state == GRAB_PASSIVE)
 				boutput(user, "<span class='alert'>You need a tighter grip!</span>")
 				return
+			var/mob/grabbed = G.affecting
+			// duplicated as hell but i'm leaving it cleaner than I found it
+			var/remove_tablepass = HAS_FLAG(grabbed.flags, TABLEPASS) ? FALSE : TRUE //this sucks and should be a mob property. love
+			grabbed.flags |= TABLEPASS
+			step(grabbed, get_dir(grabbed, src))
+			if (remove_tablepass) REMOVE_FLAG(grabbed.flags, TABLEPASS)
+
 			if (user.a_intent == "harm")
-				logTheThing("combat", user, G.affecting, "slams [constructTarget(G.affecting,"combat")] onto a glass table")
-				G.affecting.set_loc(src.loc)
-				G.affecting.changeStatus("weakened", 4 SECONDS)
-				src.visible_message("<span class='alert'><b>[G.assailant] slams [G.affecting] onto \the [src]!</b></span>")
-				playsound(src, "sound/impact_sounds/Generic_Hit_Heavy_1.ogg", 50, 1)
-				if (src.material)
-					src.material.triggerOnAttacked(src, G.assailant, G.affecting, src)
-				if ((prob(src.reinforced ? 60 : 80)) || (G.assailant.bioHolder.HasEffect("clumsy") && (!src.reinforced || prob(90))))
-					src.smash()
-					random_brute_damage(G.affecting, rand(20,40),1)
-					take_bleeding_damage(G.affecting, G.assailant, rand(20,40))
-					if (prob(30) || G.assailant.bioHolder.HasEffect("clumsy"))
-						boutput(user, "<span class='alert'>You cut yourself on \the [src] as [G.affecting] slams through the glass!</span>")
-						random_brute_damage(G.assailant, rand(10,30),1)
-						take_bleeding_damage(G.assailant, G.assailant, rand(10,30))
-					qdel(W)
-					return
+				logTheThing("combat", user, grabbed, "slams [constructTarget(grabbed,"combat")] onto a glass table")
+				src.harm_slam(user, grabbed)
 			else
-				G.affecting.set_loc(src.loc)
-				G.affecting.changeStatus("weakened", 4 SECONDS)
-				src.visible_message("<span class='alert'>[G.assailant] puts [G.affecting] on \the [src].</span>")
-				if (G.assailant.bioHolder.HasEffect("clumsy"))
-					smashprob += 25
-				else
-					smashprob += 10
-			qdel(W)
+				logTheThing("station", user, grabbed, "puts [constructTarget(grabbed,"combat")] onto a glass table")
+				src.gentle_slam(user, grabbed)
 
 		else if (istype(W, /obj/item/plank) || istool(W, TOOL_SCREWING | TOOL_WRENCHING) || (istype(W, /obj/item/reagent_containers/food/drinks/bottle) && user.a_intent == "harm"))
 			return ..()
@@ -849,6 +924,9 @@
 					smashprob += 15
 				else
 					return
+
+		else if(istype(W, /obj/item/paint_can))
+			return
 
 		else if (istype(W)) // determine smash chance via item size and user clumsiness  :v
 			if (user.bioHolder.HasEffect("clumsy"))
@@ -875,6 +953,22 @@
 
 		else
 			return ..()
+
+	harm_slam(mob/user, mob/victim)
+		victim.set_loc(src.loc)
+		victim.changeStatus("weakened", 4 SECONDS)
+		src.visible_message("<span class='alert'><b>[user] slams [victim] onto \the [src]!</b></span>")
+		playsound(src, "sound/impact_sounds/Generic_Hit_Heavy_1.ogg", 50, 1)
+		if (src.material)
+			src.material.triggerOnAttacked(src, user, victim, src)
+		if ((prob(src.reinforced ? 60 : 80)) || (user.bioHolder.HasEffect("clumsy") && (!src.reinforced || prob(90))))
+			src.smash()
+			random_brute_damage(victim, rand(20,40),1)
+			take_bleeding_damage(victim, user, rand(20,40))
+			if (prob(30) || user.bioHolder.HasEffect("clumsy"))
+				boutput(user, "<span class='alert'>You cut yourself on \the [src] as [victim] slams through the glass!</span>")
+				random_brute_damage(user, rand(10,30),1)
+				take_bleeding_damage(user, user, rand(10,30))
 
 	hitby(atom/movable/AM, datum/thrown_thing/thr)
 		..()

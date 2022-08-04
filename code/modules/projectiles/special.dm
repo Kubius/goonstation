@@ -9,7 +9,7 @@ ABSTRACT_TYPE(/datum/projectile/special)
 	cost = 25
 	dissipation_rate = 1
 	dissipation_delay = 0
-	ks_ratio = 1.0
+	ks_ratio = 1
 	sname = "laser"
 	shot_sound = 'sound/weapons/Taser.ogg'
 	shot_number = 1
@@ -199,6 +199,7 @@ ABSTRACT_TYPE(/datum/projectile/special)
 	cost = 1
 	pellets_to_fire = 10
 	spread_projectile_type = /datum/projectile/bullet/buckshot
+	casing = /obj/item/casing/shotgun/red
 	shot_sound = 'sound/weapons/shotgunshot.ogg'
 	var/speed_max = 5
 	var/speed_min = 60
@@ -211,6 +212,31 @@ ABSTRACT_TYPE(/datum/projectile/special)
 		FC.internal_speed = rand(speed_min,speed_max)
 		FC.travelled = rand(0,dissipation_variance)
 		FC.launch()
+
+/datum/projectile/special/spreader/buckshot_burst/glass
+	spread_projectile_type = /datum/projectile/bullet/improvglass
+	name = "glass"
+	sname = "glass"
+	cost = 1
+	pellets_to_fire = 6
+	shot_sound = 'sound/weapons/shotgunshot.ogg'
+	speed_max = 36
+	speed_min = 28
+	spread_angle_variance = 30
+	dissipation_variance = 40
+
+/datum/projectile/special/spreader/buckshot_burst/scrap
+	name = "fragments"
+	sname = "fragments"
+	cost = 1
+	pellets_to_fire = 3
+	spread_projectile_type = /datum/projectile/bullet/improvscrap
+	shot_sound = 'sound/weapons/shotgunshot.ogg'
+	speed_max = 40
+	speed_min = 34
+	spread_angle_variance = 10
+	dissipation_variance = 10
+
 
 /datum/projectile/special/spreader/buckshot_burst/nails
 	name = "nails"
@@ -475,7 +501,7 @@ ABSTRACT_TYPE(/datum/projectile/special)
 	shot_sound = 'sound/impact_sounds/Generic_Swing_1.ogg'
 	dissipation_delay = 1
 	dissipation_rate = 35
-	icon_turf_hit = null
+	impact_image_state = null
 
 	on_hit(atom/hit)
 		if (usr && hit)
@@ -541,7 +567,7 @@ ABSTRACT_TYPE(/datum/projectile/special)
 			for (var/atom in P.targets)
 				var/atom/A = atom
 				if (A == P.shooter) continue
-				if (get_dist(P,A) < get_dist(P,closest))
+				if (GET_DIST(P,A) < GET_DIST(P,closest))
 					closest = A
 
 			desired_x = closest.x - P.x
@@ -581,52 +607,6 @@ ABSTRACT_TYPE(/datum/projectile/special)
 
 /datum/projectile/special/homing/slow
 	max_speed = 1
-
-/datum/projectile/special/homing/vamp_blood
-	name = "blood glob"
-	icon_state = "bloodproj"
-	start_speed = 9
-	goes_through_walls = 1
-	//goes_through_mobs = 1
-	auto_find_targets = 0
-	silentshot = 1
-	pierces = -1
-
-	shot_sound = "sound/impact_sounds/Flesh_Tear_1.ogg"
-
-	on_launch(var/obj/projectile/P)
-		if (!("victim" in P.special_data))
-			P.die()
-			return
-
-		if (!("vamp" in P.special_data))
-			P.die()
-			return
-		P.layer = EFFECTS_LAYER_BASE
-		flick("bloodproj",P)
-		..()
-
-	on_hit(atom/hit, direction, var/obj/projectile/P)
-		if (("vamp" in P.special_data))
-			var/datum/abilityHolder/vampire/vampire = P.special_data["vamp"]
-			if (vampire.owner == hit && P.max_range == PROJ_INFINITE_RANGE)
-				P.travelled = 0
-				P.max_range = 4
-			..()
-
-	on_end(var/obj/projectile/P)
-		if (("vamp" in P.special_data) && ("victim" in P.special_data))
-			var/datum/abilityHolder/vampire/vampire = P.special_data["vamp"]
-			var/mob/living/victim = P.special_data["victim"]
-
-			if (vampire && victim)
-				if (vampire.can_bite(victim,is_pointblank = 0))
-					vampire.do_bite(victim, mult = 0.3333)
-
-				vampire.owner?.add_stamina(20)
-				victim.remove_stamina(4)
-
-		..()
 
 
 //vamp bail out travel
@@ -674,7 +654,7 @@ ABSTRACT_TYPE(/datum/projectile/special)
 			else
 				if (dropme.loc == P)
 					dropme.set_loc(get_turf(P))
-					boutput(dropme, __red("Your coffin was lost or destroyed! Oh no!!!"))
+					boutput(dropme, "<span class='alert'>Your coffin was lost or destroyed! Oh no!!!</span>")
 		..()
 
 /datum/projectile/special/homing/magicmissile
@@ -904,7 +884,7 @@ ABSTRACT_TYPE(/datum/projectile/special)
 	silentshot = 1 //any noise will be handled by the egg splattering anyway
 	power = 60
 	cost = 40
-	ks_ratio = 1.0
+	ks_ratio = 1
 	dissipation_rate = 70
 	dissipation_delay = 0
 	window_pass = 0
@@ -937,7 +917,7 @@ ABSTRACT_TYPE(/datum/projectile/special)
 	icon_state = "bullet"
 	implanted= null
 	casing = null
-	icon_turf_hit = null
+	impact_image_state = null
 	var/typetospawn = null
 	var/hasspawned = null
 	var/hit_sound = null
@@ -946,7 +926,7 @@ ABSTRACT_TYPE(/datum/projectile/special)
 		if(src.hit_sound)
 			playsound(hit, src.hit_sound, 50, 1)
 		if(ismob(hit) && typetospawn)
-			hasspawned = 1
+			hasspawned = TRUE
 			. = new typetospawn(get_turf(hit))
 		return
 
@@ -954,7 +934,9 @@ ABSTRACT_TYPE(/datum/projectile/special)
 	on_end(obj/projectile/O)
 		if(!hasspawned && typetospawn)
 			. = new typetospawn(get_turf(O))
-		hasspawned = null
+			hasspawned = TRUE
+		else
+			hasspawned = null
 		return
 
 /datum/projectile/special/spawner/gun //shoot guns
@@ -966,7 +948,7 @@ ABSTRACT_TYPE(/datum/projectile/special)
 	icon_state = "gun"
 	implanted= null
 	casing = null
-	icon_turf_hit = null
+	impact_image_state = null
 	typetospawn = /obj/item/gun/kinetic/derringer
 
 
@@ -984,7 +966,7 @@ ABSTRACT_TYPE(/datum/projectile/special)
 	power = 15
 	dissipation_delay = 30
 	dissipation_rate = 1
-	ks_ratio = 1.0
+	ks_ratio = 1
 	cost = 10
 	window_pass = 0
 	typetospawn = /obj/item/reagent_containers/food/snacks/ingredient/egg/critter/wasp/angry
@@ -1010,8 +992,8 @@ ABSTRACT_TYPE(/datum/projectile/special)
 	dissipation_delay = 30
 	cost = 1
 	shot_sound = 'sound/weapons/rocket.ogg'
-	ks_ratio = 1.0
-	icon_turf_hit = "secbot1-wild"
+	ks_ratio = 1
+	impact_image_state = "secbot1-wild"
 	implanted = null
 	typetospawn = /obj/machinery/bot/secbot
 
@@ -1049,7 +1031,7 @@ ABSTRACT_TYPE(/datum/projectile/special)
 	sname = "chembolt"
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "extinguish"
-	shot_sound = "sound/effects/spray2.ogg"
+	shot_sound = 'sound/weapons/flamethrower.ogg'
 	power = 0
 	cost = 1
 	damage_type = D_SPECIAL
@@ -1139,12 +1121,6 @@ ABSTRACT_TYPE(/datum/projectile/special)
 	on_pointblank(var/obj/projectile/O, var/mob/target)
 		var/turf/T = get_turf(O)
 		src.emit_chems(target, O)
-		src.emit_gas(T, 1)
-	on_end(var/obj/projectile/O)
-		if(O.reagents?.total_volume < 0.01)
-			return
-		var/turf/T = get_turf(O)
-		src.emit_chems(T, O)
 		src.emit_gas(T, 1)
 	on_max_range_die(obj/projectile/O)
 		if(O.reagents?.total_volume < 0.01)

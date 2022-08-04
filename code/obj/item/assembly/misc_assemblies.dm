@@ -11,6 +11,7 @@ Contains:
 - Remote signaller/proximity
 - Beaker Assembly
 - Pipebomb Assembly
+- Craftable shotgun shells
 
 */
 
@@ -21,7 +22,7 @@ Contains:
 	icon = 'icons/obj/items/assemblies.dmi'
 	inhand_image_icon = 'icons/mob/inhand/hand_tools.dmi'
 	item_state = "assembly"
-	var/status = 0.0
+	var/status = 0
 	throwforce = 10
 	w_class = W_CLASS_NORMAL
 	throw_speed = 4
@@ -79,6 +80,8 @@ Contains:
 	return
 
 /obj/item/assembly/time_ignite/receive_signal()
+	if(!src.status)
+		return
 	for(var/mob/O in hearers(1, src.loc))
 		O.show_message("[bicon(src)] *beep* *beep*", 3, "*beep* *beep*", 2)
 	src.part2.ignite()
@@ -92,7 +95,7 @@ Contains:
 			qdel(src)
 	return
 
-/obj/item/assembly/time_ignite/attackby(obj/item/W as obj, mob/user as mob)
+/obj/item/assembly/time_ignite/attackby(obj/item/W, mob/user)
 	if (!W)
 		return
 	if (iswrenchingtool(W) && !(src.status))
@@ -308,7 +311,7 @@ Contains:
 		src.name = "Proximity/Igniter/Beaker Assembly"
 	return
 
-/obj/item/assembly/prox_ignite/attackby(obj/item/W as obj, mob/user as mob)
+/obj/item/assembly/prox_ignite/attackby(obj/item/W, mob/user)
 	if (!W)
 		return
 	if (iswrenchingtool(W) && !(src.status))
@@ -416,6 +419,8 @@ Contains:
 	return
 
 /obj/item/assembly/prox_ignite/receive_signal()
+	if(!src.status)
+		return
 	for(var/mob/O in hearers(1, src.loc))
 		O.show_message("[bicon(src)] *beep* *beep*", 3, "*beep* *beep*", 2)
 	src.part2.ignite()
@@ -483,7 +488,7 @@ Contains:
 	part5 = null
 	..()
 
-/obj/item/assembly/rad_ignite/attackby(obj/item/W as obj, mob/user as mob)
+/obj/item/assembly/rad_ignite/attackby(obj/item/W, mob/user)
 	if (!W)
 		return
 	if (iswrenchingtool(W) && !(src.status))
@@ -592,6 +597,8 @@ Contains:
 	return
 
 /obj/item/assembly/rad_ignite/receive_signal()
+	if(!src.status)
+		return
 	for(var/mob/O in hearers(1, src.loc))
 		O.show_message("[bicon(src)] *beep* *beep*", 3, "*beep* *beep*", 2)
 	if (src.part2)
@@ -669,7 +676,7 @@ Contains:
 			src.part2.master = src
 	return
 
-/obj/item/assembly/anal_ignite/attackby(obj/item/W as obj, mob/user as mob)
+/obj/item/assembly/anal_ignite/attackby(obj/item/W, mob/user)
 	if (!W)
 		return
 	if (iswrenchingtool(W) && !(src.status))
@@ -702,7 +709,7 @@ Contains:
 	icon_state = "radio-horn"
 	var/obj/item/device/radio/signaler/part1 = null
 	var/obj/item/instrument/bikehorn/part2 = null
-	status = 0.0
+	status = 0
 	flags = FPRINT | TABLEPASS | CONDUCT
 
 /obj/item/assembly/radio_horn/New()
@@ -752,7 +759,7 @@ obj/item/assembly/radio_horn/receive_signal()
 	..()
 	return
 
-/obj/item/assembly/rad_time/attackby(obj/item/W as obj, mob/user as mob)
+/obj/item/assembly/rad_time/attackby(obj/item/W, mob/user)
 	if (!W)
 		return
 	if (iswrenchingtool(W) && !(src.status))
@@ -821,7 +828,7 @@ obj/item/assembly/radio_horn/receive_signal()
 		src.part2.sense()
 	return
 
-/obj/item/assembly/rad_prox/attackby(obj/item/W as obj, mob/user as mob)
+/obj/item/assembly/rad_prox/attackby(obj/item/W, mob/user)
 	if (!W)
 		return
 	if (iswrenchingtool(W) && !(src.status))
@@ -868,3 +875,29 @@ obj/item/assembly/radio_horn/receive_signal()
 		src.part2.sense()
 		return
 	return
+
+
+//////////////////////////////////handmade shotgun shells//////////////////////////////////
+
+/obj/item/assembly/makeshiftshell
+
+	name = "filled pipe hulls"
+	desc = "Four open pipe shells, with propellant in them. You wonder what you could stuff into them."
+	icon_state = "Pipeshotrow"
+
+	attackby(obj/item/W, mob/user)
+		if(istype(W, /obj/item/raw_material/shard))
+			var/obj/item/ammo/bullets/pipeshot/glass/shot = new /obj/item/ammo/bullets/pipeshot/glass/(get_turf(src))
+			qdel(W)
+			qdel(src)
+			user.put_in_hand_or_drop(shot)
+
+		if(istype(W, /obj/item/raw_material/scrap_metal))
+			var/obj/item/ammo/bullets/pipeshot/scrap/shot = new /obj/item/ammo/bullets/pipeshot/scrap/(get_turf(src))
+			qdel(W)
+			qdel(src)
+			user.put_in_hand_or_drop(shot)
+		..()
+
+
+

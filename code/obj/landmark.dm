@@ -20,7 +20,7 @@ proc/pick_landmark(name, default=null)
 	ex_act()
 		return
 
-/obj/landmark/proc/init()
+/obj/landmark/proc/init(delay_qdel=FALSE)
 	if(src.add_to_landmarks)
 		if(!landmarks)
 			landmarks = list()
@@ -29,12 +29,15 @@ proc/pick_landmark(name, default=null)
 			landmarks[name] = list()
 		landmarks[name][src.loc] = src.data
 	if(src.deleted_on_start)
-		qdel(src)
+		if(delay_qdel)
+			SPAWN(0)
+				qdel(src)
+		else
+			qdel(src)
 
 /obj/landmark/New()
 	if(current_state > GAME_STATE_MAP_LOAD)
-		SPAWN(0)
-			src.init()
+		src.init(delay_qdel=TRUE)
 		..()
 	else
 		src.init()
@@ -146,6 +149,14 @@ var/global/list/job_start_locations = list()
 		src.data = src.spawnchance
 		..()
 
+	random_room
+		name = LANDMARK_RANDOM_ROOM_ARTIFACT_SPAWN
+
+		New()
+			if (prob(src.spawnchance))
+				Artifact_Spawn(get_turf(src))
+			..()
+
 /obj/landmark/spawner
 	name = "spawner"
 	add_to_landmarks = FALSE
@@ -218,7 +229,7 @@ var/global/list/job_start_locations = list()
 /obj/landmark/spawner/loot
 	name = "Loot spawn"
 	type_to_spawn = /obj/storage/crate/loot
-	spawnchance = 75
+	spawnchance = 10
 
 // LONG RANGE TELEPORTER
 // consider refactoring to be associative the other way around later
