@@ -2,5 +2,5 @@
 #include "..\z2.dmm"
 #include "..\z3_water.dmm"
 #include "z4.dm"
-#include "..\z5_trench.dmm"
+#include "..\z5_trench_nadir.dmm"
 #define MAP_MODE "standard"
