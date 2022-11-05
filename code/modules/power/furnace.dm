@@ -86,14 +86,14 @@
 					user.visible_message("<span class='alert'>[target] is stuck to something and can't be shoved into the furnace!</span>")
 					return
 				user.visible_message("<span class='alert'>[user] starts to shove [target] into the furnace!</span>")
-				logTheThing("combat", user, target, "attempted to force [constructTarget(target,"combat")] into a furnace at [log_loc(src)].")
+				logTheThing(LOG_COMBAT, user, "attempted to force [constructTarget(target,"combat")] into a furnace at [log_loc(src)].")
 				message_admins("[key_name(user)] is trying to force [key_name(target)] into a furnace at [log_loc(src)].")
 				src.add_fingerprint(user)
 				sleep(5 SECONDS)
 				if(grab?.affecting && src.active && in_interact_range(src, user)) //ZeWaka: Fix for null.affecting
 					var/mob/M = grab.affecting
 					user.visible_message("<span class='alert'>[user] stuffs [M] into the furnace!</span>")
-					logTheThing("combat", user, M, "forced [constructTarget(M,"combat")] into a furnace at [log_loc(src)].")
+					logTheThing(LOG_COMBAT, user, "forced [constructTarget(M,"combat")] into a furnace at [log_loc(src)].")
 					message_admins("[key_name(user)] forced [key_name(M)] into a furnace at [log_loc(src)].")
 					M.death(TRUE)
 					if (M.mind)
@@ -118,7 +118,26 @@
 			if (src.fuel >= src.maxfuel)
 				boutput(user, "<span class='alert'>The furnace is already full!</span>")
 				return
+
+			if (istype(O, /obj/storage/crate/))
+				var/obj/storage/crate/crate = O
+				if (crate.spawn_contents && crate.make_my_stuff()) //Ensure contents have been spawned properly
+					crate.spawn_contents = null
+
+				user.visible_message("<span class='notice'>[user] uses the [src]'s automatic ore loader on [crate]!</span>", "<span class='notice'>You use the [src]'s automatic ore loader on [crate].</span>")
+				for (var/obj/item/I in crate.contents)
+					load_into_furnace(I, 1, user)
+					if (src.fuel >= src.maxfuel)
+						src.fuel = src.maxfuel
+						boutput(user, "<span class='notice'>The furnace is now full!</span>")
+						break
+				playsound(src, 'sound/machines/click.ogg', 50, 1)
+				boutput(user, "<span class='notice'>You finish loading [crate] into [src]!</span>")
+				return
+
 			var/staystill = user.loc
+
+			// else, just stuff
 			for(var/obj/W in oview(1,user))
 				if (!matches(W, O))
 					continue
@@ -130,6 +149,7 @@
 				sleep(0.3 SECONDS)
 				if (user.loc != staystill)
 					break
+			playsound(src, 'sound/machines/click.ogg', 50, 1)
 			boutput(user, "<span class='notice'>You finish stuffing [O] into [src]!</span>")
 
 		src.updateUsrDialog()
@@ -241,7 +261,8 @@
 			if(!stacked)
 				fuel_name = W.name
 				user.u_equip(W)
-				W.dropped(user)
+				if(!iscritter(W))
+					W.dropped(user)
 			boutput(user, "<span class='notice'>You load [fuel_name] into [src]!</span>")
 
 			if(src.fuel > src.maxfuel)

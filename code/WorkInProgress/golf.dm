@@ -7,8 +7,8 @@
 	item_state = "rods"
 	flags = FPRINT | TABLEPASS| CONDUCT
 	w_class = W_CLASS_NORMAL
-	force = 9.0
-	throwforce = 15.0
+	force = 9
+	throwforce = 15
 	throw_speed = 5
 	throw_range = 20
 	stamina_damage = 20
@@ -161,10 +161,8 @@
 	icon = 'icons/obj/items/items.dmi'
 	icon_state = "golf_ball"
 	shot_sound = null
-	power = 0
+	stun = 0
 	cost = 1
-	power = 10
-	ks_ratio = 0
 	damage_type = D_SPECIAL
 	hit_type = DAMAGE_BLUNT
 	dissipation_delay = 0

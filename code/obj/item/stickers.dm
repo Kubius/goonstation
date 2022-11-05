@@ -9,7 +9,7 @@
 	w_class = W_CLASS_TINY
 	force = 0
 	throwforce = 0
-	vis_flags = VIS_INHERIT_DIR
+	vis_flags = VIS_INHERIT_DIR | VIS_INHERIT_PLANE | VIS_INHERIT_LAYER
 	var/dont_make_an_overlay = 0
 	var/active = 0
 	var/overlay_key
@@ -39,11 +39,11 @@
 				pox = text2num(params["icon-x"]) - 16 //round(A.bound_width/2)
 				poy = text2num(params["icon-y"]) - 16 //round(A.bound_height/2)
 				DEBUG_MESSAGE("pox [pox] poy [poy]")
-		src.stick_to(A, pox, poy)
+		src.stick_to(A, pox, poy, user)
 		user.u_equip(src)
 		return 1
 
-	proc/stick_to(var/atom/A, var/pox, var/poy)
+	proc/stick_to(var/atom/A, var/pox, var/poy, user)
 		if (!dont_make_an_overlay)
 			var/image/sticker = image('icons/misc/stickers.dmi', src.icon_state)
 			//sticker.layer = //EFFECTS_LAYER_BASE // I swear to fuckin god stop being under CLOTHES you SHIT
@@ -69,6 +69,8 @@
 		src.set_loc(A)
 
 		playsound(src, 'sound/items/sticker.ogg', 50, 1)
+		add_fingerprint(user)
+		logTheThing(LOG_STATION, user, "puts a [src]:[src.icon_state] sticker on [A] at [log_loc(A)]")
 
 	throw_impact(atom/A, datum/thrown_thing/thr)
 		..()
@@ -173,7 +175,7 @@
 				user.show_text("All that won't fit on [src]!", "red")
 				pen.in_use = 0
 				return
-			logTheThing("station", user, null, "writes on [src] with [pen] at [log_loc(src)]: [t]")
+			logTheThing(LOG_STATION, user, "writes on [src] with [pen] at [log_loc(src)]: [t]")
 			t = copytext(html_encode(t), 1, MAX_MESSAGE_LEN)
 			if (src.icon_state == initial(src.icon_state))
 				var/search_t = lowertext(t)
@@ -420,7 +422,7 @@
 			src.camera = new /obj/machinery/camera (src)
 			src.camera.c_tag = src.camera_tag
 			src.camera.network = src.camera_network
-			src.camera.camera_status = 0
+			src.camera.set_camera_status(FALSE)
 			src.camera_tag = src.name
 
 		if (src.has_radio)
@@ -447,7 +449,7 @@
 		if (src.radio)
 			src.loc.open_to_sound = 0
 		if (src.camera)
-			src.camera.camera_status = 0
+			src.camera.set_camera_status(FALSE)
 			src.camera.c_tag = src.camera_tag
 		if(!isnull(pinpointer_category))
 			STOP_TRACKING_CAT(pinpointer_category)
@@ -467,11 +469,10 @@
 	afterattack(var/atom/A as mob|obj|turf, var/mob/user as mob, reach, params)
 		if (src.camera)
 			src.camera.c_tag = "[src.camera_tag] ([A.name])"
-			src.camera.camera_status = 1.0
-			src.camera.updateCoverage()
+			src.camera.set_camera_status(TRUE)
 		if (src.radio)
 			src.radio.invisibility = INVIS_ALWAYS
-		logTheThing("combat", user, A, "places a spy sticker on [constructTarget(A,"combat")] at [log_loc(user)].")
+		logTheThing(LOG_COMBAT, user, "places a spy sticker on [constructTarget(A,"combat")] at [log_loc(user)].")
 
 		..()
 
@@ -599,7 +600,7 @@
 ABSTRACT_TYPE(/obj/item/sticker/glow)
 /obj/item/sticker/glow
 	name = "glow sticker"
-	desc = "A sticker that has been egineered to self-illuminate when stuck to things."
+	desc = "A sticker that has been engineered to self-illuminate when stuck to things."
 	dont_make_an_overlay = TRUE
 	icon_state = "glow"
 	var/datum/component/loctargeting/simple_light/light_c
@@ -696,3 +697,33 @@ ABSTRACT_TYPE(/obj/item/sticker/glow)
 		col_r = 0.9
 		col_g = 0.1
 		col_b = 0.0
+
+// Contraband stickers etc
+
+/obj/item/sticker/contraband
+	name = "localized contraband modification sticker"
+	desc = "A sticker which will cause any item it's attached to to register as having the set contraband value of this sticker. Set value can be adjusted while holding the sticker."
+	icon_state = "contraband"
+	var/contraband_value = 0
+
+	attack_self(mob/user)
+		. = ..()
+		var/new_value = text2num(tgui_input_text(user, "Choose a contraband value to apply:", "Contraband Value", src.contraband_value))
+		if(!isnull(new_value))
+			src.contraband_value = clamp(new_value, 0, 10)
+
+	get_desc()
+		. = ..()
+		. += "<br>It's currently set to [contraband_value ? "apply a contraband value of [contraband_value] to" : "remove the contraband value from"] the attached item."
+
+	stick_to(atom/A)
+		. = ..()
+		APPLY_ATOM_PROPERTY(A, PROP_MOVABLE_CONTRABAND_OVERRIDE, src, contraband_value)
+
+	disposing()
+		REMOVE_ATOM_PROPERTY(src.attached, PROP_MOVABLE_CONTRABAND_OVERRIDE, src)
+		..()
+
+	fall_off()
+		REMOVE_ATOM_PROPERTY(src.attached, PROP_MOVABLE_CONTRABAND_OVERRIDE, src)
+		. = ..()

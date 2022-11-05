@@ -13,7 +13,7 @@
 	return {"<span class='bold'>Construction Percentage:</span> [!src.goal == 0 ? round((src.currentmats/src.goal)*100) : 0]%
 	<br><span class='bold'>Construction Progress:</span> [currentmats] materials added, [goal] needed"}
 
-/obj/flock_structure/ghost/New(atom/location, obj/flock_structure/building = null, datum/flock/F = null, goal = 0)
+/obj/flock_structure/ghost/New(atom/location, datum/flock/F, obj/flock_structure/building = null, goal = 0)
 	..(location, F)
 	START_TRACKING
 	if(building)
@@ -48,12 +48,17 @@
 
 	if (src.flock)
 		if(building == /obj/flock_structure/relay)
-			src.flock.relay_in_progress = TRUE
+			src.flock.relay_in_progress_or_finished = TRUE
+			src.uses_health_icon = FALSE
+			src.flock.removeAnnotation(src, FLOCK_ANNOTATION_HEALTH)
+			src.info_tag?.set_tag_offset(64, -4) // see comments for same numbers in relay file
+
+	src.info_tag?.set_info_tag("Resources: [src.currentmats]/[src.goal]")
 
 /obj/flock_structure/ghost/disposing()
 	if (src.flock)
-		if (src.flock.relay_in_progress && src.building == /obj/flock_structure/relay && !(locate(/obj/flock_structure/relay) in src.flock.structures))
-			src.flock.relay_in_progress = FALSE
+		if (src.flock.relay_in_progress_or_finished && src.building == /obj/flock_structure/relay && !(locate(/obj/flock_structure/relay) in src.flock.structures))
+			src.flock.relay_in_progress_or_finished = FALSE
 	STOP_TRACKING
 	. = ..()
 
@@ -91,10 +96,12 @@
 		return
 
 	updatealpha()
+	src.info_tag.set_info_tag("Resources: [src.currentmats]/[src.goal]")
 
 /obj/flock_structure/ghost/proc/completebuild()
 	if(src.building)
 		new building(get_turf(src), src.flock)
+		src.flock?.structures_made++
 	qdel(src)
 
 /obj/flock_structure/ghost/proc/cancelBuild()
@@ -102,5 +109,5 @@
 		var/obj/item/flockcache/cache = new(get_turf(src))
 		cache.resources = currentmats
 	flock_speak(src, "Tealprint derealizing", flock)
-	playsound(src, 'sound/misc/flockmind/flockdrone_door_deny.ogg', 40, 1)
+	playsound(src, 'sound/misc/flockmind/flockdrone_door_deny.ogg', 30, 1, extrarange = -10)
 	qdel(src)

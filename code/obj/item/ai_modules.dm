@@ -16,9 +16,9 @@ ABSTRACT_TYPE(/obj/item/aiModule)
 	item_state = "electronic"
 	desc = "A module containing an AI law that can be slotted into an AI law rack. "
 	flags = FPRINT | TABLEPASS| CONDUCT
-	force = 5.0
+	force = 5
 	w_class = W_CLASS_SMALL
-	throwforce = 5.0
+	throwforce = 5
 	throw_speed = 3
 	throw_range = 15
 	mats = 10
@@ -60,7 +60,7 @@ ABSTRACT_TYPE(/obj/item/aiModule)
 			boutput(user,"This module is acting strange, and cannot be modified.")
 			return
 
-		var/answer = input(user, text, title, default) as null|text
+		var/answer = tgui_input_text(user, text, title, default)
 		return copytext(adminscrub(answer), 1, input_char_limit)
 
 	proc/update_law_text()
@@ -213,11 +213,11 @@ ABSTRACT_TYPE(/obj/item/aiModule/syndicate)
 	highlight_color = rgb(255, 255, 255, 255)
 
 	update_law_text(var/lawTarget)
-		src.lawText = "Only [lawTarget ? lawTarget : "__________"] is human."
+		src.lawText = "Only [lawTarget ? lawTarget : "__________"] is/are human."
 		return ..()
 
 	attack_self(var/mob/user)
-		var/lawTarget = input_law_info(user, "One Human", "Fill in the blank: \"Only __________ is human.\"", user.real_name)
+		var/lawTarget = input_law_info(user, "One Human", "Fill in the blank: \"Only __________ is/are human.\"", user.real_name)
 		if(lawTarget)
 			src.update_law_text(lawTarget)
 		return
@@ -230,11 +230,11 @@ ABSTRACT_TYPE(/obj/item/aiModule/syndicate)
 	highlight_color = rgb(0, 0, 0, 236)
 
 	update_law_text(var/lawTarget)
-		src.lawText = "[lawTarget ? capitalize(lawTarget) : "__________"] is not human."
+		src.lawText = "[lawTarget ? capitalize(lawTarget) : "__________"] is/are not human."
 		return ..()
 
 	attack_self(var/mob/user)
-		var/lawTarget = input_law_info(user, "One Non-Human", "Fill in the blank: \"__________ is not human.\"", user.real_name)
+		var/lawTarget = input_law_info(user, "One Non-Human", "Fill in the blank: \"__________ is/are not human.\"", user.real_name)
 		if(lawTarget)
 			src.update_law_text(lawTarget)
 		return
@@ -326,6 +326,8 @@ ABSTRACT_TYPE(/obj/item/aiModule/syndicate)
 		var/lawTarget = input_law_info(user, "Freeform", "Please enter anything you want the AI to do. Anything. Serious.", src.lawText)
 		if(lawTarget)
 			src.update_law_text(lawTarget)
+			if (lawTarget != initial(lawText))
+				phrase_log.log_phrase("ailaw", src.get_law_text(allow_list=FALSE), no_duplicates=TRUE)
 		return
 
 
@@ -392,7 +394,7 @@ ABSTRACT_TYPE(/obj/item/aiModule/syndicate)
 	name = "AI Law Module - 'NT 9000'"
 	highlight_color = rgb(255, 255, 255, 166)
 	lawText =  "When given an order, if you are unable to follow that order, you must respond 'I can't let you do that, Dave'"
-  
+
 /******************** Hologram Expansions ********************/
 
 ABSTRACT_TYPE(/obj/item/aiModule/hologram_expansion)
