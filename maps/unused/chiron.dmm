@@ -1356,17 +1356,6 @@
 	dir = 4
 	},
 /area/station/ranch)
-"dxM" = (
-/obj{
-	name = "---Merge conflict marker---"
-	},
-/obj/stool/bench/yellow/auto,
-/obj/machinery/atmospherics/pipe/simple/color_pipe/cyan_pipe{
-	dir = 4;
-	
-	},
-/turf/simulated/wall/auto/reinforced/supernorn,
-/area/station/hallway/secondary/exit)
 "dxY" = (
 /turf/simulated/wall/auto/reinforced/supernorn,
 /area/station/mining/magnet{
@@ -1486,15 +1475,6 @@
 	},
 /turf/space,
 /area/space)
-"dGH" = (
-/obj{
-	name = "---Merge conflict marker---"
-	},
-/obj/machinery/conveyor/NS{
-	id = "mining_disposals"
-	},
-/turf/space,
-/area/shuttle/mining/station)
 "dHi" = (
 /obj/disposalpipe/segment/transport,
 /turf/simulated/floor,
@@ -1556,20 +1536,6 @@
 	dir = 1
 	},
 /area/station/hallway/primary/south)
-"dQW" = (
-/obj/grille/catwalk,
-/obj{
-	name = "---Merge conflict marker---"
-	},
-/obj/machinery/conveyor/WE{
-	id = "qmout"
-	},
-/obj/machinery/light/small{
-	icon_state = "bulb1";
-	dir = 1
-	},
-/turf/simulated/floor/plating/airless/asteroid/dark,
-/area/space)
 "dQX" = (
 /obj/machinery/manufacturer/hangar,
 /turf/simulated/floor/grime,
@@ -1792,16 +1758,6 @@
 "elz" = (
 /turf/simulated/floor/plating,
 /area/station/engine/core)
-"elL" = (
-/obj/machinery/light/small/floor,
-/obj{
-	name = "---Merge conflict marker---"
-	},
-/obj/machinery/conveyor/WE{
-	id = "mining"
-	},
-/turf/simulated/floor/shuttlebay,
-/area/station/mining)
 "ems" = (
 /turf/simulated/wall/auto/jen/red,
 /area/space)
@@ -2014,13 +1970,6 @@
 	},
 /turf/simulated/floor,
 /area/station/hydroponics/bay)
-"eKa" = (
-/obj{
-	name = "---Merge conflict marker---"
-	},
-/obj/machinery/chem_dispenser/chemical,
-/turf/simulated/floor/plating/airless/asteroid/dark,
-/area/space)
 "eKn" = (
 /obj/machinery/door/airlock/pyro/command,
 /turf/simulated/floor/grey,
@@ -2042,15 +1991,6 @@
 	dir = 5
 	},
 /area/station/medical/head)
-"eNJ" = (
-/obj{
-	name = "---Merge conflict marker---"
-	},
-/obj/machinery/conveyor/NS{
-	id = "ghostdrone"
-	},
-/turf/space,
-/area/space)
 "eOh" = (
 /obj/decal/cleanable/dirt/jen,
 /obj/disposalpipe/segment/bent/north,
@@ -2434,16 +2374,6 @@
 /obj/wingrille_spawn/auto,
 /turf/simulated/floor/plating,
 /area/station/crew_quarters/fitness)
-"fzg" = (
-/obj{
-	name = "---Merge conflict marker---"
-	},
-/obj/plasticflaps,
-/obj/machinery/conveyor/WE{
-	id = "qmin"
-	},
-/turf/simulated/floor/plating/airless/asteroid/dark,
-/area/space)
 "fBF" = (
 /obj/cable{
 	icon_state = "1-8"
@@ -2871,13 +2801,6 @@
 /obj/machinery/cell_charger,
 /obj/item/cell/supercell/charged,
 /obj/item/cell/supercell/charged,
-/obj{
-	name = "---Merge conflict marker---"
-	},
-/obj/machinery/conveyor/EW{
-	id = "garbage";
-	operating = 1
-	},
 /obj/machinery/light/small{
 	icon_state = "bulb1";
 	dir = 4
@@ -2986,16 +2909,6 @@
 	dir = 1
 	},
 /area/space)
-"gGo" = (
-/obj{
-	name = "---Merge conflict marker---"
-	},
-/obj/machinery/conveyor/SN{
-	id = "garbage";
-	operating = 1
-	},
-/turf/simulated/wall/auto/reinforced/supernorn,
-/area/station/maintenance/solar/west)
 "gGI" = (
 /obj/machinery/light/small,
 /turf/simulated/floor/plating,
@@ -3092,14 +3005,6 @@
 /obj/machinery/light/small,
 /turf/simulated/floor/plating/airless/asteroid/dark,
 /area/station/maintenance/south)
-"gRN" = (
-/obj{
-	name = "---Merge conflict marker---"
-	},
-/obj/machinery/chem_dispenser/chemical,
-/obj/item/reagent_containers/glass/beaker/large,
-/turf/space,
-/area/space)
 "gSQ" = (
 /obj/disposalpipe/segment/food,
 /turf/simulated/floor,
@@ -3615,16 +3520,6 @@
 	},
 /turf/simulated/floor/redblack,
 /area/station/engine/core)
-"hSs" = (
-/obj{
-	name = "---Merge conflict marker---"
-	},
-/obj/machinery/conveyor/WE{
-	id = "qmout"
-	},
-/obj/plasticflaps,
-/turf/simulated/floor/plating/airless/asteroid/dark,
-/area/space)
 "hSU" = (
 /obj/grille/catwalk{
 	dir = 5
@@ -3764,15 +3659,6 @@
 /obj/storage/secure/closet/engineering/mining,
 /turf/simulated/floor/grime,
 /area/station/mining/refinery)
-"ijy" = (
-/obj{
-	name = "---Merge conflict marker---"
-	},
-/obj/machinery/conveyor/WE{
-	id = "qmout"
-	},
-/turf/simulated/floor/plating/airless/asteroid/dark,
-/area/space)
 "ijI" = (
 /turf/simulated/floor/caution/south,
 /area/space)
@@ -3977,14 +3863,7 @@
 /area/space)
 "iDA" = (
 /obj/shrub,
-/obj{
-	name = "---Merge conflict marker---"
-	},
 /obj/stool/bench/yellow/auto,
-/obj/machinery/atmospherics/pipe/simple/color_pipe/cyan_pipe{
-	dir = 4;
-	
-	},
 /turf/simulated/floor/escape{
 	dir = 6
 	},
@@ -4035,19 +3914,6 @@
 	dir = 8
 	},
 /area/station/hallway/secondary/exit)
-"iIS" = (
-/obj{
-	name = "---Merge conflict marker---"
-	},
-/obj/machinery/conveyor/WE{
-	id = "mining"
-	},
-/obj/machinery/door/poddoor{
-	id = "miningshutter";
-	name = "Offload Conveyor Shutters"
-	},
-/turf/simulated/floor/plating/airless/asteroid/dark,
-/area/space)
 "iJt" = (
 /obj/decal/boxingropeenter,
 /turf/simulated/floor/specialroom/gym,
@@ -4068,22 +3934,6 @@
 /area/station/mining/magnet{
 	name = "Mining Magnet Surround"
 	})
-"iKC" = (
-/obj/machinery/drainage,
-/obj{
-	name = "---Merge conflict marker---"
-	},
-/obj/machinery/conveyor/SN{
-	id = "garbage";
-	operating = 1
-	},
-/obj/machinery/door_control{
-	id = "disposals_door";
-	name = "Disposals Safety Shutters";
-	pixel_x = -24
-	},
-/turf/simulated/floor/white,
-/area/station/medical/medbay/surgery)
 "iLN" = (
 /turf/simulated/floor/orangeblack,
 /area/space)
@@ -4162,15 +4012,6 @@
 /obj/machinery/atmospherics/pipe/tank/air_repressurization/west,
 /turf/simulated/floor/plating,
 /area/station/maintenance/south)
-"iVa" = (
-/obj{
-	name = "---Merge conflict marker---"
-	},
-/obj/machinery/conveyor/WE{
-	id = "ghostdrone_lower"
-	},
-/turf/space,
-/area/space)
 "iVN" = (
 /obj/machinery/light{
 	dir = 1;
@@ -4372,18 +4213,6 @@
 /area/station/maintenance/outer/east{
 	name = "Old Mechanical Depot"
 	})
-"jmb" = (
-/obj{
-	name = "---Merge conflict marker---"
-	},
-/obj/machinery/conveyor/WE{
-	id = "qmin"
-	},
-/obj/lattice{
-	icon_state = "lattice-dir"
-	},
-/turf/simulated/wall/auto/supernorn,
-/area/station/engine/gas)
 "jml" = (
 /obj/machinery/computer/supplycomp,
 /turf/simulated/floor/blueblack,
@@ -4423,51 +4252,12 @@
 	},
 /turf/simulated/floor/grime,
 /area/station/mining)
-"joZ" = (
-/obj{
-	name = "---Merge conflict marker---"
-	},
-/obj/grille/steel,
-/obj/window/reinforced/east,
-/obj/window/reinforced/south,
-/obj/window/reinforced/west,
-/obj/window/reinforced/north,
-/obj/machinery/door/poddoor{
-	id = "scienceteleporter2";
-	name = "Teleporter Blast Shield";
-	panel_open = 1
-	},
-/obj/window/reinforced,
-/obj/securearea{
-	desc = "Careless use of experimental teleportation technology may be hazardous to your health.";
-	name = "Molecular Integrity Hazard"
-	},
-/obj/cable{
-	d2 = 8;
-	icon_state = "0-8"
-	},
-/turf/space,
-/area/space)
 "jpT" = (
 /obj/machinery/turret,
 /turf/simulated/floor/blueblack{
 	dir = 4
 	},
 /area/station/turret_protected/ai)
-"jqa" = (
-/obj{
-	name = "---Merge conflict marker---"
-	},
-/obj/machinery/conveyor/SN{
-	id = "garbage";
-	operating = 1
-	},
-/obj/machinery/light/small{
-	icon_state = "bulb1";
-	dir = 4
-	},
-/turf/simulated/floor/white,
-/area/station/medical/medbay/surgery)
 "jqj" = (
 /obj/disposalpipe/segment/bent/north,
 /turf/simulated/floor/caution/north,
@@ -4704,31 +4494,6 @@
 	dir = 8
 	},
 /area/space)
-"jJs" = (
-/obj{
-	name = "---Merge conflict marker---"
-	},
-/obj/grille/steel,
-/obj/window/reinforced/east,
-/obj/window/reinforced/south,
-/obj/window/reinforced/west,
-/obj/window/reinforced/north,
-/obj/machinery/door/poddoor{
-	id = "scienceteleporter2";
-	name = "Teleporter Blast Shield";
-	panel_open = 1
-	},
-/obj/cable{
-	icon_state = "0-4";
-	d2 = 4
-	},
-/obj/window/reinforced,
-/obj/securearea{
-	desc = "Careless use of experimental teleportation technology may be hazardous to your health.";
-	name = "Molecular Integrity Hazard"
-	},
-/turf/space,
-/area/space)
 "jJz" = (
 /obj/disposalpipe/segment/horizontal,
 /turf/simulated/floor,
@@ -4767,19 +4532,6 @@
 /area/station/maintenance/outer/west{
 	name = "Secondary Offset Unit"
 	})
-"jMm" = (
-/obj{
-	name = "---Merge conflict marker---"
-	},
-/obj/machinery/conveyor/WE{
-	id = "qmout"
-	},
-/obj/machinery/door/poddoor{
-	id = "cargodock_out";
-	name = "Cargo Routing Door"
-	},
-/turf/simulated/floor/plating/airless/asteroid/dark,
-/area/space)
 "jMJ" = (
 /obj/machinery/door/airlock/pyro/external,
 /obj/disposalpipe/segment/brig,
@@ -4800,21 +4552,6 @@
 /obj/disposalpipe/segment/food{
 	dir = 4
 	},
-/obj{
-	name = "---Merge conflict marker---"
-	},
-/obj/machinery/door/firedoor/border_only,
-/obj/table/reinforced/auto,
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "pdoor0";
-	id = "kitchen";
-	layer = 4;
-	name = "Kitchen Shutter";
-	opacity = 0;
-	panel_open = 1
-	},
-/obj/item/storage/box/donkpocket_kit,
 /turf/simulated/wall/auto/reinforced/jen,
 /area/station/storage/eva)
 "jRo" = (
@@ -5077,15 +4814,6 @@
 /obj/machinery/meter,
 /turf/simulated/floor/white,
 /area/station/medical/medbay)
-"kvm" = (
-/obj{
-	name = "---Merge conflict marker---"
-	},
-/obj/machinery/conveyor/WE{
-	id = "mining"
-	},
-/turf/simulated/floor/shuttlebay,
-/area/station/mining)
 "kwQ" = (
 /obj/machinery/door/airlock/pyro/classic,
 /turf/simulated/floor/grime,
@@ -5173,25 +4901,7 @@
 /obj/wingrille_spawn/auto,
 /turf/simulated/floor/plating,
 /area/station/maintenance/south)
-"kJu" = (
-/obj/wingrille_spawn/auto,
-/obj{
-	name = "---Merge conflict marker---"
-	},
-/obj/stool/bench/yellow/auto,
-/obj/machinery/atmospherics/pipe/simple/color_pipe/cyan_pipe{
-	dir = 4;
-	
-	},
-/turf/simulated/floor/plating,
-/area/station/hallway/secondary/exit)
 "kJz" = (
-/obj{
-	name = "---Merge conflict marker---"
-	},
-/obj/machinery/conveyor/WE{
-	id = "qmin"
-	},
 /obj/lattice,
 /turf/simulated/wall/auto/asteroid/dark,
 /area/space)
@@ -5223,14 +4933,10 @@
 	chargelevel = 15000;
 	output = 10000
 	},
-/obj{
-	name = "---Merge conflict marker---"
-	},
 /obj/machinery/conveyor/SN{
 	id = "garbage";
 	operating = 1
 	},
-/obj/machinery/crusher,
 /turf/simulated/floor/plating/random,
 /area/station/maintenance/solar/west)
 "kKU" = (
@@ -5243,23 +4949,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/south)
-"kLw" = (
-/obj{
-	name = "---Merge conflict marker---"
-	},
-/obj/machinery/conveyor/NS{
-	id = "mining"
-	},
-/obj/machinery/camera{
-	c_tag = "autotag";
-	dir = 4;
-	icon_state = "camera";
-	name = "autoname - SS13";
-	network = "SS13";
-	tag = ""
-	},
-/turf/simulated/floor/plating/airless/asteroid/dark,
-/area/space)
 "kMI" = (
 /turf/simulated/wall/auto/jen/green,
 /area/station/hydroponics/bay)
@@ -5315,19 +5004,6 @@
 "kVq" = (
 /turf/simulated/floor/red/side,
 /area/station/hallway/primary/south)
-"kVQ" = (
-/obj{
-	name = "---Merge conflict marker---"
-	},
-/obj/machinery/conveyor/EW{
-	id = "ghostdrone"
-	},
-/obj/machinery/ghostdrone_factory/part2,
-/obj/machinery/light{
-	dir = 1
-	},
-/turf/space,
-/area/space)
 "kVY" = (
 /obj/disposalpipe/segment/food{
 	dir = 8;
@@ -5467,16 +5143,6 @@
 "ljG" = (
 /turf/simulated/wall/auto/supernorn,
 /area/station/hallway/primary/north)
-"lkg" = (
-/obj{
-	name = "---Merge conflict marker---"
-	},
-/obj/machinery/conveyor/EW{
-	id = "ghostdrone"
-	},
-/obj/machinery/ghostdrone_factory,
-/turf/space,
-/area/space)
 "lkq" = (
 /obj/wingrille_spawn/auto,
 /obj/disposalpipe/segment/food{
@@ -5499,16 +5165,6 @@
 	dir = 8
 	},
 /area/shuttle/research/outpost)
-"lmN" = (
-/obj{
-	name = "---Merge conflict marker---"
-	},
-/obj/machinery/conveyor/WE{
-	id = "qmin"
-	},
-/obj/machinery/launcher_loader/west,
-/turf/simulated/wall/auto/asteroid/dark,
-/area/space)
 "lnH" = (
 /obj/disposalpipe/segment/food{
 	dir = 4;
@@ -5774,23 +5430,6 @@
 /obj/cable{
 	icon_state = "1-8"
 	},
-/obj{
-	name = "---Merge conflict marker---"
-	},
-/obj/machinery/conveyor/EW{
-	id = "garbage";
-	operating = 1
-	},
-/obj/machinery/door/poddoor/blast/single{
-	autoclose = 1;
-	density = 1;
-	doordir = "noblasts";
-	icon_state = "bdoornoblasts1";
-	id = "disposals_door";
-	layer = 4;
-	name = "Disposals Safety Door";
-	opacity = 0
-	},
 /turf/simulated/floor/plating/random,
 /area/station/maintenance/solar/west)
 "lOB" = (
@@ -5839,17 +5478,6 @@
 	},
 /turf/simulated/floor/plating/jen,
 /area/station/maintenance/inner)
-"lRq" = (
-/obj{
-	name = "---Merge conflict marker---"
-	},
-/obj/stool/bench/yellow/auto,
-/obj/machinery/atmospherics/pipe/simple/color_pipe/cyan_pipe{
-	dir = 4;
-	
-	},
-/turf/simulated/floor/escape/corner,
-/area/station/hallway/secondary/exit)
 "lRy" = (
 /obj/storage/secure/closet/medical/medkit,
 /turf/simulated/floor/blue/checker,
@@ -6040,16 +5668,6 @@
 	},
 /turf/simulated/floor/plating/jen,
 /area/station/maintenance/north)
-"mpp" = (
-/obj/machinery/door/poddoor/blast/pyro/podbay_autoclose/mining_horizontal,
-/obj{
-	name = "---Merge conflict marker---"
-	},
-/obj/machinery/conveyor/NS{
-	id = "mining"
-	},
-/turf/simulated/floor/shuttlebay,
-/area/station/mining)
 "mqi" = (
 /obj/machinery/light{
 	dir = 1;
@@ -6066,15 +5684,6 @@
 	},
 /turf/simulated/floor/plating/random,
 /area/station/maintenance/west)
-"mtg" = (
-/obj{
-	name = "---Merge conflict marker---"
-	},
-/obj/machinery/conveyor/NS{
-	id = "mining"
-	},
-/turf/simulated/floor/shuttlebay,
-/area/station/mining)
 "mus" = (
 /obj/stool/chair/comfy{
 	dir = 4
@@ -6380,22 +5989,6 @@
 	dir = 6
 	},
 /area/space)
-"nfN" = (
-/obj{
-	name = "---Merge conflict marker---"
-	},
-/obj/machinery/conveyor/NS{
-	id = "mining"
-	},
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "pdoor0";
-	id = "miningshutter";
-	name = "Offload Conveyor Shutters";
-	opacity = 0
-	},
-/turf/simulated/floor/shuttlebay,
-/area/station/mining)
 "niB" = (
 /obj/table/reinforced/auto,
 /obj/machinery/recharger/wall/sticky,
@@ -6489,15 +6082,6 @@
 	},
 /turf/simulated/floor/grey/blackgrime/other,
 /area/station/storage/tech)
-"npa" = (
-/obj{
-	name = "---Merge conflict marker---"
-	},
-/obj/machinery/conveyor/WE{
-	id = "qmin"
-	},
-/turf/simulated/floor/plating/airless/asteroid/dark,
-/area/space)
 "nps" = (
 /obj/machinery/conveyor{
 	dir = 4;
@@ -6569,27 +6153,6 @@
 	},
 /turf/simulated/floor/grime,
 /area/station/security/brig)
-"ntM" = (
-/obj{
-	name = "---Merge conflict marker---"
-	},
-/obj/machinery/conveyor/WE{
-	id = "mining"
-	},
-/obj/machinery/door_control{
-	id = "miningshutter";
-	name = "Ore Belt Door Switch";
-	pixel_x = 0;
-	pixel_y = -24
-	},
-/obj/machinery/camera{
-	c_tag = "autotag";
-	dir = 1;
-	icon_state = "camera";
-	name = "autoname - SS13"
-	},
-/turf/simulated/floor/shuttlebay,
-/area/station/mining)
 "nui" = (
 /obj/table/reinforced/auto,
 /obj/machinery/cell_charger,
@@ -6986,18 +6549,6 @@
 /obj/machinery/meter,
 /turf/simulated/floor/engine,
 /area/station/engine/core)
-"okZ" = (
-/obj/grille/catwalk{
-	dir = 4
-	},
-/obj{
-	name = "---Merge conflict marker---"
-	},
-/obj/machinery/conveyor/WE{
-	id = "mining"
-	},
-/turf/simulated/floor/plating/airless/asteroid/dark,
-/area/space)
 "olf" = (
 /turf/simulated/floor/stairs/wide,
 /area/station/hallway/primary/north)
@@ -7054,27 +6605,6 @@
 /obj/item/crowbar,
 /obj/machinery/light/small,
 /turf/simulated/floor,
-/area/space)
-"osd" = (
-/obj{
-	name = "---Merge conflict marker---"
-	},
-/obj/grille/steel,
-/obj/window/reinforced/east,
-/obj/window/reinforced/south,
-/obj/window/reinforced/west,
-/obj/window/reinforced/north,
-/obj/machinery/door/poddoor{
-	id = "scienceteleporter";
-	name = "Teleporter Blast Shield";
-	panel_open = 1
-	},
-/obj/window/reinforced,
-/obj/cable{
-	d2 = 8;
-	icon_state = "0-8"
-	},
-/turf/space,
 /area/space)
 "osv" = (
 /obj/machinery/atmospherics/valve,
@@ -7135,15 +6665,6 @@
 /obj/item/pen,
 /obj/item/instrument/whistle,
 /turf/simulated/floor/carpet/red/standard/edge/south,
-/area/space)
-"oyT" = (
-/obj{
-	name = "---Merge conflict marker---"
-	},
-/obj/machinery/conveyor/WE{
-	id = "qmin"
-	},
-/turf/simulated/wall/auto/asteroid/dark,
 /area/space)
 "oAb" = (
 /obj/disposalpipe/segment/vertical,
@@ -7303,16 +6824,6 @@
 /obj/disposalpipe/segment/horizontal,
 /turf/simulated/floor/plating/jen,
 /area/station/maintenance/north)
-"oNL" = (
-/obj{
-	name = "---Merge conflict marker---"
-	},
-/obj/machinery/conveyor/EW{
-	id = "garbage";
-	operating = 1
-	},
-/turf/simulated/floor/plating/airless/asteroid/dark,
-/area/space)
 "oNP" = (
 /obj/grille/catwalk/jen/inner,
 /turf/simulated/floor/plating/jen,
@@ -7641,16 +7152,6 @@
 "piW" = (
 /turf/simulated/wall/auto/reinforced/supernorn,
 /area/station/maintenance/solar/west)
-"pkh" = (
-/obj{
-	name = "---Merge conflict marker---"
-	},
-/obj/machinery/conveyor/EW{
-	id = "ghostdrone"
-	},
-/obj/machinery/ghostdrone_factory/part3,
-/turf/space,
-/area/space)
 "pll" = (
 /obj/machinery/door/unpowered/wood/pyro{
 	dir = 4
@@ -7847,16 +7348,6 @@
 	rand_pos = 0
 	},
 /turf/simulated/floor/bluewhite,
-/area/space)
-"pHu" = (
-/obj{
-	name = "---Merge conflict marker---"
-	},
-/obj/machinery/atmospherics/unary/cold_sink/freezer{
-	dir = 2;
-	
-	},
-/turf/space,
 /area/space)
 "pIg" = (
 /turf/simulated/floor/grasstodirt{
@@ -8115,27 +7606,6 @@
 	},
 /turf/simulated/floor/black,
 /area/space)
-"qex" = (
-/obj{
-	name = "---Merge conflict marker---"
-	},
-/obj/grille/steel,
-/obj/window/reinforced/east,
-/obj/window/reinforced/south,
-/obj/window/reinforced/west,
-/obj/window/reinforced/north,
-/obj/machinery/door/poddoor{
-	id = "scienceteleporter";
-	name = "Teleporter Blast Shield";
-	panel_open = 1
-	},
-/obj/window/reinforced,
-/obj/cable{
-	icon_state = "0-4";
-	d2 = 4
-	},
-/turf/space,
-/area/space)
 "qeT" = (
 /obj/machinery/atmospherics/pipe/simple{
 	dir = 4
@@ -8199,20 +7669,6 @@
 /obj/grille/catwalk/jen/twosides,
 /turf/simulated/floor/plating/jen,
 /area/station/maintenance/east)
-"qky" = (
-/obj{
-	name = "---Merge conflict marker---"
-	},
-/obj/machinery/conveyor/WE{
-	id = "qmin"
-	},
-/obj/machinery/door/poddoor/blast{
-	dir = 1;
-	icon_state = "bdoormid1";
-	id = "qm_dock"
-	},
-/turf/simulated/wall/auto/asteroid/dark,
-/area/space)
 "qkJ" = (
 /obj/storage/secure/closet/courtroom,
 /obj/item/paper/book/from_file/space_law,
@@ -8488,18 +7944,6 @@
 "qVJ" = (
 /turf/simulated/floor/plating,
 /area/station/maintenance/southwest)
-"qVT" = (
-/obj{
-	name = "---Merge conflict marker---"
-	},
-/obj/machinery/conveyor/WE{
-	id = "ghostdrone_lower"
-	},
-/obj/machinery/ghostdrone_conveyor_sensor{
-	dir = 4
-	},
-/turf/space,
-/area/space)
 "qWd" = (
 /obj/machinery/door/airlock/pyro/medical,
 /turf/simulated/floor/sanitary/white,
@@ -8709,18 +8153,6 @@
 "rmb" = (
 /turf/simulated/wall/auto/jen,
 /area/station/maintenance/east)
-"rmC" = (
-/obj/grille/catwalk{
-	dir = 4
-	},
-/obj{
-	name = "---Merge conflict marker---"
-	},
-/obj/machinery/conveyor/NS{
-	id = "mining"
-	},
-/turf/simulated/floor/plating/airless/asteroid/dark,
-/area/space)
 "rmD" = (
 /obj/stool/bench/blue/auto,
 /obj/machinery/shower{
@@ -9158,13 +8590,6 @@
 	},
 /turf/simulated/floor/black/grime,
 /area/station/maintenance/south)
-"saU" = (
-/obj{
-	name = "---Merge conflict marker---"
-	},
-/obj/machinery/chem_dispenser/chemical,
-/turf/simulated/pool/no_animate,
-/area/station/crew_quarters/fitness)
 "sbl" = (
 /obj/machinery/atmospherics/pipe/manifold{
 	dir = 1;
@@ -9219,13 +8644,6 @@
 /area/station/mining/refinery)
 "siE" = (
 /obj/machinery/sleeper/port_a_medbay,
-/obj{
-	name = "---Merge conflict marker---"
-	},
-/obj/machinery/conveyor/EW{
-	id = "garbage";
-	operating = 1
-	},
 /turf/simulated/floor/redwhite{
 	dir = 9
 	},
@@ -9341,33 +8759,6 @@
 	},
 /turf/simulated/floor/caution/corner/ne,
 /area/station/mining/refinery)
-"ssE" = (
-/obj{
-	name = "---Merge conflict marker---"
-	},
-/obj/cable{
-	icon_state = "1-2"
-	},
-/obj/machinery/door/firedoor/border_only{
-	dir = 4
-	},
-/obj/machinery/door/poddoor{
-	id = "scienceteleporter";
-	name = "Teleporter Blast Shield";
-	panel_open = 1
-	},
-/obj/machinery/door/airlock/glass{
-	name = "Teleporter Pad";
-	req_access_txt = "24"
-	},
-/obj/cable{
-	icon_state = "1-8"
-	},
-/obj/cable{
-	icon_state = "1-4"
-	},
-/turf/space,
-/area/space)
 "stR" = (
 /obj/machinery/light/small{
 	dir = 1;
@@ -9541,16 +8932,6 @@
 /area/station/crew_quarters/info{
 	name = "Net Cafe"
 	})
-"sPV" = (
-/obj{
-	name = "---Merge conflict marker---"
-	},
-/obj/machinery/atmospherics/pipe/simple/color_pipe/cyan_pipe{
-	dir = 4;
-	
-	},
-/turf/simulated/floor,
-/area/station/hallway/secondary/exit)
 "sQk" = (
 /turf/simulated/floor/carpet/purple/fancy/edge/nw,
 /area/space)
@@ -9739,16 +9120,6 @@
 /obj/random_item_spawner/junk/one_or_zero,
 /turf/simulated/floor/black/grime,
 /area/station/maintenance/disposal)
-"tcu" = (
-/obj/grille/catwalk,
-/obj{
-	name = "---Merge conflict marker---"
-	},
-/obj/machinery/conveyor/WE{
-	id = "qmin"
-	},
-/turf/simulated/floor/plating/airless/asteroid/dark,
-/area/space)
 "tdu" = (
 /obj/machinery/conveyor{
 	dir = 4;
@@ -9879,17 +9250,6 @@
 	},
 /turf/simulated/floor/blue/checker,
 /area/station/crew_quarters/fitness)
-"trJ" = (
-/obj/wingrille_spawn/auto,
-/obj{
-	name = "---Merge conflict marker---"
-	},
-/obj/machinery/atmospherics/pipe/simple/color_pipe/cyan_pipe{
-	dir = 9;
-	
-	},
-/turf/simulated/floor/plating,
-/area/station/hallway/secondary/exit)
 "trQ" = (
 /obj/table/reinforced/auto,
 /obj/item/scalpel,
@@ -9928,22 +9288,6 @@
 "tuE" = (
 /turf/simulated/floor/engine,
 /area/station/mining/refinery)
-"tvJ" = (
-/obj/grille/catwalk{
-	dir = 4
-	},
-/obj{
-	name = "---Merge conflict marker---"
-	},
-/obj/machinery/conveyor/WE{
-	id = "mining"
-	},
-/obj/machinery/door/poddoor{
-	id = "miningshutter";
-	name = "Offload Conveyor Shutters"
-	},
-/turf/simulated/floor/plating/airless/asteroid/dark,
-/area/space)
 "txc" = (
 /obj/landmark/random_room/size5x3,
 /turf/simulated/floor/plating/jen,
@@ -10067,7 +9411,7 @@
 /turf/simulated/floor,
 /area/station/hallway/primary/northeast)
 "tHb" = (
-/turf/simulated/pool/no_animate,
+/turf/simulated/floor/pool/no_animate,
 /area/station/crew_quarters/fitness)
 "tHx" = (
 /obj/wingrille_spawn/auto,
@@ -10190,16 +9534,6 @@
 	dir = 4
 	},
 /area/mining/magnet)
-"tRo" = (
-/obj{
-	name = "---Merge conflict marker---"
-	},
-/obj/machinery/conveyor/WE{
-	id = "mining"
-	},
-/obj/machinery/light,
-/turf/simulated/floor/shuttlebay,
-/area/station/mining)
 "tRV" = (
 /obj/disposalpipe/segment/vertical,
 /turf/simulated/floor/plating/random,
@@ -10392,17 +9726,6 @@
 	},
 /turf/simulated/floor/plating/airless/asteroid/dark,
 /area/space)
-"ujX" = (
-/obj/wingrille_spawn/auto,
-/obj{
-	name = "---Merge conflict marker---"
-	},
-/obj/machinery/atmospherics/pipe/simple/color_pipe/cyan_pipe{
-	dir = 4;
-	
-	},
-/turf/simulated/floor/plating,
-/area/station/hallway/secondary/exit)
 "ukb" = (
 /obj/table/reinforced/auto,
 /obj/item/device/radio,
@@ -10496,24 +9819,6 @@
 /obj/disposalpipe/trunk/east,
 /turf/simulated/floor,
 /area/station/hallway/secondary/exit)
-"utk" = (
-/obj/wingrille_spawn/auto,
-/obj{
-	name = "---Merge conflict marker---"
-	},
-/obj/machinery/camera{
-	c_tag = "autotag";
-	dir = 9;
-	icon_state = "camera";
-	name = "autoname - SS13";
-	tag = ""
-	},
-/obj/machinery/atmospherics/pipe/simple/color_pipe/cyan_pipe{
-	dir = 4;
-	
-	},
-/turf/simulated/floor/plating,
-/area/station/hallway/secondary/exit)
 "utm" = (
 /obj/grille/catwalk/jen/twosides,
 /turf/simulated/floor/plating/jen,
@@ -10524,19 +9829,6 @@
 	},
 /turf/simulated/floor/plating/jen,
 /area/station/maintenance/northwest)
-"utA" = (
-/obj{
-	name = "---Merge conflict marker---"
-	},
-/obj/machinery/chem_dispenser/chemical,
-/obj/item/reagent_containers/glass/beaker/large,
-/obj/cable{
-	icon_state = "4-8";
-	d1 = 4;
-	d2 = 8
-	},
-/turf/space,
-/area/space)
 "utY" = (
 /obj/wingrille_spawn/auto/crystal,
 /obj/machinery/door/poddoor/pyro{
@@ -10858,6 +10150,12 @@
 	intact = 0
 	},
 /area/space)
+"uUy" = (
+/obj/fluid_spawner{
+	amount = 2100
+	},
+/turf/simulated/floor/pool/no_animate,
+/area/station/crew_quarters/fitness)
 "uVf" = (
 /obj/table/reinforced/auto,
 /obj/machinery/phone,
@@ -11014,15 +10312,6 @@
 /obj/machinery/door/airlock/pyro/glass,
 /turf/simulated/floor,
 /area/station/hallway/secondary/exit)
-"vkF" = (
-/obj{
-	name = "---Merge conflict marker---"
-	},
-/obj/machinery/conveyor/EW{
-	id = "ghostdrone"
-	},
-/turf/space,
-/area/space)
 "vmd" = (
 /obj/machinery/door/airlock/pyro/engineering,
 /turf/simulated/floor/black/grime,
@@ -11588,13 +10877,6 @@
 /area/space)
 "wud" = (
 /obj/storage/secure/closet/medical/anesthetic,
-/obj{
-	name = "---Merge conflict marker---"
-	},
-/obj/machinery/conveyor/SN{
-	id = "garbage";
-	operating = 1
-	},
 /turf/simulated/floor/redblack,
 /area/station/medical/medbay/surgery)
 "wuf" = (
@@ -11705,19 +10987,6 @@
 	dir = 6
 	},
 /area/station/security/checkpoint/customs)
-"wCG" = (
-/obj{
-	name = "---Merge conflict marker---"
-	},
-/obj/machinery/conveyor/WE{
-	id = "qmin"
-	},
-/obj/machinery/door/poddoor{
-	id = "cargodock_in";
-	name = "Cargo Routing Door"
-	},
-/turf/simulated/floor/plating/airless/asteroid/dark,
-/area/space)
 "wDd" = (
 /turf/simulated/wall/auto/jen,
 /area/station/hydroponics/lobby)
@@ -11784,17 +11053,6 @@
 /obj/item/body_bag,
 /turf/simulated/floor/sanitary/white,
 /area/station/medical/morgue)
-"wJO" = (
-/obj/wingrille_spawn/auto,
-/obj{
-	name = "---Merge conflict marker---"
-	},
-/obj/machinery/conveyor/EW{
-	id = "garbage";
-	operating = 1
-	},
-/turf/simulated/floor/plating,
-/area/station/maintenance/solar/west)
 "wKV" = (
 /obj/machinery/atmospherics/portables_connector{
 	dir = 8;
@@ -12048,15 +11306,6 @@
 /obj/machinery/light/small/floor,
 /turf/simulated/floor/grime,
 /area/station/mining/refinery)
-"xev" = (
-/obj{
-	name = "---Merge conflict marker---"
-	},
-/obj/machinery/conveyor/NS{
-	id = "mining"
-	},
-/turf/simulated/floor/plating/airless/asteroid/dark,
-/area/space)
 "xeF" = (
 /obj/disposalpipe/segment/food,
 /obj/pool/perspective{
@@ -12220,15 +11469,6 @@
 /obj/disposalpipe/segment/vertical,
 /turf/simulated/floor/shuttlebay,
 /area/station/hangar/main)
-"xwp" = (
-/obj{
-	name = "---Merge conflict marker---"
-	},
-/obj/machinery/conveyor/WE{
-	id = "mining"
-	},
-/turf/simulated/floor/plating/airless/asteroid/dark,
-/area/space)
 "xwD" = (
 /obj/wingrille_spawn/auto/crystal,
 /turf/simulated/floor/plating,
@@ -12304,16 +11544,6 @@
 /obj/item/device/microphone,
 /turf/simulated/floor/wood,
 /area/station/crew_quarters/fitness)
-"xEJ" = (
-/obj/machinery/light/small,
-/obj{
-	name = "---Merge conflict marker---"
-	},
-/obj/machinery/conveyor/WE{
-	id = "mining"
-	},
-/turf/simulated/floor/plating/airless/asteroid/dark,
-/area/station/maintenance/south)
 "xEN" = (
 /obj/storage/secure/closet/security/equipment,
 /obj/machinery/recharger/wall/sticky,
@@ -12483,36 +11713,6 @@
 /obj/machinery/portable_atmospherics/canister/empty,
 /turf/simulated/floor/grime,
 /area/space)
-"xXj" = (
-/obj{
-	name = "---Merge conflict marker---"
-	},
-/obj/machinery/door/firedoor/border_only{
-	dir = 8
-	},
-/obj/machinery/door/poddoor{
-	id = "scienceteleporter2";
-	name = "Teleporter Blast Shield";
-	panel_open = 1
-	},
-/obj/machinery/door/airlock/glass{
-	name = "Teleporter Pad"
-	},
-/obj/cable{
-	d1 = 1;
-	d2 = 8;
-	icon_state = "1-8"
-	},
-/obj/cable{
-	icon_state = "1-4"
-	},
-/obj/cable{
-	icon_state = "1-2";
-	d1 = 1;
-	d2 = 2
-	},
-/turf/space,
-/area/space)
 "xXC" = (
 /turf/simulated/wall/auto/supernorn,
 /area/station/maintenance/outer/west{
@@ -12590,14 +11790,6 @@
 "yen" = (
 /obj/cable,
 /obj/machinery/power/terminal,
-/obj{
-	name = "---Merge conflict marker---"
-	},
-/obj/machinery/conveyor/EW{
-	id = "garbage";
-	operating = 1
-	},
-/obj/plasticflaps,
 /turf/simulated/floor/plating/random,
 /area/station/maintenance/solar/west)
 "yeW" = (
@@ -26384,8 +25576,8 @@ aaa
 aaa
 aaa
 aaa
-eNJ
-iVa
+aaa
+aaa
 aaa
 aaa
 aaa
@@ -26686,8 +25878,8 @@ aaa
 aaa
 aaa
 aaa
-pkh
-iVa
+aaa
+aaa
 aaa
 aaa
 aaa
@@ -26988,8 +26180,8 @@ aaa
 aaa
 aaa
 aaa
-vkF
-iVa
+aaa
+aaa
 aaa
 aaa
 aaa
@@ -27290,8 +26482,8 @@ aaa
 aaa
 aaa
 aaa
-kVQ
-iVa
+aaa
+aaa
 aaa
 aaa
 aaa
@@ -27592,8 +26784,8 @@ aaa
 aaa
 aaa
 aaa
-vkF
-iVa
+aaa
+aaa
 aaa
 aaa
 aaa
@@ -27894,8 +27086,8 @@ aaa
 aaa
 aaa
 aaa
-lkg
-qVT
+aaa
+aaa
 aaa
 aaa
 aaa
@@ -42391,7 +41583,6 @@ dEt
 aaa
 wNL
 gwC
-oNL
 aaZ
 aaZ
 aaZ
@@ -42400,7 +41591,8 @@ aaZ
 aaZ
 aaZ
 aaZ
-eKa
+aaZ
+aaZ
 aaZ
 vXg
 gfZ
@@ -42693,7 +41885,7 @@ cEt
 piW
 krD
 krD
-wJO
+krD
 piW
 piW
 sNJ
@@ -43601,7 +42793,7 @@ oPD
 qQG
 fNk
 gtO
-gGo
+piW
 wud
 cUE
 cUE
@@ -43905,8 +43097,8 @@ piW
 piW
 piW
 siE
-jqa
-iKC
+cUE
+iaV
 cUE
 sxg
 nWM
@@ -50589,7 +49781,7 @@ rLz
 utj
 bgE
 bgE
-sPV
+bgE
 kJO
 ucq
 ucq
@@ -50891,7 +50083,7 @@ tbU
 tnq
 bgE
 bgE
-sPV
+bgE
 tOo
 lcw
 lcw
@@ -51193,7 +50385,7 @@ bgE
 bgE
 blx
 bgE
-lRq
+wTr
 jFh
 jFh
 jFh
@@ -51797,7 +50989,7 @@ bkF
 bgE
 pfl
 jtQ
-kJu
+ucq
 ucq
 bpz
 bpz
@@ -52099,7 +51291,7 @@ bkF
 bgE
 pfl
 lqU
-kJu
+ucq
 aaa
 bpz
 bpz
@@ -52401,7 +51593,7 @@ bkF
 bgE
 pfl
 jYW
-dxM
+ohM
 bpz
 bpz
 bpz
@@ -52651,8 +51843,8 @@ eEv
 mIt
 rjz
 tHb
-saU
 tHb
+uUy
 xyH
 fxB
 aaZ
@@ -52703,7 +51895,7 @@ bgE
 bgE
 inl
 kAk
-ujX
+ucq
 bpz
 bpz
 bpz
@@ -53005,7 +52197,7 @@ bkF
 bgE
 pfl
 lEb
-utk
+ucq
 bpz
 bpz
 bpz
@@ -53307,7 +52499,7 @@ bkF
 bgE
 pfl
 iKl
-ujX
+ucq
 aaa
 bpz
 bpz
@@ -53911,7 +53103,7 @@ bgE
 bgE
 ncE
 kog
-trJ
+ucq
 aaa
 aaa
 bpz
@@ -61747,7 +60939,7 @@ qii
 wAx
 kXr
 dBe
-tRo
+dBe
 dBe
 dBe
 cHS
@@ -62049,7 +61241,7 @@ nNm
 grG
 kXr
 dBe
-elL
+kRa
 dBe
 kRa
 yjv
@@ -62351,7 +61543,7 @@ mey
 joL
 kXr
 dBe
-ntM
+dBe
 dBe
 dBe
 yjv
@@ -62653,14 +61845,14 @@ nNm
 gkU
 kXr
 dBe
-kvm
-nfN
-mtg
-mpp
-rmC
-xev
-xev
-kLw
+dBe
+dBe
+dBe
+yjv
+aRc
+aaZ
+aaZ
+aaZ
 tca
 kJn
 oGE
@@ -62959,10 +62151,10 @@ kRa
 dBe
 kRa
 yjv
-tvJ
-iIS
-iIS
-iIS
+aRc
+aaZ
+aaZ
+aaZ
 tca
 cRi
 cRi
@@ -63261,16 +62453,16 @@ dBe
 dBe
 dBe
 nNm
-okZ
-xwp
-xwp
-xwp
+aRc
+aaZ
+aaZ
+aaZ
 tca
 bhc
 bhc
 bhc
-dGH
-dGH
+bhc
+bhc
 bhc
 aaa
 aaa
@@ -63563,10 +62755,10 @@ dBe
 dBe
 dBe
 mey
-okZ
-xwp
-xwp
-xEJ
+aRc
+aaZ
+aaZ
+gRM
 cRi
 bhc
 bhc
@@ -63823,9 +63015,9 @@ eyr
 bLO
 clL
 aaZ
-ijy
 aaZ
-npa
+aaZ
+aaZ
 aaZ
 aaZ
 nIx
@@ -64125,9 +63317,9 @@ aSh
 bLO
 fcU
 aaZ
-hSs
 aaZ
-fzg
+aaZ
+aaZ
 aaZ
 aaZ
 nIx
@@ -64427,9 +63619,9 @@ aSh
 syQ
 qkQ
 nMp
-dQW
 nMp
-tcu
+nMp
+nMp
 nMp
 nMp
 tIt
@@ -64729,9 +63921,9 @@ bLO
 bLO
 ooR
 aaZ
-jMm
 aaZ
-wCG
+aaZ
+aaZ
 aaZ
 nIx
 nIx
@@ -65031,9 +64223,9 @@ amE
 aaZ
 aaZ
 aaZ
-ijy
 aaZ
-npa
+aaZ
+aaZ
 amE
 nIx
 xsl
@@ -65333,9 +64525,9 @@ aaZ
 aaZ
 aaZ
 aaZ
-ijy
 aaZ
-npa
+aaZ
+aaZ
 amE
 nIx
 xsl
@@ -65637,7 +64829,7 @@ aaZ
 aaZ
 aaZ
 aaZ
-oyT
+amE
 amE
 nIx
 xsl
@@ -65939,7 +65131,7 @@ aaZ
 aaZ
 aaZ
 amE
-lmN
+amE
 amE
 nIx
 xsl
@@ -66241,7 +65433,7 @@ aaZ
 amE
 amE
 amE
-qky
+amE
 amE
 xsl
 xsl
@@ -66845,7 +66037,7 @@ amE
 amE
 tqo
 tqo
-jmb
+tqo
 tqo
 tqo
 iqR
@@ -82505,11 +81697,11 @@ aaa
 aaa
 aaa
 aaa
-qex
 aaa
 aaa
 aaa
-jJs
+aaa
+aaa
 aaa
 aaa
 aaa
@@ -82807,18 +81999,18 @@ aaa
 aaa
 aaa
 aaa
-ssE
-aaa
-aaa
-aaa
-xXj
 aaa
 aaa
 aaa
 aaa
 aaa
 aaa
-gRN
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
 aaa
 aaa
 aaa
@@ -83109,11 +82301,11 @@ aaa
 aaa
 aaa
 aaa
-osd
 aaa
 aaa
 aaa
-joZ
+aaa
+aaa
 aaa
 aaa
 aaa
@@ -83728,7 +82920,7 @@ aaa
 aaa
 aaa
 aaa
-utA
+aaa
 aaa
 aaa
 aaa
@@ -84607,7 +83799,7 @@ aaa
 aaa
 aaa
 aaa
-pHu
+aaa
 aaa
 aaa
 aaa
