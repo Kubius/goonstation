@@ -1876,12 +1876,12 @@
 			SEND_SIGNAL(src, COMSIG_MOVABLE_POST_RADIO_PACKET, newsignal)
 
 		flick("transit-open", src)
-		playsound(src, "sound/machines/warning-buzzer.ogg", 50, 0, 0)
+		playsound(src, 'sound/machines/warning-buzzer.ogg', 50, 0, 0)
 
 		sleep(1.6 SECONDS)	//wait until correct animation frame
-		playsound(src, "sound/machines/airlock_swoosh_temp.ogg", 30, 0, 0)
+		playsound(src, 'sound/machines/airlock_swoosh_temp.ogg', 30, 0, 0)
 		sleep(0.7 SECONDS)
-		playsound(src, "sound/machines/hiss.ogg", 50, 0, 0)
+		playsound(src, 'sound/machines/hiss.ogg', 50, 0, 0)
 
 		for(var/atom/movable/AM in H)
 			AM.set_loc(src.loc)
