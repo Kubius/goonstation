@@ -826,7 +826,7 @@
 	name = "Meridian Primary Zone"
 	})
 "aGA" = (
-/obj/machinery/air_vendor,
+/obj/machinery/vending/air_vendor,
 /turf/simulated/floor/grey,
 /area/station/crew_quarters)
 "aGO" = (
@@ -905,15 +905,13 @@
 	name = "Dionysus Primary Zone"
 	})
 "aKS" = (
-/obj/machinery/door/airlock/pyro/syndicate{
-	desc = "This looks like a perfectly innocent weather satellite. It's locked up pretty tight to keep bath salts junkies from breaking in to steal the equipment.";
-	dir = 4;
-	name = "Weather Satellite"
-	},
 /obj/cable{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
+	},
+/obj/machinery/door/airlock/pyro/reinforced/syndicate{
+	dir = 4
 	},
 /turf/simulated/floor/shuttle{
 	icon_state = "floor4"
@@ -3238,7 +3236,7 @@
 	dir = 8;
 	pixel_x = 32
 	},
-/obj/machinery/air_vendor,
+/obj/machinery/vending/air_vendor,
 /turf/simulated/floor/grey,
 /area/station/crew_quarters/utility{
 	name = "Dionysus Cryocore"
@@ -21867,7 +21865,7 @@
 	name = "Dionysus Primary Zone"
 	})
 "waJ" = (
-/obj/machinery/door/airlock/pyro/syndicate,
+/obj/machinery/door/airlock/pyro/reinforced/syndicate,
 /turf/simulated/floor/red,
 /area/listeningpost)
 "wbj" = (
@@ -23997,7 +23995,7 @@
 /turf/space,
 /area/space)
 "yiS" = (
-/obj/machinery/air_vendor,
+/obj/machinery/vending/air_vendor,
 /turf/simulated/floor/grey,
 /area/station/crew_quarters/tenebrae)
 "yjj" = (
