@@ -22,6 +22,27 @@
 
 # Syntax
 
+## Commenting
+
+### Purpose
+When possible, we always want people to document their code clearly so that others (or perhaps yourself in the future) can understand and learn why a piece of code was written. 
+
+Unless the code is extremely complex, what one generally wants to comment is the *motivation* behind a certain piece of code, or what it's supposed to fix - rather than what it's actually doing.
+
+### Doc Comments
+Additionally, we have a 'documentation comment' system set up. This is as simple as commenting code like:
+```cs
+/obj/item/clothing/suit
+    /// If TRUE the suit will hide whoever is wearing it's hair
+    var/over_hair = FALSE
+```
+By using this, when you hover over a variable or object, it'll display information in the comment. For example:
+
+![](https://i.imgur.com/IdKpEtf.png)
+
+For more detailed information on this system, see the [DMByExample page](https://spacestation13.github.io/DMByExample/meta/dmdoc.html).
+
+
 ## Defines to use
 
 ### Time Defines
@@ -105,7 +126,7 @@ Example:
 ```javascript
 ABSTRACT_TYPE(/obj/item/hat)
 /obj/item/hat
-	var/is_cool = FAKSE
+	var/is_cool = FALSE
 
 /obj/item/hat/uncool
 	name = "Uncool Hat"
@@ -381,6 +402,29 @@ So, where possible, it's advised to use DM's syntax. (Note: the to keyword is in
 
 **Be Warned:** if either `some_value` or `i` changes within the body of the for (underneath the `for(...)`) or if you are looping over a list and changing the length of the list then you cannot use this type of for-loop!
 
+## for-in loop copying
+
+Almost all of the time when iterating through lists, we use the `for (var/i in some_list)` syntax. However, in __some very few__ cases, we run into a performance issue.
+
+Internally, BYOND copies the `some_list` for this operation, so that when you are iterating through the list, you don't skip items or run into things twice if you modify the list inside the loop.
+
+However, this can cause performance issues with large lists of *complex* objects, generally greater than ~5000.
+There exists a performance optimization, but bear in mind it's **only applicable if you are traversing less than half of the list**.
+Perhaps you are breaking after a found item that's randomly in the list, or you only want to process the first 20 entries or something.
+
+Code that avoids this list copying would look like:
+```csharp
+/proc/direct_iteration()
+	var/list/some_list = list() // just say this has 10,000 objs in it
+
+	for (var/i in 1 to length(some_list))
+	var/obj/mine = some_list[i]
+
+	// do stuff with this object
+	if (condition)
+		break
+```
+
 ## Default Return (`.`)
 
 Like other languages in the C family, DM has a `.` or "dot" operator, used for accessing variables/members/functions of an object instance. For example:
@@ -470,13 +514,20 @@ proc/give_mob_item(mob/person as mob, obj/item/gift as obj)
 <span style="color: green">Good:</span>
 ```csharp
 proc/give_mob_item(mob/person, obj/item/gift)
-    
 mob/verb/get_mob_to_yourself(mob/target as mob)
 ```
+
+*Additional note*: This applies in general to anything
+*used* as a verb, which can be any proc added to an atom
+via `atom.verbs += /proc/x`.
+
+So, be careful when removing `as x` to
+make sure it isn't being used as a verb somewhere else.
 
 # Useful Things
 
 ## VSCode Debugger
+//TODO
 
 ## Debugging Overlays
 
@@ -494,6 +545,18 @@ Guide to the categories:
 * Overtime: How much was spent past 100 tick_usage. This results in what we know as 'lag'.
 
 If total cpu and real time are the same the proc never sleeps, otherwise real time will be higher as it counts the time while the proc is waiting.
+
+## Even Better Profiler
+There exists a project to provide an incredibly more advanced real-time profiler for DM, named [byond-tracy](https://github.com/mafemergency/byond-tracy), capable of providing incredible resolution.
+
+![](https://i.imgur.com/1CEwo0g.png)
+
+To operate this, you will need to do three things: download [the tracy 'viewer' application v0.8.x](https://github.com/wolfpld/tracy), and either compile or download the byond-tracy library.
+* The first can be downloaded here: https://github.com/wolfpld/tracy/releases/tag/v0.8.2 (download the .7z and unzip it, it's portable)
+* The second can be trivially compiled from the C source above (and will be more performant), or you could download a version ZeWaka has compiled themselves [here](https://bit.ly/goontracy). The .dll just goes in the root folder of the game.
+* Uncomment `#define TRACY_PROFILER_HOOK` in `_std/__build.dm`
+
+If you're on Linux you need to compile both yourself manually, obviously.
 
 ## Target Dummy
 You can spawn in a target dummy (`/mob/living/carbon/human/tdummy`) to more easily test things that do damage - they have the ass day health percent and damage popups visible even if your build isn't set to ass day.

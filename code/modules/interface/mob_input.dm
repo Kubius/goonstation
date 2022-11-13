@@ -169,11 +169,11 @@
 	PROTECTED_PROC(TRUE)
 
 	if(!C || !C.cloud_available())
-		//logTheThing("debug", null, null, "<B>ZeWaka/Keybinds:</B> Attempted to fetch custom keybinds for [C.ckey] but failed.")
+		//logTheThing(LOG_DEBUG, null, "<B>ZeWaka/Keybinds:</B> Attempted to fetch custom keybinds for [C.ckey] but failed.")
 		return
 
 	var/fetched_keylist = C.cloud_get("custom_keybind_data")
-	if (!isnull(fetched_keylist)) //The client has a list of custom keybinds.
+	if (!isnull(fetched_keylist) && fetched_keylist != "") //The client has a list of custom keybinds.
 		var/datum/keymap/new_map = new /datum/keymap(json_decode(fetched_keylist))
 		C.keymap.overwrite_by_action(new_map)
 		C.keymap.on_update(C)

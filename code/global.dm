@@ -77,7 +77,7 @@ var/global
 
 	list/factions = list()
 
-	list/obj/trait/traitList = list() //List of trait objects
+	list/datum/trait/traitList = list() //List of trait objects
 
 	list/spawned_in_keys = list() //Player keys that have played this round, to prevent that "jerk gets deleted by a bug, gets to respawn" thing.
 
@@ -290,6 +290,7 @@ var/global
 	toggles_enabled = 1
 	announce_banlogin = 1
 	announce_jobbans = 0
+	radio_audio_enabled = 1
 
 
 	outpost_destroyed = 0
@@ -317,35 +318,38 @@ var/global
 	netpass_cargo = null
 	netpass_syndicate = null //Detomatix
 
-	///////////////
+	//
 	//cyberorgan damage thresholds for emagging without emag
 	list/cyberorgan_brute_threshold = list("heart" = 0, "cyber_lung_L" = 0, "cyber_lung_R" = 0, "cyber_kidney" = 0, "liver" = 0, "stomach" = 0, "intestines" = 0, "spleen" = 0, "pancreas" = 0, "appendix" = 0)
 	list/cyberorgan_burn_threshold = list("heart" = 0, "cyber_lung_L" = 0, "cyber_lung_R" = 0, "cyber_kidney" = 0, "liver" = 0, "stomach" = 0, "intestines" = 0, "spleen" = 0, "pancreas" = 0, "appendix" = 0)
 
-	///////////////
-	list/logs = list ( //Loooooooooogs
-		"admin_help" = list (  ),
-		"speech" = list (  ),
-		"ooc" = list (  ),
-		"combat" = list (  ),
-		"station" = list (  ),
-		"pdamsg" = list (  ),
-		"admin" = list (  ),
-		"mentor_help" = list (  ),
-		"telepathy" = list (  ),
-		"bombing" = list (  ),
-		"signalers" = list (  ),
-		"atmos" = list (  ),
-		"debug" = list (  ),
-		"pathology" = list (  ),
-		"deleted" = list (  ),
-		"vehicle" = list (  ),
-		"tgui" = list (), //me 2
-		"computers" = list(),
-		"audit" = list()//im a rebel, i refuse to add that gross SPACING
+	/// Loooooooooogs
+	list/logs = list(
+		LOG_ADMIN		=	list(),
+		LOG_DEBUG		=	list(),
+		LOG_AHELP		=	list(),
+		LOG_AUDIT		=	list(),
+		LOG_MHELP		=	list(),
+		LOG_OOC			=	list(),
+		LOG_SPEECH		=	list(), // whisper and say combined
+		LOG_PDAMSG		=	list(),
+		LOG_TELEPATHY	=	list(),
+		LOG_COMBAT		=	list(),
+		LOG_BOMBING		=	list(),
+		LOG_STATION		=	list(),
+		LOG_VEHICLE		=	list(),
+		LOG_GAMEMODE	=	list(),
+		LOG_SIGNALERS	=	list(),
+		LOG_PATHOLOGY	=	list(),
+		LOG_TOPIC		=	list(),
+		LOG_CHEMISTRY	=	list(),
 	)
-	savefile/compid_file 	//The file holding computer ID information
-	do_compid_analysis = 1	//Should we be analysing the comp IDs of new clients?
+	/// The file holding computer ID information
+	savefile/compid_file
+
+	/// Should we be analysing the comp IDs of new clients?
+	do_compid_analysis = 1
+
 	list/warned_keys = list()	// tracking warnings per round, i guess
 
 	datum/dj_panel/dj_panel = new()
@@ -358,6 +362,7 @@ var/global
 	// Controllers
 	datum/wage_system/wagesystem
 	datum/shipping_market/shippingmarket
+	datum/betting_controller/bettingcontroller
 
 	datum/configuration/config = null
 	datum/sun/sun = null
@@ -405,13 +410,11 @@ var/global
 
 	// SpyGuy global reaction structure to further recuce cpu usage in handle_reactions (Chemistry-Structure.dm)
 	list/total_chem_reactions = list()
-	list/chem_reactions_by_id = list() //This sure beats processing the monster above if I want a particular reaction. =I
+	list/datum/chemical_reaction/chem_reactions_by_id = list() //This sure beats processing the monster above if I want a particular reaction. =I
+	list/list/datum/chemical_reaction/chem_reactions_by_result = list() // Chemical reactions indexed by result ID
 
 	//SpyGuy: The reagents cache is now an associative list
 	list/reagents_cache = list()
-
-	// list of miscreants since mode is irrelevant
-	list/miscreants = list()
 
 	// Antag overlays for admin ghosts, Syndieborgs and the like (Convair880).
 	antag_generic = image('icons/mob/antag_overlays.dmi', icon_state = "generic")
@@ -441,6 +444,7 @@ var/global
 	antag_wrestler = image('icons/mob/antag_overlays.dmi', icon_state = "wrestler")
 	antag_spy_theft = image('icons/mob/antag_overlays.dmi', icon_state = "spy_thief")
 	antag_arcfiend = image('icons/mob/antag_overlays.dmi', icon_state = "arcfiend")
+	antag_salvager = image('icons/mob/antag_overlays.dmi', icon_state = "salvager")
 
 	pod_wars_NT = image('icons/mob/antag_overlays.dmi', icon_state = "nanotrasen")
 	pod_wars_NT_CMDR = image('icons/mob/antag_overlays.dmi', icon_state = "nanocomm")
@@ -507,8 +511,11 @@ var/global
 
 	hardRebootFilePath = "data/hard-reboot"
 
-	/// The map object used to display the AI station map
-	obj/station_map/ai_station_map
+	list/icon/z_level_maps = list()
+
+	/// When toggled on creating new /turf/space will be faster but they will be slightly broken
+	/// used when creating new z-levels
+	dont_init_space = FALSE
 
 /proc/addGlobalRenderSource(var/image/I, var/key)
 	if(I && length(key) && !globalRenderSources[key])

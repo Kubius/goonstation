@@ -1,6 +1,6 @@
 /datum/random_event/major/black_hole
 	name = "Black Hole"
-	required_elapsed_round_time = 40 MINUTES
+	required_elapsed_round_time = 26.6 MINUTES
 #ifdef RP_MODE
 	disabled = 1
 #endif
@@ -45,9 +45,11 @@
 		if(!particleMaster.CheckSystemExists(/datum/particleSystem/bhole_warning, src))
 			particleMaster.SpawnSystem(new /datum/particleSystem/bhole_warning(src))
 
-		for (var/mob/M in range(14,src))
-			boutput(M, "<span class='alert'>The air grows heavy and thick. Something feels terribly wrong.</span>")
-			shake_camera(M, 5, 16)
+		var/turf/T = get_turf(src)
+		for (var/mob/M in GET_NEARBY(T, 15))
+			if (M.client)
+				boutput(M, "<span class='alert'>The air grows heavy and thick. Something feels terribly wrong.</span>")
+				shake_camera(M, 5, 16)
 		playsound(src,'sound/effects/creaking_metal1.ogg',100,0,5,0.5)
 
 		sleep(lifespan / 2)
@@ -78,7 +80,7 @@
 				qdel(A)
 			else if (isliving(A))
 				var/mob/living/L = A
-				logTheThing("combat", L, null, "was elecgibbed by [src] ([src.type]) at [log_loc(L)].")
+				logTheThing(LOG_COMBAT, L, "was elecgibbed by [src] ([src.type]) at [log_loc(L)].")
 				L.elecgib()
 				src.get_fed(10)
 
@@ -130,7 +132,7 @@
 
 	Bumped(atom/A)
 		if (isliving(A))
-			logTheThing("combat", A, null, "was gibbed by [src] ([src.type]) at [log_loc(A)].")
+			logTheThing(LOG_COMBAT, A, "was gibbed by [src] ([src.type]) at [log_loc(A)].")
 			A:gib()
 		else if(isobj(A))
 			var/obj/O = A

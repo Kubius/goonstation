@@ -16,11 +16,6 @@
 	transition_tasks += holder.get_instance(/datum/aiTask/timed/wander, list(holder, src))
 	transition_tasks += holder.get_instance(/datum/aiTask/sequence/goalbased/sawfly_chase_n_stab, list(holder, src))
 
-/datum/aiTask/prioritizer/sawfly/on_tick()
-	if(isdead(holder.owner))
-		holder.enabled = FALSE
-		walk(holder.owner, 0)
-
 /datum/aiTask/prioritizer/sawfly/on_reset()
 	..()
 	walk(holder.owner, 0)
@@ -68,12 +63,13 @@
 			if(src.found_path)
 				walk_rand(src,4)
 				holder.move_to_with_path(holder.target, src.found_path, 1)
-				owncritter.set_dir(get_dir(owncritter, holder.target)) //attack regardless
-				owncritter.hand_attack(holder.target, dummy_params)
-			//frustration++ //if frustration gets too high, the task is ended and re-evaluated
+				if(in_interact_range(owncritter, holder.target))
+					owncritter.set_dir(get_dir(owncritter, holder.target)) //attack regardless
+					owncritter.hand_attack(holder.target, dummy_params)
 		else
-			owncritter.set_dir(get_dir(owncritter, holder.target))
-			owncritter.hand_attack(holder.target, dummy_params)
+			if(in_interact_range(owncritter, holder.target))
+				owncritter.set_dir(get_dir(owncritter, holder.target))
+				owncritter.hand_attack(holder.target, dummy_params)
 
 	if(!holder.target)
 		holder.target = get_best_target(get_targets())
@@ -93,7 +89,7 @@
 		if (isintangible(C))
 			continue
 		if(C.mind?.special_role)
-			if (istraitor(C) || isnukeop(C) || isspythief(C) || isnukeopgunbot(C)) // frens :)
+			if (issawflybuddy(C)) // frens :)
 				if (!(C.weakref in owncritter.friends))
 					boutput(C, "<span class='alert'> [owncritter]'s IFF system silently flags you as an ally! </span>")
 					owncritter.friends += get_weakref(C)
