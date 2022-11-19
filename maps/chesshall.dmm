@@ -207,11 +207,6 @@
 /area/station/hallway/primary/north)
 "aX" = (
 /obj/machinery/disposal,
-/obj/machinery/light{
-	dir = 1;
-	layer = 9.1;
-	pixel_y = 21
-	},
 /turf/simulated/floor/bluewhite{
 	dir = 9
 	},
@@ -1330,6 +1325,11 @@
 /area/listeningpost)
 "gS" = (
 /obj/machinery/vending/medical,
+/obj/machinery/light{
+	dir = 1;
+	layer = 9.1;
+	pixel_y = 21
+	},
 /turf/simulated/floor/bluewhite{
 	dir = 9
 	},
@@ -4216,6 +4216,11 @@
 	pixel_x = 13;
 	pixel_y = -1
 	},
+/obj/machinery/light{
+	dir = 1;
+	layer = 9.1;
+	pixel_y = 21
+	},
 /turf/simulated/floor/bluewhite{
 	dir = 1
 	},
@@ -6484,11 +6489,6 @@
 /area/station/crew_quarters/cafeteria)
 "KU" = (
 /obj/iv_stand,
-/obj/machinery/light{
-	dir = 1;
-	layer = 9.1;
-	pixel_y = 21
-	},
 /turf/simulated/floor/bluewhite{
 	dir = 1
 	},
@@ -6790,6 +6790,11 @@
 	},
 /obj/item/bandage{
 	pixel_x = -2
+	},
+/obj/machinery/light{
+	dir = 1;
+	layer = 9.1;
+	pixel_y = 21
 	},
 /turf/simulated/floor/bluewhite{
 	dir = 5
