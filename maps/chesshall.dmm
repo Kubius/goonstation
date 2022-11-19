@@ -647,10 +647,6 @@
 	dir = 4
 	},
 /area/station/security/checkpoint/podbay)
-"dF" = (
-/obj/machinery/light/small/floor/netural,
-/turf/simulated/floor/black,
-/area/station/hallway/secondary/entry)
 "dI" = (
 /obj/cable{
 	icon_state = "4-8"
@@ -2974,6 +2970,10 @@
 /obj/submachine/syndicate_teleporter,
 /turf/simulated/floor/circuit/red,
 /area/listeningpost)
+"qA" = (
+/obj/cryotron,
+/turf/simulated/floor/terrazzo,
+/area/station/hallway/primary/west)
 "qH" = (
 /obj/table/reinforced/auto,
 /obj/item/plate,
@@ -50323,7 +50323,7 @@ cr
 yz
 kB
 Eo
-TW
+cr
 Ad
 OV
 bc
@@ -51226,7 +51226,7 @@ VP
 VP
 Vc
 IP
-cr
+qA
 iX
 wU
 yz
@@ -52141,7 +52141,7 @@ vM
 kJ
 fO
 cN
-dF
+TH
 mb
 cV
 cu
@@ -52443,7 +52443,7 @@ ji
 TH
 fO
 cN
-dF
+TH
 mb
 cV
 cu
