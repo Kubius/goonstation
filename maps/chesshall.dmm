@@ -4206,6 +4206,12 @@
 /area/station/crew_quarters/fitness{
 	name = "Chess Ring"
 	})
+"wP" = (
+/obj/landmark{
+	name = "Observer-Start"
+	},
+/turf/simulated/floor/terrazzo,
+/area/station/hallway/primary/west)
 "wQ" = (
 /obj/table/reinforced/auto,
 /obj/item/paper/book/from_file/medical_surgery_guide{
@@ -50015,7 +50021,7 @@ kB
 RC
 cr
 yz
-cr
+wP
 yz
 JX
 yz
