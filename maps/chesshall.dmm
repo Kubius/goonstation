@@ -81,6 +81,13 @@
 	},
 /turf/simulated/floor/terrazzo,
 /area/station/hallway/primary/west)
+"aw" = (
+/obj/decal/tile_edge/line/black{
+	dir = 5;
+	icon_state = "line2"
+	},
+/turf/simulated/floor/wood,
+/area/station/crew_quarters/cafeteria)
 "ay" = (
 /obj/machinery/computer/solar_control/small_backup4{
 	dir = 4
@@ -251,6 +258,14 @@
 /obj/sea_plant_manta/coralfingers,
 /turf/simulated/floor/sand,
 /area/station/hallway/secondary/entry)
+"bi" = (
+/obj/machinery/light/small/floor/netural,
+/obj/decal/tile_edge/line/black{
+	dir = 1;
+	icon_state = "line1"
+	},
+/turf/simulated/floor/wood,
+/area/station/crew_quarters/cafeteria)
 "bn" = (
 /obj/machinery/door/airlock/pyro,
 /obj/access_spawn/kitchen,
@@ -1592,6 +1607,13 @@
 	name = "Convention Hall";
 	do_not_irradiate = 1
 	})
+"iw" = (
+/obj/decal/tile_edge/line/black{
+	dir = 5;
+	icon_state = "line1"
+	},
+/turf/simulated/floor/wood,
+/area/station/crew_quarters/cafeteria)
 "iy" = (
 /obj/forcefield/energyshield/perma/doorlink{
 	desc = "A door-linked force field that prevents gasses from passing through it.";
@@ -2531,7 +2553,7 @@
 /obj/machinery/chem_master{
 	dir = 8
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/black,
 /area/station/crew_quarters/cafeteria)
 "oq" = (
 /obj/sea_plant/anemone,
@@ -3022,6 +3044,13 @@
 	},
 /turf/simulated/floor/black,
 /area/station/hallway/primary/south)
+"qU" = (
+/obj/decal/tile_edge/line/black{
+	dir = 1;
+	icon_state = "line1"
+	},
+/turf/simulated/floor/wood,
+/area/station/crew_quarters/cafeteria)
 "qX" = (
 /turf/simulated/wall/auto/supernorn/wood,
 /area/station/crew_quarters/toilets)
@@ -3136,7 +3165,7 @@
 /obj/machinery/chem_dispenser/alcohol,
 /obj/item/reagent_containers/food/drinks/drinkingglass/pitcher,
 /obj/machinery/light_switch/north,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/black,
 /area/station/crew_quarters/cafeteria)
 "rz" = (
 /obj/machinery/door/airlock/pyro/glass/security/alt,
@@ -4156,7 +4185,7 @@
 	name = "prep counter"
 	},
 /obj/item/clothing/glasses/spectro,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/black,
 /area/station/crew_quarters/cafeteria)
 "wL" = (
 /obj/item/storage/wall/emergency{
@@ -5587,6 +5616,13 @@
 	dir = 1
 	},
 /area/station/security/checkpoint/podbay)
+"FH" = (
+/obj/decal/tile_edge/line/black{
+	dir = 4;
+	icon_state = "line1"
+	},
+/turf/simulated/floor/wood,
+/area/station/crew_quarters/cafeteria)
 "FI" = (
 /obj/cable{
 	icon_state = "2-8"
@@ -6292,7 +6328,7 @@
 /obj/cable{
 	icon_state = "1-8"
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/black,
 /area/station/crew_quarters/cafeteria)
 "Ki" = (
 /obj/machinery/door/airlock/pyro/external,
@@ -7346,7 +7382,7 @@
 /area/station/crew_quarters/cafeteria)
 "QD" = (
 /obj/machinery/chem_dispenser/soda,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/black,
 /area/station/crew_quarters/cafeteria)
 "QH" = (
 /obj/machinery/light/small/floor,
@@ -7650,7 +7686,7 @@
 /area/station/medical/medbooth)
 "Sl" = (
 /obj/machinery/chem_dispenser/chemical,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/black,
 /area/station/crew_quarters/cafeteria)
 "Sm" = (
 /obj/machinery/door/airlock/pyro/external{
@@ -7960,7 +7996,7 @@
 /obj/drink_rack/cup{
 	pixel_y = 32
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/black,
 /area/station/crew_quarters/cafeteria)
 "TW" = (
 /obj/storage/secure/closet/personal,
@@ -46646,8 +46682,8 @@ eb
 wS
 wS
 Gu
-BM
-BM
+FH
+iw
 BM
 Sb
 yW
@@ -46949,7 +46985,7 @@ he
 lX
 lX
 wI
-vx
+bi
 BM
 gC
 yW
@@ -47251,7 +47287,7 @@ PX
 DZ
 Nw
 TR
-BM
+qU
 BM
 Ml
 tf
@@ -47553,7 +47589,7 @@ IS
 IS
 Wn
 Kd
-vx
+bi
 BM
 Xj
 yW
@@ -47855,7 +47891,7 @@ PX
 sk
 Nw
 rt
-BM
+qU
 BM
 mr
 yW
@@ -48157,8 +48193,8 @@ HB
 OT
 Nw
 QD
-BM
-BM
+aw
+iw
 ZM
 Uw
 dI
@@ -48460,7 +48496,7 @@ wF
 Nw
 Sl
 om
-BM
+qU
 bn
 KQ
 dI
