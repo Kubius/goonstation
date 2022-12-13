@@ -3313,22 +3313,40 @@
 /turf/unsimulated/floor/longtile/black,
 /area/mantavault)
 "mV" = (
+/obj/landmark/viscontents_spawn{
+	targetZ = 5
+	},
 /turf/unsimulated/floor/setpieces{
 	desc = "A strange jet black set of metal stairs.";
 	dir = 4;
 	icon_state = "ancient_stairs";
 	name = "strange stairs"
 	},
-/area/space)
+/area/abandonedoutpostthing{
+	name = "Enigmatic Subterrane"
+	})
 "oc" = (
 /turf/unsimulated/floor/ancient,
-/area/space)
+/area/abandonedoutpostthing{
+	name = "Enigmatic Subterrane"
+	})
 "sq" = (
 /obj/landmark/viscontents_spawn{
-	targetZ = 3
+	targetZ = 5
 	},
 /turf/unsimulated/floor/ancient,
-/area/space)
+/area/abandonedoutpostthing{
+	name = "Enigmatic Subterrane"
+	})
+"zd" = (
+/obj/landmark/viscontents_spawn{
+	targetZ = 5
+	},
+/obj/map/light/dimreddish,
+/turf/unsimulated/floor/ancient,
+/area/abandonedoutpostthing{
+	name = "Enigmatic Subterrane"
+	})
 "AE" = (
 /turf/space,
 /turf/unsimulated/wall/trench,
@@ -3377,21 +3395,31 @@
 "Jz" = (
 /obj/map/light/dimreddish,
 /turf/unsimulated/floor/ancient,
-/area/space)
+/area/abandonedoutpostthing{
+	name = "Enigmatic Subterrane"
+	})
+"Lc" = (
+/obj/map/light/lava,
+/turf/unsimulated/floor/ancient,
+/area/abandonedoutpostthing{
+	name = "Enigmatic Subterrane"
+	})
 "Mp" = (
 /obj/decal/cleanable/blood,
 /turf/simulated/martian/floor,
 /area/evilreaver/security)
 "Of" = (
 /turf/unsimulated/wall/auto/adventure/ancient,
-/area/space)
+/area/abandonedoutpostthing{
+	name = "Enigmatic Subterrane"
+	})
 "Qq" = (
 /obj/grille/steel,
 /turf/unsimulated/floor/plating,
 /area/wrecknsspolaris)
 "Vo" = (
 /obj/landmark/viscontents_spawn{
-	targetZ = 3
+	targetZ = 5
 	},
 /turf/unsimulated/floor/setpieces{
 	desc = "A strange jet black set of metal stairs.";
@@ -3399,7 +3427,9 @@
 	icon_state = "ancient_stairs";
 	name = "strange stairs"
 	},
-/area/space)
+/area/abandonedoutpostthing{
+	name = "Enigmatic Subterrane"
+	})
 
 (1,1,1) = {"
 ab
@@ -23839,8 +23869,8 @@ gW
 gW
 Of
 Of
-oc
-oc
+sq
+zd
 sq
 Of
 oc
@@ -24445,7 +24475,7 @@ Of
 Of
 oc
 Of
-oc
+Lc
 Of
 oc
 oc
