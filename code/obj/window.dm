@@ -310,7 +310,7 @@
 			return TRUE
 		if(istype(mover, /obj/projectile))
 			var/obj/projectile/P = mover
-			if(P.proj_data.window_pass)
+			if(P.proj_data?.window_pass)
 				return TRUE
 		if (!is_cardinal(dir))
 			return FALSE //full tile window, you can't move into it!
@@ -1099,6 +1099,7 @@
 // flock windows
 
 /obj/window/auto/feather
+	default_material = "gnesisglass"
 	var/flock_id = "Fibrewoven window"
 	var/repair_per_resource = 1
 

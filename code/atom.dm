@@ -38,6 +38,9 @@
 
 	var/list/atom_properties
 
+	/// Whether pathfinding is forbidden from caching the passability of this atom. See [/turf/passability_cache]
+	var/tmp/pass_unstable = TRUE
+
 /* -------------------- name stuff -------------------- */
 	/*
 	to change names: either add or remove something with the appropriate proc(s) and then call atom.UpdateName()
@@ -213,7 +216,7 @@
 			boutput(user, "<span class='alert'>[A] is full!</span>") // Notify the user, then exit the process.
 			return
 
-		logTheThing(LOG_COMBAT, user, "transfers chemicals from [src] [log_reagents(src)] to [A] at [log_loc(A)].") // Ditto (Convair880).
+		logTheThing(LOG_CHEMISTRY, user, "transfers chemicals from [src] [log_reagents(src)] to [A] at [log_loc(A)].") // Ditto (Convair880).
 		var/T = src.reagents.trans_to(A, src.reagents.total_volume) // Dump it all!
 		boutput(user, "<span class='notice'>You transfer [T] units into [A].</span>")
 		return
@@ -284,6 +287,12 @@
 	SHOULD_NOT_OVERRIDE(TRUE)
 	mover.movement_newloc = target
 	return src.Uncross(mover, do_bump=do_bump)
+
+/// This is the proc to check if a movable can cross this atom.
+/// DO NOT put side effects in this proc, it is called for pathfinding
+/// Seriously I mean it, you think it'll be fine and then it causes the teleporting gene booth bug
+/atom/Cross(atom/movable/mover)
+	return (!density)
 
 /atom/Crossed(atom/movable/AM)
 	SHOULD_CALL_PARENT(TRUE)
@@ -370,6 +379,7 @@
 /atom/movable/overlay
 	var/atom/master = null
 	anchored = 1
+	pass_unstable = FALSE
 
 /atom/movable/overlay/gibs
 	icon_state = "blank"
@@ -427,6 +437,9 @@
 				T2.neighcheckinghasproximity++
 		if(src.opacity)
 			T.opaque_atom_count++
+		for(var/turf/covered_turf as anything in src.locs)
+			covered_turf.pass_unstable += src.pass_unstable
+			covered_turf.passability_cache = null
 	if(!isnull(src.loc))
 		src.loc.Entered(src, null)
 		if(isturf(src.loc)) // call it on the area too
@@ -454,10 +467,14 @@
 	. = ..()
 
 
-/atom/movable/Move(NewLoc, direct)
+/atom/movable/Move(atom/NewLoc, direct)
 	SHOULD_CALL_PARENT(TRUE)
 	if(SEND_SIGNAL(src, COMSIG_MOVABLE_BLOCK_MOVE, NewLoc, direct))
 		return
+	#ifdef CHECK_MORE_RUNTIMES
+	if(!istype(src.loc, /turf) || !istype(NewLoc, /turf))
+		CRASH("Move() called with non-turf locs: [src.loc] ([src.loc?:type]) -> [NewLoc] ([NewLoc?:type]) ")
+	#endif
 
 	//mbc disabled for now, i dont think this does too much for visuals i cant hit 40fps anyway argh i cant even tell
 	//tile glide smoothing:
@@ -515,7 +532,14 @@
 		return // this should in turn fire off its own slew of move calls, so don't do anything here
 
 	var/atom/A = src.loc
-	. = ..()
+	var/list/old_locs = src.locs
+	if(src.event_handler_flags & MOVE_NOCLIP)
+		if(!isturf(NewLoc))
+			NewLoc = get_step(src, direct)
+		if(isturf(NewLoc))
+			src.set_loc(NewLoc)
+	else
+		. = ..()
 	src.move_speed = TIME - src.l_move_time
 	src.l_move_time = TIME
 	if (A != src.loc && A?.z == src.z)
@@ -533,12 +557,18 @@
 		return
 
 	if (isturf(last_turf))
+		for(var/turf/covered_turf as anything in old_locs)
+			covered_turf.pass_unstable -= src.pass_unstable
+			covered_turf.passability_cache = null
 		if (src.event_handler_flags & USE_PROXIMITY)
 			last_turf.checkinghasproximity = max(last_turf.checkinghasproximity-1, 0)
 			for (var/turf/T2 in range(1, last_turf))
 				T2.neighcheckinghasproximity--
 	if(isturf(src.loc))
 		var/turf/T = src.loc
+		for(var/turf/covered_turf as anything in src.locs)
+			covered_turf.pass_unstable += src.pass_unstable
+			covered_turf.passability_cache = null
 		if (src.event_handler_flags & USE_PROXIMITY)
 			T.checkinghasproximity++
 			for (var/turf/T2 in range(1, T))
@@ -876,6 +906,9 @@
   */
 /atom/movable/proc/set_loc(atom/newloc)
 	SHOULD_CALL_PARENT(TRUE)
+	if(QDELETED(src) && !isnull(newloc))
+		CRASH("Tried to call set_loc on [identify_object(src)] to non-null location: [identify_object(newloc)]")
+
 	if (loc == newloc)
 		SEND_SIGNAL(src, COMSIG_MOVABLE_SET_LOC, loc)
 		return src
@@ -889,7 +922,13 @@
 	var/area/new_area = get_area(newloc)
 
 	var/atom/oldloc = loc
+	var/atom/oldlocs = src.locs
 	loc = newloc
+
+#ifdef CHECK_MORE_RUNTIMES
+	if(oldloc == loc)
+		stack_trace("loc change in set_loc denied - check for paradoxes")
+#endif
 
 	src.last_move = 0
 
@@ -899,6 +938,9 @@
 	oldloc?.Exited(src, newloc)
 
 	if(isturf(oldloc))
+		for(var/turf/covered_turf as anything in oldlocs)
+			covered_turf.pass_unstable -= src.pass_unstable
+			covered_turf.passability_cache = null
 		for(var/atom/A in oldloc)
 			if(A != src)
 				A.Uncrossed(src)
@@ -910,6 +952,9 @@
 	newloc?.Entered(src, oldloc)
 
 	if(isturf(newloc))
+		for(var/turf/covered_turf as anything in src.locs)
+			covered_turf.pass_unstable += src.pass_unstable
+			covered_turf.passability_cache = null
 		for(var/atom/A in newloc)
 			if(A != src)
 				A.Crossed(src)
@@ -946,6 +991,9 @@
 //reason for having this proc is explained below
 /atom/proc/set_density(var/newdensity)
 	src.density = HAS_ATOM_PROPERTY(src, PROP_ATOM_NEVER_DENSE) ? 0 : newdensity
+	if(src.density != newdensity)
+		var/turf/loc = src.loc // invalidate JPS cache on density changes
+		loc.passability_cache = null
 
 /atom/proc/set_opacity(var/newopacity)
 	SHOULD_CALL_PARENT(TRUE)
@@ -968,7 +1016,8 @@
 	// turf that is not obscuring vision, we were obscuring vision and are not
 	// anymore.
 	if (isturf(src.loc) && ((src.loc.opacity == 0 && src.opacity == 1) || (src.loc.opacity == 0 && oldopacity == 1 && src.opacity == 0)))
-		SEND_SIGNAL(src.loc, COMSIG_TURF_CONTENTS_SET_OPACITY_SMART, oldopacity, src)
+		var/turf/T = src.loc
+		T.contents_set_opacity_smart(oldopacity, src)
 
 // standardized damage procs
 
@@ -1108,3 +1157,41 @@
 	message_admins("[key_name(usr)] rotated [target] by [rot] degrees")
 	target.Turn(rot)
 	return
+
+/atom/movable/proc/gift_wrap(var/style = FALSE, var/xmas_style = FALSE)
+	var/obj/item/gift/G = new /obj/item/gift(src.loc)
+	var/gift_type
+	if(isitem(src))
+		var/obj/item/gifted_item = src
+		G.size = gifted_item.w_class
+		G.w_class = G.size + 1
+		gift_type = "gift[clamp(G.size, 1, 3)]"
+		gifted_item.set_loc(G)
+	else if(ismob(src) || istype(src, /obj/critter))
+		G.size = 3
+		G.w_class = G.size + 1
+		gift_type = "strange"
+		if(ismob(src))
+			var/mob/gifted_mob = src
+			gifted_mob.set_loc(G)
+		else
+			var/obj/critter/gifted_critter = src
+			gifted_critter.set_loc(G)
+	else
+		var/obj/gifted_obj = src
+		G.size = 3
+		G.w_class = W_CLASS_BULKY
+		gift_type = "gift3"
+		gifted_obj.set_loc(G)
+	var/random_style
+	if (!style)
+		if(!xmas_style)
+			random_style = rand(1,8)
+		else
+			random_style = pick("r", "rs", "g", "gs")
+		G.icon_state = "[gift_type]-[random_style]"
+	else
+		G.icon_state = "[gift_type]-[style]"
+	G.gift = src
+
+	return G

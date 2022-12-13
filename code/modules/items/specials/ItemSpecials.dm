@@ -14,7 +14,7 @@
 
 /proc/get_dir_alt(var/atom/source, var/atom/target) //Opposite of default get dir, only returns diagonal if target perfectly diagonal
 	if(!source || !target)
-		CRASH("Invalid Params:: Source:[source] Target:[target]")
+		CRASH("Invalid Params for get_dir_alt: Source:[identify_object(source)] Target:[identify_object(target)]")
 	if(abs(source.x-target.x) > abs(source.y-target.y)) //Mostly left/right with a little up or down
 		if(source.x > target.x) //Target left
 			return WEST
@@ -718,7 +718,8 @@
 			. = ..()
 			var/datum/projectile/special/spawner/P = projectile
 			P.damage_type = D_KINETIC
-			P.power = 5
+			P.damage = 5
+			P.generate_stats()
 			P.typetospawn = /obj/random_item_spawner/organs/bloody/one_to_three
 			P.icon = 'icons/mob/monkey.dmi'
 			P.icon_state = "monkey"

@@ -81,11 +81,6 @@
 /obj/critter/martian/soldier,
 /turf/simulated/martian/floor,
 /area/evilreaver/security)
-"ar" = (
-/obj/martianBiotech,
-/obj/decal/cleanable/blood,
-/turf/simulated/martian/floor,
-/area/evilreaver/security)
 "as" = (
 /obj/decal/cleanable/blood{
 	icon_state = "floor5"
@@ -180,10 +175,6 @@
 /obj/decal/cleanable/blood/gibs{
 	icon_state = "gibdown1"
 	},
-/turf/simulated/martian/floor,
-/area/evilreaver/security)
-"aG" = (
-/obj/martianBiotech,
 /turf/simulated/martian/floor,
 /area/evilreaver/security)
 "aH" = (
@@ -347,10 +338,6 @@
 /obj/item/raw_material/shard/glass,
 /turf/unsimulated/floor/plating,
 /area/wrecknsspolaris)
-"bi" = (
-/obj/grille,
-/turf/unsimulated/floor/plating,
-/area/wrecknsspolaris)
 "bj" = (
 /obj/wingrille_spawn/auto,
 /turf/unsimulated/floor/plating,
@@ -366,11 +353,6 @@
 "bm" = (
 /obj/dialogueobj/bustedmantapc,
 /turf/unsimulated/floor/longtile,
-/area/wrecknsspolaris)
-"bn" = (
-/obj/item/raw_material/shard/glass,
-/obj/grille,
-/turf/unsimulated/floor/plating,
 /area/wrecknsspolaris)
 "bo" = (
 /obj/decoration/bustedmantapc/bustedmantapc2,
@@ -3330,11 +3312,7 @@
 /obj/decoration/ntcratesmall,
 /turf/unsimulated/floor/longtile/black,
 /area/mantavault)
-"my" = (
-/obj/map/light/dimreddish,
-/turf/unsimulated/floor/ancient,
-/area/space)
-"uR" = (
+"mV" = (
 /turf/unsimulated/floor/setpieces{
 	desc = "A strange jet black set of metal stairs.";
 	dir = 4;
@@ -3342,13 +3320,8 @@
 	name = "strange stairs"
 	},
 /area/space)
-"yA" = (
-/turf/unsimulated/floor/setpieces{
-	desc = "A strange jet black set of metal stairs.";
-	dir = 8;
-	icon_state = "ancient_stairs";
-	name = "strange stairs"
-	},
+"oc" = (
+/turf/unsimulated/floor/ancient,
 /area/space)
 "AE" = (
 /turf/space,
@@ -3387,14 +3360,36 @@
 /turf/space,
 /turf/space,
 /area/space)
-"Dg" = (
-/turf/unsimulated/floor/ancient,
-/area/space)
+"CZ" = (
+/obj/item/raw_material/shard/glass,
+/obj/grille/steel,
+/turf/unsimulated/floor/plating,
+/area/wrecknsspolaris)
 "Ip" = (
 /turf/unsimulated/wall/trench,
 /area/dank_trench)
-"Si" = (
+"Jz" = (
+/obj/map/light/dimreddish,
+/turf/unsimulated/floor/ancient,
+/area/space)
+"Mp" = (
+/obj/decal/cleanable/blood,
+/turf/simulated/martian/floor,
+/area/evilreaver/security)
+"Of" = (
 /turf/unsimulated/wall/auto/adventure/ancient,
+/area/space)
+"Qq" = (
+/obj/grille/steel,
+/turf/unsimulated/floor/plating,
+/area/wrecknsspolaris)
+"Vo" = (
+/turf/unsimulated/floor/setpieces{
+	desc = "A strange jet black set of metal stairs.";
+	dir = 8;
+	icon_state = "ancient_stairs";
+	name = "strange stairs"
+	},
 /area/space)
 
 (1,1,1) = {"
@@ -5818,7 +5813,7 @@ ab
 ad
 ag
 aq
-ar
+Mp
 aF
 ai
 ad
@@ -7027,7 +7022,7 @@ ad
 ae
 ae
 aB
-aG
+ae
 aK
 ad
 ab
@@ -7042,8 +7037,8 @@ aZ
 bk
 cC
 bg
-bn
-bi
+CZ
+Qq
 br
 br
 bB
@@ -7645,7 +7640,7 @@ gs
 aZ
 aZ
 be
-bi
+Qq
 bm
 bq
 bK
@@ -7931,7 +7926,7 @@ gW
 ab
 ad
 ag
-ar
+Mp
 aC
 ae
 ai
@@ -7947,7 +7942,7 @@ bb
 aZ
 gv
 aZ
-bi
+Qq
 bo
 bs
 bA
@@ -9159,7 +9154,7 @@ be
 bk
 be
 aZ
-bi
+Qq
 bW
 bZ
 cJ
@@ -22935,10 +22930,10 @@ gW
 gW
 gW
 gW
-Si
-Si
-Si
-Si
+Of
+Of
+Of
+Of
 gW
 gW
 gW
@@ -23237,10 +23232,10 @@ gW
 gW
 gW
 gW
-Si
-Dg
-Dg
-Si
+Of
+oc
+oc
+Of
 gW
 gW
 gW
@@ -23532,17 +23527,17 @@ gW
 gW
 gW
 gW
-Si
-Si
-Si
-Si
-Si
-Si
-Si
-Si
-Dg
-Dg
-Si
+Of
+Of
+Of
+Of
+Of
+Of
+Of
+Of
+oc
+oc
+Of
 gW
 gW
 gW
@@ -23833,18 +23828,18 @@ gW
 gW
 gW
 gW
-Si
-Si
-Dg
-Dg
-Dg
-Si
-Dg
-Dg
-Si
-Dg
-Dg
-Si
+Of
+Of
+oc
+oc
+oc
+Of
+oc
+oc
+Of
+oc
+oc
+Of
 gW
 gW
 gW
@@ -24135,18 +24130,18 @@ gW
 gW
 gW
 gW
-Si
-Si
-uR
-Si
-yA
-Si
-my
-Dg
-Si
-Dg
-Dg
-Si
+Of
+Of
+mV
+Of
+Vo
+Of
+Jz
+oc
+Of
+oc
+oc
+Of
 gW
 gW
 gW
@@ -24437,18 +24432,18 @@ gW
 gW
 gW
 gW
-Si
-Si
-Dg
-Si
-Dg
-Si
-Dg
-Dg
-Si
-Dg
-Dg
-Si
+Of
+Of
+oc
+Of
+oc
+Of
+oc
+oc
+Of
+oc
+oc
+Of
 gW
 gW
 gW
@@ -24739,18 +24734,18 @@ gW
 gW
 gW
 gW
-Si
-Si
-Dg
-Si
-Dg
-Dg
-Dg
-Si
-Si
-Dg
-Dg
-Si
+Of
+Of
+oc
+Of
+oc
+oc
+oc
+Of
+Of
+oc
+oc
+Of
 gW
 gW
 gW
@@ -25041,18 +25036,18 @@ gW
 gW
 gW
 gW
-Si
-Si
-Dg
-Si
-Si
-Si
-Si
-Si
-my
-Dg
-Dg
-Si
+Of
+Of
+oc
+Of
+Of
+Of
+Of
+Of
+Jz
+oc
+oc
+Of
 gW
 gW
 gW
@@ -25343,18 +25338,18 @@ gW
 gW
 gW
 gW
-Si
-Si
-Dg
-Dg
-Dg
-Dg
-Dg
-Dg
-Dg
-Dg
-Dg
-Si
+Of
+Of
+oc
+oc
+oc
+oc
+oc
+oc
+oc
+oc
+oc
+Of
 gW
 gW
 gW
@@ -25645,18 +25640,18 @@ gW
 gW
 gW
 gW
-Si
-Si
-my
-Dg
-Dg
-Dg
-Dg
-Dg
-Dg
-Dg
-Dg
-Si
+Of
+Of
+Jz
+oc
+oc
+oc
+oc
+oc
+oc
+oc
+oc
+Of
 gW
 gW
 gW
@@ -25948,17 +25943,17 @@ gW
 gW
 gW
 gW
-Si
-Si
-Si
-Si
-Si
-Dg
-Dg
-Si
-Si
-Si
-Si
+Of
+Of
+Of
+Of
+Of
+oc
+oc
+Of
+Of
+Of
+Of
 gW
 gW
 gW
@@ -26253,12 +26248,12 @@ gW
 gW
 gW
 gW
-Si
-Si
-Dg
-Dg
-Si
-Si
+Of
+Of
+oc
+oc
+Of
+Of
 gW
 gW
 gW
@@ -26556,10 +26551,10 @@ gW
 gW
 gW
 gW
-Si
-Dg
-my
-Si
+Of
+oc
+Jz
+Of
 gW
 gW
 gW
@@ -26858,10 +26853,10 @@ gW
 gW
 gW
 gW
-Si
-Dg
-Dg
-Si
+Of
+oc
+oc
+Of
 gW
 gW
 gW
@@ -27160,10 +27155,10 @@ gW
 gW
 gW
 gW
-Si
-Si
-Si
-Si
+Of
+Of
+Of
+Of
 gW
 gW
 gW

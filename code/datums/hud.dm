@@ -6,6 +6,11 @@
 		..()
 		appearance_flags |= NO_CLIENT_COLOR
 
+	set_loc(atom/newloc)
+		. = ..()
+		if(!isnull(newloc))
+			CRASH("HUD object [identify_object(src)] was moved to [identify_object(newloc)]")
+
 /atom/movable/screen/hud
 	plane = PLANE_HUD
 	var/datum/hud/master
