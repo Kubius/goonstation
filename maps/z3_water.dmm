@@ -3408,6 +3408,15 @@
 /obj/decal/cleanable/blood,
 /turf/simulated/martian/floor,
 /area/evilreaver/security)
+"Nr" = (
+/obj/landmark/viscontents_spawn{
+	targetZ = 5
+	},
+/obj/map/light/lava,
+/turf/unsimulated/floor/ancient,
+/area/abandonedoutpostthing{
+	name = "Enigmatic Subterrane"
+	})
 "Of" = (
 /turf/unsimulated/wall/auto/adventure/ancient,
 /area/abandonedoutpostthing{
@@ -3421,6 +3430,7 @@
 /obj/landmark/viscontents_spawn{
 	targetZ = 5
 	},
+/obj/map/light/lava,
 /turf/unsimulated/floor/setpieces{
 	desc = "A strange jet black set of metal stairs.";
 	dir = 8;
@@ -23575,7 +23585,7 @@ Of
 Of
 Of
 oc
-oc
+Jz
 Of
 gW
 gW
@@ -23869,9 +23879,9 @@ gW
 gW
 Of
 Of
-sq
 zd
 sq
+Nr
 Of
 oc
 oc
@@ -24175,7 +24185,7 @@ mV
 Of
 Vo
 Of
-Jz
+Lc
 oc
 Of
 oc
@@ -24777,7 +24787,7 @@ Of
 Of
 oc
 Of
-oc
+Lc
 oc
 oc
 Of
@@ -25383,7 +25393,7 @@ oc
 oc
 oc
 oc
-oc
+Lc
 oc
 oc
 oc
