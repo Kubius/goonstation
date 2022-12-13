@@ -8,19 +8,7 @@
 /area/fermid_hive{
 	name = "The Hive"
 	})
-"g" = (
-/obj/landmark/viscontents_spawn{
-	targetZ = 3
-	},
-/obj/map/light/dimreddish,
-/turf/unsimulated/floor/ancient,
-/area/fermid_hive{
-	name = "The Hive"
-	})
 "i" = (
-/obj/landmark/viscontents_spawn{
-	targetZ = 3
-	},
 /turf/unsimulated/floor/setpieces{
 	desc = "A strange jet black set of metal stairs.";
 	dir = 4;
@@ -31,9 +19,6 @@
 	name = "The Hive"
 	})
 "w" = (
-/obj/landmark/viscontents_spawn{
-	targetZ = 3
-	},
 /turf/unsimulated/floor/setpieces{
 	desc = "A strange jet black set of metal stairs.";
 	dir = 8;
@@ -20508,9 +20493,9 @@ a
 a
 U
 U
-E
-g
-E
+O
+d
+O
 U
 O
 O
@@ -21416,7 +21401,7 @@ U
 U
 O
 U
-O
+E
 O
 O
 U

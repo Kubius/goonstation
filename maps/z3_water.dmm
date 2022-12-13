@@ -3323,6 +3323,12 @@
 "oc" = (
 /turf/unsimulated/floor/ancient,
 /area/space)
+"sq" = (
+/obj/landmark/viscontents_spawn{
+	targetZ = 3
+	},
+/turf/unsimulated/floor/ancient,
+/area/space)
 "AE" = (
 /turf/space,
 /turf/unsimulated/wall/trench,
@@ -3384,6 +3390,9 @@
 /turf/unsimulated/floor/plating,
 /area/wrecknsspolaris)
 "Vo" = (
+/obj/landmark/viscontents_spawn{
+	targetZ = 3
+	},
 /turf/unsimulated/floor/setpieces{
 	desc = "A strange jet black set of metal stairs.";
 	dir = 8;
@@ -23832,7 +23841,7 @@ Of
 Of
 oc
 oc
-oc
+sq
 Of
 oc
 oc
