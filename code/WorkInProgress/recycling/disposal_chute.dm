@@ -9,6 +9,9 @@
 #define DISPOSAL_CHUTE_CHARGING 1
 #define DISPOSAL_CHUTE_CHARGED 2
 
+TYPEINFO(/obj/machinery/disposal)
+	mats = 20			// whats the point of letting people build trunk pipes if they cant build new disposals?
+ADMIN_INTERACT_PROCS(/obj/machinery/disposal, proc/flush, proc/eject)
 /obj/machinery/disposal
 	name = "disposal unit"
 	desc = "A pressurized trashcan that flushes things you put into it through pipes, usually to disposals."
@@ -28,7 +31,6 @@
 	var/image/handle_image = null
 	var/destination_tag = null
 	var/mail_only = 0 // prevents certain things (mainly people) from entering the chute, barring special conditions
-	mats = 20			// whats the point of letting people build trunk pipes if they cant build new disposals?
 	deconstruct_flags = DECON_WRENCH | DECON_CROWBAR | DECON_WELDER | DECON_SCREWDRIVER
 	power_usage = 100
 
@@ -378,13 +380,8 @@
 
 		if (!loc) return
 
-		use_power(100)		// base power usage
-
 		if(mode != DISPOSAL_CHUTE_CHARGING)		// if off or ready, no need to charge
 			return
-
-		// otherwise charge
-		use_power(500)		// charging power usage
 
 		var/atom/L = loc						// recharging from loc turf
 		var/datum/gas_mixture/env = L.return_air()
@@ -709,8 +706,8 @@
 	proc/checkStillValid()
 		if(isnull(user) || isnull(target) || isnull(chute))
 			interrupt(INTERRUPT_ALWAYS)
-			return false
-		return true
+			return FALSE
+		return TRUE
 
 #undef DISPOSAL_CHUTE_OFF
 #undef DISPOSAL_CHUTE_CHARGING

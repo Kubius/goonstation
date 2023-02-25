@@ -98,6 +98,8 @@ datum
 				M.jitteriness = max(M.jitteriness-25,0)
 				if(M.hasStatus("stimulants"))
 					M.changeStatus("stimulants", -7.5 SECONDS * mult)
+				if(M.hasStatus("recent_trauma"))
+					M.changeStatus("recent_trauma", -5 SECONDS * mult)
 
 				switch(counter += 1 * mult)
 					if(1 to 15)
@@ -263,6 +265,8 @@ datum
 				..()
 
 			on_mob_life(var/mob/M, var/mult = 1)
+				if(M.hasStatus("recent_trauma"))
+					M.changeStatus("recent_trauma", -2.5 SECONDS * mult)
 				if(!M) M = holder.my_atom
 				if(prob(55))
 					M.HealDamage("All", 2 * mult, 0)
@@ -1294,7 +1298,7 @@ datum
 			var/total_misstep = 0
 			value = 18 // 5 4 5 3 1
 			threshold = THRESHOLD_INIT
-			var/list/flushed_reagents = list("sarin")
+			var/list/flushed_reagents = list("saxitoxin")
 
 			cross_threshold_over()
 				if(ismob(holder?.my_atom))
