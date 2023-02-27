@@ -578,7 +578,7 @@
 	icon_state = "1-8"
 	},
 /turf/simulated/floor/circuit/red,
-/area/syndicate_teleporter)
+/area/listeningpost/syndicate_teleporter)
 "awi" = (
 /obj/disposalpipe/segment/vertical,
 /obj/machinery/door_control{
@@ -916,7 +916,7 @@
 /turf/simulated/floor/shuttle{
 	icon_state = "floor4"
 	},
-/area/syndicate_teleporter)
+/area/listeningpost/syndicate_teleporter)
 "aLk" = (
 /obj/disposalpipe/type_sensing_outlet/drone_factory{
 	dir = 4
@@ -1227,7 +1227,7 @@
 	})
 "aYS" = (
 /turf/unsimulated/wall/auto/adventure/shuttle/dark,
-/area/syndicate_teleporter)
+/area/listeningpost/syndicate_teleporter)
 "aYW" = (
 /obj/cable{
 	icon_state = "4-8"
@@ -1266,9 +1266,9 @@
 /area/station/bridge)
 "aZX" = (
 /obj/table/wood/auto,
-/obj/machinery/light/lamp{
-	pixel_x = 1;
-	pixel_y = 10
+/obj/machinery/light/lamp/black{
+	pixel_y = 11;
+	pixel_x = -5
 	},
 /obj/item/card/id/captains_spare{
 	pixel_y = -8
@@ -1970,7 +1970,7 @@
 	pixel_x = 10
 	},
 /turf/simulated/floor/circuit/red,
-/area/syndicate_teleporter)
+/area/listeningpost/syndicate_teleporter)
 "bCB" = (
 /obj/machinery/power/data_terminal,
 /obj/cable{
@@ -2404,7 +2404,7 @@
 /turf/simulated/floor/shuttle{
 	icon_state = "floor4"
 	},
-/area/syndicate_teleporter)
+/area/listeningpost/syndicate_teleporter)
 "bXv" = (
 /obj/machinery/shuttle/engine/heater{
 	dir = 4;
@@ -4609,9 +4609,9 @@
 	})
 "eiF" = (
 /obj/table/wood/auto,
-/obj/machinery/light/lamp{
-	pixel_x = 1;
-	pixel_y = 10
+/obj/machinery/light/lamp/black{
+	pixel_y = 11;
+	pixel_x = -5
 	},
 /obj/machinery/camera{
 	c_tag = "autotag";
@@ -5390,7 +5390,7 @@
 /turf/simulated/floor/shuttle{
 	icon_state = "floor4"
 	},
-/area/syndicate_teleporter)
+/area/listeningpost/syndicate_teleporter)
 "eXX" = (
 /obj/cable{
 	icon_state = "1-2"
@@ -6305,7 +6305,7 @@
 	})
 "fWF" = (
 /obj/table/reinforced/auto,
-/obj/machinery/light/lamp,
+/obj/machinery/light/lamp/black,
 /turf/simulated/floor/black,
 /area/station/security/processing)
 "fWL" = (
@@ -6879,7 +6879,7 @@
 	},
 /obj/machinery/power/apc/autoname_north/noaicontrol,
 /turf/simulated/floor/circuit/red,
-/area/syndicate_teleporter)
+/area/listeningpost/syndicate_teleporter)
 "gBW" = (
 /obj/machinery/vending/cards,
 /turf/simulated/floor/white,
@@ -8370,7 +8370,9 @@
 "ihM" = (
 /obj/disposalpipe/segment/mail/vertical,
 /obj/disposalpipe/segment/mail/horizontal,
-/obj/machinery/computer/mining_shuttle,
+/obj/machinery/computer/transit_shuttle/mining{
+	dir = 4
+	},
 /turf/simulated/floor/engine,
 /area/station/routing/depot{
 	name = "Routing Buoy"
@@ -10027,7 +10029,7 @@
 	name = "Molecular Integrity Hazard"
 	},
 /turf/unsimulated/wall/auto/adventure/shuttle/dark,
-/area/syndicate_teleporter)
+/area/listeningpost/syndicate_teleporter)
 "jMP" = (
 /obj/disposalpipe/segment/mail/horizontal,
 /obj/item/storage/wall/fire{
@@ -10664,9 +10666,6 @@
 /area/station/bridge/hos)
 "kwd" = (
 /obj/table/auto,
-/obj/item/game_kit{
-	pixel_y = -4
-	},
 /obj/machinery/computer/security/wooden_tv/small{
 	pixel_y = 12
 	},
@@ -11562,7 +11561,7 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/circuit/red,
-/area/syndicate_teleporter)
+/area/listeningpost/syndicate_teleporter)
 "lvT" = (
 /obj/stool/chair/red{
 	dir = 1
@@ -12466,7 +12465,7 @@
 "mzv" = (
 /obj/decal/tile_edge/stripe/extra_big,
 /turf/simulated/floor/circuit/red,
-/area/syndicate_teleporter)
+/area/listeningpost/syndicate_teleporter)
 "mzE" = (
 /turf/simulated/wall/auto/reinforced/supernorn,
 /area/station/ranch)
@@ -12893,7 +12892,7 @@
 	pixel_y = 1
 	},
 /obj/machinery/light/lamp/green,
-/obj/deskclutter{
+/obj/decal/cleanable/desk_clutter{
 	pixel_y = -8
 	},
 /obj/machinery/light/small{
@@ -14314,10 +14313,6 @@
 	})
 "okt" = (
 /obj/table/wood/auto,
-/obj/machinery/light/lamp{
-	pixel_x = 1;
-	pixel_y = 10
-	},
 /obj/item/paper_bin{
 	pixel_y = -8
 	},
@@ -14331,6 +14326,10 @@
 	name = "autoname - SS13";
 	pixel_x = 10;
 	tag = ""
+	},
+/obj/machinery/light/lamp/black{
+	pixel_y = 11;
+	pixel_x = -5
 	},
 /turf/simulated/floor/blueblack{
 	dir = 1
@@ -14395,7 +14394,7 @@
 /area/station/science/chemistry)
 "ooI" = (
 /obj/table/auto,
-/obj/deskclutter,
+/obj/decal/cleanable/desk_clutter,
 /obj/decal/cleanable/dirt,
 /obj/item/instrument/bikehorn,
 /obj/decal/cleanable/dirt,
@@ -15342,7 +15341,8 @@
 	})
 "pkY" = (
 /obj/machinery/chemicompiler_stationary,
-/turf/simulated/floor/delivery,
+/obj/decal/stripe_delivery,
+/turf/simulated/floor,
 /area/station/science/chemistry)
 "pln" = (
 /obj/cable{
@@ -15785,7 +15785,8 @@
 	name = "Maru Hangar"
 	})
 "pHL" = (
-/turf/simulated/floor/delivery,
+/obj/decal/stripe_delivery,
+/turf/simulated/floor,
 /area/station/quartermaster/office)
 "pIq" = (
 /obj/machinery/light_switch/east,
@@ -19846,9 +19847,6 @@
 	})
 "udo" = (
 /obj/table/auto,
-/obj/item/game_kit{
-	pixel_y = -4
-	},
 /obj/machinery/computer/security/wooden_tv/small{
 	pixel_y = 12
 	},
@@ -22070,7 +22068,7 @@
 /turf/simulated/floor/shuttle{
 	icon_state = "floor4"
 	},
-/area/syndicate_teleporter)
+/area/listeningpost/syndicate_teleporter)
 "wlS" = (
 /obj/reagent_dispensers/fueltank,
 /obj/machinery/camera{
@@ -23971,7 +23969,7 @@
 /turf/simulated/floor/shuttle{
 	icon_state = "floor4"
 	},
-/area/syndicate_teleporter)
+/area/listeningpost/syndicate_teleporter)
 "yhK" = (
 /obj/forcefield/energyshield/perma/doorlink{
 	desc = "A door-linked force field that prevents gasses from passing through it.";
