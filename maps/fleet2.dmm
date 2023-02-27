@@ -2431,6 +2431,7 @@
 /obj/stool/chair/red{
 	dir = 8
 	},
+/obj/machinery/door_timer/genpop/new_walls/north,
 /turf/simulated/floor/black,
 /area/station/security/processing)
 "bYk" = (
