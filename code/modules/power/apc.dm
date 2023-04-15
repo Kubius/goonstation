@@ -1247,8 +1247,8 @@ ADMIN_INTERACT_PROCS(/obj/machinery/power/apc, proc/toggle_operating, proc/zapSt
 				// with the above "drain the apc immediately"
 				// cell charge = (per apc + charge) - drain
 				cell.charge = min(cell.maxcharge, cell.charge + CELLRATE * perapc)	//recharge with what we can
-				// then take the entire allotment from the grid
-				add_load(perapc)
+				// then inform grid of current drain rate
+				add_load(cellused/CELLRATE)
 				// and turn off charging
 				charging = 0
 
