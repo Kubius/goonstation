@@ -7355,7 +7355,7 @@
 /turf/simulated/floor/carpet/grime,
 /area/space)
 "pTB" = (
-/obj/machinery/computer/research_shuttle{
+/obj/machinery/computer/transit_shuttle/research{
 	dir = 4
 	},
 /turf/simulated/floor,
