@@ -572,9 +572,6 @@
 	dir = 1
 	},
 /area/space)
-"bRV" = (
-/obj/grille/catwalk/jen/turf/simulated/floor/plating/jen,
-/area/station/maintenance/north)
 "bSJ" = (
 /turf/simulated/floor/bluewhite,
 /area/station/medical/research{
@@ -7922,15 +7919,15 @@
 /obj/item/clothing/under/swimsuit/random,
 /obj/item/clothing/under/swimsuit/random,
 /obj/item/clothing/under/swimsuit/random,
-/obj/item/clothing/under/shorts/random{
+/obj/item/clothing/under/shorts/random_color{
 	name = "swimming trunks";
 	rand_pos = 1
 	},
-/obj/item/clothing/under/shorts/random{
+/obj/item/clothing/under/shorts/random_color{
 	name = "swimming trunks";
 	rand_pos = 1
 	},
-/obj/item/clothing/under/shorts/random{
+/obj/item/clothing/under/shorts/random_color{
 	name = "swimming trunks";
 	rand_pos = 1
 	},
@@ -10984,7 +10981,7 @@
 /turf/simulated/floor/plating/jen,
 /area/station/maintenance/northwest)
 "wUa" = (
-/obj/machinery/computer/research_shuttle{
+/obj/machinery/computer/transit_shuttle/research{
 	dir = 8
 	},
 /turf/simulated/floor,
@@ -53416,10 +53413,10 @@ aaa
 kug
 oNP
 iXs
-bRV
+oNP
 oNP
 iXs
-bRV
+oNP
 oNP
 oPi
 kMI
