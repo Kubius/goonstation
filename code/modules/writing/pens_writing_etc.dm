@@ -19,7 +19,8 @@
 	icon = 'icons/obj/writing.dmi'
 	inhand_image_icon = 'icons/mob/inhand/hand_tools.dmi'
 	icon_state = "pen"
-	flags = FPRINT | ONBELT | TABLEPASS
+	flags = FPRINT | TABLEPASS
+	c_flags = ONBELT
 	throwforce = 0
 	w_class = W_CLASS_TINY
 	throw_speed = 7
@@ -68,6 +69,7 @@
 		">" = "Greater Than",
 		"[CREDIT_SIGN]" = "Credit"
 	)
+	var/suitable_for_canvas = TRUE
 
 	New()
 		. = ..()
@@ -78,7 +80,7 @@
 		..()
 		if (!src.spam_flag_sound && src.clicknoise)
 			src.spam_flag_sound = 1
-			playsound(user, 'sound/items/penclick.ogg', 50, 1)
+			playsound(user, 'sound/items/penclick.ogg', 50, TRUE)
 			if (!src.spam_flag_message)
 				src.spam_flag_message = 1
 				user.visible_message("<span style='color:#888888;font-size:80%'>[user] clicks [src].</span>")
@@ -99,7 +101,7 @@
 			drawing.setMaterial(src.material)
 			src.material_uses--
 			if(src.material_uses <= 0)
-				boutput(user, "<span class='notice'>[src.material.name] rubs off of [src].</span>")
+				boutput(user, "<span class='notice'>[src.material.getName()] rubs off of [src].</span>")
 				src.removeMaterial()
 			return TRUE
 		return FALSE
@@ -110,8 +112,8 @@
 		if(!user.literate)
 			boutput(user, "<span class='alert'>You don't know how to write.</span>")
 			return
-		src.in_use = 1
-		var/t = input(user, "What do you want to write?", null, null) as null|text
+		src.in_use = TRUE
+		var/t = tgui_input_text(user, "What do you want to write?", "Write")
 		if (!t || BOUNDS_DIST(T, user) > 0)
 			src.in_use = 0
 			return
@@ -119,7 +121,7 @@
 		var/obj/decal/cleanable/writing/G = make_cleanable(/obj/decal/cleanable/writing, T)
 		G.artist = user.key
 
-		logTheThing(LOG_STATION, user, "writes on [T] with [src][src.material ? " (material: [src.material.name])" : null] [log_loc(T)]: [t]")
+		logTheThing(LOG_STATION, user, "writes on [T] with [src][src.material ? " (material: [src.material.getName()])" : null] [log_loc(T)]: [t]")
 		t = copytext(html_encode(t), 1, MAX_MESSAGE_LEN)
 		if (src.font_color)
 			G.color = src.font_color
@@ -142,10 +144,15 @@
 			src.reagents.clear_reagents()
 
 			src.remove_filter("reagent_coloration")
-			src.color_name = initial(src.color_name)
-			src.font_color = initial(src.font_color)
+			src.reset_color()
 
-		src.in_use = 0
+		src.in_use = FALSE
+
+	/// Reset the color of this crayon. Default behavior is to reset to initial color, but random crayons might save their color and rainbow ones
+	/// might just re-randomize, etc
+	proc/reset_color()
+		src.color_name = initial(src.color_name)
+		src.font_color = initial(src.font_color)
 
 	onMaterialChanged()
 		..()
@@ -181,15 +188,15 @@
 			src.add_filter("reagent_coloration", 1, color_matrix_filter(normalize_color_to_matrix(src.reagents.get_average_rgb())))
 			src.color = src.reagents.get_average_color()
 			src.font_color = src.color
-			src.color_name = get_nearest_color(src.reagents.get_average_color()) // why the fuck are there 3 vars for this
+			src.color_name = get_nearest_color(src.reagents.get_average_color())
 
 			if (src.material)
 				src.removeMaterial() // no
 				src.visible_message("<span class='alert'>Dipping [src] causes the material to slough off.</span>")
 
-	setMaterial(datum/material/mat1, appearance, setname, copy, use_descriptors)
+	setMaterial(var/datum/material/mat1, var/appearance = TRUE, var/setname = TRUE, var/mutable = FALSE, var/use_descriptors = FALSE)
 		. = ..()
-		src.reagents.clear_reagents() // no
+		src.reagents?.clear_reagents() // no
 
 	custom_suicide = TRUE
 	suicide(var/mob/user as mob)
@@ -412,9 +419,15 @@
 		font_color = "#FF00FF"
 
 	random
+		var/picked_color
+
 		New()
 			..()
-			src.color = random_color()
+			src.picked_color = random_color()
+			src.reset_color()
+
+		reset_color()
+			src.color = picked_color
 			src.font_color = src.color
 			src.name = "[hex2color_name(src.color)] marker"
 
@@ -484,6 +497,12 @@
 		font_color = "#FF00FF"
 		color_name = "pink"
 
+	transparent
+		name = "transparent crayon"
+		color = "#aaaaaa"
+		font_color = "#00000000"
+		color_name = "transparent"
+
 	golden // HoP's crayon
 		name = "golden crayon"
 		desc = "The result of years of bribes and extreme bureaucracy."
@@ -498,9 +517,15 @@
 			src.setMaterial(getMaterial("gold"))
 
 	random
+		var/picked_color
+
 		New()
 			..()
-			src.color = random_color()
+			src.picked_color = random_color()
+			src.reset_color()
+
+		reset_color()
+			src.color = src.picked_color
 			src.font_color = src.color
 			src.color_name = hex2color_name(src.color)
 			src.name = "[src.color_name] crayon"
@@ -509,11 +534,9 @@
 			desc = "Don't shove it up your nose, no matter how good of an idea that may seem to you.  You might not get it back. Spin it, go ahead, you know you want to."
 
 			on_spin_emote(var/mob/living/carbon/human/user as mob)
-				..(user)
-				src.color = random_color()
-				src.font_color = src.color
-				src.color_name = hex2color_name(src.color)
-				src.name = "[src.color_name] crayon"
+				..()
+				src.picked_color = random_color()
+				src.reset_color()
 				user.visible_message("<span class='notice'><b>\"Something\" special happens to [src]!</b></span>")
 
 		robot
@@ -521,10 +544,8 @@
 
 			attack(mob/M, mob/user, def_zone)
 				if (M == user)
-					src.color = random_color()
-					src.font_color = src.color
-					src.color_name = hex2color_name(src.color)
-					src.name = "[src.color_name] crayon"
+					src.picked_color = random_color()
+					src.reset_color()
 					user.visible_message("<span class='notice'><b>\"Something\" special happens to [src]!</b></span>")
 					return
 
@@ -594,8 +615,9 @@
 		src.in_use = 1
 		. = tgui_input_list(user, "What do you want to write?", "Write something", (isghostdrone(user) || !user.literate) ? src.c_symbol : (list("queue input") + src.c_default + src.c_symbol))
 		if(. == "queue input")
-			var/inp = input(user, "Type letters you want to write.", "Crayon Leter Queue", null)
+			var/inp = tgui_input_text(user, "Type letters you want to write.", "Crayon Letter Queue")
 			inp = uppertext(inp)
+			phrase_log.log_phrase("crayon-queue", inp, no_duplicates=TRUE)
 			. = list()
 			for(var/i = 1 to min(length(inp), 100))
 				var/c = copytext(inp, i, i + 1)
@@ -676,7 +698,7 @@
 		G.artist = user.key
 
 		if(user.client) //I don't give a damn about monkeys writing stuff with crayon!!
-			logTheThing(LOG_STATION, user, "writes on [T] with [src][src.material ? " (material: [src.material.name])" : null] [log_loc(T)]: [t]")
+			logTheThing(LOG_STATION, user, "writes on [T] with [src][src.material ? " (material: [src.material.getName()])" : null] [log_loc(T)]: [t]")
 
 		var/size = 32
 
@@ -708,8 +730,7 @@
 			src.reagents.trans_to(G, PEN_REAGENT_CAPACITY)
 
 			src.remove_filter("reagent_coloration")
-			src.color_name = initial(src.color_name)
-			src.font_color = initial(src.font_color)
+			src.reset_color()
 
 	get_desc()
 		. = ..()
@@ -730,12 +751,13 @@
 	var/chalk_health = 10 //10 uses before it snaps
 
 	random
+		var/picked_color
 		New()
 			..()
-			src.color = "#[num2hex(rand(0, 255),2)][num2hex(rand(0, 255),2)][num2hex(rand(0, 255),2)]"
-			src.font_color = src.color
-			src.color_name = hex2color_name(src.color)
-			src.name = "[src.color_name] chalk"
+			src.assign_color(src.picked_color)
+
+		reset_color()
+			src.assign_color(src.picked_color)
 
 	proc/assign_color(var/color)
 		if(isnull(color))
@@ -768,6 +790,9 @@
 			src.icon_state = "chalk-0"
 		else
 			src.icon_state = "chalk-[src.chalk_health]"
+
+	reset_color()
+		src.assign_color(initial(src.color))
 
 	write_on_turf(var/turf/T as turf, var/mob/user as mob)
 		..()
@@ -819,14 +844,14 @@
 			boutput(user, "<span class='alert'>You don't know how to write.</span>")
 			return
 		src.in_use = 1
-		var/t = input(user, "What do you want to write?", null, null) as null|text
+		var/t = tgui_input_text(user, "What do you want to write?", "Write")
 		if (!t || BOUNDS_DIST(T, user) > 0)
 			src.in_use = 0
 			return
 		var/obj/decal/cleanable/writing/infrared/G = make_cleanable(/obj/decal/cleanable/writing/infrared,T)
 		G.artist = user.key
 
-		logTheThing(LOG_STATION, user, "writes on [T] with [src][src.material ? " (material: [src.material.name])" : null] [log_loc(T)]: [t]")
+		logTheThing(LOG_STATION, user, "writes on [T] with [src][src.material ? " (material: [src.material.getName()])" : null] [log_loc(T)]: [t]")
 		t = copytext(html_encode(t), 1, MAX_MESSAGE_LEN)
 		if (src.font_color)
 			G.color = src.font_color
@@ -855,11 +880,13 @@
 	name = "hand labeler"
 	icon = 'icons/obj/writing.dmi'
 	icon_state = "labeler"
+	inhand_image_icon = 'icons/mob/inhand/hand_tools.dmi'
 	item_state = "labeler"
 	desc = "Make things seem more important than they really are with the hand labeler!<br/>Can also name your fancy new area by naming the fancy new APC you created for it."
 	var/label = null
 	var/labels_left = 10
-	flags = FPRINT | TABLEPASS | SUPPRESSATTACK | ONBELT
+	flags = FPRINT | TABLEPASS | SUPPRESSATTACK
+	c_flags = ONBELT
 	rand_pos = 1
 
 	get_desc()
@@ -900,7 +927,7 @@
 			return
 		tooltip_rebuild = 1
 		var/holder = src.loc
-		var/str = copytext(html_encode(input(user,"Label text?","Set label","") as null|text), 1, 32)
+		var/str = copytext(html_encode(tgui_input_text(user, "Label text?", "Set label", allowEmpty = TRUE)), 1, 32)
 		if(str)
 			phrase_log.log_phrase("label", str, no_duplicates=TRUE)
 		if (src.loc != holder)
@@ -916,7 +943,7 @@
 			return
 		src.label = "[str]"
 		boutput(user, "<span class='notice'>You set the text to '[str]'.</span>")
-		logTheThing(LOG_COMBAT, user, "sets a hand labeler label to \"[str]\".")
+		logTheThing(LOG_STATION, user, "sets a hand labeler label to \"[str]\".")
 
 	proc/RemoveLabel(var/atom/A, var/mob/user, var/no_message = 0)
 		if(!islist(A.name_suffixes))
@@ -950,9 +977,9 @@
 				A.name_suffixes = list()
 			A.name_suffix("([src.label])")
 			A.UpdateName()
-		playsound(src, 'sound/items/hand_label.ogg', 40, 1)
+		playsound(src, 'sound/items/hand_label.ogg', 40, TRUE)
 		if (user && !no_message)
-			logTheThing(LOG_COMBAT, user, "labels [constructTarget(A,"combat")] with \"[src.label]\"")
+			logTheThing(LOG_STATION, user, "labels [constructTarget(A,"combat")] with \"[src.label]\"")
 		else if(!no_message)
 			logTheThing(LOG_COMBAT, A, "has a label applied to them, \"[src.label]\"")
 		A.add_fingerprint(user)
@@ -965,10 +992,7 @@
 		src.label = "DEAD"
 		Label(user,user,1)
 
-		user.TakeDamage("chest", 300, 0) //they have to die fast or it'd make even less sense
-		SPAWN(50 SECONDS)
-			if (user && !isdead(user))
-				user.suiciding = 0
+		user.death()
 		return 1
 
 /* =============== CLIPBOARDS =============== */
@@ -1090,7 +1114,7 @@
 	attackby(obj/item/P, mob/user)
 
 		if (istype(P, /obj/item/paper) || istype(P, /obj/item/photo))
-			if (src.contents.len < 15)
+			if (length(src.contents) < 15)
 				user.drop_item()
 				P.set_loc(src)
 			else
@@ -1164,7 +1188,7 @@
 
 	attackby(var/obj/item/W, var/mob/user)
 		if (istype(W, /obj/item/paper))
-			if (src.contents.len < 10)
+			if (length(src.contents) < 10)
 				boutput(user, "You cram the paper into the folder.")
 				user.drop_item()
 				W.set_loc(src)
@@ -1320,10 +1344,10 @@
 				src.pages += P
 				P.set_loc(src)
 				S.ammo--
-				if (pages.len >= 10 && !icon_state == "booklet-thick")
+				if (length(pages) >= 10 && !icon_state == "booklet-thick")
 					src.icon_state = "booklet-thick"
 				src.visible_message("[user] staples [P] at the back of [src].")
-				playsound(user,'sound/impact_sounds/Generic_Snap_1.ogg', 50, 1)
+				playsound(user,'sound/impact_sounds/Generic_Snap_1.ogg', 50, TRUE)
 			else
 				boutput(user, "<span class='alert'>You need a loaded stapler in hand to add this paper to the booklet.</span>")
 		else
@@ -1368,7 +1392,7 @@
 			P.pixel_y = text2num(params["icon-y"]) - 16 //round(A.bound_height/2)
 
 		P.layer = A.layer + 1 //Do this instead so the stickers don't show over bushes and stuff.
-		P.appearance_flags = RESET_COLOR
+		P.appearance_flags = RESET_COLOR | PIXEL_SCALE
 
 		user.visible_message("<b>[user]</b> sticks a sticky note to [T].",\
 		"You stick a sticky note to [T].")
@@ -1397,7 +1421,8 @@
 	desc = "A portable typewriter, whoa!"
 	icon_state = "portable_typewriter"
 	icon = 'icons/obj/writing.dmi'
-	flags = FPRINT | ONBELT | TABLEPASS
+	flags = FPRINT | TABLEPASS
+	c_flags = ONBELT
 	throwforce = 0
 	w_class = W_CLASS_TINY
 	var/paper_creation_cooldown = 1 MINUTE
@@ -1446,7 +1471,7 @@
 		boutput(user, "<span class='notice'>\The [src] ejects \the [src.stored_paper].</span>")
 		if(!ON_COOLDOWN(src, "eject_sound", 3 SECONDS))
 			playsound(src.loc, 'sound/machines/typewriter.ogg', 60, 0)
-			// CC0 license on the sound, source here: https://freesound.org/people/tams_kp/sounds/43559/
+			// CC0 license on the sound, source here: https://freesound.org/people/tams_kp/sounds/43559
 		src.stored_paper.set_loc(target)
 		src.stored_paper = null
 		src.UpdateIcon()

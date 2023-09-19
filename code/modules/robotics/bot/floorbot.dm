@@ -35,7 +35,7 @@
 	icon_state = "floorbot0"
 	layer = 5.0 //TODO LAYER
 	density = 0
-	anchored = 0
+	anchored = UNANCHORED
 	bot_move_delay = FLOORBOT_MOVE_SPEED
 	//weight = 1.0E7
 	var/amount = 50
@@ -162,9 +162,7 @@
 		src.UpdateIcon()
 	//Regular ID
 	else
-		if (istype(W, /obj/item/device/pda2) && W:ID_card)
-			W = W:ID_card
-		if (istype(W, /obj/item/card/id))
+		if (istype(get_id_card(W), /obj/item/card/id))
 			if (src.allowed(user))
 				src.locked = !src.locked
 				boutput(user, "You [src.locked ? "lock" : "unlock"] the [src] behaviour controls.")
@@ -286,7 +284,7 @@
 		if (A.density && !(A.flags & ON_BORDER) && !istype(A, /obj/machinery/door) && !ismob(A))
 			var/coord = turf2coordinates(get_turf(A))
 			targets_invalid |= coord
-			return true
+			return TRUE
 
 
 
@@ -349,7 +347,7 @@
 	if(give_up)
 		src.floorbottargets -= turf2coordinates(src.target)
 		src.target = null
-		src.anchored = 0
+		src.anchored = UNANCHORED
 		src.UpdateIcon()
 		src.repairing = 0
 		src.oldtarget = null
@@ -511,7 +509,7 @@
 			interrupt(INTERRUPT_ALWAYS)
 			return
 
-		master.anchored = 1
+		master.anchored = ANCHORED
 		master.icon_state = "floorbot-c"
 		master.repairing = 1
 		src.new_tile = 0
@@ -542,7 +540,7 @@
 			interrupt(INTERRUPT_ALWAYS)
 			return
 		attack_twitch(master)
-		playsound(master, 'sound/impact_sounds/Generic_Stab_1.ogg', 50, 1)
+		playsound(master, 'sound/impact_sounds/Generic_Stab_1.ogg', 50, TRUE)
 
 	onInterrupt()
 		. = ..()
@@ -552,7 +550,7 @@
 		..()
 		if (!master.target)
 			return
-		playsound(master, 'sound/impact_sounds/Generic_Stab_1.ogg', 50, 1)
+		playsound(master, 'sound/impact_sounds/Generic_Stab_1.ogg', 50, TRUE)
 		if (new_tile)
 			// Make a new tile
 			var/obj/item/tile/T = new /obj/item/tile/steel
@@ -567,7 +565,7 @@
 		master.repairing = 0
 		master.amount -= 1
 		master.UpdateIcon()
-		master.anchored = 0
+		master.anchored = UNANCHORED
 		master.floorbottargets -= master.turf2coordinates(master.target)
 		master.target = master.find_target(1)
 
@@ -582,7 +580,7 @@
 	New(var/the_bot, var/_target)
 		src.master = the_bot
 
-		master.anchored = 1
+		master.anchored = ANCHORED
 		master.icon_state = "floorbot-c"
 		master.repairing = 1
 
@@ -604,7 +602,7 @@
 			interrupt(INTERRUPT_ALWAYS)
 			return
 		attack_twitch(master)
-		playsound(master, 'sound/items/Welder.ogg', 50, 1)
+		playsound(master, 'sound/items/Welder.ogg', 50, TRUE)
 
 	onInterrupt()
 		. = ..()
@@ -612,7 +610,7 @@
 
 	onEnd()
 		..()
-		playsound(master, 'sound/impact_sounds/Generic_Stab_1.ogg', 50, 1)
+		playsound(master, 'sound/impact_sounds/Generic_Stab_1.ogg', 50, TRUE)
 		var/turf/simulated/floor/T = master.target
 		if(!istype(T))
 			interrupt(INTERRUPT_ALWAYS)
@@ -627,6 +625,6 @@
 		T.ReplaceWithSpace()
 		master.repairing = 0
 		master.UpdateIcon()
-		master.anchored = 0
+		master.anchored = UNANCHORED
 		master.floorbottargets -= master.turf2coordinates(master.target)
 		master.target = master.find_target(1)

@@ -8,7 +8,7 @@ var/global/the_automaton = null
 	desc = "What is this thing? A toy? A machine? What is it doing? Why does it seem to be watching you?"
 	icon_state = "automaton"
 	health = 1000 // what kind of jerk would kill it
-	anchored = 1
+	anchored = ANCHORED
 	aggressive = 0
 	defensive = 0
 	wanderer = 0
@@ -113,7 +113,7 @@ var/global/the_automaton = null
 			for (var/mob/M in view(7,src))
 				mobsnearby.Add("[M.name]")
 			var/mob/M1 = null
-			if (mobsnearby.len > 0) // somehow this returned a blank list once wtf
+			if (length(mobsnearby) > 0) // somehow this returned a blank list once wtf
 				M1 = pick(mobsnearby)
 			if (M1 && prob(50)) // do we see anyone
 				if (!src.muted)
@@ -123,7 +123,7 @@ var/global/the_automaton = null
 				switch (current_loc.type)
 					if (/area/solarium)
 
-						src.set_dir(4)
+						src.set_dir(EAST)
 						if (!src.muted)
 							src.visible_message("<span class='alert'><b>[src]</b> stares into the sun.</span>")
 					if (/area/station/engine/core)
@@ -176,7 +176,7 @@ var/global/the_automaton = null
 				playsound(src.loc, 'sound/misc/automaton_scratch.ogg', 60, 1)
 				user.changeStatus("stunned", 5 SECONDS)
 				user.canmove = 0
-				user.anchored = 1
+				user.anchored = ANCHORED
 				user.set_loc(src.loc)
 				K.burn_possible = 1
 				SPAWN(2 SECONDS)
@@ -409,7 +409,7 @@ var/global/the_automaton = null
 		var/obj/decal/teleport_swirl/swirl = new /obj/decal/teleport_swirl
 		swirl.set_loc(target_turf)
 		swirl.pixel_y = 10
-		playsound(target_turf, 'sound/effects/teleport.ogg', 50, 1)
+		playsound(target_turf, 'sound/effects/teleport.ogg', 50, TRUE)
 		SPAWN(1.5 SECONDS)
 			swirl.pixel_y = 0
 			qdel(swirl)

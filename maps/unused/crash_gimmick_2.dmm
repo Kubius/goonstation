@@ -10,8 +10,6 @@
 "aq" = (
 /obj/machinery/door/airlock/external,
 /obj/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/shuttle,
@@ -31,9 +29,7 @@
 /area/space)
 "aP" = (
 /obj/item/device/radio/beacon,
-/obj/landmark{
-	name = "Observer-Start"
-	},
+/obj/landmark/observer,
 /turf/simulated/floor/shuttle,
 /area/shuttle/arrival/station)
 "bi" = (
@@ -120,8 +116,6 @@
 "fB" = (
 /obj/machinery/door/airlock/external,
 /obj/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/forcefield/energyshield/perma{
@@ -180,8 +174,6 @@
 /area/shuttle/arrival/station)
 "iQ" = (
 /obj/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /obj/machinery/camera{
@@ -221,7 +213,7 @@
 	},
 /area/built_zone)
 "jT" = (
-/obj/machinery/atmospherics/valve,
+/obj/machinery/atmospherics/binary/valve,
 /turf/simulated/floor/shuttle,
 /area/shuttle/arrival/station)
 "ky" = (
@@ -243,7 +235,6 @@
 /area/shuttle/arrival/station)
 "kQ" = (
 /obj/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /obj/machinery/power/furnace,
@@ -258,8 +249,7 @@
 /area/shuttle/arrival/station)
 "le" = (
 /obj/machinery/manufacturer/general{
-	free_resource_amt = 999;
-	mats = 999
+	free_resource_amt = 999
 	},
 /turf/simulated/floor/shuttle,
 /area/shuttle/arrival/station)
@@ -326,7 +316,6 @@
 /area/shuttle_sound_spawn)
 "nn" = (
 /obj/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /turf/simulated/floor/plating,
@@ -352,7 +341,6 @@
 /area/shuttle/escape/station)
 "oo" = (
 /obj/cable{
-	d2 = 8;
 	icon_state = "0-8"
 	},
 /turf/simulated/floor/plating/random{
@@ -413,13 +401,9 @@
 /area/built_zone)
 "qB" = (
 /obj/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /obj/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4"
 	},
 /turf/simulated/floor/shuttle,
@@ -450,8 +434,6 @@
 	icon_state = "4-8"
 	},
 /obj/cable{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4"
 	},
 /turf/simulated/floor/plating/random{
@@ -488,8 +470,6 @@
 "sU" = (
 /obj/machinery/door/unpowered/shuttle,
 /obj/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/shuttlebay,
@@ -516,7 +496,6 @@
 /area/built_zone)
 "ty" = (
 /obj/cable{
-	d2 = 8;
 	icon_state = "0-8"
 	},
 /turf/simulated/floor/plating,
@@ -529,8 +508,6 @@
 	icon_state = "1-8"
 	},
 /obj/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4"
 	},
 /turf/simulated/floor/plating/random{
@@ -587,7 +564,6 @@
 /area/shuttle/arrival/station)
 "yu" = (
 /obj/cable{
-	d2 = 8;
 	icon_state = "0-8"
 	},
 /obj/machinery/power/apc{
@@ -624,7 +600,7 @@
 	},
 /area/space)
 "yX" = (
-/obj/wingrille_spawn/auto/crystal,
+/obj/mapping_helper/wingrille_spawn/auto/crystal,
 /turf/simulated/floor/shuttlebay,
 /area/shuttle/arrival/station)
 "zB" = (
@@ -713,8 +689,7 @@
 	tag = ""
 	},
 /obj/machinery/manufacturer/mechanic{
-	free_resource_amt = 999;
-	mats = 999
+	free_resource_amt = 999
 	},
 /turf/simulated/floor/shuttle,
 /area/shuttle/arrival/station)
@@ -737,7 +712,7 @@
 	},
 /area/built_zone)
 "Db" = (
-/obj/machinery/computer/mining_shuttle,
+/obj/machinery/computer/transit_shuttle/mining,
 /turf/simulated/floor/shuttlebay{
 	desc = " It is made of steel.";
 	name = "steel shuttle bay plating"
@@ -913,7 +888,6 @@
 /area/shuttle/arrival/station)
 "HX" = (
 /obj/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /obj/table/reinforced/auto,
@@ -958,12 +932,10 @@
 /area/shuttle/arrival/station)
 "JP" = (
 /obj/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /obj/machinery/power/rtg,
 /obj/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /turf/simulated/floor/shuttlebay,
@@ -986,8 +958,6 @@
 "Kq" = (
 /obj/landmark/start/latejoin,
 /obj/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4"
 	},
 /turf/simulated/floor/shuttlebay,
@@ -1067,8 +1037,6 @@
 /area/space)
 "NT" = (
 /obj/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/shuttle,
@@ -1296,15 +1264,12 @@
 "UK" = (
 /obj/landmark/start/latejoin,
 /obj/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/shuttle,
 /area/shuttle/arrival/station)
 "UN" = (
 /obj/cable{
-	d2 = 8;
 	icon_state = "0-4"
 	},
 /turf/simulated/floor/plating/random{
@@ -1313,7 +1278,7 @@
 	},
 /area/built_zone)
 "UQ" = (
-/obj/wingrille_spawn/auto,
+/obj/mapping_helper/wingrille_spawn/auto,
 /turf/simulated/floor/plating/random{
 	desc = " It is made of steel.";
 	name = "steel plating"
@@ -1342,15 +1307,8 @@
 /obj/item/kitchen/utensil/knife,
 /turf/simulated/floor/shuttle,
 /area/shuttle/arrival/station)
-"Xi" = (
-/obj/landmark{
-	name = "JoinLate"
-	},
-/turf/simulated/floor/shuttle,
-/area/shuttle/arrival/station)
 "Xp" = (
 /obj/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /obj/machinery/power/furnace,
@@ -1370,8 +1328,6 @@
 /area/space)
 "Yn" = (
 /obj/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/shuttle,
@@ -1387,9 +1343,7 @@
 	},
 /area/space)
 "Yy" = (
-/obj/landmark/start{
-	name = "AI"
-	},
+/obj/landmark/start/job/AI,
 /turf/simulated/floor/shuttle,
 /area/shuttle/arrival/station)
 "YD" = (
@@ -46192,7 +46146,7 @@ xY
 xY
 xY
 tK
-Xi
+xY
 tK
 SL
 mb
@@ -49812,8 +49766,8 @@ ay
 ay
 ay
 AG
-Db
 jc
+Db
 AG
 ay
 ay

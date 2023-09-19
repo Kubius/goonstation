@@ -38,7 +38,7 @@
 		src.initial_volume = S.initial_volume
 		src.initial_reagents = S.initial_reagents
 
-		if(S.food_effects.len <= 4)
+		if(length(S.food_effects) <= 4)
 			src.food_effects = S.food_effects
 		else
 			var/list/temp = S.food_effects
@@ -58,14 +58,16 @@
 		else
 			src.UpdateOverlays(null, "fluid")
 
+TYPEINFO(/obj/stove)
+	mats = 18
+
 /obj/stove
 	name = "stove"
 	desc = "A perfectly ordinary kitchen stove; not that you'll be doing anything ordinary with it.<br>It seems this model doesn't have a built in igniter, so you'll have to light it manually."
 	icon = 'icons/obj/soup_pot.dmi'
 	icon_state = "stove0"
-	anchored = 1
+	anchored = ANCHORED
 	density = 1
-	mats = 18
 	deconstruct_flags = DECON_WRENCH | DECON_CROWBAR | DECON_WELDER
 	var/obj/item/soup_pot/pot
 	var/on = 0

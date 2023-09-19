@@ -215,7 +215,7 @@ ABSTRACT_TYPE(/datum/projectile/special)
 	name = "fragments"
 	sname = "fragments"
 	cost = 1
-	pellets_to_fire = 4
+	pellets_to_fire = 6
 	casing = /obj/item/casing/shotgun/pipe
 	spread_projectile_type = /datum/projectile/bullet/improvplasglass
 	shot_sound = 'sound/weapons/shotgunshot.ogg'
@@ -229,7 +229,7 @@ ABSTRACT_TYPE(/datum/projectile/special)
 	name = "glass"
 	sname = "glass"
 	cost = 1
-	pellets_to_fire = 6
+	pellets_to_fire = 7
 	casing = /obj/item/casing/shotgun/pipe
 	shot_sound = 'sound/weapons/shotgunshot.ogg'
 	speed_max = 36
@@ -242,7 +242,7 @@ ABSTRACT_TYPE(/datum/projectile/special)
 	name = "fragments"
 	sname = "fragments"
 	cost = 1
-	pellets_to_fire = 3
+	pellets_to_fire = 5
 	casing = /obj/item/casing/shotgun/pipe
 	shot_sound = 'sound/weapons/shotgunshot.ogg'
 	speed_max = 40
@@ -287,6 +287,18 @@ ABSTRACT_TYPE(/datum/projectile/special)
 	shot_sound = 'sound/weapons/radxbow.ogg'
 
 
+/datum/projectile/special/spreader/buckshot_burst/foamdarts
+	name = "foam dart"
+	sname = "foam dart"
+	spread_angle_variance = 22.5
+	damage = 0
+	speed_max = 32
+	speed_min = 20
+	cost = 6
+	casing = null
+	pellets_to_fire = 6
+	spread_projectile_type = /datum/projectile/bullet/foamdart
+	shot_sound = 'sound/effects/syringeproj.ogg'
 
 // Really crazy shit
 
@@ -325,7 +337,7 @@ ABSTRACT_TYPE(/datum/projectile/special)
 				sfloors -= Q
 
 	on_hit(var/atom/A)
-		playsound(A, 'sound/weapons/energy/LightningCannonImpact.ogg', 50, 1)
+		playsound(A, 'sound/weapons/energy/LightningCannonImpact.ogg', 50, TRUE)
 		var/list/sfloors = list()
 		for (var/turf/T in view(shock_range, A))
 			if (!T.density)
@@ -370,7 +382,7 @@ ABSTRACT_TYPE(/datum/projectile/special)
 		fireflash_sm(get_turf(P), burn_range, temperature)
 
 	on_hit(var/atom/A)
-		playsound(A, 'sound/effects/ExplosionFirey.ogg', 100, 1)
+		playsound(A, 'sound/effects/ExplosionFirey.ogg', 100, TRUE)
 		fireflash_sm(get_turf(A), blast_size, temperature)
 
 /datum/projectile/special/howitzer
@@ -413,7 +425,7 @@ ABSTRACT_TYPE(/datum/projectile/special)
 
 	on_hit(var/atom/A)
 		var/turf/T = get_turf(A)
-		playsound(A, 'sound/effects/ExplosionFirey.ogg', 60, 1)
+		playsound(A, 'sound/effects/ExplosionFirey.ogg', 60, TRUE)
 		if(!src.impacted)
 			playsound_global(world, 'sound/weapons/energy/howitzer_impact.ogg', 60)
 			src.impacted = 1
@@ -433,9 +445,10 @@ ABSTRACT_TYPE(/datum/projectile/special)
 	sname  = "meowitzer"
 	icon = 'icons/misc/critter.dmi'
 	icon_state = "cat1"
-	dissipation_delay = 75
-	dissipation_rate = 300
+	max_range = 75
+	dissipation_rate = 0
 	projectile_speed = 26
+	damage = 10
 	cost = 1
 
 	var/explosive_hits = 1
@@ -451,7 +464,7 @@ ABSTRACT_TYPE(/datum/projectile/special)
 		//prevent playing all 50 sounds at once on rapid bounce
 		if(world.time >= last_sound_time + 1 DECI SECOND)
 			last_sound_time = world.time
-			playsound(A, hit_sound, 60, 1)
+			playsound(A, hit_sound, 60, TRUE)
 
 		if (explosive_hits)
 			SPAWN(0)
@@ -459,6 +472,7 @@ ABSTRACT_TYPE(/datum/projectile/special)
 		return
 
 /datum/projectile/special/meowitzer/inert
+	damage = 0
 	explosive_hits = 0
 
 /datum/projectile/special/spewer
@@ -511,8 +525,8 @@ ABSTRACT_TYPE(/datum/projectile/special)
 	brightness = 0
 	sname = "punch"
 	shot_sound = 'sound/impact_sounds/Generic_Swing_1.ogg'
-	dissipation_delay = 1
-	dissipation_rate = 35
+	max_range = 1
+	dissipation_rate = 0
 	impact_image_state = null
 
 	on_hit(atom/hit)
@@ -548,7 +562,7 @@ ABSTRACT_TYPE(/datum/projectile/special)
 	var/desired_y = 0
 
 	var/rotate_proj = 1
-	var/face_desired_dir = 0
+	var/face_desired_dir = FALSE
 
 	goes_through_walls = 1
 
@@ -736,7 +750,7 @@ ABSTRACT_TYPE(/datum/projectile/special)
 				else
 					playsound(T, src.hit_sound, 60, 1)
 		else
-			playsound(A, 'sound/effects/mag_magmisimpact.ogg', 25, 1, -1)
+			playsound(A, 'sound/effects/mag_magmisimpact.ogg', 25, TRUE, -1)
 
 /datum/projectile/special/homing/magicmissile/weak
 	name = "magic minimissile"
@@ -754,7 +768,7 @@ ABSTRACT_TYPE(/datum/projectile/special)
 	easemult = 0.3
 
 	rotate_proj = 1
-	face_desired_dir = 1
+	face_desired_dir = TRUE
 
 	goes_through_walls = 1
 
@@ -797,7 +811,7 @@ ABSTRACT_TYPE(/datum/projectile/special)
 	icon = 'icons/misc/critter.dmi'
 	icon_state = "spiritbat"
 	rotate_proj = 0
-	face_desired_dir = 1
+	face_desired_dir = TRUE
 	goes_through_walls = 1
 	is_magical = 1
 
@@ -930,11 +944,21 @@ ABSTRACT_TYPE(/datum/projectile/special)
 	var/typetospawn = null
 	var/hasspawned = null
 	var/hit_sound = null
+	///Do we get our icon from typetospawn?
+	var/use_type_icon = FALSE
+
+	New()
+		..()
+		if (!src.use_type_icon)
+			return
+		var/atom/thing = src.typetospawn
+		src.icon = initial(thing.icon)
+		src.icon_state = initial(thing.icon_state)
 
 	on_hit(atom/hit, direction, projectile)
 		if(src.hit_sound)
 			playsound(hit, src.hit_sound, 50, 1)
-		if(ismob(hit) && typetospawn)
+		if(ismob(hit) && typetospawn && !hasspawned)
 			hasspawned = TRUE
 			. = new typetospawn(get_turf(hit))
 		return
@@ -1040,6 +1064,7 @@ ABSTRACT_TYPE(/datum/projectile/special)
 	icon_state = "extinguish"
 	shot_sound = 'sound/weapons/flamethrower.ogg'
 	stun = 0
+	damage = 0
 	cost = 1
 	damage_type = D_SPECIAL
 	shot_delay = 0.1 SECONDS
@@ -1063,6 +1088,7 @@ ABSTRACT_TYPE(/datum/projectile/special)
 	proc/emit_chems(atom/hit, obj/projectile/O, angle)
 		if(!O.special_data || !length(O.special_data) || !istype(hit) || !O.reagents)
 			return
+		var/list/special_data = O.special_data
 
 		var/turf/T = get_turf(hit)
 		var/datum/reagents/chemR = O.reagents
@@ -1070,7 +1096,7 @@ ABSTRACT_TYPE(/datum/projectile/special)
 		if(chem_amt <= 0)
 			return
 		/// If there's just a little bit left, use the rest of it
-		var/amt_to_emit = (chem_amt <= 0.1) ? chem_amt : (chemR.maximum_volume * O.special_data["chem_pct_app_tile"])
+		var/amt_to_emit = (chem_amt <= 0.1) ? chem_amt : (chemR.maximum_volume * special_data["chem_pct_app_tile"])
 
 		var/datum/reagents/copied = new/datum/reagents(amt_to_emit)
 		copied = chemR.copy_to(copied, amt_to_emit/chemR.total_volume, copy_temperature = 1)
@@ -1079,15 +1105,15 @@ ABSTRACT_TYPE(/datum/projectile/special)
 			T.create_reagents(100)
 		copied.copy_to(T.reagents, 1, copy_temperature = 1)
 		copied.reaction(T, TOUCH, 0, 0)
-		if(O.special_data["IS_LIT"]) // Heat if needed
-			T.reagents?.set_reagent_temp(O.special_data["burn_temp"], TRUE)
+		if(special_data["IS_LIT"]) // Heat if needed
+			T.reagents?.set_reagent_temp(special_data["burn_temp"], TRUE)
 		for(var/atom/A in T.contents) // then all the stuff in the turf
 			if(istype(A, /obj/overlay) || istype(A, /obj/projectile))
 				continue
 			copied.reaction(A, TOUCH, 0, 0)
-		if(O.special_data["IS_LIT"]) // Reduce the temperature per turf crossed
-			O.special_data["burn_temp"] -= O.special_data["burn_temp"] * O.special_data["temp_pct_loss_atom"]
-			O.special_data["burn_temp"] = max(O.special_data["burn_temp"], T0C)
+		if(special_data["IS_LIT"]) // Reduce the temperature per turf crossed
+			special_data["burn_temp"] -= special_data["burn_temp"] * special_data["temp_pct_loss_atom"]
+			special_data["burn_temp"] = max(special_data["burn_temp"], T0C)
 		chemR.remove_any(amt_to_emit)
 
 	post_setup(obj/projectile/P)
@@ -1134,3 +1160,20 @@ ABSTRACT_TYPE(/datum/projectile/special)
 		var/turf/T = get_turf(O)
 		src.emit_chems(T, O)
 		src.emit_gas(T, 1)
+
+/datum/projectile/special/spawner/handcuff
+	name = "handcuffs"
+	typetospawn = /obj/item/handcuffs/guardbot //ziptie cuffs
+	use_type_icon = TRUE
+	shot_sound = null
+
+	on_hit(atom/hit, angle, var/obj/projectile/O)
+		if (ishuman(hit))
+			var/obj/item/handcuffs/cuffs = new src.typetospawn
+			cuffs.try_cuff(hit, instant = TRUE)
+			src.hasspawned = TRUE
+		else
+			..()
+
+	on_pointblank(var/obj/projectile/O, var/mob/target)
+		src.on_hit(target, O = O)

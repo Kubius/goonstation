@@ -1,8 +1,12 @@
 //handheld device for manual calibration of siphon systems
+TYPEINFO(/obj/item/device/calibrator)
+	mats = list("CRY-1", "CON-1")
+
 /obj/item/device/calibrator
 	name = "harmonic systems calibrator"
 	icon_state = "calibrator"
-	flags = FPRINT | TABLEPASS| CONDUCT | ONBELT
+	flags = FPRINT | TABLEPASS| CONDUCT
+	c_flags = ONBELT
 	force = 5.0
 	w_class = W_CLASS_SMALL
 	throwforce = 5.0
@@ -11,7 +15,6 @@
 	desc = "A small handheld device specially built for calibration and readout of harmonic siphon systems."
 	m_amt = 50
 	g_amt = 20
-	mats = list("CRY-1", "CON-1")
 
 
 
@@ -105,7 +108,7 @@ ABSTRACT_TYPE(/obj/machinery/siphon)
 	icon = 'icons/obj/machines/neodrill_32x64.dmi'
 	icon_state = "drill-high"
 	density = 1
-	anchored = 1
+	anchored = ANCHORED
 	layer = 4
 	power_usage = 200
 	bound_height = 64
@@ -223,12 +226,12 @@ ABSTRACT_TYPE(/obj/machinery/siphon)
 							yielder.set_loc(get_turf(src))
 
 					//non-shear failures
-					//option 1 - too many extraction ticks buffered at once
+					//option 1 - more extraction ticks left over after conversion than you'd need for the target material
 					//option 2 - running resonators with the panel open is a bad idea
-					if(src.extract_ticks > 20)
+					if(src.extract_ticks > M.tick_req)
 						if(src.extract_overloaded == FALSE) //warn if newly overloaded
 							src.visible_message("<span class='alert'><B>[src]</B> emits an excess accumulated EEU warning.<span>")
-							playsound(src, 'sound/machines/pod_alarm.ogg', 30, 1)
+						playsound(src, 'sound/machines/pod_alarm.ogg', 30, TRUE)
 						src.extract_overloaded = TRUE
 					else
 						src.extract_overloaded = FALSE
@@ -282,7 +285,6 @@ ABSTRACT_TYPE(/obj/machinery/siphon)
 				src.visible_message("<B>[src]</B> shuts down. Its internal storage is full.")
 
 		power_usage = total_draw
-		use_power(power_usage)
 		..()
 
 	proc/eats_spicy_goodness_dies_instantly(var/catastrophic = FALSE) //DEBUG DEBUG DEBUG
@@ -350,32 +352,34 @@ ABSTRACT_TYPE(/obj/machinery/siphon)
 			for (var/obj/item/I in src.contents)
 				I.set_loc(over_object)
 				offload_count++
-			playsound(src, sound_unload, 40, 1)
+			playsound(src, sound_unload, 40, TRUE)
 			usr.visible_message("<span class='notice'>[usr] uses [src]'s automatic ore offloader on [over_object].</span>", "<span class='notice'>You load [offload_count] materials into [over_object] from [src].</span>")
 			src.update_storage_bar()
 
 		if (istype(over_object,/obj/item/satchel/mining))
 			var/obj/item/satchel/mining/satchel = over_object
 			usr.visible_message("<span class='notice'>[usr] begins unloading ore into [satchel].</span>")
-			if (satchel.contents.len < satchel.maxitems)
+			if (length(satchel.contents) < satchel.maxitems)
 				var/staystill = usr.loc
 				var/interval = 0
 				for (var/obj/item/I in src.contents)
-					I.set_loc(satchel)
-					I.add_fingerprint(usr)
+					if (satchel.check_valid_content(I))
+						I.set_loc(satchel)
+						I.add_fingerprint(usr)
+						playsound(src, sound_unload, 30, TRUE)
 					if (!(interval++ % 4))
 						satchel.UpdateIcon()
 						src.update_storage_bar()
-					playsound(src, sound_unload, 30, 1)
 					sleep(0.1 SECONDS)
 					if (usr.loc != staystill) break
-					if (satchel.contents.len >= satchel.maxitems)
+					if (length(satchel.contents) >= satchel.maxitems)
 						boutput(usr, "<span class='notice'>\The [satchel] is now full!</span>")
 						break
 				var/incomplete = 1 //you're not done filling
-				if(satchel.contents.len == satchel.maxitems || !length(src.contents)) incomplete = 0
+				if(length(satchel.contents) == satchel.maxitems || !length(src.contents)) incomplete = 0
 				boutput(usr, "<span class='notice'>You [incomplete ? "stop" : "finish"] filling \the [satchel].</span>")
 				satchel.UpdateIcon()
+				satchel.tooltip_rebuild = 1
 				src.update_storage_bar()
 			else
 				boutput(usr, "<span class='notice'>\The [satchel] doesn't have any room to accept materials.</span>")
@@ -389,7 +393,7 @@ ABSTRACT_TYPE(/obj/machinery/siphon)
 				I.add_fingerprint(usr)
 				if (!(interval++ % 4))
 					src.update_storage_bar()
-				playsound(src, sound_unload, 30, 1)
+				playsound(src, sound_unload, 30, TRUE)
 				sleep(0.1 SECONDS)
 				if (usr.loc != staystill) break
 			boutput(usr, "<span class='notice'>You [length(src.contents) ? "stop" : "finish"] unloading ore from [src].</span>")
@@ -401,11 +405,11 @@ ABSTRACT_TYPE(/obj/machinery/siphon)
 		src.mode = newmode
 		switch(newmode)
 			if("low")
-				playsound(src, 'sound/machines/click.ogg', 40, 1)
+				playsound(src, 'sound/machines/click.ogg', 40, TRUE)
 			if("active")
-				playsound(src, 'sound/machines/siphon_activate.ogg', 60, 0)
+				playsound(src, 'sound/machines/siphon_activate.ogg', 60, FALSE)
 			if("high")
-				playsound(src, 'sound/machines/pc_process.ogg', 30, 0)
+				playsound(src, 'sound/machines/pc_process.ogg', 30, FALSE)
 		src.update_fx()
 
 	proc/toggle_drill(var/remote_activation)
@@ -439,7 +443,7 @@ ABSTRACT_TYPE(/obj/machinery/siphon)
 	proc/engage_drill()
 		if(src.toggling || src.mode != "high" || !src.powered()) return
 		src.toggling = TRUE
-		playsound(src, 'sound/machines/click.ogg', 40, 1)
+		playsound(src, 'sound/machines/click.ogg', 40, TRUE)
 		src.icon_state = "drill-low"
 		flick("drilldrop",src)
 		SPAWN(2 SECONDS)
@@ -595,14 +599,14 @@ ABSTRACT_TYPE(/obj/machinery/siphon)
 				src.wrenched = TRUE
 				playsound(src.loc, 'sound/items/Ratchet.ogg', 75, 1)
 				boutput(user, "You secure the auxiliary reinforcing bolts to the floor.")
-				src.anchored = 1
+				src.anchored = ANCHORED
 				src.desc = src.wrenched_desc
 				return
 			else if(!maglocked && wrenched)
 				src.wrenched = FALSE
 				playsound(src.loc, 'sound/items/Ratchet.ogg', 75, 1)
 				boutput(user, "You undo the auxiliary reinforcing bolts.")
-				src.anchored = 0
+				src.anchored = UNANCHORED
 				src.desc = src.regular_desc
 				return
 			else
@@ -646,7 +650,7 @@ ABSTRACT_TYPE(/obj/machinery/siphon)
 				boutput(user, "The internal wiring doesn't seem to need repair.")
 				return
 		else if(istype(W,/obj/item/device/calibrator))
-			var/scalex = input(usr,"Accepts values 0 through [src.max_intensity]","Adjust Intensity","1") as num
+			var/scalex = input(user,"Accepts values 0 through [src.max_intensity]","Adjust Intensity","1") as num
 			scalex = clamp(scalex,0,src.max_intensity)
 			src.intensity = scalex
 			src.update_fx()
@@ -686,14 +690,14 @@ ABSTRACT_TYPE(/obj/machinery/siphon)
 		if(catastrophic)
 			src.visible_message("<span class='alert'>[src] explodes!</span>")
 			new /obj/effects/explosion(src.loc)
-			playsound(src, 'sound/effects/Explosion1.ogg', 50, 1)
+			playsound(src, 'sound/effects/Explosion1.ogg', 50, TRUE)
 			SPAWN(0)
 				explosion_new(src, get_turf(src), 3)
 				qdel(src)
 		else
 			var/faildesc = pick("short-circuits","malfunctions","suddenly deactivates","shorts out","shoots out sparks")
 			src.visible_message("<span class='alert'>[src] [faildesc]!</span>")
-			playsound(src, 'sound/effects/shielddown2.ogg', 30, 1)
+			playsound(src, 'sound/effects/shielddown2.ogg', 30, TRUE)
 			if(limiter.canISpawn(/obj/effects/sparks))
 				var/obj/sparks = new /obj/effects/sparks
 				sparks.set_loc(get_turf(src))
@@ -735,7 +739,7 @@ ABSTRACT_TYPE(/obj/machinery/siphon)
 		src.y_torque = sign(yadj) * 2 ** (4 - abs(yadj))
 
 	proc/engage_lock()
-		src.anchored = 1
+		src.anchored = ANCHORED
 		src.maglocked = 1
 		src.update_fx()
 
@@ -744,12 +748,12 @@ ABSTRACT_TYPE(/obj/machinery/siphon)
 			SPAWN(delayer)
 				src.maglocked = 0
 				if(!wrenched)
-					src.anchored = 0
+					src.anchored = UNANCHORED
 				src.update_fx()
 		else
 			src.maglocked = 0
 			if(!wrenched)
-				src.anchored = 0
+				src.anchored = UNANCHORED
 			src.update_fx()
 
 	proc/update_fx()

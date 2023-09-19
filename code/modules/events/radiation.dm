@@ -47,7 +47,7 @@
 		if(!particleMaster.CheckSystemExists(/datum/particleSystem/rads_warning, src))
 			particleMaster.SpawnSystem(new /datum/particleSystem/rads_warning(src))
 		sleep(lifespan)
-		playsound(src,pulse_sound,50,1)
+		playsound(src,pulse_sound,50,TRUE)
 		irradiate_turf(get_turf(src))
 		for (var/turf/T in circular_range(src,pulse_range))
 			irradiate_turf(T)
@@ -64,9 +64,9 @@
 		if (!isturf(T))
 			return
 		//spatial interdictor: nullify radiation pulses
-		//consumes 100 units of charge per tile protected
-		for (var/obj/machinery/interdictor/IX in by_type[/obj/machinery/interdictor])
-			if (IN_RANGE(IX,T,IX.interdict_range) && IX.expend_interdict(100,1))
+		//consumes 100 units of charge (50,000 joules) per tile protected
+		for_by_tcl(IX, /obj/machinery/interdictor)
+			if (IX.expend_interdict(100,T,1))
 				animate_flash_color_fill_inherit(T,"#FFDD00",1,5)
 				return
 		animate_flash_color_fill_inherit(T,"#00FF00",1,5)
@@ -99,7 +99,7 @@
 		if(!particleMaster.CheckSystemExists(/datum/particleSystem/rads_warning, src))
 			particleMaster.SpawnSystem(new /datum/particleSystem/rads_warning(src))
 		sleep(lifespan)
-		playsound(src,pulse_sound,50,1)
+		playsound(src,pulse_sound,50,TRUE)
 		irradiate_turf(get_turf(src))
 		for (var/turf/T in circular_range(src,pulse_range))
 			irradiate_turf(T)
@@ -116,9 +116,9 @@
 		if (!isturf(T))
 			return
 		//spatial interdictor: nullify radiation pulses
-		//consumes 150 units of charge per tile protected
-		for (var/obj/machinery/interdictor/IX in by_type[/obj/machinery/interdictor])
-			if (IN_RANGE(IX,T,IX.interdict_range) && IX.expend_interdict(150,1))
+		//consumes 150 units of charge (75,000 joules) per tile protected
+		for_by_tcl(IX, /obj/machinery/interdictor)
+			if (IX.expend_interdict(150,T,1))
 				animate_flash_color_fill_inherit(T,"#FFDD00",1,5)
 				return
 		animate_flash_color_fill_inherit(T,"#0084ff",1,5)

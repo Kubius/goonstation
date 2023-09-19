@@ -18,7 +18,8 @@ ABSTRACT_TYPE(/obj/item/reagent_containers/food/snacks/ingredient)
 	var/blood = 7 //how much blood cleanables we are allowed to spawn
 
 	heal(var/mob/living/M)
-		if (prob(33))
+		..()
+		if (!(istype(M, /mob/living/critter/plant/maneater)) && prob(33))
 			boutput(M, "<span class='alert'>You briefly think you probably shouldn't be eating raw meat.</span>")
 			M.contract_disease(/datum/ailment/disease/food_poisoning, null, null, 1) // path, name, strain, bypass resist
 
@@ -56,27 +57,63 @@ ABSTRACT_TYPE(/obj/item/reagent_containers/food/snacks/ingredient)
 	name = "monkeymeat"
 	desc = "A slab of meat from a monkey."
 
-/obj/item/reagent_containers/food/snacks/ingredient/meat/fish
+/obj/item/reagent_containers/food/snacks/ingredient/meat/fish/fillet
 	name = "fish fillet"
 	desc = "A slab of meat from a fish."
 	icon_state = "fillet-pink"
 	food_color = "#F4B4BC"
 	real_name = "fish"
+	sliceable = TRUE
+	slice_product = /obj/item/reagent_containers/food/snacks/ingredient/meat/fish/fillet_slice
+	slice_amount = 3
+	slice_suffix = "slice"
+
 	salmon
 		name = "salmon fillet"
 		icon_state = "fillet-orange"
 		food_color = "#F29866"
 		real_name = "salmon"
+		slice_product = /obj/item/reagent_containers/food/snacks/ingredient/meat/fish/fillet_slice/salmon
 	white
 		name = "white fish fillet"
 		icon_state = "fillet-white"
 		food_color = "#FFECB7"
 		real_name = "white fish"
+		slice_product = /obj/item/reagent_containers/food/snacks/ingredient/meat/fish/fillet_slice/white
 	small
 		name = "small fish fillet"
 		icon_state = "fillet-small"
 		food_color = "#FFECB7"
 		real_name = "small fish"
+		slice_product = /obj/item/reagent_containers/food/snacks/ingredient/meat/fish/fillet_slice/small
+
+/obj/item/reagent_containers/food/snacks/ingredient/meat/fish/fillet_slice
+	name = "slice of fish fillet"
+	desc = "A carefully cut slice of fish fillet."
+	icon_state = "filletslice-pink"
+	food_color = "#F4B4BC"
+	real_name = "fish"
+	salmon
+		name = "slice of salmon fillet"
+		icon_state = "filletslice-orange"
+		food_color = "#F29866"
+		real_name = "salmon"
+	white
+		name = "slice of white fillet"
+		icon_state = "filletslice-white"
+		food_color = "#FFECB7"
+		real_name = "white fish"
+	small
+		name = "slice of small fish fillet"
+		icon_state = "filletslice-small"
+		food_color = "#FFECB7"
+		real_name = "small fish"
+
+/obj/item/reagent_containers/food/snacks/ingredient/meat/fish/shrimp
+	name = "raw shrimp meat"
+	desc = "Meat of a freshly caught shrimp."
+	icon_state = "shrimp_meat"
+	food_color = "#f0ac98"
 
 /obj/item/reagent_containers/food/snacks/ingredient/meat/synthmeat
 	name = "synthmeat"
@@ -94,7 +131,7 @@ ABSTRACT_TYPE(/obj/item/reagent_containers/food/snacks/ingredient)
 
 	throw_impact(atom/A, datum/thrown_thing/thr)
 		var/turf/T = get_turf(A)
-		if (src.cybermeat == 1)
+		if (src.cybermeat)
 			playsound(src.loc, 'sound/impact_sounds/Slimy_Splat_1.ogg', 100, 1)
 			if (istype(T))
 				make_cleanable(/obj/decal/cleanable/oil,T)
@@ -104,11 +141,22 @@ ABSTRACT_TYPE(/obj/item/reagent_containers/food/snacks/ingredient)
 
 /// Meat which is butchered from changeling critters (and gibbered changelings)
 /obj/item/reagent_containers/food/snacks/ingredient/meat/mysterymeat/changeling
-	 name = "mutagenic meat"
-	 desc = "Are those eyes?"
-	 icon_state = "meat-changeling"
-	 initial_volume = 30
-	 initial_reagents = list("neurotoxin" = 20, "bloodc" = 10)
+	name = "mutagenic meat"
+	desc = "Are those eyes?"
+	icon_state = "meat-changeling"
+	initial_volume = 30
+	initial_reagents = list("neurotoxin" = 20, "bloodc" = 10)
+
+/obj/item/reagent_containers/food/snacks/ingredient/meat/mysterymeat/grody
+	name = "meaty bit"
+	desc = "grody."
+	icon = 'icons/obj/decals/gibs/human.dmi'
+	icon_state = "gibmid2"
+
+	New()
+		..()
+		src.name = pick("meaty bit", "gross organs", "grody thing")
+		src.icon_state = pick("gibmid1", "gibmid2", "gibarm", "gibtorso", "gibhead")
 
 /obj/item/reagent_containers/food/snacks/ingredient/meat/bacon
 	name = "bacon"
@@ -123,6 +171,7 @@ ABSTRACT_TYPE(/obj/item/reagent_containers/food/snacks/ingredient)
 		src.pixel_y += rand(-4,4)
 
 	heal(var/mob/M)
+		..()
 		M.nutrition += 20
 		return
 
@@ -225,7 +274,7 @@ ABSTRACT_TYPE(/obj/item/reagent_containers/food/snacks/ingredient)
 	icon = 'icons/obj/foodNdrink/food_produce.dmi'
 	icon_state = "rice-sprig"
 	food_color = "#FFFFAA"
-	brew_result = "ricewine"
+	brew_result = list("ricewine"=20)
 
 /obj/item/reagent_containers/food/snacks/ingredient/rice
 	name = "rice"
@@ -241,7 +290,7 @@ ABSTRACT_TYPE(/obj/item/reagent_containers/food/snacks/ingredient)
 	custom_food = 1
 	initial_volume = 50
 	initial_reagents = list("sugar"=25)
-	brew_result = "rum"
+	brew_result = list("rum"=20)
 
 /obj/item/reagent_containers/food/snacks/ingredient/peanutbutter
 	name = "peanut butter"
@@ -284,6 +333,8 @@ ABSTRACT_TYPE(/obj/item/reagent_containers/food/snacks/ingredient)
 	icon_state = "salt"
 	food_color = "#a7927d"
 	custom_food = 1
+	initial_volume = 100
+	initial_reagents = list("salt"=10)
 
 /obj/item/reagent_containers/food/snacks/ingredient/pepper
 	name = "pepper"
@@ -291,7 +342,11 @@ ABSTRACT_TYPE(/obj/item/reagent_containers/food/snacks/ingredient)
 	icon_state = "pepper"
 	food_color = "#a7927d"
 	custom_food = 1
+	initial_volume = 100
+	initial_reagents = list("pepper"=10)
 
+TYPEINFO(/obj/item/reagent_containers/food/snacks/ingredient/honey)
+	mat_appearances_to_ignore = list("honey")
 /obj/item/reagent_containers/food/snacks/ingredient/honey
 	name = "honey"
 	desc = "A sweet nectar derivative produced by bees."
@@ -301,10 +356,9 @@ ABSTRACT_TYPE(/obj/item/reagent_containers/food/snacks/ingredient)
 	doants = 0
 	initial_volume = 50
 	initial_reagents = list("honey"=15)
-	brew_result = "mead"
-	New()
-		..()
-		src.setMaterial(getMaterial("honey"), appearance = 0, setname = 0)
+	brew_result = list("mead"=20)
+	mat_changename = "honey"
+	default_material = "honey"
 
 /obj/item/reagent_containers/food/snacks/ingredient/royal_jelly
 	name = "royal jelly"
@@ -455,7 +509,7 @@ ABSTRACT_TYPE(/obj/item/reagent_containers/food/snacks/ingredient)
 			if (baton.is_active) //baton is on
 				if (user.a_intent != "harm")
 					if (user.traitHolder.hasTrait("training_security"))
-						playsound(src, 'sound/impact_sounds/Energy_Hit_3.ogg', 30, 1, -1) //bit quieter than a baton hit
+						playsound(src, 'sound/impact_sounds/Energy_Hit_3.ogg', 30, TRUE, -1) //bit quieter than a baton hit
 						user.visible_message("<span class='notice'>[user] [pick("expertly", "deftly", "casually", "smoothly")] baton-fries the dough, yielding a tasty donut.</span>", group = "batonfry")
 						var/obj/item/reagent_containers/food/snacks/donut/result = new /obj/item/reagent_containers/food/snacks/donut(src.loc)
 						user.u_equip(src)
@@ -465,7 +519,7 @@ ABSTRACT_TYPE(/obj/item/reagent_containers/food/snacks/ingredient)
 						boutput(user, "<span class='alert'>You just aren't experienced enough to baton-fry.</span>")
 				else
 					user.visible_message("<b class='alert'>[user] tries to baton fry the dough, but fries [his_or_her(user)] hand instead!</b>")
-					playsound(src, 'sound/impact_sounds/Energy_Hit_3.ogg', 30, 1, -1)
+					playsound(src, 'sound/impact_sounds/Energy_Hit_3.ogg', 30, TRUE, -1)
 					user.do_disorient(baton.stamina_damage, weakened = baton.stun_normal_weakened * 10, disorient = 80) //cut from batoncode to bypass all the logging stuff
 			else
 				boutput(user, "<span class='notice'>You [user.a_intent == "harm" ? "beat" : "prod"] the dough. The dough doesn't react.</span>")
@@ -678,7 +732,7 @@ ABSTRACT_TYPE(/obj/item/reagent_containers/food/snacks/ingredient)
 				heal_amt += 4
 			else
 				heal_amt += round((F.heal_amt * F.bites_left)/bites_left) + 1
-			topping_color = F.food_color
+			topping_color = F.get_food_color()
 			if(num < 3)
 				num ++
 				add_topping(src.num)
@@ -765,7 +819,6 @@ ABSTRACT_TYPE(/obj/item/reagent_containers/food/snacks/ingredient/wheat_noodles)
 /obj/item/reagent_containers/food/snacks/ingredient/wheat_noodles
 	name = "wheat noodles"
 	heal_amt = 0
-	amount = 1
 
 	heal(var/mob/M)
 		boutput(M, "<span class='alert'>Ew, disgusting...</span>")
@@ -802,6 +855,7 @@ ABSTRACT_TYPE(/obj/item/reagent_containers/food/snacks/ingredient/wheat_noodles)
 	food_color = "#FFFF99"
 
 	heal(var/mob/M)
+		..()
 		boutput(M, "<span class='alert'>Raw potato tastes pretty nasty...</span>") // does it?
 
 
@@ -884,12 +938,10 @@ obj/item/reagent_containers/food/snacks/ingredient/pepperoni_log
 	name = "fish paste"
 	desc = "An unappetizing clump of mashed fish bits."
 	icon_state = "fishpaste"
-	amount = 1
 /obj/item/reagent_containers/food/snacks/ingredient/kamaboko
 	name = "kamaboko"
 	desc = "A slice of fish cake with a cute little spiral in the center."
 	icon_state = "kamaboko"
-	amount = 1
 	custom_food = 1
 	food_color = "#ffffff"
 
@@ -897,10 +949,10 @@ obj/item/reagent_containers/food/snacks/ingredient/pepperoni_log
 	name = "kamaboko log"
 	desc = "What a strange-looking fish."
 	icon_state = "kamaboko-log"
-	amount = 3
 	custom_food = 1
 	food_color = "#ffffff"
 	doants = 0
+	bites_left = 3
 
 	attackby(obj/item/W, mob/user)
 		if (iscuttingtool(W))
