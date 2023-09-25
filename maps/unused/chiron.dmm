@@ -75,7 +75,7 @@
 /obj/item/clothing/head/helmet/hardhat,
 /obj/item/tank/air,
 /obj/item/tank/air,
-/turf/unsimulated/wall/auto/adventure/bee/exterior,
+/turf/simulated/floor/industrial,
 /area/station/storage/emergency)
 "aqx" = (
 /turf/simulated/floor,
@@ -91,13 +91,13 @@
 /area/station/maintenance/northwest)
 "arO" = (
 /obj/machinery/space_heater,
-/turf/unsimulated/wall/auto/adventure/bee/exterior,
+/turf/simulated/floor/industrial,
 /area/station/storage/emergency)
 "arP" = (
 /obj/table/auto,
 /obj/item/clothing/glasses/spectro,
 /obj/item/storage/firstaid/regular,
-/turf/unsimulated/wall/auto/adventure/bee/exterior,
+/turf/simulated/floor/industrial,
 /area/station/storage/emergency)
 "asN" = (
 /turf/simulated/floor/green/side{
@@ -1231,7 +1231,7 @@
 	dir = 1;
 	pixel_y = 32
 	},
-/turf/unsimulated/wall/auto/adventure/bee/exterior,
+/turf/simulated/floor/industrial,
 /area/station/storage/emergency)
 "dpu" = (
 /obj/machinery/shuttle/engine/heater{
@@ -2170,7 +2170,7 @@
 /obj/item/extinguisher,
 /obj/item/crowbar,
 /obj/item/crowbar,
-/turf/unsimulated/wall/auto/adventure/bee/exterior,
+/turf/simulated/floor/industrial,
 /area/station/storage/emergency)
 "fjc" = (
 /obj/machinery/vending/medical_public,
@@ -2890,7 +2890,7 @@
 /obj/item/reagent_containers/patch/mini/synthflesh,
 /obj/item/reagent_containers/patch/mini/synthflesh,
 /obj/item/storage/firstaid/oxygen,
-/turf/unsimulated/wall/auto/adventure/bee/exterior,
+/turf/simulated/floor/industrial,
 /area/station/storage/emergency)
 "gJW" = (
 /obj/disposalpipe/segment/mail/vertical,
@@ -3260,7 +3260,7 @@
 /area/space)
 "hBZ" = (
 /obj/machinery/shieldgenerator/meteorshield,
-/turf/unsimulated/wall/auto/adventure/bee/exterior,
+/turf/simulated/floor/industrial,
 /area/station/storage/emergency)
 "hCA" = (
 /obj/rack,
@@ -9638,7 +9638,7 @@
 	})
 "uqO" = (
 /obj/machinery/portable_atmospherics/pump,
-/turf/unsimulated/wall/auto/adventure/bee/exterior,
+/turf/simulated/floor/industrial,
 /area/station/storage/emergency)
 "urQ" = (
 /obj/grille/catwalk/jen,
@@ -11609,7 +11609,7 @@
 /obj/item/storage/wall/fire{
 	pixel_y = 32
 	},
-/turf/unsimulated/wall/auto/adventure/bee/exterior,
+/turf/simulated/floor/industrial,
 /area/station/storage/emergency)
 "yip" = (
 /obj/machinery/manufacturer/gas,
