@@ -27,7 +27,7 @@
 		src.minimap_id = "[control_id]"
 
 		src.handler = new
-		src.handler.plane = 0
+		src.handler.plane = PLANE_BLACKNESS
 		src.handler.mouse_opacity = 0
 		src.handler.screen_loc = "[src.minimap_id]:1,1"
 
@@ -122,7 +122,7 @@
 		minimap_markers_list = list()
 		for (var/atom/target in src.minimap_datum.minimap_markers)
 			var/datum/minimap_marker/marker = src.minimap_datum.minimap_markers[target]
-			if (!marker.on_minimap_z_level)
+			if (!marker.on_minimap_z_level || !marker.list_on_ui)
 				continue
 
 			minimap_markers_list.Add(list(list(
@@ -151,7 +151,7 @@
 	ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
 		var/mob/user = ui.user
 
-		if(is_incapacitated(user) || !(src.loc in user.equipped_list()))
+		if(is_incapacitated(user))
 			return
 
 		switch (action)

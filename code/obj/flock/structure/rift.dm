@@ -20,14 +20,14 @@
 
 /obj/flock_structure/rift/building_specific_info()
 	var/time_remaining = round(src.build_time - getTimeInSecondsSinceTime(src.time_started))
-	return "Approximately <span class='bold'>[time_remaining]</span> second[time_remaining == 1 ? "" : "s"] left until entry."
+	return "Approximately [SPAN_BOLD("[time_remaining]")] second[time_remaining == 1 ? "" : "s"] left until entry."
 
 /obj/flock_structure/rift/process()
 	var/elapsed = getTimeInSecondsSinceTime(src.time_started)
 	src.info_tag.set_info_tag("Entry time: [round(src.build_time - elapsed)] seconds")
 	if(elapsed >= build_time)
-		if (src.flock.flockmind.tutorial) //simplify down to a single drone during tutorial
-			flockdronegibs(src.loc, null, list(new /obj/flock_structure/egg/tutorial(src.contents, src.flock)))
+		if (src.flock.flockmind?.tutorial) //simplify down to a single drone during tutorial
+			flockdronegibs(src.loc, list(new /obj/flock_structure/egg/tutorial(src.contents, src.flock)))
 			src.flock.flockmind.started = TRUE
 			src.flock.flockmind.tutorial.PerformAction(FLOCK_ACTION_RIFT_COMPLETE)
 			qdel(src)
@@ -73,8 +73,8 @@
 			if (sentinels_made >= sentinel_count)
 				break
 
-	flockdronegibs(src.loc, null, eject) //ejectables ejected here
-	src.flock.flockmind.started = TRUE
+	flockdronegibs(src.loc, eject) //ejectables ejected here
+	src.flock.flockmind?.started = TRUE
 	qdel(src)
 
 /obj/flock_structure/rift/disposing()

@@ -31,6 +31,8 @@
 	)
 	///Used to select "zoom" level into the perlin noise, higher numbers result in slower transitions
 	var/perlin_zoom = 65
+	wall_turf_type	= /turf/simulated/wall/auto/asteroid/mountain
+	floor_turf_type = /turf/unsimulated/floor/plating/asteroid/mountain
 
 ///Seeds the rust-g perlin noise with a random number.
 /datum/map_generator/jungle_generator/generate_terrain(list/turfs, reuse_seed, flags)
@@ -90,7 +92,7 @@
 	desc = "a rocky mountain"
 	fullbright = 0
 	default_ore = null
-	replace_type = /turf/simulated/floor/plating/airless/asteroid/mountain
+	replace_type = /turf/unsimulated/floor/plating/asteroid/mountain
 
 	destroy_asteroid(var/dropOre=1)
 		var/image/weather = GetOverlayImage("weather")
@@ -99,35 +101,30 @@
 		if(src.ore || prob(8)) // provide less rock
 			default_ore = /obj/item/raw_material/rock
 		. = ..()
+		for (var/turf/unsimulated/floor/plating/asteroid/A in range(src,1))
+			A.UpdateIcon()
 
 		if(weather)
-			src.UpdateOverlays(weather, "weather")
+			src.AddOverlays(weather, "weather")
 		if(ambient)
-			src.UpdateOverlays(ambient, "ambient")
+			src.AddOverlays(ambient, "ambient")
 
-		if(air) // force reverting air to floor turf as this is post replace
+		if(istype(src, /turf/simulated))
+			if(air) // force reverting air to floor turf as this is post replace
 #define _TRANSFER_GAS_TO_AIR(GAS, ...) air.GAS = GAS;
-			APPLY_TO_GASES(_TRANSFER_GAS_TO_AIR)
+				APPLY_TO_GASES(_TRANSFER_GAS_TO_AIR)
 #undef _TRANSFER_GAS_TO_AIR
 
-			air.temperature = temperature
+				air.temperature = temperature
 
 		return src
 
-/turf/simulated/floor/plating/airless/asteroid/mountain
+/turf/unsimulated/floor/plating/asteroid/mountain
 	name = "mountain"
 	desc = "a rocky mountain"
-	// color = "#957a59"
-	// stone_color = "#957a59"
 	oxygen = MOLES_O2STANDARD
 	nitrogen = MOLES_N2STANDARD
+	temperature = T20C
 	fullbright = 0
 
-	update_icon()
-		var/image/ambient_light = src.GetOverlayImage("ambient")
-		var/image/weather = src.GetOverlayImage("weather")
-		..()
-		if(length(overlays) != length(overlay_refs)) //hack until #5872 is resolved
-			overlay_refs.len = 0
-		src.UpdateOverlays(ambient_light, "ambient")
-		src.UpdateOverlays(weather, "weather")
+#undef BIOME_RANDOM_SQUARE_DRIFT

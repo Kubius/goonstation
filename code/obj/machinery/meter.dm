@@ -4,7 +4,7 @@
 	icon_state = "meterX"
 	var/obj/machinery/atmospherics/pipe/target = null
 	plane = PLANE_NOSHADOW_BELOW
-	anchored = 1
+	anchored = ANCHORED
 	power_usage = 5
 	var/frequency = 0
 	var/id
@@ -14,7 +14,8 @@
 	..()
 	SPAWN(1 SECOND)
 		src.target = locate(/obj/machinery/atmospherics/pipe) in loc
-	MAKE_SENDER_RADIO_PACKET_COMPONENT(null, frequency)
+	MAKE_SENDER_RADIO_PACKET_COMPONENT(null, null, frequency)
+	AddComponent(/datum/component/mechanics_holder)
 
 /obj/machinery/meter/process()
 	if(!target)
@@ -64,6 +65,8 @@
 		signal.data["pressure"] = round(env_pressure)
 
 		SEND_SIGNAL(src, COMSIG_MOVABLE_POST_RADIO_PACKET, signal)
+
+	SEND_SIGNAL(src,COMSIG_MECHCOMP_TRANSMIT_SIGNAL, "pressure=[env_pressure]&temperature=[environment.temperature]")
 
 
 /obj/machinery/meter/get_desc(dist, mob/user)

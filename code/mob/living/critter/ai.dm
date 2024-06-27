@@ -14,6 +14,9 @@ var/list/ai_move_scheduled = list()
 	var/list/datum/aiTask/priority_tasks = list()
 	var/move_target = null
 
+	///INTERNAL: Set to true when the mobai loop is processing this mob.
+	var/_mobai_being_processed = FALSE
+
 	var/move_dist = 0
 	var/move_reverse = 0
 	var/move_side = 0 //merge with reverse later ok messy
@@ -40,8 +43,12 @@ var/list/ai_move_scheduled = list()
 			M.skipped_mobs_list |= SKIPPED_AI_MOBS_LIST
 			LAZYLISTADDUNIQUE(AR.mobs_not_in_global_mobs_list, M)
 
-		if(owner?.abilityHolder)
-			if(src.owner.use_ai_toggle && !owner.abilityHolder.getAbility(/datum/targetable/ai_toggle))
+		if(src.owner?.use_ai_toggle)
+			if(owner.abilityHolder)
+				if(!owner.abilityHolder.getAbility(/datum/targetable/ai_toggle))
+					owner.abilityHolder.addAbility(/datum/targetable/ai_toggle)
+			else
+				owner.add_ability_holder(/datum/abilityHolder/composite)
 				owner.abilityHolder.addAbility(/datum/targetable/ai_toggle)
 
 	disposing()
@@ -68,6 +75,9 @@ var/list/ai_move_scheduled = list()
 		..()
 
 	proc/switch_to(var/datum/aiTask/task)
+		//This SHOULD_NOT_SLEEP is *absolutely necessary* for protecting the mobAI loop from hangs.
+		//Do not remove unless you understand the implications.
+		SHOULD_NOT_SLEEP(TRUE)
 		current_task = task
 		if(task?.ai_turbo)
 			owner.mob_flags |= HEAVYWEIGHT_AI_MOB
@@ -91,24 +101,31 @@ var/list/ai_move_scheduled = list()
 				T.reset()
 
 	proc/get_instance(taskType, list/nparams)
+		RETURN_TYPE(taskType)
 		if (taskType in task_cache)
 			return task_cache[taskType]
 		task_cache[taskType] = new taskType(arglist(nparams))
 		return task_cache[taskType]
 
 // bumping these up to parent because these are undoubtedly gonna be useful for more than just flockdrones - cirr
-	proc/wait()
+	proc/wait(var/time=10)
 		// switch into the wait task NOW, and add our current task as the task to return to
 		var/datum/aiTask/timed/wait/waitTask = src.get_instance(/datum/aiTask/timed/wait, list(src))
 		waitTask.transition_task = current_task
+		waitTask.elapsed_ticks = 0
+		waitTask.minimum_task_ticks = time
+		waitTask.maximum_task_ticks = time
 		switch_to(waitTask)
 
-	proc/interrupt()
+	proc/interrupt_to_task(datum/aiTask/task)
 		if(src.enabled)
 			current_task?.reset()
-			switch_to(default_task)
+			switch_to(task)
 			stop_move()
 			tick()
+
+	proc/interrupt()
+		interrupt_to_task(src.default_task)
 
 	proc/die()
 		src.disable()
@@ -174,7 +191,7 @@ var/list/ai_move_scheduled = list()
 				src.owner.process_move()
 		else if (length(src.move_path))
 			var/turf/next
-			if(src.move_path[1] == src.owner.loc) //check you've completed a step before removing it from the path
+			if(src.move_path[1] == get_turf(src.owner)) //check you've completed a step before removing it from the path
 				src.move_path.Cut(1, 2)
 
 			if(length(src.move_path))
@@ -208,20 +225,21 @@ var/list/ai_move_scheduled = list()
 	var/atom/target = null
 	/// The maximum tile distance that we look for targets
 	var/max_dist = 5
+	/// If this is set score_target() is ignored and instead the target is chosen by distance only.
+	/// This is better for performance if there are multiple targets. Override to FALSE if you override score_target()!
+	var/score_by_distance_only = TRUE
 	/// if this is set, temporarily give this mob the HEAVYWEIGHT_AI mob flag for the duration of this task
 	var/ai_turbo = FALSE
 	/// If this task allows pathing through space
 	var/move_through_space = FALSE
 	/// for weighting the importance of the goal this sequence is in charge of
 	var/weight = 1
-	/// do we need to be AT the target specifically, or is being in 1 tile of it fine?
-	var/can_be_adjacent_to_target = 1
-
+	/// Distance we want to be away from the target for pathing in tiles 0 = same tile / 1 = next to / etc
+	var/distance_from_target = 1
 
 	New(parentHolder)
 		..()
 		holder = parentHolder
-
 		reset()
 
 	disposing()
@@ -257,17 +275,32 @@ var/list/ai_move_scheduled = list()
 		var/best_score = -INFINITY
 		var/list/best_path = null
 		if(length(targets))
-			for(var/atom/A as anything in targets)
-				var/score = src.score_target(A)
-				if(score > best_score)
-					var/tmp_best_path = get_path_to(holder.owner, A, max_dist*2, can_be_adjacent_to_target, null, !move_through_space)
-					if(length(tmp_best_path))
-						best_score = score
-						best_path = tmp_best_path
-						. = A
+			var/simulated_only = !move_through_space
+			#ifdef UNDERWATER_MAP
+			//fucking unsimulated ocean tiles fuck
+			simulated_only = FALSE
+			#endif
+			var/required_goals = null // find all targets
+			if(score_by_distance_only)
+				required_goals = 1 // we only need to find the first one
+			var/list/atom/paths_found = get_path_to(holder.owner, targets, max_distance=max_dist*2, mintargetdist=distance_from_target, simulated_only=simulated_only, required_goals=required_goals)
+			if(score_by_distance_only)
+				if(length(paths_found))
+					. = paths_found[1]
+					best_path = paths_found[.]
+			else
+				for(var/atom/A as anything in paths_found)
+					var/score = src.score_target(A)
+					if(score > best_score)
+						var/list/tmp_best_path = paths_found[A]
+						if(length(tmp_best_path))
+							best_score = score
+							best_path = tmp_best_path
+							. = A
 		holder.target = .
 		holder.target_path = best_path
 
+	/// If overriding also override [score_by_distance_only] to FALSE!
 	proc/score_target(atom/target)
 		. = 0
 		if(target)
@@ -281,6 +314,9 @@ var/list/ai_move_scheduled = list()
 		on_tick()
 
 	proc/reset()
+		//This SHOULD_NOT_SLEEP is *absolutely necessary* for protecting the mobAI loop from hangs.
+		//Do not remove unless you understand the implications.
+		SHOULD_NOT_SLEEP(TRUE)
 		on_reset()
 
 // an AI task that evaluates all tasks within its list of transition tasks
@@ -406,8 +442,12 @@ var/list/ai_move_scheduled = list()
 		..()
 
 	proc/add_task(var/datum/aiTask/succeedable/T)
-		if(T)
-			subtasks += T // add to end of the sequence
+		if (T)
+			subtasks.Add(T) // add to end of the sequence
+
+	proc/remove_task(var/datum/aiTask/succeedable/T)
+		if (T)
+			subtasks.Remove(T)
 
 	next_task()
 		if(terminated)
@@ -417,7 +457,7 @@ var/list/ai_move_scheduled = list()
 
 	tick()
 		..()
-		if(!subtasks || subtasks.len < 1 || !current_subtask)
+		if(!subtasks || length(subtasks) < 1 || !current_subtask)
 			terminated = 1 // we can't operate with no subtasks
 			return
 
@@ -432,7 +472,8 @@ var/list/ai_move_scheduled = list()
 			else
 				current_subtask = subtasks[subtask_index]
 				current_subtask.reset()
-				// ready to run this immediately next tick
+				//double tick, fuck you
+				current_subtask.tick()
 				return
 		else if(current_subtask.failed())
 			// the sequence is ruined

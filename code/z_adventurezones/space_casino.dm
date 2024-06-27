@@ -24,7 +24,7 @@ TYPEINFO(/obj/submachine/slot_machine/item)
 		/obj/item/balloon_animal,
 		/obj/item/cigpacket,
 		/obj/item/clothing/shoes/moon,
-		/obj/item/fish/carp,
+		/obj/item/reagent_containers/food/fish/carp,
 		/obj/item/instrument/bagpipe,
 		/obj/item/clothing/under/gimmick/yay,
 		/obj/item/scrap,
@@ -57,13 +57,13 @@ TYPEINFO(/obj/submachine/slot_machine/item)
 	var/list/raretier = list( // rare tier, 2% chance
 		/obj/item/clothing/gloves/yellow,
 		/obj/item/clothing/glasses/sunglasses,
-		/obj/item/clothing/shoes/sandal,
+		/obj/item/clothing/shoes/sandal/magic,
 		/obj/item/hand_tele,
 		/obj/item/clothing/suit/armor/vest,
 		/obj/item/gimmickbomb/hotdog,
 		/obj/item/card/id/captains_spare,
 		/obj/item/storage/banana_grenade_pouch,
-		/obj/critter/brullbar, // have fun!
+		/mob/living/critter/brullbar, // have fun!
 		/obj/item/artifact/teleport_wand,
 		/obj/item/storage/firstaid/crit
 	)
@@ -101,24 +101,24 @@ TYPEINFO(/obj/submachine/slot_machine/item)
 		var/obj/item/prize = new prize_type
 		prize.set_loc(src.loc)
 		prize.layer += 0.1
-		src.visible_message("<span class='subtle'><b>[src]</b> says, '[exclamation][src.scan.registered] has won \an [prize.name]!'</span>")
+		src.visible_message(SPAN_SUBTLE("<b>[src]</b> says, '[exclamation][src.scan.registered] has won \an [prize.name]!'"))
 		playsound(get_turf(src), "[win_sound]", 55, 1)
 
 	emag_act(var/mob/user, var/obj/item/card/emag/E) // Freak out and die
 		src.icon_state = "slotsitem-malf"
 		playsound(get_turf(src), 'sound/misc/klaxon.ogg', 55, 1)
-		src.visible_message("<span class='subtle'><b>[src]</b> says, 'WINNER! WINNER! JACKPOT! WINNER! JACKPOT! BIG WINNER! BIG WINNER!'</span>")
+		src.visible_message(SPAN_SUBTLE("<b>[src]</b> says, 'WINNER! WINNER! JACKPOT! WINNER! JACKPOT! BIG WINNER! BIG WINNER!'"))
 		playsound(src.loc, 'sound/impact_sounds/Metal_Clang_1.ogg', 60, 1, pitch = 1.2)
 		animate_shake(src,7,5,2)
 		sleep(3.5 SECONDS)
 
-		src.visible_message("<span class='subtle'><b>[src]</b> says, 'BIG WINNER! BIG WINNER!'</span>")
+		src.visible_message(SPAN_SUBTLE("<b>[src]</b> says, 'BIG WINNER! BIG WINNER!'"))
 		playsound(src.loc, 'sound/impact_sounds/Metal_Clang_2.ogg', 60, 1, pitch = 0.8)
 		animate_shake(src,5,7,2)
 		sleep(1.5 SECONDS)
 
 		new/obj/decal/implo(src.loc)
-		playsound(src, 'sound/effects/suck.ogg', 60, 1)
+		playsound(src, 'sound/effects/suck.ogg', 60, TRUE)
 		if (src.scan)
 			src.scan.set_loc(src.loc)
 		qdel(src)
@@ -126,24 +126,24 @@ TYPEINFO(/obj/submachine/slot_machine/item)
 
 // Misc props
 
-/obj/decal/fakeobjects/genetics_scrambler
+/obj/fakeobject/genetics_scrambler
 	name = "modified GeneTek Scanner"
 	icon = 'icons/obj/Cryogenic2.dmi'
 	icon_state = "scanner_0"
-	anchored = 1
+	anchored = ANCHORED
 	density = 1
 
-/obj/decal/fakeobjects/chefbot
+/obj/fakeobject/chefbot
 	name = "inactive chefbot"
 	desc = "It seems to still be sparking..."
 	icon = 'icons/obj/bots/aibots.dmi'
 	icon_state = "chefbot0"
-	anchored = 1
+	anchored = ANCHORED
 
-/obj/decal/fakeobjects/brokengamblebot
+/obj/fakeobject/brokengamblebot
 	name = "inactive gambling robot"
-	icon = 'icons/obj/bots/aibots.dmi'
-	icon_state = "robuddy0"
+	icon = 'icons/obj/bots/robuddy/pr-6.dmi'
+	icon_state = "body"
 
 /obj/item/paper/space_casino_note
 	name = "note"

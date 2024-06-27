@@ -26,65 +26,61 @@
 		return FALSE
 
 	if (!ishuman(target)) // Only humans use the blood system.
-		boutput(M, "<span class='alert'>You can't seem to find any blood vessels.</span>")
+		boutput(M, SPAN_ALERT("You can't seem to find any blood vessels."))
 		return FALSE
 	else
 		var/mob/living/carbon/human/humantarget = target
 		if (istype(humantarget.mutantrace, /datum/mutantrace/vampiric_thrall))
-			boutput(M, "<span class='alert'>You cannot drink the blood of a thrall.</span>")
+			boutput(M, SPAN_ALERT("You cannot drink the blood of a thrall."))
 			return FALSE
 
 	if (M == target)
-		boutput(M, "<span class='alert'>Why would you want to bite yourself?</span>")
+		boutput(M, SPAN_ALERT("Why would you want to bite yourself?"))
 		return FALSE
 
 	if (ismobcritter(M) && !istype(H))
-		boutput(M, "<span class='alert'>Critter mobs currently don't have to worry about blood. Lucky you.</span>")
+		boutput(M, SPAN_ALERT("Critter mobs currently don't have to worry about blood. Lucky you."))
 		return FALSE
 
 	if (istype(H) && H.vamp_isbiting)
 		if (vamp_isbiting != target)
-			boutput(M, "<span class='alert'>You are already draining someone's blood!</span>")
+			boutput(M, SPAN_ALERT("You are already draining someone's blood!"))
 			return FALSE
 
 	if (is_pointblank && target.head && target.head.c_flags & (BLOCKCHOKE))
-		boutput(M, "<span class='alert'>You need to remove their headgear first.</span>")
+		boutput(M, SPAN_ALERT("You need to remove [his_or_her(target)] headgear first."))
 		return FALSE
 
 	if (check_target_immunity(target) == 1)
-		target.visible_message("<span class='alert'><B>[M] bites [target], but fails to even pierce their skin!</B></span>")
-		return FALSE
-
-	if ((target.mind && target.mind.special_role == ROLE_VAMPTHRALL) && target.is_mentally_dominated_by(M))
-		boutput(M, "<span class='alert'>You can't drink the blood of your own thralls!</span>")
+		target.visible_message(SPAN_ALERT("<B>[M] bites [target], but fails to even pierce [his_or_her(target)] skin!</B>"))
 		return FALSE
 
 	if (isnpcmonkey(target))
-		boutput(M, "<span class='alert'>Drink monkey blood?! That's disgusting!</span>")
+		boutput(M, SPAN_ALERT("Drink monkey blood?! That's disgusting!"))
 		return FALSE
 
 	if (!holder.can_take_blood_from(target))
 		return FALSE
 
 	if (isnpc(target))
-		boutput(M, "<span class='alert'>The blood of this target would provide you with no sustenance.</span>")
+		boutput(M, SPAN_ALERT("The blood of this target would provide you with no sustenance."))
 		return FALSE
 
 	return TRUE
 
-/datum/abilityHolder/vampire/proc/do_bite(var/mob/living/carbon/human/HH, var/mult = 1, var/thrall = 0)
+/datum/abilityHolder/vampire/proc/do_bite(var/mob/living/carbon/human/HH, var/mult = 1)
 	.= 1
 	var/mob/living/carbon/human/M = src.owner
 	var/datum/abilityHolder/vampire/H = src
 
 
 	if (HH.blood_volume <= 0)
-		boutput(M, "<span class='alert'>This human is completely void of blood... Wow!</span>")
+		boutput(M, SPAN_ALERT("This human is completely void of blood... Wow!"))
 		return 0
 
-	if (HH.decomp_stage > DECOMP_STAGE_NO_ROT && thrall || isdead(HH) && !thrall)
+	if (isdead(HH))
 		if (prob(20))
-			boutput(M, "<span class='alert'>The blood of the [thrall ? "rotten" : "dead"] provides little sustenance...</span>")
+			boutput(M, SPAN_ALERT("The blood of the dead provides little sustenance..."))
 
 		var/bitesize = 5 * mult
 		H.change_vampire_blood(bitesize, 1)
@@ -98,7 +94,7 @@
 
 	else if (HH.bioHolder && HH.traitHolder.hasTrait("training_chaplain"))
 		if(istype(M))
-			M.visible_message("<span class='alert'><b>[M]</b> begins to crisp and burn!</span>", "<span class='alert'>You drank the blood of a holy man! It burns!</span>")
+			M.visible_message(SPAN_ALERT("<b>[M]</b> begins to crisp and burn!"), SPAN_ALERT("You drank the blood of a holy man! It burns!"))
 			M.emote("scream")
 			if (M.get_vampire_blood() >= 20 * mult)
 				M.change_vampire_blood(-20 * mult, 0)
@@ -119,10 +115,10 @@
 				if (istype(H))
 					H.blood_tracking_output()
 				if (prob(50))
-					boutput(M, "<span class='alert'>This is the blood of a fellow vampire!</span>")
+					boutput(M, SPAN_ALERT("This is the blood of a fellow vampire!"))
 			else
 				HH.change_vampire_blood(0, 0, 1)
-				boutput(M, "<span class='alert'>[HH] doesn't have enough blood left to drink.</span>")
+				boutput(M, SPAN_ALERT("[HH] doesn't have enough blood left to drink."))
 				return 0
 		else
 			var/bitesize = 10 * mult
@@ -133,33 +129,35 @@
 				HH.blood_volume = 0
 			else
 				HH.blood_volume -= 20 * mult
-			//vampires heal, thralls don't
-			if (!thrall)
-				if(istype(M))
-					M.HealDamage("All", 3, 3)
-					M.take_toxin_damage(-1)
-					M.take_oxygen_deprivation(-1)
 
-				if (mult >= 1) //mult is only 1 or greater during a pointblank true suck
-					if (HH.blood_volume < 300 && prob(15))
-						if (!HH.getStatusDuration("paralysis"))
-							boutput(HH, "<span class='alert'>Your vision fades to blackness.</span>")
-						HH.changeStatus("paralysis", 10 SECONDS)
-					else
-						if (prob(65))
-							HH.changeStatus("weakened", 1 SECOND)
-							HH.stuttering = min(HH.stuttering + 3, 10)
+			// Vampire TEG also uses this ability, prevent runtimes
+			if (ismob(src.owner))
+				//vampires heal, thralls don't
+				M.HealDamage("All", 3, 3)
+				M.take_toxin_damage(-1)
+				M.take_oxygen_deprivation(-1)
+
+			if (mult >= 1) //mult is only 1 or greater during a pointblank true suck
+				if (HH.blood_volume < 300 && prob(15))
+					if (!HH.getStatusDuration("unconscious"))
+						boutput(HH, SPAN_ALERT("Your vision fades to blackness."))
+					HH.changeStatus("unconscious", 10 SECONDS)
+				else
+					if (prob(65))
+						HH.changeStatus("knockdown", 1 SECOND)
+						HH.stuttering = min(HH.stuttering + 3, 10)
 
 			if (istype(H)) H.blood_tracking_output()
 
-	if (!can_take_blood_from(HH) && (mult >= 1) && (isunconscious(HH) || HH.health <= 90))
+	if (!can_take_blood_from(HH) && (mult >= 1) && isunconscious(HH))
+		boutput(HH, SPAN_ALERT("You feel your soul slipping away..."))
 		HH.death(FALSE)
 
 	if (istype(H))
 		H.check_for_unlocks()
 
 	eat_twitch(src.owner)
-	playsound(src.owner.loc,'sound/items/drink.ogg', rand(5,20), 1, pitch = 1.4)
+	playsound(src.owner.loc, 'sound/items/drink.ogg', 5, 1, -15, pitch = 1.4) //tested to be audible for about 5 tiles, assuming quiet environment
 	HH.was_harmed(M, special = "vamp")
 	bleed(HH, 1, 3, get_turf(src.owner))
 
@@ -190,44 +188,37 @@
 		return 0
 
 	if (!ishuman(target)) // Only humans use the blood system.
-		boutput(M, "<span class='alert'>You can't seem to find any blood vessels.</span>")
+		boutput(M, SPAN_ALERT("You can't seem to find any blood vessels."))
 		return 0
 	else
 		var/mob/living/carbon/human/humantarget = target
 		if (istype(humantarget.mutantrace, /datum/mutantrace/vampiric_thrall))
-			boutput(M, "<span class='alert'>You cannot drink the blood of a thrall.</span>")
+			boutput(M, SPAN_ALERT("You cannot drink the blood of a thrall."))
 			return 0
 
 	if (M == target)
-		boutput(M, "<span class='alert'>Why would you want to bite yourself?</span>")
+		boutput(M, SPAN_ALERT("Why would you want to bite yourself?"))
 		return 0
 
 	if (ismobcritter(M) && !istype(H))
-		boutput(M, "<span class='alert'>Critter mobs currently don't have to worry about blood. Lucky you.</span>")
+		boutput(M, SPAN_ALERT("Critter mobs currently don't have to worry about blood. Lucky you."))
 		return 0
 
 	if (istype(H) && H.vamp_isbiting)
 		if (vamp_isbiting != target)
-			boutput(M, "<span class='alert'>You are already draining someone's blood!</span>")
+			boutput(M, SPAN_ALERT("You are already draining someone's blood!"))
 			return 0
 
 	if (is_pointblank && target.head && target.head.c_flags & (BLOCKCHOKE))
-		boutput(M, "<span class='alert'>You need to remove their headgear first.</span>")
+		boutput(M, SPAN_ALERT("You need to remove [his_or_her(target)] headgear first."))
 		return 0
 
 	if (check_target_immunity(target) == 1)
-		target.visible_message("<span class='alert'><B>[M] bites [target], but fails to even pierce their skin!</B></span>")
-		return 0
-
-	var/mob/master = null
-	if(src.owner.mind && src.owner.mind.master)
-		master = ckey_to_mob(src.owner.mind.master)
-	if ((target.mind && target.mind.special_role == ROLE_VAMPTHRALL) && target.is_mentally_dominated_by(master))
-		boutput(M, "<span class='alert'>You can't drink the blood of your master's thralls!</span>")
+		target.visible_message(SPAN_ALERT("<B>[M] bites [target], but fails to even pierce [his_or_her(target)] skin!</B>"))
 		return 0
 
 	if (isnpcmonkey(target))
-		boutput(M, "<span class='alert'>Drink monkey blood?! That's disgusting!</span>")
+		boutput(M, SPAN_ALERT("Drink monkey blood?! That's disgusting!"))
 		return 0
 
 	if (!holder.can_take_blood_from(target))
@@ -236,19 +227,19 @@
 
 	return 1
 
-/datum/abilityHolder/vampiric_thrall/proc/do_bite(var/mob/living/carbon/human/HH, var/mult = 1, var/thrall = 0)
+/datum/abilityHolder/vampiric_thrall/proc/do_bite(var/mob/living/carbon/human/HH, var/mult = 1)
 	.= 1
 	var/mob/living/carbon/human/M = src.owner
 	var/datum/abilityHolder/vampiric_thrall/H = src
 
 
 	if (HH.blood_volume <= 0)
-		boutput(M, "<span class='alert'>This human is completely void of blood... Wow!</span>")
+		boutput(M, SPAN_ALERT("This human is completely void of blood... Wow!"))
 		return 0
 
-	if (isdead(HH))
+	if (HH.decomp_stage > DECOMP_STAGE_NO_ROT)
 		if (prob(20))
-			boutput(M, "<span class='alert'>The blood of the dead provides little sustenance...</span>")
+			boutput(M, SPAN_ALERT("The blood of the rotten provides little sustenance..."))
 
 		var/bitesize = 5 * mult
 		M.change_vampire_blood(bitesize, 1)
@@ -260,7 +251,7 @@
 			HH.blood_volume -= 20 * mult
 
 	else if (HH.bioHolder && HH.traitHolder.hasTrait("training_chaplain"))
-		M.visible_message("<span class='alert'><b>[M]</b> begins to crisp and burn!</span>", "<span class='alert'>You drank the blood of a holy man! It burns!</span>")
+		M.visible_message(SPAN_ALERT("<b>[M]</b> begins to crisp and burn!"), SPAN_ALERT("You drank the blood of a holy man! It burns!"))
 		M.emote("scream")
 		if (M.get_vampire_blood() >= 20 * mult)
 			M.change_vampire_blood(-20 * mult, 0)
@@ -279,10 +270,10 @@
 				M.change_vampire_blood(bitesize, 1)
 				H.tally_bite(HH,bitesize)
 				if (prob(50))
-					boutput(M, "<span class='alert'>This is the blood of a fellow vampire!</span>")
+					boutput(M, SPAN_ALERT("This is the blood of a fellow vampire!"))
 			else
 				HH.change_vampire_blood(0, 0, 1)
-				boutput(M, "<span class='alert'>[HH] doesn't have enough blood left to drink.</span>")
+				boutput(M, SPAN_ALERT("[HH] doesn't have enough blood left to drink."))
 				return 0
 		else
 			var/bitesize = 10 * mult
@@ -293,27 +284,22 @@
 				HH.blood_volume = 0
 			else
 				HH.blood_volume -= 20 * mult
-			//vampires heal, thralls don't
-			if (!thrall)
-				M.HealDamage("All", 3, 3)
-				M.take_toxin_damage(-1)
-				M.take_oxygen_deprivation(-1)
+			if (mult >= 1) //mult is only 1 or greater during a pointblank true suck
+				if (HH.blood_volume < 300 && prob(15))
+					if (!HH.getStatusDuration("unconscious"))
+						boutput(HH, SPAN_ALERT("Your vision fades to blackness."))
+					HH.changeStatus("unconscious", 10 SECONDS)
+				else
+					if (prob(65))
+						HH.changeStatus("knockdown", 1 SECOND)
+						HH.stuttering = min(HH.stuttering + 3, 10)
 
-				if (mult >= 1) //mult is only 1 or greater during a pointblank true suck
-					if (HH.blood_volume < 300 && prob(15))
-						if (!HH.getStatusDuration("paralysis"))
-							boutput(HH, "<span class='alert'>Your vision fades to blackness.</span>")
-						HH.changeStatus("paralysis", 10 SECONDS)
-					else
-						if (prob(65))
-							HH.changeStatus("weakened", 1 SECOND)
-							HH.stuttering = min(HH.stuttering + 3, 10)
-
-	if (!can_take_blood_from(HH) && (mult >= 1) && (isunconscious(HH) || HH.health <= 90))
+	if (!can_take_blood_from(HH) && (mult >= 1) && isunconscious(HH))
+		boutput(HH, SPAN_ALERT("You feel your soul slipping away..."))
 		HH.death(FALSE)
 
 	eat_twitch(src.owner)
-	playsound(src.owner.loc,'sound/items/drink.ogg', rand(5,20), 1, pitch = 1.4)
+	playsound(src.owner.loc, 'sound/items/drink.ogg', 5, 1, -15, pitch = 1.4) //tested to be audible for about 5 tiles, assuming quiet environment
 	HH.was_harmed(M, special = "vamp")
 
 
@@ -321,16 +307,16 @@
 	name = "Bite Victim"
 	desc = "Bite the victim's neck to drain them of blood."
 	icon_state = "bite"
-	targeted = 1
-	target_nodamage_check = 1
+	targeted = TRUE
+	target_nodamage_check = TRUE
 	max_range = 1
 	cooldown = 0
 	pointCost = 0
-	when_stunned = 0
-	not_when_handcuffed = 1
-	dont_lock_holder = 1
-	restricted_area_check = 2
-	var/thrall = 0
+	when_stunned = FALSE
+	not_when_handcuffed = TRUE
+	lock_holder = FALSE
+	restricted_area_check = ABILITY_AREA_CHECK_VR_ONLY
+	var/thrall = FALSE
 
 	cast(mob/target)
 		if (!holder)
@@ -343,35 +329,34 @@
 			return 1
 
 		if (GET_DIST(M, target) > src.max_range)
-			boutput(M, "<span class='alert'>[target] is too far away.</span>")
+			boutput(M, SPAN_ALERT("[target] is too far away."))
 			return 1
 
-		if (actions.hasAction(M, "vamp_blood_suck_ranged"))
-			boutput(M, "<span class='alert'>You are already performing a Blood action and cannot start a Bite.</span>")
+		if (actions.hasAction(M, /datum/action/bar/private/icon/vamp_ranged_blood_suc))
+			boutput(M, SPAN_ALERT("You are already performing a Blood action and cannot start a Bite."))
 			return 1
 
 		if (isnpc(target))
-			boutput(M, "<span class='alert'>The blood of this target would provide you with no sustenance.</span>")
+			boutput(M, SPAN_ALERT("The blood of this target would provide you with no sustenance."))
 			return 1
 
+		. = ..()
 		var/mob/living/carbon/human/HH = target
 
 
-		boutput(M, "<span class='notice'>You bite [HH] and begin to drain them of blood.</span>")
-		HH.visible_message("<span class='alert'><B>[M] bites [HH]!</B></span>")
+		boutput(M, SPAN_NOTICE("You bite [HH] and begin to drain [him_or_her(HH)] of blood."))
+		HH.visible_message(SPAN_ALERT("<B>[M] bites [HH]!</B>"))
 
 		actions.start(new/datum/action/bar/private/icon/vamp_blood_suc(M,H,HH,src), M)
 
 		return 0
 
 /datum/targetable/vampire/vampire_bite/thrall
-	thrall = 1
-
+	thrall = TRUE
 
 /datum/action/bar/private/icon/vamp_blood_suc
 	duration = 30
 	interrupt_flags = INTERRUPT_MOVE | INTERRUPT_ACT | INTERRUPT_STUNNED | INTERRUPT_ACTION
-	id = "vamp_blood_suck"
 	icon = 'icons/ui/actions.dmi'
 	icon_state = "blood"
 	bar_icon_state = "bar-vampire"
@@ -432,7 +417,7 @@
 			src.end()
 			return
 
-		if (!H.do_bite(HH,mult = 1.5, thrall = B.thrall))
+		if (!H.do_bite(HH,mult = 1.5))
 			..()
 			interrupt(INTERRUPT_ALWAYS)
 			src.end()
@@ -443,11 +428,11 @@
 	onInterrupt() //Called when the action fails / is interrupted.
 		if (state == ACTIONSTATE_RUNNING)
 			if (HH.blood_volume < 0)
-				boutput(M, "<span class='alert'>[HH] doesn't have enough blood left to drink.</span>")
+				boutput(M, SPAN_ALERT("[HH] doesn't have enough blood left to drink."))
 			else if (!H.can_take_blood_from(H, HH))
-				boutput(M, "<span class='alert'>You have drank your fill [HH]'s blood. It tastes all bland and gross now.</span>")
+				boutput(M, SPAN_ALERT("You have drank your fill [HH]'s blood. It tastes all bland and gross now."))
 			else
-				boutput(M, "<span class='alert'>Your feast was interrupted.</span>")
+				boutput(M, SPAN_ALERT("Your feast was interrupted."))
 
 		src.end()
 

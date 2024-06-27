@@ -1,12 +1,14 @@
 // Wraith
 
 /mob/living/intangible/wraith
-	name = "Wraith"
-	real_name = "Wraith"
+	name = "wraith"
+	real_name = "wraith"
 	desc = "Jesus Christ, how spooky."
 	icon = 'icons/mob/mob.dmi'
 #if defined(XMAS) || (BUILD_TIME_MONTH == 2 && BUILD_TIME_DAY == 14)
 	icon_state = "wraith-love"
+#elif defined(APRIL_FOOLS)
+	icon_state = "wraith-jeans"
 #else
 	icon_state = "wraith"
 #endif
@@ -44,16 +46,18 @@
 	var/datum/abilityHolder/wraith/AH = null
 
 	var/list/poltergeists
-	/// how much holy water a corpse can have while still being absorbable
-	var/holy_water_tolerance = 0
 	/// how much formaldehyde a corpse can have while still being absorbable
 	var/formaldehyde_tolerance = 25
 	///specifiy strong or weak tk powers. Weak for poltergeists.
 	var/weak_tk = FALSE
 	///can the wraith hear ghosts? Toggleable with an ability
 	var/hearghosts = TRUE
+	/// what is our minion summoning marker, if we have any?
+	var/obj/spookMarker/spawn_marker = null
 
 	var/datum/movement_controller/movement_controller
+
+	faction = list(FACTION_WRAITH)
 
 	//////////////
 	// Wraith Overrides
@@ -63,6 +67,9 @@
 		var/len = rand(4, 8)
 		var/vowel_prob = 0
 		var/list/con = list("x", "z", "n", "k", "s", "l", "t", "r", "sh", "m", "d")
+		#ifdef APRIL_FOOLS
+		con += list("j", "j", "j", "j", "j", "j", "j", "j")
+		#endif
 		var/list/vow = list("y", "o", "a", "ae", "u", "ou")
 		var/theName = ""
 		for (var/i = 1, i <= len, i++)
@@ -75,11 +82,13 @@
 		var/fc = copytext(theName, 1, 2)
 		theName = "[uppertext(fc)][copytext(theName, 2)]"
 
-		theName = theName  + "[pick(" the Impaler", " the Tormentor", " the Forsaken", " the Destroyer", " the Devourer", " the Tyrant", " the Overlord", " the Damned", " the Desolator", " the Exiled")]"
+		#ifdef APRIL_FOOLS
+		var/suffix = pick(" the Jimpaler", " the Jormentor", " the Jorsaken", " the Jestroyer", " the Jevourer", " the Jyrant", " the Joverlord", " the Jamned", " the Jesolator", " the Jexiled")
+		#else
+		var/suffix = pick(" the Impaler", " the Tormentor", " the Forsaken", " the Destroyer", " the Devourer", " the Tyrant", " the Overlord", " the Damned", " the Desolator", " the Exiled")
+		#endif
+		theName = theName  + suffix
 		return theName
-
-	proc/get_movement_controller(mob/user)
-		return movement_controller
 
 	New(var/mob/M)
 		. = ..()
@@ -92,11 +101,13 @@
 		//src.sight |= SEE_TURFS | SEE_MOBS | SEE_OBJS | SEE_SELF
 		src.sight |= SEE_SELF // let's not make it see through walls
 		src.see_invisible = INVIS_SPOOKY
-		src.set_a_intent("disarm")
 		src.see_in_dark = SEE_DARK_FULL
 		src.abilityHolder = new /datum/abilityHolder/wraith(src)
 		AH = src.abilityHolder
 		src.abilityHolder.points = 50
+#ifdef BONUS_POINTS
+		src.abilityHolder.points = 99999
+#endif
 		if (!istype(src, /mob/living/intangible/wraith/wraith_trickster) && !istype(src, /mob/living/intangible/wraith/wraith_decay) && !istype(src, /mob/living/intangible/wraith/wraith_harbinger) && !istype(src, /mob/living/intangible/wraith/poltergeist))
 			src.addAbility(/datum/targetable/wraithAbility/specialize)
 		src.addAllBasicAbilities()
@@ -106,6 +117,9 @@
 		src.flags |= UNCRUSHABLE
 		valid_locations = get_accessible_station_areas()
 		next_area_change = world.time + (5 SECONDS)
+		#ifdef APRIL_FOOLS
+		animate_levitate(src)
+		#endif
 
 		if (!movement_controller)
 			movement_controller = new /datum/movement_controller/poltergeist (src)
@@ -146,12 +160,25 @@
 		poltergeists = null
 		..()
 
+	proc/transmute_random_stuff(datum/material/mat, count=1)
+		var/list/valid_objs = list()
+		for (var/obj/O in range(3, src))
+			if (O.invisibility == 0 && !istype(O, /obj/effect) && !istype(O, /obj/overlay))
+				valid_objs += O
+		for (var/i in 1 to count)
+			var/obj/O = pick(valid_objs)
+			O.setMaterial(mat)
+
 	Life(parent)
 		if (..(parent))
 			return 1
 
-		if (src.client)
-			src.antagonist_overlay_refresh(0, 0)
+		#ifdef APRIL_FOOLS
+		transmute_random_stuff(getMaterial("jean"))
+		if(prob(1))
+			animate(src)
+			animate_levitate(src)
+		#endif
 
 		if (!src.abilityHolder)
 			src.abilityHolder = new /datum/abilityHolder/wraith(src)
@@ -196,37 +223,38 @@
 
 	death(gibbed)
 		. = ..()
-		//Back to square one with you!
-
-		var/datum/abilityHolder/wraith/W = src.abilityHolder
-		if(istype(W))
-			W.corpsecount = 0
-			var/datum/targetable/wraithAbility/absorbCorpse/absorb = W.getAbility(/datum/targetable/wraithAbility/absorbCorpse)
-			absorb?.doCooldown()
-		src.abilityHolder.points = 0
-		src.abilityHolder.regenRate = 1
-		src.health = initial(src.health) // oh sweet jesus it spammed so hard
-		src.haunting = 0
-		src.flags |= UNCRUSHABLE
-		src.hauntBonus = 0
-		deaths++
-		src.delStatus("corporeal")
-		if (src.mind)
-			for (var/datum/objective/specialist/wraith/WO in src.mind.objectives)
-				WO.onWeakened()
 
 		//When a master wraith dies, any of its poltergeists who are following it are thrown out. also send a message
 		drop_following_poltergeists()
 
 		if (deaths < 2)
-			boutput(src, "<span class='alert'><b>You have been defeated...for now. The strain of banishment has weakened you, and you will not survive another.</b></span>")
+			//Back to square one with you!
+
+			var/datum/abilityHolder/wraith/W = src.abilityHolder
+			if(istype(W))
+				W.corpsecount = 0
+				var/datum/targetable/wraithAbility/absorbCorpse/absorb = W.getAbility(/datum/targetable/wraithAbility/absorbCorpse)
+				absorb?.doCooldown()
+			src.abilityHolder.points = 0
+			src.abilityHolder.regenRate = 1
+			src.health = initial(src.health) // oh sweet jesus it spammed so hard
+			src.haunting = 0
+			src.flags |= UNCRUSHABLE
+			src.hauntBonus = 0
+			deaths++
+			src.delStatus("corporeal")
+			if (src.mind)
+				for (var/datum/objective/specialist/wraith/WO in src.mind.objectives)
+					WO.onWeakened()
+
+			boutput(src, SPAN_ALERT("<b>You have been defeated...for now. The strain of banishment has weakened you, and you will not survive another.</b>"))
 			logTheThing(LOG_COMBAT, src, "lost a life as a wraith at [log_loc(src.loc)].")
 			src.justdied = 1
 			src.set_loc(pick_landmark(LANDMARK_LATEJOIN))
 			SPAWN(15 SECONDS) //15 seconds
 				src.justdied = 0
 		else
-			boutput(src, "<span class='alert'><b>Your connection with the mortal realm is severed. You have been permanently banished.</b></span>")
+			boutput(src, SPAN_ALERT("<b>Your connection with the mortal realm is severed. You have been permanently banished.</b>"))
 			message_admins("Wraith [key_name(src)] died with no more respawns at [log_loc(src.loc)].")
 			logTheThing(LOG_COMBAT, src, "died as a wraith with no more respawns at [log_loc(src.loc)].")
 			if (src.mind)
@@ -264,8 +292,8 @@
 					else
 						P.exit_master(T1)
 					P.setStatus("corporeal", INFINITE_STATUS, TRUE)
-					boutput(P, "<span class='alert'><b>Oh no! Your master has died and you've been ejected outside into the material plane!</b></span>")
-				boutput(P, "<span class='alert'><b>Your master has died!</b></span>")
+					boutput(P, SPAN_ALERT("<b>Oh no! Your master has died and you've been ejected outside into the material plane!</b>"))
+				boutput(P, SPAN_ALERT("<b>Your master has died!</b>"))
 
 	proc/onAbsorb(var/mob/M)
 		if (src.mind)
@@ -305,7 +333,7 @@
 				src.TakeDamage(null, 0, damage)
 
 		if(!P.proj_data.silentshot)
-			src.visible_message("<span class='alert'>[src] is hit by the [P]!</span>")
+			boutput(src, SPAN_ALERT("You are hit by the [P]!"))
 
 	ex_act(severity)
 		if (!src.density) return
@@ -341,117 +369,27 @@
 		return
 
 	Move(var/turf/NewLoc, direct)
-		if (loc)
-			if (!isturf(loc) && !density)
-				src.set_loc(get_turf(loc))
-		else
-			src.set_loc(locate(1,1,1))
+		if (NewLoc.x == world.maxx || NewLoc.y == world.maxy)
+			return
 
-		if(!canmove) return
+		if (src.density)
+			for (var/obj/machinery/door/door in NewLoc)
+				if (istype(door, /obj/machinery/door/poddoor))
+					continue
+				if (istype(door, /obj/machinery/door/feather) && !istype(door, /obj/machinery/door/feather/friendly))
+					continue
+				door.open()
+			return ..()
 
-		if(!isturf(src.loc)) src.set_loc(get_turf(src))
-
-		if (NewLoc)
-			if ((isghostrestrictedz(NewLoc.z) || ((NewLoc.z != Z_LEVEL_STATION) && (NewLoc.z != Z_LEVEL_ADVENTURE) && (NewLoc.z != 7))) && !restricted_z_allowed(src, NewLoc) && !(src.client && src.client.holder))
-				var/OS = pick_landmark(LANDMARK_OBSERVER, locate(1, 1, 1))
-				if (OS)
-					src.set_loc(OS)
-				else
-					src.z = 1
-				OnMove()
-				return
-
-			var/mydir = get_dir(src, NewLoc)
-			var/salted = 0
-
-			if(src.density)
-				for(var/obj/machinery/door/airlock/A in NewLoc)
-					if(!A.welded && !A.locked && !A.operating && A.arePowerSystemsOn() && !A.isWireCut(AIRLOCK_WIRE_OPEN_DOOR) && !(A.status & NOPOWER))
-						A.open()
-
-			if (mydir == NORTH || mydir == EAST || mydir == WEST || mydir == SOUTH)
-				if (src.density && !NewLoc.Enter(src))
-					return
-
-			else
-				var/turf/vertical
-				var/turf/horizontal
-				var/blocked = 1
-				if (mydir & NORTH)
-					vertical = get_step(src, NORTH)
-				else
-					vertical = get_step(src, SOUTH)
-
-				if (mydir & WEST)
-					horizontal = get_step(src, WEST)
-				else
-					horizontal = get_step(src, EAST)
-
-				var/turf/oldloc = loc
-				var/horiz = FALSE
-				var/vert = FALSE
-
-				if (!src.density || vertical.Enter(src))
-					vert = TRUE
-					src.set_loc(vertical)
-					if (!src.density || NewLoc.Enter(src))
-						blocked = 0
-						for(var/obj/decal/cleanable/saltpile/A in vertical)
-							if (istype(A)) salted = TRUE
-							if (salted) break
-					src.set_loc(oldloc)
-
-				if (!src.density || horizontal.Enter(src))
-					horiz = TRUE
-					src.set_loc(horizontal)
-					if (!src.density || NewLoc.Enter(src))
-						blocked = FALSE
-						for(var/obj/decal/cleanable/saltpile/A in horizontal)
-							if (istype(A)) salted = TRUE
-							if (salted) break
-					src.set_loc(oldloc)
-
-				if (blocked)
-					if (horiz)
-						Move(horizontal)
-						return
-					else if (vert)
-						Move(vertical)
-						return
-					return
-
-			for(var/obj/decal/cleanable/saltpile/A in NewLoc)
-				if (istype(A)) salted = TRUE
-				if (salted) break
-
-			src.set_dir(get_dir(loc, NewLoc))
-			if (src.density) // if we're corporeal we follow normal mob restrictions
-				..()
-			else // if we're in ghost mode we get to cheat
-				src.set_loc(NewLoc)
-			OnMove()
-
-			//if tile contains salt, wraith becomes corporeal
-			if (salted && !src.density && !src.justdied)
+		if (!src.density && !src.justdied)
+			for (var/obj/decal/cleanable/saltpile/salt in NewLoc)
 				src.setStatus("corporeal", src.forced_haunt_duration, TRUE)
 				var/datum/targetable/ability = src.abilityHolder.getAbility(/datum/targetable/wraithAbility/haunt)
 				ability.doCooldown()
-				boutput(src, "<span class='alert'>You have passed over salt! You now interact with the mortal realm...</span>")
+				boutput(src, SPAN_ALERT("You have passed over salt! You now interact with the mortal realm..."))
+				break
 
-		//if ((marker && BOUNDS_DIST(src, marker) > 05) && (master && BOUNDS_DIST(P, src) > 02 ))
-
-			return
-
-		//Z level boundary stuff
-		if((direct & NORTH) && src.y < world.maxy)
-			src.y++
-		if((direct & SOUTH) && src.y > 1)
-			src.y--
-		if((direct & EAST) && src.x < world.maxx)
-			src.x++
-		if((direct & WEST) && src.x > 1)
-			src.x--
-		OnMove()
+		return ..()
 
 	can_use_hands()
 		if (src.density) return 1
@@ -469,7 +407,7 @@
 
 	click(atom/target)
 		if (src.targeting_ability)
-			..()
+			return ..()
 		if (!density)
 			src.examine_verb(target)
 
@@ -482,33 +420,27 @@
 			var/string = ""
 			var/mob/M = A
 			if (M.traitHolder.hasTrait("training_chaplain"))
-				string += "<span class='alert'>This creature is <b><i>vile</i></b>!</span>\n"
+				string += "[SPAN_ALERT("This creature is <b><i>vile</i></b>!")]\n"
 
 			if (M.reagents)
 				var/f_amt = M.reagents.get_reagent_amount("formaldehyde")
 				if (f_amt >= src.formaldehyde_tolerance)
-					string += "<span class='blue'>This creature is <i>saturated</i> with a most unpleasant substance!</span>\n"
+					string += "[SPAN_NOTICE("This creature is <i>saturated</i> with a most unpleasant substance!")]\n"
 				else if (f_amt > 0)
-					string += "<span class='blue'>This creature has a somewhat unpleasant <i>taste</i>.</span>\n"
-
-				var/hw_amt = M.reagents.get_reagent_amount("water_holy")
-				if (hw_amt >= src.holy_water_tolerance)
-					string += "<span class='blue'>This creature exudes a truly vile <i>aroma</i>!</span>\n"
-				else if (hw_amt > 0)
-					string += "<span class='blue'>This creature has a somewhat vile <i>fragrance</i>!</span>\n"
+					string += "[SPAN_NOTICE("This creature has a somewhat unpleasant <i>taste</i>.")]\n"
 
 			if (length(string))
 				boutput(src, string)
 
 
 	say(var/message)
-		message = trim(copytext(sanitize(message), 1, MAX_MESSAGE_LEN))
+		message = trimtext(copytext(sanitize(message), 1, MAX_MESSAGE_LEN))
 		if (!message)
 			return
 
 		if (src.density) //If corporeal speak to the living (garbled)
 			logTheThing(LOG_DIARY, src, "(WRAITH): [message]", "say")
-
+			SEND_SIGNAL(src, COMSIG_MOB_SAY, message)
 			if (src.client && src.client.ismuted())
 				boutput(src, "You are currently muted and may not speak.")
 				return
@@ -553,7 +485,7 @@
 
 		if (acts)
 			for (var/mob/M in hearers(src, null))
-				M.show_message("<span class='alert'>[src] [acts]!</span>")
+				M.show_message(SPAN_ALERT("[src] [acts]!"))
 
 	attack_hand(var/mob/user)
 		user.lastattacked = src
@@ -608,25 +540,25 @@
 		var/list/safe_area_names = list()
 		for (var/area/area as anything in booster_locations)
 			safe_area_names += area.name
-		boutput(src, "<span class='alert'><b>You will gather energy more rapidly if you are close to [get_battle_area_names(safe_area_names)]!</b></span>")
+		boutput(src, SPAN_ALERT("<b>You will gather energy more rapidly if you are close to [get_battle_area_names(safe_area_names)]!</b>"))
 
 	proc/makeRevenant(var/mob/M as mob)
 		if (!ishuman(M))
-			boutput(usr, "<span class='alert'>You can only extend your consciousness into humans corpses.</span>")
+			boutput(usr, SPAN_ALERT("You can only extend your consciousness into humans corpses."))
 			return 1
 		var/mob/living/carbon/human/H = M
 		if (!isdead(H))
-			boutput(usr, "<span class='alert'>A living consciousness possesses this body. You cannot force your way in.</span>")
+			boutput(usr, SPAN_ALERT("A living consciousness possesses this body. You cannot force your way in."))
 			return 1
 		if (H.decomp_stage == DECOMP_STAGE_SKELETONIZED)
-			boutput(usr, "<span class='alert'>This corpse is no good for this!</span>")
+			boutput(usr, SPAN_ALERT("This corpse is no good for this!"))
 			return 1
 		if (ischangeling(H))
-			boutput(usr, "<span class='alert'>What is this? An exquisite genetic structure. It forcibly resists your will, even in death.</span>")
+			boutput(usr, SPAN_ALERT("What is this? An exquisite genetic structure. It forcibly resists your will, even in death."))
 			return 1
 		if (!H.bioHolder)
 			message_admins("[key_name(src)] tried to possess [M] as a revenant but failed due to a missing bioholder.")
-			boutput(usr, "<span class='alert'>Failed.</span>")
+			boutput(usr, SPAN_ALERT("Failed."))
 			return 1
 		var/datum/bioEffect/hidden/revenant/R = H.bioHolder.AddEffect("revenant")
 		if (H.bioHolder.HasEffect("revenant")) // make sure we didn't get deleted on the way - should probably make a better check than this. whatever.
@@ -643,7 +575,11 @@
 	real_name = "plaguebringer"
 	desc = "A pestilent ghost, spreading disease wherever it goes. Just looking at it makes you queasy."
 	icon = 'icons/mob/mob.dmi'
+	#ifdef APRIL_FOOLS
+	icon_state = "wraith-jeans"
+	#else
 	icon_state = "wraith_plague"
+	#endif
 
 	New(var/mob/M)
 		..()
@@ -662,7 +598,11 @@
 	real_name = "harbinger"
 	desc = "An evil looking, regal specter. Usually seen commanding a horde of minions."
 	icon = 'icons/mob/mob.dmi'
+	#ifdef APRIL_FOOLS
+	icon_state = "wraith-jeans"
+	#else
 	icon_state = "wraith_harbinger"
+	#endif
 
 	New(var/mob/M)
 		..()
@@ -678,7 +618,11 @@
 	real_name = "trickster"
 	desc = "A living shadow seeking to disrupt the station with lies and deception."
 	icon = 'icons/mob/mob.dmi'
+	#ifdef APRIL_FOOLS
+	icon_state = "wraith-jeans"
+	#else
 	icon_state = "wraith_trickster"
+	#endif
 	/// How many points do we need to possess someone?
 	var/points_to_possess = 50
 	/// Steal someone's appearance and use it during haunt
@@ -687,6 +631,9 @@
 	var/copied_desc = null
 	var/copied_name = null
 	var/copied_real_name = null
+	var/copied_pronouns = null
+	var/copied_footstep_sound = null
+	var/copied_voice = null
 	var/traps_laid = 0
 
 	New(var/mob/M)
@@ -712,48 +659,6 @@
 //////////////
 // Related procs and verbs
 //////////////
-
-// i am dumb - marq
-/mob/proc/wraithize()
-	if (src.mind || src.client)
-		message_admins("[key_name(usr)] made [key_name(src)] a wraith.")
-		logTheThing(LOG_ADMIN, usr, "made [constructTarget(src,"admin")] a wraith.")
-		return make_wraith()
-	return null
-
-/mob/proc/make_wraith()
-	if (src.mind || src.client)
-		var/mob/living/intangible/wraith/W = new/mob/living/intangible/wraith(src)
-
-		var/turf/T = get_turf(src)
-		if (!(T && isturf(T)) || ((isghostrestrictedz(T.z) || T.z != 1) && !(src.client && src.client.holder)))
-			var/OS = pick_landmark(LANDMARK_OBSERVER, locate(1, 1, 1))
-			if (OS)
-				W.set_loc(OS)
-			else
-				W.z = 1
-		else
-			W.set_loc(T)
-
-		if (src.mind)
-			src.mind.transfer_to(W)
-		else
-			var/key = src.client.key
-			if (src.client)
-				src.client.mob = W
-			W.mind = new /datum/mind()
-			W.mind.ckey = ckey
-			W.mind.key = key
-			W.mind.current = W
-			ticker.minds += W.mind
-		qdel(src)
-
-		//W.addAllAbilities()
-		boutput(W, "<B>You are a wraith! Terrorize the mortals and drive them into releasing their life essence!</B>")
-		boutput(W, "Your astral powers enable you to survive one banishment. Beware of salt.")
-		boutput(W, "Use the question mark button in the lower right corner to get help on your abilities.")
-		return W
-	return null
 
 /proc/visibleBodies(var/mob/M)
 	var/list/ret = new

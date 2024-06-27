@@ -1,5 +1,5 @@
 import { useBackend } from '../backend';
-import { Chart, LabeledList, Stack, NumberInput } from '../components';
+import { Chart, LabeledList, NumberInput, Stack } from '../components';
 import { formatPower } from '../format';
 import { Window } from '../layouts';
 
@@ -13,6 +13,7 @@ export const TurbineControl = (_props, context) => {
     history,
     overspeed,
     overtemp,
+    undertemp,
   } = data;
   const rpmHistory = history.map((v) => v[0]);
   const rpmHistoryData = rpmHistory.map((v, i) => [i, v]);
@@ -52,7 +53,8 @@ export const TurbineControl = (_props, context) => {
             <LabeledList>
               <LabeledList.Item label="Turbine Speed">{rpm} RPM</LabeledList.Item>
               {overspeed ? <LabeledList.Item label="ALERT" color="#FF0000" >OVERSPEED</LabeledList.Item> : ""}
-              {overtemp ? <LabeledList.Item label="ALERT" color="#FF0000">TEMPERATURE</LabeledList.Item> : ""}
+              {overtemp ? <LabeledList.Item label="ALERT" color="#FF0000">OVER TEMPERATURE</LabeledList.Item> : ""}
+              {undertemp ? <LabeledList.Item label="ALERT" color="#FF0000">UNDER TEMPERATURE</LabeledList.Item> : ""}
             </LabeledList>
             <Chart.Line
               mt="5px"
@@ -87,11 +89,11 @@ export const TurbineControl = (_props, context) => {
               onChange={(e, value) => act("loadChange", { newVal: value })} />
           </Stack.Item>
           <Stack.Item>
-            Coolant Volume:
+            Flow Rate:
             <NumberInput
               minValue={1}
               value={volume}
-              format={value => value + " L"}
+              format={value => value + " L/s"}
               onChange={(e, value) => act("volChange", { newVal: value })} />
           </Stack.Item>
         </Stack>

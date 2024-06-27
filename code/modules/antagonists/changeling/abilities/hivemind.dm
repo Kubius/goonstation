@@ -10,7 +10,6 @@ ABSTRACT_TYPE(/datum/targetable/changeling/critter)
 	target_anything = 0
 	human_only = 0
 	can_use_in_container = 1
-	dont_lock_holder = 0
 	///The observer mob we chose to transfer mind from, this should just be returned from New, but datum/targetable/New relies on truthy fail states
 	var/mob/dead/target_observer/hivemind_observer/use_mob = null
 	///The associated ROLE_ define
@@ -25,12 +24,12 @@ ABSTRACT_TYPE(/datum/targetable/changeling/critter)
 
 		var/datum/abilityHolder/changeling/H = holder
 		if (!istype(H))
-			boutput(holder.owner, "<span class='alert'>That ability is incompatible with our abilities. We should report this to a coder.</span>")
+			boutput(holder.owner, SPAN_ALERT("That ability is incompatible with our abilities. We should report this to a coder."))
 			return TRUE
 
 		//Verify that you are not in control of your master's body.
 		if(H.master && H.owner != H.master)
-			boutput(holder.owner, "<span class='alert'>A member of the hivemind cannot release a sub-form!.</span>")
+			boutput(holder.owner, SPAN_ALERT("A member of the hivemind cannot release a sub-form!."))
 			return TRUE
 
 		var/list/eligible = list()
@@ -38,30 +37,32 @@ ABSTRACT_TYPE(/datum/targetable/changeling/critter)
 			if (O.client)
 				eligible[O.real_name] = O
 
-		if (eligible.len < 1)
-			boutput(holder.owner, "<span class='alert'>There are no minds eligible for this ability. We need to absorb another.</span>")
+		if (length(eligible) < 1)
+			boutput(holder.owner, SPAN_ALERT("There are no minds eligible for this ability. We need to absorb another."))
 			return TRUE
 
 		var/use_mob_name = tgui_input_list(holder.owner, "Select the mind to transfer into the handspider:", "Select Mind", sortList(eligible, /proc/cmp_text_asc))
 		if (!use_mob_name)
-			boutput(holder.owner, "<span class='notice'>We change our mind.</span>")
+			boutput(holder.owner, SPAN_NOTICE("We change our mind."))
 			return TRUE
 
 		src.use_mob = eligible[use_mob_name]
 
-		var/obj/item/bodypart = src.get_bodypart()
-		if (!bodypart)
+		if (!src.available_bodypart())
 			return TRUE
 
 		var/datum/mind/mind = use_mob.mind
 		if (!mind)
-			CRASH("changeling critter created from mob with no mind")
-		mind.add_antagonist(src.antag_role, source = ANTAGONIST_SOURCE_SUMMONED, do_equip = FALSE)
-		var/datum/antagonist/changeling_critter/antag = mind.get_antagonist(src.antag_role)
-		antag.give_equipment(bodypart, src.holder)
-		logTheThing(LOG_COMBAT, holder.owner, "drops a [antag.display_name] [key_name(mind.current)] as a changeling [log_loc(holder.owner)].")
+			logTheThing(LOG_DEBUG, holder.owner, "tries to spawn a changeling critter from a mob with no mind. THIS SHOULD NEVER HAPPEN AND MAY BREAK THINGS.")
+			return TRUE
+		mind.remove_antagonist(ROLE_CHANGELING_HIVEMIND_MEMBER)
+		mind.add_subordinate_antagonist(src.antag_role, source = ANTAGONIST_SOURCE_SUMMONED, master = src.holder.owner.mind)
+		logTheThing(LOG_COMBAT, holder.owner, "drops \an [src.antag_role] [key_name(mind.current)] as a changeling [log_loc(src.holder.owner)].")
 
 		return FALSE
+
+	proc/available_bodypart()
+		return
 
 	proc/get_bodypart()
 		return
@@ -70,13 +71,20 @@ ABSTRACT_TYPE(/datum/targetable/changeling/critter)
 	name = "Handspider"
 	desc = "Detach one of your arms and bring it to life using one of the members of your hivemind."
 	icon_state = "handspider"
-	pointCost = 4
+	pointCost = CHANGELING_HANDSPIDER_COST
 	antag_role = ROLE_HANDSPIDER
+
+	available_bodypart()
+		var/mob/living/carbon/human/owner = holder.owner
+		if (!(owner.limbs.l_arm || owner.limbs.r_arm) || !ishuman(holder.owner))
+			return FALSE
+
+		return TRUE
 
 	get_bodypart()
 		var/mob/living/carbon/human/owner = holder.owner
-		if (!(owner.limbs.l_arm || owner.limbs.r_arm) || !ishuman(holder.owner))
-			boutput(holder.owner, "<span class='notice'>We have no arms to detach!</span>")
+		if (!src.available_bodypart())
+			boutput(holder.owner, SPAN_NOTICE("We have no arms to detach!"))
 			return null
 
 		var/obj/item/parts/original_arm = null
@@ -95,7 +103,7 @@ ABSTRACT_TYPE(/datum/targetable/changeling/critter)
 			original_arm = owner.limbs.r_arm.remove(FALSE)
 			owner.changeStatus("c_regrow-r_arm", 75 SECONDS)
 
-		holder.owner.visible_message(text("<span class='alert'><B>[holder.owner]'s arm falls off and starts moving!</B></span>"))
+		holder.owner.visible_message(SPAN_ALERT("<B>[holder.owner]'s arm falls off and starts moving!</B>"))
 
 		return original_arm
 
@@ -103,13 +111,20 @@ ABSTRACT_TYPE(/datum/targetable/changeling/critter)
 	name = "Eyespider"
 	desc = "Eject one of your eyes as a non-combatant utility form and bring it to life using one of the members of your hivemind."
 	icon_state = "eyespider"
-	pointCost = 0 // free for now, given you have to lose a fuckin' EYE
+	pointCost = CHANGELING_EYESPIDER_COST
 	antag_role = ROLE_EYESPIDER
+
+	available_bodypart()
+		var/mob/living/carbon/human/owner = holder.owner
+		if (!(owner.organHolder.left_eye || owner.organHolder.right_eye) || !ishuman(holder.owner))
+			return FALSE
+
+		return TRUE
 
 	get_bodypart()
 		var/mob/living/carbon/human/owner = holder.owner
-		if (!(owner.organHolder.left_eye || owner.organHolder.right_eye) || !ishuman(holder.owner))
-			boutput(holder.owner, "<span class='notice'>We have no eyes to eject!</span>") // what a terrifying fate you've given yourself
+		if (!src.available_bodypart())
+			boutput(holder.owner, SPAN_NOTICE("We have no eyes to eject!")) // what a terrifying fate you've given yourself
 			return null
 
 		var/original_eye = null
@@ -128,7 +143,7 @@ ABSTRACT_TYPE(/datum/targetable/changeling/critter)
 			original_eye = owner.drop_organ("right_eye")
 			owner.changeStatus("c_regrow-r_eye", 40 SECONDS)
 
-		holder.owner.visible_message(text("<span class='alert'><B>[holder.owner]'s eye shoots out and starts moving!</B></span>"))
+		holder.owner.visible_message(SPAN_ALERT("<B>[holder.owner]'s eye shoots out and starts moving!</B>"))
 
 		return original_eye
 
@@ -137,13 +152,20 @@ ABSTRACT_TYPE(/datum/targetable/changeling/critter)
 	desc = "Detach one of your legs and bring it to life using one of the members of your hivemind."
 	icon_state = "legworm"
 	cooldown = 1200
-	pointCost = 6
+	pointCost = CHANGELING_LEGWORM_COST
 	antag_role = ROLE_LEGWORM
+
+	available_bodypart()
+		var/mob/living/carbon/human/owner = holder.owner
+		if (!(owner.limbs.l_leg || owner.limbs.r_leg) || !ishuman(holder.owner))
+			return FALSE
+
+		return TRUE
 
 	get_bodypart()
 		var/mob/living/carbon/human/owner = holder.owner
-		if (!(owner.limbs.l_leg || owner.limbs.r_leg) || !ishuman(holder.owner))
-			boutput(holder.owner, "<span class='notice'>We have no legs to detach!</span>")
+		if (!src.available_bodypart())
+			boutput(holder.owner, SPAN_NOTICE("We have no legs to detach!"))
 			return null
 
 		var/obj/item/parts/original_leg = null
@@ -162,7 +184,7 @@ ABSTRACT_TYPE(/datum/targetable/changeling/critter)
 			original_leg = owner.limbs.r_leg.remove()
 			owner.changeStatus("c_regrow-r_leg", 75 SECONDS)
 
-		holder.owner.visible_message(text("<span class='alert'><B>[holder.owner]'s leg falls off and starts moving!</B></span>"))
+		holder.owner.visible_message(SPAN_ALERT("<B>[holder.owner]'s leg falls off and starts moving!</B>"))
 
 		return original_leg
 
@@ -171,19 +193,26 @@ ABSTRACT_TYPE(/datum/targetable/changeling/critter)
 	desc = "You butt fall off and hivemind person become butt"
 	icon_state = "buttcrab"
 	cooldown = 600
-	pointCost = 1
+	pointCost = CHANGELING_BUTTCRAB_COST
 	antag_role = ROLE_BUTTCRAB
+
+	available_bodypart()
+		var/mob/living/carbon/human/owner = holder.owner
+		if (!(owner.organHolder.butt) || !ishuman(holder.owner))
+			return FALSE
+
+		return TRUE
 
 	get_bodypart()
 		var/mob/living/carbon/human/owner = holder.owner
-		if (!(owner.organHolder.butt) || !ishuman(holder.owner))
-			boutput(holder.owner, "<span class='notice'>We have no ass!</span>") // what a terrifying fate you've given yourself
+		if (!src.available_bodypart())
+			boutput(holder.owner, SPAN_NOTICE("We have no ass!")) // what a terrifying fate you've given yourself
 			return null
 
 		var/obj/item/clothing/head/butt/original_butt = owner.drop_organ("butt")
 		owner.changeStatus("c_regrow-butt", 40 SECONDS)
 
-		holder.owner.visible_message(text("<span class='alert'><B>[holder.owner]'s butt falls off and starts moving!</B></span>"))
+		holder.owner.visible_message(SPAN_ALERT("<B>[holder.owner]'s butt falls off and starts moving!</B>"))
 
 		return original_butt
 
@@ -198,7 +227,10 @@ ABSTRACT_TYPE(/datum/targetable/changeling/critter)
 	human_only = 0
 	can_use_in_container = 1
 	interrupt_action_bars = 0
-	dont_lock_holder = 1
+	lock_holder = FALSE
+	do_logs = FALSE
+	interrupt_action_bars = FALSE
+
 	incapacitationCheck()
 		return 0
 
@@ -225,7 +257,7 @@ ABSTRACT_TYPE(/datum/targetable/changeling/critter)
 	human_only = 0
 	pointCost = 0
 	can_use_in_container = 1
-	dont_lock_holder = 1
+	lock_holder = FALSE
 	interrupt_action_bars = 0
 
 	incapacitationCheck()
@@ -237,33 +269,33 @@ ABSTRACT_TYPE(/datum/targetable/changeling/critter)
 		var/datum/abilityHolder/changeling/H = holder
 		//Sanity check
 		if (!istype(H))
-			boutput(holder.owner, "<span class='alert'>That ability is incompatible with our abilities. We should report this to a coder.</span>")
+			boutput(holder.owner, SPAN_ALERT("That ability is incompatible with our abilities. We should report this to a coder."))
 			return 1
 
 		//Verify that you are not in control of your master's body.
 		if(H.master && H.owner != H.master)
-			boutput(holder.owner, "<span class='alert'>A member of the hivemind cannot boot other members of the hivemind!.</span>")
+			boutput(holder.owner, SPAN_ALERT("A member of the hivemind cannot boot other members of the hivemind!."))
 			return 1
 
 		var/list/eligible = list()
 		for (var/mob/dead/target_observer/hivemind_observer/O in H.hivemind)
 			eligible[O.real_name] = O
 
-		if (eligible.len < 1)
-			boutput(holder.owner, "<span class='alert'>There are no minds eligible for this ability.</span>")
+		if (length(eligible) < 1)
+			boutput(holder.owner, SPAN_ALERT("There are no minds eligible for this ability."))
 			return 1
 
 		var/use_mob_name = tgui_input_list(holder.owner, "Select the mind to silence:", "Select Mind", sortList(eligible, /proc/cmp_text_asc))
 		if (!use_mob_name)
-			boutput(holder.owner, "<span class='notice'>We change our mind.</span>")
+			boutput(holder.owner, SPAN_NOTICE("We change our mind."))
 			return 1
 
 		//RIP
 		var/mob/dead/target_observer/hivemind_observer/use_mob = eligible[use_mob_name]
 		H.hivemind -= use_mob
-		boutput(use_mob, "<span class='alert'>You have been cut off from the hivemind by [holder.owner.real_name]!</span>")
-		use_mob.boot()
-		boutput(holder.owner, "<span class='alert'>You have silenced [use_mob_name]'s consciousness from your hivemind.</span>")
+		boutput(use_mob, SPAN_ALERT("You have been cut off from the hivemind by [holder.owner.real_name]!"))
+		use_mob.mind?.remove_antagonist(ROLE_CHANGELING_HIVEMIND_MEMBER)
+		boutput(holder.owner, SPAN_ALERT("You have silenced [use_mob_name]'s consciousness from your hivemind."))
 		return 0
 
 
@@ -277,7 +309,7 @@ ABSTRACT_TYPE(/datum/targetable/changeling/critter)
 	human_only = 0
 	pointCost = 0
 	can_use_in_container = 1
-	dont_lock_holder = 1
+	lock_holder = FALSE
 	interrupt_action_bars = 0
 
 	incapacitationCheck()
@@ -289,12 +321,12 @@ ABSTRACT_TYPE(/datum/targetable/changeling/critter)
 		var/datum/abilityHolder/changeling/H = holder
 		//Sanity check
 		if (!istype(H))
-			boutput(holder.owner, "<span class='alert'>That ability is incompatible with our abilities. We should report this to a coder.</span>")
+			boutput(holder.owner, SPAN_ALERT("That ability is incompatible with our abilities. We should report this to a coder."))
 			return 1
 
 		//Verify that you are not in control of your master's body.
 		if(H.master && H.owner != H.master)
-			boutput(holder.owner, "<span class='alert'>A member of the hivemind cannot relinquish control of the shared form!.</span>")
+			boutput(holder.owner, SPAN_ALERT("A member of the hivemind cannot relinquish control of the shared form!."))
 			return 1
 
 		var/list/eligible = list()
@@ -302,16 +334,16 @@ ABSTRACT_TYPE(/datum/targetable/changeling/critter)
 			if(O.client)
 				eligible += O
 
-		if (eligible.len < 1)
-			boutput(holder.owner, "<span class='alert'>There are no minds eligible for this ability.</span>")
+		if (length(eligible) < 1)
+			boutput(holder.owner, SPAN_ALERT("There are no minds eligible for this ability."))
 			return 1
 
 		var/mob/dead/target_observer/hivemind_observer/HO = tgui_input_list(holder.owner, "Select the mind to grant control:", "Select Mind", sortList(eligible, /proc/cmp_text_asc))
 		if(!HO)
-			boutput(holder.owner, "<span class='notice'>We change our mind.</span>")
+			boutput(holder.owner, SPAN_NOTICE("We change our mind."))
 			return TRUE
 		if (!(HO in eligible))
-			boutput(holder.owner, "<span class='alert'>Something fucked up, ahelp about this. Mind transfer aborted.</span>")
+			boutput(holder.owner, SPAN_ALERT("Something fucked up, ahelp about this. Mind transfer aborted."))
 			stack_trace("[holder.owner] tried to grant control of a changeling body to [HO], but that name wasn't in the list of eligible mobs. List of mobs: [json_encode(eligible)]")
 			return TRUE
 
@@ -321,7 +353,7 @@ ABSTRACT_TYPE(/datum/targetable/changeling/critter)
 		var/mob/dead/target_observer/hivemind_observer/master = H.insert_into_hivemind(H.owner)
 		master.verbs += /mob/dead/target_observer/hivemind_observer/proc/regain_control
 		H.master = master //Make it the controller of the mob
-		boutput(master, "<span class='notice'>We relinquish control of our form to [HO]!</span>")
+		boutput(master, SPAN_NOTICE("We relinquish control of our form to [HO]!"))
 
 		//Transfer the hivemind member's mind into the body.
 		H.original_controller_name = HO.name
@@ -330,4 +362,4 @@ ABSTRACT_TYPE(/datum/targetable/changeling/critter)
 		H.transferOwnership(H.owner)
 		H.temp_controller = HO
 
-		boutput(H.owner, "<h1><font color=red>You have reawakened to serve your host [H.master]! You must follow their commands and protect our form!</font></h1>")
+		boutput(H.owner, "<h1>[SPAN_ALERT("You have reawakened to serve your host [H.master]! You must follow [his_or_her(H.master)] commands and protect our form!")]</h1>")

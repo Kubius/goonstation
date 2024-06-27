@@ -11,13 +11,13 @@
 		if (T)
 			for (var/mob/living/carbon/human/M in view(src, 2))
 				if (istype(M.wear_suit, /obj/item/clothing/suit/armor))
-					boutput(M, "<span class='alert'>Your armor blocks the shrapnel!</span>")
+					boutput(M, SPAN_ALERT("Your armor blocks the shrapnel!"))
 					M.TakeDamage("chest", 5, 0)
 				else
 					M.TakeDamage("chest", 15, 0)
 					var/obj/item/implant/projectile/shrapnel/implanted = new /obj/item/implant/projectile/shrapnel
 					implanted.implanted(M, null, 2)
-					boutput(M, "<span class='alert'>You are struck by shrapnel!</span>")
+					boutput(M, SPAN_ALERT("You are struck by shrapnel!"))
 					if (!M.stat)
 						M.emote("scream")
 		qdel(src)
@@ -46,7 +46,7 @@
 
 	explode()
 		new/obj/effect/supplyexplosion(src.loc)
-		tfireflash(src, 8, 9800, 0)
+		fireflash(src, 8, 9800, chemfire = CHEM_FIRE_RED)
 		qdel(src)
 		return
 
@@ -85,11 +85,11 @@
 /obj/torpedo_targeter
 	name = ""
 	desc = ""
-	anchored = 1
+	anchored = ANCHORED
 	density = 0
 	layer = 10
 	alpha = 200
-	event_handler_flags = IMMUNE_MANTA_PUSH
+	event_handler_flags = IMMUNE_MANTA_PUSH | IMMUNE_TRENCH_WARP
 
 	var/image/trgImage = null
 	var/obj/machinery/torpedo_console/master = null
@@ -106,7 +106,7 @@
 	name = "torpedo console"
 	icon = 'icons/obj/large/32x64.dmi'
 	icon_state = "periscope"
-	anchored = 1
+	anchored = ANCHORED
 	appearance_flags = TILE_BOUND | PIXEL_SCALE
 	density = 1
 	var/datum/movement_controller/torpedo_control/movement_controller
@@ -122,9 +122,6 @@
 		movement_controller = new(src)
 		targeter = new(src.loc, src)
 		return ..()
-
-	get_movement_controller()
-		return movement_controller
 
 	attack_hand(mob/user)
 		if(src.controller && src.controller.loc != src)
@@ -144,8 +141,9 @@
 		if(tube)
 			inUse = TRUE
 			user.set_loc(src)
+			user.override_movement_controller = src.movement_controller
 			user.pixel_y = -8
-			boutput(user, "<span class='hint'><b>Press Q or E to exit targeting.</b></span>")
+			boutput(user, SPAN_HINT("<b>Press Q or E to exit targeting.</b>"))
 			vis_contents += user
 			controller = user
 			user.reset_keymap()
@@ -189,6 +187,7 @@
 			if(controller.client && targeter)
 				controller.client.images -= targeter.trgImage
 				controller.client.eye = controller
+			controller.override_movement_controller = null
 			controller = null
 			inUse = FALSE
 		return
@@ -202,7 +201,7 @@
 	name = "torpedo button"
 	icon = 'icons/obj/power.dmi'
 	icon_state = "light1"
-	anchored = 1
+	anchored = ANCHORED
 	var/id = "torp1"
 	var/list/cachedTubes = list()
 
@@ -217,13 +216,15 @@
 			T.launch()
 		return
 
+ADMIN_INTERACT_PROCS(/obj/machinery/torpedo_tube, proc/launch)
+
 /obj/machinery/torpedo_tube
 	name = "torpedo tube"
 	desc = ""
 	icon = 'icons/obj/large/32x96.dmi'
 	icon_state = "base"
 	density = 1
-	anchored = 1
+	anchored = ANCHORED
 	layer = 2
 
 	var/icon_state_tube = "mantagun_left"
@@ -287,7 +288,7 @@
 
 	proc/open()
 		if(is_blocked_turf(get_step(src, SOUTH)))
-			boutput(usr, "<span class='alert'><b>You can't open the tube, something is blocking the way.</b></span>")
+			boutput(usr, SPAN_ALERT("<b>You can't open the tube, something is blocking the way.</b>"))
 			return
 		tray_obj = new/obj/torpedo_tube_tray(get_step(src, SOUTH))
 		tray_obj.parent = src
@@ -359,7 +360,7 @@
 	icon_state = "tray"
 	dir = NORTH
 	density = 1
-	anchored = 1
+	anchored = ANCHORED
 	pixel_y = 0
 	layer = 2.1
 	var/obj/machinery/torpedo_tube/parent = null
@@ -382,12 +383,12 @@
 				M.set_loc(src.loc)
 				logTheThing(LOG_COMBAT, user, " laods [constructTarget(target,"combat")] onto \the [src] at [log_loc(user)]")
 				logTheThing(LOG_DIARY, user, " laods [constructTarget(target,"diary")] onto \the [src] at [log_loc(user)]", "combat")
-				user.visible_message("<span class='alert'><b>[user.name] shoves [target.name] onto [src]!</b></span>")
+				user.visible_message(SPAN_ALERT("<b>[user.name] shoves [target.name] onto [src]!</b>"))
 			else
 				M.set_loc(src.loc)
 				logTheThing(LOG_COMBAT, user, " loads [constructTarget(target,"combat")] into \the [src] at [log_loc(src)]")
 				logTheThing(LOG_DIARY, user, " loads [constructTarget(target,"diary")] into \the [src] at [log_loc(src)]", "combat")
-				user.visible_message("<span class='alert'><b>[user.name] shoves [target.name] onto \the [src]!</b></span>")
+				user.visible_message(SPAN_ALERT("<b>[user.name] shoves [target.name] onto \the [src]!</b>"))
 				return
 
 	attackby(var/obj/item/I, var/mob/user)
@@ -398,7 +399,7 @@
 				GM.set_loc(src.loc)
 				GM.setStatus("resting", INFINITE_STATUS)
 				GM.force_laydown_standup()
-				user.visible_message("<span class='alert'><b>[user.name] shoves [GM.name] onto [src]!</b></span>")
+				user.visible_message(SPAN_ALERT("<b>[user.name] shoves [GM.name] onto [src]!</b>"))
 				logTheThing(LOG_COMBAT, user, " loads [constructTarget(GM,"combat")] into \the [src] at [log_loc(src)]")
 				logTheThing(LOG_DIARY, user, " loads [constructTarget(GM,"diary")] into \the [src] at [log_loc(src)]", "combat")
 				qdel(G)
@@ -408,7 +409,7 @@
 	hitby(var/atom/movable/M, var/datum/thrown_thing/thr)
 		if (ishuman(M) && M.throwing)
 			var/mob/living/carbon/human/thrown_person = M
-			M.visible_message("<span class='alert'><b>[thrown_person] [thrown_person.throwing & THROW_SLIP ? "slips" : "falls"] onto [src]! [src] slams closed!</b></span>")
+			M.visible_message(SPAN_ALERT("<b>[thrown_person] [thrown_person.throwing & THROW_SLIP ? "slips" : "falls"] onto [src]! [src] slams closed!</b>"))
 			logTheThing(LOG_COMBAT, thrown_person, " falls into \the [src] at [log_loc(src)] (likely thrown by [thr?.user ? constructName(thr.user) : "a non-mob"])")
 			thrown_person.set_loc(src.loc)
 			parent?.close()
@@ -596,7 +597,7 @@
 	dir = NORTH
 	icon_state = "missilenotray"
 	density = 1
-	anchored = 1
+	anchored = ANCHORED
 	throw_spin = 0
 	layer = 5
 	event_handler_flags = USE_FLUID_ENTER | IMMUNE_MANTA_PUSH
@@ -607,6 +608,7 @@
 	var/icon/northsouth = null
 	var/icon/eastwest = null
 	var/launched = 0
+	var/turf/target_turf
 
 	var/icon_state_on_tray = "missileintray"
 	var/icon_state_off_tray = "missilenotray"
@@ -649,6 +651,10 @@
 			pixel_x = -16
 			pixel_y = 0
 			layer = 3
+#ifndef UNDERWATER_MAP
+		if(fired)
+			UpdateOverlays(SafeGetOverlayImage("space",src.icon,"torped_space"),"space")
+#endif
 		return
 
 	set_loc(var/newloc as turf|mob|obj in world)
@@ -657,17 +663,18 @@
 		changeIcon()
 
 	proc/launch(var/atom/target)
+		target_turf = get_turf(target)
 		if(launched) return
 		else launched = 1
 		var/flying = 1
-		playsound(src, 'sound/effects/torpedolaunch.ogg', 100, 1)
+		playsound(src, 'sound/effects/torpedolaunch.ogg', 100, TRUE)
 		src.changeIcon()
 		var/aboutToBlow = 0
 		var/steps = 0
 		while(flying)
-			if(target && target == src.loc) target = null
+			if(target_turf && target_turf == src.loc) target_turf = null
 			var/turf/nextStep = null
-			if(target != null && target.z == src.z) nextStep = get_step_towards(src,target)
+			if(target_turf?.z == src.z) nextStep = get_step_towards(src,target_turf)
 			else nextStep = get_step(src, lockdir ? lockdir : dir)
 
 			if(!nextStep || (nextStep.x == 0 && nextStep.y == 0 && nextStep.z == 0))

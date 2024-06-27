@@ -40,7 +40,7 @@
 /turf/unsimulated/floor/black,
 /area/centcom/outside)
 "aB" = (
-/obj/stool/chair/wooden/regal{
+/obj/stool/chair/dining/regal{
 	anchored = 1;
 	dir = 8
 	},
@@ -49,15 +49,15 @@
 	},
 /area/shuttle/escape/centcom)
 "aQ" = (
-/obj/wingrille_spawn/auto/crystal,
+/obj/mapping_helper/wingrille_spawn/auto/crystal,
 /turf/unsimulated/floor/marble/black,
 /area/shuttle/escape/centcom)
 "aZ" = (
-/obj/decal/fakeobjects/pipe{
+/obj/fakeobject/pipe{
 	desc = "It's a pipe manifold.";
 	dir = 6;
 	icon = 'icons/obj/atmospherics/pipes/manifold_pipe.dmi';
-	icon_state = "manifold";
+	icon_state = "manifold-map";
 	name = "pipe"
 	},
 /turf/unsimulated/floor{
@@ -114,7 +114,7 @@
 /turf/unsimulated/floor/shuttlebay,
 /area/centcom/outside)
 "cM" = (
-/obj/stool/chair/wooden/regal{
+/obj/stool/chair/dining/regal{
 	anchored = 1;
 	dir = 4
 	},
@@ -142,7 +142,7 @@
 /turf/unsimulated/floor/carpet/regalcarpet/border,
 /area/shuttle/escape/centcom)
 "dB" = (
-/obj/decal/fakeobjects/shuttleengine{
+/obj/fakeobject/shuttleengine{
 	dir = 8;
 	icon_state = "alt_heater"
 	},
@@ -227,7 +227,7 @@
 	},
 /area/shuttle/escape/centcom)
 "ft" = (
-/obj/stool/chair/wooden/regal{
+/obj/stool/chair/dining/regal{
 	anchored = 1
 	},
 /turf/unsimulated/floor/carpet/regalcarpet/innercorner{
@@ -250,7 +250,7 @@
 	},
 /area/shuttle/escape/centcom)
 "fW" = (
-/obj/stool/chair/wooden/regal{
+/obj/stool/chair/dining/regal{
 	anchored = 1
 	},
 /turf/unsimulated/floor/carpet/regalcarpet/innercorner{
@@ -273,7 +273,7 @@
 /turf/unsimulated/floor/carpet/regalcarpet,
 /area/shuttle/escape/centcom)
 "gG" = (
-/obj/decal/fakeobjects/shuttleengine{
+/obj/fakeobject/shuttleengine{
 	dir = 8;
 	icon_state = "alt_heater-R"
 	},
@@ -328,17 +328,17 @@
 	},
 /area/shuttle/escape/centcom)
 "ip" = (
-/obj/decal/fakeobjects/pipe{
+/obj/fakeobject/pipe{
 	desc = "It's a pipe manifold.";
 	dir = 8;
 	icon = 'icons/obj/atmospherics/pipes/manifold_pipe.dmi';
-	icon_state = "manifold";
+	icon_state = "manifold-map";
 	name = "pipe"
 	},
 /turf/unsimulated/floor/shuttlebay,
 /area/centcom/outside)
 "iC" = (
-/obj/decal/fakeobjects{
+/obj/fakeobject{
 	anchored = 1;
 	desc = "Like conventional cables, but more burly.";
 	dir = 5;
@@ -382,21 +382,23 @@
 	},
 /area/centcom)
 "jY" = (
-/obj/decal/fakeobjects/pipe{
+/obj/fakeobject/pipe{
 	desc = "A pipe.";
-	name = "pipe"
+	name = "pipe";
+	color = "b4b4b4"
 	},
 /turf/unsimulated/floor/shuttlebay,
 /area/centcom/outside)
 "kt" = (
-/obj/decal/fakeobjects/pipe{
+/obj/fakeobject/pipe{
 	dir = 4;
-	name = "pipe"
+	name = "pipe";
+	color = "b4b4b4"
 	},
 /turf/unsimulated/floor/shuttlebay,
 /area/centcom/outside)
 "ky" = (
-/obj/decal/fakeobjects{
+/obj/fakeobject{
 	anchored = 1;
 	desc = "Like conventional cables, but more burly.";
 	dir = 1;
@@ -415,8 +417,10 @@
 	dir = 4;
 	icon_state = "line1"
 	},
-/obj/machinery/atmospherics/portables_connector/west,
-/obj/decal/fakeobjects{
+/obj/machinery/atmospherics/unary/portables_connector{
+	dir = 8
+	},
+/obj/fakeobject{
 	density = 1;
 	icon = 'icons/obj/atmospherics/atmos.dmi';
 	icon_state = "orange";
@@ -513,8 +517,10 @@
 /turf/unsimulated/floor/carpet/regalcarpet,
 /area/shuttle/escape/centcom)
 "mY" = (
-/obj/machinery/atmospherics/portables_connector/west,
-/obj/decal/fakeobjects{
+/obj/machinery/atmospherics/unary/portables_connector{
+	dir = 8
+	},
+/obj/fakeobject{
 	density = 1;
 	icon = 'icons/obj/atmospherics/atmos.dmi';
 	icon_state = "orange";
@@ -588,7 +594,7 @@
 	},
 /area/shuttle/escape/centcom)
 "pj" = (
-/obj/decal/fakeobjects/shuttleengine{
+/obj/fakeobject/shuttleengine{
 	dir = 8;
 	icon_state = "alt_heater-L"
 	},
@@ -618,7 +624,7 @@
 /turf/unsimulated/floor/carpet/regalcarpet,
 /area/shuttle/escape/centcom)
 "qb" = (
-/obj/decal/fakeobjects/shuttleengine{
+/obj/fakeobject/shuttleengine{
 	dir = 8;
 	icon_state = "alt_heater-R"
 	},
@@ -667,7 +673,7 @@
 /obj/decal/tile_edge/line/black{
 	icon_state = "line1"
 	},
-/obj/decal/fakeobjects{
+/obj/fakeobject{
 	anchored = 1;
 	desc = "Like conventional cables, but more burly.";
 	dir = 10;
@@ -676,7 +682,7 @@
 	layer = 2.5;
 	name = "power conduit"
 	},
-/obj/decal/fakeobjects{
+/obj/fakeobject{
 	anchored = 1;
 	desc = "Like conventional cables, but more burly.";
 	dir = 4;
@@ -847,7 +853,7 @@
 /turf/unsimulated/floor/marble/black,
 /area/shuttle/escape/centcom)
 "tD" = (
-/obj/decal/fakeobjects{
+/obj/fakeobject{
 	anchored = 1;
 	desc = "Like conventional cables, but more burly.";
 	dir = 1;
@@ -962,10 +968,6 @@
 	dir = 1
 	},
 /area/centcom/outside)
-"wT" = (
-/obj/wingrille_spawn/auto/crystal,
-/turf/unsimulated/floor/shuttle,
-/area/shuttle/escape/centcom)
 "xh" = (
 /obj/indestructible/shuttle_corner{
 	dir = 8
@@ -975,7 +977,7 @@
 	},
 /area/shuttle/escape/centcom)
 "xw" = (
-/obj/stool/chair/wooden/regal{
+/obj/stool/chair/dining/regal{
 	anchored = 1;
 	dir = 1
 	},
@@ -988,9 +990,10 @@
 	dir = 1;
 	icon_state = "line1"
 	},
-/obj/decal/fakeobjects/pipe{
+/obj/fakeobject/pipe{
 	dir = 10;
-	name = "pipe"
+	name = "pipe";
+	color = "b4b4b4"
 	},
 /turf/unsimulated/floor{
 	icon_state = "floor"
@@ -1009,7 +1012,7 @@
 /turf/unsimulated/floor/shuttlebay,
 /area/centcom/outside)
 "zj" = (
-/turf/unsimulated/wall{
+/turf/unsimulated/wall/generic{
 	dir = 4;
 	icon = 'icons/misc/worlds.dmi';
 	icon_state = "leadwindow_1";
@@ -1058,7 +1061,7 @@
 	},
 /area/shuttle/escape/centcom)
 "Ad" = (
-/obj/stool/chair/wooden/regal{
+/obj/stool/chair/dining/regal{
 	anchored = 1;
 	dir = 1
 	},
@@ -1068,7 +1071,7 @@
 /obj/decal/tile_edge/line/black{
 	icon_state = "line1"
 	},
-/obj/decal/fakeobjects{
+/obj/fakeobject{
 	anchored = 1;
 	desc = "Like conventional cables, but more burly.";
 	dir = 10;
@@ -1099,7 +1102,9 @@
 /obj/decal/tile_edge/stripe/extra_big{
 	icon_state = "delivery2"
 	},
-/turf/unsimulated/outdoors/grass,
+/turf/unsimulated/floor{
+	icon_state = "floor"
+	},
 /area/centcom)
 "BD" = (
 /turf/unsimulated/floor/arrival,
@@ -1114,7 +1119,7 @@
 	},
 /area/shuttle/escape/centcom)
 "CK" = (
-/obj/stool/chair/wooden/regal{
+/obj/stool/chair/dining/regal{
 	anchored = 1;
 	dir = 1
 	},
@@ -1138,7 +1143,7 @@
 	},
 /area/shuttle/escape/centcom)
 "DK" = (
-/obj/stool/chair/wooden/regal{
+/obj/stool/chair/dining/regal{
 	anchored = 1
 	},
 /turf/unsimulated/floor/carpet/regalcarpet/border{
@@ -1146,10 +1151,10 @@
 	},
 /area/shuttle/escape/centcom)
 "DN" = (
-/obj/decal/fakeobjects/pipe{
+/obj/fakeobject/pipe{
 	dir = 2;
 	icon = 'icons/obj/atmospherics/valve.dmi';
-	icon_state = "valve0";
+	icon_state = "valve0-map";
 	name = "valve"
 	},
 /turf/unsimulated/floor{
@@ -1162,7 +1167,7 @@
 	},
 /area/shuttle/escape/centcom)
 "DY" = (
-/obj/stool/chair/wooden/regal{
+/obj/stool/chair/dining/regal{
 	anchored = 1;
 	dir = 4
 	},
@@ -1188,9 +1193,10 @@
 	},
 /area/shuttle/escape/centcom)
 "EH" = (
-/obj/decal/fakeobjects/pipe{
+/obj/fakeobject/pipe{
 	dir = 4;
-	name = "pipe"
+	name = "pipe";
+	color = "b4b4b4"
 	},
 /obj/decal/tile_edge/stripe/extra_big{
 	dir = 4
@@ -1223,7 +1229,7 @@
 	dir = 6;
 	icon_state = "line2"
 	},
-/obj/decal/fakeobjects{
+/obj/fakeobject{
 	anchored = 1;
 	desc = "Like conventional cables, but more burly.";
 	dir = 4;
@@ -1244,7 +1250,7 @@
 /turf/unsimulated/floor/black,
 /area/centcom/outside)
 "Gb" = (
-/obj/decal/fakeobjects/shuttleengine{
+/obj/fakeobject/shuttleengine{
 	dir = 8;
 	icon_state = "alt_heater-M"
 	},
@@ -1345,9 +1351,10 @@
 	dir = 1;
 	icon_state = "line1"
 	},
-/obj/decal/fakeobjects/pipe{
+/obj/fakeobject/pipe{
 	dir = 5;
-	name = "pipe"
+	name = "pipe";
+	color = "b4b4b4"
 	},
 /turf/unsimulated/floor{
 	icon_state = "floor"
@@ -1509,7 +1516,7 @@
 /turf/unsimulated/floor/black,
 /area/centcom/outside)
 "Ls" = (
-/obj/decal/fakeobjects/shuttleengine{
+/obj/fakeobject/shuttleengine{
 	dir = 8;
 	icon_state = "alt_heater-L"
 	},
@@ -1518,7 +1525,7 @@
 	},
 /area/shuttle/escape/centcom)
 "LN" = (
-/obj/decal/fakeobjects{
+/obj/fakeobject{
 	anchored = 1;
 	desc = "Like conventional cables, but more burly.";
 	dir = 1;
@@ -1552,7 +1559,7 @@
 /obj/decal/tile_edge/line/black{
 	icon_state = "line1"
 	},
-/obj/decal/fakeobjects{
+/obj/fakeobject{
 	anchored = 1;
 	desc = "Like conventional cables, but more burly.";
 	dir = 4;
@@ -1630,11 +1637,13 @@
 /area/shuttle/escape/centcom)
 "NK" = (
 /obj/machinery/door/airlock/pyro/external,
-/turf/unsimulated/floor/shuttle,
+/turf/unsimulated/floor/marble/black,
 /area/shuttle/escape/centcom)
 "NR" = (
-/obj/machinery/atmospherics/portables_connector/east,
-/obj/decal/fakeobjects{
+/obj/machinery/atmospherics/unary/portables_connector{
+	dir = 4
+	},
+/obj/fakeobject{
 	density = 1;
 	icon = 'icons/obj/atmospherics/atmos.dmi';
 	icon_state = "orange";
@@ -1692,7 +1701,7 @@
 /turf/unsimulated/floor/black,
 /area/centcom/outside)
 "PL" = (
-/obj/decal/fakeobjects/tallsmes,
+/obj/fakeobject/tallsmes,
 /turf/unsimulated/floor{
 	icon_state = "floor"
 	},
@@ -1771,7 +1780,7 @@
 /turf/unsimulated/floor/black,
 /area/centcom/outside)
 "Ti" = (
-/obj/decal/fakeobjects/shuttlethruster{
+/obj/fakeobject/shuttlethruster{
 	dir = 8;
 	icon_state = "alt_propulsion"
 	},
@@ -1805,10 +1814,10 @@
 	dir = 1;
 	icon_state = "line1"
 	},
-/obj/decal/fakeobjects/pipe{
+/obj/fakeobject/pipe{
 	dir = 1;
 	icon = 'icons/obj/atmospherics/pipes/manifold_pipe.dmi';
-	icon_state = "manifold";
+	icon_state = "manifold-map";
 	name = "pipe"
 	},
 /turf/unsimulated/floor{
@@ -1940,7 +1949,7 @@
 	},
 /area/centcom)
 "XO" = (
-/turf/unsimulated/wall{
+/turf/unsimulated/wall/generic{
 	icon = 'icons/misc/worlds.dmi';
 	icon_state = "leadwindow_1";
 	name = "window";
@@ -1952,9 +1961,10 @@
 	dir = 1;
 	icon_state = "line1"
 	},
-/obj/decal/fakeobjects/pipe{
+/obj/fakeobject/pipe{
 	dir = 4;
-	name = "pipe"
+	name = "pipe";
+	color = "b4b4b4"
 	},
 /turf/unsimulated/floor{
 	icon_state = "floor"
@@ -1996,9 +2006,10 @@
 	},
 /area/centcom)
 "ZY" = (
-/obj/decal/fakeobjects/pipe{
+/obj/fakeobject/pipe{
 	dir = 6;
-	name = "pipe"
+	name = "pipe";
+	color = "b4b4b4"
 	},
 /turf/unsimulated/floor/shuttlebay,
 /area/centcom/outside)
@@ -2358,7 +2369,7 @@ IK
 ZJ
 JY
 IV
-wT
+aQ
 vx
 nI
 Il
@@ -2371,7 +2382,7 @@ CK
 Bv
 nI
 vx
-wT
+aQ
 IV
 dC
 ZJ
@@ -2414,7 +2425,7 @@ XE
 XE
 BD
 IV
-wT
+aQ
 Ot
 nI
 oC
@@ -2427,7 +2438,7 @@ LP
 CF
 nI
 Ot
-wT
+aQ
 IV
 zo
 XE
@@ -2442,7 +2453,7 @@ iD
 iD
 BD
 IV
-wT
+aQ
 jx
 cd
 rl
@@ -2455,7 +2466,7 @@ cV
 cV
 DC
 jx
-wT
+aQ
 IV
 zo
 iD
@@ -2498,7 +2509,7 @@ aa
 rP
 sE
 IV
-wT
+aQ
 tC
 bD
 Rs
@@ -2511,7 +2522,7 @@ dF
 cY
 bD
 tC
-wT
+aQ
 IV
 Oo
 rP

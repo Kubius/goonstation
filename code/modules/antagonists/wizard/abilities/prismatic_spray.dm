@@ -2,13 +2,13 @@
 	name = "Prismatic Spray"
 	desc = "Launches a spray of colorful projectiles in outwards in a cone aimed roughly at the target."
 	icon_state = "prismspray" //credit to Kubius for the new icons
-	targeted = 1
-	target_anything = 1
-	cooldown = 250 //10 seconds shorter than the cooldown for fireball in modern code
-	requires_robes = 1
+	targeted = TRUE
+	target_anything = TRUE
+	cooldown = 25 SECONDS //10 seconds shorter than the cooldown for fireball in modern code
+	requires_robes = TRUE
 	requires_being_on_turf = TRUE
-	offensive = 1
-	sticky = 1
+	offensive = TRUE
+	sticky = TRUE
 	/*
 	voice_grim = 'sound/voice/wizard/weneed.ogg'
 	voice_fem = 'sound/voice/wizard/someoneto.ogg'
@@ -19,7 +19,11 @@
 	//the number of projectiles we want to fire in a single cast
 	var/num_projectiles = 12
 	//what projectiles do we *NOT* want to add to the pool of random projectiles?
-	var/static/list/blacklist = list(/datum/projectile/slam,/datum/projectile/artifact,/datum/projectile/artifact/prismatic_projectile,/datum/projectile/pickpocket/plant,/datum/projectile/implanter)
+	var/static/list/blacklist = list(/datum/projectile/slam,
+									 /datum/projectile/artifact,
+									 /datum/projectile/artifact/prismatic_projectile,
+									 /datum/projectile/pickpocket/plant,
+									 /datum/projectile/implanter)
 	//If random == 0, use the special prismatic projectile datum. Else, pick from the pool of all projectiles minus the blacklisted ones
 	var/random = 0
 	//the list of projectile types to pick from if random is set to 1
@@ -30,7 +34,7 @@
 
 	New()
 		..()
-		for (var/X in filtered_concrete_typesof(/datum/projectile, .proc/filter_projectile))
+		for (var/X in filtered_concrete_typesof(/datum/projectile, PROC_REF(filter_projectile)))
 			var/datum/projectile/A = new X
 			A.is_magical = 1
 			proj_types += A
@@ -40,6 +44,7 @@
 
 	cast(atom/target)
 		if (holder.owner.wizard_spellpower(src) || istype(src, /datum/targetable/spell/prismatic_spray/admin))
+			. = ..()
 			if(!istype(get_area(holder.owner), /area/sim/gunsim))
 				holder.owner.say("PROJEHK TUL IHNFERNUS", FALSE, maptext_style, maptext_colors) //incantation credit to Grifflez
 			//var/mob/living/carbon/human/O = holder.owner
@@ -55,7 +60,7 @@
 							P.mob_shooter = holder.owner
 							sleep(0.1 SECONDS)
 					else
-						var/obj/projectile/P = initialize_projectile_ST(holder.owner, ps_proj, target )
+						var/obj/projectile/P = initialize_projectile_pixel_spread(holder.owner, ps_proj, target )
 						if (P)
 							P.mob_shooter = holder.owner
 							var/angle = (rand(spread * -1000, spread * 1000))/1000
@@ -71,7 +76,7 @@
 							P.mob_shooter = holder.owner
 							sleep(0.1 SECONDS)
 					else
-						var/obj/projectile/P = initialize_projectile_ST(holder.owner, pick(proj_types), target )
+						var/obj/projectile/P = initialize_projectile_pixel_spread(holder.owner, pick(proj_types), target )
 						if (P)
 							P.mob_shooter = holder.owner
 							var/angle = (rand(spread * -1000, spread * 1000))/1000
@@ -79,7 +84,7 @@
 							P.launch()
 							sleep(0.1 SECONDS)
 		else
-			boutput(holder.owner, "<span class='alert'>Your spell doesn't work without a staff to refract the light!</span>")
+			boutput(holder.owner, SPAN_ALERT("Your spell doesn't work without a staff to refract the light!"))
 			return 1
 
 /datum/targetable/spell/prismatic_spray/admin

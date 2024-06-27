@@ -4,7 +4,7 @@
 /obj/flock_structure/egg
 	icon = 'icons/misc/featherzone.dmi'
 	icon_state = "egg"
-	anchored = FALSE
+	anchored = UNANCHORED
 	density = FALSE
 	name = "glowing doodad"
 	desc = "Some sort of small machine. It looks like its getting ready for something."
@@ -22,13 +22,13 @@
 
 /obj/flock_structure/egg/building_specific_info()
 	var/time_remaining = round(src.build_time - getTimeInSecondsSinceTime(src.time_started))
-	return "Approximately <span class='bold'>[time_remaining]</span> second[time_remaining == 1 ? "" : "s"] left until hatching."
+	return "Approximately [SPAN_BOLD("[time_remaining]")] second[time_remaining == 1 ? "" : "s"] left until hatching."
 
 /obj/flock_structure/egg/process()
 	var/elapsed = getTimeInSecondsSinceTime(src.time_started)
 	src.info_tag.set_info_tag("Time left: [round(src.build_time - elapsed)] seconds")
 	if(elapsed >= build_time)
-		src.visible_message("<span class='notice'>[src] breaks open!</span>")
+		src.visible_message(SPAN_NOTICE("[src] breaks open!"))
 		src.spawn_contents()
 		qdel(src)
 	else
