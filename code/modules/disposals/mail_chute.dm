@@ -146,6 +146,10 @@
 		return
 
 /obj/machinery/disposal/mail/transit
+	icon_state = "qm_mailchute"
+	repressure_speed = 0.3
+	icon_style = "qm_mail"
+	light_style = "qm_mailchute"
 	mail_only = 0
 
 /obj/machinery/disposal/mail/autoname
