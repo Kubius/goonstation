@@ -3562,6 +3562,16 @@
 /obj/machinery/light/small,
 /turf/simulated/floor/caution/north,
 /area/station/crew_quarters)
+"Cm" = (
+/obj/table/reinforced/auto,
+/obj/bedsheetbin,
+/obj/machinery/light/small{
+	dir = 1;
+	pixel_y = 21
+	},
+/obj/gibtyson,
+/turf/simulated/floor/carpet/red/fancy/edge/nw,
+/area/station/mailroom)
 "Cp" = (
 /obj/machinery/door_control/bolter/new_walls/east{
 	id = "fuelbay_"
@@ -3906,6 +3916,10 @@
 	},
 /turf/space,
 /area/space)
+"Fb" = (
+/obj/gibtyson,
+/turf/simulated/wall/auto/reinforced/jen,
+/area/station/hallway/secondary/south)
 "Fe" = (
 /obj/machinery/door/airlock/pyro/classic,
 /obj/cable{
@@ -5730,6 +5744,7 @@
 	},
 /area/space)
 "RM" = (
+/obj/gibtyson,
 /turf/simulated/floor/carpet/blue/fancy/edge/se,
 /area/station/construction)
 "RO" = (
@@ -6153,6 +6168,7 @@
 /area/station/hallway/secondary/oshan_arrivals)
 "Vl" = (
 /obj/disposalpipe/junction/right/east,
+/obj/gibtyson,
 /turf/simulated/floor,
 /area/station/medical/medbooth)
 "Vs" = (
@@ -10179,7 +10195,7 @@ SD
 pY
 GV
 GV
-WD
+Fb
 nK
 nK
 nK
@@ -11163,7 +11179,7 @@ yH
 os
 dU
 lK
-yH
+Cm
 os
 dU
 lK
