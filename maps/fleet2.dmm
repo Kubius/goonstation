@@ -70,9 +70,7 @@
 	name = "Asclepius Primary Zone"
 	})
 "aep" = (
-/obj/grille/catwalk{
-	dir = 6
-	},
+/obj/grille/catwalk,
 /obj/cable{
 	icon_state = "0-4"
 	},
@@ -316,10 +314,7 @@
 	name = "Routing Buoy"
 	})
 "amV" = (
-/obj/grille/catwalk{
-	dir = 5;
-	icon_state = "catwalk_cross"
-	},
+/obj/grille/catwalk,
 /turf/simulated/floor/airless/plating/catwalk{
 	dir = 5
 	},
@@ -758,9 +753,7 @@
 /turf/simulated/floor/plating,
 /area/station/engine/elect)
 "aEt" = (
-/obj/grille/catwalk{
-	dir = 6
-	},
+/obj/grille/catwalk,
 /obj/cable{
 	icon_state = "0-4"
 	},
@@ -1103,10 +1096,7 @@
 	name = "Hammer Primary Dock"
 	})
 "aSM" = (
-/obj/grille/catwalk{
-	dir = 9;
-	icon_state = "catwalk_cross"
-	},
+/obj/grille/catwalk,
 /obj/cable{
 	icon_state = "0-4"
 	},
@@ -1180,10 +1170,7 @@
 	name = "Hammer Command"
 	})
 "aWr" = (
-/obj/grille/catwalk{
-	dir = 6;
-	icon_state = "catwalk_cross"
-	},
+/obj/grille/catwalk,
 /turf/simulated/floor/airless/plating/catwalk{
 	dir = 6
 	},
@@ -1571,9 +1558,7 @@
 /turf/simulated/wall/auto/reinforced/supernorn,
 /area/station/security/brig)
 "bln" = (
-/obj/grille/catwalk{
-	icon_state = "catwalk_cross"
-	},
+/obj/grille/catwalk,
 /obj/cable{
 	icon_state = "0-4"
 	},
@@ -1748,10 +1733,7 @@
 /turf/simulated/floor/plating,
 /area/space)
 "bqN" = (
-/obj/grille/catwalk{
-	dir = 10;
-	icon_state = "catwalk_cross"
-	},
+/obj/grille/catwalk,
 /turf/simulated/floor/airless/plating/catwalk{
 	dir = 10
 	},
@@ -2011,9 +1993,7 @@
 /turf/space,
 /area/space)
 "bDR" = (
-/obj/grille/catwalk{
-	dir = 4
-	},
+/obj/grille/catwalk,
 /obj/cable,
 /obj/cable{
 	icon_state = "0-2"
@@ -2147,9 +2127,7 @@
 /turf/simulated/floor/black,
 /area/station/science/tenebrae)
 "bMf" = (
-/obj/grille/catwalk{
-	dir = 4
-	},
+/obj/grille/catwalk,
 /obj/cable{
 	icon_state = "4-8"
 	},
@@ -2482,10 +2460,7 @@
 	name = "Meridian Maintenance"
 	})
 "bZl" = (
-/obj/grille/catwalk{
-	dir = 5;
-	icon_state = "catwalk_cross"
-	},
+/obj/grille/catwalk,
 /turf/simulated/floor/airless/plating/catwalk{
 	dir = 5
 	},
@@ -2524,10 +2499,7 @@
 /turf/simulated/floor/grey,
 /area/station/crew_quarters/tenebrae)
 "caF" = (
-/obj/grille/catwalk{
-	dir = 1;
-	icon_state = "catwalk_cross"
-	},
+/obj/grille/catwalk,
 /obj/cable,
 /obj/cable{
 	icon_state = "0-8"
@@ -3107,9 +3079,7 @@
 /turf/simulated/floor/plating,
 /area/station/chapel/sanctuary)
 "cGm" = (
-/obj/grille/catwalk{
-	dir = 5
-	},
+/obj/grille/catwalk,
 /obj/cable{
 	icon_state = "0-2"
 	},
@@ -3299,9 +3269,7 @@
 	name = "Clown Limpet"
 	})
 "cMS" = (
-/obj/grille/catwalk{
-	dir = 6
-	},
+/obj/grille/catwalk,
 /obj/machinery/power/tracker/small_backup4,
 /obj/cable,
 /turf/space,
@@ -3356,10 +3324,7 @@
 	},
 /area/station/medical/robotics)
 "cRt" = (
-/obj/grille/catwalk{
-	dir = 6;
-	icon_state = "catwalk_cross"
-	},
+/obj/grille/catwalk,
 /turf/simulated/floor/airless/plating/catwalk{
 	dir = 6
 	},
@@ -3715,10 +3680,7 @@
 	name = "Hammer Primary Dock"
 	})
 "deN" = (
-/obj/grille/catwalk{
-	dir = 5;
-	icon_state = "catwalk_cross"
-	},
+/obj/grille/catwalk,
 /turf/simulated/floor/airless/plating/catwalk{
 	dir = 5
 	},
@@ -4749,10 +4711,7 @@
 /turf/simulated/floor,
 /area/station/crew_quarters)
 "erZ" = (
-/obj/grille/catwalk{
-	dir = 10;
-	icon_state = "catwalk_cross"
-	},
+/obj/grille/catwalk,
 /turf/simulated/floor/airless/plating/catwalk{
 	dir = 10
 	},
@@ -4780,10 +4739,7 @@
 /turf/simulated/floor/greenblack,
 /area/station/turret_protected/Zeta)
 "esZ" = (
-/obj/grille/catwalk{
-	dir = 9;
-	icon_state = "catwalk_cross"
-	},
+/obj/grille/catwalk,
 /obj/cable{
 	icon_state = "0-4"
 	},
@@ -4833,10 +4789,7 @@
 	},
 /area/station/science/tenebrae)
 "euI" = (
-/obj/grille/catwalk{
-	dir = 1;
-	icon_state = "catwalk_cross"
-	},
+/obj/grille/catwalk,
 /obj/cable,
 /obj/cable{
 	icon_state = "0-8"
@@ -4999,10 +4952,7 @@
 	},
 /area/station/medical/medbay/pharmacy)
 "eEA" = (
-/obj/grille/catwalk{
-	dir = 9;
-	icon_state = "catwalk_cross"
-	},
+/obj/grille/catwalk,
 /obj/cable{
 	icon_state = "0-4"
 	},
@@ -5185,9 +5135,7 @@
 	name = "Dionysus Hangar"
 	})
 "ePL" = (
-/obj/grille/catwalk{
-	dir = 4
-	},
+/obj/grille/catwalk,
 /obj/cable{
 	icon_state = "4-8"
 	},
@@ -5286,17 +5234,13 @@
 	name = "Asclepius Primary Zone"
 	})
 "eVi" = (
-/obj/grille/catwalk{
-	dir = 4
-	},
+/obj/grille/catwalk,
 /turf/simulated/floor/airless/plating/catwalk{
 	dir = 4
 	},
 /area/station/mining/refinery)
 "eVz" = (
-/obj/grille/catwalk{
-	icon_state = "catwalk_cross"
-	},
+/obj/grille/catwalk,
 /obj/cable{
 	icon_state = "0-4"
 	},
@@ -5826,10 +5770,7 @@
 /turf/simulated/floor/metalfoam,
 /area/space)
 "fzg" = (
-/obj/grille/catwalk{
-	dir = 1;
-	icon_state = "catwalk_cross"
-	},
+/obj/grille/catwalk,
 /obj/cable,
 /obj/cable{
 	icon_state = "0-8"
@@ -5947,9 +5888,7 @@
 /turf/simulated/floor/carpet/blue/fancy/edge/se,
 /area/station/bridge/hos)
 "fEM" = (
-/obj/grille/catwalk{
-	dir = 4
-	},
+/obj/grille/catwalk,
 /obj/cable,
 /obj/cable{
 	icon_state = "0-2"
@@ -6090,9 +6029,7 @@
 	},
 /area/station/medical/medbay/surgery)
 "fNs" = (
-/obj/grille/catwalk{
-	dir = 10
-	},
+/obj/grille/catwalk,
 /turf/simulated/floor/airless/plating/catwalk{
 	dir = 1;
 	icon_state = "catwalk_cross"
@@ -6149,9 +6086,7 @@
 	name = "Routing Buoy"
 	})
 "fQl" = (
-/obj/grille/catwalk{
-	dir = 6
-	},
+/obj/grille/catwalk,
 /obj/cable{
 	icon_state = "0-4"
 	},
@@ -6317,10 +6252,7 @@
 	name = "Asclepius Equipment Room"
 	})
 "fXl" = (
-/obj/grille/catwalk{
-	dir = 9;
-	icon_state = "catwalk_cross"
-	},
+/obj/grille/catwalk,
 /obj/landmark/magnet_shield,
 /obj/securearea{
 	desc = "A warning that demarcates where the magnetic area begins.";
@@ -6358,9 +6290,7 @@
 	name = "Hammer Primary Concourse"
 	})
 "fXV" = (
-/obj/grille/catwalk{
-	dir = 6
-	},
+/obj/grille/catwalk,
 /obj/cable{
 	icon_state = "0-4"
 	},
@@ -6538,9 +6468,7 @@
 /turf/simulated/floor/stairs/dark/wide,
 /area/listeningpost)
 "gmm" = (
-/obj/grille/catwalk{
-	dir = 4
-	},
+/obj/grille/catwalk,
 /obj/cable{
 	icon_state = "4-8"
 	},
@@ -6595,9 +6523,7 @@
 	name = "Meridian Primary Zone"
 	})
 "gpT" = (
-/obj/grille/catwalk{
-	dir = 4
-	},
+/obj/grille/catwalk,
 /obj/cable{
 	icon_state = "4-8"
 	},
@@ -6835,9 +6761,7 @@
 /turf/simulated/floor/grey,
 /area/station/crew_quarters)
 "gyP" = (
-/obj/grille/catwalk{
-	dir = 5
-	},
+/obj/grille/catwalk,
 /obj/cable{
 	icon_state = "0-2"
 	},
@@ -7373,9 +7297,7 @@
 	name = "Dionysus Maintenance"
 	})
 "hde" = (
-/obj/grille/catwalk{
-	dir = 4
-	},
+/obj/grille/catwalk,
 /obj/cable{
 	icon_state = "4-8"
 	},
@@ -7606,9 +7528,7 @@
 	name = "Dionysus Janitorial"
 	})
 "hnV" = (
-/obj/grille/catwalk{
-	dir = 5
-	},
+/obj/grille/catwalk,
 /obj/cable{
 	icon_state = "0-2"
 	},
@@ -7714,9 +7634,7 @@
 	name = "Detective's Vessel"
 	})
 "hsQ" = (
-/obj/grille/catwalk{
-	dir = 9
-	},
+/obj/grille/catwalk,
 /obj/cable{
 	icon_state = "0-4"
 	},
@@ -7800,10 +7718,7 @@
 	name = "Hammer Primary Concourse"
 	})
 "hzf" = (
-/obj/grille/catwalk{
-	dir = 9;
-	icon_state = "catwalk_cross"
-	},
+/obj/grille/catwalk,
 /obj/cable{
 	icon_state = "0-4"
 	},
@@ -7978,10 +7893,7 @@
 	name = "Hammer Primary Concourse"
 	})
 "hIN" = (
-/obj/grille/catwalk{
-	dir = 5;
-	icon_state = "catwalk_cross"
-	},
+/obj/grille/catwalk,
 /turf/simulated/floor/airless/plating/catwalk{
 	dir = 5
 	},
@@ -7989,9 +7901,7 @@
 	name = "Meridian Solar Array"
 	})
 "hIW" = (
-/obj/grille/catwalk{
-	dir = 9
-	},
+/obj/grille/catwalk,
 /obj/cable{
 	icon_state = "0-4"
 	},
@@ -8250,10 +8160,7 @@
 	name = "Meridian Maintenance"
 	})
 "hZf" = (
-/obj/grille/catwalk{
-	dir = 6;
-	icon_state = "catwalk_cross"
-	},
+/obj/grille/catwalk,
 /obj/disposalpipe/segment/mail/horizontal,
 /obj/machinery/recharge_station,
 /turf/simulated/floor/airless/plating/catwalk{
@@ -8330,10 +8237,7 @@
 /turf/simulated/floor/grey,
 /area/station/maintenance/inner/hammer)
 "igA" = (
-/obj/grille/catwalk{
-	dir = 9;
-	icon_state = "catwalk_cross"
-	},
+/obj/grille/catwalk,
 /obj/cable{
 	icon_state = "0-4"
 	},
@@ -8485,9 +8389,7 @@
 /turf/simulated/wall/auto/reinforced/supernorn,
 /area/station/engine/elect)
 "imx" = (
-/obj/grille/catwalk{
-	icon_state = "catwalk_cross"
-	},
+/obj/grille/catwalk,
 /obj/cable{
 	icon_state = "0-4"
 	},
@@ -8521,9 +8423,7 @@
 	},
 /area/station/chapel/sanctuary)
 "ipO" = (
-/obj/grille/catwalk{
-	dir = 4
-	},
+/obj/grille/catwalk,
 /obj/cable,
 /obj/cable{
 	icon_state = "0-2"
@@ -9007,10 +8907,7 @@
 /turf/simulated/floor/black,
 /area/station/bridge)
 "iMy" = (
-/obj/grille/catwalk{
-	dir = 1;
-	icon_state = "catwalk_cross"
-	},
+/obj/grille/catwalk,
 /obj/cable,
 /obj/cable{
 	icon_state = "0-8"
@@ -9082,10 +8979,7 @@
 /turf/simulated/floor/grey/blackgrime/other,
 /area/station/storage/tech)
 "iON" = (
-/obj/grille/catwalk{
-	dir = 1;
-	icon_state = "catwalk_cross"
-	},
+/obj/grille/catwalk,
 /obj/cable,
 /obj/cable{
 	icon_state = "0-8"
@@ -9099,10 +8993,7 @@
 	name = "Maru Solar Array"
 	})
 "iPa" = (
-/obj/grille/catwalk{
-	dir = 1;
-	icon_state = "catwalk_cross"
-	},
+/obj/grille/catwalk,
 /obj/cable,
 /obj/cable{
 	icon_state = "0-8"
@@ -9184,9 +9075,7 @@
 	name = "Detective's Vessel"
 	})
 "iRD" = (
-/obj/grille/catwalk{
-	dir = 10
-	},
+/obj/grille/catwalk,
 /obj/cable{
 	icon_state = "0-2"
 	},
@@ -9852,9 +9741,7 @@
 /turf/simulated/floor/shuttlebay,
 /area/station/hangar/medical)
 "jGc" = (
-/obj/grille/catwalk{
-	dir = 9
-	},
+/obj/grille/catwalk,
 /obj/cable{
 	icon_state = "0-4"
 	},
@@ -10172,9 +10059,7 @@
 /turf/space,
 /area/space)
 "jUP" = (
-/obj/grille/catwalk{
-	icon_state = "catwalk_cross"
-	},
+/obj/grille/catwalk,
 /obj/cable{
 	icon_state = "0-4"
 	},
@@ -10633,9 +10518,7 @@
 /turf/simulated/floor/specialroom/cafeteria,
 /area/station/crew_quarters/kitchen)
 "ksZ" = (
-/obj/grille/catwalk{
-	dir = 10
-	},
+/obj/grille/catwalk,
 /obj/cable{
 	icon_state = "0-2"
 	},
@@ -10829,9 +10712,7 @@
 /turf/simulated/floor/grey,
 /area/station/crew_quarters)
 "kIk" = (
-/obj/grille/catwalk{
-	dir = 9
-	},
+/obj/grille/catwalk,
 /obj/cable{
 	icon_state = "0-4"
 	},
@@ -10918,9 +10799,7 @@
 	name = "Routing Buoy"
 	})
 "kNS" = (
-/obj/grille/catwalk{
-	dir = 10
-	},
+/obj/grille/catwalk,
 /obj/cable{
 	icon_state = "0-2"
 	},
@@ -11127,9 +11006,7 @@
 	},
 /area/station/engine/elect)
 "kTi" = (
-/obj/grille/catwalk{
-	dir = 6
-	},
+/obj/grille/catwalk,
 /turf/simulated/floor/airless/plating/catwalk{
 	icon_state = "catwalk_cross"
 	},
@@ -11797,10 +11674,7 @@
 /turf/simulated/floor/plating,
 /area/space)
 "lOY" = (
-/obj/grille/catwalk{
-	dir = 5;
-	icon_state = "catwalk_cross"
-	},
+/obj/grille/catwalk,
 /obj/landmark/magnet_shield,
 /obj/securearea{
 	desc = "A warning that demarcates where the magnetic area begins.";
@@ -12129,9 +12003,7 @@
 	name = "Routing Buoy"
 	})
 "mhR" = (
-/obj/grille/catwalk{
-	dir = 4
-	},
+/obj/grille/catwalk,
 /obj/cable{
 	icon_state = "4-8"
 	},
@@ -12147,10 +12019,7 @@
 /turf/space,
 /area/space)
 "mix" = (
-/obj/grille/catwalk{
-	dir = 6;
-	icon_state = "catwalk_cross"
-	},
+/obj/grille/catwalk,
 /obj/landmark/magnet_shield,
 /obj/securearea{
 	desc = "A warning that demarcates where the magnetic area begins.";
@@ -12231,10 +12100,7 @@
 /turf/space,
 /area/space)
 "mlM" = (
-/obj/grille/catwalk{
-	dir = 1;
-	icon_state = "catwalk_cross"
-	},
+/obj/grille/catwalk,
 /obj/cable{
 	icon_state = "1-2"
 	},
@@ -13087,9 +12953,7 @@
 /turf/simulated/wall/auto/reinforced/supernorn,
 /area/station/turret_protected/ai)
 "ngc" = (
-/obj/grille/catwalk{
-	dir = 5
-	},
+/obj/grille/catwalk,
 /obj/cable{
 	icon_state = "0-2"
 	},
@@ -13284,9 +13148,7 @@
 /turf/simulated/wall/auto/reinforced/supernorn,
 /area/station/science/chemistry)
 "nly" = (
-/obj/grille/catwalk{
-	dir = 10
-	},
+/obj/grille/catwalk,
 /obj/cable{
 	icon_state = "0-2"
 	},
@@ -13741,10 +13603,7 @@
 /turf/space,
 /area/station/chapel/sanctuary)
 "nIS" = (
-/obj/grille/catwalk{
-	dir = 10;
-	icon_state = "catwalk_cross"
-	},
+/obj/grille/catwalk,
 /turf/simulated/floor/airless/plating/catwalk{
 	dir = 10
 	},
@@ -13773,10 +13632,7 @@
 /turf/simulated/floor/black/grime,
 /area/station/security/brig)
 "nMF" = (
-/obj/grille/catwalk{
-	dir = 1;
-	icon_state = "catwalk_cross"
-	},
+/obj/grille/catwalk,
 /obj/cable{
 	icon_state = "1-2"
 	},
@@ -13794,9 +13650,7 @@
 /turf/simulated/floor/carpet/blue/fancy/edge/ne,
 /area/station/chapel/sanctuary)
 "nOb" = (
-/obj/grille/catwalk{
-	dir = 4
-	},
+/obj/grille/catwalk,
 /obj/cable,
 /obj/cable{
 	icon_state = "0-2"
@@ -14015,10 +13869,7 @@
 	name = "Dionysus Primary Zone"
 	})
 "nZY" = (
-/obj/grille/catwalk{
-	dir = 10;
-	icon_state = "catwalk_cross"
-	},
+/obj/grille/catwalk,
 /obj/landmark/magnet_shield,
 /obj/securearea{
 	desc = "A warning that demarcates where the magnetic area begins.";
@@ -15147,10 +14998,7 @@
 	name = "Hammer Primary Concourse"
 	})
 "pbG" = (
-/obj/grille/catwalk{
-	dir = 1;
-	icon_state = "catwalk_cross"
-	},
+/obj/grille/catwalk,
 /obj/cable{
 	icon_state = "1-2"
 	},
@@ -15468,10 +15316,7 @@
 /turf/space,
 /area/space)
 "ptv" = (
-/obj/grille/catwalk{
-	dir = 6;
-	icon_state = "catwalk_cross"
-	},
+/obj/grille/catwalk,
 /turf/simulated/floor/airless/plating/catwalk{
 	dir = 6
 	},
@@ -15627,10 +15472,7 @@
 	},
 /area/station/medical/medbay/pharmacy)
 "pzo" = (
-/obj/grille/catwalk{
-	dir = 10;
-	icon_state = "catwalk_cross"
-	},
+/obj/grille/catwalk,
 /turf/simulated/floor/airless/plating/catwalk{
 	dir = 10
 	},
@@ -15994,9 +15836,7 @@
 /turf/space,
 /area/space)
 "pRq" = (
-/obj/grille/catwalk{
-	dir = 9
-	},
+/obj/grille/catwalk,
 /obj/cable{
 	icon_state = "0-4"
 	},
@@ -16791,9 +16631,7 @@
 /turf/simulated/floor/plating,
 /area/station/security/brig)
 "qNh" = (
-/obj/grille/catwalk{
-	dir = 4
-	},
+/obj/grille/catwalk,
 /obj/landmark/magnet_shield,
 /obj/securearea{
 	desc = "A warning that demarcates where the magnetic area begins.";
@@ -17907,9 +17745,7 @@
 /turf/simulated/floor/sanitary/white,
 /area/station/science/tenebrae)
 "rVc" = (
-/obj/grille/catwalk{
-	dir = 4
-	},
+/obj/grille/catwalk,
 /obj/landmark/magnet_shield,
 /obj/securearea{
 	desc = "A warning that demarcates where the magnetic area begins.";
@@ -18097,9 +17933,7 @@
 	name = "Maru Hangar"
 	})
 "slD" = (
-/obj/grille/catwalk{
-	dir = 4
-	},
+/obj/grille/catwalk,
 /obj/cable{
 	icon_state = "4-8"
 	},
@@ -18271,10 +18105,7 @@
 	name = "Net Center"
 	})
 "ssk" = (
-/obj/grille/catwalk{
-	dir = 1;
-	icon_state = "catwalk_cross"
-	},
+/obj/grille/catwalk,
 /obj/cable{
 	icon_state = "1-2"
 	},
@@ -19142,9 +18973,7 @@
 	name = "Hammer Command"
 	})
 "tmT" = (
-/obj/grille/catwalk{
-	dir = 6
-	},
+/obj/grille/catwalk,
 /obj/cable{
 	icon_state = "0-4"
 	},
@@ -19429,10 +19258,7 @@
 /turf/simulated/floor/sanitary/white,
 /area/station/medical/robotics)
 "tEv" = (
-/obj/grille/catwalk{
-	dir = 10;
-	icon_state = "catwalk_cross"
-	},
+/obj/grille/catwalk,
 /turf/simulated/floor/airless/plating/catwalk{
 	dir = 10
 	},
@@ -19499,9 +19325,7 @@
 	},
 /area/station/science/tenebrae)
 "tHt" = (
-/obj/grille/catwalk{
-	dir = 4
-	},
+/obj/grille/catwalk,
 /obj/cable,
 /obj/cable{
 	icon_state = "0-2"
@@ -19540,9 +19364,7 @@
 	name = "Asclepius Primary Zone"
 	})
 "tJf" = (
-/obj/grille/catwalk{
-	dir = 10
-	},
+/obj/grille/catwalk,
 /obj/machinery/power/tracker/small_backup4,
 /obj/cable{
 	d2 = 2;
@@ -20125,10 +19947,7 @@
 	name = "Hammer Command"
 	})
 "uoN" = (
-/obj/grille/catwalk{
-	dir = 1;
-	icon_state = "catwalk_cross"
-	},
+/obj/grille/catwalk,
 /obj/cable{
 	icon_state = "1-2"
 	},
@@ -20199,9 +20018,7 @@
 	name = "Routing Buoy"
 	})
 "usQ" = (
-/obj/grille/catwalk{
-	dir = 4
-	},
+/obj/grille/catwalk,
 /obj/cable{
 	icon_state = "4-8"
 	},
@@ -20556,9 +20373,7 @@
 	name = "Hammer Armory"
 	})
 "uIS" = (
-/obj/grille/catwalk{
-	dir = 9
-	},
+/obj/grille/catwalk,
 /obj/cable{
 	icon_state = "0-4"
 	},
@@ -20639,9 +20454,7 @@
 	icon_state = "magwarning";
 	name = "Magnet Area Boundary"
 	},
-/obj/grille/catwalk{
-	dir = 9
-	},
+/obj/grille/catwalk,
 /turf/simulated/floor/airless/plating/catwalk{
 	dir = 8;
 	icon_state = "catwalk_cross"
@@ -21229,9 +21042,7 @@
 /turf/simulated/floor/grey,
 /area/station/crew_quarters/tenebrae)
 "vwY" = (
-/obj/grille/catwalk{
-	icon_state = "catwalk_cross"
-	},
+/obj/grille/catwalk,
 /obj/cable{
 	icon_state = "0-4"
 	},
@@ -21479,10 +21290,7 @@
 	name = "Maru Hangar"
 	})
 "vJd" = (
-/obj/grille/catwalk{
-	dir = 10;
-	icon_state = "catwalk_cross"
-	},
+/obj/grille/catwalk,
 /turf/simulated/floor/airless/plating/catwalk{
 	dir = 10
 	},
@@ -21630,9 +21438,7 @@
 	name = "Genetic Research"
 	})
 "vQf" = (
-/obj/grille/catwalk{
-	dir = 10
-	},
+/obj/grille/catwalk,
 /obj/cable{
 	icon_state = "0-2"
 	},
@@ -21766,9 +21572,7 @@
 /turf/simulated/floor/caution/north,
 /area/station/mining/refinery)
 "vWP" = (
-/obj/grille/catwalk{
-	icon_state = "catwalk_cross"
-	},
+/obj/grille/catwalk,
 /obj/cable{
 	icon_state = "0-4"
 	},
@@ -21834,10 +21638,7 @@
 /turf/simulated/floor/carpet/blue/fancy/edge/ne,
 /area/station/bridge)
 "wau" = (
-/obj/grille/catwalk{
-	dir = 6;
-	icon_state = "catwalk_cross"
-	},
+/obj/grille/catwalk,
 /turf/simulated/floor/airless/plating/catwalk{
 	dir = 6
 	},
@@ -21873,10 +21674,7 @@
 	},
 /area/station/ranch)
 "wbw" = (
-/obj/grille/catwalk{
-	dir = 6;
-	icon_state = "catwalk_cross"
-	},
+/obj/grille/catwalk,
 /turf/simulated/floor/airless/plating/catwalk{
 	dir = 6
 	},
@@ -21903,10 +21701,7 @@
 	name = "Maru Equipment"
 	})
 "wcw" = (
-/obj/grille/catwalk{
-	dir = 5;
-	icon_state = "catwalk_cross"
-	},
+/obj/grille/catwalk,
 /obj/disposalpipe/segment/mail/horizontal,
 /turf/simulated/floor/airless/plating/catwalk{
 	dir = 5
@@ -22178,10 +21973,7 @@
 /turf/simulated/floor/black,
 /area/station/bridge)
 "wrz" = (
-/obj/grille/catwalk{
-	dir = 5;
-	icon_state = "catwalk_cross"
-	},
+/obj/grille/catwalk,
 /obj/cable{
 	icon_state = "0-8"
 	},
@@ -22434,10 +22226,7 @@
 	name = "Dionysus Primary Zone"
 	})
 "wGt" = (
-/obj/grille/catwalk{
-	dir = 6;
-	icon_state = "catwalk_cross"
-	},
+/obj/grille/catwalk,
 /obj/cable,
 /obj/cable{
 	icon_state = "0-8"
@@ -22991,10 +22780,7 @@
 	name = "Dionysus Janitorial"
 	})
 "xja" = (
-/obj/grille/catwalk{
-	dir = 9;
-	icon_state = "catwalk_cross"
-	},
+/obj/grille/catwalk,
 /obj/cable{
 	icon_state = "0-4"
 	},
@@ -23225,9 +23011,7 @@
 	name = "Asclepius Primary Zone"
 	})
 "xtO" = (
-/obj/grille/catwalk{
-	dir = 5
-	},
+/obj/grille/catwalk,
 /obj/cable{
 	icon_state = "0-2"
 	},
@@ -23362,9 +23146,7 @@
 /turf/simulated/floor/black,
 /area/station/security/quarters)
 "xAh" = (
-/obj/grille/catwalk{
-	dir = 4
-	},
+/obj/grille/catwalk,
 /obj/cable,
 /obj/cable{
 	icon_state = "0-2"
@@ -23384,10 +23166,7 @@
 /turf/simulated/floor/black/grime,
 /area/station/security/brig)
 "xAC" = (
-/obj/grille/catwalk{
-	dir = 1;
-	icon_state = "catwalk_cross"
-	},
+/obj/grille/catwalk,
 /obj/cable{
 	icon_state = "1-2"
 	},
@@ -23621,10 +23400,7 @@
 	name = "Dionysus Primary Zone"
 	})
 "xRc" = (
-/obj/grille/catwalk{
-	dir = 5;
-	icon_state = "catwalk_cross"
-	},
+/obj/grille/catwalk,
 /turf/simulated/floor/airless/plating/catwalk{
 	dir = 5
 	},
@@ -24021,9 +23797,7 @@
 	},
 /area/station/medical/medbay/surgery)
 "yks" = (
-/obj/grille/catwalk{
-	dir = 5
-	},
+/obj/grille/catwalk,
 /obj/cable{
 	icon_state = "0-2"
 	},
