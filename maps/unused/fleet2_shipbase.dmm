@@ -34,7 +34,7 @@
 /obj/cable{
 	icon_state = "1-2"
 	},
-/obj/wingrille_spawn/auto,
+/obj/mapping_helper/wingrille_spawn/auto/reinforced,
 /obj/window_blinds/cog2/middle,
 /turf/simulated/floor/plating,
 /area/station/crew_quarters)
@@ -260,7 +260,7 @@
 	},
 /area/space)
 "fn" = (
-/obj/wingrille_spawn/auto,
+/obj/mapping_helper/wingrille_spawn/auto/reinforced,
 /obj/disposalpipe/segment/mail/bent/west,
 /turf/simulated/floor/plating,
 /area/station/maintenance/outer/south)
@@ -395,7 +395,7 @@
 /area/station/maintenance/outer/east)
 "iA" = (
 /obj/disposalpipe/segment/bent/north,
-/obj/wingrille_spawn/auto,
+/obj/mapping_helper/wingrille_spawn/auto/reinforced,
 /turf/simulated/floor/plating,
 /area/station/maintenance/outer/south)
 "iI" = (
@@ -506,7 +506,7 @@
 /turf/simulated/floor/grey,
 /area/station/bridge/customs)
 "kk" = (
-/obj/wingrille_spawn/auto,
+/obj/mapping_helper/wingrille_spawn/auto/reinforced,
 /turf/simulated/floor/plating,
 /area/station/maintenance/outer/south)
 "ky" = (
@@ -832,9 +832,6 @@
 /area/station/bridge/customs)
 "tG" = (
 /obj/table/auto,
-/obj/item/game_kit{
-	pixel_y = -4
-	},
 /obj/machinery/computer/security/wooden_tv/small{
 	pixel_y = 12
 	},
@@ -861,7 +858,7 @@
 	},
 /area/station/maintenance/outer/north)
 "uR" = (
-/obj/wingrille_spawn/auto,
+/obj/mapping_helper/wingrille_spawn/auto/reinforced,
 /obj/window_blinds/cog2/left,
 /turf/simulated/floor/plating,
 /area/station/crew_quarters)
@@ -1032,7 +1029,7 @@
 /turf/simulated/floor/grey,
 /area/station/maintenance/outer/east)
 "yZ" = (
-/obj/wingrille_spawn/auto,
+/obj/mapping_helper/wingrille_spawn/auto/reinforced,
 /turf/simulated/floor/plating,
 /area/station/hangar)
 "zc" = (
@@ -1168,7 +1165,7 @@
 /turf/space,
 /area/space)
 "DL" = (
-/obj/wingrille_spawn/auto,
+/obj/mapping_helper/wingrille_spawn/auto/reinforced,
 /obj/window_blinds/cog2/middle,
 /turf/simulated/floor/plating,
 /area/station/crew_quarters)
@@ -1272,7 +1269,7 @@
 /turf/space,
 /area/space)
 "FY" = (
-/obj/machinery/air_vendor,
+/obj/machinery/vending/air_vendor,
 /turf/simulated/floor/grey,
 /area/station/crew_quarters)
 "Gc" = (
@@ -1381,7 +1378,7 @@
 "HX" = (
 /obj/disposalpipe/segment/mail/vertical,
 /obj/disposalpipe/segment/horizontal,
-/obj/wingrille_spawn/auto,
+/obj/mapping_helper/wingrille_spawn/auto/reinforced,
 /turf/simulated/floor/plating,
 /area/station/maintenance/outer/south)
 "In" = (
@@ -1793,11 +1790,11 @@
 /turf/simulated/floor,
 /area/station/maintenance/outer/north)
 "OJ" = (
-/obj/wingrille_spawn/auto,
+/obj/mapping_helper/wingrille_spawn/auto/reinforced,
 /turf/simulated/floor/plating,
 /area/station/bridge/customs)
 "OK" = (
-/obj/wingrille_spawn/auto,
+/obj/mapping_helper/wingrille_spawn/auto/reinforced,
 /obj/disposalpipe/switch_junction/left/east{
 	name = "mail junction (to hub)"
 	},
@@ -1823,7 +1820,7 @@
 /turf/simulated/floor/black,
 /area/station/bridge/customs)
 "Pj" = (
-/obj/wingrille_spawn/auto,
+/obj/mapping_helper/wingrille_spawn/auto/reinforced,
 /turf/simulated/floor/plating,
 /area/station/maintenance/outer/north)
 "Pp" = (
@@ -1880,7 +1877,7 @@
 	},
 /area/station/maintenance/outer/north)
 "QE" = (
-/obj/wingrille_spawn/auto,
+/obj/mapping_helper/wingrille_spawn/auto/reinforced,
 /turf/simulated/floor/plating,
 /area/station/maintenance)
 "QP" = (
@@ -1897,7 +1894,7 @@
 	},
 /area/space)
 "QQ" = (
-/obj/wingrille_spawn/auto,
+/obj/mapping_helper/wingrille_spawn/auto/reinforced,
 /obj/cable{
 	d1 = 4;
 	d2 = 8;
@@ -2034,7 +2031,7 @@
 /turf/simulated/floor/shuttlebay,
 /area/station/hangar)
 "Wl" = (
-/obj/wingrille_spawn/auto,
+/obj/mapping_helper/wingrille_spawn/auto/reinforced,
 /turf/simulated/floor/plating,
 /area/station/maintenance/outer/east)
 "Xq" = (
@@ -2134,7 +2131,7 @@
 /obj/cable{
 	icon_state = "1-2"
 	},
-/obj/wingrille_spawn/auto,
+/obj/mapping_helper/wingrille_spawn/auto/reinforced,
 /obj/window_blinds/cog2/right,
 /turf/simulated/floor/plating,
 /area/station/crew_quarters)
