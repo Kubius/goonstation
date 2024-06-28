@@ -4149,9 +4149,7 @@
 	},
 /obj/machinery/power/data_terminal,
 /obj/machinery/networked/telepad,
-/obj/landmark/spawner{
-	name = "monkeyspawn_albert"
-	},
+/mob/living/carbon/human/npc/monkey/albert,
 /turf/simulated/floor/engine,
 /area/station/science/teleporter)
 "dGm" = (
@@ -19130,9 +19128,7 @@
 /obj/disposalpipe/segment/brig{
 	dir = 4
 	},
-/obj/landmark/spawner{
-	name = "monkeyspawn_stirstir"
-	},
+/mob/living/carbon/human/npc/monkey/stirstir,
 /turf/simulated/floor/black/grime,
 /area/station/security/brig)
 "tmN" = (
