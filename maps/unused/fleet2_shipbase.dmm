@@ -210,10 +210,7 @@
 /turf/space,
 /area/space)
 "eA" = (
-/obj/grille/catwalk{
-	dir = 9;
-	icon_state = "catwalk_cross"
-	},
+/obj/grille/catwalk,
 /obj/cable{
 	icon_state = "0-4"
 	},
@@ -236,10 +233,7 @@
 /turf/simulated/floor/grey,
 /area/station/crew_quarters)
 "eI" = (
-/obj/grille/catwalk{
-	dir = 6;
-	icon_state = "catwalk_cross"
-	},
+/obj/grille/catwalk,
 /turf/simulated/floor/airless/plating/catwalk{
 	dir = 6
 	},
@@ -251,10 +245,7 @@
 /turf/simulated/floor/grey,
 /area/station/bridge/customs)
 "fm" = (
-/obj/grille/catwalk{
-	dir = 10;
-	icon_state = "catwalk_cross"
-	},
+/obj/grille/catwalk,
 /turf/simulated/floor/airless/plating/catwalk{
 	dir = 10
 	},
@@ -644,10 +635,7 @@
 /turf/space,
 /area/space)
 "oC" = (
-/obj/grille/catwalk{
-	dir = 1;
-	icon_state = "catwalk_cross"
-	},
+/obj/grille/catwalk,
 /obj/cable,
 /obj/cable{
 	icon_state = "0-8"
@@ -882,10 +870,7 @@
 /turf/simulated/floor/grey,
 /area/station/maintenance/outer/east)
 "vo" = (
-/obj/grille/catwalk{
-	dir = 5;
-	icon_state = "catwalk_cross"
-	},
+/obj/grille/catwalk,
 /turf/simulated/floor/airless/plating/catwalk{
 	dir = 5
 	},
@@ -935,9 +920,7 @@
 /turf/simulated/wall/auto/reinforced/supernorn,
 /area/station/maintenance/outer/north)
 "wq" = (
-/obj/grille/catwalk{
-	dir = 5
-	},
+/obj/grille/catwalk,
 /obj/cable{
 	icon_state = "0-2"
 	},
@@ -994,9 +977,7 @@
 /turf/simulated/floor,
 /area/station/maintenance/outer/south)
 "xp" = (
-/obj/grille/catwalk{
-	dir = 4
-	},
+/obj/grille/catwalk,
 /obj/cable,
 /obj/cable{
 	icon_state = "0-2"
@@ -1081,9 +1062,7 @@
 /turf/simulated/floor,
 /area/station/maintenance/outer/north)
 "Aw" = (
-/obj/grille/catwalk{
-	icon_state = "catwalk_cross"
-	},
+/obj/grille/catwalk,
 /obj/cable{
 	icon_state = "0-4"
 	},
@@ -1365,9 +1344,7 @@
 /turf/simulated/floor/caution/north,
 /area/station/hangar)
 "HU" = (
-/obj/grille/catwalk{
-	dir = 4
-	},
+/obj/grille/catwalk,
 /obj/cable{
 	icon_state = "4-8"
 	},
@@ -1578,9 +1555,7 @@
 /turf/simulated/floor/shuttlebay,
 /area/station/hangar)
 "KD" = (
-/obj/grille/catwalk{
-	dir = 9
-	},
+/obj/grille/catwalk,
 /obj/cable{
 	icon_state = "0-4"
 	},
@@ -1670,9 +1645,7 @@
 /turf/simulated/floor/grey/side,
 /area/station/maintenance/outer/north)
 "LK" = (
-/obj/grille/catwalk{
-	dir = 10
-	},
+/obj/grille/catwalk,
 /obj/cable{
 	icon_state = "0-2"
 	},
@@ -1688,9 +1661,7 @@
 	},
 /area/space)
 "LP" = (
-/obj/grille/catwalk{
-	dir = 6
-	},
+/obj/grille/catwalk,
 /obj/cable{
 	icon_state = "0-4"
 	},
@@ -1881,10 +1852,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance)
 "QP" = (
-/obj/grille/catwalk{
-	dir = 1;
-	icon_state = "catwalk_cross"
-	},
+/obj/grille/catwalk,
 /obj/cable{
 	icon_state = "1-2"
 	},
