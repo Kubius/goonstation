@@ -303,6 +303,19 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/hos)
+"apH" = (
+/obj/cable/brown{
+	icon_state = "4-8"
+	},
+/obj/machinery/light{
+	dir = 1;
+	layer = 9.1;
+	pixel_y = 21
+	},
+/turf/simulated/floor/black/side{
+	dir = 1
+	},
+/area/station/hallway/primary/central/maru)
 "apI" = (
 /turf/simulated/floor/grey/side{
 	dir = 4
@@ -1877,11 +1890,6 @@
 /area/station/crew_quarters/garden)
 "bSN" = (
 /obj/storage/closet/welding_supply,
-/obj/machinery/light{
-	dir = 4;
-	layer = 9.1;
-	pixel_x = 10
-	},
 /turf/simulated/floor/orangeblack/side{
 	dir = 4
 	},
@@ -2252,6 +2260,7 @@
 	id = "maru_intbay";
 	name = "Maru secure bay door"
 	},
+/obj/forcefield/energyshield/perma/doorlink,
 /turf/simulated/floor/shuttlebay{
 	icon_state = "engine_caution_west"
 	},
@@ -2438,7 +2447,6 @@
 /obj/cable{
 	icon_state = "1-2"
 	},
-/obj/machinery/light/small/floor,
 /turf/simulated/floor/caution/corner/misc{
 	dir = 9
 	},
@@ -3355,6 +3363,7 @@
 	id = "maru_intbay";
 	name = "Maru secure bay door"
 	},
+/obj/forcefield/energyshield/perma/doorlink,
 /turf/simulated/floor/shuttlebay{
 	icon_state = "engine_caution_east"
 	},
@@ -3943,6 +3952,9 @@
 /obj/cable{
 	icon_state = "1-2"
 	},
+/obj/machinery/atmospherics/pipe/simple/insulated/cold{
+	dir = 5
+	},
 /turf/simulated/floor/black,
 /area/station/engine/monitoring{
 	name = "Nuclear Control Room"
@@ -4239,6 +4251,13 @@
 	dir = 1
 	},
 /area/station/storage/emergency/maru)
+"eaj" = (
+/obj/cable{
+	icon_state = "4-8"
+	},
+/obj/machinery/light,
+/turf/simulated/floor/yellowblack,
+/area/station/hallway/primary/central/maru)
 "eaV" = (
 /obj/machinery/atmospherics/pipe/simple/insulated/cold{
 	dir = 9
@@ -4626,11 +4645,6 @@
 "ett" = (
 /obj/machinery/computer/chem_requester/science{
 	area_name = "Quartermaster's office"
-	},
-/obj/machinery/light{
-	dir = 1;
-	layer = 9.1;
-	pixel_y = 21
 	},
 /turf/simulated/floor/orangeblack/side{
 	dir = 1
@@ -6592,23 +6606,6 @@
 "glC" = (
 /turf/simulated/floor/stairs/dark/wide,
 /area/listeningpost)
-"gmg" = (
-/obj/rack,
-/obj/item/clothing/mask/breath,
-/obj/item/tank/jetpack,
-/obj/item/clothing/suit/space/engineer,
-/obj/item/clothing/head/helmet/space/engineer,
-/obj/item/device/gps,
-/obj/item/storage/belt/mining,
-/obj/machinery/light{
-	dir = 8;
-	layer = 9.1;
-	pixel_x = -10
-	},
-/turf/simulated/floor/yellowblack{
-	dir = 8
-	},
-/area/station/mining/staff_room)
 "gof" = (
 /obj/cable{
 	icon_state = "4-8"
@@ -6778,6 +6775,7 @@
 /turf/simulated/floor/black,
 /area/station/bridge/tenebrae)
 "gtY" = (
+/obj/machinery/light,
 /turf/simulated/floor/caution/south,
 /area/station/quartermaster/refinery)
 "gvp" = (
@@ -7346,6 +7344,19 @@
 /obj/disposalpipe/segment/vertical,
 /turf/simulated/floor/plating,
 /area/station/maintenance/southeast/maru)
+"hbA" = (
+/obj/cable/brown{
+	icon_state = "4-8"
+	},
+/obj/machinery/light{
+	dir = 1;
+	layer = 9.1;
+	pixel_y = 21
+	},
+/turf/simulated/floor/yellowblack{
+	dir = 1
+	},
+/area/station/hallway/primary/central/maru)
 "hbZ" = (
 /obj/machinery/vending/jobclothing/research,
 /obj/machinery/light_switch/east,
@@ -7735,6 +7746,11 @@
 	},
 /area/station/medical/robotics)
 "hsK" = (
+/obj/machinery/light{
+	dir = 4;
+	layer = 9.1;
+	pixel_x = 10
+	},
 /turf/simulated/floor/yellowblack{
 	dir = 6
 	},
@@ -7848,6 +7864,7 @@
 	name = "Tenebrae fuel bay door"
 	},
 /obj/mapping_helper/button/area,
+/obj/forcefield/energyshield/perma/doorlink,
 /turf/simulated/floor/engine/caution/northsouth,
 /area/station/engine/substation/tenebrae)
 "hyd" = (
@@ -9221,7 +9238,6 @@
 /turf/space,
 /area/space)
 "iNW" = (
-/obj/machinery/light/small/floor,
 /turf/simulated/floor/caution/corner/misc{
 	dir = 5
 	},
@@ -9869,9 +9885,6 @@
 	},
 /turf/simulated/floor/white,
 /area/station/hallway/primary/central/tenebrae)
-"joc" = (
-/turf/space,
-/area/station/quartermaster/refinery)
 "joj" = (
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
 	dir = 5
@@ -10315,16 +10328,6 @@
 	dir = 8
 	},
 /area/station/medical/morgue)
-"jIP" = (
-/obj/machinery/light{
-	dir = 8;
-	layer = 9.1;
-	pixel_x = -10
-	},
-/turf/simulated/floor/black/side{
-	dir = 8
-	},
-/area/station/hallway/primary/south/maru)
 "jJs" = (
 /obj/mapping_helper/wingrille_spawn/auto/reinforced,
 /obj/cable{
@@ -10615,6 +10618,7 @@
 	name = "Maru fuel bay door"
 	},
 /obj/mapping_helper/button/area,
+/obj/forcefield/energyshield/perma/doorlink,
 /turf/simulated/floor/engine/caution/northsouth,
 /area/station/engine/substation/maru)
 "jXB" = (
@@ -11529,11 +11533,11 @@
 /turf/simulated/wall/auto/reinforced/jen/dark2,
 /area/station/medical/morgue)
 "kNt" = (
-/obj/machinery/atmospherics/pipe/simple/insulated/cold{
-	dir = 4
-	},
 /obj/cable{
 	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/simple/insulated/cold{
+	dir = 10
 	},
 /turf/simulated/floor/black,
 /area/station/engine/monitoring{
@@ -12942,16 +12946,6 @@
 /obj/machinery/door/airlock/pyro/external,
 /turf/simulated/floor/black,
 /area/station/hallway/primary/south/maru)
-"mir" = (
-/obj/cable{
-	icon_state = "4-8"
-	},
-/obj/machinery/light,
-/obj/cable{
-	icon_state = "1-4"
-	},
-/turf/simulated/floor/yellowblack,
-/area/station/hallway/primary/central/maru)
 "miw" = (
 /obj/lattice,
 /turf/space,
@@ -13142,6 +13136,11 @@
 	pixel_x = -15
 	},
 /obj/machinery/firealarm/east,
+/obj/machinery/light{
+	dir = 1;
+	layer = 9.1;
+	pixel_y = 21
+	},
 /turf/simulated/floor/orangeblack/side{
 	dir = 5
 	},
@@ -13326,6 +13325,15 @@
 	},
 /turf/space,
 /area/space)
+"mvF" = (
+/obj/machinery/atmospherics/pipe/simple/insulated/cold{
+	dir = 4
+	},
+/obj/machinery/meter,
+/turf/simulated/floor/black,
+/area/station/engine/monitoring{
+	name = "Nuclear Control Room"
+	})
 "mwl" = (
 /obj/machinery/conveyor/EW{
 	id = "qmsend"
@@ -14112,6 +14120,10 @@
 	dir = 8
 	},
 /area/station/teleporter/maru)
+"nsv" = (
+/obj/machinery/light/small/floor,
+/turf/simulated/floor/caution/east,
+/area/station/quartermaster/office)
 "nsT" = (
 /obj/machinery/disposal_pipedispenser/mobile{
 	dir = 4
@@ -17041,14 +17053,6 @@
 /obj/mapping_helper/button/area,
 /turf/simulated/floor/black/grime,
 /area/station/maintenance/disposal/tenebrae)
-"qjA" = (
-/obj/machinery/atmospherics/pipe/simple/insulated/cold{
-	dir = 5
-	},
-/turf/simulated/floor/black,
-/area/station/engine/monitoring{
-	name = "Nuclear Control Room"
-	})
 "qkv" = (
 /obj/mapping_helper/wingrille_spawn/auto/reinforced/crystal,
 /obj/cable{
@@ -18022,6 +18026,11 @@
 /area/station/storage)
 "rmJ" = (
 /obj/machinery/manufacturer/qm,
+/obj/machinery/light{
+	dir = 1;
+	layer = 9.1;
+	pixel_y = 21
+	},
 /turf/simulated/floor/orangeblack/side{
 	dir = 9
 	},
@@ -18055,11 +18064,6 @@
 	},
 /obj/item/cargotele{
 	pixel_y = 6
-	},
-/obj/machinery/light{
-	dir = 4;
-	layer = 9.1;
-	pixel_x = 10
 	},
 /turf/simulated/floor/orangeblack/side{
 	dir = 6
@@ -18455,11 +18459,6 @@
 /area/station/wreckage)
 "rEz" = (
 /obj/machinery/vending/mechanics,
-/obj/machinery/light{
-	dir = 4;
-	layer = 9.1;
-	pixel_x = 10
-	},
 /turf/simulated/floor/yellowblack{
 	dir = 8
 	},
@@ -20937,10 +20936,6 @@
 /obj/mapping_helper/access/maint,
 /turf/simulated/floor/grey,
 /area/station/engine/substation/tenebrae)
-"tXB" = (
-/obj/gibtyson,
-/turf/simulated/floor/shuttlebay,
-/area/station/hangar/maru)
 "tYa" = (
 /obj/cable/brown{
 	icon_state = "1-2"
@@ -21086,11 +21081,6 @@
 	id = "fleet_qmio";
 	pixel_x = -8;
 	pixel_y = 22
-	},
-/obj/machinery/light{
-	dir = 1;
-	layer = 9.1;
-	pixel_y = 21
 	},
 /obj/machinery/door_control{
 	id = "cargo_swapabout";
@@ -21851,7 +21841,6 @@
 /turf/simulated/floor/purple,
 /area/station/mailroom/tenebrae)
 "uKA" = (
-/obj/machinery/light/small/floor,
 /turf/simulated/floor/caution/corner/misc{
 	dir = 6
 	},
@@ -21949,6 +21938,11 @@
 /obj/table/reinforced/auto,
 /obj/machinery/recharger,
 /obj/item/cargotele,
+/obj/machinery/light{
+	dir = 1;
+	layer = 9.1;
+	pixel_y = 21
+	},
 /turf/simulated/floor/yellowblack{
 	dir = 1
 	},
@@ -22460,6 +22454,13 @@
 	dir = 1
 	},
 /area/station/teleporter/maru)
+"vnb" = (
+/obj/cable{
+	icon_state = "1-2"
+	},
+/obj/machinery/light/small/floor,
+/turf/simulated/floor/caution/west,
+/area/station/quartermaster/office)
 "vnG" = (
 /obj/machinery/door/airlock/pyro/medical{
 	dir = 4;
@@ -23356,15 +23357,6 @@
 	dir = 1
 	},
 /area/station/crew_quarters/maru)
-"wnn" = (
-/obj/machinery/atmospherics/pipe/simple/insulated/cold{
-	dir = 10
-	},
-/obj/machinery/meter,
-/turf/simulated/floor/black,
-/area/station/engine/monitoring{
-	name = "Nuclear Control Room"
-	})
 "woc" = (
 /obj/mapping_helper/wingrille_spawn/auto/reinforced,
 /obj/cable{
@@ -23667,6 +23659,7 @@
 	name = " fuel bay door"
 	},
 /obj/mapping_helper/button/area,
+/obj/forcefield/energyshield/perma/doorlink,
 /turf/simulated/floor/engine/caution/northsouth,
 /area/station/wreckage)
 "wCk" = (
@@ -23942,7 +23935,6 @@
 /obj/cable{
 	icon_state = "1-2"
 	},
-/obj/machinery/light/small/floor,
 /turf/simulated/floor/caution/corner/misc{
 	dir = 10
 	},
@@ -24424,19 +24416,6 @@
 	dir = 4
 	},
 /area/station/hangar/tenebrae)
-"xlF" = (
-/obj/cable{
-	icon_state = "1-2"
-	},
-/obj/machinery/light{
-	dir = 4;
-	layer = 9.1;
-	pixel_x = 10
-	},
-/turf/simulated/floor/yellowblack{
-	dir = 4
-	},
-/area/station/hallway/primary/south/maru)
 "xlJ" = (
 /obj/machinery/chem_master{
 	dir = 4
@@ -50994,7 +50973,7 @@ pvw
 pvw
 sru
 pvw
-hXr
+apH
 rCm
 kWZ
 tIy
@@ -51902,7 +51881,7 @@ hBQ
 jcc
 lbN
 rCm
-asa
+eaj
 qPv
 nIf
 nvN
@@ -52504,7 +52483,7 @@ paI
 xqv
 qAO
 kAF
-lAa
+cCA
 rCm
 asa
 ipE
@@ -52806,16 +52785,16 @@ xqv
 xqv
 doj
 kAF
-cCA
+hbA
 fUA
 vwe
 plL
 ett
 pzD
 uKA
+nsv
 eQP
-eQP
-eQP
+nsv
 iNW
 cvr
 bRr
@@ -53412,7 +53391,7 @@ nOx
 jcc
 cCA
 fUA
-mir
+vwe
 snV
 hNB
 pzD
@@ -53714,14 +53693,14 @@ sxU
 vRR
 cCA
 rCm
-asa
+eaj
 ipE
 cDT
 fue
 wOk
+vnb
 lCk
-lCk
-lCk
+vnb
 crq
 gws
 uhb
@@ -54628,7 +54607,7 @@ brc
 beH
 uTN
 lNQ
-gmg
+kyO
 kyO
 tAg
 uTN
@@ -54925,7 +54904,7 @@ rCm
 cjX
 bnc
 wZL
-joc
+wZL
 eGW
 oFQ
 dqY
@@ -56420,7 +56399,7 @@ aOH
 dkx
 tLw
 oVn
-dqs
+mvF
 tlX
 wWM
 xZw
@@ -56739,7 +56718,7 @@ pul
 caJ
 elJ
 elJ
-jIP
+elJ
 iFg
 nyM
 nyM
@@ -57024,8 +57003,8 @@ aOH
 gHR
 ntn
 ubF
+prv
 dqs
-adM
 adM
 eZk
 lnT
@@ -57043,7 +57022,7 @@ fXQ
 fXQ
 mKZ
 dIv
-xlF
+tHF
 tHF
 tHF
 tHF
@@ -57326,8 +57305,8 @@ aOH
 pEP
 kVf
 ubF
-wnn
-qjA
+adM
+dqs
 adM
 gFj
 lnT
@@ -67002,7 +66981,7 @@ nYn
 eoQ
 nYn
 nYn
-tXB
+nYn
 eoQ
 nYn
 fRE
@@ -89942,7 +89921,7 @@ lff
 gLR
 kFC
 wEd
-fhR
+aLn
 aUK
 eiC
 vdC
@@ -90244,7 +90223,7 @@ wmD
 bOZ
 naa
 naa
-aLn
+fhR
 aUK
 pRR
 vKL
@@ -90850,7 +90829,7 @@ cay
 fxp
 fLX
 aUK
-pRR
+qpG
 jrk
 cel
 mky
