@@ -1879,6 +1879,24 @@ TYPEINFO(/area/station/maintenance)
 	name = "South East Maintenance"
 	icon_state = "SEmaint"
 
+	asclepius
+		name = "Asclepius SE Maintenance"
+
+	dionysus
+		name = "Dionysus SE Maintenance"
+
+	hammer
+		name = "Hammer SE Maintenance"
+
+	maru
+		name = "Maru SE Maintenance"
+
+	meridian
+		name = "Meridian SE Maintenance"
+
+	tenebrae
+		name = "Tenebrae SE Maintenance"
+
 /area/station/maintenance/southwest
 	name = "South West Maintenance"
 	icon_state = "SWmaint"
@@ -2097,19 +2115,19 @@ ABSTRACT_TYPE(/area/station/maintenance/outer)
 		name = "Asclepius Disposal Wing"
 
 	dionysus
-		name = "Dionysus South Maintenance"
+		name = "Dionysus Disposal Wing"
 
 	hammer
-		name = "Hammer South Maintenance"
+		name = "Hammer Disposal Wing"
 
 	maru
-		name = "Maru South Maintenance"
+		name = "Maru Disposal Wing"
 
 	meridian
-		name = "Meridian South Maintenance"
+		name = "Meridian Disposal Wing"
 
 	tenebrae
-		name = "Tenebrae South Maintenance"
+		name = "Tenebrae Disposal Wing"
 
 /area/station/maintenance/scidisposal
 	name = "Outpost Zeta Waste Disposal"
@@ -2843,6 +2861,24 @@ ABSTRACT_TYPE(/area/station/com_dish)
 	#ifdef UNDERWATER_MAP
 	ambient_light = OCEAN_LIGHT
 	#endif
+
+	asclepius
+		name = "Asclepius Forward Instruments"
+
+	dionysus
+		name = "Dionysus Forward Instruments"
+
+	hammer
+		name = "Hammer Forward Instruments"
+
+	maru
+		name = "Maru Forward Instruments"
+
+	meridian
+		name = "Meridian Forward Instruments"
+
+	tenebrae
+		name = "Tenebrae Forward Instruments"
 
 /area/station/com_dish/comdish
 	name = "Communications Dish"
