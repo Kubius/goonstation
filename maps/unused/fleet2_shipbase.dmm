@@ -319,6 +319,9 @@
 	pixel_x = 32;
 	spawn_contents = list(/obj/item/chem_grenade/metalfoam,/obj/item/chem_grenade/metalfoam,/obj/item/chem_grenade/metalfoam,/obj/item/tank/emergency_oxygen,/obj/item/tank/emergency_oxygen)
 	},
+/obj/cable{
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/black,
 /area/station/construction)
 "cA" = (
@@ -1435,9 +1438,7 @@
 /turf/space,
 /area/space)
 "jP" = (
-/obj/disposalpipe/switch_junction/left/west{
-	dir = 2
-	},
+/obj/disposalpipe/switch_junction/left/south,
 /turf/simulated/floor,
 /area/station/medical/medbooth)
 "jR" = (
@@ -1504,6 +1505,7 @@
 	},
 /obj/machinery/power/apc/autoname_east,
 /obj/item/crowbar,
+/obj/cable,
 /turf/simulated/floor/black,
 /area/station/construction)
 "kj" = (
@@ -2585,6 +2587,12 @@
 	},
 /turf/simulated/floor,
 /area/station/mailroom)
+"tf" = (
+/obj/cable{
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/grey,
+/area/station/construction)
 "tj" = (
 /obj/cable/brown{
 	icon_state = "1-2"
@@ -2646,6 +2654,9 @@
 "tD" = (
 /obj/cable{
 	icon_state = "4-8"
+	},
+/obj/cable{
+	icon_state = "2-4"
 	},
 /turf/simulated/floor/carpet/blue/fancy/edge/east,
 /area/station/construction)
@@ -3334,10 +3345,9 @@
 /turf/simulated/floor/black/grime,
 /area/station/medical/morgue)
 "xJ" = (
-/obj/disposalpipe/switch_junction/left/west{
-	mail_tag = "meridian";
-	name = "mail junction (meridian)";
-	dir = 2
+/obj/disposalpipe/switch_junction/left/south{
+	mail_tag = "t";
+	name = "mail junction (t)"
 	},
 /turf/simulated/floor,
 /area/station/medical/medbooth)
@@ -6282,6 +6292,9 @@
 	pixel_x = 10
 	},
 /obj/machinery/firealarm/east,
+/obj/cable{
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/carpet/blue/fancy/edge/se,
 /area/station/construction)
 "RO" = (
@@ -8156,7 +8169,7 @@ Za
 Pl
 tD
 RM
-Za
+tf
 cz
 ki
 oU
