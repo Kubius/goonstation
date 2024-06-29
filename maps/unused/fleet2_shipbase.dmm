@@ -1,10 +1,4 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
-"ae" = (
-/obj/cable{
-	icon_state = "1-2"
-	},
-/turf/simulated/floor/engine/caution/northsouth,
-/area/station/wreckage)
 "am" = (
 /turf/simulated/floor/grey,
 /area/station/hallway/secondary/central)
@@ -318,6 +312,13 @@
 /area/station/maintenance/outer/east)
 "cz" = (
 /mob/living/critter/small_animal/crab,
+/obj/item/storage/wall{
+	desc = "It's a big box that comes in useful when the inevitable depressurization occurs.";
+	dir = 8;
+	name = "breach response cabinet";
+	pixel_x = 32;
+	spawn_contents = list(/obj/item/chem_grenade/metalfoam,/obj/item/chem_grenade/metalfoam,/obj/item/chem_grenade/metalfoam,/obj/item/tank/emergency_oxygen,/obj/item/tank/emergency_oxygen)
+	},
 /turf/simulated/floor/black,
 /area/station/construction)
 "cA" = (
@@ -390,6 +391,7 @@
 /obj/cable/brown{
 	icon_state = "1-2"
 	},
+/obj/mapping_helper/firedoor_spawn,
 /turf/simulated/floor/black,
 /area/station/bridge/customs)
 "cW" = (
@@ -659,10 +661,6 @@
 	dir = 4
 	},
 /area/station/medical/robotics)
-"eA" = (
-/obj/cable,
-/turf/simulated/floor/airless/solar,
-/area/space)
 "eB" = (
 /obj/cable{
 	icon_state = "2-4"
@@ -754,6 +752,23 @@
 /obj/machinery/light_switch/north,
 /turf/simulated/floor/grey,
 /area/station/hallway/secondary/south)
+"eZ" = (
+/obj/grille/catwalk,
+/obj/cable,
+/obj/cable{
+	icon_state = "0-4"
+	},
+/obj/cable{
+	icon_state = "0-8"
+	},
+/obj/cable{
+	icon_state = "0-2"
+	},
+/turf/simulated/floor/airless/plating/catwalk{
+	dir = 5;
+	icon_state = "catwalk_cross"
+	},
+/area/space)
 "fd" = (
 /obj/machinery/door/unpowered/wood/pyro{
 	dir = 1
@@ -895,18 +910,6 @@
 	},
 /turf/simulated/floor/sanitary/white,
 /area/station/maintenance/outer/north)
-"gk" = (
-/obj/machinery/door/poddoor/pyro/shutters{
-	dir = 4;
-	name = "Passthrough Door"
-	},
-/obj/forcefield/energyshield/perma/doorlink{
-	dir = 8
-	},
-/turf/simulated/floor/engine/caution/misc{
-	dir = 8
-	},
-/area/station/wreckage)
 "gs" = (
 /obj/disposalpipe/segment/vertical,
 /obj/cable{
@@ -1024,6 +1027,10 @@
 "hn" = (
 /turf/simulated/wall/auto/jen,
 /area/station/maintenance)
+"hv" = (
+/obj/machinery/recharge_station,
+/turf/simulated/floor/plating,
+/area/station/hos)
 "hA" = (
 /obj/mapping_helper/wingrille_spawn/auto/reinforced/crystal,
 /obj/cable{
@@ -1373,6 +1380,11 @@
 "jz" = (
 /obj/stool/bed,
 /obj/item/clothing/suit/bedsheet,
+/obj/machinery/door_control{
+	pixel_x = 24;
+	id = "bridgeshut";
+	name = "Shutter Control"
+	},
 /turf/simulated/floor/black,
 /area/station/construction)
 "jB" = (
@@ -1411,6 +1423,17 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/crew_quarters/data)
+"jN" = (
+/obj/machinery/shuttle/engine/propulsion{
+	dir = 4;
+	icon_state = "alt_propulsion"
+	},
+/obj/lattice{
+	dir = 8;
+	icon_state = "lattice-dir"
+	},
+/turf/space,
+/area/space)
 "jP" = (
 /obj/disposalpipe/switch_junction/left/west{
 	dir = 2
@@ -1477,16 +1500,10 @@
 	pixel_y = 10
 	},
 /obj/item/device/light/flashlight{
-	pixel_x = -7
-	},
-/obj/item/clothing/mask/breath{
-	pixel_y = -7;
-	pixel_x = 3
-	},
-/obj/item/tank/mini_oxygen{
-	pixel_x = 10
+	pixel_x = 6
 	},
 /obj/machinery/power/apc/autoname_east,
+/obj/item/crowbar,
 /turf/simulated/floor/black,
 /area/station/construction)
 "kj" = (
@@ -1768,8 +1785,7 @@
 /area/station/hos)
 "mu" = (
 /obj/machinery/power/smes{
-	chargelevel = 20000;
-	output = 15000
+	output = 25000
 	},
 /obj/cable{
 	icon_state = "0-2"
@@ -2261,6 +2277,7 @@
 /turf/simulated/floor/grey,
 /area/station/crew_quarters)
 "qF" = (
+/obj/machinery/firealarm/east,
 /turf/simulated/floor/black/side{
 	dir = 8
 	},
@@ -2325,8 +2342,7 @@
 /area/station/maintenance/outer/north)
 "rk" = (
 /obj/machinery/power/smes{
-	chargelevel = 20000;
-	output = 15000
+	output = 25000
 	},
 /obj/cable,
 /obj/machinery/light/small{
@@ -2615,6 +2631,12 @@
 /obj/machinery/power/data_terminal,
 /turf/simulated/floor/black,
 /area/station/bridge/customs)
+"tz" = (
+/obj/machinery/light_switch/east,
+/turf/simulated/floor/black/side{
+	dir = 8
+	},
+/area/station/storage)
 "tC" = (
 /obj/machinery/conveyor/WE{
 	id = "disposal-"
@@ -2927,6 +2949,7 @@
 /obj/machinery/door/airlock/pyro/command{
 	dir = 4
 	},
+/obj/mapping_helper/firedoor_spawn,
 /turf/simulated/floor/grey,
 /area/station/construction)
 "vs" = (
@@ -3119,6 +3142,10 @@
 	},
 /turf/simulated/floor/grey/corner,
 /area/station/medical/robotics)
+"wl" = (
+/obj/machinery/recharge_station,
+/turf/simulated/floor/plating,
+/area/station/crew_quarters/data)
 "wm" = (
 /obj/machinery/shuttle/engine/heater{
 	dir = 4;
@@ -3269,12 +3296,6 @@
 	},
 /turf/simulated/floor/black,
 /area/station/storage)
-"xp" = (
-/obj/cable{
-	icon_state = "0-2"
-	},
-/turf/simulated/floor/airless/solar,
-/area/space)
 "xq" = (
 /turf/simulated/wall/auto/reinforced/jen,
 /area/station/crew_quarters/data)
@@ -3348,6 +3369,7 @@
 	layer = 9.1;
 	pixel_x = 10
 	},
+/obj/machinery/firealarm/north,
 /turf/simulated/floor/grey,
 /area/station/bridge/customs)
 "ya" = (
@@ -3758,6 +3780,7 @@
 	name = "Executive Bathroom";
 	dir = 4
 	},
+/obj/mapping_helper/firedoor_spawn,
 /turf/simulated/floor/black,
 /area/station/bridge/customs)
 "Bd" = (
@@ -3829,6 +3852,7 @@
 	icon_state = "4-8"
 	},
 /obj/disposalpipe/segment/horizontal,
+/obj/mapping_helper/firedoor_spawn,
 /turf/simulated/floor/black,
 /area/station/bridge/customs)
 "BS" = (
@@ -3979,6 +4003,13 @@
 	dir = 1
 	},
 /area/station/storage)
+"CN" = (
+/obj/cable{
+	icon_state = "0-2"
+	},
+/obj/range_target,
+/turf/simulated/floor/airless/solar,
+/area/space)
 "CQ" = (
 /turf/simulated/floor/grey/corner,
 /area/station/hallway/secondary/central)
@@ -4374,6 +4405,9 @@
 "FR" = (
 /obj/machinery/power/apc/autoname_north,
 /obj/storage/crate/furnacefuel,
+/obj/cable{
+	icon_state = "0-8"
+	},
 /turf/simulated/floor/caution/westeast,
 /area/station/wreckage)
 "FU" = (
@@ -5426,18 +5460,6 @@
 /obj/shrub,
 /turf/simulated/floor/grey/side,
 /area/station/maintenance/outer/north)
-"LK" = (
-/obj/machinery/door/poddoor/pyro/shutters{
-	dir = 4;
-	name = "Passthrough Door"
-	},
-/obj/forcefield/energyshield/perma/doorlink{
-	dir = 8
-	},
-/turf/simulated/floor/engine/caution/misc{
-	dir = 4
-	},
-/area/station/wreckage)
 "LN" = (
 /obj/cable/brown{
 	icon_state = "1-8"
@@ -5553,6 +5575,7 @@
 /obj/cable{
 	icon_state = "1-2"
 	},
+/obj/mapping_helper/firedoor_spawn,
 /turf/simulated/floor/black,
 /area/station/bridge/customs)
 "MH" = (
@@ -5685,6 +5708,17 @@
 	dir = 4
 	},
 /area/station/hallway/secondary/south)
+"Ny" = (
+/obj/mapping_helper/wingrille_spawn/auto/reinforced/crystal,
+/obj/cable{
+	icon_state = "0-8"
+	},
+/obj/machinery/door/poddoor/pyro/shutters{
+	id = "_bridgeshut";
+	name = " Helm Shutters"
+	},
+/turf/simulated/floor/plating,
+/area/station/construction)
 "NA" = (
 /turf/simulated/floor/plating,
 /area/station/maintenance/outer/east)
@@ -5759,6 +5793,11 @@
 	},
 /turf/simulated/floor,
 /area/station/maintenance/outer/north)
+"Of" = (
+/obj/cable,
+/obj/range_target,
+/turf/simulated/floor/airless/solar,
+/area/space)
 "Ol" = (
 /obj/cable/brown{
 	icon_state = "1-8"
@@ -5901,6 +5940,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/outer/north)
 "Pl" = (
+/obj/machinery/light_switch/east,
 /turf/simulated/floor/carpet/blue/fancy/edge/ne,
 /area/station/construction)
 "Pm" = (
@@ -6226,6 +6266,17 @@
 	icon_state = "catwalk_cross"
 	},
 /area/space)
+"RJ" = (
+/obj/machinery/shuttle/engine/propulsion{
+	dir = 4;
+	icon_state = "alt_propulsion"
+	},
+/obj/lattice{
+	dir = 10;
+	icon_state = "lattice-dir"
+	},
+/turf/space,
+/area/space)
 "RM" = (
 /obj/gibtyson,
 /obj/machinery/camera{
@@ -6234,6 +6285,7 @@
 	name = "autoname - SS13";
 	pixel_x = 10
 	},
+/obj/machinery/firealarm/east,
 /turf/simulated/floor/carpet/blue/fancy/edge/se,
 /area/station/construction)
 "RO" = (
@@ -6366,12 +6418,6 @@
 	icon_state = "catwalk_cross"
 	},
 /area/space)
-"SS" = (
-/obj/cable/brown{
-	icon_state = "1-2"
-	},
-/turf/simulated/floor/engine/caution/northsouth,
-/area/station/wreckage)
 "SU" = (
 /obj/table/wood/auto,
 /obj/machinery/networked/printer{
@@ -8108,7 +8154,7 @@ BS
 nK
 Gb
 ZJ
-oU
+Ny
 iz
 jz
 Za
@@ -8748,7 +8794,7 @@ nK
 nK
 rc
 ic
-wd
+wl
 jL
 ks
 ks
@@ -11627,7 +11673,7 @@ QP
 OO
 uI
 hg
-gk
+WN
 hg
 WN
 hg
@@ -11719,7 +11765,7 @@ QP
 OO
 Rj
 pv
-SS
+Ao
 Ao
 Ao
 pv
@@ -11792,7 +11838,7 @@ vp
 cQ
 rg
 RD
-qF
+tz
 ck
 qF
 Zk
@@ -11811,7 +11857,7 @@ QP
 Dd
 fp
 YF
-ae
+GQ
 VG
 GQ
 YF
@@ -11903,7 +11949,7 @@ QP
 OO
 uI
 hg
-LK
+WN
 hg
 WN
 hg
@@ -12413,9 +12459,9 @@ nK
 nK
 kB
 KD
-cZ
+RJ
 nK
-kB
+jN
 KD
 cZ
 nK
@@ -12459,9 +12505,9 @@ ZF
 nK
 kB
 KD
-cZ
+RJ
 nK
-kB
+jN
 KD
 cZ
 nK
@@ -12505,9 +12551,9 @@ nK
 nK
 nK
 nK
+JY
 nK
-nK
-nK
+JY
 nK
 nK
 nK
@@ -12551,9 +12597,9 @@ ZF
 nK
 nK
 nK
+JY
 nK
-nK
-nK
+JY
 nK
 nK
 nK
@@ -12597,9 +12643,9 @@ nK
 nK
 nK
 nK
+JY
 nK
-nK
-nK
+JY
 nK
 nK
 nK
@@ -12643,9 +12689,9 @@ ZF
 nK
 nK
 nK
+JY
 nK
-nK
-nK
+JY
 nK
 nK
 nK
@@ -12689,9 +12735,9 @@ nK
 nK
 nK
 nK
+JY
 nK
-nK
-nK
+JY
 nK
 nK
 nK
@@ -12735,9 +12781,9 @@ ZF
 nK
 nK
 nK
+JY
 nK
-nK
-nK
+JY
 nK
 nK
 nK
@@ -12781,9 +12827,9 @@ nK
 nK
 nK
 nK
+JY
 nK
-nK
-nK
+JY
 nK
 nK
 nK
@@ -12827,9 +12873,9 @@ ZF
 nK
 nK
 nK
+JY
 nK
-nK
-nK
+JY
 nK
 nK
 nK
@@ -12873,9 +12919,9 @@ nK
 nK
 nK
 nK
+JY
 nK
-nK
-nK
+JY
 nK
 nK
 nK
@@ -12919,9 +12965,9 @@ ZF
 nK
 nK
 nK
+JY
 nK
-nK
-nK
+JY
 nK
 nK
 nK
@@ -12965,9 +13011,9 @@ nK
 nK
 nK
 nK
+JY
 nK
-nK
-nK
+JY
 nK
 nK
 nK
@@ -13011,9 +13057,9 @@ ZF
 nK
 nK
 nK
+JY
 nK
-nK
-nK
+JY
 nK
 nK
 nK
@@ -13057,9 +13103,9 @@ nK
 nK
 nK
 nK
+JY
 nK
-nK
-nK
+JY
 nK
 nK
 nK
@@ -13087,7 +13133,7 @@ we
 Kh
 pi
 kG
-Zo
+hv
 lZ
 Zo
 Zo
@@ -13103,9 +13149,9 @@ ZF
 nK
 nK
 nK
+JY
 nK
-nK
-nK
+JY
 nK
 nK
 nK
@@ -13149,18 +13195,18 @@ nK
 nK
 nK
 nK
-nK
-nK
-nK
-nK
-nK
-xp
-RI
-eA
-nK
-xp
+CN
 at
-eA
+Of
+Zm
+Zm
+CN
+RI
+Of
+Zm
+CN
+at
+Of
 Zm
 ND
 fX
@@ -13186,18 +13232,18 @@ XU
 DK
 pL
 Zm
-xp
+CN
 at
-eA
-nK
-xp
+Of
+Zm
+CN
 RI
-eA
-nK
-nK
-nK
-nK
-nK
+Of
+Zm
+Zm
+CN
+at
+Of
 nK
 nK
 nK
@@ -13241,18 +13287,18 @@ nK
 nK
 nK
 nK
-nK
-nK
-nK
-nK
-nK
-xp
+CN
 vo
-eA
+Of
 nK
-xp
+nK
+CN
 vo
-eA
+Of
+nK
+CN
+vo
+Of
 nK
 kB
 KD
@@ -13278,18 +13324,18 @@ NU
 KD
 cZ
 nK
-xp
+CN
 vo
-eA
+Of
 nK
-xp
+CN
 vo
-eA
+Of
 nK
 nK
-nK
-nK
-nK
+CN
+vo
+Of
 nK
 nK
 nK
@@ -13333,18 +13379,18 @@ nK
 nK
 nK
 nK
-nK
-nK
-nK
-nK
-nK
-xp
+CN
 vo
-eA
+Of
 nK
-xp
+nK
+CN
 vo
-eA
+Of
+nK
+CN
+vo
+Of
 nK
 nK
 nK
@@ -13370,18 +13416,18 @@ xV
 nK
 nK
 nK
-xp
+CN
 vo
-eA
+Of
 nK
-xp
+CN
 vo
-eA
+Of
 nK
 nK
-nK
-nK
-nK
+CN
+vo
+Of
 nK
 nK
 nK
@@ -13425,18 +13471,18 @@ nK
 nK
 nK
 nK
-nK
-nK
-nK
-nK
-nK
-xp
+CN
 vo
-eA
+Of
 nK
-xp
+nK
+CN
 vo
-eA
+Of
+nK
+CN
+vo
+Of
 nK
 nK
 nK
@@ -13462,18 +13508,18 @@ xV
 nK
 nK
 nK
-xp
+CN
 vo
-eA
+Of
 nK
-xp
+CN
 vo
-eA
+Of
 nK
 nK
-nK
-nK
-nK
+CN
+vo
+Of
 nK
 nK
 nK
@@ -13517,18 +13563,18 @@ nK
 nK
 nK
 nK
-nK
-nK
-nK
-nK
-nK
-xp
+CN
 vo
-eA
+Of
 nK
-xp
+nK
+CN
 vo
-eA
+Of
+nK
+CN
+vo
+Of
 nK
 nK
 nK
@@ -13554,18 +13600,18 @@ xV
 nK
 nK
 nK
-xp
+CN
 vo
-eA
+Of
 nK
-xp
+CN
 vo
-eA
+Of
 nK
 nK
-nK
-nK
-nK
+CN
+vo
+Of
 nK
 nK
 nK
@@ -13609,18 +13655,18 @@ nK
 nK
 nK
 nK
-nK
-nK
-nK
-nK
-nK
-xp
+CN
 vo
-eA
+Of
 nK
-xp
+nK
+CN
 vo
-eA
+Of
+nK
+CN
+vo
+Of
 nK
 nK
 nK
@@ -13646,18 +13692,18 @@ xV
 nK
 nK
 nK
-xp
+CN
 vo
-eA
+Of
 nK
-xp
+CN
 vo
-eA
+Of
 nK
 nK
-nK
-nK
-nK
+CN
+vo
+Of
 nK
 nK
 nK
@@ -13701,13 +13747,13 @@ nK
 nK
 nK
 nK
-nK
-nK
-nK
-nK
-nK
-nK
+Fa
 HS
+YC
+YC
+YC
+YC
+eZ
 YC
 YC
 YC
@@ -13738,18 +13784,18 @@ xV
 nK
 nK
 nK
-nK
+Fa
 HS
+YC
+YC
+YC
+eZ
+YC
 YC
 YC
 YC
 SQ
 xV
-nK
-nK
-nK
-nK
-nK
 nK
 nK
 nK
@@ -13793,18 +13839,18 @@ nK
 nK
 nK
 nK
-nK
-nK
-nK
-nK
-nK
-xp
+CN
 vo
-eA
+Of
 nK
-xp
+nK
+CN
 vo
-eA
+Of
+nK
+CN
+vo
+Of
 Zm
 Zm
 Zm
@@ -13830,18 +13876,18 @@ ps
 Zm
 Zm
 Zm
-xp
+CN
 vo
-eA
+Of
 nK
-xp
+CN
 vo
-eA
+Of
 nK
 nK
-nK
-nK
-nK
+CN
+vo
+Of
 nK
 nK
 nK
@@ -13885,18 +13931,18 @@ nK
 nK
 nK
 nK
-nK
-nK
-nK
-nK
-nK
-xp
+CN
 vo
-eA
+Of
 nK
-xp
+nK
+CN
 vo
-eA
+Of
+nK
+CN
+vo
+Of
 nK
 nK
 nK
@@ -13922,18 +13968,18 @@ xV
 nK
 nK
 nK
-xp
+CN
 vo
-eA
+Of
 nK
-xp
+CN
 vo
-eA
+Of
 nK
 nK
-nK
-nK
-nK
+CN
+vo
+Of
 nK
 nK
 nK
@@ -13977,18 +14023,18 @@ nK
 nK
 nK
 nK
-nK
-nK
-nK
-nK
-nK
-xp
+CN
 vo
-eA
+Of
 nK
-xp
+nK
+CN
 vo
-eA
+Of
+nK
+CN
+vo
+Of
 nK
 nK
 nK
@@ -14014,18 +14060,18 @@ xV
 nK
 nK
 nK
-xp
+CN
 vo
-eA
+Of
 nK
-xp
+CN
 vo
-eA
+Of
 nK
 nK
-nK
-nK
-nK
+CN
+vo
+Of
 nK
 nK
 nK
@@ -14069,18 +14115,18 @@ nK
 nK
 nK
 nK
-nK
-nK
-nK
-nK
-nK
-xp
+CN
 vo
-eA
+Of
 nK
-xp
+nK
+CN
 vo
-eA
+Of
+nK
+CN
+vo
+Of
 nK
 nK
 nK
@@ -14106,18 +14152,18 @@ dG
 nK
 nK
 nK
-xp
+CN
 vo
-eA
+Of
 nK
-xp
+CN
 vo
-eA
+Of
 nK
 nK
-nK
-nK
-nK
+CN
+vo
+Of
 nK
 nK
 nK
@@ -14161,18 +14207,18 @@ nK
 nK
 nK
 nK
-nK
-nK
-nK
-nK
-nK
-xp
+CN
 vo
-eA
+Of
 nK
-xp
+nK
+CN
 vo
-eA
+Of
+nK
+CN
+vo
+Of
 nK
 nK
 nK
@@ -14198,18 +14244,18 @@ nK
 nK
 nK
 nK
-xp
+CN
 vo
-eA
+Of
 nK
-xp
+CN
 vo
-eA
+Of
 nK
 nK
-nK
-nK
-nK
+CN
+vo
+Of
 nK
 nK
 nK
@@ -14253,18 +14299,18 @@ nK
 nK
 nK
 nK
-nK
-nK
-nK
-nK
-nK
-xp
+CN
 Ks
-eA
-nK
-xp
+Of
+Zm
+Zm
+CN
 Ks
-eA
+Of
+Zm
+CN
+Ks
+Of
 Zm
 Zm
 Zm
@@ -14290,18 +14336,18 @@ Zm
 Zm
 Zm
 Zm
-xp
+CN
 Ks
-eA
-nK
-xp
+Of
+Zm
+CN
 Ks
-eA
-nK
-nK
-nK
-nK
-nK
+Of
+Zm
+Zm
+CN
+Ks
+Of
 nK
 nK
 nK
