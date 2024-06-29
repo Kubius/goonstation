@@ -3430,8 +3430,9 @@
 /turf/simulated/floor/green/corner,
 /area/station/medical/robotics)
 "yE" = (
-/obj/rack,
-/obj/random_item_spawner/tools/two,
+/obj/machinery/disposal_pipedispenser/mobile{
+	dir = 4
+	},
 /turf/simulated/floor/black/grime,
 /area/station/medical/morgue)
 "yF" = (
@@ -5122,14 +5123,6 @@
 /obj/machinery/power/apc/autoname_north,
 /turf/simulated/floor/black/side,
 /area/station/storage)
-"JY" = (
-/obj/lattice{
-	dir = 4;
-	icon_state = "lattice-dir";
-	tag = "icon-lattice-dir (EAST)"
-	},
-/turf/space,
-/area/space)
 "JZ" = (
 /obj/disposalpipe/switch_junction/left/west{
 	mail_tag = "meridian";
@@ -5313,6 +5306,9 @@
 /area/station/bridge/customs)
 "KY" = (
 /obj/machinery/power/tracker,
+/obj/cable/brown{
+	icon_state = "0-4"
+	},
 /turf/simulated/floor/plating/airless,
 /area/station/captain)
 "Ld" = (
@@ -7242,8 +7238,7 @@
 "ZF" = (
 /obj/lattice{
 	dir = 4;
-	icon_state = "lattice-dir";
-	tag = "icon-lattice-dir (EAST)"
+	icon_state = "lattice-dir"
 	},
 /obj/cable/brown{
 	icon_state = "4-8"
@@ -12551,9 +12546,9 @@ nK
 nK
 nK
 nK
-JY
+li
 nK
-JY
+li
 nK
 nK
 nK
@@ -12597,9 +12592,9 @@ ZF
 nK
 nK
 nK
-JY
+li
 nK
-JY
+li
 nK
 nK
 nK
@@ -12643,9 +12638,9 @@ nK
 nK
 nK
 nK
-JY
+li
 nK
-JY
+li
 nK
 nK
 nK
@@ -12689,9 +12684,9 @@ ZF
 nK
 nK
 nK
-JY
+li
 nK
-JY
+li
 nK
 nK
 nK
@@ -12735,9 +12730,9 @@ nK
 nK
 nK
 nK
-JY
+li
 nK
-JY
+li
 nK
 nK
 nK
@@ -12781,9 +12776,9 @@ ZF
 nK
 nK
 nK
-JY
+li
 nK
-JY
+li
 nK
 nK
 nK
@@ -12827,9 +12822,9 @@ nK
 nK
 nK
 nK
-JY
+li
 nK
-JY
+li
 nK
 nK
 nK
@@ -12873,9 +12868,9 @@ ZF
 nK
 nK
 nK
-JY
+li
 nK
-JY
+li
 nK
 nK
 nK
@@ -12919,16 +12914,16 @@ nK
 nK
 nK
 nK
-JY
+li
 nK
-JY
+li
 nK
 nK
 nK
 ZF
 nK
 nK
-JY
+li
 kB
 KD
 cZ
@@ -12958,16 +12953,16 @@ fw
 kB
 KD
 cZ
-JY
+li
 nK
 nK
 ZF
 nK
 nK
 nK
-JY
+li
 nK
-JY
+li
 nK
 nK
 nK
@@ -13011,16 +13006,16 @@ nK
 nK
 nK
 nK
-JY
+li
 nK
-JY
+li
 nK
 nK
 nK
 ZF
 nK
 nK
-JY
+li
 nK
 nK
 Ya
@@ -13050,16 +13045,16 @@ fw
 XH
 nK
 nK
-JY
+li
 nK
 nK
 ZF
 nK
 nK
 nK
-JY
+li
 nK
-JY
+li
 nK
 nK
 nK
@@ -13103,16 +13098,16 @@ nK
 nK
 nK
 nK
-JY
+li
 nK
-JY
+li
 nK
 nK
 nK
 ZF
 nK
 nK
-JY
+li
 nK
 nK
 nK
@@ -13142,16 +13137,16 @@ Cd
 nK
 nK
 nK
-JY
+li
 nK
 nK
 ZF
 nK
 nK
 nK
-JY
+li
 nK
-JY
+li
 nK
 nK
 nK
@@ -14502,7 +14497,7 @@ nK
 nK
 dG
 nK
-JY
+li
 nK
 nK
 nK
@@ -14512,7 +14507,7 @@ nK
 nK
 nK
 nK
-JY
+li
 nK
 dG
 nK
