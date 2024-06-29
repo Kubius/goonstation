@@ -120,11 +120,13 @@
 	dir = 4
 	},
 /obj/machinery/door_control/bolter/new_walls/north{
-	id = "_bathleft";
 	pixel_x = 14
 	},
 /obj/decoration/toiletholder{
 	pixel_y = 32
+	},
+/obj/mapping_helper/button/pair{
+	dir = 4
 	},
 /turf/simulated/floor/sanitary/white,
 /area/station/crew_quarters/garden)
@@ -388,8 +390,7 @@
 /area/station/hallway/secondary/oshan_arrivals)
 "cU" = (
 /obj/machinery/door/airlock/pyro/command{
-	name = "Executive Bathroom";
-	id = "execshower"
+	name = "Executive Bathroom"
 	},
 /obj/cable/brown{
 	icon_state = "1-2"
@@ -622,6 +623,11 @@
 /obj/cable{
 	icon_state = "0-8"
 	},
+/obj/machinery/door/poddoor/pyro/shutters{
+	name = "Helm Shutters";
+	dir = 5
+	},
+/obj/mapping_helper/button/area,
 /turf/simulated/floor/plating,
 /area/station/construction)
 "et" = (
@@ -823,6 +829,7 @@
 /obj/machinery/door/poddoor/pyro{
 	dir = 4
 	},
+/obj/mapping_helper/button/area,
 /turf/simulated/floor/black/grime,
 /area/station/medical/morgue)
 "ft" = (
@@ -954,8 +961,9 @@
 /area/station/medical/morgue)
 "gM" = (
 /obj/rack,
-/obj/machinery/door_control/bolter/new_walls/north{
-	id = "_pubshower"
+/obj/machinery/door_control/bolter/new_walls/north,
+/obj/mapping_helper/button/pair{
+	dir = 10
 	},
 /turf/simulated/floor/sanitary/white,
 /area/station/crew_quarters/garden)
@@ -1135,11 +1143,13 @@
 	dir = 8
 	},
 /obj/machinery/door_control/bolter/new_walls/north{
-	id = "_bathright";
 	pixel_x = -14
 	},
 /obj/decoration/toiletholder{
 	pixel_y = 32
+	},
+/obj/mapping_helper/button/pair{
+	dir = 8
 	},
 /turf/simulated/floor/sanitary/white,
 /area/station/crew_quarters/garden)
@@ -1385,9 +1395,9 @@
 /obj/item/clothing/suit/bedsheet,
 /obj/machinery/door_control{
 	pixel_x = 24;
-	id = "bridgeshut";
 	name = "Shutter Control"
 	},
+/obj/mapping_helper/button/area,
 /turf/simulated/floor/black,
 /area/station/construction)
 "jB" = (
@@ -1485,7 +1495,7 @@
 "kf" = (
 /obj/machinery/door/poddoor/blast/pyro/podbay_autoclose{
 	name = " pod bay door";
-	id = "aftbay";
+	id = "primaryhangar";
 	dir = 4
 	},
 /obj/forcefield/energyshield/perma/doorlink{
@@ -2039,6 +2049,10 @@
 /obj/cable{
 	icon_state = "0-8"
 	},
+/obj/machinery/door/poddoor/pyro/shutters{
+	name = "Helm Shutters"
+	},
+/obj/mapping_helper/button/area,
 /turf/simulated/floor/plating,
 /area/station/construction)
 "oV" = (
@@ -2132,8 +2146,7 @@
 	id = "bathright"
 	},
 /obj/machinery/door/airlock/pyro/alt{
-	dir = 4;
-	id = "bathright"
+	dir = 4
 	},
 /turf/simulated/floor/sanitary/white,
 /area/station/crew_quarters/garden)
@@ -2197,6 +2210,11 @@
 /obj/cable{
 	icon_state = "0-8"
 	},
+/obj/machinery/door/poddoor/pyro/shutters{
+	name = "Helm Shutters";
+	dir = 5
+	},
+/obj/mapping_helper/button/area,
 /turf/simulated/floor/plating,
 /area/station/construction)
 "qb" = (
@@ -2896,9 +2914,10 @@
 /turf/simulated/floor/black,
 /area/station/construction)
 "ve" = (
-/obj/machinery/door_control/bolter/new_walls/west{
-	id = "aftbay_"
+/obj/machinery/door_control/podbay{
+	pixel_x = -24
 	},
+/obj/mapping_helper/button/area,
 /turf/simulated/floor/grey/side{
 	dir = 8
 	},
@@ -2979,8 +2998,7 @@
 /area/station/mailroom)
 "vz" = (
 /obj/machinery/door/airlock/pyro{
-	dir = 4;
-	id = "crewsouth"
+	dir = 4
 	},
 /obj/mapping_helper/firedoor_spawn,
 /turf/simulated/floor/grey/side{
@@ -3101,6 +3119,11 @@
 /obj/cable{
 	icon_state = "0-4"
 	},
+/obj/machinery/door/poddoor/pyro/shutters{
+	name = "Helm Shutters";
+	dir = 10
+	},
+/obj/mapping_helper/button/area,
 /turf/simulated/floor/plating,
 /area/station/construction)
 "wb" = (
@@ -3567,6 +3590,11 @@
 /obj/cable{
 	icon_state = "0-8"
 	},
+/obj/machinery/door/poddoor/pyro/shutters{
+	name = "Helm Shutters";
+	dir = 6
+	},
+/obj/mapping_helper/button/area,
 /turf/simulated/floor/plating,
 /area/station/construction)
 "zE" = (
@@ -3663,8 +3691,7 @@
 /area/station/medical/medbooth)
 "Aa" = (
 /obj/machinery/door/airlock/pyro{
-	dir = 4;
-	id = "crewnorth"
+	dir = 4
 	},
 /obj/mapping_helper/firedoor_spawn,
 /turf/simulated/floor/grey,
@@ -3811,9 +3838,8 @@
 /turf/simulated/floor/grey,
 /area/station/hallway/secondary/central)
 "Bi" = (
-/obj/machinery/r_door_control/podbay{
-	id = "aftbay_"
-	},
+/obj/mapping_helper/button/area,
+/obj/machinery/r_door_control/podbay,
 /turf/simulated/wall/auto/reinforced/jen,
 /area/station/maintenance)
 "Bo" = (
@@ -3907,11 +3933,14 @@
 /turf/simulated/floor/plating,
 /area/station/medical/morgue)
 "BZ" = (
-/obj/machinery/door_control/bolter/new_walls/north,
 /obj/disposalpipe/junction/right/west,
 /obj/cable{
 	icon_state = "4-8"
 	},
+/obj/machinery/door_control{
+	pixel_y = 24
+	},
+/obj/mapping_helper/button/area,
 /turf/simulated/floor/plating/random,
 /area/station/medical/morgue)
 "Cd" = (
@@ -3921,20 +3950,11 @@
 /obj/machinery/light/small,
 /turf/simulated/floor/caution/north,
 /area/station/crew_quarters)
-"Cm" = (
-/obj/table/reinforced/auto,
-/obj/bedsheetbin,
-/obj/machinery/light/small{
-	dir = 1;
-	pixel_y = 21
-	},
-/obj/gibtyson,
-/turf/simulated/floor/carpet/red/fancy/edge/nw,
-/area/station/mailroom)
 "Cp" = (
-/obj/machinery/door_control/bolter/new_walls/east{
-	id = "fuelbay_"
+/obj/machinery/door_control/podbay{
+	pixel_x = 24
 	},
+/obj/mapping_helper/button/area,
 /turf/simulated/floor/caution/westeast,
 /area/station/wreckage)
 "Cr" = (
@@ -4043,13 +4063,6 @@
 	dir = 10
 	},
 /area/station/maintenance/outer/north)
-"CZ" = (
-/obj/stool/bed,
-/obj/machinery/door_control/bolter/new_walls/east{
-	id = "_crewnorth"
-	},
-/turf/simulated/floor/carpet/red/fancy/edge/se,
-/area/station/mailroom)
 "Dd" = (
 /obj/cable{
 	icon_state = "2-4"
@@ -4649,6 +4662,11 @@
 /obj/cable{
 	icon_state = "0-4"
 	},
+/obj/machinery/door/poddoor/pyro/shutters{
+	name = "Helm Shutters";
+	dir = 9
+	},
+/obj/mapping_helper/button/area,
 /turf/simulated/floor/plating,
 /area/station/construction)
 "Hn" = (
@@ -4756,9 +4774,8 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/outer/south)
 "HY" = (
-/obj/machinery/r_door_control/podbay{
-	id = "fuelbay_"
-	},
+/obj/machinery/r_door_control/podbay,
+/obj/mapping_helper/button/area,
 /turf/simulated/wall/auto/reinforced/jen,
 /area/station/wreckage)
 "Im" = (
@@ -5207,8 +5224,9 @@
 /area/station/hallway/secondary/central)
 "Kr" = (
 /obj/stool/bed,
-/obj/machinery/door_control/bolter/new_walls/east{
-	id = "_crewsouth"
+/obj/machinery/door_control/bolter/new_walls/east,
+/obj/mapping_helper/button/pair{
+	dir = 5
 	},
 /turf/simulated/floor/carpet/red/fancy/edge/se,
 /area/station/mailroom)
@@ -5231,7 +5249,6 @@
 /obj/cable{
 	icon_state = "1-2"
 	},
-/obj/gibtyson,
 /turf/simulated/floor/sanitary/white,
 /area/station/crew_quarters/garden)
 "Ky" = (
@@ -5488,7 +5505,7 @@
 	},
 /obj/machinery/door/poddoor/blast/pyro/podbay_autoclose{
 	name = " pod bay door";
-	id = "aftbay";
+	id = "primaryhangar";
 	dir = 4
 	},
 /turf/simulated/floor/engine/caution/westeast,
@@ -5594,8 +5611,7 @@
 /area/station/construction)
 "MJ" = (
 /obj/machinery/door/airlock/pyro/alt{
-	dir = 4;
-	id = "pubshower"
+	dir = 4
 	},
 /turf/simulated/floor/sanitary/white,
 /area/station/crew_quarters/garden)
@@ -5714,17 +5730,6 @@
 	dir = 4
 	},
 /area/station/hallway/secondary/south)
-"Ny" = (
-/obj/mapping_helper/wingrille_spawn/auto/reinforced/crystal,
-/obj/cable{
-	icon_state = "0-8"
-	},
-/obj/machinery/door/poddoor/pyro/shutters{
-	id = "_bridgeshut";
-	name = " Helm Shutters"
-	},
-/turf/simulated/floor/plating,
-/area/station/construction)
 "NA" = (
 /turf/simulated/floor/plating,
 /area/station/maintenance/outer/east)
@@ -5874,8 +5879,7 @@
 	id = "bathleft"
 	},
 /obj/machinery/door/airlock/pyro/alt{
-	dir = 4;
-	id = "bathleft"
+	dir = 4
 	},
 /turf/simulated/floor/sanitary/white,
 /area/station/crew_quarters/garden)
@@ -6284,7 +6288,6 @@
 /turf/space,
 /area/space)
 "RM" = (
-/obj/gibtyson,
 /obj/machinery/camera{
 	c_tag = "autotag";
 	dir = 8;
@@ -6345,6 +6348,11 @@
 /obj/cable{
 	icon_state = "0-2"
 	},
+/obj/machinery/door/poddoor/pyro/shutters{
+	name = "Helm Shutters";
+	dir = 4
+	},
+/obj/mapping_helper/button/area,
 /turf/simulated/floor/plating,
 /area/station/construction)
 "St" = (
@@ -6369,6 +6377,10 @@
 /area/station/construction)
 "SA" = (
 /obj/mapping_helper/wingrille_spawn/auto/reinforced,
+/obj/machinery/door/poddoor/pyro/shutters{
+	name = "Helm Shutters";
+	dir = 4
+	},
 /turf/simulated/floor/plating,
 /area/station/construction)
 "SB" = (
@@ -6873,9 +6885,9 @@
 /area/station/hallway/secondary/south)
 "Xd" = (
 /obj/machinery/door/poddoor/blast/pyro/podbay_autoclose{
-	name = " fuel bay door";
-	id = "fuelbay"
+	name = " fuel bay door"
 	},
+/obj/mapping_helper/button/area,
 /turf/simulated/floor/engine/caution/northsouth,
 /area/station/wreckage)
 "Xe" = (
@@ -6886,10 +6898,6 @@
 	},
 /turf/simulated/floor/darkblue,
 /area/station/hallway/secondary/south)
-"Xi" = (
-/obj/gibtyson,
-/turf/simulated/floor/shuttlebay,
-/area/station/wreckage)
 "Xn" = (
 /obj/disposalpipe/segment/horizontal,
 /obj/cable/brown{
@@ -6918,8 +6926,10 @@
 	pixel_x = -6
 	},
 /obj/machinery/door_control/bolter/new_walls/north{
-	id = "_execshower";
 	pixel_x = 7
+	},
+/obj/mapping_helper/button/pair{
+	dir = 9
 	},
 /turf/simulated/floor/sanitary/white,
 /area/station/bridge/customs)
@@ -8162,7 +8172,7 @@ BS
 nK
 Gb
 ZJ
-Ny
+oU
 iz
 jz
 Za
@@ -11745,7 +11755,7 @@ yH
 os
 dU
 lK
-Cm
+yH
 os
 dU
 lK
@@ -11835,7 +11845,7 @@ DT
 lK
 fo
 BI
-CZ
+Kr
 lK
 fo
 BI
@@ -12147,7 +12157,7 @@ nK
 hg
 ok
 LN
-Xi
+vs
 vs
 Xd
 nK

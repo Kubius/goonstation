@@ -151,10 +151,10 @@
 	icon_state = "0-2"
 	},
 /obj/machinery/door/poddoor/pyro/shutters{
-	id = "tene_bridgeshut";
-	name = "Tenebrae Helm Shutters";
-	dir = 8
+	name = "Helm Shutters";
+	dir = 4
 	},
+/obj/mapping_helper/button/area,
 /turf/simulated/floor/plating,
 /area/station/science/research_director{
 	name = "Tenebrae Command Center"
@@ -1654,16 +1654,6 @@
 /area/station/engine/monitoring{
 	name = "Nuclear Control Room"
 	})
-"bEi" = (
-/obj/table/reinforced/auto,
-/obj/bedsheetbin,
-/obj/machinery/light/small{
-	dir = 1;
-	pixel_y = 21
-	},
-/obj/gibtyson,
-/turf/simulated/floor/carpet/red/fancy/edge/nw,
-/area/station/mailroom)
 "bEj" = (
 /obj/reagent_dispensers/foamtank,
 /turf/simulated/floor/grey/corner{
@@ -3282,9 +3272,9 @@
 	},
 /obj/machinery/door_control{
 	pixel_x = 24;
-	id = "maru_bridgeshut";
 	name = "Shutter Control"
 	},
+/obj/mapping_helper/button/area,
 /turf/simulated/floor/black,
 /area/station/engine/engineering/ce{
 	name = "Maru Command Center"
@@ -3759,8 +3749,10 @@
 	id = "disposal-"
 	},
 /obj/machinery/door/poddoor/pyro{
-	dir = 4
+	dir = 4;
+	name = "Crusher Door"
 	},
+/obj/mapping_helper/button/area,
 /turf/simulated/floor/black/grime,
 /area/station/medical/morgue)
 "dBX" = (
@@ -3783,9 +3775,8 @@
 /turf/simulated/floor/specialroom/arcade,
 /area/station/science/chemistry)
 "dCe" = (
-/obj/machinery/r_door_control/podbay{
-	id = "aftbay_"
-	},
+/obj/mapping_helper/button/area,
+/obj/machinery/r_door_control/podbay,
 /turf/simulated/wall/auto/reinforced/jen/green,
 /area/station/maintenance)
 "dDk" = (
@@ -3824,8 +3815,7 @@
 /area/station/hangar/tenebrae)
 "dIc" = (
 /obj/machinery/door/airlock/pyro{
-	dir = 4;
-	id = "maru_crewsouth"
+	dir = 4
 	},
 /obj/mapping_helper/firedoor_spawn,
 /turf/simulated/floor/grey/side{
@@ -4233,8 +4223,8 @@
 	dir = 8
 	},
 /obj/machinery/door/poddoor/blast/pyro/podbay_autoclose{
-	name = " pod bay door";
-	id = "aftbay";
+	name = "Maru pod bay door";
+	id = "maruprimaryhangar";
 	dir = 4
 	},
 /turf/simulated/floor/engine/caution/westeast,
@@ -4373,8 +4363,7 @@
 	id = "bathleft"
 	},
 /obj/machinery/door/airlock/pyro/alt{
-	dir = 4;
-	id = "maru_bathleft"
+	dir = 4
 	},
 /turf/simulated/floor/sanitary/white,
 /area/station/crew_quarters/garden)
@@ -4711,10 +4700,10 @@
 	icon_state = "0-8"
 	},
 /obj/machinery/door/poddoor/pyro/shutters{
-	id = "maru_bridgeshut";
-	name = "Maru Helm Shutters";
+	name = "Helm Shutters";
 	dir = 5
 	},
+/obj/mapping_helper/button/area,
 /turf/simulated/floor/plating,
 /area/station/engine/engineering/ce{
 	name = "Maru Command Center"
@@ -4815,9 +4804,10 @@
 /turf/simulated/floor,
 /area/station/mailroom)
 "ezh" = (
-/obj/machinery/door_control/bolter/new_walls/east{
-	id = "fuelbay_tene"
+/obj/machinery/door_control/podbay{
+	pixel_x = 24
 	},
+/obj/mapping_helper/button/area,
 /turf/simulated/floor/caution/westeast,
 /area/station/engine/substation/tenebrae)
 "ezC" = (
@@ -4840,7 +4830,7 @@
 	},
 /obj/machinery/door/poddoor/blast/pyro/podbay_autoclose{
 	name = " pod bay door";
-	id = "aftbay";
+	id = "primaryhangar";
 	dir = 4
 	},
 /turf/simulated/floor/engine/caution/westeast,
@@ -4881,10 +4871,10 @@
 	icon_state = "0-8"
 	},
 /obj/machinery/door/poddoor/pyro/shutters{
-	id = "maru_bridgeshut";
-	name = "Maru Helm Shutters";
+	name = "Helm Shutters";
 	dir = 6
 	},
+/obj/mapping_helper/button/area,
 /turf/simulated/floor/plating,
 /area/station/engine/engineering/ce{
 	name = "Maru Command Center"
@@ -5387,9 +5377,9 @@
 /obj/item/clothing/suit/bedsheet,
 /obj/machinery/door_control{
 	pixel_x = 24;
-	id = "bridgeshut";
 	name = "Shutter Control"
 	},
+/obj/mapping_helper/button/area,
 /turf/simulated/floor/black,
 /area/station/construction)
 "fci" = (
@@ -5787,17 +5777,6 @@
 	dir = 9
 	},
 /area/station/mailroom/maru)
-"fvT" = (
-/obj/machinery/door/poddoor/blast/pyro/podbay_autoclose{
-	name = " pod bay door";
-	id = "aftbay";
-	dir = 4
-	},
-/obj/forcefield/energyshield/perma/doorlink{
-	dir = 8
-	},
-/turf/simulated/floor/engine/caution/westeast,
-/area/station/hangar/maru)
 "fxp" = (
 /turf/simulated/floor/purple/side{
 	dir = 9
@@ -5855,6 +5834,10 @@
 /obj/cable{
 	icon_state = "0-8"
 	},
+/obj/machinery/door/poddoor/pyro/shutters{
+	name = "Helm Shutters"
+	},
+/obj/mapping_helper/button/area,
 /turf/simulated/floor/plating,
 /area/station/construction)
 "fAV" = (
@@ -5917,8 +5900,10 @@
 	pixel_x = -6
 	},
 /obj/machinery/door_control/bolter/new_walls/north{
-	id = "maru_execshower";
 	pixel_x = 7
+	},
+/obj/mapping_helper/button/pair{
+	dir = 9
 	},
 /turf/simulated/floor/sanitary/white,
 /area/station/bridge/maru)
@@ -6048,9 +6033,9 @@
 	icon_state = "0-8"
 	},
 /obj/machinery/door/poddoor/pyro/shutters{
-	id = "tene_bridgeshut";
-	name = "Tenebrae Helm Shutters"
+	name = "Helm Shutters"
 	},
+/obj/mapping_helper/button/area,
 /turf/simulated/floor/plating,
 /area/station/science/research_director{
 	name = "Tenebrae Command Center"
@@ -6379,11 +6364,13 @@
 	dir = 8
 	},
 /obj/machinery/door_control/bolter/new_walls/north{
-	id = "maru_bathright";
 	pixel_x = -14
 	},
 /obj/decoration/toiletholder{
 	pixel_y = 32
+	},
+/obj/mapping_helper/button/pair{
+	dir = 8
 	},
 /turf/simulated/floor/sanitary/white,
 /area/station/crew_quarters/garden)
@@ -7828,6 +7815,11 @@
 /area/station/science/chemistry)
 "hvL" = (
 /obj/mapping_helper/wingrille_spawn/auto/reinforced,
+/obj/machinery/door/poddoor/pyro/shutters{
+	name = "Helm Shutters";
+	dir = 4
+	},
+/obj/mapping_helper/button/area,
 /turf/simulated/floor/plating,
 /area/station/construction)
 "hwo" = (
@@ -7853,9 +7845,9 @@
 /area/station/hos)
 "hxX" = (
 /obj/machinery/door/poddoor/blast/pyro/podbay_autoclose{
-	name = "Tenebrae fuel bay door";
-	id = "fuelbay_tene"
+	name = "Tenebrae fuel bay door"
 	},
+/obj/mapping_helper/button/area,
 /turf/simulated/floor/engine/caution/northsouth,
 /area/station/engine/substation/tenebrae)
 "hyd" = (
@@ -8288,8 +8280,9 @@
 /area/station/hangar/maru)
 "hSo" = (
 /obj/rack,
-/obj/machinery/door_control/bolter/new_walls/north{
-	id = "maru_pubshower"
+/obj/machinery/door_control/bolter/new_walls/north,
+/obj/mapping_helper/button/pair{
+	dir = 10
 	},
 /turf/simulated/floor/sanitary/white,
 /area/station/crew_quarters/garden)
@@ -8776,8 +8769,7 @@
 /area/station/engine/elect)
 "iqa" = (
 /obj/machinery/door/airlock/pyro{
-	dir = 4;
-	id = "crewnorth"
+	dir = 4
 	},
 /obj/mapping_helper/firedoor_spawn,
 /turf/simulated/floor/grey,
@@ -9107,9 +9099,8 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/disposal/tenebrae)
 "iHL" = (
-/obj/machinery/r_door_control/podbay{
-	id = "aftbay_tene"
-	},
+/obj/machinery/r_door_control/podbay,
+/obj/mapping_helper/button/area,
 /turf/simulated/wall/auto/reinforced/jen/purple,
 /area/station/hangar/tenebrae)
 "iHX" = (
@@ -9194,10 +9185,10 @@
 "iLA" = (
 /obj/mapping_helper/wingrille_spawn/auto/reinforced,
 /obj/machinery/door/poddoor/pyro/shutters{
-	id = "tene_bridgeshut";
-	name = "Tenebrae Helm Shutters";
-	dir = 8
+	name = "Helm Shutters";
+	dir = 4
 	},
+/obj/mapping_helper/button/area,
 /turf/simulated/floor/plating,
 /area/station/science/research_director{
 	name = "Tenebrae Command Center"
@@ -9280,13 +9271,6 @@
 	},
 /turf/simulated/wall/auto/reinforced/jen/red,
 /area/station/wreckage)
-"iPQ" = (
-/obj/stool/bed,
-/obj/machinery/door_control/bolter/new_walls/east{
-	id = "tene_crewnorth"
-	},
-/turf/simulated/floor/carpet/purple/fancy/edge/se,
-/area/station/crew_quarters/tenebrae)
 "iPY" = (
 /obj/stool/chair/office/red{
 	dir = 8
@@ -9584,8 +9568,10 @@
 	id = "disposal-maru"
 	},
 /obj/machinery/door/poddoor/pyro{
-	dir = 4
+	dir = 4;
+	name = "Crusher Door"
 	},
+/obj/mapping_helper/button/area,
 /turf/simulated/floor/black/grime,
 /area/station/maintenance/disposal/maru)
 "jaw" = (
@@ -10265,17 +10251,6 @@
 /obj/machinery/vending/snack,
 /turf/simulated/floor/grey,
 /area/station/mailroom)
-"jFW" = (
-/obj/machinery/door/airlock/pyro/alt{
-	dir = 4;
-	id = "bathleft"
-	},
-/obj/machinery/door/airlock/pyro/alt{
-	dir = 4;
-	id = "bathleft"
-	},
-/turf/simulated/floor/sanitary/white,
-/area/station/crew_quarters/garden)
 "jGt" = (
 /obj/machinery/vending/cola/blue,
 /turf/simulated/floor/red,
@@ -10637,9 +10612,9 @@
 /area/station/medical/medbooth)
 "jXu" = (
 /obj/machinery/door/poddoor/blast/pyro/podbay_autoclose{
-	name = " fuel bay door";
-	id = "fuelbay"
+	name = "Maru fuel bay door"
 	},
+/obj/mapping_helper/button/area,
 /turf/simulated/floor/engine/caution/northsouth,
 /area/station/engine/substation/maru)
 "jXB" = (
@@ -10774,6 +10749,11 @@
 /obj/cable{
 	icon_state = "0-8"
 	},
+/obj/machinery/door/poddoor/pyro/shutters{
+	name = "Helm Shutters";
+	dir = 5
+	},
+/obj/mapping_helper/button/area,
 /turf/simulated/floor/plating,
 /area/station/construction)
 "kep" = (
@@ -10781,9 +10761,8 @@
 /turf/simulated/floor/plating,
 /area/station/mailroom/tenebrae)
 "keL" = (
-/obj/machinery/r_door_control/podbay{
-	id = "fuelbay_"
-	},
+/obj/machinery/r_door_control/podbay,
+/obj/mapping_helper/button/area,
 /turf/simulated/wall/auto/reinforced/jen/green,
 /area/station/wreckage)
 "kfZ" = (
@@ -11287,10 +11266,10 @@
 	icon_state = "0-2"
 	},
 /obj/machinery/door/poddoor/pyro/shutters{
-	id = "maru_bridgeshut";
-	name = "Maru Helm Shutters";
+	name = "Helm Shutters";
 	dir = 4
 	},
+/obj/mapping_helper/button/area,
 /turf/simulated/floor/plating,
 /area/station/engine/engineering/ce{
 	name = "Maru Command Center"
@@ -11494,6 +11473,11 @@
 /obj/cable{
 	icon_state = "0-8"
 	},
+/obj/machinery/door/poddoor/pyro/shutters{
+	name = "Helm Shutters";
+	dir = 6
+	},
+/obj/mapping_helper/button/area,
 /turf/simulated/floor/plating,
 /area/station/construction)
 "kJA" = (
@@ -11788,9 +11772,8 @@
 /turf/simulated/floor,
 /area/station/science/bot_storage)
 "kXC" = (
-/obj/machinery/r_door_control/podbay{
-	id = "fuelbay_"
-	},
+/obj/machinery/r_door_control/podbay,
+/obj/mapping_helper/button/area,
 /turf/simulated/wall/auto/reinforced/jen/blue,
 /area/station/wreckage)
 "kYg" = (
@@ -11881,8 +11864,9 @@
 /area/station/maintenance/disposal/tenebrae)
 "lbb" = (
 /obj/rack,
-/obj/machinery/door_control/bolter/new_walls/north{
-	id = "tene_pubshower"
+/obj/machinery/door_control/bolter/new_walls/north,
+/obj/mapping_helper/button/pair{
+	dir = 10
 	},
 /turf/simulated/floor/sanitary/white,
 /area/station/crew_quarters/toilets/tenebrae)
@@ -12180,8 +12164,7 @@
 /area/station/crew_quarters/tenebrae)
 "lri" = (
 /obj/machinery/door/airlock/pyro/alt{
-	dir = 4;
-	id = "maru_pubshower"
+	dir = 4
 	},
 /turf/simulated/floor/sanitary/white,
 /area/station/crew_quarters/garden)
@@ -12611,9 +12594,8 @@
 /turf/simulated/floor/plating,
 /area/station/science/lab)
 "lNA" = (
-/obj/machinery/r_door_control/podbay{
-	id = "fuelbay_"
-	},
+/obj/machinery/r_door_control/podbay,
+/obj/mapping_helper/button/area,
 /turf/simulated/wall/auto/reinforced/jen/dark2,
 /area/station/wreckage)
 "lNQ" = (
@@ -12909,6 +12891,11 @@
 /obj/cable{
 	icon_state = "0-2"
 	},
+/obj/machinery/door/poddoor/pyro/shutters{
+	name = "Helm Shutters";
+	dir = 4
+	},
+/obj/mapping_helper/button/area,
 /turf/simulated/floor/plating,
 /area/station/construction)
 "meK" = (
@@ -13051,10 +13038,10 @@
 	icon_state = "0-4"
 	},
 /obj/machinery/door/poddoor/pyro/shutters{
-	id = "maru_bridgeshut";
-	name = "Maru Helm Shutters";
+	name = "Helm Shutters";
 	dir = 10
 	},
+/obj/mapping_helper/button/area,
 /turf/simulated/floor/plating,
 /area/station/engine/engineering/ce{
 	name = "Maru Command Center"
@@ -13591,9 +13578,9 @@
 	},
 /obj/machinery/door_control{
 	pixel_x = 24;
-	id = "tene_bridgeshut";
 	name = "Shutter Control"
 	},
+/obj/mapping_helper/button/area,
 /turf/simulated/floor/black,
 /area/station/science/research_director{
 	name = "Tenebrae Command Center"
@@ -14176,9 +14163,8 @@
 /turf/simulated/wall/auto/reinforced/jen/yellow,
 /area/station/engine/substation/maru)
 "nvw" = (
-/obj/machinery/r_door_control/podbay{
-	id = "fuelbay_maru"
-	},
+/obj/machinery/r_door_control/podbay,
+/obj/mapping_helper/button/area,
 /turf/simulated/wall/auto/reinforced/jen/yellow,
 /area/station/engine/substation/maru)
 "nvN" = (
@@ -14209,8 +14195,10 @@
 	pixel_x = -6
 	},
 /obj/machinery/door_control/bolter/new_walls/north{
-	id = "_execshower";
 	pixel_x = 7
+	},
+/obj/mapping_helper/button/pair{
+	dir = 9
 	},
 /turf/simulated/floor/sanitary/white,
 /area/station/bridge/customs)
@@ -14264,6 +14252,9 @@
 	dir = 8
 	},
 /area/station/hallway/primary/south/maru)
+"nzA" = (
+/turf/simulated/wall/auto/reinforced/jen,
+/area/station/maintenance/disposal/tenebrae)
 "nAp" = (
 /obj/disposalpipe/segment/horizontal,
 /obj/cable/brown{
@@ -14406,13 +14397,13 @@
 /turf/simulated/wall/auto/jen/green,
 /area/station/construction)
 "nFV" = (
-/obj/machinery/door/poddoor/blast/pyro/podbay_autoclose{
-	name = "Tenebrae pod bay door";
-	id = "aftbay_tene";
-	dir = 4
-	},
 /obj/forcefield/energyshield/perma/doorlink{
 	dir = 8
+	},
+/obj/machinery/door/poddoor/blast/pyro/podbay_autoclose{
+	name = "Tenebrae pod bay door";
+	id = "tenebraeprimaryhangar";
+	dir = 4
 	},
 /turf/simulated/floor/engine/caution/westeast,
 /area/station/hangar/tenebrae)
@@ -14812,6 +14803,11 @@
 /obj/cable{
 	icon_state = "0-8"
 	},
+/obj/machinery/door/poddoor/pyro/shutters{
+	name = "Helm Shutters";
+	dir = 5
+	},
+/obj/mapping_helper/button/area,
 /turf/simulated/floor/plating,
 /area/station/construction)
 "nZj" = (
@@ -14906,8 +14902,7 @@
 /area/station/hallway/primary/central/maru)
 "ogj" = (
 /obj/machinery/door/airlock/pyro{
-	dir = 4;
-	id = "crewsouth"
+	dir = 4
 	},
 /obj/mapping_helper/firedoor_spawn,
 /turf/simulated/floor/grey/side{
@@ -15065,13 +15060,11 @@
 /area/station/engine/storage)
 "ooL" = (
 /obj/machinery/door/airlock/pyro/command{
-	name = "Executive Bathroom";
-	id = "tene_execshower"
+	name = "Executive Bathroom"
 	},
 /obj/cable/brown{
 	icon_state = "1-2"
 	},
-/obj/mapping_helper/access/heads,
 /obj/mapping_helper/firedoor_spawn,
 /turf/simulated/floor/black,
 /area/station/bridge/tenebrae)
@@ -15170,8 +15163,9 @@
 /area/station/maintenance/disposal/maru)
 "ovk" = (
 /obj/stool/bed,
-/obj/machinery/door_control/bolter/new_walls/east{
-	id = "_crewsouth"
+/obj/machinery/door_control/bolter/new_walls/east,
+/obj/mapping_helper/button/pair{
+	dir = 5
 	},
 /turf/simulated/floor/carpet/red/fancy/edge/se,
 /area/station/mailroom)
@@ -15389,8 +15383,7 @@
 /area/station/crew_quarters/maru)
 "oHC" = (
 /obj/machinery/door/airlock/pyro/command{
-	name = "Executive Bathroom";
-	id = "execshower"
+	name = "Executive Bathroom"
 	},
 /obj/cable/brown{
 	icon_state = "1-2"
@@ -15407,11 +15400,13 @@
 	dir = 4
 	},
 /obj/machinery/door_control/bolter/new_walls/north{
-	id = "maru_bathleft";
 	pixel_x = 14
 	},
 /obj/decoration/toiletholder{
 	pixel_y = 32
+	},
+/obj/mapping_helper/button/pair{
+	dir = 4
 	},
 /turf/simulated/floor/sanitary/white,
 /area/station/crew_quarters/garden)
@@ -15469,10 +15464,10 @@
 	icon_state = "0-4"
 	},
 /obj/machinery/door/poddoor/pyro/shutters{
-	id = "tene_bridgeshut";
-	name = "Tenebrae Helm Shutters";
+	name = "Helm Shutters";
 	dir = 10
 	},
+/obj/mapping_helper/button/area,
 /turf/simulated/floor/plating,
 /area/station/science/research_director{
 	name = "Tenebrae Command Center"
@@ -15899,14 +15894,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/northwest/maru)
-"pfQ" = (
-/obj/machinery/drainage,
-/obj/cable{
-	icon_state = "1-2"
-	},
-/obj/gibtyson,
-/turf/simulated/floor/sanitary/white,
-/area/station/crew_quarters/garden)
 "pgg" = (
 /obj/cable{
 	icon_state = "4-8"
@@ -16005,9 +15992,8 @@
 /turf/simulated/wall/auto/reinforced/jen/dark2,
 /area/station/wreckage)
 "pjQ" = (
-/obj/machinery/r_door_control/podbay{
-	id = "aftbay_"
-	},
+/obj/mapping_helper/button/area,
+/obj/machinery/r_door_control/podbay,
 /turf/simulated/wall/auto/reinforced/jen/blue,
 /area/station/maintenance)
 "pjZ" = (
@@ -16663,8 +16649,7 @@
 /area/station/wreckage)
 "pPa" = (
 /obj/machinery/door/airlock/pyro/command{
-	name = "Executive Bathroom";
-	id = "maru_execshower"
+	name = "Executive Bathroom"
 	},
 /obj/cable/brown{
 	icon_state = "1-2"
@@ -16752,7 +16737,6 @@
 /turf/simulated/wall/auto/reinforced/jen/purple,
 /area/station/science/storage)
 "pUf" = (
-/obj/gibtyson,
 /obj/machinery/camera{
 	c_tag = "autotag";
 	dir = 8;
@@ -17037,8 +17021,9 @@
 	})
 "qiB" = (
 /obj/stool/bed,
-/obj/machinery/door_control/bolter/new_walls/east{
-	id = "tene_crewsouth"
+/obj/machinery/door_control/bolter/new_walls/east,
+/obj/mapping_helper/button/pair{
+	dir = 5
 	},
 /turf/simulated/floor/carpet/purple/fancy/edge/se,
 /area/station/crew_quarters/tenebrae)
@@ -17050,8 +17035,10 @@
 	id = "disposal-tene"
 	},
 /obj/machinery/door/poddoor/pyro{
-	dir = 4
+	dir = 4;
+	name = "Crusher Door"
 	},
+/obj/mapping_helper/button/area,
 /turf/simulated/floor/black/grime,
 /area/station/maintenance/disposal/tenebrae)
 "qjA" = (
@@ -17071,10 +17058,10 @@
 	icon_state = "0-8"
 	},
 /obj/machinery/door/poddoor/pyro/shutters{
-	id = "tene_bridgeshut";
-	name = "Tenebrae Helm Shutters";
+	name = "Helm Shutters";
 	dir = 5
 	},
+/obj/mapping_helper/button/area,
 /turf/simulated/floor/plating,
 /area/station/science/research_director{
 	name = "Tenebrae Command Center"
@@ -17392,13 +17379,6 @@
 	},
 /turf/simulated/wall/auto/reinforced/jen/purple,
 /area/station/hangar/tenebrae)
-"qzG" = (
-/obj/stool/bed,
-/obj/machinery/door_control/bolter/new_walls/east{
-	id = "_crewnorth"
-	},
-/turf/simulated/floor/carpet/red/fancy/edge/se,
-/area/station/mailroom)
 "qzQ" = (
 /turf/space,
 /area/shuttle/merchant_shuttle/left_station/cogmap)
@@ -17533,9 +17513,8 @@
 	},
 /area/station/hallway/primary/central/tenebrae)
 "qHX" = (
-/obj/machinery/r_door_control/podbay{
-	id = "fuelbay_tene"
-	},
+/obj/machinery/r_door_control/podbay,
+/obj/mapping_helper/button/area,
 /turf/simulated/wall/auto/reinforced/jen/purple,
 /area/station/engine/substation/tenebrae)
 "qIO" = (
@@ -17595,9 +17574,8 @@
 /turf/simulated/wall/auto/reinforced/jen/green,
 /area/station/maintenance)
 "qPe" = (
-/obj/machinery/r_door_control/podbay{
-	id = "aftbay_"
-	},
+/obj/mapping_helper/button/area,
+/obj/machinery/r_door_control/podbay,
 /turf/simulated/wall/auto/reinforced/jen/dark2,
 /area/station/maintenance)
 "qPv" = (
@@ -17864,9 +17842,10 @@
 	name = "Routing Buoy"
 	})
 "rbm" = (
-/obj/machinery/door_control/bolter/new_walls/east{
-	id = "fuelbay_maru"
+/obj/machinery/door_control/podbay{
+	pixel_x = 24
 	},
+/obj/mapping_helper/button/area,
 /turf/simulated/floor/caution/westeast,
 /area/station/engine/substation/maru)
 "rbR" = (
@@ -18600,10 +18579,10 @@
 	icon_state = "0-4"
 	},
 /obj/machinery/door/poddoor/pyro/shutters{
-	id = "maru_bridgeshut";
-	name = "Maru Helm Shutters";
+	name = "Helm Shutters";
 	dir = 9
 	},
+/obj/mapping_helper/button/area,
 /turf/simulated/floor/plating,
 /area/station/engine/engineering/ce{
 	name = "Maru Command Center"
@@ -18723,9 +18702,8 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/southeast/maru)
 "rSO" = (
-/obj/machinery/r_door_control/podbay{
-	id = "fuelbay_"
-	},
+/obj/machinery/r_door_control/podbay,
+/obj/mapping_helper/button/area,
 /turf/simulated/wall/auto/reinforced/jen/red,
 /area/station/wreckage)
 "rTb" = (
@@ -18733,9 +18711,10 @@
 /turf/simulated/floor/grey,
 /area/station/quartermaster/office)
 "rTy" = (
-/obj/machinery/door_control/bolter/new_walls/west{
-	id = "aftbay_"
+/obj/machinery/door_control/podbay{
+	pixel_x = -24
 	},
+/obj/mapping_helper/button/area,
 /turf/simulated/floor/grey/side{
 	dir = 8
 	},
@@ -18762,8 +18741,7 @@
 /area/station/bridge/tenebrae)
 "rUB" = (
 /obj/machinery/door/airlock/pyro{
-	dir = 4;
-	id = "maru_crewnorth"
+	dir = 4
 	},
 /obj/mapping_helper/firedoor_spawn,
 /turf/simulated/floor/grey,
@@ -18915,11 +18893,14 @@
 /turf/simulated/floor/caution/westeast,
 /area/station/quartermaster/office)
 "sfE" = (
-/obj/machinery/door_control/bolter/new_walls/north,
 /obj/disposalpipe/junction/right/west,
 /obj/cable{
 	icon_state = "4-8"
 	},
+/obj/machinery/door_control{
+	pixel_y = 24
+	},
+/obj/mapping_helper/button/area,
 /turf/simulated/floor/plating/random,
 /area/station/maintenance/disposal/tenebrae)
 "sgy" = (
@@ -19029,10 +19010,10 @@
 	icon_state = "0-8"
 	},
 /obj/machinery/door/poddoor/pyro/shutters{
-	id = "tene_bridgeshut";
-	name = "Tenebrae Helm Shutters";
+	name = "Helm Shutters";
 	dir = 5
 	},
+/obj/mapping_helper/button/area,
 /turf/simulated/floor/plating,
 /area/station/science/research_director{
 	name = "Tenebrae Command Center"
@@ -19040,7 +19021,7 @@
 "slB" = (
 /obj/machinery/door/poddoor/blast/pyro/podbay_autoclose{
 	name = " pod bay door";
-	id = "aftbay";
+	id = "primaryhangar";
 	dir = 4
 	},
 /obj/forcefield/energyshield/perma/doorlink{
@@ -19140,8 +19121,7 @@
 	id = "bathleft"
 	},
 /obj/machinery/door/airlock/pyro/alt{
-	dir = 4;
-	id = "tene_bathleft"
+	dir = 4
 	},
 /turf/simulated/floor/sanitary/white,
 /area/station/crew_quarters/toilets/tenebrae)
@@ -19192,8 +19172,7 @@
 	id = "bathright"
 	},
 /obj/machinery/door/airlock/pyro/alt{
-	dir = 4;
-	id = "maru_bathright"
+	dir = 4
 	},
 /turf/simulated/floor/sanitary/white,
 /area/station/crew_quarters/garden)
@@ -19391,11 +19370,13 @@
 	dir = 8
 	},
 /obj/machinery/door_control/bolter/new_walls/north{
-	id = "tene_bathright";
 	pixel_x = -14
 	},
 /obj/decoration/toiletholder{
 	pixel_y = 32
+	},
+/obj/mapping_helper/button/pair{
+	dir = 8
 	},
 /turf/simulated/floor/sanitary/white,
 /area/station/crew_quarters/toilets/tenebrae)
@@ -19552,6 +19533,7 @@
 /obj/machinery/door_control/podbay{
 	pixel_x = -24
 	},
+/obj/mapping_helper/button/area,
 /turf/simulated/floor/grey/side{
 	dir = 8
 	},
@@ -19687,8 +19669,7 @@
 /area/station/maintenance)
 "sPo" = (
 /obj/machinery/door/airlock/pyro{
-	dir = 4;
-	id = "tene_crewnorth"
+	dir = 4
 	},
 /obj/mapping_helper/firedoor_spawn,
 /turf/simulated/floor/grey,
@@ -19866,8 +19847,7 @@
 /area/station/maintenance/disposal/tenebrae)
 "sXQ" = (
 /obj/machinery/door/airlock/pyro/alt{
-	dir = 4;
-	id = "tene_pubshower"
+	dir = 4
 	},
 /turf/simulated/floor/sanitary/white,
 /area/station/crew_quarters/toilets/tenebrae)
@@ -20269,8 +20249,7 @@
 /area/station/maintenance/northwest/tenebrae)
 "tqp" = (
 /obj/machinery/door/airlock/pyro{
-	dir = 4;
-	id = "tene_crewsouth"
+	dir = 4
 	},
 /obj/mapping_helper/firedoor_spawn,
 /turf/simulated/floor/grey/side{
@@ -20675,17 +20654,6 @@
 /area/station/engine/monitoring{
 	name = "Nuclear Control Room"
 	})
-"tMu" = (
-/obj/mapping_helper/wingrille_spawn/auto/reinforced/crystal,
-/obj/cable{
-	icon_state = "0-8"
-	},
-/obj/machinery/door/poddoor/pyro/shutters{
-	id = "_bridgeshut";
-	name = " Helm Shutters"
-	},
-/turf/simulated/floor/plating,
-/area/station/construction)
 "tMv" = (
 /obj/storage/cart/mechcart,
 /obj/item/electronics/scanner,
@@ -21245,8 +21213,10 @@
 	pixel_x = -6
 	},
 /obj/machinery/door_control/bolter/new_walls/north{
-	id = "tene_execshower";
 	pixel_x = 7
+	},
+/obj/mapping_helper/button/pair{
+	dir = 9
 	},
 /turf/simulated/floor/sanitary/white,
 /area/station/bridge/tenebrae)
@@ -21376,11 +21346,14 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/disposal/tenebrae)
 "uqt" = (
-/obj/machinery/door_control/bolter/new_walls/north,
 /obj/disposalpipe/junction/right/west,
 /obj/cable{
 	icon_state = "4-8"
 	},
+/obj/machinery/door_control{
+	pixel_y = 24
+	},
+/obj/mapping_helper/button/area,
 /turf/simulated/floor/plating/random,
 /area/station/medical/morgue)
 "uqE" = (
@@ -21801,6 +21774,11 @@
 /obj/cable{
 	icon_state = "0-4"
 	},
+/obj/machinery/door/poddoor/pyro/shutters{
+	name = "Helm Shutters";
+	dir = 9
+	},
+/obj/mapping_helper/button/area,
 /turf/simulated/floor/plating,
 /area/station/construction)
 "uIi" = (
@@ -21909,9 +21887,9 @@
 	icon_state = "0-8"
 	},
 /obj/machinery/door/poddoor/pyro/shutters{
-	id = "maru_bridgeshut";
-	name = "Maru Helm Shutters"
+	name = "Helm Shutters"
 	},
+/obj/mapping_helper/button/area,
 /turf/simulated/floor/plating,
 /area/station/engine/engineering/ce{
 	name = "Maru Command Center"
@@ -22037,17 +22015,6 @@
 	},
 /turf/simulated/wall/auto/reinforced/jen/purple,
 /area/station/maintenance/southeast/tenebrae)
-"uUF" = (
-/obj/machinery/door/airlock/pyro/alt{
-	dir = 4;
-	id = "bathright"
-	},
-/obj/machinery/door/airlock/pyro/alt{
-	dir = 4;
-	id = "bathright"
-	},
-/turf/simulated/floor/sanitary/white,
-/area/station/crew_quarters/garden)
 "uUL" = (
 /turf/simulated/wall/auto/jen/red,
 /area/station/maintenance)
@@ -22094,10 +22061,10 @@
 	icon_state = "0-4"
 	},
 /obj/machinery/door/poddoor/pyro/shutters{
-	id = "tene_bridgeshut";
-	name = "Tenebrae Helm Shutters";
+	name = "Helm Shutters";
 	dir = 9
 	},
+/obj/mapping_helper/button/area,
 /turf/simulated/floor/plating,
 /area/station/science/research_director{
 	name = "Tenebrae Command Center"
@@ -22699,9 +22666,8 @@
 	},
 /area/station/mailroom/maru)
 "vCa" = (
-/obj/machinery/r_door_control/podbay{
-	id = "aftbay_"
-	},
+/obj/mapping_helper/button/area,
+/obj/machinery/r_door_control/podbay,
 /turf/simulated/wall/auto/reinforced/jen/red,
 /area/station/maintenance)
 "vCd" = (
@@ -22726,11 +22692,13 @@
 	dir = 4
 	},
 /obj/machinery/door_control/bolter/new_walls/north{
-	id = "tene_bathleft";
 	pixel_x = 14
 	},
 /obj/decoration/toiletholder{
 	pixel_y = 32
+	},
+/obj/mapping_helper/button/pair{
+	dir = 4
 	},
 /turf/simulated/floor/sanitary/white,
 /area/station/crew_quarters/toilets/tenebrae)
@@ -22877,8 +22845,7 @@
 	id = "bathright"
 	},
 /obj/machinery/door/airlock/pyro/alt{
-	dir = 4;
-	id = "tene_bathright"
+	dir = 4
 	},
 /turf/simulated/floor/sanitary/white,
 /area/station/crew_quarters/toilets/tenebrae)
@@ -22934,9 +22901,10 @@
 /turf/simulated/floor/black,
 /area/station/bridge/customs)
 "vNF" = (
-/obj/machinery/door_control/bolter/new_walls/east{
-	id = "fuelbay_"
+/obj/machinery/door_control/podbay{
+	pixel_x = 24
 	},
+/obj/mapping_helper/button/area,
 /turf/simulated/floor/caution/westeast,
 /area/station/wreckage)
 "vNI" = (
@@ -23245,13 +23213,6 @@
 	},
 /turf/simulated/floor/sanitary/white,
 /area/station/bridge/maru)
-"wdX" = (
-/obj/machinery/door/airlock/pyro/alt{
-	dir = 4;
-	id = "pubshower"
-	},
-/turf/simulated/floor/sanitary/white,
-/area/station/crew_quarters/garden)
 "wec" = (
 /obj/cable{
 	icon_state = "1-2"
@@ -23321,10 +23282,10 @@
 "wkd" = (
 /obj/mapping_helper/wingrille_spawn/auto/reinforced,
 /obj/machinery/door/poddoor/pyro/shutters{
-	id = "maru_bridgeshut";
-	name = "Maru Helm Shutters";
+	name = "Helm Shutters";
 	dir = 4
 	},
+/obj/mapping_helper/button/area,
 /turf/simulated/floor/plating,
 /area/station/engine/engineering/ce{
 	name = "Maru Command Center"
@@ -23348,10 +23309,10 @@
 	icon_state = "0-8"
 	},
 /obj/machinery/door/poddoor/pyro/shutters{
-	id = "tene_bridgeshut";
-	name = "Tenebrae Helm Shutters";
+	name = "Helm Shutters";
 	dir = 6
 	},
+/obj/mapping_helper/button/area,
 /turf/simulated/floor/plating,
 /area/station/science/research_director{
 	name = "Tenebrae Command Center"
@@ -23473,10 +23434,6 @@
 	dir = 4
 	},
 /area/station/science/artifact)
-"wqe" = (
-/obj/gibtyson,
-/turf/simulated/floor/shuttlebay,
-/area/station/wreckage)
 "wqx" = (
 /obj/rack,
 /obj/item/crowbar,
@@ -23579,18 +23536,19 @@
 	icon_state = "0-8"
 	},
 /obj/machinery/door/poddoor/pyro/shutters{
-	id = "maru_bridgeshut";
-	name = "Maru Helm Shutters";
+	name = "Helm Shutters";
 	dir = 5
 	},
+/obj/mapping_helper/button/area,
 /turf/simulated/floor/plating,
 /area/station/engine/engineering/ce{
 	name = "Maru Command Center"
 	})
 "wwx" = (
-/obj/machinery/door_control/bolter/new_walls/west{
-	id = "aftbay_tene"
+/obj/machinery/door_control/podbay{
+	pixel_x = -24
 	},
+/obj/mapping_helper/button/area,
 /turf/simulated/floor/grey/side{
 	dir = 8
 	},
@@ -23706,9 +23664,9 @@
 /area/station/engine/substation/tenebrae)
 "wBB" = (
 /obj/machinery/door/poddoor/blast/pyro/podbay_autoclose{
-	name = " fuel bay door";
-	id = "fuelbay"
+	name = " fuel bay door"
 	},
+/obj/mapping_helper/button/area,
 /turf/simulated/floor/engine/caution/northsouth,
 /area/station/wreckage)
 "wCk" = (
@@ -23793,6 +23751,11 @@
 /obj/cable{
 	icon_state = "0-4"
 	},
+/obj/machinery/door/poddoor/pyro/shutters{
+	name = "Helm Shutters";
+	dir = 10
+	},
+/obj/mapping_helper/button/area,
 /turf/simulated/floor/plating,
 /area/station/construction)
 "wGn" = (
@@ -24123,8 +24086,9 @@
 /area/station/science/lab)
 "wRS" = (
 /obj/stool/bed,
-/obj/machinery/door_control/bolter/new_walls/east{
-	id = "maru_crewsouth"
+/obj/machinery/door_control/bolter/new_walls/east,
+/obj/mapping_helper/button/pair{
+	dir = 5
 	},
 /turf/simulated/floor/carpet/red/fancy/edge/se,
 /area/station/crew_quarters/maru)
@@ -24223,23 +24187,6 @@
 /obj/machinery/light/small/floor,
 /turf/simulated/floor/shuttlebay,
 /area/station/hangar/tenebrae)
-"wWg" = (
-/obj/machinery/light/small{
-	dir = 4;
-	pixel_x = 12
-	},
-/obj/item/storage/toilet{
-	dir = 8
-	},
-/obj/machinery/door_control/bolter/new_walls/north{
-	id = "_bathright";
-	pixel_x = -14
-	},
-/obj/decoration/toiletholder{
-	pixel_y = 32
-	},
-/turf/simulated/floor/sanitary/white,
-/area/station/crew_quarters/garden)
 "wWC" = (
 /obj/machinery/door/airlock/pyro/external{
 	dir = 4
@@ -24363,13 +24310,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/northwest/tenebrae)
-"xdl" = (
-/obj/rack,
-/obj/machinery/door_control/bolter/new_walls/north{
-	id = "_pubshower"
-	},
-/turf/simulated/floor/sanitary/white,
-/area/station/crew_quarters/garden)
 "xee" = (
 /obj/machinery/atmospherics/pipe/simple/insulated/cold,
 /turf/simulated/floor/engine/caution/corner2{
@@ -24554,6 +24494,7 @@
 /area/space)
 "xnU" = (
 /obj/machinery/r_door_control/podbay,
+/obj/mapping_helper/button/area,
 /turf/simulated/wall/auto/reinforced/jen/yellow,
 /area/station/hangar/maru)
 "xnW" = (
@@ -24924,13 +24865,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/disposal/tenebrae)
-"xJF" = (
-/obj/stool/bed,
-/obj/machinery/door_control/bolter/new_walls/east{
-	id = "maru_crewnorth"
-	},
-/turf/simulated/floor/carpet/red/fancy/edge/se,
-/area/station/crew_quarters/maru)
 "xKs" = (
 /obj/machinery/vending/snack,
 /turf/simulated/floor/grey,
@@ -25034,23 +24968,6 @@
 	dir = 1
 	},
 /area/station/hallway/secondary/south)
-"xQC" = (
-/obj/machinery/light/small{
-	dir = 8;
-	pixel_x = -12
-	},
-/obj/item/storage/toilet{
-	dir = 4
-	},
-/obj/machinery/door_control/bolter/new_walls/north{
-	id = "_bathleft";
-	pixel_x = 14
-	},
-/obj/decoration/toiletholder{
-	pixel_y = 32
-	},
-/turf/simulated/floor/sanitary/white,
-/area/station/crew_quarters/garden)
 "xQM" = (
 /obj/machinery/door/poddoor/pyro/shutters{
 	dir = 4;
@@ -25074,11 +24991,14 @@
 /turf/simulated/wall/auto/jen/green,
 /area/station/medical/morgue)
 "xSf" = (
-/obj/machinery/door_control/bolter/new_walls/north,
 /obj/disposalpipe/junction/right/west,
 /obj/cable{
 	icon_state = "4-8"
 	},
+/obj/machinery/door_control{
+	pixel_y = 24
+	},
+/obj/mapping_helper/button/area,
 /turf/simulated/floor/plating/random,
 /area/station/maintenance/disposal/maru)
 "xSE" = (
@@ -41350,7 +41270,7 @@ dlW
 pto
 veB
 irW
-tMu
+fAQ
 kic
 fce
 lID
@@ -43164,7 +43084,7 @@ cyC
 pBt
 twl
 dvT
-xQC
+oHP
 dvT
 ttS
 wDQ
@@ -43466,7 +43386,7 @@ dvT
 dvT
 dvT
 dvT
-jFW
+efz
 dvT
 xMz
 dYz
@@ -44069,7 +43989,7 @@ pBt
 dvT
 fVq
 avY
-pfQ
+bRx
 gAf
 xBB
 cUB
@@ -44369,7 +44289,7 @@ idD
 hBs
 dvT
 dvT
-wdX
+lri
 dvT
 rDG
 aYr
@@ -44670,11 +44590,11 @@ erV
 twl
 aGh
 dvT
-xdl
+hSo
 aYr
 dvT
 dvT
-uUF
+sru
 dvT
 bkg
 tkp
@@ -44976,7 +44896,7 @@ tQC
 cCH
 som
 dvT
-wWg
+fZQ
 dvT
 bkg
 tkp
@@ -45941,7 +45861,7 @@ pto
 pto
 pto
 pto
-dlW
+pto
 pto
 pto
 pto
@@ -53123,7 +53043,7 @@ mRb
 jrY
 ivj
 eXf
-bEi
+mRb
 jrY
 ivj
 eXf
@@ -53423,7 +53343,7 @@ qQF
 eXf
 jnq
 mNR
-qzG
+ovk
 eXf
 jnq
 mNR
@@ -53679,7 +53599,7 @@ dlW
 pto
 veB
 irW
-tMu
+fAQ
 kic
 fce
 lID
@@ -54365,7 +54285,7 @@ pto
 pYP
 mZM
 otL
-wqe
+fLw
 fLw
 wBB
 pto
@@ -55493,7 +55413,7 @@ cyC
 pBt
 twl
 qtI
-xQC
+oHP
 qtI
 ttS
 wDQ
@@ -55795,7 +55715,7 @@ qtI
 qtI
 qtI
 qtI
-jFW
+efz
 qtI
 xMz
 dYz
@@ -56398,7 +56318,7 @@ pBt
 qtI
 fVq
 avY
-pfQ
+bRx
 gAf
 xBB
 cUB
@@ -56698,7 +56618,7 @@ idD
 hBs
 qtI
 qtI
-wdX
+lri
 qtI
 rDG
 aYr
@@ -56999,11 +56919,11 @@ gMR
 twl
 aGh
 qtI
-xdl
+hSo
 aYr
 qtI
 qtI
-uUF
+sru
 qtI
 bkg
 tkp
@@ -57305,7 +57225,7 @@ tQC
 cCH
 som
 qtI
-wWg
+fZQ
 qtI
 bkg
 tkp
@@ -59821,7 +59741,7 @@ bvN
 jiW
 rNQ
 jtg
-xJF
+wRS
 jiW
 rNQ
 jtg
@@ -65452,7 +65372,7 @@ mRb
 jrY
 ivj
 bka
-bEi
+mRb
 jrY
 ivj
 bka
@@ -65752,7 +65672,7 @@ qQF
 bka
 jnq
 mNR
-qzG
+ovk
 bka
 jnq
 mNR
@@ -66694,7 +66614,7 @@ pto
 iLL
 mZM
 otL
-wqe
+fLw
 fLw
 wBB
 pto
@@ -68285,7 +68205,7 @@ pto
 dsP
 oZx
 xnU
-fvT
+dZj
 dZj
 dZj
 dZj
@@ -71545,7 +71465,7 @@ dlW
 pto
 veB
 irW
-tMu
+fAQ
 kic
 fce
 lID
@@ -73359,7 +73279,7 @@ cyC
 pBt
 twl
 oyT
-xQC
+oHP
 oyT
 ttS
 wDQ
@@ -73661,7 +73581,7 @@ oyT
 oyT
 oyT
 oyT
-jFW
+efz
 oyT
 xMz
 dYz
@@ -74264,7 +74184,7 @@ pBt
 oyT
 fVq
 avY
-pfQ
+bRx
 gAf
 xBB
 cUB
@@ -74564,7 +74484,7 @@ idD
 hBs
 oyT
 oyT
-wdX
+lri
 oyT
 rDG
 aYr
@@ -74865,11 +74785,11 @@ xJh
 twl
 aGh
 oyT
-xdl
+hSo
 aYr
 oyT
 oyT
-uUF
+sru
 oyT
 bkg
 tkp
@@ -75171,7 +75091,7 @@ tQC
 cCH
 som
 oyT
-wWg
+fZQ
 oyT
 bkg
 tkp
@@ -82062,7 +81982,7 @@ dlW
 pto
 veB
 irW
-tMu
+fAQ
 kic
 fce
 lID
@@ -83318,7 +83238,7 @@ mRb
 jrY
 ivj
 cSb
-bEi
+mRb
 jrY
 ivj
 cSb
@@ -83618,7 +83538,7 @@ qQF
 cSb
 jnq
 mNR
-qzG
+ovk
 cSb
 jnq
 mNR
@@ -83876,7 +83796,7 @@ cyC
 pBt
 twl
 juu
-xQC
+oHP
 juu
 ttS
 wDQ
@@ -84178,7 +84098,7 @@ juu
 juu
 juu
 juu
-jFW
+efz
 juu
 xMz
 dYz
@@ -84560,7 +84480,7 @@ pto
 mFx
 mZM
 otL
-wqe
+fLw
 fLw
 wBB
 pto
@@ -84781,7 +84701,7 @@ pBt
 juu
 fVq
 avY
-pfQ
+bRx
 gAf
 xBB
 cUB
@@ -85081,7 +85001,7 @@ idD
 hBs
 juu
 juu
-wdX
+lri
 juu
 rDG
 aYr
@@ -85382,11 +85302,11 @@ rUS
 twl
 aGh
 juu
-xdl
+hSo
 aYr
 juu
 juu
-uUF
+sru
 juu
 bkg
 tkp
@@ -85688,7 +85608,7 @@ tQC
 cCH
 som
 juu
-wWg
+fZQ
 juu
 bkg
 tkp
@@ -92130,7 +92050,7 @@ nLG
 eWf
 oFI
 knv
-iPQ
+qiB
 eWf
 oFI
 knv
@@ -92420,7 +92340,7 @@ pto
 pto
 oJg
 qiP
-oJg
+nzA
 sfE
 xLN
 oJg
@@ -93835,7 +93755,7 @@ mRb
 jrY
 ivj
 tYX
-bEi
+mRb
 jrY
 ivj
 tYX
@@ -94135,7 +94055,7 @@ qQF
 tYX
 jnq
 mNR
-qzG
+ovk
 tYX
 jnq
 mNR
@@ -95077,7 +94997,7 @@ pto
 lVI
 mZM
 otL
-wqe
+fLw
 fLw
 wBB
 pto
