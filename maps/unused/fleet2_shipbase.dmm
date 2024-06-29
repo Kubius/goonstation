@@ -2679,7 +2679,7 @@
 	},
 /obj/machinery/door/poddoor/pyro{
 	dir = 4;
-	id = "trashout_";
+	id = "trashout";
 	name = "? Waste Door"
 	},
 /turf/simulated/floor/black/grime,

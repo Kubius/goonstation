@@ -2647,10 +2647,6 @@
 /obj/disposalpipe/segment/vertical,
 /turf/simulated/floor/white/side,
 /area/station/hangar/tenebrae)
-"fti" = (
-/obj/gibtyson,
-/turf/simulated/floor/shuttlebay,
-/area/station/engine/substation/tenebrae)
 "fto" = (
 /turf/simulated/wall/auto/reinforced/jen/purple,
 /area/station/hallway/primary/south/tenebrae)
@@ -10453,7 +10449,7 @@
 	},
 /obj/machinery/door/poddoor/pyro{
 	dir = 4;
-	id = "trashout_";
+	id = "trashout";
 	name = "? Waste Door"
 	},
 /turf/simulated/floor/black/grime,
@@ -52167,7 +52163,7 @@ pto
 iDm
 naq
 dNy
-fti
+apY
 apY
 hxX
 pto
