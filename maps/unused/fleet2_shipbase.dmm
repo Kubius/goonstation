@@ -6931,14 +6931,19 @@
 	dir = 4;
 	pixel_x = 12
 	},
-/obj/blind_switch/area/north{
-	pixel_x = -6
+/obj/blind_switch/area/east{
+	pixel_y = -9;
+	pixel_x = 21
 	},
 /obj/machinery/door_control/bolter/new_walls/north{
 	pixel_x = 7
 	},
 /obj/mapping_helper/button/pair{
 	dir = 9
+	},
+/obj/decoration/toiletholder{
+	pixel_y = 32;
+	pixel_x = -7
 	},
 /turf/simulated/floor/sanitary/white,
 /area/station/bridge/customs)
