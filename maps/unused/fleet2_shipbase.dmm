@@ -550,6 +550,16 @@
 /obj/machinery/door/airlock/pyro/external,
 /turf/simulated/floor/grey/side,
 /area/station/hallway/secondary/south)
+"ea" = (
+/obj/stool/bench/blue/auto,
+/obj/machinery/light{
+	dir = 1;
+	layer = 9.1;
+	pixel_y = 21
+	},
+/obj/machinery/light_switch/north,
+/turf/simulated/floor/grey,
+/area/station/hallway/secondary/south)
 "eb" = (
 /obj/machinery/conveyor/SN{
 	id = "disposal-"
@@ -758,7 +768,6 @@
 "eY" = (
 /obj/table/auto,
 /obj/item/storage/toolbox/emergency,
-/obj/machinery/light_switch/north,
 /turf/simulated/floor/grey,
 /area/station/hallway/secondary/south)
 "eZ" = (
@@ -10858,7 +10867,7 @@ nh
 nh
 nh
 nh
-xX
+ea
 SD
 pY
 dY
