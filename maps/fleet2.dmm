@@ -5237,6 +5237,11 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/southeast/maru)
 "eeo" = (
+/obj/table/auto,
+/obj/item/satchel/hydro,
+/obj/item/satchel/hydro,
+/obj/item/satchel/hydro,
+/obj/item/hand_labeler,
 /turf/simulated/floor/green/side{
 	dir = 9
 	},
@@ -9827,9 +9832,6 @@
 	},
 /turf/simulated/floor/circuit/off,
 /area/station/teleporter/maru)
-"hJP" = (
-/turf/space,
-/area/station/hydroponics/bay)
 "hKO" = (
 /obj/table/reinforced/chemistry/auto/firstaid,
 /obj/machinery/chem_shaker/large/chemistry,
@@ -12474,7 +12476,7 @@
 /obj/decal/tile_edge/line/black{
 	icon_state = "line1"
 	},
-/turf/simulated/floor/wood/three,
+/turf/simulated/floor/wood/seven,
 /area/station/crew_quarters/fitness)
 "jFx" = (
 /turf/simulated/floor/grey/side{
@@ -13353,13 +13355,6 @@
 	dir = 8
 	},
 /area/station/hangar/maru)
-"klo" = (
-/obj/railing/orange/reinforced,
-/obj/railing/orange/reinforced{
-	dir = 1
-	},
-/turf/simulated/floor/dirt,
-/area/station/ranch)
 "klq" = (
 /obj/machinery/camera{
 	c_tag = "autotag";
@@ -14153,7 +14148,9 @@
 /area/station/science/artifact)
 "kRM" = (
 /obj/railing/orange/reinforced,
-/turf/simulated/floor/dirt,
+/turf/simulated/floor/grasstodirt{
+	dir = 8
+	},
 /area/station/ranch)
 "kSr" = (
 /obj/cable{
@@ -16975,9 +16972,6 @@
 "naa" = (
 /turf/simulated/wall/auto/reinforced/jen/purple,
 /area/station/science/teleporter)
-"nag" = (
-/turf/simulated/floor/grasstodirt,
-/area/station/ranch)
 "naq" = (
 /obj/machinery/power/furnace,
 /obj/cable/brown{
@@ -20259,7 +20253,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/grasstodirt{
-	dir = 1
+	dir = 8
 	},
 /area/station/ranch)
 "pHd" = (
@@ -20828,12 +20822,6 @@
 /area/station/engine/monitoring{
 	name = "Nuclear Control Room"
 	})
-"qbx" = (
-/obj/railing/orange/reinforced{
-	dir = 8
-	},
-/turf/simulated/floor/grass/leafy,
-/area/station/ranch)
 "qbU" = (
 /obj/machinery/light/small{
 	dir = 8;
@@ -24332,16 +24320,6 @@
 	},
 /turf/simulated/floor/wood/seven,
 /area/station/crew_quarters/fitness)
-"sTm" = (
-/obj/table/auto,
-/obj/item/satchel/hydro,
-/obj/item/satchel/hydro,
-/obj/item/satchel/hydro,
-/obj/item/hand_labeler,
-/turf/simulated/floor/green/side{
-	dir = 1
-	},
-/area/station/hydroponics/bay)
 "sTF" = (
 /obj/machinery/drainage,
 /obj/cable{
@@ -27700,11 +27678,6 @@
 	},
 /turf/space,
 /area/space)
-"voV" = (
-/turf/simulated/floor/grasstodirt{
-	dir = 1
-	},
-/area/station/ranch)
 "vpu" = (
 /obj/decal/poster/wallsign/stencil/right/s,
 /obj/decal/poster/wallsign/stencil/left/u,
@@ -28068,6 +28041,13 @@
 /turf/simulated/floor/purpleblack,
 /area/station/science/artifact)
 "vGn" = (
+/obj/table/auto,
+/obj/machinery/networked/printer{
+	name = "Printer - Hydroponics";
+	pixel_y = 5;
+	print_id = "Hydroponics"
+	},
+/obj/machinery/power/data_terminal,
 /turf/simulated/floor/green/side{
 	dir = 5
 	},
@@ -28442,18 +28422,6 @@
 	},
 /turf/simulated/floor/circuit/off,
 /area/station/teleporter/tenebrae)
-"vTK" = (
-/obj/table/auto,
-/obj/machinery/networked/printer{
-	name = "Printer - Hydroponics";
-	pixel_y = 5;
-	print_id = "Hydroponics"
-	},
-/obj/machinery/power/data_terminal,
-/turf/simulated/floor/green/side{
-	dir = 1
-	},
-/area/station/hydroponics/bay)
 "vTV" = (
 /obj/machinery/door/airlock/pyro/classic,
 /obj/cable/brown{
@@ -80124,9 +80092,9 @@ wSt
 awx
 pSr
 pSr
-voV
-klo
-nag
+pSr
+okS
+pSr
 pSr
 pSr
 iNG
@@ -80424,11 +80392,11 @@ uLj
 oVd
 hPa
 hPa
-qbx
-qbx
+pGJ
+pGJ
 pGJ
 kRM
-nag
+pSr
 pSr
 pSr
 iNG
@@ -84958,7 +84926,7 @@ vry
 aNG
 dJR
 lYt
-vTK
+lYt
 lYt
 lYt
 lYt
@@ -85256,10 +85224,10 @@ uLj
 oVd
 wYY
 cKH
-sTm
+aNG
 aNG
 dJR
-hJP
+lYt
 lYt
 lYt
 lYt
