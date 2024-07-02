@@ -147,6 +147,9 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/drainage,
+/obj/cable{
+	icon_state = "4-9"
+	},
 /turf/simulated/floor/grey/side{
 	dir = 1
 	},
@@ -535,6 +538,10 @@
 	layer = 9.1;
 	pixel_y = 21
 	},
+/obj/cable{
+	icon_state = "0-4"
+	},
+/obj/machinery/power/data_terminal,
 /turf/simulated/floor/grey/side{
 	dir = 9
 	},
@@ -1242,6 +1249,9 @@
 "ix" = (
 /obj/cable{
 	icon_state = "1-4"
+	},
+/obj/cable{
+	icon_state = "1-8"
 	},
 /turf/simulated/floor/grey/side{
 	dir = 1
@@ -2848,13 +2858,16 @@
 /area/space)
 "uq" = (
 /obj/cable/brown{
-	icon_state = "1-2"
+	icon_state = "2-9"
 	},
 /obj/stool/chair{
 	dir = 1
 	},
 /obj/item/device/radio/intercom{
 	dir = 8
+	},
+/obj/cable{
+	icon_state = "1-10"
 	},
 /turf/simulated/floor/grey,
 /area/station/mailroom)
@@ -3724,6 +3737,9 @@
 	pixel_y = 16
 	},
 /obj/machinery/light/small/floor,
+/obj/cable{
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/grey/side{
 	dir = 1
 	},
@@ -3796,6 +3812,9 @@
 	c_tag = "autotag";
 	name = "autoname - SS13";
 	pixel_y = 20
+	},
+/obj/cable/brown{
+	icon_state = "5-6"
 	},
 /turf/simulated/floor/grey,
 /area/station/mailroom)
@@ -4353,7 +4372,7 @@
 	icon_state = "1-2"
 	},
 /obj/mapping_helper/firedoor_spawn,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/grey,
 /area/station/mailroom)
 "Fg" = (
 /obj/machinery/shuttle/engine/heater{
@@ -5863,6 +5882,9 @@
 /obj/cable{
 	icon_state = "1-4"
 	},
+/obj/cable{
+	icon_state = "1-8"
+	},
 /turf/simulated/floor/grey/side{
 	dir = 1
 	},
@@ -6423,11 +6445,12 @@
 /turf/simulated/floor/plating,
 /area/station/hos)
 "SC" = (
-/obj/cable/brown{
-	icon_state = "1-2"
-	},
 /obj/table/reinforced/auto,
 /obj/machinery/computer3/generic/personal,
+/obj/cable{
+	icon_state = "0-2"
+	},
+/obj/machinery/power/data_terminal,
 /turf/simulated/floor/grey,
 /area/station/mailroom)
 "SD" = (
@@ -6613,7 +6636,7 @@
 /area/station/medical/morgue)
 "TV" = (
 /obj/cable/brown{
-	icon_state = "1-2"
+	icon_state = "1-10"
 	},
 /turf/simulated/wall/auto/jen,
 /area/station/mailroom)
@@ -6741,6 +6764,12 @@
 "UU" = (
 /turf/simulated/floor/plating,
 /area/station/wreckage)
+"UV" = (
+/obj/cable{
+	icon_state = "5-6"
+	},
+/turf/simulated/floor/grey,
+/area/station/mailroom)
 "Vf" = (
 /obj/cable{
 	icon_state = "1-4"
@@ -12159,7 +12188,7 @@ oo
 lK
 AE
 VC
-VC
+UV
 uH
 xP
 xP
