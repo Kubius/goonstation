@@ -20924,6 +20924,7 @@
 /turf/simulated/floor/grey,
 /area/station/crew_quarters/md)
 "iIz" = (
+/obj/landmark/observer,
 /turf/simulated/floor/grey,
 /area/station/hallway/primary/central/dionysus)
 "iJg" = (
