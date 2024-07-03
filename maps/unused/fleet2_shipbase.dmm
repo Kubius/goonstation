@@ -5182,6 +5182,10 @@
 /obj/disposalpipe/trunk/north,
 /turf/simulated/floor/plating/random,
 /area/station/medical/morgue)
+"JR" = (
+/obj/machinery/drone_recharger,
+/turf/simulated/floor/plating,
+/area/station/hos)
 "JS" = (
 /obj/cable{
 	icon_state = "0-4"
@@ -12756,7 +12760,7 @@ et
 Kf
 IJ
 uu
-Zo
+JR
 kF
 Zo
 lZ
