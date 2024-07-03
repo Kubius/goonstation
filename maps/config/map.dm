@@ -89,6 +89,9 @@
 #elif defined(MAP_OVERRIDE_FLEET)
 #include "fleet.dm"
 
+#elif defined(MAP_OVERRIDE_FLEET2)
+#include "fleet2.dm"
+
 #elif defined(MAP_OVERRIDE_ICARUS)
 #include "icarus.dm"
 

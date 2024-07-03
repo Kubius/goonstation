@@ -1174,6 +1174,50 @@ var/global/list/mapNames = list(
 		"the Maru primary zone" = list(/area/station/engine/engineering),
 		"the Hammer primary zone" = list(/area/station/security/main))
 
+/datum/map_settings/fleet2
+	name = "FLEET2"
+	display_name = "Phaethon Fleet"
+	style = "ship"
+	goonhub_map = "/maps"
+	walls = /turf/simulated/wall/auto/jen
+	rwalls = /turf/simulated/wall/auto/reinforced/jen
+
+	Z_LEVEL_PARALLAX_RENDER_SOURCES(1) = list(
+		/atom/movable/screen/parallax_render_source/space_1,
+		/atom/movable/screen/parallax_render_source/space_2,
+		/atom/movable/screen/parallax_render_source/typhon/kondaru,
+		/atom/movable/screen/parallax_render_source/asteroids_far/kondaru,
+		)
+
+	arrivals_type = MAP_SPAWN_CRYO
+	dir_fore = WEST
+
+	windows = /obj/window/auto
+	windows_thin = /obj/window/pyro
+	rwindows = /obj/window/auto/reinforced
+	rwindows_thin = /obj/window/reinforced/pyro
+	windows_crystal = /obj/window/auto/crystal
+	windows_rcrystal = /obj/window/auto/crystal/reinforced
+	window_layer_full = COG2_WINDOW_LAYER
+	window_layer_north = GRILLE_LAYER+0.1
+	window_layer_south = FLY_LAYER+1
+	auto_windows = TRUE
+
+	ext_airlocks = /obj/machinery/door/airlock/pyro/external
+
+	escape_dir = EAST
+
+	merchant_left_centcom = /area/shuttle/merchant_shuttle/left_centcom/cogmap
+	merchant_left_station = /area/shuttle/merchant_shuttle/left_station/cogmap
+	merchant_right_centcom = /area/shuttle/merchant_shuttle/right_centcom/cogmap
+	merchant_right_station = /area/shuttle/merchant_shuttle/right_station/cogmap
+
+	valid_nuke_targets = list("the Hammer's auxiliary generation wing" = list(/area/station/engine/substation/hammer),
+		"the Tenebrae port hallway" = list(/area/station/hallway/primary/south/tenebrae),
+		"the Asclepius emergency storage" = list(/area/station/storage/emergency/asclepius),
+		"the Dionysus recreational area" = list(/area/station/crew_quarters/fitness),
+		"the Maru quartermaster's office" = list(/area/station/quartermaster/office))
+
 /datum/map_settings/devtest
 	name = "DEVTEST"
 	display_name = "Developer Lounge & Co"
