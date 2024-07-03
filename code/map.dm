@@ -44,6 +44,7 @@ var/global/list/mapNames = list(
 	"Density2" = 			list("id" = "DENSITY2",		"settings" = "density2",		"playerPickable" = FALSE,	"MaxPlayersAllowed" = 20),
 	"Ozymandias" =			list("id" = "OZYMANDIAS",	"settings" = "ozymandias",		"playerPickable" = FALSE,	"MinPlayersAllowed" = 40),
 	"Bellerophon Fleet" =	list("id" = "FLEET",		"settings" = "fleet",			"playerPickable" = FALSE),
+	"Phaethon Fleet" =		list("id" = "FLEET2",		"settings" = "fleet2",			"playerPickable" = FALSE),
 	//"Icarus" =			list("id" = "ICARUS",		"settings" = "icarus",			"playerPickable" = FALSE),
 	//"Gehenna" =			list("id" = "GEHENNA",		"settings" = "gehenna",			"playerPickable" = FALSE),
 	"blank" =				list("id" = "BLANK",		"settings" = "", 				"playerPickable" = FALSE),
