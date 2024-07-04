@@ -4190,6 +4190,15 @@
 	},
 /turf/simulated/floor/sanitary/white,
 /area/station/crew_quarters/toilets/asclepius)
+"bRG" = (
+/obj/grille/catwalk,
+/obj/cable{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/airless/plating/catwalk{
+	dir = 4
+	},
+/area/station/mining/refinery)
 "bRZ" = (
 /obj/machinery/light/small{
 	dir = 4;
@@ -6107,6 +6116,10 @@
 /area/station/maintenance/disposal/dionysus)
 "cCS" = (
 /obj/machinery/ore_cloud_storage_container,
+/obj/cable{
+	icon_state = "0-2"
+	},
+/obj/machinery/power/apc/autoname_north,
 /turf/simulated/floor/plating/airless,
 /area/station/mining/refinery)
 "cCZ" = (
@@ -11168,6 +11181,7 @@
 /area/station/engine/substation/maru)
 "eKt" = (
 /obj/machinery/launcher_loader/west,
+/obj/machinery/light,
 /turf/simulated/floor/grey,
 /area/station/quartermaster/office)
 "eKx" = (
@@ -12115,6 +12129,12 @@
 "ffc" = (
 /turf/simulated/wall/auto/reinforced/jen/blue,
 /area/station/medical/medbay/cloner)
+"ffh" = (
+/obj/item/shipcomponent/secondary_system/lock{
+	pixel_x = 9
+	},
+/turf/simulated/floor/engine,
+/area/station/hangar/security)
 "ffo" = (
 /obj/decal/poster/wallsign/stencil/left/e{
 	pixel_x = -6
@@ -12204,6 +12224,15 @@
 /obj/disposalpipe/segment/mail/horizontal,
 /turf/simulated/floor/plating,
 /area/station/maintenance/southeast/asclepius)
+"fgY" = (
+/obj/machinery/door/airlock/pyro/external,
+/obj/forcefield/energyshield/perma/doorlink{
+	desc = "A door-linked force field that prevents gasses from passing through it.";
+	name = "Door-linked Atmospheric Forcefield";
+	powerlevel = 1
+	},
+/turf/simulated/floor/grey,
+/area/station/hallway/primary/south/dionysus)
 "fhb" = (
 /obj/mapping_helper/wingrille_spawn/auto/reinforced/crystal,
 /turf/unsimulated/floor/circuit/vintage,
@@ -17729,6 +17758,11 @@
 	name = "Custodial pod bay door"
 	},
 /obj/mapping_helper/button/area,
+/obj/forcefield/energyshield/perma/doorlink{
+	desc = "A door-linked force field that prevents gasses from passing through it.";
+	name = "Door-linked Atmospheric Forcefield";
+	powerlevel = 1
+	},
 /turf/simulated/floor/shuttlebay,
 /area/station/janitor/office)
 "hsF" = (
@@ -18800,6 +18834,11 @@
 /area/station/teleporter)
 "hPP" = (
 /obj/machinery/door/airlock/pyro/external,
+/obj/forcefield/energyshield/perma/doorlink{
+	desc = "A door-linked force field that prevents gasses from passing through it.";
+	name = "Door-linked Atmospheric Forcefield";
+	powerlevel = 1
+	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/disposal/meridian)
 "hPV" = (
@@ -18891,6 +18930,12 @@
 "hQP" = (
 /turf/simulated/floor/grey,
 /area/station/crew_quarters/hammer)
+"hQQ" = (
+/obj/cable{
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/shuttlebay,
+/area/station/hangar/maru)
 "hQU" = (
 /obj/machinery/power/data_terminal,
 /obj/machinery/computer3/terminal/zeta{
@@ -19630,6 +19675,11 @@
 /area/station/quartermaster/office)
 "igY" = (
 /obj/machinery/door/airlock/pyro/external,
+/obj/forcefield/energyshield/perma/doorlink{
+	desc = "A door-linked force field that prevents gasses from passing through it.";
+	name = "Door-linked Atmospheric Forcefield";
+	powerlevel = 1
+	},
 /turf/simulated/floor,
 /area/station/hallway/primary/south/tenebrae)
 "ihh" = (
@@ -20755,6 +20805,9 @@
 /obj/cable{
 	icon_state = "2-8"
 	},
+/obj/cable{
+	icon_state = "4-8"
+	},
 /turf/simulated/floor,
 /area/station/hangar/maru)
 "iFR" = (
@@ -21394,6 +21447,11 @@
 /area/station/crew_quarters/kitchen)
 "iRD" = (
 /obj/machinery/door/airlock/pyro/external,
+/obj/forcefield/energyshield/perma/doorlink{
+	desc = "A door-linked force field that prevents gasses from passing through it.";
+	name = "Door-linked Atmospheric Forcefield";
+	powerlevel = 1
+	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/disposal/dionysus)
 "iRM" = (
@@ -22295,6 +22353,12 @@
 	dir = 4
 	},
 /area/station/hangar/hammer)
+"jmV" = (
+/obj/cable{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/grey/side,
+/area/station/hangar/maru)
 "jna" = (
 /obj/stool/chair/couch{
 	dir = 4
@@ -23620,6 +23684,11 @@
 	})
 "jTj" = (
 /obj/machinery/door/airlock/pyro/external,
+/obj/forcefield/energyshield/perma/doorlink{
+	desc = "A door-linked force field that prevents gasses from passing through it.";
+	name = "Door-linked Atmospheric Forcefield";
+	powerlevel = 1
+	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/northwest/asclepius)
 "jTm" = (
@@ -23647,6 +23716,9 @@
 	})
 "jUl" = (
 /obj/machinery/light,
+/obj/cable{
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/grey/side,
 /area/station/hangar/maru)
 "jUs" = (
@@ -24637,6 +24709,12 @@
 /area/station/routing/depot{
 	name = "Routing Buoy"
 	})
+"kpD" = (
+/obj/cable{
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/engine/caution/south,
+/area/station/hangar/maru)
 "kpJ" = (
 /obj/rack/organized/techstorage_eng,
 /obj/machinery/camera{
@@ -26510,6 +26588,11 @@
 /obj/machinery/door/airlock/pyro/external,
 /obj/cable{
 	icon_state = "1-2"
+	},
+/obj/forcefield/energyshield/perma/doorlink{
+	desc = "A door-linked force field that prevents gasses from passing through it.";
+	name = "Door-linked Atmospheric Forcefield";
+	powerlevel = 1
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/disposal/maru)
@@ -29683,6 +29766,12 @@
 	dir = 1
 	},
 /area/station/crew_quarters/asclepius)
+"mzQ" = (
+/obj/cable{
+	icon_state = "2-4"
+	},
+/turf/simulated/floor/shuttlebay,
+/area/station/hangar/maru)
 "mzW" = (
 /obj/machinery/computer/ordercomp{
 	dir = 4
@@ -34733,6 +34822,13 @@
 	},
 /turf/simulated/floor/wood,
 /area/station/hallway/primary/south/dionysus)
+"oNL" = (
+/obj/machinery/light/small/floor,
+/obj/cable{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/shuttlebay,
+/area/station/hangar/maru)
 "oNM" = (
 /obj/machinery/conveyor/SN{
 	id = "qmin"
@@ -35008,6 +35104,15 @@
 	},
 /turf/simulated/wall/auto/reinforced/jen/purple,
 /area/station/science/lab)
+"oVl" = (
+/obj/machinery/door/airlock/pyro/external,
+/obj/forcefield/energyshield/perma/doorlink{
+	desc = "A door-linked force field that prevents gasses from passing through it.";
+	name = "Door-linked Atmospheric Forcefield";
+	powerlevel = 1
+	},
+/turf/simulated/floor/grey,
+/area/station/hallway/primary/south/asclepius)
 "oVn" = (
 /obj/cable{
 	icon_state = "0-4"
@@ -35944,6 +36049,12 @@
 /area/station/engine/engineering/ce{
 	name = "Maru Command Center"
 	})
+"pnn" = (
+/obj/cable{
+	icon_state = "1-8"
+	},
+/turf/simulated/floor/grey/side,
+/area/station/hangar/maru)
 "pnt" = (
 /obj/machinery/power/apc/autoname_north,
 /obj/cable{
@@ -37307,6 +37418,15 @@
 	dir = 1
 	},
 /area/station/hallway/primary/central/tenebrae)
+"pSq" = (
+/obj/grille/catwalk,
+/obj/cable{
+	icon_state = "1-8"
+	},
+/turf/simulated/floor/airless/plating/catwalk{
+	dir = 4
+	},
+/area/station/mining/refinery)
 "pSr" = (
 /turf/simulated/floor/grass/leafy,
 /area/station/ranch)
@@ -38091,6 +38211,20 @@
 	},
 /turf/simulated/floor/engine,
 /area/station/science/testchamber)
+"qmM" = (
+/obj/forcefield/energyshield/perma/doorlink{
+	dir = 8
+	},
+/obj/machinery/door/poddoor/blast/pyro/podbay_autoclose{
+	name = "Maru pod bay door";
+	id = "maruprimaryhangar";
+	dir = 4
+	},
+/obj/cable{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/engine/caution/westeast,
+/area/station/hangar/maru)
 "qmX" = (
 /obj/cable/brown{
 	icon_state = "1-2"
@@ -39453,6 +39587,11 @@
 /area/station/hallway/primary/north/tenebrae)
 "qRI" = (
 /obj/machinery/door/airlock/pyro/external,
+/obj/forcefield/energyshield/perma/doorlink{
+	desc = "A door-linked force field that prevents gasses from passing through it.";
+	name = "Door-linked Atmospheric Forcefield";
+	powerlevel = 1
+	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/northwest/hammer)
 "qRQ" = (
@@ -39530,6 +39669,12 @@
 	dir = 8
 	},
 /area/station/engine/storage)
+"qSX" = (
+/obj/item/shipcomponent/secondary_system/lock{
+	pixel_x = 7
+	},
+/turf/simulated/floor/specialroom/arcade,
+/area/station/janitor/office)
 "qTc" = (
 /obj/machinery/portable_atmospherics/scrubber,
 /obj/cable/orange{
@@ -42285,10 +42430,10 @@
 /obj/machinery/mass_driver{
 	id = "manualshipping"
 	},
-/obj/machinery/light{
-	dir = 8;
-	layer = 9.1;
-	pixel_x = -10
+/obj/machinery/door_control{
+	id = "qm_dock";
+	name = "Import Hatch Override";
+	pixel_x = -24
 	},
 /turf/simulated/floor/caution/westeast,
 /area/station/quartermaster/office)
@@ -44593,6 +44738,20 @@
 	dir = 4
 	},
 /area/station/mining/staff_room)
+"tbU" = (
+/obj/machinery/door/airlock/pyro/external,
+/obj/cable{
+	icon_state = "1-2"
+	},
+/obj/forcefield/energyshield/perma/doorlink{
+	desc = "A door-linked force field that prevents gasses from passing through it.";
+	name = "Door-linked Atmospheric Forcefield";
+	powerlevel = 1
+	},
+/turf/simulated/floor/black/grime,
+/area/station/hallway/secondary/central{
+	name = "Limoncello Primary Zone"
+	})
 "tci" = (
 /obj/cable/brown{
 	icon_state = "4-8"
@@ -45803,6 +45962,9 @@
 	dir = 8
 	},
 /obj/mapping_helper/firedoor_spawn,
+/obj/cable{
+	icon_state = "4-8"
+	},
 /turf/simulated/floor,
 /area/station/hangar/maru)
 "tyv" = (
@@ -46968,11 +47130,6 @@
 /obj/machinery/crusher,
 /turf/simulated/floor/black/grime,
 /area/station/maintenance/disposal/hammer)
-"tWG" = (
-/turf/simulated/floor/stairs{
-	dir = 8
-	},
-/area/station/hangar/maru)
 "tWR" = (
 /obj/cable/brown{
 	icon_state = "6-9"
@@ -49802,6 +49959,11 @@
 	},
 /area/station/storage/emergency/tenebrae)
 "vaS" = (
+/obj/machinery/mass_driver{
+	desc = "A device that launches objects, like ANCIENT BOMBS, for example, on it at great velocity when activated.";
+	drive_range = 100;
+	id = "artlabgun"
+	},
 /turf/simulated/floor/caution/westeast,
 /area/station/maintenance/southeast/tenebrae)
 "vbj" = (
@@ -50113,6 +50275,11 @@
 	})
 "vhv" = (
 /obj/machinery/door/airlock/pyro/external,
+/obj/forcefield/energyshield/perma/doorlink{
+	desc = "A door-linked force field that prevents gasses from passing through it.";
+	name = "Door-linked Atmospheric Forcefield";
+	powerlevel = 1
+	},
 /turf/simulated/floor/grey,
 /area/station/hallway/primary/south/maru)
 "vhB" = (
@@ -50269,6 +50436,9 @@
 /area/station/teleporter/dionysus)
 "vjU" = (
 /obj/grille/catwalk,
+/obj/cable{
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/airless/plating/catwalk{
 	icon_state = "catwalk_cross"
 	},
@@ -53594,6 +53764,11 @@
 /area/station/hangar/tenebrae)
 "wLS" = (
 /obj/machinery/door/airlock/pyro/external,
+/obj/forcefield/energyshield/perma/doorlink{
+	desc = "A door-linked force field that prevents gasses from passing through it.";
+	name = "Door-linked Atmospheric Forcefield";
+	powerlevel = 1
+	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/northwest/tenebrae)
 "wMe" = (
@@ -54499,6 +54674,11 @@
 /area/station/mailroom/tenebrae)
 "xer" = (
 /obj/machinery/door/airlock/pyro/external,
+/obj/forcefield/energyshield/perma/doorlink{
+	desc = "A door-linked force field that prevents gasses from passing through it.";
+	name = "Door-linked Atmospheric Forcefield";
+	powerlevel = 1
+	},
 /turf/simulated/floor/grey,
 /area/station/hallway/primary/south/hammer)
 "xeI" = (
@@ -55379,6 +55559,7 @@
 "xyI" = (
 /obj/storage/closet/welding_supply,
 /obj/machinery/light/small,
+/obj/item/crowbar,
 /turf/simulated/floor/darkblue,
 /area/station/janitor/office)
 "xyM" = (
@@ -56036,6 +56217,11 @@
 	id = "artlabgun";
 	name = "ejection door"
 	},
+/obj/forcefield/energyshield/perma/doorlink{
+	desc = "A door-linked force field that prevents gasses from passing through it.";
+	name = "Door-linked Atmospheric Forcefield";
+	powerlevel = 1
+	},
 /turf/simulated/floor/caution/misc,
 /area/station/maintenance/southeast/tenebrae)
 "xOu" = (
@@ -56404,6 +56590,12 @@
 /obj/landmark/start/job/assistant,
 /turf/simulated/floor/escape,
 /area/station/hallway/primary/central/meridian)
+"xXh" = (
+/obj/cable{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/shuttlebay,
+/area/station/hangar/maru)
 "xXo" = (
 /obj/disposalpipe/segment/bent/west,
 /obj/cable/brown{
@@ -89239,7 +89431,7 @@ doL
 waa
 jsG
 wMe
-hVZ
+ffh
 pJL
 hVZ
 kFs
@@ -97803,7 +97995,7 @@ ssA
 jOa
 aMg
 sES
-tWG
+iOj
 vcE
 jch
 qNZ
@@ -98407,7 +98599,7 @@ nYn
 nYn
 nYn
 fRE
-pJS
+jmV
 piI
 vcE
 piI
@@ -98709,7 +98901,7 @@ nYn
 eoQ
 nYn
 fRE
-pJS
+jmV
 vcE
 miw
 oZx
@@ -99008,10 +99200,10 @@ nYn
 nYn
 nYn
 nYn
-nYn
-nYn
-fRE
-pJS
+mzQ
+hQQ
+kpD
+pnn
 vcE
 eDb
 pto
@@ -99310,7 +99502,7 @@ nYn
 nYn
 nYn
 nYn
-nYn
+xXh
 nYn
 fRE
 mYJ
@@ -99612,7 +99804,7 @@ eoQ
 nYn
 nYn
 nYn
-eoQ
+oNL
 nYn
 kuc
 piI
@@ -99914,7 +100106,7 @@ dZj
 dZj
 dZj
 dZj
-dZj
+qmM
 dZj
 dZj
 piI
@@ -100216,7 +100408,7 @@ cNb
 eDb
 pto
 eDb
-cNb
+bRG
 pto
 eDb
 pto
@@ -100518,7 +100710,7 @@ cNb
 eDb
 pto
 eDb
-cNb
+bRG
 pto
 eDb
 pto
@@ -100820,7 +101012,7 @@ cNb
 eDb
 pto
 eDb
-cNb
+bRG
 pto
 eDb
 pto
@@ -101122,7 +101314,7 @@ cNb
 eDb
 pto
 eDb
-cNb
+bRG
 pto
 eDb
 pto
@@ -101726,7 +101918,7 @@ cNb
 hPX
 mQp
 uCh
-cNb
+bRG
 bUD
 irW
 pto
@@ -102028,7 +102220,7 @@ cNb
 rIE
 rIE
 cCS
-cNb
+pSq
 pto
 eDb
 pto
@@ -108102,7 +108294,7 @@ bTh
 kMT
 tfn
 vIj
-kMT
+tbU
 jPC
 pjn
 kxu
@@ -110439,7 +110631,7 @@ qBD
 pxC
 pYO
 jPO
-qpe
+fgY
 qzQ
 qzQ
 qzQ
@@ -111949,7 +112141,7 @@ oRh
 nJR
 qpe
 wDZ
-qpe
+fgY
 cCE
 cCE
 cCE
@@ -120956,7 +121148,7 @@ vOb
 euU
 rTK
 qfh
-tht
+oVl
 pto
 pto
 pto
@@ -122466,7 +122658,7 @@ fnZ
 nNB
 tht
 lDT
-tht
+oVl
 pto
 pto
 pto
@@ -128002,7 +128194,7 @@ rfB
 jLX
 dcC
 uPJ
-gmC
+qSX
 xyI
 oty
 pto
