@@ -1814,6 +1814,14 @@
 /area/station/medical/medbay/reception{
 	name = "Subacute Care"
 	})
+"aRn" = (
+/obj/disposalpipe/segment/mail/bent/west,
+/obj/lattice{
+	dir = 9;
+	icon_state = "lattice-dir-b"
+	},
+/turf/space,
+/area/space)
 "aRG" = (
 /obj/machinery/vending/standard,
 /obj/machinery/light/small{
@@ -9211,6 +9219,14 @@
 	dir = 9
 	},
 /area/station/hangar/tenebrae)
+"dTk" = (
+/obj/disposalpipe/segment/mail/horizontal,
+/obj/lattice{
+	dir = 6;
+	icon_state = "lattice-dir"
+	},
+/turf/space,
+/area/space)
 "dTC" = (
 /obj/machinery/door/airlock/gannets/maintenance{
 	dir = 4
@@ -15167,6 +15183,14 @@
 	},
 /turf/simulated/floor,
 /area/station/hallway/primary/north/meridian)
+"gny" = (
+/obj/disposalpipe/segment/mail/bent/east,
+/obj/lattice{
+	dir = 6;
+	icon_state = "lattice-dir"
+	},
+/turf/space,
+/area/space)
 "gnC" = (
 /obj/rack,
 /obj/item/mop,
@@ -83797,7 +83821,7 @@ pto
 pto
 pto
 pto
-pto
+xnR
 ygD
 ygD
 eWO
@@ -86010,8 +86034,8 @@ sST
 pzB
 uJw
 swM
-pto
-pto
+oWq
+mlE
 cuI
 cuI
 cuI
@@ -87219,7 +87243,7 @@ jjh
 rpG
 rul
 gTA
-pto
+irW
 cuI
 cuI
 cuI
@@ -87521,7 +87545,7 @@ jjh
 rpG
 xTo
 gTA
-pto
+irW
 cuI
 cuI
 cuI
@@ -90195,7 +90219,7 @@ pto
 pto
 pto
 pto
-pto
+xnR
 aZd
 aZd
 nsT
@@ -91941,8 +91965,8 @@ wMA
 wMA
 wMA
 fak
-pto
-pto
+oWq
+mlE
 pto
 pto
 pto
@@ -93150,7 +93174,7 @@ qrA
 sYC
 lXg
 jXO
-pto
+irW
 pto
 pto
 pto
@@ -93452,7 +93476,7 @@ byx
 tsv
 bQy
 jXO
-pto
+irW
 pto
 pto
 pto
@@ -94660,7 +94684,7 @@ vEx
 ipA
 xnZ
 jXO
-pto
+irW
 pto
 pto
 pto
@@ -94962,7 +94986,7 @@ uvp
 hFf
 fak
 wfG
-pto
+irW
 pto
 pto
 pto
@@ -95264,7 +95288,7 @@ uvp
 bly
 nRq
 vPf
-pto
+irW
 pto
 pto
 pto
@@ -95566,7 +95590,7 @@ uvp
 bly
 fYN
 ahj
-pto
+irW
 pto
 pto
 pto
@@ -95868,7 +95892,7 @@ uvp
 bly
 fYN
 nQG
-pto
+irW
 pto
 pto
 xnR
@@ -96126,7 +96150,7 @@ pto
 pto
 pto
 pto
-pto
+xnR
 vTW
 vTW
 dZc
@@ -96170,7 +96194,7 @@ uvp
 bly
 fYN
 tQs
-pto
+irW
 pto
 pto
 iLL
@@ -96472,7 +96496,7 @@ uvp
 bly
 fYN
 nGu
-oWq
+miw
 iLL
 oWq
 iLL
@@ -109807,8 +109831,8 @@ cLp
 ajv
 ive
 bVj
-vPS
-jJC
+gny
+aRn
 qzQ
 qzQ
 qzQ
@@ -111016,7 +111040,7 @@ iqn
 nJR
 jaz
 wKE
-pto
+irW
 qzQ
 qzQ
 qzQ
@@ -111318,7 +111342,7 @@ qBD
 nJR
 agm
 wKE
-pto
+irW
 cCE
 cCE
 cCE
@@ -112526,7 +112550,7 @@ hVI
 hur
 ozY
 wKE
-pto
+irW
 cCE
 cCE
 cCE
@@ -112828,7 +112852,7 @@ vWd
 vWd
 vWd
 kAh
-pto
+irW
 pto
 pto
 pto
@@ -113130,7 +113154,7 @@ vWd
 dxV
 nuJ
 wIX
-pto
+irW
 pto
 pto
 pto
@@ -113432,7 +113456,7 @@ acm
 tSX
 xDP
 qwT
-pto
+irW
 pto
 pto
 pto
@@ -113734,7 +113758,7 @@ vWd
 ryI
 jpN
 aUi
-pto
+irW
 pto
 pto
 xnR
@@ -113992,7 +114016,7 @@ pto
 pto
 pto
 pto
-pto
+xnR
 jKI
 jKI
 wfL
@@ -114036,7 +114060,7 @@ vWd
 vWd
 vWd
 yfi
-pto
+irW
 pto
 pto
 mFx
@@ -114338,7 +114362,7 @@ hdV
 vWd
 gCs
 yfi
-oWq
+miw
 mFx
 oWq
 mFx
@@ -117411,7 +117435,7 @@ cyB
 cyB
 gNE
 iGi
-pto
+mlE
 pto
 pto
 pto
@@ -118319,8 +118343,8 @@ xKu
 xKu
 fto
 fto
-pto
-pto
+oWq
+mlE
 mjT
 mjT
 mjT
@@ -119528,7 +119552,7 @@ sGR
 rzO
 jpa
 xKu
-pto
+irW
 mjT
 mjT
 mjT
@@ -119830,7 +119854,7 @@ hVF
 lqu
 ifU
 xKu
-pto
+irW
 mjT
 mjT
 mjT
@@ -120324,8 +120348,8 @@ lRF
 lRF
 hwQ
 fLv
-sky
-pto
+dTk
+mlE
 pto
 pto
 pto
@@ -121038,7 +121062,7 @@ vRA
 dlg
 ohi
 xKu
-pto
+irW
 pto
 pto
 pto
@@ -121340,7 +121364,7 @@ tuW
 sPp
 vGP
 eDs
-pto
+irW
 pto
 pto
 pto
@@ -121533,7 +121557,7 @@ xQc
 bXH
 cxm
 lCd
-pto
+irW
 pto
 pto
 pto
@@ -121642,7 +121666,7 @@ ipP
 tWR
 iDm
 rPm
-pto
+irW
 pto
 pto
 pto
@@ -121835,7 +121859,7 @@ vOb
 nNB
 gXy
 lCd
-pto
+irW
 pto
 pto
 pto
@@ -121944,7 +121968,7 @@ ipP
 jqj
 wAW
 dRi
-pto
+irW
 pto
 pto
 pto
@@ -122246,7 +122270,7 @@ ipP
 jqj
 sKZ
 bpO
-pto
+irW
 pto
 pto
 xnR
@@ -122504,7 +122528,7 @@ pto
 pto
 pto
 pto
-pto
+xnR
 oJg
 oJg
 aSW
@@ -122548,7 +122572,7 @@ ipP
 jqj
 sKZ
 iDm
-pto
+irW
 pto
 pto
 iDm
@@ -122850,7 +122874,7 @@ ipP
 jqj
 sKZ
 iDm
-oWq
+miw
 iDm
 oWq
 iDm
@@ -123043,7 +123067,7 @@ iYb
 mjb
 ebP
 lCd
-pto
+irW
 pto
 pto
 pto
@@ -123345,7 +123369,7 @@ tDU
 dNM
 fLv
 sun
-pto
+irW
 pto
 pto
 pto
@@ -123647,7 +123671,7 @@ tDU
 doJ
 ldv
 uIt
-pto
+irW
 pto
 pto
 pto
@@ -123949,7 +123973,7 @@ tDU
 doJ
 fua
 qic
-pto
+irW
 pto
 pto
 pto
@@ -124251,7 +124275,7 @@ tDU
 doJ
 fua
 dve
-pto
+irW
 pto
 pto
 xnR
@@ -124509,7 +124533,7 @@ pto
 pto
 pto
 pto
-pto
+xnR
 gLt
 gLt
 hAQ
@@ -124553,7 +124577,7 @@ tDU
 doJ
 fua
 hBZ
-pto
+irW
 pto
 pto
 lVI
@@ -124855,7 +124879,7 @@ tDU
 doJ
 fua
 lVI
-oWq
+miw
 lVI
 oWq
 lVI

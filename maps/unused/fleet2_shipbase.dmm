@@ -5415,7 +5415,6 @@
 /turf/simulated/floor/plating,
 /area/station/bridge/customs)
 "KY" = (
-/obj/machinery/power/tracker,
 /obj/cable/brown{
 	icon_state = "0-4"
 	},
@@ -6075,9 +6074,7 @@
 /turf/simulated/floor/engine/caution/north,
 /area/station/maintenance)
 "Pt" = (
-/obj/machinery/computer/solar_control{
-	dir = 4
-	},
+/obj/machinery/computer/solar_control,
 /obj/cable/brown{
 	icon_state = "0-4"
 	},
@@ -10327,8 +10324,8 @@ nh
 nh
 WD
 WD
-nK
-nK
+Gu
+JK
 nK
 nK
 nK
@@ -10696,7 +10693,7 @@ JC
 nG
 lb
 GV
-nK
+xV
 nK
 nK
 nK
@@ -10788,7 +10785,7 @@ SD
 pY
 LR
 GV
-nK
+xV
 nK
 nK
 nK
@@ -11156,7 +11153,7 @@ Dz
 rN
 yU
 GV
-nK
+xV
 nK
 nK
 nK
@@ -11248,7 +11245,7 @@ nh
 eU
 WD
 WD
-nK
+xV
 nK
 nK
 nK
@@ -11340,7 +11337,7 @@ QP
 OO
 kU
 hg
-nK
+xV
 nK
 nK
 nK
@@ -11432,7 +11429,7 @@ QP
 OO
 uI
 hg
-nK
+xV
 nK
 nK
 nK
@@ -11524,7 +11521,7 @@ QP
 OO
 uI
 hg
-nK
+xV
 nK
 nK
 rc
@@ -11572,7 +11569,7 @@ nK
 nK
 nK
 nK
-nK
+rc
 Mm
 Mm
 yE
@@ -11616,7 +11613,7 @@ QP
 OO
 uI
 hg
-nK
+xV
 nK
 nK
 hg
@@ -11708,7 +11705,7 @@ QP
 OO
 uI
 hg
-Gu
+ps
 hg
 Gu
 hg
