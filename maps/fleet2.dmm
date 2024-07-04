@@ -44774,7 +44774,10 @@
 /turf/simulated/floor/circuit,
 /area/station/turret_protected/ai)
 "teR" = (
-/obj/landmark/magnet_center,
+/obj/landmark/magnet_center{
+	height = 13;
+	width = 13
+	},
 /turf/space,
 /area/mining/magnet)
 "tfg" = (
