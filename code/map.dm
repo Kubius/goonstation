@@ -45,8 +45,6 @@ var/global/list/mapNames = list(
 	"Ozymandias" =			list("id" = "OZYMANDIAS",	"settings" = "ozymandias",		"playerPickable" = FALSE,	"MinPlayersAllowed" = 40),
 	"Bellerophon Fleet" =	list("id" = "FLEET",		"settings" = "fleet",			"playerPickable" = FALSE),
 	"Phaethon Fleet" =		list("id" = "FLEET2",		"settings" = "fleet2",			"playerPickable" = FALSE),
-	//"Icarus" =			list("id" = "ICARUS",		"settings" = "icarus",			"playerPickable" = FALSE),
-	//"Gehenna" =			list("id" = "GEHENNA",		"settings" = "gehenna",			"playerPickable" = FALSE),
 	"blank" =				list("id" = "BLANK",		"settings" = "", 				"playerPickable" = FALSE),
 	"blank_underwater" =	list("id" = "BLANK_UNDERWATER", "settings" = "", 			"playerPickable" = FALSE),
 	"DevTest" =				list("id" = "DEVTEST",		"settings" = "devtest",			"playerPickable" = FALSE,	"MaxPlayersAllowed" = 69)
@@ -862,10 +860,10 @@ var/global/list/mapNames = list(
 		"the courtroom" = list(/area/station/crew_quarters/courtroom),
 		"the engineering staff room" = list(/area/station/engine/engineering),
 		"the medical bay's central room" = list(/area/station/medical/medbay),
-		"the east crew quarters" = list(/area/station/crew_quarters/quarters_east),
-		"the nerd dungeon" = list(/area/station/crew_quarters/arcade/dungeon),
+		"the extraction nexus" = list(/area/station/science/construction),
+		"the cafeteria" = list(/area/station/crew_quarters/cafeteria, /area/station/crew_quarters/bar),
 		"the chapel" = list(/area/station/chapel/sanctuary),
-		"the radio lab" = list(/area/station/crew_quarters/radio/lab),
+		"the hydroponics bay" = list(/area/station/hydroponics),
 		"the derelict southeast 'Warrens'" = list(/area/station/hallway/secondary/construction))
 
 	job_limits_from_landmarks = TRUE
