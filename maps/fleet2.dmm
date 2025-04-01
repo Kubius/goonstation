@@ -11732,10 +11732,7 @@
 /area/station/engine/substation/dionysus)
 "eXI" = (
 /obj/table/wood/auto,
-/obj/displaycase{
-	displayed = /obj/item/captaingun;
-	pixel_y = 6
-	},
+/obj/displaycase/captain,
 /turf/simulated/floor/carpet/blue/fancy/edge/nw,
 /area/station/bridge/meridian)
 "eXK" = (
