@@ -4,17 +4,23 @@
 	if (title && length(title) > 0)
 		out_text += "<h2 class='alert'>[title]</h2>"
 
-	out_text += "<span class='alert'>[replacetext(text, "\n", "<br>\n")]</span><br><br>"
+	out_text += "[SPAN_ALERT("[replacetext(text, "\n", "<br>\n")]")]<br><br>"
 	boutput(world, out_text)
 	if (sound_to_play && length(sound_to_play) > 0)
 		playsound_global(world, sound_to_play, 100)
 
-/proc/command_announcement(var/text, var/title, var/sound_to_play = "", var/css_class = "alert", var/do_sanitize = 1) //Slightly less conspicuous, but requires a title.
+#ifndef MAP_OVERRIDE_OSHAN
+	if (alert_origin == ALERT_WEATHER)
+		for_by_tcl(eye, /mob/living/critter/small_animal/floateye/watchful)
+			eye.make_jittery(rand(10, 250))
+#endif
+
+/proc/command_announcement(var/text, var/title, var/sound_to_play = "", var/css_class = "alert", var/do_sanitize = 1, volume = 100) //Slightly less conspicuous, but requires a title.
 	if(!title || !text) return
 
 	boutput(world, "<h2 class='alert'>[title]</h2><span class='[css_class]'>[text]</span><br><br>")
 	if (sound_to_play && length(sound_to_play) > 0)
-		playsound_global(world, sound_to_play, 100)
+		playsound_global(world, sound_to_play, volume)
 
 /proc/advanced_command_alert(var/text, var/title="", var/sound_to_play = "")
 	if(!text) return 0
@@ -65,7 +71,7 @@
 
 				var/out_text = "<h1 class='alert'>[ALERT_GENERAL]</h1>"
 				if(title != "") out_text += "<h2 class='alert'>[title]</h2>"
-				out_text += "<span class='alert'>[text]</span><br><br>"
+				out_text += "[SPAN_ALERT("[text]")]<br><br>"
 				boutput(M, out_text)
 
 	if (sound_to_play && length(sound_to_play) > 0)

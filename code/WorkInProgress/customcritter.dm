@@ -19,7 +19,7 @@
 	boutput(F, null)
 	F.ImportText("/", file2text(target))
 	if (!F)
-		boutput(usr, "<span class='alert'>Import failed.</span>")
+		boutput(usr, SPAN_ALERT("Import failed."))
 	else
 		var/datum/sandbox/S = new()
 		var/obj/critter/custom/template = new()
@@ -342,14 +342,14 @@
 
 	proc/blank(var/mob/M)
 		if (!M.client)
-			boutput(M, "<span class='alert'>Hello.</span>")
+			boutput(M, SPAN_ALERT("Hello."))
 			return 0
 		// look I think it's okay if you maybe let non-admins access this sometimes
 		/*if (!M.client.holder)
-			boutput(M, "<span class='alert'>What are you doing here?</span>")
+			boutput(M, SPAN_ALERT("What are you doing here?"))
 			return 0
 		if (M.client.holder.level < LEVEL_PA)
-			boutput(M, "<span class='alert'>You must be at least PA to use this.</span>")
+			boutput(M, SPAN_ALERT("You must be at least PA to use this."))
 			return 0*/
 		var/key = M.ckey
 		if (!(key in critterCreators))
@@ -1333,7 +1333,7 @@ var/global/datum/critterCreatorHolder/critter_creator_controller = new()
 				C.play_optional_sound(frenzy_attack_sound)
 				C.dodamage(atmob, attacktype, max(rand(attack_power), rand(attack_power)))
 				if (stunlocks)
-					atmob.changeStatus("weakened", (attack_cooldown / 3 * 2) SECONDS)
+					atmob.changeStatus("knockdown", (attack_cooldown / 3 * 2) SECONDS)
 				sleep(attack_cooldown)
 		return 1
 	change_configuration(var/datum/critterCreator/configurer, var/which)
@@ -1539,7 +1539,7 @@ var/global/datum/critterCreatorHolder/critter_creator_controller = new()
 					stattype = null
 					template = temp
 				else
-					boutput(usr, "<span class='alert'>Loading failed.</span>")
+					boutput(usr, SPAN_ALERT("Loading failed."))
 			if ("spawn_text")
 				spawn_text = configurer.getText("spawn text", spawn_text)
 		configurer.sound_router(list("abilconf" = which), "abilconf", "spawn_sound", src, "spawn_sound")
@@ -1812,7 +1812,7 @@ var/global/datum/critterCreatorHolder/critter_creator_controller = new()
 				template.icon = I
 				template.icon_state = null
 		else if (href_list["icon_state"])
-			template.icon_state = getEnum("icon state", "", icon_states(template.icon))
+			template.icon_state = getEnum("icon state", "", get_icon_states(template.icon))
 		else if (href_list["dead_icon"])
 			var/I = input("Select an image file.", "Image file", null) as icon|null
 			if (I)
@@ -1820,7 +1820,7 @@ var/global/datum/critterCreatorHolder/critter_creator_controller = new()
 				template.dead_icon_state = null
 		else if (href_list["dead_icon_state"])
 			if (template.dead_icon)
-				template.dead_icon_state = getEnum("icon state", "", icon_states(template.dead_icon))
+				template.dead_icon_state = getEnum("icon state", "", get_icon_states(template.dead_icon))
 			else
 				alert("Please define an icon first.")
 		else if (href_list["icon_preset"])
@@ -1912,7 +1912,7 @@ var/global/datum/critterCreatorHolder/critter_creator_controller = new()
 			F << null
 			F.ImportText("/", file2text(target))
 			if (!F)
-				boutput(usr, "<span class='alert'>Import failed.</span>")
+				boutput(usr, SPAN_ALERT("Import failed."))
 			else
 				var/datum/sandbox/S = new()
 				template = new()
@@ -1925,15 +1925,15 @@ var/global/datum/critterCreatorHolder/critter_creator_controller = new()
 			if (!(template.name in critter_creator_controller.activeCritterTypes))
 				critter_creator_controller.activeCritterTypes += template.name
 			critter_creator_controller.activeCritterTypes[template.name] = template.clone()
-			boutput(usr, "<span class='notice'>Critter current state saved as [template.name]</span>")
+			boutput(usr, SPAN_NOTICE("Critter current state saved as [template.name]"))
 		else if (href_list["roundload"])
 			if (critter_creator_controller.activeCritterTypes.len)
 				var/cname = input("Which critter?", "Which critter?", null) in critter_creator_controller.activeCritterTypes
 				var/obj/critter/custom/CR = critter_creator_controller.activeCritterTypes[cname]
 				template = CR.clone()
-				boutput(usr, "<span class='notice'>Loaded [template.name].</span>")
+				boutput(usr, SPAN_NOTICE("Loaded [template.name]."))
 			else
-				boutput(usr, "<span class='alert'>Nothing saved yet.</span>")
+				boutput(usr, SPAN_ALERT("Nothing saved yet."))
 
 		sound_router(href_list, "sounds", "anger_sound", template, "anger_sound")
 		sound_router(href_list, "sounds", "chase_sound", template, "chase_sound")
@@ -2108,6 +2108,8 @@ var/global/datum/critterCreatorHolder/critter_creator_controller = new()
 	set name = "Critter Creator (WIP)"
 	SET_ADMIN_CAT(ADMIN_CAT_FUN)
 	set hidden = 0
+	ADMIN_ONLY
+	SHOW_VERB_DESC
 
 	var/datum/critterCreator/CR = critter_creator_controller.getCreator(src.mob)
 	if (CR)

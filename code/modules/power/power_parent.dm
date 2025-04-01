@@ -62,7 +62,7 @@
 	detailed_power_data.log_machine(src, amount)
 #endif
 
-	if(!istype(src, /obj/machinery/power/smes) && istype(get_area(src),/area/station))
+	if(powernet && src.z == Z_LEVEL_STATION && !istype(src, /obj/machinery/power/smes) && !istype(get_area(src), /area/listeningpost))
 		station_power_generation["[round(world.time / ( 1 MINUTE ))]"] += amount
 
 
@@ -149,9 +149,11 @@ var/makingpowernetssince = 0
 	makingpowernets = 0
 
 /client/proc/fix_powernets()
-	SET_ADMIN_CAT(ADMIN_CAT_SERVER)
+	SET_ADMIN_CAT(ADMIN_CAT_DEBUG)
 	set desc = "Attempts for fix the powernets."
 	set name = "Fix powernets"
+	ADMIN_ONLY
+	SHOW_VERB_DESC
 	unfuck_makepowernets()
 	makepowernets()
 

@@ -20,7 +20,6 @@
 		if (!ismob(target) || target == src.holder.owner || !IN_RANGE(src.holder.owner, target, (WIDE_TILE_WIDTH / 2)))
 			return TRUE
 		arcFlash(src.holder.owner, target, src.wattage)
-		logTheThing(LOG_COMBAT, src.holder.owner, "[key_name(src.holder.owner)] used <b>[src.name]</b> on [key_name(target)] [log_loc(src.holder.owner)].")
 
 		var/list/exempt_targets = list(src.holder.owner, target)
 		var/mob/chain_source = target
@@ -28,7 +27,7 @@
 		for (var/i in 1 to src.chain_count)
 			var/list/potential_targets = list()
 			for (var/mob/M in range(src.chain_range, get_turf(chain_source)))
-				if (M in exempt_targets || isobserver(M) || isintangible(M))
+				if ((M in exempt_targets) || isobserver(M) || isintangible(M))
 					continue
 				potential_targets.Add(M)
 			if (length(potential_targets))

@@ -15,7 +15,10 @@
 	var/color_r = 1 // same as glasses/helmets/masks/etc, used for vision color modifications, see human/handle_regular_hud_updates()
 	var/color_g = 1
 	var/color_b = 1
-	var/show_on_examine = FALSE // do we get mentioned when our donor is examined?
+	///do we get mentioned when our donor is examined?
+	var/show_on_examine = FALSE
+	///provides sight for blindness checks
+	var/provides_sight = TRUE
 
 	New()
 		..()
@@ -43,29 +46,19 @@
 				H.update_face()
 		. = ..()
 
-	update_icon()
-		if (!src.change_iris)
-			return
-		var/side = "L"
-		if(src.body_side == R_ORGAN)
-			side = "R"
-		if (src.donor && src.donor.bioHolder && src.donor.bioHolder.mobAppearance) // good lord
-			var/datum/appearanceHolder/AH = src.donor.bioHolder.mobAppearance
-			src.update_color(AH, side)
-		change_iris = FALSE //only inherit color once if possible, if spawned without a doner, don't change color!
-
 	proc/update_color(datum/appearanceHolder/AH, side)
-		if (AH.customization_first.id == "hetcro[side]")
-			src.iris_color = AH.customization_first_color
-		else if (AH.customization_second.id == "hetcro[side]")
-			src.iris_color = AH.customization_second_color
-		else if (AH.customization_third.id == "hetcro[side]")
-			src.iris_color = AH.customization_third_color
-		else
-			src.iris_color = AH.e_color
-		var/image/iris_image = image(src.icon, src, "[iris_state_override || icon_state]-iris")
-		iris_image.color = iris_color
-		src.UpdateOverlays(iris_image, "iris")
+		if(src.change_iris)
+			if (AH.customizations["hair_bottom"].style.id == "hetcro[side]")
+				src.iris_color = AH.customizations["hair_bottom"].color
+			else if (AH.customizations["hair_middle"].style.id == "hetcro[side]")
+				src.iris_color = AH.customizations["hair_middle"].color
+			else if (AH.customizations["hair_top"].style.id == "hetcro[side]")
+				src.iris_color = AH.customizations["hair_top"].color
+			else
+				src.iris_color = AH.e_color
+			var/image/iris_image = image(src.icon, src, "[iris_state_override || icon_state]-iris")
+			iris_image.color = iris_color
+			src.UpdateOverlays(iris_image, "iris")
 
 
 	attach_organ(var/mob/living/carbon/M, var/mob/user)
@@ -91,30 +84,39 @@
 			target_organ_location = pick("right", "left")
 
 		if (target_organ_location == "right" && !H.organHolder.right_eye)
-			user.tri_message(H, "<span class='alert'><b>[user]</b> [fluff][fluff == "smoosh" || fluff == "squish" ? "es" : "s"] [src] into [H == user ? "[his_or_her(H)]" : "[H]'s"] right eye socket!</span>",\
-				"<span class='alert'>You [fluff] [src] into [user == H ? "your" : "[H]'s"] right eye socket!</span>",\
-				"<span class='alert'>[H == user ? "You" : "<b>[user]</b>"] [fluff][fluff == "smoosh" || fluff == "squish" ? "es" : "s"] [src] into your right eye socket!</span>")
+			user.tri_message(H, SPAN_ALERT("<b>[user]</b> [fluff][fluff == "smoosh" || fluff == "squish" ? "es" : "s"] [src] into [H == user ? "[his_or_her(H)]" : "[H]'s"] right eye socket!"),\
+				SPAN_ALERT("You [fluff] [src] into [user == H ? "your" : "[H]'s"] right eye socket!"),\
+				SPAN_ALERT("[H == user ? "You" : "<b>[user]</b>"] [fluff][fluff == "smoosh" || fluff == "squish" ? "es" : "s"] [src] into your right eye socket!"))
 
 			if (user.find_in_hand(src))
 				user.u_equip(src)
 			H.organHolder.receive_organ(src, "right_eye", 2)
 			H.update_body()
 		else if (target_organ_location == "left" && !H.organHolder.left_eye)
-			user.tri_message(H, "<span class='alert'><b>[user]</b> [fluff][fluff == "smoosh" || fluff == "squish" ? "es" : "s"] [src] into [H == user ? "[his_or_her(H)]" : "[H]'s"] left eye socket!</span>",\
-				"<span class='alert'>You [fluff] [src] into [user == H ? "your" : "[H]'s"] left eye socket!</span>",\
-				"<span class='alert'>[H == user ? "You" : "<b>[user]</b>"] [fluff][fluff == "smoosh" || fluff == "squish" ? "es" : "s"] [src] into your left eye socket!</span>")
+			user.tri_message(H, SPAN_ALERT("<b>[user]</b> [fluff][fluff == "smoosh" || fluff == "squish" ? "es" : "s"] [src] into [H == user ? "[his_or_her(H)]" : "[H]'s"] left eye socket!"),\
+				SPAN_ALERT("You [fluff] [src] into [user == H ? "your" : "[H]'s"] left eye socket!"),\
+				SPAN_ALERT("[H == user ? "You" : "<b>[user]</b>"] [fluff][fluff == "smoosh" || fluff == "squish" ? "es" : "s"] [src] into your left eye socket!"))
 
 			if (user.find_in_hand(src))
 				user.u_equip(src)
 			H.organHolder.receive_organ(src, "left_eye", 2)
 			H.update_body()
 		else
-			user.tri_message(H, "<span class='alert'><b>[user]</b> tries to [fluff] the [src] into [H == user ? "[his_or_her(H)]" : "[H]'s"] right eye socket!<br>But there's something already there!</span>",\
-				"<span class='alert'>You try to [fluff] the [src] into [user == H ? "your" : "[H]'s"] right eye socket!<br>But there's something already there!</span>",\
-				"<span class='alert'>[H == user ? "You" : "<b>[user]</b>"] [H == user ? "try" : "tries"] to [fluff] the [src] into your right eye socket!<br>But there's something already there!</span>")
+			user.tri_message(H, SPAN_ALERT("<b>[user]</b> tries to [fluff] the [src] into [H == user ? "[his_or_her(H)]" : "[H]'s"] right eye socket!<br>But there's something already there!"),\
+				SPAN_ALERT("You try to [fluff] the [src] into [user == H ? "your" : "[H]'s"] right eye socket!<br>But there's something already there!"),\
+				SPAN_ALERT("[H == user ? "You" : "<b>[user]</b>"] [H == user ? "try" : "tries"] to [fluff] the [src] into your right eye socket!<br>But there's something already there!"))
 			return 0
 
 		return 1
+
+	// dead eyes stop working
+	breakme()
+		. = ..()
+		src.provides_sight = FALSE
+
+	unbreakme()
+		. = ..()
+		src.provides_sight = TRUE
 
 /obj/item/organ/eye/left
 	name = "left eye"
@@ -153,7 +155,7 @@ TYPEINFO(/obj/item/organ/eye/cyber)
 	emp_act()
 		..()
 		if (!src.broken)
-			src.take_damage(20, 20, 0)
+			src.donor.take_eye_damage(0.01, 0) //nonzero amount of eye damage in order to trigger actually updating the blindness/etc
 			if (src.holder && src.holder.donor)
 				src.holder.donor.show_text("<b>Your [src.organ_name] [pick("crackles and sparks", "makes a weird crunchy noise", "buzzes strangely")]!</b>", "red")
 
@@ -273,26 +275,19 @@ TYPEINFO(/obj/item/organ/eye/cyber/meson)
 		if (ishuman(M))
 			src.assigned = M
 			if (src.on)
-				src.assigned.vision.set_scan(1)
-				APPLY_ATOM_PROPERTY(M, PROP_MOB_MESONVISION, src)
+				src.assigned.meson(src)
 
 	on_removal()
-		REMOVE_ATOM_PROPERTY(donor, PROP_MOB_MESONVISION, src)
-		if (istype(assigned.glasses, /obj/item/clothing/glasses/visor))
-			return
-		else
-			src.assigned.vision.set_scan(0)
+		src.assigned.unmeson(src)
 		..()
 
 	proc/toggle()
 		src.on = !src.on
 		playsound(assigned, 'sound/items/mesonactivate.ogg', 30, TRUE)
 		if (src.on)
-			assigned.vision.set_scan(1)
-			APPLY_ATOM_PROPERTY(donor, PROP_MOB_MESONVISION, src)
+			src.assigned.meson(src)
 		else
-			assigned.vision.set_scan(0)
-			REMOVE_ATOM_PROPERTY(donor, PROP_MOB_MESONVISION, src)
+			src.assigned.unmeson(src)
 
 TYPEINFO(/obj/item/organ/eye/cyber/spectro)
 	mats = 7
@@ -345,9 +340,9 @@ TYPEINFO(/obj/item/organ/eye/cyber/prodoc)
 		get_image_group(CLIENT_IMAGE_GROUP_HEALTH_MON_ICONS).add_mob(M)
 		return
 
-	on_removal(var/mob/M)
+	on_removal()
 		processing_items.Remove(src)
-		REMOVE_ATOM_PROPERTY(M,PROP_MOB_EXAMINE_HEALTH,src)
+		REMOVE_ATOM_PROPERTY(donor,PROP_MOB_EXAMINE_HEALTH,src)
 		get_image_group(CLIENT_IMAGE_GROUP_HEALTH_MON_ICONS).remove_mob(donor)
 		..()
 		return
@@ -384,7 +379,7 @@ TYPEINFO(/obj/item/organ/eye/cyber/camera)
 	icon_state = "eye-camera"
 	var/obj/machinery/camera/camera = null
 	var/camera_tag = "Eye Cam"
-	var/camera_network = "Zeta"
+	var/camera_network = "public"
 	default_material = "pharosium"
 	iris_color = "#0d0558"
 
@@ -443,7 +438,6 @@ TYPEINFO(/obj/item/organ/eye/cyber/laser)
 		var/datum/targetable/organAbility/eyebeam/OA = aholder.getAbility(abil)//addAbility(abil)
 		if (istype(OA)) // already has a laser eye, apparently!  let's DOUBLE IT
 			OA.linked_organ = list(OA.linked_organ, src)
-			OA.cooldown = 80
 			OA.eye_proj = ispath(src.eye_proj_override) ? eye_proj_override : /datum/projectile/laser/eyebeams
 		else
 			OA = aholder.addAbility(abil)
@@ -482,12 +476,66 @@ TYPEINFO(/obj/item/organ/eye/cyber/laser)
 		else // just us!
 			aholder.removeAbility(abil)
 
+TYPEINFO(/obj/item/organ/eye/cyber/monitor)
+	mats = 7
+
+/obj/item/organ/eye/cyber/monitor
+	name = "monitor cybereye"
+	organ_name = "monitor cybereye"
+	desc = "A tiny screen to replace an eye. It can view camera networks from the installed monitor."
+	organ_abilities = list(/datum/targetable/organAbility/view_camera)
+	default_material = "pharosium"
+	iris_color = "#0d0508"
+	icon_state = "eye-monitor"
+	var/obj/item/device/camera_viewer/viewer = null
+
+	HELP_MESSAGE_OVERRIDE("You can replace the installed camera monitor by clicking the eye with a monitor in-hand.")
+
+	New()
+		. = ..()
+		src.viewer = new /obj/item/device/camera_viewer/public(src)
+
+	emag_act(mob/user, obj/item/card/emag/E)
+		if(!src.emagged)
+			if(user)
+				boutput(user, SPAN_ALERT("The internal monitor's network limiter shorts, fusing to \the [src] and making the lens opaque!"))
+			src.visible_message(SPAN_ALERT("<B>[src] sparks and shudders oddly!</B>"))
+			src.viewer.network = list("public", "telesci", "SS13", "ranch", "Zeta", "Mining")
+			src.emagged = TRUE
+			src.provides_sight = FALSE
+
+	disposing()
+		. = ..()
+		qdel(src.viewer)
+		src.viewer = null
+
+	attackby(obj/item/W, mob/user)
+		if (istype(W, /obj/item/device/camera_viewer))
+			if(src.emagged)
+				boutput(user, "The internal monitor on [src] is fused in place and can't be removed!")
+				return
+			user.u_equip(W)
+			W.set_loc(src)
+			boutput(user, "You install [W] into [src].")
+			user.put_in_hand_or_drop(src.viewer)
+			src.viewer = W
+			return
+		..()
+
+	remove_ability(datum/abilityHolder/aholder, abil)
+		if (!ispath(abil, /datum/targetable/organAbility/view_camera) || !aholder)
+			return ..()
+		if (aholder.owner)
+			src.viewer.disconnect_user(aholder.owner)
+			aholder.removeAbility(abil)
+
+
 /obj/item/organ/eye/lizard
 	name = "slit eye"
 	desc = "I guess its owner is just a lzard now. Ugh that pun was terrible. Not worth losing an eye over."
 	icon_state = "eye-lizard"
 
-obj/item/organ/eye/skeleton
+/obj/item/organ/eye/skeleton
 	name = "boney eye"
 	desc = "Yes it also has eye sockets. How this works is unknown."
 	icon_state = "eye-bone"

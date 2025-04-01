@@ -135,16 +135,21 @@ var/list/dirty_keystates = list()
 		//How should we distinguish whether the original click was 'null' later on if we need to? location will == "map", that might be fine to identify with?
 		//(this fixes the behavior of guns not firing if you clicked a hidden tile. now you can actually shoot in the dark or in a small tunnel!)
 		if (!object && src.mob)
-			var/list/l2 = splittext(params2list(params)["screen-loc"],",")
-			if (length(l2) >= 2)
-				var/list/lx = splittext(l2[1],":")
-				var/list/ly = splittext(l2[2],":")
+			var/regex/locparser = new(@"(\d+):(\d*),(\d+):(\d*)$")
+			if(!locparser.Find(params2list(params)["screen-loc"]))
+				return //FUCK
+			var/x = text2num(locparser.group[1])
+			var/pox = text2num(locparser.group[2])
+			var/y = text2num(locparser.group[3])
+			var/poy = text2num(locparser.group[4])
 
-				object = locate(src.mob.x + (text2num(lx[2]) + -1 - ((istext(src.view) ? WIDE_TILE_WIDTH : SQUARE_TILE_WIDTH) - 1) / 2),\
-								src.mob.y + (text2num(ly[1]) + -1 - 7),\
-								src.mob.z)
-				if (object)
-					src.Click(object,location,control,params)
+
+			object = locate(src.mob.x + (x + -1 - ((istext(src.view) ? WIDE_TILE_WIDTH : SQUARE_TILE_WIDTH) - 1) / 2),\
+							src.mob.y + (y + -1 - 7),\
+							src.mob.z)
+			params += "&icon-x=[pox]&icon-y=[poy]"
+			if (object)
+				src.Click(object,location,control,params)
 
 		return
 
@@ -293,7 +298,7 @@ var/list/dirty_keystates = list()
 			var/wasd = src.preferences.use_wasd
 			src.preferences.use_wasd = !wasd
 			//set_macro(src.preferences.use_wasd ? "macro_wasd" : "macro_arrow")
-			boutput(src, "<span class='notice'>WASD mode toggled [!wasd ? "on" : "off"]. Note that this setting will not save unless you manually do so in Character Preferences.</style>")
+			boutput(src, SPAN_NOTICE(">WASD mode toggled [!wasd ? "on" : "off"]. Note that this setting will not save unless you manually do so in Character Preferences."))
 			src.mob.reset_keymap()
 			return 1
 

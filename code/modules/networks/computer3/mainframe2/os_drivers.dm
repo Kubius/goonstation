@@ -714,6 +714,15 @@
 
 				message_device("command=relay&session=[sessionid]", new_coords)
 
+			if ("lrt")
+				var/sessionid = "[world.timeofday%100][rand(0,9)]"
+				sessions[sessionid] = ESIG_USR1
+				message_device("command=[lowertext(data["command"])]&session=[sessionid]&action=[lowertext(data["action"])]&place=[data["place"]]")
+				sleep(0.6 SECONDS)
+				. = sessions[sessionid]
+				sessions -= sessionid
+				return .
+
 			if ("send", "receive", "portal", "scan")
 				var/sessionid = "[world.timeofday%100][rand(0,9)]"
 				sessions[sessionid] = ESIG_USR1
@@ -888,6 +897,28 @@
 				else
 					message_user("Insufficient arguments (Need x y z).")
 
+			if ("lrt")
+				if (length(initlist) >= 3)
+					var/action = initlist[2]
+					var/place = findtext(initlist[3], "place=") && copytext(initlist[3], 7)
+					var/success = signal_program(1, list("command"=DWAINE_COMMAND_DMSG, "target"=driver_id, "dcommand"="lrt", "action"=action, "place"=place))
+					switch (success)
+						if (ESIG_SUCCESS)
+							message_user("OK")
+						if (ESIG_USR2)
+							message_user("Teleportation prevented by interference.")
+						//if (ESIG_USR3)
+						//	message_user("Invalid coordinates.")
+						if (ESIG_USR4)
+							message_user("Telepad is recharging.")
+						else
+							if (istext(success))
+								message_user("Invalid place ([success])")
+							else
+								message_user("Unable to interface with telepad.")
+				else
+					message_user("Insufficient arguments (Need place).")
+
 			if ("relay")
 				if (length(initlist) >= 4)
 					var/start_x
@@ -966,7 +997,7 @@
 				var/list/success = signal_program(1, list("command"=DWAINE_COMMAND_DMSG, "target"=driver_id, "dcommand"="scan"))
 				if (istype(success))
 					#define _TELESCI_ATMOS_SCAN(GAS, _, NAME, ...) "[NAME]: [success[#GAS]], " +
-					message_user("Scan Results:|nAtmosphere: [APPLY_TO_GASES(_TELESCI_ATMOS_SCAN) " "][success["temp"]] Kelvin, [success["pressure"]] kPa, [(success["burning"])?("BURNING"):(null)]","multiline")
+					message_user("Scan Results:|nAtmosphere: [APPLY_TO_GASES(_TELESCI_ATMOS_SCAN) " "][success["temp"]] Kelvin, [success["pressure"]] kPa[(success["burning"])?(", BURNING"):(null)]","multiline")
 					// undefined at the end of the file because of https://secure.byond.com/forum/post/2072419
 
 				else if (istext(success))

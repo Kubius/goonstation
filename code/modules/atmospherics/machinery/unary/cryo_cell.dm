@@ -1,3 +1,7 @@
+TYPEINFO(/obj/machinery/atmospherics/unary/cryo_cell)
+	mats = list("cobryl" = 100,
+				"crystal" = 50,
+				"energy_high" = 20)
 /obj/machinery/atmospherics/unary/cryo_cell
 	name = "cryogenic healing pod"
 	desc = "A glass tube full of a strange fluid that uses supercooled oxygen and cryoxadone to rapidly heal patients."
@@ -7,6 +11,7 @@
 	anchored = ANCHORED_ALWAYS
 	layer = EFFECTS_LAYER_BASE//MOB_EFFECT_LAYER
 	flags = NOSPLASH
+	deconstruct_flags = DECON_SCREWDRIVER | DECON_WRENCH | DECON_CROWBAR | DECON_WELDER | DECON_WIRECUTTERS | DECON_MULTITOOL | DECON_DESTRUCT
 	power_usage = 50 WATTS
 	var/on = FALSE //! Whether the cell is turned on or not
 	var/datum/light/light
@@ -82,6 +87,9 @@
 
 	src.try_push_in(target, user)
 
+/obj/machinery/atmospherics/unary/cryo_cell/Click(location, control, params)
+	if(!ghost_observe_occupant(usr, src.occupant))
+		. = ..()
 
 /obj/machinery/atmospherics/unary/cryo_cell/Exited(atom/movable/AM, atom/newloc)
 	..()
@@ -246,35 +254,39 @@
 		//this is in syringe.dm
 		logTheThing(LOG_CHEMISTRY, user, "injects [log_reagents(I)] to [src] at [log_loc(src)].")
 		if (!src.beaker)
-			boutput(user, "<span class='alert'>There is no beaker in [src] for you to inject reagents.</span>")
+			boutput(user, SPAN_ALERT("There is no beaker in [src] for you to inject reagents."))
 			return
 		if (src.beaker.reagents.total_volume == src.beaker.reagents.maximum_volume)
-			boutput(user, "<span class='alert'>The beaker in [src] is full.</span>")
+			boutput(user, SPAN_ALERT("The beaker in [src] is full."))
 			return
 		var/transferred = I.reagents.trans_to(src.beaker, 5)
-		src.visible_message("<span class='alert'><B>[user] injects [transferred] into [src].</B></span>")
+		src.visible_message(SPAN_ALERT("<B>[user] injects [transferred] units into [src]'s beaker.</B>"))
 		src.beaker.on_reagent_change()
 		return
 	else if (istype(I, /obj/item/device/analyzer/healthanalyzer_upgrade))
 		if (src.reagent_scan_enabled)
-			boutput(user, "<span class='alert'>This Cryo Cell already has a reagent scan upgrade!</span>")
+			boutput(user, SPAN_ALERT("This Cryo Cell already has a reagent scan upgrade!"))
 			return
 		else
 			src.reagent_scan_enabled = TRUE
-			boutput(user, "<span class='notice'>Reagent scan upgrade installed.</span>")
+			boutput(user, SPAN_NOTICE("Reagent scan upgrade installed."))
 			playsound(src.loc , 'sound/items/Deconstruct.ogg', 80, 0)
 			user.u_equip(I)
 			qdel(I)
 			return
 	else if (istype(I, /obj/item/robodefibrillator))
 		if (src.defib)
-			boutput(user, "<span class='alert'>[src] already has a Defibrillator installed.</span>")
+			boutput(user, SPAN_ALERT("[src] already has a Defibrillator installed."))
 		else
 			if (I.cant_drop)
-				boutput(user, "<span class='alert'>You can't put that in [src] while it's attached to you!")
+				boutput(user, SPAN_ALERT("You can't put that in [src] while it's attached to you!"))
+				return
+			var/obj/item/robodefibrillator/defibrillator = I
+			if(defibrillator.mounted)
+				boutput(user, SPAN_ALERT("You can't install a mounted Defibrillator!"))
 				return
 			src.defib = I
-			boutput(user, "<span class='notice'>Defibrillator installed into [src].</span>")
+			boutput(user, SPAN_NOTICE("Defibrillator installed into [src]."))
 			playsound(src.loc, 'sound/items/Deconstruct.ogg', 80, 0)
 			user.u_equip(I)
 			I.set_loc(src)
@@ -282,27 +294,32 @@
 			src.UpdateIcon()
 	else if (iswrenchingtool(I))
 		if (!src.defib)
-			boutput(user, "<span class='alert'>[src] does not have a Defibrillator installed.</span>")
+			boutput(user, SPAN_ALERT("[src] does not have a Defibrillator installed."))
 		else
 			src.defib.set_loc(src.loc)
 			src.defib = null
 			src.UpdateIcon()
-			src.visible_message("<span class='alert'>[user] removes the Defibrillator from [src].</span>")
+			src.visible_message(SPAN_ALERT("[user] removes the Defibrillator from [src]."))
 			playsound(src.loc , 'sound/items/Ratchet.ogg', 50, 1)
 	else if (istype(I, /obj/item/device/analyzer/healthanalyzer))
 		if (!src.occupant)
-			boutput(user, "<span class='notice'>This Cryo Cell is empty!</span>")
+			boutput(user, SPAN_NOTICE("This Cryo Cell is empty!"))
 			return
 		else
 			I.attack(src.occupant, user)
 
 	tgui_process.update_uis(src)
 
+/obj/machinery/atmospherics/unary/cryo_cell/was_built_from_frame(mob/user, newly_built)
+	..()
+	src.initialize_directions = src.dir
+	src.initialize(TRUE)
+
 /obj/machinery/atmospherics/unary/cryo_cell/proc/insert_beaker(var/obj/item/reagent_containers/glass/I, var/mob/user)
 	if (!can_act(user))
 		return
 	if (I.cant_drop)
-		boutput(user, "<span class='alert'>You can't put that in \the [src] while it's attached to you!")
+		boutput(user, SPAN_ALERT("You can't put that in \the [src] while it's attached to you!"))
 		return
 	if(src.beaker)
 		user.show_text("A beaker is already loaded into the machine.", "red")
@@ -338,13 +355,11 @@
 	else
 		src.light.disable()
 		src.icon_state = "celltop-p"
-	if(src.node)
-		src.UpdateOverlays(src.SafeGetOverlayImage("bottom", 'icons/obj/Cryogenic2.dmi', "cryo_bottom_[src.on]", 1, pixel_y=-32), "bottom")
-	else
-		src.UpdateOverlays(src.SafeGetOverlayImage("bottom", 'icons/obj/Cryogenic2.dmi', "cryo_bottom", 1, pixel_y=-32), "bottom")
+	src.UpdateOverlays(src.SafeGetOverlayImage("bottom", 'icons/obj/Cryogenic2.dmi', "cryo_bottom_[src.on]", 1, pixel_y= -32), "bottom")
+	src.UpdateOverlays(src.SafeGetOverlayImage("pipes", 'icons/obj/Cryogenic2.dmi', "cryo_pipes", 2, pixel_y = -32), "pipes")
 	src.pixel_y = 32
 	if(src.defib)
-		src.UpdateOverlays(src.SafeGetOverlayImage("defib", 'icons/obj/Cryogenic2.dmi', "defib-on", 2, pixel_y=-32), "defib")
+		src.UpdateOverlays(src.SafeGetOverlayImage("defib", 'icons/obj/Cryogenic2.dmi', "defib-on", 3, pixel_y=-32), "defib")
 	else
 		src.UpdateOverlays(null, "defib")
 
@@ -360,7 +375,7 @@
 		var/mob/living/carbon/human/H = null
 		if (ishuman(occupant))
 			H = occupant
-		if (H && isalive(H)) H.lastgasp()
+		if (H && isalive(H)) H.lastgasp(grunt = pick("GLUB", "blblbl", "BLUH", "BLURGH"))
 		//setunconcious(occupant)
 		if(src.occupant.bodytemperature < T0C)
 			if(src.air_contents.oxygen > 2 MOLES)
@@ -391,7 +406,8 @@
 		return
 	var/remove_amount = TOTAL_MOLES(src.air_contents)/100
 	var/datum/gas_mixture/expel_gas = air_contents.remove(remove_amount)
-	expel_gas.temperature = T20C // Lets expel hot gas and see if that helps people not die as they are removed
+	if (expel_gas.temperature < T20C)
+		expel_gas.temperature = T20C // Lets expel hot gas and see if that helps people not die as they are removed
 	loc.assume_air(expel_gas)
 
 /obj/machinery/atmospherics/unary/cryo_cell/verb/move_eject()
@@ -413,12 +429,12 @@
 /obj/machinery/atmospherics/unary/cryo_cell/proc/try_push_in(mob/target, mob/user)
 	. = FALSE
 	if (src.status & (NOPOWER|BROKEN))
-		boutput(user, "<span class='alert'>\the [src] is broken.</span>")
+		boutput(user, SPAN_ALERT("\the [src] is broken."))
 		return
 	if (!(can_act(user) && can_reach(user, src) && can_reach(user, target)))
 		return
 	if (!ishuman(target))
-		boutput(user, "<span class='alert'>You can't seem to fit [target == user ? "yourself" : "[target]"] into \the [src].</span>")
+		boutput(user, SPAN_ALERT("You can't seem to fit [target == user ? "yourself" : "[target]"] into \the [src]."))
 		return
 	if (src.occupant)
 		user.show_text("The cryo tube is already occupied.", "red")

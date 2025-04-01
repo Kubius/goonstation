@@ -4,7 +4,6 @@
 	desc = "Coins for the coin god. You shouldn't be seeing this."
 	icon = 'icons/obj/items/items.dmi'
 	icon_state = "coin"
-	uses_multiple_icon_states = 1
 	opacity = 0
 	density = 0
 	anchored = UNANCHORED
@@ -14,7 +13,7 @@
 	throw_range = 8
 	w_class = W_CLASS_TINY
 	burn_point = 400
-	burn_possible = 2
+	burn_possible = TRUE
 	burn_output = 750
 	amount = 1
 	max_stack = 1000000
@@ -51,18 +50,18 @@
 		src.name = "[src.amount == src.max_stack ? "1000000" : src.amount] [name_prefix(null, 1)][src.real_name][s_es(src.amount)][name_suffix(null, 1)]"
 
 	before_stack(atom/movable/O as obj, mob/user as mob)
-		user.visible_message("<span class='notice'>[user] is stacking [display_name]!</span>")
+		user.visible_message(SPAN_NOTICE("[user] is stacking [display_name]!"))
 
 	after_stack(atom/movable/O as obj, mob/user as mob, var/added)
-		boutput(user, "<span class='notice'>You finish stacking [display_name].</span>")
+		boutput(user, SPAN_NOTICE("You finish stacking [display_name]."))
 
 	failed_stack(atom/movable/O as obj, mob/user as mob, var/added)
-		boutput(user, "<span class='alert'>You need another stack!</span>")
+		boutput(user, SPAN_ALERT("You need another stack!"))
 
 	attackby(var/obj/item/I, mob/user)
 		if (istype(I, /obj/item/currency) && src.amount < src.max_stack)
 
-			user.visible_message("<span class='notice'>[user] stacks some [display_name].</span>")
+			user.visible_message(SPAN_NOTICE("[user] stacks some [display_name]."))
 			stack_item(I)
 		else
 			..(I, user)
@@ -72,7 +71,7 @@
 			var/amt = round(input("How much [display_name] do you want to take from the stack?") as null|num)
 			if (isnum_safe(amt) && src.loc == user && !user.equipped())
 				if (amt > src.amount || amt < 1)
-					boutput(user, "<span class='alert'>You wish!</span>")
+					boutput(user, SPAN_ALERT("You wish!"))
 					return
 				var/young_money = split_stack(amt)
 				user.put_in_hand_or_drop(young_money)
@@ -100,6 +99,20 @@
 		src.UpdateStackAppearance()
 		return src
 
+	stack_item(obj/item/I)
+		if (istype(I,/obj/item/currency/spacecash))
+			if (src.hasStatus("freshly_laundered") || I.hasStatus("freshly_laundered"))
+				if (!(src.hasStatus("freshly_laundered") && I.hasStatus("freshly_laundered")))
+					if (ismob(src.loc))
+						boutput(src.loc, "Ew, this other cash is FILTHY. It's ruined the whole stack!")
+					I.delStatus("freshly_laundered")
+					src.delStatus("freshly_laundered")
+		..()
+
+	get_desc()
+		if (src.hasStatus("freshly_laundered"))
+			. += "It feels warm and soft."
+
 	_update_stack_appearance()
 		src.UpdateName()
 		src.inventory_counter.update_number(src.amount)
@@ -116,53 +129,6 @@
 				src.icon_state = "cashred"
 			else // 1mil bby
 				src.icon_state = "cashrbow"
-
-	buttcoin
-		name = "buttcoin"
-		desc = "The crypto-currency of the future (If you don't pay for your own electricity and got in early and don't lose the file and don't want transactions to be faster than half an hour and . . .)"
-		icon_state = "cashblue"
-
-		New()
-			..()
-			processing_items |= src
-
-		_update_stack_appearance()
-			return
-
-		UpdateName()
-			src.name = "[src.amount] [name_prefix(null, 1)][pick("bit","butt","shitty-bill ","bart", "bat", "bet", "bot")]coin[s_es(src.amount)][name_suffix(null, 1)]"
-
-		process()
-			src.amount = rand(1, 1000) / rand(10, 1000)
-			if (prob(25))
-				src.amount *= (rand(1,100)/100)
-
-			if (prob(5))
-				src.amount *= 10000
-
-			src.UpdateName()
-
-		attack_hand(mob/user)
-			if ((user.l_hand == src || user.r_hand == src) && user.equipped() != src)
-				var/amt = round(input("How much cash do you want to take from the stack?") as null|num)
-				if (isnum_safe(amt))
-					if (amt > src.amount || amt < 1)
-						boutput(user, "<span class='alert'>You wish!</span>")
-						return
-
-					boutput(user, "Your transaction will complete anywhere within 10 to 10e27 minutes from now.")
-			else
-				..()
-
-		attackby(var/obj/item/I, mob/user)
-			if (istype(I, /obj/item/currency/spacecash/buttcoin) && src.amount < src.max_stack)
-				boutput(user, "Your transaction will complete anywhere within 10 to 10e27 minutes from now.")
-			else
-				..(I, user)
-
-		disposing()
-			processing_items.Remove(src)
-			..()
 
 	five
 		default_min_amount = 5
@@ -191,7 +157,9 @@
 	thousand
 		default_min_amount = 1000
 		default_max_amount = 1000
-
+	twothousandfivehundred
+		default_min_amount = 2500
+		default_max_amount = 2500
 	hundredthousand
 		default_min_amount = 100000
 		default_max_amount = 100000
@@ -206,8 +174,8 @@
 
 // That's what tourists spawn with.
 	tourist
-		default_min_amount = 500
-		default_max_amount = 1500
+		default_min_amount = PAY_TRADESMAN
+		default_max_amount = PAY_EXECUTIVE
 
 // for couches
 	small
@@ -228,6 +196,55 @@
 			icon_state = "moneybag"
 			item_state = "moneybag"
 			inhand_image_icon = 'icons/mob/inhand/hand_general.dmi'
+
+/obj/item/currency/buttcoin
+	name = "buttcoin"
+	real_name = "credit"
+	desc = "The crypto-currency of the future (If you don't pay for your own electricity and got in early and don't lose the file and don't want transactions to be faster than half an hour and . . .)"
+	icon_state = "buttcoin"
+	stack_type = /obj/item/currency/buttcoin
+	display_name = "cash"
+
+	New()
+		..()
+		processing_items |= src
+
+	_update_stack_appearance()
+		return
+
+	UpdateName()
+		src.name = "[src.amount] [name_prefix(null, 1)][pick("bit","butt","shitty-bill ","bart", "bat", "bet", "bot")]coin[s_es(src.amount)][name_suffix(null, 1)]"
+
+	process()
+		src.amount = rand(1, 1000) / rand(10, 1000)
+		if (prob(25))
+			src.amount *= (rand(1,100)/100)
+		if (prob(5))
+			src.amount *= 10000
+
+		src.UpdateName()
+
+	attack_hand(mob/user)
+		if ((user.l_hand == src || user.r_hand == src) && user.equipped() != src)
+			var/amt = round(input("How much cash do you want to take from the stack?") as null|num)
+			if (isnum_safe(amt))
+				if (amt > src.amount || amt < 1)
+					boutput(user, SPAN_ALERT("You wish!"))
+					return
+
+				boutput(user, "Your transaction will complete anywhere within 10 to 10e27 minutes from now.")
+		else
+			..()
+
+	attackby(var/obj/item/I, mob/user)
+		if (istype(I, /obj/item/currency/buttcoin) && src.amount < src.max_stack)
+			boutput(user, "Your transaction will complete anywhere within 10 to 10e27 minutes from now.")
+		else
+			..(I, user)
+
+	disposing()
+		processing_items.Remove(src)
+		..()
 
 /obj/item/currency/spacebux // Not space cash. Actual spacebux. Wow.
 	name = "\improper Spacebux token"
@@ -300,7 +317,7 @@
 
 	attackby(var/obj/item/I, mob/user)
 		if (istype(I, /obj/item/currency/spacebux) && src.spent == 0)
-			user.visible_message("<span class='notice'>[user] stacks some spacebux.</span>")
+			user.visible_message(SPAN_NOTICE("[user] stacks some spacebux."))
 			stack_item(I)
 		else
 			..(I, user)
@@ -314,19 +331,24 @@
 		return ..()
 
 	ten
-		amount = 10
+		default_min_amount = 10
+		default_max_amount = 10
 
 	fifty
-		amount = 50
+		default_min_amount = 50
+		default_max_amount = 50
 
 	hundred
-		amount = 100
+		default_min_amount = 100
+		default_max_amount = 100
 
 	fivehundred
-		amount = 500
+		default_min_amount = 500
+		default_max_amount = 500
 
 	thousand
-		amount = 1000
+		default_min_amount = 1000
+		default_max_amount = 1000
 
 //not a good spot for this but idc
 TYPEINFO(/obj/item/stamped_bullion)
@@ -440,10 +462,41 @@ TYPEINFO(/obj/item/stamped_bullion)
 	attackby(var/obj/item/I, mob/user)
 		if (istype(I, /obj/item/currency/fishing) && src.amount < src.max_stack)
 
-			user.visible_message("<span class='notice'>[user] stacks some tickets.</span>")
+			user.visible_message(SPAN_NOTICE("[user] stacks some tickets."))
 			stack_item(I)
 		else
 			..(I, user)
+
+	mouse_drop(atom/over_object, src_location, over_location) //src dragged onto over_object
+		if (isobserver(usr))
+			boutput(usr, "<span class='alert'>Quit that! You're dead!</span>")
+			return
+
+		if(!istype(over_object, /atom/movable/screen/hud))
+			if (BOUNDS_DIST(usr, src) > 0)
+				boutput(usr, "<span class='alert'>You're too far away from it to do that.</span>")
+				return
+			if (BOUNDS_DIST(usr, over_object) > 0)
+				boutput(usr, "<span class='alert'>You're too far away from it to do that.</span>")
+				return
+
+		if (istype(over_object,/obj/item/currency/fishing) && isturf(over_object.loc)) //piece to piece only if on ground
+			var/obj/item/targetObject = over_object
+			if(targetObject.stack_item(src))
+				usr.visible_message("<span class='notice'>[usr.name] stacks \the [src]!</span>")
+		else if(isturf(over_object)) //piece to turf. piece loc doesnt matter.
+			if(isturf(src.loc))
+				src.set_loc(over_object)
+			for(var/obj/item/I in view(1,usr))
+				if (!I || I == src)
+					continue
+				if (!src.check_valid_stack(I))
+					continue
+				src.stack_item(I)
+			usr.visible_message("<span class='notice'>[usr.name] stacks \the [src]!</span>")
+		else
+			..()
+
 
 	uncommon
 		name = "uncommon research ticket"

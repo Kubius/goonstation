@@ -74,10 +74,10 @@
 		add_fingerprint(user)
 		src.disable = !src.disable
 		if (src.disable)
-			user.visible_message("<span class='alert'>[user] has disabled the [src]!</span>", "<span class='alert'>You disable the connection to the [src].</span>")
+			user.visible_message(SPAN_ALERT("[user] has disabled the [src]!"), SPAN_ALERT("You disable the connection to the [src]."))
 			icon_state = "[base_state]-d"
 		if (!src.disable)
-			user.visible_message("<span class='alert'>[user] has reconnected the [src]!</span>", "<span class='alert'>You fix the connection to the [src].</span>")
+			user.visible_message(SPAN_ALERT("[user] has reconnected the [src]!"), SPAN_ALERT("You fix the connection to the [src]."))
 			if(src.powered())
 				icon_state = "[base_state]"
 			else
@@ -97,7 +97,7 @@
 		return
 
 
-	flick("[base_state]-spark", src)
+	FLICK("[base_state]-spark", src)
 	elecflash(src)
 	use_power(1000)
 	var/turf/location = src.loc

@@ -17,6 +17,8 @@ TYPEINFO(/obj/item/device/radio/intercom)
 	desc = "A wall-mounted radio intercom, used to communicate with the specified frequency. Usually turned off except during emergencies."
 	hardened = 0
 
+	HELP_MESSAGE_OVERRIDE("Stand next to an intercom and use the prefix <B> :in </B> to speak directly into it.")
+
 /obj/item/device/radio/intercom/proc/update_pixel_offset_dir(obj/item/AM, old_dir, new_dir)
 	src.pixel_x = 0
 	src.pixel_y = 0
@@ -41,7 +43,7 @@ TYPEINFO(/obj/item/device/radio/intercom)
 			if(new_color)
 				screen_image.color = new_color
 		screen_image.alpha = 180
-		src.UpdateOverlays(screen_image, "screen")
+		src.AddOverlays(screen_image, "screen")
 		if(src.pixel_x == 0 && src.pixel_y == 0)
 			update_pixel_offset_dir(src,null,src.dir)
 
@@ -51,12 +53,12 @@ TYPEINFO(/obj/item/device/radio/intercom)
 /obj/item/device/radio/intercom/attack_ai(mob/user as mob)
 	src.add_fingerprint(user)
 	SPAWN(0)
-		attack_self(user)
+		src.AttackSelf(user)
 
 /obj/item/device/radio/intercom/attack_hand(mob/user)
 	src.add_fingerprint(user)
 	SPAWN(0)
-		attack_self(user)
+		src.AttackSelf(user)
 
 /obj/item/device/radio/attackby(obj/item/W, mob/user)
 	if (istype(W, /obj/item/reagent_containers/food/fish))
@@ -71,7 +73,7 @@ TYPEINFO(/obj/item/device/radio/intercom)
 			qdel(W)
 			qdel(src)
 		else
-			boutput(user, "<span class='alert'>Looks like the fish won't fit over an intercom facing that way.</span>")
+			boutput(user, SPAN_ALERT("Looks like the fish won't fit over an intercom facing that way."))
 		return
 	. = ..()
 
@@ -92,7 +94,8 @@ TYPEINFO(/obj/item/device/radio/intercom)
 	for(var/image/chat_maptext/I in src.chat_text?.lines)
 		I.bump_up()
 	var/maptext = generateMapText(msg, textLoc, style = "color:[color];", alpha = 255)
-	target.show_message(type = 2, just_maptext = TRUE, assoc_maptext = maptext)
+	if(maptext)
+		target.show_message(type = 2, just_maptext = TRUE, assoc_maptext = maptext)
 
 /obj/item/device/radio/intercom/receive_silicon_hotkey(var/mob/user)
 	..()
@@ -101,12 +104,12 @@ TYPEINFO(/obj/item/device/radio/intercom)
 		return
 
 	if (!isAIeye(user))
-		boutput("Deploy to an AI Eye first to override intercoms.")
+		boutput(user, "Deploy to an AI Eye first to override intercoms.")
 		return
 
 	if(user.client.check_key(KEY_BOLT))
 		if (src.locked_frequency)
-			boutput(user, "<span class='alert'>You can't override an intercom with a locked frequency!</span")
+			boutput(user, SPAN_ALERT("You can't override an intercom with a locked frequency!"))
 			return
 
 		var/original_src_frequency = src.frequency
@@ -116,7 +119,7 @@ TYPEINFO(/obj/item/device/radio/intercom)
 
 		// fake it till you make it
 		var/message = "<span class='radio [src.chat_class]' style='color:[src.device_color || text_colour]'>[radio_icon(src)]\
-		<span class='name'>[src]</span> <span class='message'>alerts, \"AI override engaged!\"</span></span>"
+		[SPAN_NAME("[src]")] [SPAN_MESSAGE("alerts, \"AI override engaged!\"")]</span>"
 		var/maptext = make_chat_maptext(src, "AI override engaged!", "color:[text_colour]")
 
 		src.speech_bubble(image('icons/mob/mob.dmi', "ai"))
@@ -201,6 +204,16 @@ TYPEINFO(/obj/item/device/radio/intercom)
 	initialize()
 		set_frequency(frequency)
 
+/obj/item/device/radio/intercom/mining
+	name = "Mining Intercom"
+	frequency = R_FREQ_INTERCOM_MINING
+	broadcasting = FALSE
+	device_color = "#6b4e0b"
+
+	initialize(player_caused_init)
+		. = ..()
+		src.set_frequency(frequency)
+
 /obj/item/device/radio/intercom/catering
 	name = "Catering Intercom"
 	frequency = R_FREQ_INTERCOM_CATERING
@@ -243,6 +256,7 @@ TYPEINFO(/obj/item/device/radio/intercom)
 	broadcasting = TRUE
 	device_color = "#820A16"
 	hardened = TRUE
+	locked_frequency = TRUE
 
 	initialize()
 		if(istype(ticker.mode, /datum/game_mode/nuclear))
@@ -330,7 +344,7 @@ TYPEINFO(/obj/item/device/radio/intercom)
 	device_color = "#3983C6" // for chat color
 
 	// burning stuff
-	burn_type = 1 // burn down to a glob
+	burn_remains = BURN_REMAINS_MELT // burn down to a glob
 	burn_possible = TRUE
 	burn_point = 300
 	health = 50 // same as a plank
@@ -352,7 +366,15 @@ TYPEINFO(/obj/item/device/radio/intercom)
 	// an intercom receives a message. all the other logic is handled in talk_into of the sending radio.
 	showMapText(mob/target, mob/sender, receive, msg, secure, real_name, lang_id, textLoc)
 		. = ..()
-		flick("wallfish_move", src)
+		FLICK("wallfish_move", src)
 
 	update_pixel_offset_dir()
 		return // no
+
+/obj/item/device/radio/intercom/AI/handheld
+	name = "Portable Intercom"
+	desc = "A portable intercom that's useful to do all the things intercoms normally do, which is mostly listening in on people."
+	broadcasting = FALSE
+	listening = FALSE
+	anchored = UNANCHORED
+	icon_state = "intercom_pot"

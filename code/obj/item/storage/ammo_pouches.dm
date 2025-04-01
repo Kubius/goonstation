@@ -2,7 +2,6 @@
 	Can fit in pockets allowing folks to carry more ammo at the expense of taking a little longer to acces it.
 	Less messy than having people spawn with 5 magazines in their backpack.	*/
 
-
 /obj/item/storage/pouch
 	name = "ammo pouch"
 	icon_state = "ammopouch"
@@ -13,6 +12,7 @@
 	slots = 5
 	opens_if_worn = TRUE
 	can_hold = list(/obj/item/ammo)
+	prevent_holding = list(/obj/item/storage)
 
 	assault_rifle
 		name = "rifle magazine pouch"
@@ -44,7 +44,8 @@
 	poison_dart
 		name = "poison dart pouch"
 		icon_state = "ammopouch-double"
-		spawn_contents = list(/obj/item/ammo/bullets/blow_darts = 2, /obj/item/ammo/bullets/blow_darts/madness = 1, /obj/item/ammo/bullets/blow_darts/ls_bee = 1)
+		can_hold = list(/obj/item/gun/kinetic/blowgun, /obj/item/ammo/bullets/tranq_darts)
+		spawn_contents = list(/obj/item/ammo/bullets/tranq_darts/blow_darts = 2, /obj/item/ammo/bullets/tranq_darts/blow_darts/madness = 1, /obj/item/ammo/bullets/tranq_darts/blow_darts/ls_bee = 1)
 
 	det_38
 		name = ".38 rounds pouch"
@@ -106,6 +107,7 @@
 		name = "shuriken pouch"
 		desc = "A pouch for carrying shurikens. Guaranteed to not shred."
 		slots = 4
+		can_hold = list(/obj/item/implant/projectile/shuriken)
 		spawn_contents = list(/obj/item/implant/projectile/shuriken = 4)
 
 /obj/item/storage/grenade_pouch
@@ -117,6 +119,7 @@
 	slots = 6
 	can_hold = list(/obj/item/old_grenade, /obj/item/chem_grenade)
 	opens_if_worn = TRUE
+	prevent_holding = list(/obj/item/storage)
 
 	frag
 		name = "frag grenade pouch"
@@ -178,6 +181,7 @@
 	opens_if_worn = TRUE
 	spawn_contents = list(/obj/item/reagent_containers/mender/brute/high_capacity,
 	/obj/item/reagent_containers/mender/burn/high_capacity)
+	prevent_holding = list(/obj/item/storage)
 
 /obj/item/storage/security_pouch
 	name = "security pouch"
@@ -187,19 +191,22 @@
 	w_class = W_CLASS_SMALL
 	slots = 6
 	opens_if_worn = TRUE
-	spawn_contents = list(/obj/item/handcuffs = 3,\
+	spawn_contents = list(/obj/item/handcuffs = 2,\
 	/obj/item/device/flash,\
 	/obj/item/reagent_containers/food/snacks/donut,\
-	/obj/item/instrument/whistle)
+	/obj/item/instrument/whistle/security,
+	/obj/item/device/panicbutton)
+	prevent_holding = list(/obj/item/storage)
 
 	empty
 		spawn_contents = list()
 
 /obj/item/storage/security_pouch/assistant
 	spawn_contents = list(/obj/item/handcuffs = 2,\
-	/obj/item/device/flash = 2,\
-	/obj/item/instrument/whistle,\
-	/obj/item/reagent_containers/food/snacks/donut/custom/frosted)
+	/obj/item/device/flash = 1,\
+	/obj/item/instrument/whistle/security,\
+	/obj/item/reagent_containers/food/snacks/donut/custom/frosted,
+	/obj/item/device/panicbutton)
 
 /obj/item/storage/ntsc_pouch
 	name = "tacticool pouch"
@@ -209,10 +216,13 @@
 	w_class = W_CLASS_SMALL
 	slots = 5
 	opens_if_worn = TRUE
+	prevent_holding = list(/obj/item/storage)
 	spawn_contents = list(/obj/item/handcuffs/ = 1,
-	/obj/item/handcuffs/guardbot = 2,
+	/obj/item/handcuffs/guardbot = 1,
 	/obj/item/device/flash,
-	/obj/item/reagent_containers/food/snacks/candy/candyheart)
+	/obj/item/instrument/whistle/security,
+	/obj/item/device/panicbutton)
+
 
 	ntso
 		spawn_contents = list(/obj/item/gun/kinetic/clock_188/boomerang/ntso,
@@ -226,7 +236,31 @@
 	w_class = W_CLASS_SMALL
 	slots = 5
 	opens_if_worn = TRUE
+	prevent_holding = list(/obj/item/storage)
 	spawn_contents = list(/obj/item/old_grenade/emp = 5)
+
+/obj/item/storage/wasp_grenade_pouch
+	name = "experimental biological grenade pouch"
+	desc = "A pouch designed to hold experimental biological grenades."
+	icon_state = "ammopouch-wasp"
+	health = 6
+	w_class = W_CLASS_SMALL
+	slots = 5
+	opens_if_worn = TRUE
+	prevent_holding = list(/obj/item/storage)
+	spawn_contents = list(/obj/item/old_grenade/spawner/wasp = 5)
+
+/obj/item/storage/custom_chem_grenade_pouch
+	name = "chemical grenade pouch"
+	desc = "A pouch designed to hold chemical grenades."
+	icon_state = "ammopouch-customchem"
+	health = 6
+	w_class = W_CLASS_SMALL
+	slots = 5
+	opens_if_worn = TRUE
+	prevent_holding = list(/obj/item/storage)
+	spawn_contents = list(/obj/item/chem_grenade/custom = 5)
+
 
 /obj/item/storage/tactical_grenade_pouch
 	name = "tactical grenade pouch"
@@ -236,6 +270,7 @@
 	w_class = W_CLASS_SMALL
 	slots = 7
 	opens_if_worn = TRUE
+	prevent_holding = list(/obj/item/storage)
 	spawn_contents = list(/obj/item/chem_grenade/incendiary = 2,\
 	/obj/item/chem_grenade/shock,\
 	/obj/item/old_grenade/smoke = 1,\
@@ -251,6 +286,7 @@
 	w_class = W_CLASS_SMALL
 	slots = 6
 	opens_if_worn = TRUE
+	prevent_holding = list(/obj/item/storage)
 	spawn_contents = list(/obj/item/old_grenade/sonic = 5,\
 	/obj/item/clothing/ears/earmuffs/earplugs)
 
@@ -262,6 +298,7 @@
 	w_class = W_CLASS_SMALL
 	slots = 6
 	opens_if_worn = TRUE
+	prevent_holding = list(/obj/item/storage)
 	spawn_contents = list(/obj/item/old_grenade/energy_concussion = 5)
 
 /obj/item/storage/banana_grenade_pouch
@@ -272,6 +309,7 @@
 	w_class = W_CLASS_SMALL
 	slots = 7 //bonus two slots for the banana grenade kit
 	opens_if_worn = TRUE
+	prevent_holding = list(/obj/item/storage)
 	spawn_contents = list(/obj/item/old_grenade/spawner/banana = 5)
 
 /obj/item/storage/beartrap_pouch
@@ -281,6 +319,7 @@
 	w_class = W_CLASS_SMALL
 	slots = 4
 	opens_if_worn = TRUE
+	prevent_holding = list(/obj/item/storage)
 	spawn_contents = list(/obj/item/beartrap = 4)
 
 /obj/item/storage/landmine_pouch
@@ -290,6 +329,8 @@
 	w_class = W_CLASS_SMALL
 	slots = 3
 	opens_if_worn = TRUE
+	prevent_holding = list(/obj/item/storage)
+	can_hold = list(/obj/item/mine)
 	var/static/list/possible_contents = list(/obj/item/mine/radiation, /obj/item/mine/incendiary, /obj/item/mine/stun, /obj/item/mine/blast)
 
 	make_my_stuff()
@@ -307,6 +348,9 @@
 	slots = 6
 	opens_if_worn = TRUE
 	can_hold = list(/obj/item/ammo, /obj/item/old_grenade, /obj/item/chem_grenade, /obj/item/reagent_containers, /obj/item/deployer/barricade, /obj/item/tool, /obj/item/breaching_charge, /obj/item/pinpointer, /obj/item/mine, /obj/item/remote, /obj/item/device/)
+	midcap //! weaker pouch for gangs
+		desc = "A moderately sized pouch for carrying multiple miscellaneous things at once."
+		slots = 4
 
 /obj/item/storage/sawfly_pouch
 	name = "sawfly pouch"
@@ -316,8 +360,24 @@
 	w_class = W_CLASS_SMALL
 	slots = 4
 	opens_if_worn = TRUE
+	prevent_holding = list(/obj/item/storage)
 	spawn_contents = list(
 		/obj/item/old_grenade/sawfly/firsttime = 3,
 		/obj/item/remote/sawflyremote
 	)
 
+// Pod wars pouches
+/obj/item/storage/pw_medical_pouch
+	name = "injector pouch"
+	icon_state = "ammopouch-medic"
+	health = 6
+	w_class = W_CLASS_TINY
+	slots = 4
+	opens_if_worn = TRUE
+	spawn_contents = list(/obj/item/reagent_containers/emergency_injector/bloodbak,
+	/obj/item/reagent_containers/emergency_injector/qwikheal,
+	/obj/item/reagent_containers/emergency_injector/painstop,
+	/obj/item/reagent_containers/emergency_injector/bringbak)
+	prevent_holding = list(/obj/item/storage)
+
+// End of pod wars pouches

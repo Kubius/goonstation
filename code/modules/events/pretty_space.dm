@@ -1,9 +1,14 @@
 #ifndef UNDERWATER_MAP
-#ifndef HALLOWEEN
 /datum/random_event/major/pretty_space
 	name = "Space Colors"
 	customization_available = 1
 	required_elapsed_round_time = 0 MINUTES
+
+	is_event_available(ignore_time_lock)
+		. = ..()
+		if(.)
+			if (global.is_map_on_ground_terrain)
+				. = FALSE
 
 	admin_call(var/source)
 		if (..())
@@ -30,5 +35,4 @@
 
 		SPAWN(duration)
 			RECOLOUR_PARALLAX_RENDER_SOURCES_IN_GROUP(Z_LEVEL_STATION, list(), 10 SECONDS)
-#endif
 #endif

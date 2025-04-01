@@ -6,7 +6,7 @@ TYPEINFO(/obj/item/device/igniter)
 	desc = "A small electronic device can be paired with other electronics, or used to heat chemicals directly."
 	icon_state = "igniter"
 	var/status = 1
-	flags = FPRINT | TABLEPASS| CONDUCT | USEDELAY
+	flags = TABLEPASS | CONDUCT | USEDELAY
 	c_flags = ONBELT
 	item_state = "electronic"
 	m_amt = 100
@@ -20,10 +20,11 @@ TYPEINFO(/obj/item/device/igniter)
 	//its still a bit stronger than non-inventory interactions, why not
 	var/last_ignite = 0
 
-/obj/item/device/igniter/attack(mob/M, mob/user)
-	if (ishuman(M))
-		if (M:bleeding || (M:butt_op_stage == 4 && user.zone_sel.selecting == "chest"))
-			if (!src.cautery_surgery(M, user, 15))
+/obj/item/device/igniter/attack(mob/target, mob/user, def_zone, is_special = FALSE, params = null)
+	if (ishuman(target))
+		var/mob/living/carbon/human/H = target
+		if (H:bleeding || (H.organHolder.back_op_stage > BACK_SURGERY_CLOSED && user.zone_sel.selecting == "chest"))
+			if (is_special || !src.cautery_surgery(target, user, 15))
 				return ..()
 		else return ..()
 	else return ..()
@@ -112,14 +113,14 @@ TYPEINFO(/obj/item/device/igniter)
 
 		R.setDetState(0)
 		src.add_fingerprint(user)
-		user.show_message("<span class='notice'>You hook up the igniter to the multitool's panel.</span>")
+		user.show_message(SPAN_NOTICE("You hook up the igniter to the multitool's panel."))
 
 	if (isscrewingtool(W))
 		src.status = !(src.status)
 		if (src.status)
-			user.show_message("<span class='notice'>The igniter is ready!</span>")
+			user.show_message(SPAN_NOTICE("The igniter is ready!"))
 		else
-			user.show_message("<span class='notice'>The igniter can now be attached!</span>")
+			user.show_message(SPAN_NOTICE("The igniter can now be attached!"))
 		src.add_fingerprint(user)
 
 	return
@@ -137,8 +138,8 @@ TYPEINFO(/obj/item/device/igniter)
 
 /obj/item/device/igniter/afterattack(atom/target, mob/user as mob)
 	if (!ismob(target) && target.reagents && can_ignite())
-		flick("igniter_light", src)
-		boutput(user, "<span class='notice'>You heat \the [target.name]</span>")
+		FLICK("igniter_light", src)
+		boutput(user, SPAN_NOTICE("You heat \the [target.name]."))
 		target.reagents.temperature_reagents(4000,400)
 		last_ignite = world.time
 
@@ -149,7 +150,7 @@ TYPEINFO(/obj/item/device/igniter)
 		if (src.master)
 			location = src.master.loc
 
-		flick("igniter_light", src)
+		FLICK("igniter_light", src)
 		location = get_turf(location)
 		location?.hotspot_expose((isturf(location) ? 3000 : 4000),2000)
 		last_ignite = world.time

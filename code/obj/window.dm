@@ -9,7 +9,7 @@ ADMIN_INTERACT_PROCS(/obj/window, proc/smash)
 	density = 1
 	stops_space_move = 1
 	dir = NORTHEAST //full tile
-	flags = FPRINT | USEDELAY | ON_BORDER | ALWAYS_SOLID_FLUID
+	flags = USEDELAY | ON_BORDER | FLUID_DENSE
 	event_handler_flags = USE_FLUID_ENTER
 	object_flags = HAS_DIRECTIONAL_BLOCKING
 	text = "<font color=#aaf>#"
@@ -38,6 +38,7 @@ ADMIN_INTERACT_PROCS(/obj/window, proc/smash)
 	gas_impermeable = TRUE
 	anchored = ANCHORED
 	material_amt = 0.1
+	HELP_MESSAGE_OVERRIDE(null)
 
 	the_tuff_stuff
 		explosion_resistance = 3
@@ -95,7 +96,7 @@ ADMIN_INTERACT_PROCS(/obj/window, proc/smash)
 			src.layer = map_settings.window_layer_north
 		else if (src.dir == SOUTH && map_settings.window_layer_south)
 			src.layer = map_settings.window_layer_south
-		else if (src.dir in ordinal && map_settings.window_layer_full)
+		else if ((src.dir in ordinal) && map_settings.window_layer_full)
 			src.layer = map_settings.window_layer_full
 		else
 			src.layer = initial(src.layer)
@@ -258,7 +259,7 @@ ADMIN_INTERACT_PROCS(/obj/window, proc/smash)
 				src.damage_heat(rand(10, 25))
 
 	meteorhit(var/obj/M)
-		if (istype(M, /obj/newmeteor/massive))
+		if (istype(M, /obj/newmeteor/massive) && !(IS_ARRIVALS(get_area(src))))
 			smash()
 			return
 		src.damage_blunt(20)
@@ -344,7 +345,7 @@ ADMIN_INTERACT_PROCS(/obj/window, proc/smash)
 			return TRUE
 		if(istype(mover, /obj/projectile))
 			var/obj/projectile/P = mover
-			if(P.proj_data?.window_pass)
+			if(P.proj_data?.window_pass && !src.opacity)
 				return TRUE
 		if (!is_cardinal(dir))
 			return FALSE //full tile window, you can't move into it!
@@ -375,7 +376,7 @@ ADMIN_INTERACT_PROCS(/obj/window, proc/smash)
 
 	hitby(atom/movable/AM, datum/thrown_thing/thr)
 		..()
-		src.visible_message("<span class='alert'><B>[src] was hit by [AM].</B></span>")
+		src.visible_message(SPAN_ALERT("<B>[src] was hit by [AM].</B>"))
 		playsound(src.loc, src.hitsound , 100, 1)
 		if (ismob(AM))
 			damage_blunt(15)
@@ -392,21 +393,21 @@ ADMIN_INTERACT_PROCS(/obj/window, proc/smash)
 		return
 
 	attack_hand(mob/user)
-		user.lastattacked = src
+		user.lastattacked = get_weakref(src)
 		attack_particle(user,src)
 		if (user.a_intent == "harm")
 			if (user.is_hulk())
-				user.visible_message("<span class='alert'><b>[user]</b> punches the window.</span>")
+				user.visible_message(SPAN_ALERT("<b>[user]</b> punches the window."))
 				playsound(src.loc, src.hitsound, 100, 1)
 				src.damage_blunt(10)
 				return
 			else
-				src.visible_message("<span class='alert'><b>[user]</b> beats [src] uselessly!</span>")
+				src.visible_message(SPAN_ALERT("<b>[user]</b> beats [src] uselessly!"))
 				playsound(src.loc, src.hitsound, 100, 1)
 				return
 		else
 			if (ishuman(user))
-				src.visible_message("<span class='alert'><b>[user]</b> knocks on [src].</span>")
+				src.visible_message(SPAN_ALERT("<b>[user]</b> knocks on [src]."))
 				playsound(src.loc, src.hitsound, 100, 1)
 				SPAWN(-1) //uhhh maybe let's not sleep() an attack_hand. fucky effects up the chain?
 					sleep(0.3 SECONDS)
@@ -416,7 +417,7 @@ ADMIN_INTERACT_PROCS(/obj/window, proc/smash)
 				return
 
 	attackby(obj/item/W, mob/user)
-		user.lastattacked = src
+		user.lastattacked = get_weakref(src)
 
 		if (isscrewingtool(W))
 			if (state == 10) // ???
@@ -468,11 +469,14 @@ ADMIN_INTERACT_PROCS(/obj/window, proc/smash)
 			var/time = 4 SECONDS
 			if (user.traitHolder.hasTrait("carpenter") || user.traitHolder.hasTrait("training_engineer"))
 				time = 2 SECONDS
-			SETUP_GENERIC_ACTIONBAR(user, src, time, /obj/window/proc/fix_window, list(W), null, null, "<span class='notice'> [user] repairs \the [src] with \the [W] </span>", null)
+			SETUP_GENERIC_ACTIONBAR(user, src, time, /obj/window/proc/fix_window, list(W), null, null, SPAN_NOTICE(" [user] repairs \the [src] with \the [W] "), null)
 		else
 			attack_particle(user,src)
 			playsound(src.loc, src.hitsound , 75, 1)
-			src.damage_blunt(W.force)
+			if (ischoppingtool(W))
+				src.damage_blunt(W.force*4)
+			else
+				src.damage_blunt(W.force)
 			..()
 		return
 
@@ -485,7 +489,7 @@ ADMIN_INTERACT_PROCS(/obj/window, proc/smash)
 				src.anchored = !(src.anchored)
 				src.stops_space_move = !(src.stops_space_move)
 				user.show_text("You have [src.anchored ? "fastened the frame to" : "unfastened the frame from"] the floor.", "blue")
-				logTheThing(LOG_STATION, user, "[src.anchored ? " anchored" : " unanchored"] [src] at [log_loc(src)].")
+				logTheThing(LOG_STATION, user, "[src.anchored ? "anchored" : "unanchored"] [src] at [log_loc(src)].")
 				src.align_window()
 		else if(ispryingtool(W) && src.anchored)
 			state = 1 - state
@@ -544,14 +548,14 @@ ADMIN_INTERACT_PROCS(/obj/window, proc/smash)
 					affected_simturfs += get_step(src, neigh_dir)
 
 		if(need_rebuild)
-			for(var/turf/simulated/T in affected_simturfs)
+			for(var/turf/simulated/T as anything in affected_simturfs)
 				if(T.parent) //Rebuild/update nearby group geometry
-					air_master.groups_to_rebuild |= T.parent
+					air_master.groups_to_rebuild[T.parent] = null
 				else
-					air_master.tiles_to_update |= T
+					air_master.tiles_to_update[T] = null
 		else
-			for(var/turf/simulated/T in affected_simturfs)
-				air_master.tiles_to_update |= T
+			for(var/turf/simulated/T as anything in affected_simturfs)
+				air_master.tiles_to_update[T] = null
 
 		if (map_currently_underwater)
 			var/turf/space/fluid/n = get_step(src,NORTH)
@@ -583,7 +587,6 @@ ADMIN_INTERACT_PROCS(/obj/window, proc/smash)
 /datum/action/bar/icon/deconstruct_window
 	duration = 5 SECONDS
 	interrupt_flags = INTERRUPT_MOVE | INTERRUPT_ACT | INTERRUPT_STUNNED | INTERRUPT_ACTION
-	id = "deconstruct_window"
 	icon = 'icons/ui/actions.dmi'
 	icon_state = "decon"
 	var/obj/window/the_window
@@ -613,7 +616,7 @@ ADMIN_INTERACT_PROCS(/obj/window, proc/smash)
 		if(BOUNDS_DIST(owner, the_window) > 0 || the_window == null || owner == null || the_tool == null)
 			interrupt(INTERRUPT_ALWAYS)
 			return
-		boutput(owner, "<span class='notice'>Now disassembling [the_window]</span>")
+		boutput(owner, SPAN_NOTICE("Now disassembling \the [the_window]"))
 		playsound(the_window.loc, 'sound/items/Ratchet.ogg', 100, 1)
 
 	onEnd()
@@ -626,7 +629,7 @@ ADMIN_INTERACT_PROCS(/obj/window, proc/smash)
 			if (!(the_tool in M.equipped_list()))
 				interrupt(INTERRUPT_ALWAYS)
 				return
-		boutput(owner, "<span class='notice'>You dissasembled [the_window]!</span>")
+		boutput(owner, SPAN_NOTICE("You disassemble \the [the_window]!"))
 		var/obj/item/sheet/A = new /obj/item/sheet(get_turf(the_window))
 		if(the_window.material)
 			A.setMaterial(the_window.material)
@@ -641,7 +644,7 @@ ADMIN_INTERACT_PROCS(/obj/window, proc/smash)
 
 	onInterrupt()
 		if (owner)
-			boutput(owner, "<span class='alert'>Deconstruction of [the_window] interrupted!</span>")
+			boutput(owner, SPAN_ALERT("Deconstruction of \the [the_window] interrupted!"))
 		..()
 
 /obj/window/pyro
@@ -692,19 +695,7 @@ ADMIN_INTERACT_PROCS(/obj/window, proc/smash)
 
 /obj/window/bulletproof/pyro
 	icon_state = "rpyro"
-/*
-/obj/window/supernorn
-	icon = 'icons/Testing/newicons/obj/NEWstructures.dmi'
-	dir = 5
 
-	attackby() // TODO: need to be able to smash them, this is a hack
-	rotate()
-		set hidden = 1
-
-	New()
-		for (var/turf/simulated/wall/auto/T in orange(1))
-			T.UpdateIcon()
-*/
 /obj/window/north
 	dir = NORTH
 
@@ -772,7 +763,7 @@ ADMIN_INTERACT_PROCS(/obj/window, proc/smash)
 	health_multiplier = 2
 	alpha = 160
 	object_flags = 0 // so they don't inherit the HAS_DIRECTIONAL_BLOCKING flag from thindows
-	flags = FPRINT | USEDELAY | ON_BORDER | ALWAYS_SOLID_FLUID | IS_PERSPECTIVE_FLUID
+	flags = USEDELAY | ON_BORDER | FLUID_DENSE | IS_PERSPECTIVE_FLUID
 
 	var/mod = "W-"
 	var/connectdir
@@ -837,7 +828,7 @@ ADMIN_INTERACT_PROCS(/obj/window, proc/smash)
 	update_icon()
 		if (!src.anchored)
 			icon_state = "[mod]0"
-			src.UpdateOverlays(null, "connect")
+			src.ClearSpecificOverlays("connect")
 			update_damage_overlay()
 			return
 
@@ -850,9 +841,9 @@ ADMIN_INTERACT_PROCS(/obj/window, proc/smash)
 				src.connect_image = image(src.icon, "overlay-[overlaydir]")
 			else
 				src.connect_image.icon_state = "overlay-[overlaydir]"
-				src.UpdateOverlays(src.connect_image, "connect")
+				src.AddOverlays(src.connect_image, "connect")
 		else
-			src.UpdateOverlays(null, "connect")
+			src.ClearSpecificOverlays("connect")
 		src.update_damage_overlay()
 
 	proc/update_neighbors()
@@ -860,8 +851,8 @@ ADMIN_INTERACT_PROCS(/obj/window, proc/smash)
 			T.UpdateIcon()
 		for (var/obj/window/auto/O in orange(1,src))
 			O.UpdateIcon()
-		for (var/obj/grille/G in orange(1,src))
-			G.UpdateIcon()
+		for (var/obj/mesh/M in orange(1,src))
+			M.UpdateIcon()
 
 	proc/update_damage_overlay()
 		var/health_percentage = health/health_max
@@ -881,7 +872,7 @@ ADMIN_INTERACT_PROCS(/obj/window, proc/smash)
 			src.damage_image.icon_state = "light-[connectdir]"
 		else
 			src.damage_image.icon_state = null
-		src.UpdateOverlays(src.damage_image, "damage")
+		src.AddOverlays(src.damage_image, "damage")
 
 /obj/window/auto/the_tuff_stuff
 	explosion_resistance = 3
@@ -910,7 +901,7 @@ ADMIN_INTERACT_PROCS(/obj/window, proc/smash)
 
 	attack_hand(mob/user)
 		if(!ON_COOLDOWN(user, "glass_tap", 5 SECONDS))
-			src.visible_message("<span class='alert'><b>[user]</b> knocks on [src].</span>")
+			src.visible_message(SPAN_ALERT("<b>[user]</b> knocks on [src]."))
 			playsound(src.loc, src.hitsound, 100, 1)
 			sleep(0.3 SECONDS)
 			playsound(src.loc, src.hitsound, 100, 1)
@@ -1048,10 +1039,10 @@ ADMIN_INTERACT_PROCS(/obj/window, proc/smash)
 /obj/window/auto/feather/special_desc(dist, mob/user)
 	if (!isflockmob(user))
 		return
-	return {"<span class='flocksay'><span class='bold'>###=-</span> Ident confirmed, data packet received.
-		<br><span class='bold'>ID:</span> [src.flock_id]
-		<br><span class='bold'>System Integrity:</span> [round((src.health/src.health_max)*100)]%
-		<br><span class='bold'>###=-</span></span>"}
+	return {"[SPAN_FLOCKSAY("[SPAN_BOLD("###=- Ident confirmed, data packet received.")]<br>\
+		[SPAN_BOLD("ID:")] [src.flock_id]<br>\
+		[SPAN_BOLD("System Integrity:")] [round((src.health/src.health_max)*100)]%<br>\
+		[SPAN_BOLD("###=-")]")]"}
 
 /obj/window/auto/feather/proc/repair(resources_available)
 	var/health_given = min(min(resources_available, FLOCK_REPAIR_COST) * src.repair_per_resource, src.health_max - src.health)
@@ -1096,10 +1087,10 @@ TYPEINFO(/obj/window/feather)
 /obj/window/feather/special_desc(dist, mob/user)
 	if (!isflockmob(user))
 		return
-	return {"<span class='flocksay'><span class='bold'>###=-</span> Ident confirmed, data packet received.
-		<br><span class='bold'>ID:</span> [src.flock_id]
-		<br><span class='bold'>System Integrity:</span> [round((src.health/src.health_max)*100)]%
-		<br><span class='bold'>###=-</span></span>"}
+	return {"[SPAN_FLOCKSAY("[SPAN_BOLD("###=- Ident confirmed, data packet received.")]<br>\
+		[SPAN_BOLD("ID:")] [src.flock_id]<br>\
+		[SPAN_BOLD("System Integrity:")] [round((src.health/src.health_max)*100)]%<br>\
+		[SPAN_BOLD("###=-")]")]"}
 
 /obj/window/feather/proc/repair(resources_available)
 	var/health_given = min(min(resources_available, FLOCK_REPAIR_COST) * src.repair_per_resource, src.health_max - src.health)

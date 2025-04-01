@@ -14,8 +14,7 @@
 	layer = 5
 	density = 1
 	anchored = UNANCHORED
-	flags = FPRINT | CONDUCT | USEDELAY | FLUID_SUBMERGE
-	event_handler_flags = USE_PROXIMITY | USE_FLUID_ENTER
+	flags = CONDUCT | USEDELAY | FLUID_SUBMERGE
 	var/is_template = 0
 	var/alive = 1
 	var/health = 10
@@ -30,7 +29,6 @@
 	var/followed_path_retry_target = null
 	var/follow_path_blindly = 0
 
-	var/report_state = 0
 	var/quality_name = null
 	var/mobile = 1
 	var/aggressive = 0
@@ -116,19 +114,7 @@
 		var/msg = replacetext(message, "%src%", "<b>[src]</b>")
 		msg = replacetext(msg, "%target%", "[target]")
 		msg = replacetext(msg, "[constructTarget(target,"combat")]", "[target]")
-		src.visible_message("<span class='alert'>[msg]</span>")
-
-	proc/report_spawn()
-		if (!report_state)
-			report_state = 1
-			if (src in gauntlet_controller.gauntlet)
-				gauntlet_controller.increaseCritters(src)
-
-	proc/report_death()
-		if (report_state == 1)
-			report_state = 0
-			if (src in gauntlet_controller.gauntlet)
-				gauntlet_controller.decreaseCritters(src)
+		src.visible_message(SPAN_ALERT("[msg]"))
 
 	serialize(var/savefile/F, var/path, var/datum/sandbox/sandbox)
 		..()
@@ -195,7 +181,7 @@
 			//critters -= src //Stop processing this critter
 
 
-	HasProximity(atom/movable/AM as mob|obj)
+	EnteredProximity(atom/movable/AM)
 		if(task == "hibernating" && ismob(AM))
 			var/mob/living/M = AM
 			if(M.client) wake_from_hibernation()
@@ -228,10 +214,10 @@
 
 					src.skinresult = null
 
-					user.visible_message("<span class='alert'>[user] skins [src].</span>","You skin [src].")
+					user.visible_message(SPAN_NOTICE("[user] skins [src]."), SPAN_NOTICE("You skin [src]."))
 
 			if (src.butcherable && (istype(W, /obj/item/kitchen/utensil/knife) || istype(W, /obj/item/knife/butcher)))
-				user.visible_message("<span class='alert'>[user] butchers [src].[src.butcherable == BUTCHER_YOU_MONSTER ? " <b>WHAT A MONSTER!</b>" : null]","You butcher [src].</span>")
+				user.visible_message(SPAN_NOTICE("[user] butchers [src].[src.butcherable == BUTCHER_YOU_MONSTER ? " <b>WHAT A MONSTER!</b>" : null]"), SPAN_NOTICE("You butcher [src]."))
 
 				var/i = rand(2,4)
 				var/transfer = src.reagents.total_volume / i
@@ -255,14 +241,14 @@
 					user.show_text("You were interrupted!", "red")
 				return
 			if (src.feed_text)
-				src.visible_message("<span class='notice'>[src] [src.feed_text]</span>")
+				src.visible_message(SPAN_NOTICE("[src] [src.feed_text]"))
 			eat_twitch(src)
 			src.health = min(src.maxhealth, src.health + health_gain_from_food)
 			user.drop_item()
 			qdel(W)
 			return
 
-		user.lastattacked = src
+		user.lastattacked = get_weakref(src)
 		attack_particle(user,src)
 
 		var/attack_force = 0
@@ -332,15 +318,20 @@
 			var/turf/T = get_edge_target_turf(src, get_dir(user, src))
 			src.throw_at(T, 2, W.getProperty("impact"))
 
+		if (W.force)
+			var/datum/gang/gang = user.get_gang()
+			if (gang && src.health > 0)
+				gang.do_vandalism(W.force*GANG_VANDALISM_VIOLENCE_NPC_MULTIPLIER,get_turf(src))
+
 		if (src.defensive)
 			if (src.target == user && src.task == "attacking")
 				if (prob(50 - attack_force))
 					return
 				else
-					src.visible_message("<span class='alert'><b>[src]</b> flinches!</span>")
+					src.visible_message(SPAN_ALERT("<b>[src]</b> flinches!"))
 			src.target = user
 			src.oldtarget_name = user.name
-			src.visible_message("<span class='alert'><b>[src]</b> [src.angertext] [user.name]!</span>")
+			src.visible_message(SPAN_ALERT("<b>[src]</b> [src.angertext] [user.name]!"))
 			src.task = "chasing"
 			on_grump()
 
@@ -368,12 +359,12 @@
 			sleeping = 0
 			on_wake()
 
-		user.lastattacked = src
+		user.lastattacked = get_weakref(src)
 		attack_particle(user,src)
 
 		if (user.a_intent == INTENT_HARM)
 			src.health -= rand(1,2) * src.brutevuln
-			src.visible_message("<span class='alert'><b>[user]</b> punches [src]!</span>")
+			src.visible_message(SPAN_ALERT("<b>[user]</b> punches [src]!"))
 			playsound(src.loc, pick(sounds_punch), 100, 1)
 			attack_twitch(user)
 			hit_twitch(src)
@@ -387,16 +378,16 @@
 					if (prob(50))
 						return
 					else
-						src.visible_message("<span class='alert'><b>[src]</b> flinches!</span>")
+						src.visible_message(SPAN_ALERT("<b>[src]</b> flinches!"))
 				src.target = user
 				src.oldtarget_name = user.name
-				src.visible_message("<span class='alert'><b>[src]</b> [src.angertext] [user.name]!</span>")
+				src.visible_message(SPAN_ALERT("<b>[src]</b> [src.angertext] [user.name]!"))
 				src.task = "chasing"
 				on_grump()
 		else
 			var/pet_verb = islist(src.pet_text) ? pick(src.pet_text) : src.pet_text
 			var/post_pet_verb = islist(src.post_pet_text) ? pick(src.post_pet_text) : src.post_pet_text
-			src.visible_message("<span class='notice'><b>[user]</b> [pet_verb] [src]![post_pet_verb]</span>", 1)
+			src.visible_message(SPAN_NOTICE("<b>[user]</b> [pet_verb] [src]![post_pet_verb]"))
 			on_pet(user)
 
 	proc/patrol_step()
@@ -726,13 +717,13 @@
 					C.update_face()
 					switch (C.decomp_stage)
 						if (DECOMP_STAGE_SKELETONIZED)
-							src.visible_message("<span class='combat'><b>[src]</b> tears the last piece of meat off [src.corpse_target]!</span>")
+							src.visible_message(SPAN_COMBAT("<b>[src]</b> tears the last piece of meat off [src.corpse_target]!"))
 							src.task = "thinking"
 							src.corpse_target = null
 						if (DECOMP_STAGE_HIGHLY_DECAYED)
-							src.visible_message("<span class='alert'><b>[src]</b> has eaten most of the flesh from [src.corpse_target]'s bones!")
+							src.visible_message(SPAN_ALERT("<b>[src]</b> has eaten most of the flesh from [src.corpse_target]'s bones!"))
 						if (DECOMP_STAGE_DECAYED)
-							src.visible_message("<span class='alert'><b>[src]</b> has eaten enough of [src.corpse_target] that their bones are showing!")
+							src.visible_message(SPAN_ALERT("<b>[src]</b> has eaten enough of [src.corpse_target] that their bones are showing!"))
 
 			if ("attacking")
 
@@ -780,7 +771,6 @@
 		if(!src.reagents) src.create_reagents(100)
 		wander_check = rand(5,20)
 		START_TRACKING_CAT(TR_CAT_CRITTERS)
-		report_spawn()
 		if(isnull(src.is_pet))
 			src.is_pet = !generic && (copytext(src.name, 1, 2) in uppercase_letters)
 		if(in_centcom(loc) || current_state >= GAME_STATE_PLAYING)
@@ -793,6 +783,7 @@
 			if(nickname)
 				src.quality_name = nickname
 				src.name = "[nickname] [src.name]"
+		src.AddComponent(/datum/component/proximity)
 		..()
 
 	disposing()
@@ -824,7 +815,7 @@
 				src.task = "thinking"
 			if (visible.len)
 				src.corpse_target = visible[1]
-				src.visible_message("<span class='alert'><b>[src]</b> eyes [src.corpse_target.name] hungrily!</span>")
+				src.visible_message(SPAN_ALERT("<b>[src]</b> eyes [src.corpse_target.name] hungrily!"))
 				src.task = "chasing"// corpse"
 
 		if (src.chases_food)
@@ -861,7 +852,7 @@
 			if (src.attack)
 				src.target = C
 				src.oldtarget_name = C.name
-				src.visible_message("<span class='combat'><b>[src]</b> [src.angertext] [C.name]!</span>")
+				src.visible_message(SPAN_COMBAT("<b>[src]</b> [src.angertext] [C.name]!"))
 				src.task = "chasing"
 				on_grump()
 				break
@@ -887,11 +878,10 @@
 		src.anchored = UNANCHORED
 		src.set_density(0)
 		walk_to(src,0) //halt walking
-		report_death()
 		src.tokenized_message(death_text)
 
 	proc/ChaseAttack(mob/M)
-		src.visible_message("<span class='combat'><B>[src]</B> [src.chase_text] [src.target]!</span>")
+		src.visible_message(SPAN_COMBAT("<B>[src]</B> [src.chase_text] [src.target]!"))
 		if (isliving(M))
 			var/mob/living/H = M
 			H.was_harmed(src)
@@ -901,7 +891,7 @@
 		if (prob(src.crit_chance))
 			CritAttack(M)
 		else
-			src.visible_message("<span class='combat'><B>[src]</B> [src.atk_text] [src.target]!</span>")
+			src.visible_message(SPAN_COMBAT("<B>[src]</B> [src.atk_text] [src.target]!"))
 			random_brute_damage(src.target, src.atk_brute_amt,1)
 			random_burn_damage(src.target, src.atk_burn_amt)
 		if (isliving(M))
@@ -917,7 +907,7 @@
 				C.contract_disease(src.atk_diseases, null, null, 1) // path, name, strain, bypass resist
 
 	proc/CritAttack(mob/M)
-		src.visible_message("<span class='combat'><B>[src]</B> [src.crit_text] [src.target]!</span>")
+		src.visible_message(SPAN_COMBAT("<B>[src]</B> [src.crit_text] [src.target]!"))
 		random_brute_damage(src.target, src.crit_brute_amt,1)
 		random_burn_damage(src.target, src.crit_burn_amt)
 
@@ -1011,8 +1001,8 @@
 			src.critter_name = t
 
 		else if ((isweldingtool(W) && W:try_weld(user,0,-1,0,0)) || (istype(W, /obj/item/clothing/head/cakehat) && W:on) || istype(W, /obj/item/device/igniter) || ((istype(W, /obj/item/device/light/zippo) || istype(W, /obj/item/match) || istype(W, /obj/item/device/light/candle)) && W:on) || W.burning || W.hit_type == DAMAGE_BURN) // jesus motherfucking christ
-			user.visible_message("<span class='alert'><b>[user]</b> warms [src] with [W].</span>",\
-			"<span class='alert'>You warm [src] with [W].</span>")
+			user.visible_message(SPAN_ALERT("<b>[user]</b> warms [src] with [W]."),\
+			SPAN_ALERT("You warm [src] with [W]."))
 			src.warm_count -= 2
 			src.warm_count = max(src.warm_count, 0)
 			src.hatch_check(0, user)
@@ -1049,7 +1039,7 @@
 				src.set_loc(get_turf(src))
 
 			if (shouldThrow && T)
-				src.visible_message("<span class='alert'>[src] splats onto the floor messily!</span>")
+				src.visible_message(SPAN_ALERT("[src] splats onto the floor messily!"))
 				playsound(T, 'sound/impact_sounds/Slimy_Splat_1.ogg', 100, TRUE)
 			else
 				var/hatch_wiggle_counter = rand(3,8)
@@ -1102,7 +1092,7 @@
 		C.icon_state = copytext(C.icon_state, 1, -5) // if people aren't being weird about the icons it should just remove the "-dead"
 		C.set_density(initial(C.density))
 		C.on_revive()
-		C.visible_message("<span class='alert'>[C] seems to rise from the dead!</span>")
+		C.visible_message(SPAN_ALERT("[C] seems to rise from the dead!"))
 		logTheThing(LOG_ADMIN, src, "revived [C] (critter).")
 		message_admins("[key_name(src)] revived [C] (critter)!")
 	else

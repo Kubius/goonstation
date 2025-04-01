@@ -58,7 +58,9 @@
 		if(!is_valid_observable(observable, all_observables))
 			continue
 		var/list/obs_data = list()
-		obs_data["name"] = observable.name
+		var/mob/observable_mob = observable
+		ENSURE_TYPE(observable_mob)
+		obs_data["name"] = observable_mob ? observable_mob.real_name : observable.name
 		obs_data["ref"] = "\ref[observable]"
 		obs_data["real_name"] = obs_data["name"]
 		obs_data["dead"] = FALSE
@@ -76,7 +78,7 @@
 			if(isAIeye(M))
 				obs_data["name"] += "'s eye"
 				obs_data["real_name"] += "'s eye"
-			obs_data["dead"] = isdead(M)
+			obs_data["dead"] = isdead(M) || inafterlife(M) || isVRghost(M)
 			obs_data["job"] = M.job
 			obs_data["npc"] = (M.client == null && M.ghost == null) //dead players have no client, but should have a ghost
 			obs_data["player"] = (M.client != null || M.ghost != null) //okay, I know this is just !npc, but it won't ever get set for objects, so it's needed

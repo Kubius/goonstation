@@ -32,6 +32,7 @@
 		if (!M)
 			return 1
 
+		. = ..()
 		var/turf/T = get_turf(M)
 		if (T && isturf(T))
 			//play sound pls
@@ -41,7 +42,7 @@
 
 			var/create = 4
 			var/turf/shoot_at = get_step(M,pick(alldirs))
-
+			P.auto_find_targets = FALSE
 			for (var/i = 0, i < create, i += 0.1) //pay no mind :)
 				var/obj/projectile/proj = initialize_projectile_pixel_spread(M, P, shoot_at)
 				if (proj && !proj.disposed)
@@ -55,11 +56,8 @@
 					i++
 
 		else
-			boutput(M, "<span class='alert'>The bats did not respond to your call!</span>")
+			boutput(M, SPAN_ALERT("The bats did not respond to your call!"))
 			return 1 // No cooldown here, though.
-
-		if (src.pointCost && istype(H))
-			H.blood_tracking_output(src.pointCost)
 
 		playsound(M.loc, 'sound/effects/gust.ogg', 60, 1)
 
@@ -87,17 +85,16 @@
 			return 1
 
 		var/mob/living/M = holder.owner
-		var/datum/abilityHolder/vampire/H = holder
 
 		if (!M)
 			return 1
 
 		if (M.wear_mask && istype(M.wear_mask, /obj/item/clothing/mask/muzzle))
-			boutput(M, "<span class='alert'>How do you expect this to work? You're muzzled!</span>")
-			M.visible_message("<span class='alert'><b>[M]</b> makes a loud noise.</span>")
-			if (istype(H)) H.blood_tracking_output(src.pointCost)
+			boutput(M, SPAN_ALERT("How do you expect this to work? You're muzzled!"))
+			M.visible_message(SPAN_ALERT("<b>[M]</b> makes a loud noise."))
 			return 0 // Cooldown because spam is bad.
 
+		. = ..()
 		var/turf/T = get_turf(M)
 		if (T && isturf(T))
 			M.say("BATT PHAR")
@@ -107,9 +104,8 @@
 			for (var/obj/critter/bat/buff/B in range(M, 1))
 				B.friends += M
 		else
-			boutput(M, "<span class='alert'>The bats did not respond to your call!</span>")
+			boutput(M, SPAN_ALERT("The bats did not respond to your call!"))
 			return 1 // No cooldown here, though.
 
-		if (istype(H)) H.blood_tracking_output(src.pointCost)
 		logTheThing(LOG_COMBAT, M, "uses call bats at [log_loc(M)].")
 		return 0

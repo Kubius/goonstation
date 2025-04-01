@@ -97,7 +97,7 @@
 		if (istype(src.owner, /obj/machinery/vehicle/escape_pod))
 			return FALSE
 
-		var/can_user_act = user && user == owner.pilot && !user.getStatusDuration("stunned") && !user.getStatusDuration("weakened") && !user.getStatusDuration("paralysis") && !isdead(user)
+		var/can_user_act = user && user == owner.pilot && !is_incapacitated(user) && !isdead(user)
 
 		if(shooting && owner.m_w_system?.active && can_user_act && !GET_COOLDOWN(owner.m_w_system, "fire"))
 			owner.fire_main_weapon(user)
@@ -112,8 +112,8 @@
 				if (owner.engine.warp_autopilot)
 					return FALSE
 
-				velocity_x	+= input_x * accel
-				velocity_y  += input_y * accel
+				velocity_x += input_x * accel * src.owner.speedmod * src.owner.afterburner_accel_mod
+				velocity_y += input_y * accel * src.owner.speedmod * src.owner.afterburner_accel_mod
 
 
 				if (owner.rcs && input_x == 0 && input_y == 0)
@@ -122,9 +122,9 @@
 				//braking
 				if (braking)
 					if(input_x * velocity_x <= 0)
-						velocity_x = velocity_x * brake_decel_mult
+						velocity_x = velocity_x * brake_decel_mult * (1 / src.owner.speedmod)
 					if(input_y * velocity_y <= 0)
-						velocity_y = velocity_y * brake_decel_mult
+						velocity_y = velocity_y * brake_decel_mult * (1 / src.owner.speedmod)
 
 					if (abs(velocity_x) + abs(velocity_y) < 1.3)
 						velocity_x = 0
@@ -136,7 +136,7 @@
 				if (!input_x && !input_y)
 					vel_max = velocity_max_no_input
 
-				vel_max /= (owner.speed ? owner.speed : 1)
+				vel_max *= src.owner.speedmod * src.owner.afterburner_speed_mod
 
 				if (velocity_magnitude > vel_max)
 					velocity_x /= velocity_magnitude

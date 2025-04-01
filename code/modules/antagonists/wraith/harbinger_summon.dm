@@ -2,6 +2,8 @@
 	id = ROLE_HARBINGER_SUMMON
 	display_name = "harbinger summon"
 	mob_path = /mob/living/critter/wraith/nascent
+	remove_on_clone = TRUE
+	has_info_popup = FALSE
 
 	give_equipment()
 		var/mob/current_mob = src.owner.current
@@ -18,5 +20,5 @@
 
 	announce()
 		. = ..()
-		boutput(src.owner.current, "<span class='alert'><b>You have been respawned as a harbinger summon!</b></span>")
-		boutput(src.owner.current, "<span class='alert'>[src.master.current] is your master! Use your abilities to choose a path! Work with your master to spread chaos!</span>")
+		boutput(src.owner.current, SPAN_ALERT("<b>You have been respawned as a harbinger summon!</b>"))
+		boutput(src.owner.current, SPAN_ALERT("[src.master.current] is your master! Use your abilities to choose a path! Work with your master to spread chaos!"))

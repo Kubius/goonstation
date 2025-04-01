@@ -33,7 +33,7 @@ Fibre wire
 			var/obj/machinery/bot/skullbot/B = new /obj/machinery/bot/skullbot
 			B.icon = icon('icons/obj/bots/aibots.dmi', "skullbot-ominous")
 			B.name = "ominous skullbot"
-			boutput(user, "<span class='notice'>You add [W] to [src]. That's neat.</span>")
+			boutput(user, SPAN_NOTICE("You add [W] to [src]. That's neat."))
 			B.set_loc(get_turf(user))
 			qdel(W)
 			qdel(src)
@@ -70,14 +70,14 @@ Fibre wire
 		SPAWN(0) animate_levitate(src, -1)
 		H.emote("scream")
 
-		H.changeStatus("weakened", 10 SECONDS)
+		H.changeStatus("knockdown", 10 SECONDS)
 
 		SPAWN(7 SECONDS)
 			if(!H)
 				being_mean = 0
 				return
 			H.emote("faint")
-			H.changeStatus("paralysis", 15 SECONDS)
+			H.changeStatus("unconscious", 15 SECONDS)
 			H.show_text("<I><font size=5>You feel your mind drifting away from your body!</font></I>", "red")
 
 			playsound(src.loc, 'sound/effects/ghost.ogg', 50, 1)
@@ -93,7 +93,7 @@ Fibre wire
 				else //How the fuck did we even get here??
 					H.ghostize()
 
-			flick("skull_ominous_explode", src)
+			FLICK("skull_ominous_explode", src)
 			sleep(1.5 SECONDS)
 			playsound(src.loc, 'sound/effects/ghostlaugh.ogg', 70, 1)
 			sleep(1.5 SECONDS)
@@ -132,10 +132,10 @@ proc/Create_Tommyname()
 		if(src.bioHolder.mobAppearance)
 			var/datum/appearanceHolder/AH = src.bioHolder.mobAppearance
 			AH.gender = "male"
-			AH.customization_first = new /datum/customization_style/hair/long/dreads
-			AH.customization_first_color = "#101010"
-			AH.customization_second = new /datum/customization_style/none
-			AH.customization_third = new /datum/customization_style/none
+			AH.customizations["hair_bottom"].style =  new /datum/customization_style/hair/long/dreads
+			AH.customizations["hair_bottom"].color = "#101010"
+			AH.customizations["hair_middle"].style =  new /datum/customization_style/none
+			AH.customizations["hair_top"].style =  new /datum/customization_style/none
 			AH.s_tone = "#FAD7D0"
 			src.bioHolder.AddEffect("accent_tommy")
 
@@ -210,7 +210,7 @@ proc/Create_Tommyname()
 
 /obj/item/gun/energy/tommy_gun
 	name = "Tommy Gun"
-	icon = 'icons/obj/items/gun.dmi'
+	icon = 'icons/obj/items/guns/kinetic.dmi'
 	icon_state = "tommygun"
 	m_amt = 4000
 	rechargeable = 1
@@ -225,7 +225,7 @@ proc/Create_Tommyname()
 
 	shoot(turf/target, turf/start, mob/user, POX, POY, is_dual_wield, atom/called_target = null)
 		for(var/mob/O in AIviewers(user, null))
-			O.show_message("<span class='alert'><B>[user] fires the [src] at [target]!</B></span>", 1, "<span class='alert'>You hear a loud crackling noise.</span>", 2)
+			O.show_message(SPAN_ALERT("<B>[user] fires the [src] at [target]!</B>"), 1, SPAN_ALERT("You hear a loud crackling noise."), 2)
 		sleep(0.1 SECONDS)
 		return ..(target, start, user)
 
@@ -391,9 +391,8 @@ proc/Create_Tommyname()
 
 		if(ishuman(hit))
 			var/mob/living/carbon/human/H = hit
-			if(!istype(H.head, /obj/item/clothing/head/wig))
+			if(!H.is_bald())
 				var/obj/item/clothing/head/wig/W = H.create_wig()
-				H.bioHolder.mobAppearance.customization_first = new /datum/customization_style/none
 				H.drop_from_slot(H.head)
 				H.force_equip(W, SLOT_HEAD)
 				H.update_colorful_parts()
@@ -599,7 +598,7 @@ proc/Create_Tommyname()
 
 	//Create the initial padding
 	DEBUG_MESSAGE("Creating stationside padding.")
-	var/list/catwalk = list(/turf/simulated/floor/airless/plating/catwalk, /obj/grille/catwalk)
+	var/list/catwalk = list(/turf/simulated/floor/airless/plating/catwalk, /obj/mesh/catwalk)
 	for(var/i = 0; i < station_padding;i++)
 		move_create_obj(catwalk, walker, extension_dir, extension_dir) //Then we walk outwards, creating stuff as we go along
 		walker = get_step(walker,extension_dir)
@@ -933,11 +932,11 @@ proc/Create_Tommyname()
 		return FALSE
 
 	if(!wire_readied)
-		assailant.show_message("<span class='combat'>You have to have a firm grip of the wire before you can strangle [target]!</span>")
+		assailant.show_message(SPAN_COMBAT("You have to have a firm grip of the wire before you can strangle [target]!"))
 		return FALSE
 
 	if(chokehold)
-		assailant.show_message("<span class='combat'>You're too busy strangling [chokehold.affecting] to strangle someone else!</span>")
+		assailant.show_message(SPAN_COMBAT("You're too busy strangling [chokehold.affecting] to strangle someone else!"))
 		return FALSE
 
 	// TODO: check that target has their back turned
@@ -946,7 +945,7 @@ proc/Create_Tommyname()
 		actions.start(new/datum/action/bar/private/icon/garrote_target(target, src), assailant)
 		return TRUE
 	else
-		assailant.show_message("<span class='combat'>You have to be behind your target or they'll see you coming!</span>")
+		assailant.show_message(SPAN_COMBAT("You have to be behind your target or they'll see you coming!"))
 
 // Actually apply the grab (called via action bar)
 /obj/item/garrote/try_grab(var/mob/living/target, var/mob/living/assailant)
@@ -1001,7 +1000,7 @@ proc/Create_Tommyname()
 	else
 		src.try_upgrade_grab()
 
-/obj/item/garrote/attack(mob/target, mob/user, def_zone, is_special = 0)
+/obj/item/garrote/attack(mob/target, mob/user, def_zone, is_special = FALSE, params = null)
 	if (target && target == src.chokehold?.affecting)
 		src.try_upgrade_grab()
 	else
@@ -1011,7 +1010,6 @@ proc/Create_Tommyname()
 /datum/action/bar/private/icon/garrote_target
 	duration = 10
 	interrupt_flags = INTERRUPT_MOVE | INTERRUPT_ACT | INTERRUPT_STUNNED
-	id = "garrote_target"
 	icon = 'icons/mob/critter_ui.dmi'
 	icon_state = "neck_over"
 	var/mob/living/target

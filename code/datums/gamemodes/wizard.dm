@@ -15,17 +15,11 @@
 
 /datum/game_mode/wizard/announce()
 	boutput(world, "<B>The current game mode is - Wizard!</B>")
-	boutput(world, "<B>There is a <span class='alert'>SPACE WIZARD</span> on the [station_or_ship()]. You can't let him achieve his objective!</B>")
+	boutput(world, "<B>There is a [SPAN_ALERT("SPACE WIZARD")] on the [station_or_ship()]. You can't let him achieve his objective!</B>")
 
 /datum/game_mode/wizard/pre_setup()
 
-	var/num_players = 0
-	for(var/client/C)
-		var/mob/new_player/player = C.mob
-		if (!istype(player)) continue
-
-		if(player.ready)
-			num_players++
+	var/num_players = src.roundstart_player_count()
 
 	var/num_wizards = clamp(round(num_players / 12), 1, wizards_possible)
 

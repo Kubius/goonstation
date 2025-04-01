@@ -41,6 +41,7 @@ var/global/list/statusGroupLimits = list("Food"=4)
 		ownerStatus = S
 		src.name = S.name
 		overImg.icon_state = S.icon_state
+		LAZYLISTADD(S.hud_elements, src)
 #ifdef SHOW_ME_STATUSES
 		src.owner_mob = C
 		src.owner_mob.vis_contents |= src
@@ -56,6 +57,8 @@ var/global/list/statusGroupLimits = list("Food"=4)
 				effect_obj.pixel_x -= 16
 		src.owner_mob = null
 #endif
+		LAZYLISTREMOVE(src.ownerStatus.hud_elements, src)
+		src.ownerStatus = null
 		. = ..()
 
 	clicked(list/params)
@@ -287,14 +290,15 @@ var/global/list/statusGroupLimits = list("Food"=4)
 /**
 	* Returns a list of all the datum/statusEffect on source atom.
 	*
+	* {statusId} optional status ID to match, otherwise matches any status type
 	* {optionalArgs} can be passed in for additional checks that are handled in the effects .onCheck proc.
 	* Useful if you want to check some custom conditions on status effects.
 	*/
-/atom/proc/getStatusList(optionalArgs = null)
+/atom/proc/getStatusList(statusId = null, optionalArgs = null)
 	. = list()
 	if (statusEffects)
 		for(var/datum/statusEffect/status as anything in statusEffects)
-			if((!optionalArgs) || (optionalArgs && status.onCheck(optionalArgs)))
+			if( (!optionalArgs || status.onCheck(optionalArgs)) && (!statusId || (statusId == status.id)) )
 				.[status.id] = status
 
 /**

@@ -6,6 +6,7 @@ client/proc/open_dj_panel()
 	set name = "DJ Panel"
 	set desc = "Get your groove on!" //"funny function names???? first you use the WRONG INDENT STYLE and now this????" --that fuckhead on the forums
 	SET_ADMIN_CAT(ADMIN_CAT_FUN)
+	SHOW_VERB_DESC
 	if (!isadmin(src) && !src.non_admin_dj)
 		boutput(src, "Only administrators or those with access may use this command.")
 		return FALSE
@@ -67,7 +68,7 @@ client/proc/open_dj_panel()
 	switch(action)
 
 		if("set-file")
-			var/foundsound = input(usr, "Upload a file:", "File Uploader - No 50MB songs!", null) as null|sound
+			var/foundsound = input(usr, "Upload a file:", "File Uploader - Do not use for full songs, use ]remotemusic in discord instead!!!", null) as null|sound
 			loaded_sound = foundsound
 			. = TRUE
 
@@ -93,7 +94,7 @@ client/proc/open_dj_panel()
 			if (!usr.client)
 				return TRUE
 			usr.client.djmode = !usr.client.djmode
-			boutput(usr, "<span class='notice'>DJ mode now [(usr.client.djmode ? "On" : "Off")].</span>")
+			boutput(usr, SPAN_NOTICE("DJ mode now [(usr.client.djmode ? "On" : "Off")]."))
 
 			logTheThing(LOG_ADMIN, usr, "set their DJ mode to [(usr.client.djmode ? "On" : "Off")]")
 			logTheThing(LOG_DIARY, usr, "set their DJ mode to [(usr.client.djmode ? "On" : "Off")]", "admin")
@@ -198,4 +199,4 @@ client/proc/open_dj_panel()
 	logTheThing(LOG_ADMIN, actor, "has [C.non_admin_dj ? "given" : "removed"] the ability for [constructTarget(C,"admin")] to DJ and use dectalk.")
 	logTheThing(LOG_DIARY, actor, "has [C.non_admin_dj ? "given" : "removed"] the ability for [constructTarget(C,"diary")] to DJ and use dectalk.", "admin")
 	message_admins("[key_name(actor)] has [C.non_admin_dj ? "given" : "removed"] the ability for [key_name(C)] to DJ and use dectalk.")
-	boutput(C, "<span class='alert'><b>You [C.non_admin_dj ? "can now" : "no longer can"] DJ with the 'DJ Panel' and use text2speech with 'Dectalk' commands under 'Special Verbs'.</b></span>")
+	boutput(C, SPAN_ALERT("<b>You [C.non_admin_dj ? "can now" : "no longer can"] DJ with the 'DJ Panel' and use text2speech with 'Dectalk' commands under 'Special Verbs'.</b>"))

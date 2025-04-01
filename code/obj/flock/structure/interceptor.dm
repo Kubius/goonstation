@@ -12,7 +12,7 @@
 	show_in_tutorial = TRUE
 	accepts_sapper_power = TRUE
 	compute = 0
-	var/online_compute_cost = 30
+	online_compute_cost = 30
 
 	/// if the interceptor has enough compute to work
 	var/powered = FALSE
@@ -85,7 +85,7 @@
 		ON_COOLDOWN(src, "bolt_gen_time", 10 SECONDS)
 		src.icon_state = "interceptor-generating"
 		src.power_projectile_checkers(FALSE)
-		var/list/gnesis_bolt_objs = DrawLine(src, bullet, /obj/line_obj/gnesis_bolt, 'icons/obj/projectiles.dmi', "WholeGnesisBolt", TRUE, TRUE, "HalfStartGnesisBolt", "HalfEndGnesisBolt")
+		var/list/gnesis_bolt_objs = drawLineObj(src, bullet, /obj/line_obj/gnesis_bolt, 'icons/obj/projectiles.dmi', "WholeGnesisBolt", TRUE, TRUE, "HalfStartGnesisBolt", "HalfEndGnesisBolt")
 		SPAWN(0.25 SECONDS)
 			for (var/obj/line_obj/gnesis_bolt/gnesis_bolt_obj as anything in gnesis_bolt_objs)
 				qdel(gnesis_bolt_obj)
@@ -117,7 +117,7 @@
 	anchored = ANCHORED
 	density = FALSE
 	flags = UNCRUSHABLE
-	event_handler_flags = IMMUNE_SINGULARITY
+	event_handler_flags = IMMUNE_SINGULARITY | IMMUNE_TRENCH_WARP
 	invisibility = INVIS_ALWAYS
 	opacity = FALSE
 	mouse_opacity = 0
@@ -154,5 +154,5 @@
 	anchored = ANCHORED
 	density = FALSE
 	flags = UNCRUSHABLE
-	event_handler_flags = IMMUNE_SINGULARITY
+	event_handler_flags = IMMUNE_SINGULARITY | IMMUNE_TRENCH_WARP
 	opacity = FALSE

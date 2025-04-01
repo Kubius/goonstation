@@ -1,3 +1,5 @@
+#define STATUS_WEAK 1
+#define STATUS_STRONG 2
 
 TYPEINFO(/obj/table)
 	/// Determines what types this table will smooth with
@@ -35,10 +37,11 @@ TYPEINFO_NEW(/obj/table)
 	var/drawer_locked = FALSE
 	/// id for key checks, keys with the same id can lock it
 	var/lock_id = null
-	HELP_MESSAGE_OVERRIDE({"You can use a <b>wrench</b> on <span class='harm'>harm</span> intent to disassemble it."})
+	HELP_MESSAGE_OVERRIDE({""})
 
 	New(loc)
 		..()
+		START_TRACKING
 		if (src.has_drawer)
 			src.create_storage(/datum/storage/unholdable, spawn_contents = src.drawer_contents, slots = 13, max_wclass = W_CLASS_SMALL)
 
@@ -67,6 +70,13 @@ TYPEINFO_NEW(/obj/table)
 		if (Ar)
 			Ar.sims_score = min(Ar.sims_score + bonus, 100)
 
+	get_help_message(dist, mob/user)
+		. = ..()
+		. += "You can use a <b>wrench</b> on <span class='harm'>harm</span> intent to disassemble it. \
+		You can also use a <b>screwdriver</b> on <span class='harm'>harm</span> intent to \
+		[(src.has_drawer && src.drawer_locked) ? "pick the drawer's lock." : "adjust the shape of it."]"
+
+
 	proc/xmasify()
 		var/in_cafeteria = istype(get_area(src), /area/station/crew_quarters/cafeteria)
 		if(in_cafeteria && fixed_random(src.x / world.maxx, src.y / world.maxy) <= 0.2)
@@ -88,27 +98,27 @@ TYPEINFO_NEW(/obj/table)
 			else
 				working_image.icon_state = "NE"
 			setMaterialAppearanceForImage(working_image)
-			src.UpdateOverlays(working_image, "NEcorner")
+			src.AddOverlays(working_image, "NEcorner")
 		else
-			src.UpdateOverlays(null, "NEcorner")
+			src.ClearSpecificOverlays("NEcorner")
 		if((SOUTHEAST & ordinals) == SOUTHEAST)
 			if (!src.working_image)
 				src.working_image = image(src.icon, "SE")
 			else
 				working_image.icon_state = "SE"
 			setMaterialAppearanceForImage(working_image)
-			src.UpdateOverlays(working_image, "SEcorner")
+			src.AddOverlays(working_image, "SEcorner")
 		else
-			src.UpdateOverlays(null, "SEcorner")
+			src.ClearSpecificOverlays("SEcorner")
 		if((SOUTHWEST & ordinals) == SOUTHWEST)
 			if (!src.working_image)
 				src.working_image = image(src.icon, "SW")
 			else
 				working_image.icon_state = "SW"
 			setMaterialAppearanceForImage(working_image)
-			src.UpdateOverlays(working_image, "SWcorner")
+			src.AddOverlays(working_image, "SWcorner")
 		else
-			src.UpdateOverlays(null, "SWcorner")
+			src.ClearSpecificOverlays("SWcorner")
 
 		if((NORTHWEST & ordinals) == NORTHWEST)
 			if (!src.working_image)
@@ -116,9 +126,9 @@ TYPEINFO_NEW(/obj/table)
 			else
 				working_image.icon_state = "NW"
 			setMaterialAppearanceForImage(working_image)
-			src.UpdateOverlays(working_image, "NWcorner")
+			src.AddOverlays(working_image, "NWcorner")
 		else
-			src.UpdateOverlays(null, "NWcorner")
+			src.ClearSpecificOverlays("NWcorner")
 
 	proc/deconstruct() //feel free to burn me alive because im stupid and couldnt figure out how to properly do it- Ze // im helping - haine
 		var/obj/item/furniture_parts/P
@@ -136,20 +146,20 @@ TYPEINFO_NEW(/obj/table)
 
 	/// Slam a dude on a table (harmfully)
 	proc/harm_slam(mob/user, mob/victim)
-		if (!victim.hasStatus("weakened"))
-			victim.changeStatus("weakened", 3 SECONDS)
+		if (!victim.hasStatus("knockdown"))
+			victim.changeStatus("knockdown", 3 SECONDS)
 			victim.force_laydown_standup()
-		src.visible_message("<span class='alert'><b>[user] slams [victim] onto \the [src]!</b></span>")
+		src.visible_message(SPAN_ALERT("<b>[user] slams [victim] onto \the [src]!</b>"))
 		playsound(src, 'sound/impact_sounds/Generic_Hit_Heavy_1.ogg', 50, TRUE)
 		src.material_trigger_when_attacked(victim, user, 1)
 
 
 	/// Slam a dude on the table (gently, with great care)
 	proc/gentle_slam(mob/user, mob/victim)
-		if (!victim.hasStatus("weakened"))
-			victim.changeStatus("weakened", 2 SECONDS)
+		if (!victim.hasStatus("knockdown"))
+			victim.changeStatus("knockdown", 2 SECONDS)
 			victim.force_laydown_standup()
-		src.visible_message("<span class='alert'>[user] puts [victim] on \the [src].</span>")
+		src.visible_message(SPAN_ALERT("[user] puts [victim] on \the [src]."))
 
 
 	custom_suicide = 1
@@ -157,7 +167,7 @@ TYPEINFO_NEW(/obj/table)
 		if (!src.user_can_suicide(user))
 			return 0
 		var/hisher = his_or_her(user)
-		user.visible_message("<span class='alert'><b>[user] contorts [him_or_her(user)]self so that [hisher] head is underneath one of [src]'s legs and [hisher] heels are resting on top of it, then raises [hisher] feet and slams them back down over and over again!</b></span>")
+		user.visible_message(SPAN_ALERT("<b>[user] contorts [him_or_her(user)]self so that [hisher] head is underneath one of [src]'s legs and [hisher] heels are resting on top of it, then raises [hisher] feet and slams them back down over and over again!</b>"))
 		user.TakeDamage("head", 175, 0)
 		SPAWN(50 SECONDS)
 			if (user && !isdead(user))
@@ -188,6 +198,8 @@ TYPEINFO_NEW(/obj/table)
 		var/turf/OL = get_turf(src)
 		if (!OL)
 			return
+		for(var/atom/movable/AM as anything in src.storage?.get_contents())
+			AM.set_loc(OL)
 		if (!(locate(/obj/table) in OL) && !(locate(/obj/rack) in OL))
 			var/area/Ar = OL.loc
 			for (var/obj/item/I in OL)
@@ -211,7 +223,7 @@ TYPEINFO_NEW(/obj/table)
 			if (!G.affecting || G.affecting.buckled)
 				return
 			if (G.state == GRAB_PASSIVE)
-				boutput(user, "<span class='alert'>You need a tighter grip!</span>")
+				boutput(user, SPAN_ALERT("You need a tighter grip!"))
 				return
 			var/mob/grabbed = G.affecting
 
@@ -229,30 +241,21 @@ TYPEINFO_NEW(/obj/table)
 			qdel(W)
 			return
 
-		else if (istype(W, /obj/item/plank))
-			if (status == 2)
-				if (istype(src, /obj/table/reinforced/bar)) //why must you be so confusing
-					boutput(user, "<span class='notice'>You can't add more than one finish, that's just illogical!</span>")
-					return
-				else if (istype(src, /obj/table/reinforced/auto))
-					boutput(user, "<span class='notice'>Now adding a faux wood finish to \the [src]</span>") //mwah
-					playsound(src.loc, 'sound/items/zipper.ogg', 50, 1)
-					if(do_after(user,50))
-						var/obj/table/L = new /obj/table/reinforced/bar/auto(src.loc)
-						L.layer = src.layer - 0.01
-						qdel(W)
-						qdel(src)
-						boutput(user, "<span class='notice'>You have added a faux wood finish to \the [src]</span>")
-					return
-				else
-					boutput(user, "<span class='notice'>\The [src] is too weak to be modified!</span>")
-			else
-				boutput(user, "<span class='notice'>\The [src] is too weak to be modified!</span>")
+		else if (istype(W,/obj/item/sheet/wood))
+			if (istype(src, /obj/table/reinforced/bar)) //why must you be so confusing
+				return ..()
+			if (status != STATUS_STRONG || !istype(src, /obj/table/reinforced/auto))
+				boutput(user, SPAN_NOTICE("\The [src] is too weak to be modified!"))
+				return
+			if (W.amount < 5)
+				boutput(user, SPAN_NOTICE("You need at least 5 planks to furnish the whole table."))
+				return
+			actions.start(new /datum/action/bar/icon/furnish_table(src,W), user)
 
 		else if (istype(W, /obj/item/paint_can))
 			return
 
-		else if (isscrewingtool(W))
+		else if (isscrewingtool(W) && user.a_intent == INTENT_HARM)
 			if (src.has_drawer && src.drawer_locked)
 				actions.start(new /datum/action/bar/icon/table_tool_interact(src, W, TABLE_LOCKPICK), user)
 				return
@@ -260,7 +263,7 @@ TYPEINFO_NEW(/obj/table)
 				actions.start(new /datum/action/bar/icon/table_tool_interact(src, W, TABLE_ADJUST), user)
 				return
 
-		else if (iswrenchingtool(W) && !src.status && user.a_intent == "harm") // shouldn't have status unless it's reinforced, maybe? hopefully?
+		else if (iswrenchingtool(W) && !src.status && user.a_intent == INTENT_HARM) // shouldn't have status unless it's reinforced, maybe? hopefully?
 			if (istype(src, /obj/table/folding))
 				actions.start(new /datum/action/bar/icon/fold_folding_table(src, W), user)
 			else
@@ -279,13 +282,16 @@ TYPEINFO_NEW(/obj/table)
 				user.visible_message("[user] [!src.drawer_locked ? "un" : null]locks [src].")
 				playsound(src, 'sound/items/Screwdriver2.ogg', 50, TRUE)
 			else
-				boutput(user, "<span class='alert'>[K] doesn't seem to fit in [src]'s desk drawer lock.</span>")
+				boutput(user, SPAN_ALERT("[K] doesn't seem to fit in [src]'s desk drawer lock."))
 			return
 
 		else if (istype(W, /obj/item/cloth/towel))
-			user.visible_message("<span class='notice'>[user] wipes down [src] with [W].</span>")
+			user.visible_message(SPAN_NOTICE("[user] wipes down [src] with [W]."))
 
 		else if (istype(W) && src.place_on(W, user, params))
+			return
+		// chance to smack satchels against a table when dumping stuff out of them, because that can be kinda funny
+		else if (istype(W, /obj/item/satchel) && (user.get_brain_damage() <= 40 && rand(1, 10) < 10))
 			return
 
 		else
@@ -293,7 +299,7 @@ TYPEINFO_NEW(/obj/table)
 
 	attack_hand(mob/user)
 		if (user.is_hulk() && !hulk_immune)
-			user.visible_message("<span class='alert'>[user] destroys the table!</span>")
+			user.visible_message(SPAN_ALERT("[user] destroys the table!"))
 			if (prob(40))
 				playsound(src.loc, 'sound/impact_sounds/Generic_Hit_Heavy_1.ogg', 50, 1)
 			logTheThing(LOG_COMBAT, user, "uses hulk to smash a table at [log_loc(src)].")
@@ -304,7 +310,7 @@ TYPEINFO_NEW(/obj/table)
 			var/mob/living/carbon/human/H = user
 			if (istype(H.w_uniform, /obj/item/clothing/under/misc/lawyer) && !H.equipped())
 				slaps += 1
-				src.visible_message("<span class='alert'><b>[H] slams their palms against [src]!</b></span>")
+				src.visible_message(SPAN_ALERT("<b>[H] slams [his_or_her(H)] palms against [src]!</b>"))
 				if (slaps > 10 && prob(1)) //owned
 					if (H.hand && H.limbs && H.limbs.l_arm)
 						H.limbs.l_arm.sever()
@@ -322,7 +328,7 @@ TYPEINFO_NEW(/obj/table)
 				return
 
 		if (src.has_drawer && src.drawer_locked)
-			boutput(user, "<span class='alert'>[src]'s desk drawer is locked!</span>")
+			boutput(user, SPAN_ALERT("[src]'s desk drawer is locked!"))
 			return
 
 		return ..()
@@ -335,12 +341,12 @@ TYPEINFO_NEW(/obj/table)
 			return TRUE
 		return FALSE
 
-	MouseDrop_T(atom/O, mob/user as mob)
-		if (!in_interact_range(user, src) || !in_interact_range(user, O) || user.restrained() || user.getStatusDuration("paralysis") || user.sleeping || user.stat || user.lying)
+	MouseDrop_T(atom/O, mob/user as mob, src_location, over_location, over_control, src_control, params)
+		if (!in_interact_range(user, src) || !in_interact_range(user, O) || user.restrained() || user.getStatusDuration("unconscious") || user.sleeping || user.stat || user.lying)
 			return
 
 		if (ismob(O) && O == user)
-			boutput(user, "<span class='alert'>This table looks way too intimidating for you to scale on your own! You'll need a partner to help you over.</span>")
+			boutput(user, SPAN_ALERT("This table looks way too intimidating for you to scale on your own! You'll need a partner to help you over."))
 			return
 
 		if (!isitem(O))
@@ -353,9 +359,9 @@ TYPEINFO_NEW(/obj/table)
 		if (istype(I,/obj/item/satchel))
 			var/obj/item/satchel/S = I
 			if (length(S.contents) < 1)
-				boutput(user, "<span class='alert'>There's nothing in [S]!</span>")
+				boutput(user, SPAN_ALERT("There's nothing in [S]!"))
 			else
-				user.visible_message("<span class='notice'>[user] dumps out [S]'s contents onto [src]!</span>")
+				user.visible_message(SPAN_NOTICE("[user] dumps out [S]'s contents onto [src]!"))
 				for (var/obj/item/thing in S.contents)
 					thing.set_loc(src.loc)
 				S.tooltip_rebuild = 1
@@ -363,14 +369,13 @@ TYPEINFO_NEW(/obj/table)
 				return
 		if (isrobot(user) || user.equipped() != I || (I.cant_drop || I.cant_self_remove))
 			return
-		user.drop_item()
-		if (I.loc != src.loc)
-			step(I, get_dir(I, src))
-		return
+
+		src.place_on(I, user, params, TRUE)
+
 
 	mouse_drop(atom/over_object, src_location, over_location)
 		if (usr == over_object && src.has_drawer && src.drawer_locked)
-			boutput(usr, "<span class='alert'>[src]'s desk drawer is locked!</span>")
+			boutput(usr, SPAN_ALERT("[src]'s desk drawer is locked!"))
 			return
 		..()
 
@@ -383,10 +388,26 @@ TYPEINFO_NEW(/obj/table)
 			return
 		actions.start(new /datum/action/bar/icon/railing_jump/table_jump(M, src), M)
 
+	hitby(atom/movable/AM, datum/thrown_thing/thr)
+		. = ..()
+		if (ismob(AM))
+			if (AM != thr.thrown_by && (BOUNDS_DIST(thr.thrown_by, src) <= 0))
+				var/remove_tablepass = HAS_FLAG(AM.flags, TABLEPASS) ? FALSE : TRUE //this sucks and should be a mob property x2 augh
+				AM.flags |= TABLEPASS
+				step(AM, get_dir(AM, src))
+				if (remove_tablepass)
+					REMOVE_FLAG(AM.flags, TABLEPASS)
+				src.harm_slam(thr.thrown_by, AM)
+
+	after_abcu_spawn()
+		if(src.has_drawer)
+			for(var/obj/I in src.storage.get_all_contents())
+				qdel(I)
+
+
 //Replacement for monkies walking through tables: They now parkour over them.
 //Note: Max count of tables traversable is 2 more than the iteration limit
 /datum/action/bar/icon/railing_jump/table_jump
-	id = "table_jump"
 	var/const/throw_range = 7
 	var/const/iteration_limit = 5
 	resumable = TRUE
@@ -416,7 +437,7 @@ TYPEINFO_NEW(/obj/table)
 			return
 		if(!(ownerMob.flags & TABLEPASS))
 			ownerMob.flags |= TABLEPASS
-			thr.end_throw_callback = PROC_REF(unset_tablepass_callback)
+			thr.end_throw_callback = CALLBACK(src, PROC_REF(unset_tablepass_callback))
 		for(var/O in AIviewers(ownerMob))
 			var/mob/M = O //inherently typed list
 			var/the_text = "[ownerMob] jumps over [the_railing]."
@@ -559,16 +580,16 @@ TYPEINFO_NEW(/obj/table/mauxite)
 
 	attack_hand(mob/user)
 		if (user.is_hulk())
-			user.visible_message("<span class='alert'>[user] collapses the [src] in one slam!</span>")
+			user.visible_message(SPAN_ALERT("[user] collapses the [src] in one slam!"))
 			playsound(src.loc, 'sound/impact_sounds/Generic_Hit_Heavy_1.ogg', 50, 1)
 			deconstruct()
 		else if (ishuman(user))
 			var/mob/living/carbon/human/H = user
 			if (istype(H.w_uniform, /obj/item/clothing/under/misc/lawyer))
 				slaps += 1
-				src.visible_message("<span class='alert'><b>[H] slams their palms against [src]!</b></span>")
+				src.visible_message(SPAN_ALERT("<b>[H] slams [his_or_her(H)] palms against [src]!</b>"))
 				if (slaps > 2 && prob(50))
-					src.visible_message("<span class='alert'><b>The [src] collapses!</b></span>")
+					src.visible_message(SPAN_ALERT("<b>The [src] collapses!</b>"))
 					deconstruct()
 				playsound(src.loc, 'sound/impact_sounds/Generic_Hit_Heavy_1.ogg', 50, 1)
 				for (var/mob/N in AIviewers(user, null))
@@ -579,10 +600,10 @@ TYPEINFO_NEW(/obj/table/mauxite)
 		return
 
 	harm_slam(mob/user, mob/victim)
-		if (!victim.hasStatus("weakened"))
-			victim.changeStatus("weakened", 4 SECONDS)
+		if (!victim.hasStatus("knockdown"))
+			victim.changeStatus("knockdown", 4 SECONDS)
 			victim.force_laydown_standup()
-		src.visible_message("<span class='alert'><b>[user] slams [victim] onto \the [src], collapsing it instantly!</b></span>")
+		src.visible_message(SPAN_ALERT("<b>[user] slams [victim] onto \the [src], collapsing it instantly!</b>"))
 		playsound(src, 'sound/impact_sounds/Generic_Hit_Heavy_1.ogg', 50, TRUE)
 		deconstruct()
 
@@ -597,8 +618,8 @@ TYPEINFO_NEW(/obj/table/syndicate)
 	parts_type = /obj/item/furniture_parts/table/syndicate
 
 	New()
-		..()
 		START_TRACKING_CAT(TR_CAT_NUKE_OP_STYLE)
+		..()
 
 	disposing()
 		STOP_TRACKING_CAT(TR_CAT_NUKE_OP_STYLE)
@@ -620,6 +641,55 @@ TYPEINFO_NEW(/obj/table/nanotrasen)
 
 	auto
 		auto = TRUE
+
+TYPEINFO(/obj/table/sleek)
+TYPEINFO_NEW(/obj/table/sleek)
+	. = ..()
+	smooth_list = typecacheof(/obj/table/sleek/auto)
+/obj/table/sleek
+	name = "sleek metal table"
+	desc = "A table with a reflective dark surface."
+	icon = 'icons/obj/furniture/table_sleek.dmi'
+	parts_type = /obj/item/furniture_parts/table/sleek
+
+	auto
+		auto = TRUE
+TYPEINFO(/obj/table/monodesk)
+TYPEINFO_NEW(/obj/table/monodesk)
+	. = ..()
+	smooth_list = typecacheof(/obj/table/monodesk/auto)
+/obj/table/monodesk
+	name = "monochrome desk"
+	desc = "A sturdy desk with a little drawer to store things in!"
+	icon = 'icons/obj/furniture/table_monochrome_desk.dmi'
+	parts_type = /obj/item/furniture_parts/table/monodesk
+	has_drawer = TRUE
+
+	auto
+		auto = TRUE
+/obj/table/monodesk/auto/candystash
+	desc = "One of the drawers seems to have something colorful peeking out."
+	drawer_contents = list(/obj/item/kitchen/peach_rings,
+				/obj/item/reagent_containers/food/snacks/candy/chocolate = 2,
+				/obj/item/kitchen/gummy_worms_bag = 2,
+				/obj/item/reagent_containers/food/snacks/candy/wrapped_candy/butterscotch = 2,
+				/obj/item/reagent_containers/food/snacks/candy/swirl_lollipop,
+				/obj/item/reagent_containers/food/snacks/candy/hard_candy,
+				/obj/item/reagent_containers/food/snacks/candy/wrapped_candy/taffy/watermelon,
+				/obj/item/reagent_containers/food/snacks/candy/wrapped_candy/caramel,
+				/obj/item/clothing/mask/cigarette/nicofree,
+				/obj/item/cigpacket/nicofree)
+
+/obj/table/monodesk/auto/files
+	desc = "The drawer seems to be stuffed with files and paper."
+	drawer_contents = list(/obj/item/paper_bin,
+				/obj/item/folder =4,
+				/obj/item/paper/blueprint/chart,
+				/obj/item/paper/blueprint/cog1,
+				/obj/item/pen/fancy,
+				/obj/item/pen,
+				/obj/item/clipboard)
+
 /* ======================================== */
 /* ---------------------------------------- */
 /* ======================================== */
@@ -637,6 +707,13 @@ TYPEINFO_NEW(/obj/table/nanotrasen)
 	icon = 'icons/obj/furniture/single_tables.dmi'
 	icon_state = "endtable-gothic"
 	parts_type = /obj/item/furniture_parts/endtable_gothic
+
+/obj/table/endtable_honey
+	name = "block of solidified honey"
+	desc = "Preferred work surface of Space Bees."
+	icon = 'icons/obj/furniture/single_tables.dmi'
+	icon_state = "endtablehoney"
+	parts_type = /obj/item/furniture_parts/endtable_honey
 
 /obj/table/podium_wood
 	name = "wooden podium"
@@ -692,37 +769,38 @@ TYPEINFO_NEW(/obj/table/reinforced)
 	name = "reinforced table"
 	desc = "A table made from reinforced metal, it is quite strong and it requires welding and wrenching to disassemble it."
 	icon = 'icons/obj/furniture/table_reinforced.dmi'
-	status = 2
+	status = STATUS_STRONG
 	parts_type = /obj/item/furniture_parts/table/reinforced
+	HELP_MESSAGE_OVERRIDE(null)
 
 	auto
 		auto = 1
 
 	get_help_message(dist, mob/user)
-		if (src.status == 2)
-			return {"You can use a <b>welding tool</b> on <span class='harm'>harm</span> intent to weaken it for disassembly."}
-		else if (src.status == 1)
+		if (src.status == STATUS_STRONG)
+			return {"You can use a <b>welding tool</b> on [SPAN_HARM("harm")] intent to weaken it for disassembly."}
+		else if (src.status == STATUS_WEAK)
 			return{"
-				You can use a <b>wrench</b> on <span class='harm'>harm</span> intent to disassemble it,
-				or a <b>welding tool</b> on <span class='harm'>harm</span> intent to strengthen it.
+				You can use a <b>wrench</b> on [SPAN_HARM("harm")] intent to disassemble it,
+				or a <b>welding tool</b> on [SPAN_HARM("harm")] intent to strengthen it.
 			"}
 
 	attackby(obj/item/W, mob/user)
 		if (isweldingtool(W) && user.a_intent == "harm" && W:try_weld(user,1))
-			if (src.status == 2)
+			if (src.status == STATUS_STRONG)
 				actions.start(new /datum/action/bar/icon/table_tool_interact(src, W, TABLE_WEAKEN), user)
 				return
-			else if (src.status == 1)
+			else if (src.status == STATUS_WEAK)
 				actions.start(new /datum/action/bar/icon/table_tool_interact(src, W, TABLE_STRENGTHEN), user)
 				return
 			else
 				return ..()
 		else if (iswrenchingtool(W) && user.a_intent == "harm")
-			if (src.status == 1)
+			if (src.status == STATUS_WEAK)
 				actions.start(new /datum/action/bar/icon/table_tool_interact(src, W, TABLE_DISASSEMBLE), user)
 				return
 			else
-				boutput(user, "<span class='alert'>You need to weaken the [src.name] with a welding tool before you can disassemble it!</span>")
+				boutput(user, SPAN_ALERT("You need to weaken the [src.name] with a welding tool before you can disassemble it!"))
 				return
 		else
 			return ..()
@@ -772,7 +850,7 @@ TYPEINFO_NEW(/obj/table/reinforced/chemistry)
 	name = "basic supply lab counter"
 	desc = "Everything an aspiring chemist needs to start making chemicals!"
 	drawer_contents = list(/obj/item/paper/book/from_file/pharmacopia,
-				/obj/item/storage/box/beakerbox = 2,
+				/obj/item/storage/box/beakerbox,
 				/obj/item/reagent_containers/glass/beaker/large = 2,
 				/obj/item/clothing/glasses/spectro,
 				/obj/item/device/reagentscanner = 2,
@@ -782,15 +860,17 @@ TYPEINFO_NEW(/obj/table/reinforced/chemistry)
 /obj/table/reinforced/chemistry/auto/auxsup
 	name = "auxiliary supply lab counter"
 	desc = "Extra supplies for the discerning chemist."
-	drawer_contents = list(/obj/item/storage/box/beakerbox,
-				/obj/item/storage/box/patchbox,
+	drawer_contents = list(/obj/item/storage/box/patchbox,
 				/obj/item/storage/box/syringes,
 				/obj/item/clothing/glasses/spectro,
-				/obj/item/device/reagentscanner = 2,
+				/obj/item/device/reagentscanner,
+				/obj/item/bunsen_burner,
 				/obj/item/reagent_containers/dropper/mechanical,
 				/obj/item/storage/box/lglo_kit,
 				/obj/item/storage/box/beaker_lids,
-				/obj/item/reagent_containers/glass/condenser = 4)
+				/obj/item/reagent_containers/glass/plumbing/condenser = 3,
+				/obj/item/reagent_containers/glass/plumbing/condenser/fractional = 1,
+				/obj/item/reagent_containers/glass/plumbing/dropper = 2)
 
 
 
@@ -921,7 +1001,7 @@ TYPEINFO(/obj/table/glass)
 	proc/smash()
 		if (src.glass_broken)
 			return
-		src.visible_message("<span class='alert'>\The [src] shatters!</span>")
+		src.visible_message(SPAN_ALERT("\The [src] shatters!"))
 		playsound(src, "sound/impact_sounds/Glass_Shatter_[rand(1,3)].ogg", 100, 1)
 		if (src.material?.getID() in list("gnesis", "gnesisglass"))
 			gnesis_smash()
@@ -954,7 +1034,7 @@ TYPEINFO(/obj/table/glass)
 				src.glass_broken = GLASS_REFORMING
 				src.set_up()
 				src.set_density(initial(src.density))
-				src.visible_message("<span class='alert'>\The [src] starts to reform!</span>")
+				src.visible_message(SPAN_ALERT("\The [src] starts to reform!"))
 
 				var/filter
 				var/size=rand()*2.5+4
@@ -976,7 +1056,7 @@ TYPEINFO(/obj/table/glass)
 				// Remove filter and reset color
 				remove_filter("gnesis regrowth")
 				animate(src, loop=0, color=color, time=duration/2)
-				src.visible_message("<span class='alert'>\The [src] fully reforms!</span>")
+				src.visible_message(SPAN_ALERT("\The [src] fully reforms!"))
 				src.glass_broken = GLASS_INTACT
 
 	proc/repair()
@@ -1035,18 +1115,21 @@ TYPEINFO(/obj/table/glass)
 		if (src.glass_broken == GLASS_BROKEN)
 			if (istype(W, /obj/item/sheet))
 				var/obj/item/sheet/S = W
+				var/datum/material/mat = S.material //hold a ref to this in case the sheet stack gets disposed by using the last sheet
 				if (!S.material || !(S.material.getMaterialFlags() & MATERIAL_CRYSTAL))
-					boutput(user, "<span class='alert'>You have to use glass or another crystalline material to repair [src]!</span>")
-				else if (S.change_stack_amount(-1))
-					boutput(user, "<span class='notice'>You add glass to [src]!</span>")
+					boutput(user, SPAN_ALERT("You have to use glass or another crystalline material to repair [src]!"))
+				else if (S.change_stack_amount(-2))
+					boutput(user, SPAN_NOTICE("You add glass to [src]!"))
 					if (S.reinforcement)
 						src.reinforced = 1
-					if (S.material)
-						src.setMaterial(S.material)
+					if (mat)
+						src.setMaterial(mat)
 					src.repair()
 				return
 			else
 				return ..()
+
+		var/can_smash = FALSE
 
 		var/smashprob = 1
 		if (istype(W, /obj/item/grab))
@@ -1054,7 +1137,7 @@ TYPEINFO(/obj/table/glass)
 			if (!G.affecting || G.affecting.buckled)
 				return
 			if (G.state == GRAB_PASSIVE)
-				boutput(user, "<span class='alert'>You need a tighter grip!</span>")
+				boutput(user, SPAN_ALERT("You need a tighter grip!"))
 				return
 			var/mob/grabbed = G.affecting
 			// duplicated as hell but i'm leaving it cleaner than I found it
@@ -1070,22 +1153,25 @@ TYPEINFO(/obj/table/glass)
 				logTheThing(LOG_STATION, user, "puts [constructTarget(grabbed,"combat")] onto a glass table")
 				src.gentle_slam(user, grabbed)
 
-		else if (istype(W, /obj/item/plank) || istool(W, TOOL_SCREWING | TOOL_WRENCHING) || (istype(W, /obj/item/reagent_containers/food/drinks/bottle) && user.a_intent == "harm"))
+		else if (istype(W,/obj/item/sheet/wood) || istool(W, TOOL_SCREWING | TOOL_WRENCHING) || (istype(W, /obj/item/reagent_containers/food/drinks/bottle) && user.a_intent == "harm"))
 			return ..()
 
 		else if (istype(W, /obj/item/reagent_containers/food/drinks/bottle) && user.a_intent == "harm")
 			var/obj/item/reagent_containers/food/drinks/bottle/B = W
 			B.smash_on_thing(user, src)
-			SPAWN(0)
-				if (B)
-					smashprob += 15
-				else
-					return
+			if(user.equipped())
+				smashprob += 15
+				can_smash = TRUE
+			else
+				return
 
 		else if(istype(W, /obj/item/paint_can))
 			return
 
-		else if (istype(W)) // determine smash chance via item size and user clumsiness  :v
+		else
+			can_smash = TRUE
+
+		if (can_smash && istype(W)) // determine smash chance via item size and user clumsiness  :v
 			if (user.bioHolder.HasEffect("clumsy"))
 				smashprob += 25
 			smashprob += (W.w_class / 6) * 10
@@ -1102,7 +1188,7 @@ TYPEINFO(/obj/table/glass)
 
 			if (prob(smashprob))
 				if (istype(W) && !isrobot(user))
-					src.visible_message("<span class='alert'>[user] places [W] down on [src] too hard!</span>")
+					src.visible_message(SPAN_ALERT("[user] places [W] down on [src] too hard!"))
 				src.smash()
 				if (istype(W) && !isrobot(user))
 					src.visible_message("\The [W] falls to the floor.")
@@ -1115,8 +1201,8 @@ TYPEINFO(/obj/table/glass)
 		if(src.glass_broken != GLASS_INTACT)
 			return ..()
 		victim.set_loc(src.loc)
-		victim.changeStatus("weakened", 4 SECONDS)
-		src.visible_message("<span class='alert'><b>[user] slams [victim] onto \the [src]!</b></span>")
+		victim.changeStatus("knockdown", 4 SECONDS)
+		src.visible_message(SPAN_ALERT("<b>[user] slams [victim] onto \the [src]!</b>"))
 		playsound(src, 'sound/impact_sounds/Generic_Hit_Heavy_1.ogg', 50, TRUE)
 		src.material_trigger_when_attacked(victim, user, 1)
 		if ((prob(src.reinforced ? 60 : 80)) || (user.bioHolder.HasEffect("clumsy") && (!src.reinforced || prob(90))))
@@ -1124,9 +1210,14 @@ TYPEINFO(/obj/table/glass)
 			random_brute_damage(victim, rand(20,40),1)
 			take_bleeding_damage(victim, user, rand(20,40))
 			if (prob(30) || user.bioHolder.HasEffect("clumsy"))
-				boutput(user, "<span class='alert'>You cut yourself on \the [src] as [victim] slams through the glass!</span>")
+				boutput(user, SPAN_ALERT("You cut yourself on \the [src] as [victim] slams through the glass!"))
 				random_brute_damage(user, rand(10,30),1)
 				take_bleeding_damage(user, user, rand(10,30))
+
+		if (isliving(user))
+			var/mob/living/dude = user
+			var/datum/gang/gang = dude.get_gang()
+			gang?.do_vandalism(GANG_VANDALISM_TABLING, src.loc)
 
 	hitby(atom/movable/AM, datum/thrown_thing/thr)
 		..()
@@ -1134,9 +1225,13 @@ TYPEINFO(/obj/table/glass)
 			var/mob/M = AM
 			if ((prob(src.reinforced ? 60 : 80)))
 				logTheThing(LOG_COMBAT, thr.user, "throws [constructTarget(M,"combat")] into a glass table, breaking it")
-				src.visible_message("<span class='alert'>[M] smashes through [src]!</span>")
+				src.visible_message(SPAN_ALERT("[M] smashes through [src]!"))
 				playsound(src, 'sound/impact_sounds/Generic_Hit_Heavy_1.ogg', 50, TRUE)
 				src.smash()
+				if (isliving(thr.thrown_by))
+					var/mob/living/dude = thr.thrown_by
+					var/datum/gang/gang = dude.get_gang()
+					gang?.do_vandalism(GANG_VANDALISM_TABLING, src.loc)
 				if (M.loc != src.loc)
 					step(M, get_dir(M, src))
 				if (ishuman(M))
@@ -1167,11 +1262,8 @@ TYPEINFO(/obj/table/glass)
 		set_icon_state(num2text(dirs))
 
 		if (src.glass_broken == GLASS_BROKEN)
-			src.UpdateOverlays(null, "tabletop")
-			src.UpdateOverlays(null, "SWcorner")
-			src.UpdateOverlays(null, "SEcorner")
-			src.UpdateOverlays(null, "NEcorner")
-			src.UpdateOverlays(null, "NWcorner")
+			src.ClearSpecificOverlays("tabletop", "SWcorner", "SEcorner", "NEcorner", "NWcorner")
+			src.set_density(0)
 			return
 
 		// check it out a new piece of hacky nonsense
@@ -1181,7 +1273,7 @@ TYPEINFO(/obj/table/glass)
 		else
 			src.working_image.icon_state = "[R]g[num2text(dirs)]"
 			setMaterialAppearanceForImage(working_image)
-		src.UpdateOverlays(working_image, "tabletop")
+		src.AddOverlays(working_image, "tabletop")
 
 		var/obj/table/WT = locate(auto_type) in get_step(src, WEST)
 		var/obj/table/ST = locate(auto_type) in get_step(src, SOUTH)
@@ -1254,7 +1346,6 @@ TYPEINFO(/obj/table/glass)
 /* ======================================== */
 
 /datum/action/bar/icon/table_tool_interact
-	id = "table_tool_interact"
 	interrupt_flags = INTERRUPT_MOVE | INTERRUPT_ACT | INTERRUPT_STUNNED | INTERRUPT_ACTION
 	duration = 50
 	icon = 'icons/ui/actions.dmi'
@@ -1292,11 +1383,11 @@ TYPEINFO(/obj/table/glass)
 			return
 		else if (interaction == TABLE_DISASSEMBLE && the_table.has_drawer)
 			if (the_table.drawer_locked)
-				boutput(owner, "<span class='alert'>You can't disassemble [the_table] when its drawer is locked!</span>")
+				boutput(owner, SPAN_ALERT("You can't disassemble [the_table] when its drawer is locked!"))
 				interrupt(INTERRUPT_ALWAYS)
 				return
 			else if (length(the_table.storage.get_contents()))
-				boutput(owner, "<span class='alert'>You can't disassemble [the_table] while its drawer has stuff in it!</span>")
+				boutput(owner, SPAN_ALERT("You can't disassemble [the_table] while its drawer has stuff in it!"))
 				interrupt(INTERRUPT_ALWAYS)
 				return
 		else if (interaction == TABLE_LOCKPICK)
@@ -1304,7 +1395,7 @@ TYPEINFO(/obj/table/glass)
 				interrupt(INTERRUPT_ALWAYS)
 				return
 			else if (prob(8))
-				owner.visible_message("<span class='alert'>[owner] messes up while picking [the_table]'s lock!</span>")
+				owner.visible_message(SPAN_ALERT("[owner] messes up while picking [the_table]'s lock!"))
 				playsound(the_table, 'sound/items/Screwdriver2.ogg', 50, TRUE)
 				interrupt(INTERRUPT_ALWAYS)
 				return
@@ -1328,7 +1419,7 @@ TYPEINFO(/obj/table/glass)
 			if (TABLE_LOCKPICK)
 				verbing = "picking the lock on"
 				playsound(the_table, 'sound/items/Screwdriver2.ogg', 50, TRUE)
-		owner.visible_message("<span class='notice'>[owner] begins [verbing] [the_table].</span>")
+		owner.visible_message(SPAN_NOTICE("[owner] begins [verbing] [the_table]."))
 
 	onEnd()
 		..()
@@ -1340,10 +1431,10 @@ TYPEINFO(/obj/table/glass)
 				the_table.deconstruct()
 			if (TABLE_WEAKEN)
 				verbens = "weakens"
-				the_table.status = 1
+				the_table.status = STATUS_WEAK
 			if (TABLE_STRENGTHEN)
 				verbens = "strengthens"
-				the_table.status = 2
+				the_table.status = STATUS_STRONG
 			if (TABLE_ADJUST)
 				verbens = "adjusts the shape of"
 				the_table.set_up()
@@ -1352,10 +1443,9 @@ TYPEINFO(/obj/table/glass)
 				if (the_table.has_drawer)
 					the_table.drawer_locked = FALSE
 				playsound(the_table, 'sound/items/Screwdriver2.ogg', 50, TRUE)
-		owner.visible_message("<span class='notice'>[owner] [verbens] [the_table].</span>")
+		owner.visible_message(SPAN_NOTICE("[owner] [verbens] [the_table]."))
 
 /datum/action/bar/icon/fold_folding_table
-	id = "fold_folding_table"
 	interrupt_flags = INTERRUPT_MOVE | INTERRUPT_ACT | INTERRUPT_STUNNED | INTERRUPT_ACTION
 	duration = 15
 	icon = 'icons/ui/actions.dmi'
@@ -1389,10 +1479,59 @@ TYPEINFO(/obj/table/glass)
 			playsound(the_table, 'sound/items/Ratchet.ogg', 50, TRUE)
 		else
 			playsound(the_table, 'sound/items/Screwdriver2.ogg', 50, TRUE)
-		owner.visible_message("<span class='notice'>[owner] begins disassembling [the_table].</span>")
+		owner.visible_message(SPAN_NOTICE("[owner] begins disassembling [the_table]."))
 
 	onEnd()
 		..()
 		playsound(the_table, 'sound/items/Deconstruct.ogg', 50, TRUE)
-		owner.visible_message("<span class='notice'>[owner] disassembles [the_table].</span>")
+		owner.visible_message(SPAN_NOTICE("[owner] disassembles [the_table]."))
 		the_table.deconstruct()
+
+/datum/action/bar/icon/furnish_table
+	interrupt_flags = INTERRUPT_MOVE | INTERRUPT_ACT | INTERRUPT_STUNNED | INTERRUPT_ACTION
+	duration = 5 SECONDS
+	icon = 'icons/ui/actions.dmi'
+	icon_state = "working"
+
+	var/obj/table/reinforced/the_table
+	var/obj/item/sheet/wood/the_planks
+
+	New(var/obj/table/reinforced/rtable,var/obj/item/sheet/wood/planks)
+		..()
+		if (rtable)
+			the_table = rtable
+		if (planks)
+			the_planks = planks
+
+	onUpdate()
+		..()
+		var/mob/source = owner
+		if (the_table == null || the_planks == null || BOUNDS_DIST(owner, the_table) > 0)
+			interrupt(INTERRUPT_ALWAYS)
+		else if (istype(source) && the_planks != source.equipped())
+			interrupt(INTERRUPT_ALWAYS)
+		else if (the_table.status != STATUS_STRONG)
+			boutput(owner, SPAN_NOTICE("\The [src] is too weak to be modified!"))
+			interrupt(INTERRUPT_ALWAYS)
+		else if (the_planks.amount < 5)
+			boutput(owner, SPAN_NOTICE("You need at least 5 planks to furnish the whole table."))
+			interrupt(INTERRUPT_ALWAYS)
+
+	onStart()
+		..()
+		if (the_planks.amount < 5)
+			boutput(owner, SPAN_NOTICE("You need at least 5 planks to furnish the whole table."))
+		owner.visible_message(SPAN_NOTICE("[owner] starts adding a faux wood finish to \the [the_table].")) //mwah
+		playsound(the_table.loc, 'sound/items/zipper.ogg', 50, 1)
+
+	onEnd()
+		..()
+		owner.visible_message(SPAN_NOTICE("[owner] finishes adding a faux wood finish to \the [the_table]."))
+		var/obj/table/L = new /obj/table/reinforced/bar/auto(the_table.loc)
+		L.layer = the_table.layer - 0.01
+		the_planks.change_stack_amount(-5)
+		qdel(the_table)
+		return
+
+#undef STATUS_WEAK
+#undef STATUS_STRONG

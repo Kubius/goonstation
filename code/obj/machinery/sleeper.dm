@@ -1,7 +1,7 @@
 // Contains:
 // - Sleeper control console
 // - Sleeper
-// - Portable sleeper (fake Port-a-Medbay)
+// - Portable sleeper (Port-a-Medbay)
 
 // I overhauled the sleeper to make it a little more viable. Aside from being a saline dispenser,
 // it was of practically no use to medical personnel and thus ignored in general. The current
@@ -51,7 +51,6 @@ TYPEINFO(/obj/machinery/sleep_console)
 				if (prob(50))
 					qdel(src)
 					return
-			else
 
 	// Just relay emag_act() here.
 	emag_act(var/mob/user, var/obj/item/card/emag/E)
@@ -70,10 +69,10 @@ TYPEINFO(/obj/machinery/sleep_console)
 			if (O.sleeping)
 				O.sleeping = 3
 				if (prob(5)) // Heh.
-					boutput(O, "<span class='success'> [bicon(src)] Wake up, Neo...</span>")
+					boutput(O, SPAN_SUCCESS(" [bicon(src)] Wake up, Neo..."))
 				else
-					boutput(O, "<span class='notice'> [bicon(src)] *beep* *beep*</span>")
-			src.visible_message("<span class='notice'>The [src.name]'s occupant alarm clock dings!</span>")
+					boutput(O, SPAN_NOTICE(" [bicon(src)] *beep* *beep*"))
+			src.visible_message(SPAN_NOTICE("The [src.name]'s occupant alarm clock dings!"))
 			playsound(src.loc, 'sound/machines/ding.ogg', 100, 1)
 
 	process()
@@ -90,7 +89,7 @@ TYPEINFO(/obj/machinery/sleep_console)
 		// non-anchored sleeper assumed to be portable, don't want to eject
 		// in case someone is using it for body transport
 		if (isdead(src.our_sleeper.occupant) && src.our_sleeper.anchored)
-			src.our_sleeper.visible_message("<span class='game say'><span class='name'>[src]</span> beeps, \"Alert! No life signs detected from occupant.\"") // TODO maptext-ize
+			src.our_sleeper.visible_message(SPAN_SAY("[SPAN_NAME("[src]")] beeps, \"Alert! No life signs detected from occupant.\"")) // TODO maptext-ize
 			playsound(src.loc, 'sound/machines/buzz-two.ogg', 100, 0)
 			src.time = 0
 			src.timing = 0
@@ -153,7 +152,7 @@ TYPEINFO(/obj/machinery/sleep_console)
 			if("timer")
 				if (src.our_sleeper?.occupant && !isdead(src.our_sleeper.occupant))
 					src.timing = !src.timing
-					src.visible_message("<span class='notice'>[usr] [src.timing ? "sets" : "stops"] the [src]'s occupant alarm clock.</span>")
+					src.visible_message(SPAN_NOTICE("[usr] [src.timing ? "sets" : "stops"] the [src]'s occupant alarm clock."))
 					if (src.timing)
 						src.time_started = TIME
 						// People do use sleepers for grief from time to time.
@@ -291,6 +290,10 @@ TYPEINFO(/obj/machinery/sleeper)
 			occupant = null
 		..()
 
+	Click(location, control, params)
+		if(!src.ghost_observe_occupant(usr, src.occupant))
+			. = ..()
+
 	update_icon()
 		ENSURE_IMAGE(src.image_lid, src.icon, "sleeperlid[!isnull(occupant)]")
 		src.UpdateOverlays(src.image_lid, "lid")
@@ -324,7 +327,7 @@ TYPEINFO(/obj/machinery/sleeper)
 			src.emagged = TRUE
 			if (user && ismob(user))
 				user.show_text("You short out [src]'s reagent synthesis safety protocols.", "blue")
-			src.visible_message("<span class='alert'><b>[src] buzzes oddly!</b></span>")
+			src.visible_message(SPAN_ALERT("<b>[src] buzzes oddly!</b>"))
 			logTheThing(LOG_STATION, user, "emags \a [src] [src.occupant ? "with [constructTarget(src.occupant,"station")] inside " : ""](setting it to inject poisons) at [log_loc(src)].")
 			return TRUE
 
@@ -524,7 +527,7 @@ TYPEINFO(/obj/machinery/sleeper)
 					continue
 				O.set_loc(src.loc)
 				src.add_fingerprint(usr)
-			src.occupant.changeStatus("weakened", 1 SECOND)
+			src.occupant.changeStatus("knockdown", 1 SECOND)
 			src.occupant.force_laydown_standup()
 			src.occupant = null
 			src.UpdateIcon()
@@ -562,10 +565,10 @@ TYPEINFO(/obj/machinery/sleeper)
 		if (istype(M) && is_incapacitated(M))
 			return FALSE
 		if (src.occupant)
-			boutput(M, "<span class='notice'><B>The scanner is already occupied!</B></span>")
+			boutput(M, SPAN_NOTICE("<B>The scanner is already occupied!</B>"))
 			return FALSE
 		if (!ishuman(M))
-			boutput(usr, "<span class='alert'>You can't seem to fit into \the [src].</span>")
+			boutput(usr, SPAN_ALERT("You can't seem to fit into \the [src]."))
 			return FALSE
 		if (src.occupant)
 			usr.show_text("The [src.name] is already occupied!", "red")
@@ -595,12 +598,6 @@ TYPEINFO(/obj/machinery/sleeper)
 		..()
 		eject_occupant(user)
 
-	mouse_drop(mob/user as mob)
-		if (can_operate(user))
-			eject_occupant(user)
-		else
-			..()
-
 	verb/eject()
 		set src in oview(1)
 		set category = "Local"
@@ -608,7 +605,8 @@ TYPEINFO(/obj/machinery/sleeper)
 		eject_occupant(usr)
 
 	verb/eject_occupant(var/mob/user)
-		if (!isalive(user) || iswraith(user) || isintangible(user)) return
+		if (!src.can_eject_occupant(user))
+			return
 		src.go_out()
 		add_fingerprint(user)
 
@@ -677,20 +675,18 @@ TYPEINFO(/obj/machinery/sleeper/port_a_medbay)
 
 	New()
 		..()
-		if (!islist(portable_machinery))
-			portable_machinery = list()
-		portable_machinery.Add(src)
+		START_TRACKING_CAT(TR_CAT_PORTABLE_MACHINERY)
 		our_console = new /obj/machinery/sleep_console/compact/portable (src)
 		our_console.our_sleeper = src
 		src.homeloc = src.loc
 		animate_bumble(src, Y1 = 1, Y2 = -1, slightly_random = 0)
 		APPLY_ATOM_PROPERTY(src, PROP_ATOM_FLOATING, src)
-		MAKE_SENDER_RADIO_PACKET_COMPONENT("pda", FREQ_PDA)
+		MAKE_SENDER_RADIO_PACKET_COMPONENT(src.net_id, "pda", FREQ_PDA)
 
 	disposing()
+		STOP_TRACKING_CAT(TR_CAT_PORTABLE_MACHINERY)
 		..()
-		if (islist(portable_machinery))
-			portable_machinery.Remove(src)
+
 
 	throw_impact(atom/hit_atom, datum/thrown_thing/thr)
 		..()
@@ -714,7 +710,7 @@ TYPEINFO(/obj/machinery/sleeper/port_a_medbay)
 			return
 		if (usr == src.occupant || !isturf(usr.loc))
 			return
-		if (usr.stat || usr.getStatusDuration("stunned") || usr.getStatusDuration("weakened"))
+		if (usr.stat || usr.getStatusDuration("stunned") || usr.getStatusDuration("knockdown"))
 			return
 		if (BOUNDS_DIST(src, usr) > 0)
 			usr.show_text("You are too far away to do this!", "red")
@@ -728,13 +724,13 @@ TYPEINFO(/obj/machinery/sleeper/port_a_medbay)
 
 		if (tgui_alert(usr, "Set selected turf as home location?", "Set home location", list("Yes", "No")) == "Yes")
 			src.homeloc = over_object
-			usr.visible_message("<span class='notice'><b>[usr.name]</b> changes the [src.name]'s home turf.</span>", "<span class='notice'>New home turf selected: [get_area(src.homeloc)].</span>")
+			usr.visible_message(SPAN_NOTICE("<b>[usr.name]</b> changes the [src.name]'s home turf."), SPAN_NOTICE("New home turf selected: [get_area(src.homeloc)]."))
 			// The crusher, hell fires etc. This feature enables quite a bit of mischief.
 			logTheThing(LOG_STATION, usr, "sets [src.name]'s home turf to [log_loc(src.homeloc)].")
 		return
 
 	move_inside()
-		boutput(usr, "<span class='notice'>You can't seem to shove yourself into the [src] without it tipping over as you climb in.</span>")
+		boutput(usr, SPAN_NOTICE("You can't seem to shove yourself into the [src] without it tipping over as you climb in."))
 		return
 
 /// Yells at doctors to check the thing when it's sent home
@@ -769,16 +765,8 @@ TYPEINFO(/obj/machinery/sleeper/port_a_medbay)
 
 	New()
 		..()
-		if (!islist(portable_machinery))
-			portable_machinery = list()
-		portable_machinery.Add(src)
 		our_console = new /obj/machinery/sleep_console/compact (src)
 		our_console.our_sleeper = src
-
-	disposing()
-		..()
-		if (islist(portable_machinery))
-			portable_machinery.Remove(src)
 
 	attack_hand(mob/user)
 		if (our_console)

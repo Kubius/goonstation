@@ -3,7 +3,6 @@
 // ----------------------
 /datum/action/invisibility
 	interrupt_flags = INTERRUPT_MOVE | INTERRUPT_ACT | INTERRUPT_STUNNED | INTERRUPT_ACTION
-	id = "invisibility"
 	var/icon = 'icons/mob/critter_ui.dmi'
 	var/icon_state = "invisible_over"
 	var/obj/overlay/iicon = null
@@ -73,31 +72,32 @@
 		if (..())
 			return 1
 		disabled = 1
-		boutput(holder.owner, "<span class='notice'>You fade out of sight.</span>")
+		boutput(holder.owner, SPAN_NOTICE("You fade out of sight."))
 		var/datum/action/invisibility/I = new
 		I.owner = holder.owner
 		I.ability = src
 		var/wait = 5
 		if (fade_out_icon_state)
-			flick(fade_out_icon_state, holder.owner)
+			FLICK(fade_out_icon_state, holder.owner)
 			wait = fade_anim_length
 		else
 			animate(holder.owner, alpha=64, time=5)
 		SPAWN(wait)
-			APPLY_ATOM_PROPERTY(holder.owner, PROP_MOB_INVISIBILITY, src, inv_level)
-			holder.owner.alpha = 64
-			actions.start(I, holder.owner)
+			if(holder?.owner)
+				APPLY_ATOM_PROPERTY(holder.owner, PROP_MOB_INVISIBILITY, src, inv_level)
+				holder.owner.alpha = 64
+				actions.start(I, holder.owner)
 		return 0
 
 	proc/fade_in()
-		if (holder.owner)
-			boutput(holder.owner, "<span class='alert'>You fade back into sight!</span>")
+		if (holder?.owner)
+			boutput(holder.owner, SPAN_ALERT("You fade back into sight!"))
 			disabled = 0
 			doCooldown()
 			SPAWN(linger_time)
 				REMOVE_ATOM_PROPERTY(holder.owner, PROP_MOB_INVISIBILITY, src)
 				if (fade_in_icon_state)
-					flick(fade_in_icon_state, holder.owner)
+					FLICK(fade_in_icon_state, holder.owner)
 					holder.owner.alpha = 255
 				else
 					holder.owner.alpha = 64

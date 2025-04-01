@@ -36,9 +36,9 @@ TYPEINFO(/obj/table/flock)
 /obj/table/flock/special_desc(dist, mob/user)
 	if (!isflockmob(user))
 		return
-	return {"<span class='flocksay'><span class='bold'>###=-</span> Ident confirmed, data packet received.
-		<br><span class='bold'>ID:</span> Storage Surface
-		<br><span class='bold'>###=-</span></span>"}
+	return {"[SPAN_FLOCKSAY("[SPAN_BOLD("###=- Ident confirmed, data packet received.")]<br>\
+			[SPAN_BOLD("ID:")] Storage Surface<br>\
+			[SPAN_BOLD("###=-")]")]"}
 
 /obj/table/flock/Crossed(atom/movable/mover)
 	. = ..()
@@ -71,10 +71,10 @@ TYPEINFO(/obj/item/furniture_parts/table/flock)
 /obj/item/furniture_parts/table/flock/special_desc(dist, mob/user)
 	if (!isflockmob(user))
 		return
-	return {"<span class='flocksay'><span class='bold'>###=-</span> Ident confirmed, data packet received.
-		<br><span class='bold'>ID:</span> Storage Surface, Deployable State
-		<br><span class='bold'>Instructions:</span> Activate within grip tool to deploy.
-		<br><span class='bold'>###=-</span></span>"}
+	return {"[SPAN_FLOCKSAY("[SPAN_BOLD("###=- Ident confirmed, data packet received.")]<br>\
+			[SPAN_BOLD("ID:")] Storage Surface, Deployable State<br>\
+			[SPAN_BOLD("Instructions:")] Activate within grip tool to deploy<br>\
+			[SPAN_BOLD("###=-")]")]"}
 
 ///////////////////////////
 // CHAIR & PARTS
@@ -104,9 +104,9 @@ TYPEINFO(/obj/stool/chair/comfy/flock)
 /obj/stool/chair/comfy/flock/special_desc(dist, mob/user)
 	if (!isflockmob(user))
 		return
-	return {"<span class='flocksay'><span class='bold'>###=-</span> Ident confirmed, data packet received.
-		<br><span class='bold'>ID:</span> Resting Chamber
-		<br><span class='bold'>###=-</span></span>"}
+	return {"[SPAN_FLOCKSAY("[SPAN_BOLD("###=- Ident confirmed, data packet received.")]<br>\
+			[SPAN_BOLD("ID:")] Resting Chamber<br>\
+			[SPAN_BOLD("###=-")]")]"}
 
 TYPEINFO(/obj/item/furniture_parts/flock_chair)
 	mat_appearances_to_ignore = list("gnesis")
@@ -127,11 +127,9 @@ TYPEINFO(/obj/item/furniture_parts/flock_chair)
 /obj/item/furniture_parts/flock_chair/special_desc(dist, mob/user)
 	if (!isflockmob(user))
 		return
-	return {"<span class='flocksay'><span class='bold'>###=-</span> Ident confirmed, data packet received.
-		<br><span class='bold'>ID:</span> Resting Chamber, Deployable State
-		<br><span class='bold'>Instructions:</span> Activate within grip tool to deploy.
-		<br><span class='bold'>###=-</span></span>"}
-
+	return {"[SPAN_FLOCKSAY("[SPAN_BOLD("###=- Ident confirmed, data packet received.")]<br>\
+			[SPAN_BOLD("ID:")] Resting Chamber<br>\
+			[SPAN_BOLD("###=-")]")]"}
 
 ///////////////////////////
 // LOCKER
@@ -181,14 +179,14 @@ TYPEINFO(/obj/storage/closet/flock)
 
 	if (!src.open)
 		if (istype(W, /obj/item/cargotele))
-			boutput(user, "<span class='alert'>For some reason, it refuses to budge.</span>")
+			boutput(user, SPAN_ALERT("For some reason, it refuses to budge."))
 		else if (isweldingtool(W) && W:try_weld(user, 0, -1, FALSE, FALSE))
-			boutput(user, "<span class='alert'>It doesn't matter what you try, it doesn't seem to keep welded shut.</span>")
+			boutput(user, SPAN_ALERT("It doesn't matter what you try, it doesn't seem to keep welded shut."))
 		else if (isitem(W))
 			if(SEND_SIGNAL(src, COMSIG_FLOCK_ATTACK, user, TRUE))
 				return
 			var/force = W.force
-			user.lastattacked = src
+			user.lastattacked = get_weakref(src)
 			attack_particle(user, src)
 			playsound(src.loc, src.hitsound, 50, 1, pitch = 1.6)
 			src.take_damage(force, user)
@@ -223,15 +221,15 @@ TYPEINFO(/obj/storage/closet/flock)
 		if (!src.toggle())
 			return src.Attackby(null, user)
 	else
-		boutput(user, "<span class='alert'>Nothing you can do can persuade this thing to either open or close. Bummer.</span>")
+		boutput(user, SPAN_ALERT("Nothing you can do can persuade this thing to either open or close. Bummer."))
 
 /obj/storage/closet/flock/special_desc(dist, mob/user)
 	if (!isflockmob(user))
 		return
-	return {"<span class='flocksay'><span class='bold'>###=-</span> Ident confirmed, data packet received.
-		<br><span class='bold'>ID:</span> [src.flock_id]
-		<br><span class='bold'>System Integrity:</span> [round((src.health_attack/src.health_max)*100)]%
-		<br><span class='bold'>###=-</span></span>"}
+	return {"[SPAN_FLOCKSAY("[SPAN_BOLD("###=- Ident confirmed, data packet received.")]<br>\
+			[SPAN_BOLD("ID:")] [src.flock_id]<br>\
+			[SPAN_BOLD("System Integrity:")] [round((src.health_attack/src.health_max)*100)]%<br>\
+			[SPAN_BOLD("###=-")]")]"}
 
 // flockdrones can always move through
 /obj/storage/closet/flock/Crossed(atom/movable/mover)
@@ -288,9 +286,9 @@ TYPEINFO(/obj/machinery/light/flock)
 /obj/machinery/light/flock/special_desc(dist, mob/user)
 	if (!isflockmob(user))
 		return
-	return {"<span class='flocksay'><span class='bold'>###=-</span> Ident confirmed, data packet received.
-		<br><span class='bold'>ID:</span> [src.flock_id]
-		<br><span class='bold'>###=-</span></span>"}
+	return {"[SPAN_FLOCKSAY("[SPAN_BOLD("###=- Ident confirmed, data packet received.")]<br>\
+			[SPAN_BOLD("ID:")] [src.flock_id]<br>\
+			[SPAN_BOLD("###=-")]")]"}
 
 /obj/machinery/light/flock/floor
 	icon_state = "flock_floor1"
@@ -327,100 +325,12 @@ TYPEINFO(/obj/lattice/flock)
 	if (isweldingtool(C) && C:try_weld(user,0,-1,FALSE,FALSE))
 		if(SEND_SIGNAL(src, COMSIG_FLOCK_ATTACK, user, TRUE))
 			return
-		boutput(user, "<span class='notice'>The fibres burn away in the same way glass doesn't. Huh.</span>")
+		boutput(user, SPAN_NOTICE("The fibres burn away in the same way glass doesn't. Huh."))
 		qdel(src)
 
 /obj/lattice/flock/special_desc(dist, mob/user)
 	if (!isflockmob(user))
 		return
-	return {"<span class='flocksay'><span class='bold'>###=-</span> Ident confirmed, data packet received.
-		<br><span class='bold'>ID:</span> Structural Foundation
-		<br><span class='bold'>###=-</span></span>"}
-
-/////////////
-// BARRICADE
-/////////////
-TYPEINFO(/obj/grille/flock)
-	mat_appearances_to_ignore = list("steel","gnesis")
-/obj/grille/flock
-	desc = "A glowing mesh of metallic fibres."
-	name = "barricade"
-	var/flock_id = "Reinforced barricade"
-	icon = 'icons/misc/featherzone.dmi'
-	icon_state = "barricade"
-	health = 50
-	health_max = 50
-	var/repair_per_resource = 1
-	shock_when_entered = FALSE
-	auto = FALSE
-	mat_changename = FALSE
-	mat_changedesc = FALSE
-	can_be_snipped = FALSE
-	can_be_unscrewed = FALSE
-	can_build_window = FALSE
-	default_material = "gnesis"
-
-	update_icon(special_icon_state, override_parent = TRUE) //fix for perspective grilles fucking these up
-		if (ruined)
-			return
-
-		if (istext(special_icon_state))
-			icon_state = initial(src.icon_state) + "-" + special_icon_state
-			return
-
-		var/diff = get_fraction_of_percentage_and_whole(health,health_max)
-		switch(diff)
-			if(-INFINITY to 25)
-				icon_state = initial(src.icon_state) + "-3"
-			if(26 to 50)
-				icon_state = initial(src.icon_state) + "-2"
-			if(51 to 75)
-				icon_state = initial(src.icon_state) + "-1"
-			if(76 to INFINITY)
-				icon_state = initial(src.icon_state) + "-0"
-
-/obj/grille/flock/New()
-	..()
-	src.UpdateIcon()
-	APPLY_ATOM_PROPERTY(src, PROP_ATOM_FLOCK_THING, src)
-	src.AddComponent(/datum/component/flock_protection)
-
-// flockdrones can always move through
-/obj/grille/flock/Crossed(atom/movable/mover)
-	. = ..()
-	var/mob/living/critter/flock/drone/drone = mover
-	if(istype(drone) && !drone.floorrunning)
-		animate_flock_passthrough(mover)
-		. = TRUE
-	else if(istype(mover,/mob/living/critter/flock))
-		. = TRUE
-
-/obj/grille/flock/Cross(atom/movable/mover)
-	return !src.density || istype(mover,/mob/living/critter/flock)
-
-/obj/grille/flock/special_desc(dist, mob/user)
-	if (!isflockmob(user))
-		return
-	return {"<span class='flocksay'><span class='bold'>###=-</span> Ident confirmed, data packet received.
-		<br><span class='bold'>ID:</span> [src.flock_id]
-		<br><span class='bold'>System Integrity:</span> [round((src.health/src.health_max)*100)]%
-		<br><span class='bold'>###=-</span></span>"}
-
-/obj/grille/flock/attack_hand(mob/user)
-	if (user.a_intent != INTENT_HARM)
-		return
-	..()
-
-/obj/grille/flock/bullet_act(obj/projectile/P)
-	if (istype(P.proj_data, /datum/projectile/energy_bolt/flockdrone))
-		return
-	..()
-
-/obj/grille/flock/proc/repair(resources_available)
-	var/health_given = min(min(resources_available, FLOCK_REPAIR_COST) * src.repair_per_resource, src.health_max - src.health)
-	src.health += health_given
-	if (ruined)
-		src.set_density(TRUE)
-		src.ruined = FALSE
-	src.UpdateIcon()
-	return ceil(health_given / src.repair_per_resource)
+	return {"[SPAN_FLOCKSAY("[SPAN_BOLD("###=- Ident confirmed, data packet received.")]<br>\
+			[SPAN_BOLD("ID:")] Structural Foundation<br>\
+			[SPAN_BOLD("###=-")]")]"}

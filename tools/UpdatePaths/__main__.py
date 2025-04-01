@@ -28,6 +28,9 @@ Old paths properties:
 """
 
 default_map_directory = "../.."
+
+default_map_directory = os.path.join(os.path.dirname(os.path.abspath(__file__)), default_map_directory)
+
 replacement_re = re.compile(r'\s*(?P<path>[^{]*)\s*(\{(?P<props>.*)\})?')
 
 #urgent todo: replace with actual parser, this is slow as janitor in crit

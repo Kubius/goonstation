@@ -52,7 +52,7 @@
 	New()
 		..()
 		if (prob(33))
-			src.UpdateOverlays(image(src.icon, "panelscorched"), "burn")
+			src.AddOverlays(image(src.icon, "panelscorched"), "burn")
 
 /turf/unsimulated/iomoon/ancient_floor
 	name = "Ancient Metal Floor"
@@ -493,58 +493,7 @@ var/sound/iomoon_alarm_sound = null
 			"fascinating, but that's no reason to ignore existing regulations",
 			"and safety procedures in place for the magma chamber area.")
 
-//Decor
-
-/obj/shrub/dead
-	name = "Dead shrub"
-	icon = 'icons/misc/worlds.dmi'
-	icon_state = "shrub-dead"
-
-
-
 //Items
-/obj/item/reagent_containers/food/snacks/takeout
-	name = "Chinese takeout carton"
-	desc = "Purports to contain \"General Zeng's Chicken.\"  How old is this?"
-	icon = 'icons/obj/foodNdrink/food_snacks.dmi'
-	icon_state = "takeout"
-	heal_amt = 1
-	initial_volume = 60
-
-	New()
-		..()
-		reagents.add_reagent("chickensoup", 10)
-		reagents.add_reagent("salt", 10)
-		reagents.add_reagent("grease", 5)
-		reagents.add_reagent("msg", 2)
-		reagents.add_reagent("VHFCS", 8)
-		reagents.add_reagent("egg",5)
-
-/obj/item/yoyo
-	name = "Atomic Yo-Yo"
-	desc = "Molded into the transparent neon plastic are the words \"ATOMIC CONTAGION F VIRAL YO-YO.\"  It's as extreme as the 1990s."
-	icon = 'icons/obj/items/items.dmi'
-	icon_state = "yoyo"
-	item_state = "yoyo"
-	inhand_image_icon = 'icons/mob/inhand/hand_general.dmi'
-
-	New()
-		..()
-		BLOCK_SETUP(BLOCK_ROPE)
-
-
-/obj/item/paper/xg_tapes
-	name = "XIANG|GIESEL Onboarding Course"
-	desc = "A cover sheet meant to accompany a set of corporate training materials."
-	icon_state = "paper_burned"
-	sizex = 740
-	sizey = 1100
-
-	New()
-		..()
-		pixel_x = rand(-8, 8)
-		pixel_y = rand(-8, 8)
-		info = "<html><body style='margin:2px'><img src='[resource("images/arts/xg_tapes.png")]'></body></html>"
 
 /obj/item/radio_tape/adventure/xg
 	name = "XIANG|GIESEL Onboarding Tape 1"
@@ -596,10 +545,11 @@ var/sound/iomoon_alarm_sound = null
 	icon = 'icons/obj/items/weapons.dmi'
 	icon_state = "magic"
 
-	pickup(mob/user)
+	attack_hand(mob/user)
 		var/mob/living/carbon/human/H = user
 		if(istype(H))
 			boutput(user, "<i><b><font face = Tempus Sans ITC>EI NATH</font></b></i>")
+			logTheThing(LOG_COMBAT, H, "Becomes unkillable via Shield of Souls (unkill_shield))")
 
 			//EI NATH!!
 			elecflash(user,radius = 2, power = 6)
@@ -608,9 +558,11 @@ var/sound/iomoon_alarm_sound = null
 			H.setStatus("maxhealth-", null, -90)
 			H.gib(1)
 			qdel(src)
+		else
+			. = ..()
 
 //Clothing & Associated Equipment
-/obj/item/clothing/suit/rad/iomoon
+/obj/item/clothing/suit/hazard/rad/iomoon
 	name = "FB-8 Environment Suit"
 	desc = "A rather old-looking suit designed to guard against extreme heat and radiation."
 	icon_state = "rad_io"
@@ -634,7 +586,7 @@ var/sound/iomoon_alarm_sound = null
 	icon_state = "syndicate"
 	icon_opened = "syndicate-open"
 	icon_closed = "syndicate"
-	spawn_contents = list(/obj/item/clothing/suit/rad/iomoon,\
+	spawn_contents = list(/obj/item/clothing/suit/hazard/rad/iomoon,\
 	/obj/item/clothing/head/rad_hood/iomoon)
 
 /obj/machinery/light/small/iomoon
@@ -742,16 +694,16 @@ var/global/iomoon_blowout_state = 0 //0: Hasn't occurred, 1: Moon is irradiated 
 		var/b_pressed = FALSE
 
 		attack_hand(mob/user)
-			if (user.stat || user.getStatusDuration("weakened") || BOUNDS_DIST(user, src) > 0 || !user.can_use_hands())
+			if (user.stat || user.getStatusDuration("knockdown") || BOUNDS_DIST(user, src) > 0 || !user.can_use_hands())
 				return
 
-			user.visible_message("<span class='alert'>[user] presses [src].</span>", "<span class='alert'>You press [src].</span>")
+			user.visible_message(SPAN_ALERT("[user] presses [src]."), SPAN_ALERT("You press [src]."))
 			if (b_pressed)
 				boutput(user, "Nothing happens.")
 				return
 
 			b_pressed = TRUE
-			flick("boss_button_activate", src)
+			FLICK("boss_button_activate", src)
 			src.icon_state = "boss_button1"
 
 			playsound(src.loc, 'sound/machines/lavamoon_alarm1.ogg', 70,0)
@@ -772,8 +724,8 @@ var/global/iomoon_blowout_state = 0 //0: Hasn't occurred, 1: Moon is irradiated 
 			if (!I.force || health <= 0)
 				return
 
-			user.lastattacked = src
-			user.visible_message("<span class='alert'><b>[user] bonks [src] with [I]!</b></span>","<span class='alert'><b>You hit [src] with [I]!</b></span>")
+			user.lastattacked = get_weakref(src)
+			user.visible_message(SPAN_ALERT("<b>[user] bonks [src] with [I]!</b>"),SPAN_ALERT("<b>You hit [src] with [I]!</b>"))
 			if (iomoon_blowout_state == 0)
 				playsound(src.loc, 'sound/machines/lavamoon_alarm1.ogg', 70,0)
 				event_iomoon_blowout()
@@ -788,7 +740,7 @@ var/global/iomoon_blowout_state = 0 //0: Hasn't occurred, 1: Moon is irradiated 
 			if (src.health <= 0 && src.functional)
 				src.icon_state = "bot_spawner_dead"
 				src.functional = FALSE
-				src.visible_message("<span class='alert'>[src] shuts down. Forever.</span>")
+				src.visible_message(SPAN_ALERT("[src] shuts down. Forever."))
 				return
 
 
@@ -801,13 +753,13 @@ var/global/iomoon_blowout_state = 0 //0: Hasn't occurred, 1: Moon is irradiated 
 			src.icon_state = "bot_spawner_start"
 			SPAWN(0.7 SECONDS)
 				src.icon_state = "bot_spawner_active"
-			src.visible_message("<span class='alert'>[src] begins to whirr ominously!</span>")
+			src.visible_message(SPAN_ALERT("[src] begins to whirr ominously!"))
 			SPAWN(2 SECONDS)
 				if (health <= 0)
 					src.icon_state = "bot_spawner_dead"
 					return
 				if(prob(50)) //cheese reduction
-					src.visible_message("<span class='alert'>[src] produces a terrifying vibration!</span>")
+					src.visible_message(SPAN_ALERT("[src] produces a terrifying vibration!"))
 					for(var/atom/A in orange(3, src))
 						if(!(ismob(A) || iscritter(A))) //only target inanimate objects mostly
 							A.ex_act(1)
@@ -823,7 +775,7 @@ var/global/iomoon_blowout_state = 0 //0: Hasn't occurred, 1: Moon is irradiated 
 					new /mob/living/critter/robotic/repairbot/security (src.loc)
 				max_bots--
 
-				src.visible_message("<span class='alert'>[src] plunks out a robot! Oh dear!</span>")
+				src.visible_message(SPAN_ALERT("[src] plunks out a robot! Oh dear!"))
 				makingbot = FALSE
 
 			return
@@ -881,13 +833,13 @@ var/global/iomoon_blowout_state = 0 //0: Hasn't occurred, 1: Moon is irradiated 
 			if (!I.force || src.status != IOCORE_ACTIVE)
 				return
 
-			user.lastattacked = src
+			user.lastattacked = get_weakref(src)
 			if (I.hit_type == DAMAGE_BURN)
 				src.health -= I.force * 0.25
 			else
 				src.health -= I.force * 0.5
 
-			user.visible_message("<span class='alert'><b>[user] bonks [src] with [I]!</b></span>","<span class='alert'><b>You hit [src] with [I]!</b></span>")
+			user.visible_message(SPAN_ALERT("<b>[user] bonks [src] with [I]!</b>"),SPAN_ALERT("<b>You hit [src] with [I]!</b>"))
 			if (src.health <= 0)
 				death()
 				return
@@ -915,14 +867,14 @@ var/global/iomoon_blowout_state = 0 //0: Hasn't occurred, 1: Moon is irradiated 
 			if (src.status != IOCORE_ACTIVE)
 				return
 
-			user.lastattacked = src
+			user.lastattacked = get_weakref(src)
 			if (user.a_intent == "harm")
 				src.health -= rand(1,2) * 0.5
-				user.visible_message("<span class='alert'><b>[user]</b> punches [src]!</span>", "<span class='alert'>You punch [src]![prob(25) ? " It's about as effective as you would expect!" : null]</span>")
+				user.visible_message(SPAN_ALERT("<b>[user]</b> punches [src]!"), SPAN_ALERT("You punch [src]![prob(25) ? " It's about as effective as you would expect!" : null]"))
 				playsound(src.loc, "punch", 50, 1)
 
 			else
-				src.visible_message("<span class='alert'><b>[user]</b> pets [src]!  For some reason!</span>")
+				src.visible_message(SPAN_ALERT("<b>[user]</b> pets [src]!  For some reason!"))
 
 		bullet_act(var/obj/projectile/P)
 
@@ -1036,6 +988,11 @@ var/global/iomoon_blowout_state = 0 //0: Hasn't occurred, 1: Moon is irradiated 
 				if (src.status == IOCORE_DEAD)
 					return
 
+				if (istype(get_area(src), /area/iomoon/robot_ruins/boss_chamber))
+					for (var/mob/living/L in range(6, src))
+						if (!isintangible(L))
+							L.unlock_medal("What's Buried Stays Buried", TRUE)
+
 				STOP_TRACKING_CAT(TR_CAT_CRITTERS)
 
 				src.status = IOCORE_DEAD
@@ -1071,7 +1028,7 @@ var/global/iomoon_blowout_state = 0 //0: Hasn't occurred, 1: Moon is irradiated 
 
 					var/obj/decal/exitMarker = locate("IOMOON_BOSSDEATH_EXIT")
 					if (istype(exitMarker))
-						var/obj/perm_portal/portalOut = new
+						var/obj/laser_sink/perm_portal/portalOut = new
 						portalOut.target = get_turf(exitMarker)
 						portalOut.icon = 'icons/misc/worlds.dmi'
 						portalOut.icon_state = "jitterportal"
@@ -1090,10 +1047,10 @@ var/global/iomoon_blowout_state = 0 //0: Hasn't occurred, 1: Moon is irradiated 
 				playsound(src, 'sound/effects/elec_bigzap.ogg', 40, TRUE)
 
 				var/list/lineObjs
-				lineObjs = DrawLine(src, zapMarker, /obj/line_obj/elec, 'icons/obj/projectiles.dmi',"WholeLghtn",1,1,"HalfStartLghtn","HalfEndLghtn",FLY_LAYER,1,PreloadedIcon='icons/effects/LghtLine.dmi')
+				lineObjs = drawLineObj(src, zapMarker, /obj/line_obj/elec, 'icons/obj/projectiles.dmi',"WholeLghtn",1,1,"HalfStartLghtn","HalfEndLghtn",FLY_LAYER,1,PreloadedIcon='icons/effects/LghtLine.dmi')
 
 				for (var/mob/living/poorSoul in range(zapMarker, 2))
-					lineObjs += DrawLine(zapMarker, poorSoul, /obj/line_obj/elec, 'icons/obj/projectiles.dmi',"WholeLghtn",1,1,"HalfStartLghtn","HalfEndLghtn",FLY_LAYER,1,PreloadedIcon='icons/effects/LghtLine.dmi')
+					lineObjs += drawLineObj(zapMarker, poorSoul, /obj/line_obj/elec, 'icons/obj/projectiles.dmi',"WholeLghtn",1,1,"HalfStartLghtn","HalfEndLghtn",FLY_LAYER,1,PreloadedIcon='icons/effects/LghtLine.dmi')
 
 					poorSoul.shock(src, 1250000, "chest", 0.15, 1)
 					if (isdead(poorSoul) && prob(25))
@@ -1156,7 +1113,7 @@ var/global/iomoon_blowout_state = 0 //0: Hasn't occurred, 1: Moon is irradiated 
 #undef STATE_RECHARGING
 
 
-/obj/decal/fakeobjects/tallsmes
+/obj/fakeobject/tallsmes
 	name = "large power storage unit"
 	desc = "An ultra-high-capacity superconducting magnetic energy storage (SMES) unit."
 	icon = 'icons/misc/worlds.dmi'
@@ -1170,203 +1127,6 @@ var/global/iomoon_blowout_state = 0 //0: Hasn't occurred, 1: Moon is irradiated 
 		I.pixel_y = 32
 		I.layer = FLY_LAYER
 		src.overlays += I
-
-TYPEINFO(/obj/ladder)
-	mat_appearances_to_ignore = list("negativematter")
-ADMIN_INTERACT_PROCS(/obj/ladder, proc/toggle_extradimensional, proc/change_extradimensional_overlay)
-ADMIN_INTERACT_PROCS(/obj/ladder/embed, proc/toggle_hidden)
-
-/obj/ladder
-	name = "ladder"
-	desc = "A series of parallel bars designed to allow for controlled change of elevation.  You know, by climbing it.  You climb it."
-	icon = 'icons/misc/worlds.dmi'
-	icon_state = "ladder"
-	anchored = ANCHORED
-	density = 0
-	var/id = null
-	/// if true, disables ladder climbing behavior
-	var/unclimbable = FALSE
-	mat_changename = FALSE
-	appearance_flags = KEEP_TOGETHER
-
-/obj/ladder/broken
-	name = "broken ladder"
-	desc = "it's too damaged to climb."
-	icon_state = "ladder_wall_broken"
-	unclimbable = TRUE
-
-/obj/ladder/embed
-	name = "gap in the wall"
-	icon_state = "wall_embed"
-	desc = "A section of this wall appears to be missing. Entering it might take you somewhere."
-	plane = PLANE_WALL
-	var/hidden = FALSE
-
-/obj/ladder/embed/climb(mob/user as mob)
-	var/obj/ladder/otherLadder = src.get_other_ladder()
-	if (!istype(otherLadder))
-		boutput(user, "You try to enter the gap in the wall, but seriously fail! Perhaps there's nowhere to go?")
-		return
-	boutput(user, "You enter the gap in the wall.")
-	user.set_loc(get_turf(otherLadder))
-
-/obj/ladder/embed/New()
-	. = ..()
-	src.UpdateIcon()
-
-/obj/ladder/embed/update_icon()
-	. = ..()
-	if (!src.hidden)
-		var/turf/T = get_step(src,NORTH)
-		if (!istype(T,/turf/simulated/wall) && !istype(T,/turf/unsimulated/wall))
-			// if there's no wall above us, hide in a way that we still show up in orange(1)
-			// so the wall can update us
-			APPLY_ATOM_PROPERTY(src, PROP_MOB_INVISIBILITY, "hidden", INVIS_ALWAYS_ISH)
-		else
-			REMOVE_ATOM_PROPERTY(src, PROP_MOB_INVISIBILITY,"hidden")
-	else
-		APPLY_ATOM_PROPERTY(src, PROP_MOB_INVISIBILITY, "hidden", INVIS_ALWAYS_ISH)
-
-
-/obj/ladder/embed/ex_act(severity,last_touched)
-	if (src.hidden)
-		src.hidden = FALSE
-		src.UpdateIcon()
-	. = ..(severity, last_touched)
-
-/obj/ladder/embed/extradimensional
-	default_material = "negativematter"
-
-/obj/ladder/extradimensional
-	default_material = "negativematter"
-
-// admin interact procs
-/obj/ladder/proc/toggle_extradimensional()
-	set name = "Toggle Extradimensional"
-
-	var/datum/component/E = src.GetComponent(/datum/component/extradimensional_storage/ladder)
-	if (E)
-		E.RemoveComponent(/datum/component/extradimensional_storage/ladder)
-	else
-		src.AddComponent(/datum/component/extradimensional_storage/ladder)
-
-/obj/ladder/proc/change_extradimensional_overlay()
-	set name = "Change Extradimensional Overlay"
-
-	var/datum/component/extradimensional_storage/ladder/E = src.GetComponent(/datum/component/extradimensional_storage/ladder)
-	if (!E)
-		return
-	var/mob/user = usr
-	var/icon_to_use = input(user, "Icon to use for the overlay") as icon | null
-	if (icon_to_use)
-		var/icon/icon = icon(icon_to_use)
-		E.change_overlay(icon)
-
-/obj/ladder/embed/proc/toggle_hidden()
-	set name = "Toggle Hidden"
-	src.hidden = !src.hidden
-	src.UpdateIcon()
-
-/obj/ladder/New()
-	..()
-	START_TRACKING
-	if (!id)
-		id = "generic"
-	src.update_id()
-
-/obj/ladder/disposing()
-	STOP_TRACKING
-	. = ..()
-
-/obj/ladder/onMaterialChanged()
-	. = ..()
-	if(isnull(src.material))
-		return
-	var/found_negative = (src.material.getID() == "negativematter")
-	if(!found_negative)
-		for(var/datum/material/parent_mat in src.material.getParentMaterials())
-			if(parent_mat.getID() == "negativematter")
-				found_negative = TRUE
-				break
-	if(found_negative)
-		src.AddComponent(/datum/component/extradimensional_storage/ladder)
-
-/obj/ladder/proc/update_id(new_id)
-	if(new_id)
-		src.id = new_id
-	src.tag = "ladder_[id][src.icon_state == "ladder" ? 0 : 1]"
-
-/obj/ladder/proc/get_other_ladder()
-	RETURN_TYPE(/atom)
-	. = locate("ladder_[id][src.icon_state == "ladder"]")
-
-/obj/ladder/embed/update_id(new_id)
-	if(new_id)
-		src.id = new_id
-	src.tag = "ladder_[id]embed"
-
-/obj/ladder/embed/get_other_ladder() // these literally do not care which is the top
-	RETURN_TYPE(/atom)
-	for_by_tcl(ladder,/obj/ladder)
-		if (ladder.id == src.id && ladder != src)
-			return ladder
-
-/obj/ladder/attack_hand(mob/user)
-	if (src.unclimbable) return
-	if (user.stat || user.getStatusDuration("weakened") || BOUNDS_DIST(user, src) > 0)
-		return
-	src.climb(user)
-
-/obj/ladder/attack_ai(mob/user)
-	return src.attack_hand(user)
-
-/obj/ladder/attackby(obj/item/W, mob/user)
-	if (src.unclimbable) return
-	if (istype(W, /obj/item/grab))
-		var/obj/item/grab/grab = W
-		if (!grab.affecting || BOUNDS_DIST(grab.affecting, src) > 0)
-			return
-		user.lastattacked = src
-		src.visible_message("<span class='alert'><b>[user] is trying to shove [grab.affecting] [icon_state == "ladder"?"down":"up"] [src]!</b></span>")
-		return climb(grab.affecting)
-
-/obj/ladder/proc/climb(mob/user as mob)
-	var/obj/ladder/otherLadder = src.get_other_ladder()
-	if (!istype(otherLadder))
-		boutput(user, "You try to climb [src.icon_state == "ladder" ? "down" : "up"] the ladder, but seriously fail! Perhaps there's nowhere to go?")
-		return
-
-	boutput(user, "You climb [src.icon_state == "ladder" ? "down" : "up"] the ladder.")
-
-	// do the fancy thing i stole from kitchen grinders
-	var/atom/movable/proxy = new(src)
-	proxy.mouse_opacity = FALSE
-	proxy.appearance = user.appearance
-	proxy.transform = null
-	proxy.dir = NORTH
-
-	if (src.icon_state == "ladder") // only filter if we're the top
-		proxy.add_filter("ladder_climbmask", 1, alpha_mask_filter(x=0, y=0, icon=icon('icons/obj/kitchen_grinder_mask.dmi', "ladder-mask")))
-
-	user.set_loc(src)
-	src.vis_contents += proxy
-
-	// if we're not the top ladder, animate up instead of down
-	var/climbdir = src.icon_state == "ladder" ? 1 : -1
-
-	animate(proxy, pixel_y = -32*climbdir, time = 1 SECOND)
-	if (src.icon_state == "ladder")
-		animate(proxy.get_filter("ladder_climbmask"), y = 32, time = 1 SECOND, flags = ANIMATION_PARALLEL)
-
-	SPAWN(1 SECOND) // after the animation is done, teleport and clean up
-		if (user.loc == src)
-			if (get_turf(otherLadder))
-				user.set_loc(get_turf(otherLadder))
-			else
-				user.set_loc(get_turf(src))
-
-		src.vis_contents -= proxy
-		qdel(proxy)
 
 //Puzzle elements
 
@@ -1410,7 +1170,7 @@ ADMIN_INTERACT_PROCS(/obj/ladder/embed, proc/toggle_hidden)
 			changing_state = 1
 			active = (opened != default_state)
 
-			flick("ancientdoor_open",src)
+			FLICK("ancientdoor_open",src)
 			src.icon_state = "ancientdoor_opened"
 			set_density(0)
 			set_opacity(0)
@@ -1431,7 +1191,7 @@ ADMIN_INTERACT_PROCS(/obj/ladder/embed, proc/toggle_hidden)
 
 			set_density(1)
 			set_opacity(1)
-			flick("ancientdoor_close",src)
+			FLICK("ancientdoor_close",src)
 			src.icon_state = "ancientwall2"
 			desc = initial(src.desc)
 			src.name = initial(src.name)
@@ -1601,7 +1361,7 @@ ADMIN_INTERACT_PROCS(/obj/ladder/embed, proc/toggle_hidden)
 
 			active = 1
 			playsound(src.loc, 'sound/effects/stoneshift.ogg', 25, 1)
-			flick("ancient_floorpanel_activate",src)
+			FLICK("ancient_floorpanel_activate",src)
 			src.icon_state = "ancient_floorpanel1"
 
 		if (id)
@@ -1649,7 +1409,7 @@ ADMIN_INTERACT_PROCS(/obj/ladder/embed, proc/toggle_hidden)
 			active = 0
 
 			playsound(src.loc, 'sound/effects/stoneshift.ogg', 25, 1)
-			flick("ancient_floorpanel_deactivate",src)
+			FLICK("ancient_floorpanel_deactivate",src)
 			src.icon_state = "ancient_floorpanel0"
 
 		if (id)
@@ -1748,13 +1508,13 @@ ADMIN_INTERACT_PROCS(/obj/ladder/embed, proc/toggle_hidden)
 		if (istype(I))
 			if (icon_state == initial(icon_state) && I.keytype == src.locktype)
 				src.icon_state += "-active"
-				user.visible_message("<span class='alert'>[user] plugs [I] into [src]!</span>", "You pop [I] into [src].")
+				user.visible_message(SPAN_ALERT("[user] plugs [I] into [src]!"), "You pop [I] into [src].")
 				playsound(src.loc, 'sound/effects/syringeproj.ogg', 50, 1)
 				user.drop_item()
 				I.dispose()
 				src.activate()
 			else
-				boutput(user, "<span class='alert'>It won't fit!</span>")
+				boutput(user, SPAN_ALERT("It won't fit!"))
 
 		else
 			..()
@@ -1804,10 +1564,10 @@ ADMIN_INTERACT_PROCS(/obj/ladder/embed, proc/toggle_hidden)
 			id = params2list(id)
 
 	attack_hand(mob/user)
-		if (user.stat || user.getStatusDuration("weakened") || BOUNDS_DIST(user, src) > 0 || !user.can_use_hands() || !ishuman(user))
+		if (user.stat || user.getStatusDuration("knockdown") || BOUNDS_DIST(user, src) > 0 || !user.can_use_hands() || !ishuman(user))
 			return
 
-		user.visible_message("<span class='alert'>[user] presses [src].</span>", "<span class='alert'>You press [src].</span>")
+		user.visible_message(SPAN_ALERT("[user] presses [src]."), SPAN_ALERT("You press [src]."))
 		return toggle()
 
 	proc/toggle()
@@ -1827,7 +1587,7 @@ ADMIN_INTERACT_PROCS(/obj/ladder/embed, proc/toggle_hidden)
 			return 1
 
 		playsound(src.loc, 'sound/effects/syringeproj.ogg', 50, 1)
-		flick("ancient_button_activate",src)
+		FLICK("ancient_button_activate",src)
 		src.icon_state = "ancient_button[++active]"
 
 		if (timer)
@@ -1867,7 +1627,7 @@ ADMIN_INTERACT_PROCS(/obj/ladder/embed, proc/toggle_hidden)
 			return 1
 
 		playsound(src.loc, 'sound/effects/syringeproj.ogg', 50, 1)
-		flick("ancient_button_deactivate", src)
+		FLICK("ancient_button_deactivate", src)
 		src.icon_state = "ancient_button[--active]"
 
 		if (id)

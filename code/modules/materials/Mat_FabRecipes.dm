@@ -62,6 +62,32 @@
 	materials = list("!any"=2)
 	result = /obj/item/reactor_component/gas_channel
 
+/datum/matfab_recipe/simple/turbine
+	name = "Turbine Component - base"
+	desc = "You shouldn't see this"
+	category = "Nuclear"
+	result = /obj/item/turbine_component
+
+	postProcess(obj/item/I)
+		. = ..()
+		//default properties for all materials - everything is a sponge unless otherwise specified
+		if(!I.material.hasProperty("density"))
+			I.material.setProperty("density", 1)
+
+/datum/matfab_recipe/simple/turbine/blade
+	name = "Turbine Blade"
+	desc = "A replacement blade for the reactor turbine"
+	category = "Nuclear"
+	materials = list("!any"=5)
+	result = /obj/item/turbine_component/blade
+
+/datum/matfab_recipe/simple/turbine/stator
+	name = "Turbine Stator"
+	desc = "A replacement stator coil for the reactor turbine"
+	category = "Nuclear"
+	materials = list("!any"=3)
+	result = /obj/item/turbine_component/stator
+
 /datum/matfab_recipe/spacesuit
 	name = "Space Suit Set"
 	desc = "A complete space suit."
@@ -615,7 +641,7 @@
 			newObj.set_loc(getOutputLocation(owner))
 
 /datum/matfab_recipe/thermocouple
-	name = "Themocouple"
+	name = "Thermocouple"
 	desc = "For use in a Thermo Electric Generator."
 	category = "Tools"
 
@@ -653,7 +679,7 @@
 
 /datum/matfab_recipe/cell_large
 	name = "Large energy cell"
-	desc = "A large enery cell, often used in APCs or cyborgs."
+	desc = "A large energy cell, often used in APCs or cyborgs."
 	category = "Tools"
 
 	New()

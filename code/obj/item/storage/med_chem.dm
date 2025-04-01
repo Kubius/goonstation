@@ -6,16 +6,17 @@
 	icon_state = "firstaid1"
 	inhand_image_icon = 'icons/mob/inhand/hand_storage.dmi'
 	throw_speed = 2
+	can_hold = list(/obj/item/storage/pill_bottle)
 	throw_range = 8
-	max_wclass = W_CLASS_SMALL // medbot.dm modifies attackby() for firstaid, which effectively reduces max_wclass to 1, EXCEPT for non-chemmaster pill bottles
+	max_wclass = W_CLASS_TINY
+	check_wclass = TRUE
 	var/list/kit_styles = null
 
 	New()
 		..()
-		SPAWN(0.5 SECONDS)
-			if (length(kit_styles))
-				icon_state = pick(kit_styles)
-				item_state = icon_state
+		if (length(kit_styles))
+			icon_state = pick(kit_styles)
+			item_state = icon_state
 
 
 /obj/item/storage/firstaid/regular
@@ -134,7 +135,7 @@
 	name = "doctor's bag"
 	icon_state = "docbag1"
 	item_state = "docbag1"
-	desc = "A old-fashioned doctor's bag designed to cary medical and surgical supplies."
+	desc = "A old-fashioned doctor's bag designed to carry medical and surgical supplies."
 	kit_styles = list("docbag1", "docbag2", "docbag3")
 	spawn_contents = list(/obj/item/circular_saw, /obj/item/scalpel, /obj/item/scissors/surgical_scissors, /obj/item/suture, /obj/item/reagent_containers/syringe, /obj/item/reagent_containers/iv_drip/blood, /obj/item/medicaldiagnosis/stethoscope)
 
@@ -477,7 +478,7 @@
 /obj/item/storage/pill_bottle/suicide(var/mob/user as mob)
 	if (!src.user_can_suicide(user))
 		return 0
-	user.visible_message("<span class='alert'><b>[user] swallows [src] whole and begins to choke!</b></span>")
+	user.visible_message(SPAN_ALERT("<b>[user] swallows [src] whole and begins to choke!</b>"))
 	user.take_oxygen_deprivation(175)
 	qdel(src)
 	return 1

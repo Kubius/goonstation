@@ -36,14 +36,13 @@ TYPEINFO_NEW(/turf/simulated/wall/auto)
 
 	New()
 		..()
-		if (map_setting && ticker)
-			src.update_neighbors() // lessen these calls
-
-		if (current_state > GAME_STATE_WORLD_INIT)
+		if (current_state > GAME_STATE_WORLD_NEW)
 			SPAWN(0) //worldgen overrides ideally
 				src.UpdateIcon()
+				if(istype(src))
+					src.update_neighbors()
 		else
-			worldgenCandidates[src] = 1
+			worldgenCandidates += src
 
 	generate_worldgen()
 		src.UpdateIcon()
@@ -72,14 +71,14 @@ TYPEINFO_NEW(/turf/simulated/wall/auto)
 					src.connect_image = image(src.icon, "connect[overlaydir]")
 				else
 					src.connect_image.icon_state = "connect[overlaydir]"
-				src.UpdateOverlays(src.connect_image, "connect")
+				src.AddOverlays(src.connect_image, "connect")
 			else
-				src.UpdateOverlays(null, "connect")
+				src.ClearSpecificOverlays("connect")
 
 	proc/update_neighbors()
 		for (var/turf/simulated/wall/auto/T in orange(1,src))
 			T.UpdateIcon()
-		for (var/obj/grille/G in orange(1,src))
+		for (var/obj/mesh/grille/G in orange(1,src))
 			G.UpdateIcon()
 
 /turf/simulated/wall/auto/the_tuff_stuff
@@ -95,6 +94,7 @@ TYPEINFO_NEW(/turf/simulated/wall/auto/reinforced)
 	explosion_resistance = 7
 	mod = "R"
 	icon_state = "mapwall_r"
+	HELP_MESSAGE_OVERRIDE(null)
 
 	get_help_message(dist, mob/user)
 		switch (src.d_state)
@@ -115,10 +115,6 @@ TYPEINFO_NEW(/turf/simulated/wall/auto/reinforced)
 
 
 	attackby(obj/item/W, mob/user)
-		if (istype(W, /obj/item/light_parts))
-			src.attach_light_fixture_parts(user, W) // Made this a proc to avoid duplicate code (Convair880).
-			return
-
 		/* ----- Deconstruction ----- */
 		if (src.d_state == 0 && issnippingtool(W))
 			actions.start(new /datum/action/bar/icon/wall_tool_interact(src, W, WALL_CUTRERODS), user)
@@ -159,9 +155,9 @@ TYPEINFO_NEW(/turf/simulated/wall/auto/reinforced)
 			var/obj/item/device/key/haunted/H = W
 			//Okay, create a temporary false wall.
 			if (H.last_use && ((H.last_use + 300) >= world.time))
-				boutput(user, "<span class='alert'>The key won't fit in all the way!</span>")
+				boutput(user, SPAN_ALERT("The key won't fit in all the way!"))
 				return
-			user.visible_message("<span class='alert'>[user] inserts [W] into [src]!</span>","<span class='alert'>The key seems to phase into the wall.</span>")
+			user.visible_message(SPAN_ALERT("[user] inserts [W] into [src]!"),SPAN_ALERT("The key seems to phase into the wall."))
 			H.last_use = world.time
 			blink(src)
 			var/turf/simulated/wall/false_wall/temp/fakewall = src.ReplaceWith(/turf/simulated/wall/false_wall/temp, FALSE, TRUE, FALSE, TRUE)
@@ -172,7 +168,7 @@ TYPEINFO_NEW(/turf/simulated/wall/auto/reinforced)
 
 		else if (istype(W, /obj/item/sheet) && src.d_state)
 			var/obj/item/sheet/S = W
-			boutput(user, "<span class='notice'>Repairing wall.</span>")
+			boutput(user, SPAN_NOTICE("Repairing wall."))
 			if (do_after(user, 2.5 SECONDS) && S.change_stack_amount(-1))
 				src.d_state = 0
 				src.icon_state = initial(src.icon_state)
@@ -181,7 +177,7 @@ TYPEINFO_NEW(/turf/simulated/wall/auto/reinforced)
 				else
 					var/datum/material/M = getMaterial("steel")
 					src.setMaterial(M)
-				boutput(user, "<span class='notice'>You repaired the wall.</span>")
+				boutput(user, SPAN_NOTICE("You repaired the wall."))
 				return
 
 		else if (istype(W, /obj/item/grab))
@@ -192,7 +188,7 @@ TYPEINFO_NEW(/turf/simulated/wall/auto/reinforced)
 				return
 
 		src.material_trigger_when_attacked(W, user, 1)
-		src.visible_message("<span class='alert'>[usr ? usr : "Someone"] uselessly hits [src] with [W].</span>", "<span class='alert'>You uselessly hit [src] with [W].</span>")
+		src.visible_message(SPAN_ALERT("[usr ? usr : "Someone"] uselessly hits [src] with [W]."), SPAN_ALERT("You uselessly hit [src] with [W]."))
 
 /turf/simulated/wall/auto/reinforced/the_tuff_stuff
 	explosion_resistance = 11
@@ -206,14 +202,14 @@ TYPEINFO_NEW(/turf/simulated/wall/auto/jen)
 		/turf/simulated/wall/auto/supernorn, /turf/simulated/wall/auto/reinforced/supernorn,
 		/turf/simulated/wall/false_wall, /obj/machinery/door, /obj/window, /obj/mapping_helper/wingrille_spawn,
 		/turf/simulated/wall/auto/reinforced/supernorn/yellow, /turf/simulated/wall/auto/reinforced/supernorn/blackred,
-		/turf/simulated/wall/auto/jen, /turf/simulated/wall/auto/reinforced/jen, /obj/plasticflaps
+		/turf/simulated/wall/auto/jen, /turf/simulated/wall/auto/reinforced/jen, /obj/strip_door
 	))
 	connects_with_overlay = typecacheof(list(
 		/turf/simulated/wall/auto/reinforced/supernorn, /turf/simulated/wall/auto/supernorn,
 		/turf/simulated/wall/auto/shuttle, /turf/simulated/wall/auto/shuttle,
 		/obj/machinery/door, /obj/window, /obj/mapping_helper/wingrille_spawn,
 		/turf/simulated/wall/auto/reinforced/supernorn/yellow, /turf/simulated/wall/auto/reinforced/supernorn/blackred,
-		/turf/simulated/wall/auto/reinforced/jen, /obj/plasticflaps
+		/turf/simulated/wall/auto/reinforced/jen, /obj/strip_door
 	))
 /turf/simulated/wall/auto/jen
 	icon = 'icons/turf/walls/jen.dmi'
@@ -224,7 +220,7 @@ TYPEINFO_NEW(/turf/simulated/wall/auto/jen)
 #endif
 	RL_OverlayIcon = 'icons/effects/lighting_overlays/walls_jen.dmi'
 	light_mod = "wall-"
-	flags = ALWAYS_SOLID_FLUID | IS_PERSPECTIVE_FLUID
+	flags = FLUID_DENSE | IS_PERSPECTIVE_FLUID
 
 	update_neighbors()
 		..()
@@ -278,14 +274,14 @@ TYPEINFO_NEW(/turf/simulated/wall/auto/reinforced/jen)
 		/turf/simulated/wall/auto/supernorn, /turf/simulated/wall/auto/reinforced/supernorn,
 		/turf/simulated/wall/auto/jen, /turf/simulated/wall/auto/reinforced/jen,
 		/turf/simulated/wall/false_wall, /obj/machinery/door, /obj/window, /obj/mapping_helper/wingrille_spawn,
-		/turf/simulated/wall/auto/reinforced/supernorn/yellow, /turf/simulated/wall/auto/reinforced/supernorn/blackred, /obj/plasticflaps
+		/turf/simulated/wall/auto/reinforced/supernorn/yellow, /turf/simulated/wall/auto/reinforced/supernorn/blackred, /obj/strip_door
 	))
 	connects_with_overlay = typecacheof(list(
 		/turf/simulated/wall/auto/reinforced/supernorn,
 		/turf/simulated/wall/auto/jen,
 		/turf/simulated/wall/auto/shuttle, /turf/simulated/wall/auto/shuttle,
 		/obj/machinery/door, /obj/window, /obj/mapping_helper/wingrille_spawn,
-		/turf/simulated/wall/auto/reinforced/supernorn/yellow, /turf/simulated/wall/auto/reinforced/supernorn/blackred, /obj/plasticflaps
+		/turf/simulated/wall/auto/reinforced/supernorn/yellow, /turf/simulated/wall/auto/reinforced/supernorn/blackred, /obj/strip_door
 	))
 	connects_with_overlay_exceptions = typecacheof(list(/turf/simulated/wall/auto/reinforced/jen))
 /turf/simulated/wall/auto/reinforced/jen
@@ -297,7 +293,7 @@ TYPEINFO_NEW(/turf/simulated/wall/auto/reinforced/jen)
 #endif
 	RL_OverlayIcon = 'icons/effects/lighting_overlays/walls_jen.dmi'
 	light_mod = "wall-jen-"
-	flags = ALWAYS_SOLID_FLUID | IS_PERSPECTIVE_FLUID
+	flags = FLUID_DENSE | IS_PERSPECTIVE_FLUID
 
 	the_tuff_stuff
 		explosion_resistance = 3
@@ -353,12 +349,12 @@ TYPEINFO_NEW(/turf/simulated/wall/auto/supernorn)
 		/turf/simulated/wall/auto/supernorn, /turf/simulated/wall/auto/reinforced/supernorn,
 		/turf/simulated/wall/false_wall, /obj/machinery/door, /obj/window, /obj/mapping_helper/wingrille_spawn,
 		/turf/simulated/wall/auto/jen, /turf/simulated/wall/auto/reinforced/jen,
-		/turf/simulated/wall/auto/old, /turf/simulated/wall/auto/reinforced/old, /obj/plasticflaps
+		/turf/simulated/wall/auto/old, /turf/simulated/wall/auto/reinforced/old, /obj/strip_door
 	))
 	connects_with_overlay = typecacheof(list(
 		/turf/simulated/wall/auto/shuttle,
 		/turf/simulated/wall/auto/shuttle, /obj/machinery/door, /obj/window, /obj/mapping_helper/wingrille_spawn,
-		/turf/simulated/wall/auto/jen, /turf/simulated/wall/auto/reinforced/jen, /obj/plasticflaps
+		/turf/simulated/wall/auto/jen, /turf/simulated/wall/auto/reinforced/jen, /obj/strip_door
 	))
 /turf/simulated/wall/auto/supernorn
 	icon = 'icons/turf/walls/supernorn/smooth.dmi'
@@ -369,7 +365,7 @@ TYPEINFO_NEW(/turf/simulated/wall/auto/supernorn)
 #else
 	icon_state = "mapwall"
 #endif
-	flags = ALWAYS_SOLID_FLUID | IS_PERSPECTIVE_FLUID
+	flags = FLUID_DENSE | IS_PERSPECTIVE_FLUID
 
 	the_tuff_stuff
 		explosion_resistance = 7
@@ -390,12 +386,12 @@ TYPEINFO_NEW(/turf/simulated/wall/auto/reinforced/supernorn)
 		/turf/simulated/wall/false_wall, /turf/simulated/wall/auto/shuttle, /obj/machinery/door,
 		/obj/window, /obj/mapping_helper/wingrille_spawn, /turf/simulated/wall/auto/reinforced/supernorn/yellow,
 		/turf/simulated/wall/auto/reinforced/supernorn/blackred, /turf/simulated/wall/auto/reinforced/supernorn/orange,
-		/turf/simulated/wall/auto/old, /turf/simulated/wall/auto/reinforced/old, /obj/plasticflaps
+		/turf/simulated/wall/auto/old, /turf/simulated/wall/auto/reinforced/old, /obj/strip_door
 	))
 	connects_with_overlay = typecacheof(list(
 		/turf/simulated/wall/auto/jen, /turf/simulated/wall/auto/reinforced/jen,
 		/turf/simulated/wall/auto/shuttle, /obj/machinery/door, /obj/window,
-		/obj/mapping_helper/wingrille_spawn, /turf/simulated/wall/auto/reinforced/paper, /obj/plasticflaps
+		/obj/mapping_helper/wingrille_spawn, /turf/simulated/wall/auto/reinforced/paper, /obj/strip_door
 	))
 /turf/simulated/wall/auto/reinforced/supernorn
 	icon = 'icons/turf/walls/supernorn/smooth.dmi'
@@ -406,7 +402,7 @@ TYPEINFO_NEW(/turf/simulated/wall/auto/reinforced/supernorn)
 #endif
 	mod = "norn-R-"
 	light_mod = "wall-"
-	flags = ALWAYS_SOLID_FLUID | IS_PERSPECTIVE_FLUID
+	flags = FLUID_DENSE | IS_PERSPECTIVE_FLUID
 
 	the_tuff_stuff
 		explosion_resistance = 11
@@ -426,12 +422,12 @@ TYPEINFO_NEW(/turf/simulated/wall/auto/reinforced/supernorn/yellow)
 		/turf/simulated/wall/auto/jen, /turf/simulated/wall/auto/reinforced/jen,
 		/turf/simulated/wall/false_wall, /turf/simulated/wall/auto/shuttle,
 		/obj/machinery/door, /obj/window, /obj/mapping_helper/wingrille_spawn,
-		/obj/plasticflaps
+		/obj/strip_door
 	))
 	connects_with_overlay = typecacheof(list(
 		/turf/simulated/wall/auto/jen, /turf/simulated/wall/auto/reinforced/jen,
 		/turf/simulated/wall/auto/shuttle, /obj/machinery/door, /obj/window, /obj/mapping_helper/wingrille_spawn,
-		/obj/plasticflaps
+		/obj/strip_door
 	))
 /turf/simulated/wall/auto/reinforced/supernorn/yellow
 	icon = 'icons/turf/walls/supernorn/yellow.dmi'
@@ -442,7 +438,7 @@ TYPEINFO_NEW(/turf/simulated/wall/auto/reinforced/supernorn/yellow)
 #endif
 	mod = "norn-Y-"
 	light_mod = "wall-"
-	flags = ALWAYS_SOLID_FLUID | IS_PERSPECTIVE_FLUID
+	flags = FLUID_DENSE | IS_PERSPECTIVE_FLUID
 
 
 TYPEINFO(/turf/simulated/wall/auto/reinforced/supernorn/orange)
@@ -453,12 +449,12 @@ TYPEINFO_NEW(/turf/simulated/wall/auto/reinforced/supernorn/orange)
 		/turf/simulated/wall/auto/supernorn, /turf/simulated/wall/auto/reinforced/supernorn,
 		/turf/simulated/wall/auto/jen, /turf/simulated/wall/auto/reinforced/jen,
 		/turf/simulated/wall/false_wall, /turf/simulated/wall/auto/shuttle,
-		/obj/machinery/door, /obj/window, /obj/mapping_helper/wingrille_spawn, /obj/plasticflaps
+		/obj/machinery/door, /obj/window, /obj/mapping_helper/wingrille_spawn, /obj/strip_door
 	))
 	connects_with_overlay = typecacheof(list(
 		/turf/simulated/wall/auto/jen, /turf/simulated/wall/auto/reinforced/jen,
 		/turf/simulated/wall/auto/shuttle, /obj/machinery/door, /obj/window, /obj/mapping_helper/wingrille_spawn,
-		/obj/plasticflaps
+		/obj/strip_door
 	))
 /turf/simulated/wall/auto/reinforced/supernorn/orange
 	icon = 'icons/turf/walls/supernorn/orange.dmi'
@@ -469,7 +465,7 @@ TYPEINFO_NEW(/turf/simulated/wall/auto/reinforced/supernorn/orange)
 #endif
 	mod = "norn-O-"
 	light_mod = "wall-"
-	flags = ALWAYS_SOLID_FLUID | IS_PERSPECTIVE_FLUID
+	flags = FLUID_DENSE | IS_PERSPECTIVE_FLUID
 	explosion_resistance = 11
 
 TYPEINFO(/turf/simulated/wall/auto/supernorn/wood)
@@ -481,6 +477,7 @@ TYPEINFO(/turf/simulated/wall/auto/supernorn/wood)
 	icon_state = "mapwall$$wood"
 #endif
 	default_material = "wood"
+	uses_default_material_appearance = TRUE
 
 TYPEINFO(/turf/simulated/wall/auto/supernorn/wood)
 	connect_overlay = 0
@@ -507,11 +504,11 @@ TYPEINFO_NEW(/turf/simulated/wall/auto/reinforced/supernorn/blackred)
 		/turf/simulated/wall/auto/supernorn, /turf/simulated/wall/auto/reinforced/supernorn,
 		/turf/simulated/wall/auto/jen, /turf/simulated/wall/auto/reinforced/jen,
 		/turf/simulated/wall/false_wall, /turf/simulated/wall/auto/shuttle,
-		/obj/machinery/door, /obj/window, /obj/mapping_helper/wingrille_spawn, /obj/plasticflaps
+		/obj/machinery/door, /obj/window, /obj/mapping_helper/wingrille_spawn, /obj/strip_door
 	))
 	connects_with_overlay = typecacheof(list(
 		/turf/simulated/wall/auto/jen, /turf/simulated/wall/auto/reinforced/jen,
-		/turf/simulated/wall/auto/shuttle, /obj/machinery/door, /obj/window, /obj/mapping_helper/wingrille_spawn, /obj/plasticflaps
+		/turf/simulated/wall/auto/shuttle, /obj/machinery/door, /obj/window, /obj/mapping_helper/wingrille_spawn, /obj/strip_door
 	))
 /turf/simulated/wall/auto/reinforced/supernorn/blackred
 	icon = 'icons/turf/walls/supernorn/blackred.dmi'
@@ -522,7 +519,7 @@ TYPEINFO_NEW(/turf/simulated/wall/auto/reinforced/supernorn/blackred)
 #endif
 	mod = "norn-BR-"
 	light_mod = "wall-"
-	flags = ALWAYS_SOLID_FLUID | IS_PERSPECTIVE_FLUID
+	flags = FLUID_DENSE | IS_PERSPECTIVE_FLUID
 	explosion_resistance = 11
 
 
@@ -601,12 +598,12 @@ TYPEINFO_NEW(/turf/simulated/wall/auto/old)
 		/turf/simulated/wall/auto/jen, /turf/simulated/wall/auto/reinforced/jen,
 		/turf/simulated/wall/auto/old, /turf/simulated/wall/auto/reinforced/old,
 		/turf/simulated/wall/auto/martian, /turf/unsimulated/wall/auto/adventure/martian,
-		/obj/indestructible/shuttle_corner, /obj/plasticflaps
+		/obj/indestructible/shuttle_corner, /obj/strip_door
 	))
 	connects_with_overlay = typecacheof(list(
 		/turf/simulated/wall/auto/shuttle,
 		/turf/simulated/wall/auto/shuttle, /obj/machinery/door, /obj/window, /obj/mapping_helper/wingrille_spawn,
-		/turf/simulated/wall/auto/jen, /turf/simulated/wall/auto/reinforced, /obj/plasticflaps
+		/turf/simulated/wall/auto/jen, /turf/simulated/wall/auto/reinforced, /obj/strip_door
 	))
 /turf/simulated/wall/auto/old
 	icon = 'icons/turf/walls/derelict.dmi'
@@ -617,7 +614,7 @@ TYPEINFO_NEW(/turf/simulated/wall/auto/old)
 #endif
 	mod = "old-"
 	light_mod = "wall-"
-	flags = ALWAYS_SOLID_FLUID | IS_PERSPECTIVE_FLUID
+	flags = FLUID_DENSE | IS_PERSPECTIVE_FLUID
 
 TYPEINFO(/turf/simulated/wall/auto/reinforced/old)
 	connect_overlay = 1
@@ -630,13 +627,13 @@ TYPEINFO_NEW(/turf/simulated/wall/auto/reinforced/old)
 		/turf/simulated/wall/false_wall, /turf/simulated/wall/auto/shuttle, /obj/machinery/door,
 		/obj/window, /obj/mapping_helper/wingrille_spawn, /turf/simulated/wall/auto/old,
 		/turf/simulated/wall/auto/reinforced/old, /turf/simulated/wall/auto/martian,
-		/obj/indestructible/shuttle_corner, /obj/plasticflaps
+		/obj/indestructible/shuttle_corner, /obj/strip_door
 	))
 	connects_with_overlay = typecacheof(list(
 		/turf/simulated/wall/auto/shuttle,
 		/obj/machinery/door, /obj/window, /obj/mapping_helper/wingrille_spawn,
 		/turf/simulated/wall/auto/jen, /turf/simulated/wall/auto/reinforced/jen,
-		/obj/plasticflaps
+		/obj/strip_door
 	))
 
 /turf/simulated/wall/auto/reinforced/old
@@ -648,7 +645,7 @@ TYPEINFO_NEW(/turf/simulated/wall/auto/reinforced/old)
 #endif
 	mod = "oldr-"
 	light_mod = "wall-"
-	flags = ALWAYS_SOLID_FLUID | IS_PERSPECTIVE_FLUID
+	flags = FLUID_DENSE | IS_PERSPECTIVE_FLUID
 
 
 TYPEINFO(/turf/simulated/wall/auto/hedge)
@@ -675,7 +672,7 @@ TYPEINFO_NEW(/turf/simulated/wall/auto/hedge)
 	icon_state = "hedge-map"
 	mod = "hedge-"
 	light_mod = "wall-"
-	flags = ALWAYS_SOLID_FLUID | IS_PERSPECTIVE_FLUID
+	flags = FLUID_DENSE | IS_PERSPECTIVE_FLUID
 	default_material = "wood"
 
 /* ===================================================== */
@@ -712,14 +709,14 @@ TYPEINFO_NEW(/turf/unsimulated/wall/auto)
 
 	New()
 		. = ..()
-		if (map_setting && ticker)
-			src.update_neighbors()
-		if (current_state > GAME_STATE_WORLD_INIT)
+		if (current_state > GAME_STATE_WORLD_NEW)
 			SPAWN(0) //worldgen overrides ideally
 				src.UpdateIcon()
+				if(istype(src))
+					src.update_neighbors()
 
 		else
-			worldgenCandidates[src] = 1
+			worldgenCandidates += src
 
 	generate_worldgen()
 		src.UpdateIcon()
@@ -745,14 +742,14 @@ TYPEINFO_NEW(/turf/unsimulated/wall/auto)
 					src.connect_image = image(src.icon, "connect[overlaydir]")
 				else
 					src.connect_image.icon_state = "connect[overlaydir]"
-				src.UpdateOverlays(src.connect_image, "connect")
+				src.AddOverlays(src.connect_image, "connect")
 			else
-				src.UpdateOverlays(null, "connect")
+				src.ClearSpecificOverlays("connect")
 
 	proc/update_neighbors()
 		for (var/turf/unsimulated/wall/auto/T in orange(1,src))
 			T.UpdateIcon()
-		for (var/obj/grille/G in orange(1,src))
+		for (var/obj/mesh/grille/G in orange(1,src))
 			G.UpdateIcon()
 
 
@@ -775,9 +772,9 @@ TYPEINFO_NEW(/turf/unsimulated/wall/auto/supernorn)
 		/turf/unsimulated/wall/auto/reinforced/supernorn,
 		/obj/machinery/door,
 		/obj/window,
-		/obj/plasticflaps
+		/obj/strip_door
 	))
-	connects_with_overlay = typecacheof(list(/obj/machinery/door, /obj/window, /obj/plasticflaps))
+	connects_with_overlay = typecacheof(list(/obj/machinery/door, /obj/window, /obj/strip_door))
 /turf/unsimulated/wall/auto/supernorn
 	icon = 'icons/turf/walls/supernorn/smooth.dmi'
 #ifdef PERSPECTIVE_EDITOR_WALL
@@ -787,7 +784,7 @@ TYPEINFO_NEW(/turf/unsimulated/wall/auto/supernorn)
 #endif
 	light_mod = "wall-"
 	mod = "norn-"
-	flags = ALWAYS_SOLID_FLUID | IS_PERSPECTIVE_FLUID
+	flags = FLUID_DENSE | IS_PERSPECTIVE_FLUID
 
 TYPEINFO(/turf/unsimulated/wall/auto/reinforced/supernorn)
 TYPEINFO_NEW(/turf/unsimulated/wall/auto/reinforced/supernorn)
@@ -803,9 +800,9 @@ TYPEINFO_NEW(/turf/unsimulated/wall/auto/reinforced/supernorn)
 		/turf/unsimulated/wall/auto/adventure/old,
 		/turf/unsimulated/wall/auto/adventure/fake_window,
 		/turf/unsimulated/wall/auto/adventure/meat,
-		/obj/plasticflaps
+		/obj/strip_door
 	))
-	connects_with_overlay = typecacheof(list(/obj/machinery/door, /obj/window, /obj/plasticflaps))
+	connects_with_overlay = typecacheof(list(/obj/machinery/door, /obj/window, /obj/strip_door))
 /turf/unsimulated/wall/auto/reinforced/supernorn
 	icon = 'icons/turf/walls/supernorn/smooth.dmi'
 #ifdef PERSPECTIVE_EDITOR_WALL
@@ -815,7 +812,7 @@ TYPEINFO_NEW(/turf/unsimulated/wall/auto/reinforced/supernorn)
 #endif
 	light_mod = "wall-"
 	mod = "norn-R-"
-	flags = ALWAYS_SOLID_FLUID | IS_PERSPECTIVE_FLUID
+	flags = FLUID_DENSE | IS_PERSPECTIVE_FLUID
 
 
 TYPEINFO(/turf/unsimulated/wall/auto/supernorn/wood)
@@ -829,7 +826,7 @@ TYPEINFO_NEW(/turf/unsimulated/wall/auto/supernorn/wood)
 		/turf/unsimulated/wall/auto/supernorn/wood,
 		/obj/machinery/door,
 		/obj/window,
-		/obj/plasticflaps
+		/obj/strip_door
 	))
 /turf/unsimulated/wall/auto/supernorn/wood
 	uses_default_material_appearance = TRUE
@@ -884,13 +881,13 @@ TYPEINFO_NEW(/turf/unsimulated/wall/auto/lead)
 		/turf/unsimulated/wall/,
 		/turf/simulated/wall/false_wall/,
 		/turf/simulated/wall/false_wall/centcom,
-		/obj/plasticflaps
+		/obj/strip_door
 	))
-	connects_with_overlay = typecacheof(list(/obj/machinery/door, /obj/window, /obj/plasticflaps))
+	connects_with_overlay = typecacheof(list(/obj/machinery/door, /obj/window, /obj/strip_door))
 /turf/unsimulated/wall/auto/lead
 	name = "lead wall"
 	light_mod = "wall-"
-	flags = ALWAYS_SOLID_FLUID | IS_PERSPECTIVE_FLUID
+	flags = FLUID_DENSE | IS_PERSPECTIVE_FLUID
 
 TYPEINFO(/turf/unsimulated/wall/auto/lead/blue)
 TYPEINFO_NEW(/turf/unsimulated/wall/auto/lead/blue)
@@ -924,15 +921,15 @@ TYPEINFO_NEW(/turf/unsimulated/wall/auto/adventure)
 		/turf/simulated/wall/false_wall/,
 		/turf/unsimulated/wall/setpieces/leadwindow, /turf/simulated/wall/false_wall/centcom,
 		/turf/unsimulated/wall/setpieces/stranger, /obj/shifting_wall/sneaky/cave,
-		/turf/simulated/shuttle/wall, /obj/indestructible/shuttle_corner, /obj/plasticflaps
+		/turf/simulated/shuttle/wall, /obj/indestructible/shuttle_corner, /obj/strip_door
 	))
-	connects_with_overlay = typecacheof(list(/obj/machinery/door, /obj/window, /obj/plasticflaps))
+	connects_with_overlay = typecacheof(list(/obj/machinery/door, /obj/window, /obj/strip_door))
 
 ABSTRACT_TYPE(/turf/unsimulated/wall/auto/adventure) // Re abstract this it is not meant for spawning, the icons aren't even right for lead
 /turf/unsimulated/wall/auto/adventure // azone fancy walls
 	name = "adventure wall"
 	light_mod = "wall-"
-	flags = ALWAYS_SOLID_FLUID | IS_PERSPECTIVE_FLUID
+	flags = FLUID_DENSE | IS_PERSPECTIVE_FLUID
 
 /turf/unsimulated/wall/auto/adventure/overgrown1
 	name = "overgrown wall"
@@ -1007,7 +1004,7 @@ TYPEINFO_NEW(/turf/unsimulated/wall/auto/adventure/bee)
 	icon_state = "bee-map"
 #endif
 	mod = "bee-"
-	plane = PLANE_WALL-1 //We don't want depth shadows
+	plane = PLANE_NOSHADOW_BELOW
 
 	exterior // so i dont have to make more parts for it to look good
 		mod = "beeout-"
@@ -1066,7 +1063,7 @@ TYPEINFO_NEW(/turf/unsimulated/wall/auto/adventure/hospital/interior)
 		/turf/unsimulated/wall/setpieces/leadwindow, /turf/simulated/wall/false_wall/centcom,
 		/turf/unsimulated/wall/setpieces/stranger, /obj/shifting_wall/sneaky/cave,
 		/turf/simulated/shuttle/wall, /turf/unsimulated/wall/setpieces/hospital/window,
-		/obj/plasticflaps
+		/obj/strip_door
 	))
 /turf/unsimulated/wall/auto/adventure/hospital/interior
 	name = "panel wall"
@@ -1083,6 +1080,7 @@ TYPEINFO_NEW(/turf/unsimulated/wall/auto/adventure/icemoon)
 	icon = 'icons/turf/walls/ice.dmi'
 	mod = "ice-"
 	icon_state = "ice-0"
+	plane = PLANE_NOSHADOW_BELOW
 
 /turf/unsimulated/wall/auto/adventure/icemooninterior
 	name = "blue wall"
@@ -1138,7 +1136,7 @@ TYPEINFO_NEW(/turf/unsimulated/wall/auto/adventure/meat)
 		/turf/simulated/shuttle/wall, /obj/indestructible/shuttle_corner,
 		/turf/unsimulated/wall/auto/adventure/old,/turf/unsimulated/wall/auto/adventure/meat,
 		/turf/unsimulated/wall/auto/adventure/meat/eyes, /turf/unsimulated/wall/auto/adventure/meat/meatier,
-		/turf/unsimulated/wall/auto/reinforced/supernorn, /turf/simulated/wall/false_wall/reinforced, /obj/plasticflaps
+		/turf/unsimulated/wall/auto/reinforced/supernorn, /turf/simulated/wall/false_wall/reinforced, /obj/strip_door
 	))
 /turf/unsimulated/wall/auto/adventure/meat
 	name = "wall"
@@ -1166,7 +1164,7 @@ TYPEINFO_NEW(/turf/unsimulated/wall/auto/adventure/old)
 	/turf/unsimulated/wall/setpieces/leadwindow, /turf/simulated/wall/false_wall/centcom,
 	/turf/unsimulated/wall/setpieces/stranger, /obj/shifting_wall/sneaky/cave,
 	/turf/simulated/shuttle/wall, /obj/indestructible/shuttle_corner, /turf/unsimulated/wall/auto/adventure/meat,
-	/turf/unsimulated/wall/auto/reinforced/supernorn, /obj/plasticflaps
+	/turf/unsimulated/wall/auto/reinforced/supernorn, /obj/strip_door
 	))
 /turf/unsimulated/wall/auto/adventure/old
 	name = "wall"
@@ -1202,7 +1200,7 @@ TYPEINFO_NEW(/turf/unsimulated/wall/auto/hedge)
 	icon_state = "hedge-map"
 	mod = "hedge-"
 	light_mod = "wall-"
-	flags = ALWAYS_SOLID_FLUID | IS_PERSPECTIVE_FLUID
+	flags = FLUID_DENSE | IS_PERSPECTIVE_FLUID
 
 TYPEINFO(/turf/unsimulated/wall/auto/adventure/fake_window)
 	connect_diagonal = TRUE
@@ -1216,7 +1214,6 @@ TYPEINFO(/turf/unsimulated/wall/auto/adventure/fake_window)
 	opacity = FALSE
 
 /datum/action/bar/icon/wall_tool_interact
-	id = "wall_tool_interact"
 	interrupt_flags = INTERRUPT_MOVE | INTERRUPT_ACT | INTERRUPT_STUNNED | INTERRUPT_ACTION
 	duration = 5 SECONDS
 	icon = 'icons/ui/actions.dmi'
@@ -1286,7 +1283,7 @@ TYPEINFO(/turf/unsimulated/wall/auto/adventure/fake_window)
 				self_message = "You begin to pry the outer sheath off."
 				message = "[owner] begins to pry \the [the_wall]'s outer sheath off."
 				playsound(the_wall, 'sound/items/Crowbar.ogg', 100, TRUE)
-		owner.visible_message("<span class='alert'>[message]</span>", "<span class='notice'>[self_message]</span>")
+		owner.visible_message(SPAN_ALERT("[message]"), SPAN_NOTICE("[self_message]"))
 
 	onEnd()
 		..()
@@ -1333,4 +1330,4 @@ TYPEINFO(/turf/unsimulated/wall/auto/adventure/fake_window)
 				message = "[owner] removes \the [the_wall]'s outer sheath."
 				logTheThing(LOG_STATION, owner, "dismantles a Reinforced Wall in [owner.loc.loc] ([log_loc(owner)])")
 				the_wall.dismantle_wall()
-		owner.visible_message("<span class='alert'>[message]</span>", "<span class='notice'>[self_message]</span>")
+		owner.visible_message(SPAN_ALERT("[message]"), SPAN_NOTICE("[self_message]"))

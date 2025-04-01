@@ -8,6 +8,7 @@
 		if (!(BOUNDS_DIST(M, holder.owner) == 0))
 			return
 
+		. = ..()
 		var/did_it = 0
 		holder.owner.verbs -= /mob/living/carbon/human/machoman/verb/macho_heartpunch
 		var/direction = get_dir(holder.owner,M)
@@ -15,7 +16,7 @@
 			var/mob/living/carbon/human/H = M
 			if (H.organHolder && H.organHolder.heart)
 				//PUNCH THE HEART! YEAH!
-				holder.owner.visible_message("<span class='alert'><B>[holder.owner] punches out [H]'s heart!</B></span>")
+				holder.owner.visible_message(SPAN_ALERT("<B>[holder.owner] punches out [H]'s heart!</B>"))
 				playsound(holder.owner, 'sound/impact_sounds/Flesh_Break_1.ogg', 50, 1)
 
 				var/obj/item/organ/heart/heart_to_punt = H.organHolder.drop_organ("heart")
@@ -37,7 +38,7 @@
 
 			var/mob/living/silicon/robot/R = M
 			if (R.part_chest)
-				holder.owner.visible_message("<span class='alert'><B>[holder.owner] punches off [R]'s chest!</B></span>")
+				holder.owner.visible_message(SPAN_ALERT("<B>[holder.owner] punches off [R]'s chest!</B>"))
 				playsound(holder.owner, 'sound/impact_sounds/Metal_Hit_Light_1.ogg', 50, 1)
 				R.emote("scream")
 				var/obj/item/parts/robot_parts/chest/chestpunt = new R.part_chest.type(R.loc)
@@ -65,6 +66,6 @@
 		if (did_it)
 			SPAWN(rand(2,4) * 10)
 				playsound(holder.owner.loc, pick(snd_macho_rage), 50, 0, 0, holder.owner.get_age_pitch())
-				holder.owner.visible_message("<span class='alert'><b>[holder.owner]</b> gloats and boasts!</span>")
+				holder.owner.visible_message(SPAN_ALERT("<b>[holder.owner]</b> gloats and boasts!"))
 
 		holder.owner.verbs += /mob/living/carbon/human/machoman/verb/macho_heartpunch

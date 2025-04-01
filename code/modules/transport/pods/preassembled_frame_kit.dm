@@ -7,7 +7,7 @@ ABSTRACT_TYPE(/obj/item/preassembled_frame_box)
 	var/frame_type
 
 	attack_self(mob/user as mob)
-		boutput(user, "<span class='notice'>You dump out the box of parts onto the floor.</span>")
+		boutput(user, SPAN_NOTICE("You dump out the box of parts onto the floor."))
 		var/obj/O = new frame_type( get_turf(user) )
 		logTheThing(LOG_STATION, user, "builds [O] in [get_area(user)] ([log_loc(user)])")
 		O.fingerprints = src.fingerprints
@@ -15,15 +15,15 @@ ABSTRACT_TYPE(/obj/item/preassembled_frame_box)
 		qdel(src)
 
 /obj/item/preassembled_frame_box/putt
-	name = "Preasembled MiniPutt Frame Kit"
+	name = "Preassembled MiniPutt Frame Kit"
 	frame_type = /obj/structure/preassembeled_vehicleframe/puttframe
 
 /obj/item/preassembled_frame_box/sub
-	name = "Preasembled Minisub Frame Kit"
+	name = "Preassembled Minisub Frame Kit"
 	frame_type = /obj/structure/preassembeled_vehicleframe/subframe
 
 /obj/item/preassembled_frame_box/pod
-	name = "Preasembled Pod Frame Kit"
+	name = "Preassembled Pod Frame Kit"
 	frame_type = /obj/structure/preassembeled_vehicleframe/podframe
 
 	attack_self(mob/user as mob)
@@ -41,14 +41,14 @@ ABSTRACT_TYPE(/obj/item/preassembled_frame_box)
 				continue
 			if (!T.allows_vehicles || T.density)
 				canbuild = FALSE
-				boutput(user, "<span class='alert'>You can't build a pod here! It'd get stuck.</span>")
+				boutput(user, SPAN_ALERT("You can't build a pod here! It'd get stuck."))
 				break
 			for (A in T)
 				if (A == user)
 					continue
 				if (A.density)
 					canbuild = FALSE
-					boutput(user, "<span class='alert'>You can't build a pod here! [A] is in the way.</span>")
+					boutput(user, SPAN_ALERT("You can't build a pod here! [A] is in the way."))
 					break
 			if (!canbuild)
 				break
@@ -73,11 +73,11 @@ ABSTRACT_TYPE(/obj/structure/preassembeled_vehicleframe)
 	var/vehicle_type = null
 	anchored = ANCHORED
 	density = TRUE
-	help_message = "Use a wrench to secure the parts together."
+	HELP_MESSAGE_OVERRIDE("Use a <b>wrench</b> to secure the parts together.")
 	var/step_build_time = 10 SECONDS //per each 7 steps
 
 /obj/structure/preassembeled_vehicleframe/puttframe
-	name = "Preassembeled MiniPutt Frame"
+	name = "Preassembled MiniPutt Frame"
 	desc = "A MiniPutt ship under construction."
 	icon = 'icons/obj/ship.dmi'
 	icon_state = "parts"
@@ -85,7 +85,7 @@ ABSTRACT_TYPE(/obj/structure/preassembeled_vehicleframe)
 	vehicle_name = "MiniPutt"
 
 /obj/structure/preassembeled_vehicleframe/subframe
-	name = "Preassembeled Minisub Frame"
+	name = "Preassembled Minisub Frame"
 	desc = "A minisub under construction."
 	icon = 'icons/obj/machines/8dirvehicles.dmi'
 	icon_state = "parts"
@@ -93,7 +93,7 @@ ABSTRACT_TYPE(/obj/structure/preassembeled_vehicleframe)
 	vehicle_name = "Minisub"
 
 /obj/structure/preassembeled_vehicleframe/podframe
-	name = "Preassembeled Pod Frame"
+	name = "Preassembled Pod Frame"
 	desc = "A vehicle pod under construction."
 	icon = 'icons/effects/64x64.dmi'
 	icon_state = "parts"
@@ -110,7 +110,10 @@ ABSTRACT_TYPE(/obj/structure/preassembeled_vehicleframe)
 	var/datum/action/bar/icon/callback/action_bar
 
 	if (I)
-		action_bar = new /datum/action/bar/icon/callback(user, src, src.step_build_time, \
+		var/duration = src.step_build_time
+		if (user?.traitHolder?.hasTrait("training_engineer") || istype(ticker?.mode, /datum/game_mode/pod_wars))
+			duration /= 2
+		action_bar = new /datum/action/bar/icon/callback(user, src, duration, \
 			/obj/structure/preassembeled_vehicleframe/proc/step_wrench_1, \
 			list(user), I.icon, I.icon_state, null, null)
 		action_bar.maximum_range = 2
@@ -139,10 +142,10 @@ ABSTRACT_TYPE(/obj/structure/preassembeled_vehicleframe)
 
 		if(BUILD_STEP_WELD_1)
 			if (isscrewingtool(I))
-				user.visible_message("[user] begins screwing down the frame's circuit boards and it's engine...")
-				playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
+				user.visible_message("[user] begins screwing down the frame's circuit boards and its engine...")
+				playsound(src.loc, 'sound/items/Screwdriver.ogg', 50, 1)
 				action_bar.proc_path = /obj/structure/preassembeled_vehicleframe/proc/step_screw_1
-				action_bar.end_message = "[user] finishes screwing the the frame's circuit boards and it's engine."
+				action_bar.end_message = "[user] finishes screwing the the frame's circuit boards and its engine."
 				actions.start(action_bar, user)
 			else
 				boutput(user, "You need a screwdriver to screw the circuit boards and the engine together.")
@@ -187,7 +190,7 @@ ABSTRACT_TYPE(/obj/structure/preassembeled_vehicleframe)
 		if(BUILD_STEP_WELD_2)
 			if (isscrewingtool(I))
 				user.visible_message("[user] begins screwing the pod's maintenance panels shut...")
-				playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
+				playsound(src.loc, 'sound/items/Screwdriver.ogg', 50, 1)
 				action_bar.proc_path = /obj/structure/preassembeled_vehicleframe/proc/step_screw_2
 				action_bar.end_message = "With the cockpit and exterior indicators secured, the control system automatically starts up."
 				actions.start(action_bar, user)
@@ -209,7 +212,7 @@ ABSTRACT_TYPE(/obj/structure/preassembeled_vehicleframe)
 	src.overlays -= image(src.icon, "frame2")
 	src.icon_state = "frame"
 	src.stage = BUILD_STEP_WELD_1
-	src.help_message = "Use a screwdriver to screw the circuit boards and the engine together."
+	src.help_message = "Use a <b>screwdriver</b> to screw the circuit boards and the engine together."
 
 /obj/structure/preassembeled_vehicleframe/proc/step_screw_1(var/mob/user)
 	src.overlays += image(src.icon, "wires")
@@ -222,7 +225,7 @@ ABSTRACT_TYPE(/obj/structure/preassembeled_vehicleframe)
 	qdel(armor)
 	src.overlays += image(src.icon, armor.overlay_state)
 	src.stage = BUILD_STEP_ARMOR
-	src.help_message = "Use a wrench to secure the pod's thrusters and control system."
+	src.help_message = "Use a <b>wrench</b> to secure the pod's thrusters and control system."
 	src.armor_type = armor.type
 	src.vehicle_type = armor.vehicle_types["[src.type]"]
 	if(istype(armor, /obj/item/podarmor/armor_custom))
@@ -232,12 +235,12 @@ ABSTRACT_TYPE(/obj/structure/preassembeled_vehicleframe)
 	src.overlays += image(src.icon, "thrust")
 	src.overlays += image(src.icon, "control")
 	src.stage = BUILD_STEP_WRENCH_2
-	src.help_message = "Use a welder to weld the exterior."
+	src.help_message = "Use a <b>welding tool</b> to weld the exterior."
 
 /obj/structure/preassembeled_vehicleframe/proc/step_weld_2(var/mob/user)
 	src.overlays += image(src.icon, "covers")
 	src.stage = BUILD_STEP_WELD_2
-	src.help_message = "Use a screwdriver to close the maintenance panels."
+	src.help_message = "Use a <b>screwdriver</b> to close the maintenance panels."
 
 /obj/structure/preassembeled_vehicleframe/proc/step_screw_2(var/mob/user)
 	var/obj/machinery/vehicle/V = new vehicle_type( src.loc )

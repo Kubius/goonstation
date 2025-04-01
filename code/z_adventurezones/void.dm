@@ -39,6 +39,21 @@ CONTENTS:
 		for(var/mob/living/carbon/human/H in src)
 			H.client?.playAmbience(src, AMBIENCE_FX_2, 50)
 
+/area/crunch/artifact_boh_pocket_dimension
+	name = "unknown dimension"
+	ambient_light = null
+	area_parallax_render_source_group = null
+	teleport_blocked = 2
+
+/area/crunch/art_labyrinth
+	name = "unknown pocket dimension"
+	icon_state = ""
+	filler_turf = null
+	teleport_blocked = 2
+	allowed_restricted_z = TRUE
+	ambient_light = null
+	area_parallax_render_source_group = null
+
 TYPEINFO(/turf/unsimulated/wall/void)
 	mat_appearances_to_ignore = list("steel")
 /turf/unsimulated/wall/void
@@ -65,6 +80,42 @@ TYPEINFO(/turf/unsimulated/floor/void)
 	icon_state = "void"
 	desc = "A strange shifting void ..."
 	plane = PLANE_SPACE
+	can_burn = FALSE
+	can_break = FALSE
+
+
+TYPEINFO(/turf/unsimulated/floor/auto/void)
+	mat_appearances_to_ignore = list("steel")
+
+/turf/unsimulated/floor/auto/void
+	name = "void"
+	icon = 'icons/obj/adventurezones/void.dmi'
+	icon_state = "void"
+	desc = "A strange shifting void ..."
+	plane = PLANE_SPACE
+	can_burn = FALSE
+	can_break = FALSE
+	edge_priority_level = INFINITY
+	icon_state_edge = "void_edge"
+
+	edge_overlays()
+		if(src.icon_state_edge)
+			var/connectdir = get_connected_directions_bitflag(list(src.type=TRUE), list(), TRUE, FALSE)
+			for (var/direction in alldirs)
+				var/turf/T = get_step(src, turn(direction, 180))
+				if(T)
+					if (istype(T, /turf/unsimulated/floor/auto))
+						var/turf/unsimulated/floor/auto/TA = T
+						if (TA.edge_priority_level >= src.edge_priority_level)
+							T.ClearSpecificOverlays("edge_[direction]") // Cull overlaps
+							continue
+					if(turn(direction, 180) & connectdir)
+						T.ClearSpecificOverlays("edge_[direction]") // Cull diagonals
+						continue
+					T.add_filter("edge_[direction]", 0, alpha_mask_filter(icon=icon(src.icon, "[icon_state_edge][direction]", dir=pick(cardinal)), flags = MASK_INVERSE))
+
+
+
 
 /turf/unsimulated/floor/void/crunch
 	fullbright = 0
@@ -106,6 +157,8 @@ TYPEINFO(/turf/simulated/floor/void)
 	plane = PLANE_SPACE
 	step_material = "step_lattice"
 	step_priority = STEP_PRIORITY_MED
+	can_burn = FALSE
+	can_break = FALSE
 
 	ex_act()
 		return
@@ -358,7 +411,7 @@ TYPEINFO(/turf/simulated/floor/void)
 		while(active && !activating && remain_active-- > 0) //So it will shut itself down after a while
 
 		if(remain_active <= 0)
-			src.visible_message("<span class='alert'>You hear a quiet click as \the [src] deactivates itself.</span>")
+			src.visible_message(SPAN_ALERT("You hear a quiet click as \the [src] deactivates itself."))
 			deactivate()
 
 
@@ -432,12 +485,12 @@ TYPEINFO(/turf/simulated/floor/void)
 				playsound(src.loc, 'sound/machines/modem.ogg', 75, 1)
 
 				A.emote("scream")
-				A.changeStatus("weakened", 5 SECONDS)
+				A.changeStatus("knockdown", 5 SECONDS)
 				A.show_text("<B>IT HURTS!</B>", "red")
 				A.shock(src, 75000, ignore_gloves=1)
 
 				B.emote("scream")
-				B.changeStatus("weakened", 5 SECONDS)
+				B.changeStatus("knockdown", 5 SECONDS)
 				B.show_text("<B>IT HURTS!</B>", "red")
 				B.shock(src, 75000, ignore_gloves=1)
 				SPAWN(5 SECONDS)
@@ -451,11 +504,11 @@ TYPEINFO(/turf/simulated/floor/void)
 				playsound(src.loc,'sound/effects/elec_bzzz.ogg', 60, 1)
 				if(A && B && can_operate()) //We're all here, still
 					A.emote("faint")
-					A.changeStatus("paralysis", 25 SECONDS)
+					A.changeStatus("unconscious", 25 SECONDS)
 					A.shock(src, 750000, ignore_gloves=1)
 
 					B.emote("faint")
-					B.changeStatus("paralysis", 25 SECONDS)
+					B.changeStatus("unconscious", 25 SECONDS)
 					A.shock(src, 750000, ignore_gloves=1)
 
 					if(A.mind)
@@ -493,14 +546,14 @@ TYPEINFO(/turf/simulated/floor/void)
 
 			if(success)
 				playsound(src.loc, 'sound/effects/electric_shock.ogg', 50,1)
-				src.visible_message("<span class='alert'>\The [src] emits a loud crackling sound and the smell of ozone fills the air!</span>")
+				src.visible_message(SPAN_ALERT("\The [src] emits a loud crackling sound and the smell of ozone fills the air!"))
 				loop_duration = 7 //Something is amiss oh no!
 				remain_active = min(remain_active, 100)
 				remain_active_max = 100
 				used = 1
 			else
 				playsound(src.loc, 'sound/machines/buzz-two.ogg', 50,1)
-				src.visible_message("<span class='alert'>\The [src] emits a whirring and clicking noise followed by an angry beep!</span>")
+				src.visible_message(SPAN_ALERT("\The [src] emits a whirring and clicking noise followed by an angry beep!"))
 
 		SPAWN(5 SECONDS)
 			operating = 0

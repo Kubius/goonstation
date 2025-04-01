@@ -13,14 +13,14 @@
 	var/rare_chance = 0 // chance (out of 100) that the rare item list will be spawned instead of the common one
 	var/list/items2spawn = list()
 	var/list/rare_items2spawn = list() // things that only rarely appear, independent of how big or small the main item list is
-	var/list/guaranteed = new/list() // things that will always spawn from this - set to a number to spawn that many of the thing
+	var/list/guaranteed = list() // things that will always spawn from this - set to a number to spawn that many of the thing
 
 	// TODO: initialize
 	New()
 		..()
 		SPAWN(1 DECI SECOND)
 			src.spawn_items()
-			sleep(5 SECONDS) // ZEWAKA/INIT
+			sleep(2 SECONDS) // ZEWAKA/INIT
 			qdel(src)
 
 	proc/spawn_items()
@@ -38,12 +38,12 @@
 					closet_check_spawn(new_item)
 
 		if (!islist(src.items2spawn) || !length(src.items2spawn))
-			logTheThing(LOG_DEBUG, src, "has an invalid items2spawn list")
-			return
+			var/area/area = get_area(src)
+			CRASH("[identify_object(src)] at [src.x],[src.y],[src.z] ([area] [area.type]) has an invalid rare_items2spawn list")
 		if (rare_chance)
 			if (!islist(src.rare_items2spawn) || !length(src.rare_items2spawn))
-				logTheThing(LOG_DEBUG, src, "has an invalid rare_items2spawn list")
-				return
+				var/area/area = get_area(src)
+				CRASH("[identify_object(src)] at [src.x],[src.y],[src.z] ([area] [area.type]) has an invalid rare_items2spawn list")
 		if (amt2spawn == 0)
 			amt2spawn = rand(min_amt2spawn, max_amt2spawn)
 		if (amt2spawn == 0) // If for whatever reason we still end up with 0...
@@ -55,15 +55,15 @@
 				if (rare_items2spawn)
 					item_list = rare_items2spawn
 				else
-					logTheThing(LOG_DEBUG, src, "has an invalid rare spawn list, [rare_items2spawn]")
-					DEBUG_MESSAGE("[src] has an invalid rare spawn list, [rare_items2spawn]")
+					var/area/area = get_area(src)
+					stack_trace("[identify_object(src)] at [src.x],[src.y],[src.z] ([area] [area.type]) has an invalid rare spawn list, [json_encode(rare_items2spawn)]")
 					continue
 			else
 				item_list = items2spawn
 			var/obj/new_item = pick(item_list)
 			if (!ispath(new_item))
-				logTheThing(LOG_DEBUG, src, "has a non-path item in its spawn list, [new_item]")
-				DEBUG_MESSAGE("[src] has a non-path item in its spawn list, [new_item]")
+				var/area/area = get_area(src)
+				stack_trace("[identify_object(src)] at [src.x],[src.y],[src.z] ([area] [area.type]) has a non-path item in its spawn list, [new_item]")
 				continue
 
 			closet_check_spawn(new_item)
@@ -82,7 +82,7 @@
 	max_amt2spawn = 1
 	items2spawn = list(/obj/item/reagent_containers/food/snacks/candy/chocolate,
 	/obj/item/reagent_containers/food/snacks/candy/nougat,
-	/obj/item/reagent_containers/food/snacks/candy/butterscotch,
+	/obj/item/reagent_containers/food/snacks/candy/wrapped_candy/butterscotch,
 	/obj/item/reagent_containers/food/snacks/sandwich/meat_h,
 	/obj/item/reagent_containers/food/snacks/sandwich/meat_m,
 	/obj/item/reagent_containers/food/snacks/sandwich/meat_s,
@@ -807,7 +807,7 @@
 	/obj/item/mousetrap,
 	/obj/item/mousetrap/armed,
 	/obj/item/paper,
-	/obj/item/plank,
+	/obj/item/sheet/wood,
 	/obj/item/plate,
 	/obj/item/pen,
 	/obj/item/pen/crayon/random,
@@ -920,7 +920,7 @@
 		/obj/item/raw_material/uqill,
 		/obj/item/raw_material/cerenkite,
 		/obj/item/raw_material/erebite,
-		/obj/item/currency/spacecash/buttcoin,
+		/obj/item/currency/buttcoin,
 		/obj/item/currency/spacecash/tourist,
 		/obj/item/a_gift/easter)
 
@@ -1100,7 +1100,7 @@
 	items2spawn = list(/obj/critter/domestic_bee,
 	/obj/critter/bat,
 	/mob/living/critter/small_animal/mouse,
-	/obj/critter/opossum,
+	/mob/living/critter/small_animal/opossum,
 	/mob/living/critter/small_animal/dog,
 	/mob/living/critter/small_animal/dog/george,
 	/mob/living/critter/small_animal/dog/blair,
@@ -1218,7 +1218,7 @@
 	min_amt2spawn = 2
 	max_amt2spawn = 4
 	items2spawn = list(/obj/item/circuitboard/security,
-					/obj/item/circuitboard/atmospherealerts,
+					/obj/item/circuitboard/stockexchange,
 					/obj/item/circuitboard/air_management,
 					/obj/item/circuitboard/general_alert,
 					/obj/item/circuitboard/atm,
@@ -1323,8 +1323,8 @@
 /obj/random_item_spawner/dressup
 	name = "random gimmick clothing spawner"
 	icon_state = "rand_gimmick"
-	min_amt2spawn = 15
-	max_amt2spawn = 20
+	min_amt2spawn = 5
+	max_amt2spawn = 10
 	items2spawn = list(
 		/obj/item/clothing/under/gimmick/macho,
 		/obj/item/clothing/under/gimmick/bowling,
@@ -1342,7 +1342,6 @@
 		/obj/item/clothing/under/gimmick/merchant,
 		/obj/item/clothing/under/gimmick/spiderman,
 		/obj/item/clothing/under/gimmick/birdman,
-		/obj/item/clothing/under/gimmick/dawson,
 		/obj/item/clothing/under/gimmick/chav,
 		/obj/item/clothing/under/gimmick/safari,
 		/obj/item/clothing/under/gimmick/utena,
@@ -1445,7 +1444,9 @@
 						/obj/item/clothing/mask/wrestling/blue,
 						/obj/item/clothing/mask/anime,
 						/obj/item/paper_mask,
-						/obj/item/clothing/mask/kitsune)
+						/obj/item/clothing/mask/kitsune,
+						/obj/item/clothing/head/minotaurmask,
+						/obj/item/clothing/mask/tengu)
 
 	one
 		amt2spawn = 1
@@ -1494,10 +1495,13 @@
 	min_amt2spawn = 2
 	max_amt2spawn = 2
 	rare_chance = 1
-	items2spawn = list(/obj/item/reagent_containers/food/snacks/pizza/bad,
-						/obj/item/reagent_containers/food/snacks/pizza/pepperbad,
-						/obj/item/reagent_containers/food/snacks/pizza/mushbad)
+	items2spawn = list(/obj/item/reagent_containers/food/snacks/pizza/cargo/cheese,
+						/obj/item/reagent_containers/food/snacks/pizza/cargo/pepperoni,
+						/obj/item/reagent_containers/food/snacks/pizza/cargo/mushroom)
 	rare_items2spawn = list(/obj/item/reagent_containers/food/drinks/bottle/soda/softsoft_pizza)
+
+	one
+		amt2spawn = 1
 
 /obj/random_item_spawner/cola
 	name = "random cola spawner"
@@ -1511,6 +1515,9 @@
 						/obj/item/reagent_containers/food/drinks/bottle/soda/orange,
 						/obj/item/reagent_containers/food/drinks/bottle/soda/grones)
 	rare_items2spawn = list(/obj/item/reagent_containers/food/drinks/bottle/soda/softsoft_pizza)
+
+	one
+		amt2spawn = 1
 
 /obj/random_item_spawner/hat
 	name = "random hat spawner"
@@ -1534,7 +1541,7 @@
 						/obj/item/clothing/head/odlawhat,
 						/obj/item/clothing/head/fake_waldohat,
 						/obj/item/clothing/head/flatcap,
-						/obj/item/clothing/head/devil,
+						/obj/item/clothing/head/headband/devil,
 						/obj/item/clothing/head/biker_cap,
 						/obj/item/clothing/head/mj_hat,
 						/obj/item/clothing/head/genki,
@@ -1572,7 +1579,10 @@
 						/obj/item/clothing/head/pumpkin,
 						/obj/item/clothing/head/wig,
 						/obj/item/clothing/head/zombie,
-						/obj/item/clothing/head/werewolf/odd)
+						/obj/item/clothing/head/werewolf/odd,
+						/obj/item/clothing/head/elephanthat/random,
+						/obj/item/clothing/head/giraffehat,
+						/obj/item/clothing/head/mushroomcap/random)
 
 	one
 		amt2spawn = 1
@@ -1645,6 +1655,75 @@
 						/obj/item/clothing/shoes/virtual,
 						/obj/item/clothing/shoes/witchfinder,
 						/obj/item/clothing/shoes/ziggy)
+
+	one
+		amt2spawn = 1
+
+	two
+		amt2spawn = 2
+
+	three
+		amt2spawn = 3
+
+	four
+		amt2spawn = 4
+
+	five
+		amt2spawn = 5
+
+	six
+		amt2spawn = 6
+
+	seven
+		amt2spawn = 7
+
+	one_or_zero
+		min_amt2spawn = 0
+		max_amt2spawn = 1
+
+	maybe_few
+		min_amt2spawn = 0
+		max_amt2spawn = 2
+
+	few
+		min_amt2spawn = 1
+		max_amt2spawn = 3
+
+	some
+		min_amt2spawn = 3
+		max_amt2spawn = 5
+
+	lots
+		min_amt2spawn = 5
+		max_amt2spawn = 7
+
+/obj/random_item_spawner/formalclothes
+	name = "formal clothing spawner"
+	icon_state = "rand_gimmick"
+	min_amt2spawn = 5
+	max_amt2spawn = 10
+	items2spawn = list(/obj/item/clothing/under/gimmick/red_wcoat,
+						/obj/item/clothing/under/gimmick/black_wcoat,
+						/obj/item/clothing/under/gimmick/blue_wcoat,
+						/obj/item/clothing/under/rank/bartender/tuxedo,
+						/obj/item/clothing/under/redtie,
+						/obj/item/clothing/under/shirt_pants_w/blacktie,
+						/obj/item/clothing/under/shirt_pants_w/bluetie,
+						/obj/item/clothing/under/shirt_pants_w/redtie,
+						/obj/item/clothing/under/shirt_pants_w,
+						/obj/item/clothing/under/shirt_pants_br/blacktie,
+						/obj/item/clothing/under/shirt_pants_br/bluetie,
+						/obj/item/clothing/under/shirt_pants_br/redtie,
+						/obj/item/clothing/under/shirt_pants_br,
+						/obj/item/clothing/under/shirt_pants_b/blacktie,
+						/obj/item/clothing/under/shirt_pants_b/redtie,
+						/obj/item/clothing/under/shirt_pants_b/bluetie,
+						/obj/item/clothing/under/shirt_pants_b,
+						/obj/item/clothing/under/gimmick/butler,
+						/obj/item/clothing/under/misc/dress,
+						/obj/item/clothing/under/misc/dress/red,
+						/obj/item/clothing/suit/dressb,
+						/obj/item/clothing/under/misc/fancy_vest)
 
 	one
 		amt2spawn = 1
@@ -1765,12 +1844,14 @@
 		min_amt2spawn = 5
 		max_amt2spawn = 7
 
-/obj/random_item_spawner/kineticgun // used in the 4th of july admin button.
+/obj/random_item_spawner/kineticgun //base type. split old behavior to fullrandom
 	name = "firearm spawner"
 	icon_state = "rand_gun"
 	min_amt2spawn = 1 // doing it this way to preserve current use of spawner while allowing random amounts
 	max_amt2spawn = 1
 	items2spawn = null
+
+/obj/random_item_spawner/kineticgun/fullrandom // used in the 4th of july admin button.
 	New()
 		items2spawn = concrete_typesof(/obj/item/gun/kinetic) - /obj/item/gun/kinetic/meowitzer //No, just no
 		. = ..()
@@ -1794,14 +1875,30 @@
 	/obj/item/gun/kinetic/pistol,
 	/obj/item/gun/kinetic/pistol/empty,
 	/obj/item/gun/kinetic/riot40mm,
-	/obj/item/gun/kinetic/riotgun,
-	/obj/item/gun/kinetic/riotgun,
-	/obj/item/gun/kinetic/riotgun,
+	/obj/item/gun/kinetic/pumpweapon/riotgun,
+	/obj/item/gun/kinetic/pumpweapon/riotgun,
+	/obj/item/gun/kinetic/pumpweapon/riotgun,
 	/obj/item/gun/kinetic/sawnoff,
 	/obj/item/gun/kinetic/sawnoff,
 	/obj/item/gun/kinetic/single_action/colt_saa,
 	/obj/item/gun/kinetic/single_action/flintlock,
-	/obj/item/gun/kinetic/zipgun)
+	/obj/item/gun/kinetic/zipgun,
+	/obj/item/gun/kinetic/makarov,
+	/obj/item/gun/kinetic/single_action/mts_255,
+	/obj/item/gun/kinetic/survival_rifle,
+	/obj/item/gun/kinetic/survival_rifle,
+	/obj/item/gun/kinetic/m16,
+	/obj/item/gun/kinetic/m16,
+	/obj/item/gun/kinetic/pumpweapon/ks23,
+	/obj/item/gun/kinetic/striker,
+	/obj/item/gun/kinetic/striker,
+	/obj/item/gun/kinetic/webley,
+	/obj/item/gun/kinetic/lopoint,
+	/obj/item/gun/kinetic/uzi,
+	/obj/item/gun/kinetic/uzi,
+	/obj/item/gun/kinetic/greasegun,
+	/obj/item/gun/kinetic/greasegun
+	)
 
 	one
 		amt2spawn = 1
@@ -1830,6 +1927,33 @@
 		min_amt2spawn = 5
 		max_amt2spawn = 7
 
+/obj/random_item_spawner/armoryweapon
+	name = "armory special weapon spawner"
+	icon_state = "rand_gun"
+	amt2spawn = 1
+
+	items2spawn = list(/obj/item/gun/energy/stasis,
+	/obj/item/gun/energy/egun,
+	/obj/item/gun/energy/egun_jr,
+	/obj/item/gun/energy/phaser_huge)
+
+	one
+		amt2spawn = 1
+
+	two
+		amt2spawn = 2
+
+	three
+		amt2spawn = 3
+
+	few
+		min_amt2spawn = 1
+		max_amt2spawn = 3
+
+	bunch
+		min_amt2spawn = 5
+		max_amt2spawn = 7
+
 /obj/random_item_spawner/ai_experimental //used to spawn 'experimental' AI law modules
 //intended to add random chance to what pre-fab 'gimmicky' law modules are available at round-start, such as Equality
 
@@ -1839,7 +1963,9 @@
 	//only 1 can spawn for now since the pool size is small. Might want to increase it if the pool size increases by a fair amount
 
 	items2spawn = list(/obj/item/aiModule/experimental/equality/a,
-						/obj/item/aiModule/experimental/equality/b)
+						/obj/item/aiModule/experimental/equality/b,
+						/obj/item/aiModule/experimental/corrupted,
+						/obj/item/aiModule/experimental/historic)
 
 	one
 		amt2spawn = 1
@@ -1923,7 +2049,9 @@
 		max_amt2spawn = 3
 
 
-/obj/random_item_spawner/armory_breaching_supplies //random
+/obj/random_item_spawner/armory_breaching_supplies //"random"
+	name = "armory breaching supplies"
+	icon_state = "breachspawn"
 	spawn_items()
 		new /obj/rack(src.loc)
 		new /obj/item/breaching_charge{
@@ -1955,6 +2083,94 @@
 			pixel_y = 3
 		}(src.loc)
 
+/obj/random_item_spawner/armory_armor_supplies //"random"
+	name = "armory armor supplies"
+	icon_state = "armorspawn"
+	spawn_items()
+		new /obj/rack(src.loc)
+		new /obj/item/clothing/head/helmet/EOD{
+			pixel_x = 4;
+			pixel_y = 8
+		}(src.loc)
+		new /obj/item/clothing/head/helmet/EOD{
+			pixel_x = 12;
+			pixel_y = 8
+		}(src.loc)
+		new /obj/item/clothing/suit/armor/EOD{
+			pixel_x = 1
+		}(src.loc)
+		new /obj/item/clothing/suit/armor/EOD{
+			pixel_x = 9
+		}(src.loc)
+		new /obj/item/clothing/head/helmet/riot{
+			pixel_x = -13;
+			pixel_y = 12
+		}(src.loc)
+		new /obj/item/clothing/head/helmet/riot{
+			pixel_x = -4;
+			pixel_y = 12
+		}(src.loc)
+		new /obj/item/clothing/suit/armor/heavy{
+			pixel_x = -5
+		}(src.loc)
+		new /obj/item/clothing/suit/armor/heavy{
+			pixel_x = -13
+		}(src.loc)
+
+/obj/random_item_spawner/armory_goggle_supplies //"random"
+	name = "armory goggle supplies"
+	icon_state = "gogglespawn"
+	spawn_items()
+		new /obj/rack(src.loc)
+		new /obj/item/clothing/mask/gas/emergency{
+			pixel_x = -9;
+			pixel_y = 11
+		}(src.loc)
+		new /obj/item/clothing/mask/gas/emergency{
+			pixel_x = -3;
+			pixel_y = 11
+		}(src.loc)
+		new /obj/item/clothing/mask/gas/emergency{
+			pixel_x = 3;
+			pixel_y = 11
+		}(src.loc)
+		new /obj/item/clothing/mask/gas/emergency{
+			pixel_x = 9;
+			pixel_y = 11
+		}(src.loc)
+		new /obj/item/clothing/glasses/nightvision{
+			pixel_x = -8;
+			pixel_y = -8
+		}(src.loc)
+		new /obj/item/clothing/glasses/nightvision{
+			pixel_x = -7;
+			pixel_y = -3
+		}(src.loc)
+		new /obj/item/clothing/glasses/nightvision{
+			pixel_x = -6;
+			pixel_y = 2
+		}(src.loc)
+		new /obj/item/clothing/glasses/nightvision{
+			pixel_x = -5;
+			pixel_y = 7
+		}(src.loc)
+		new /obj/item/clothing/glasses/thermal{
+			pixel_x = 6;
+			pixel_y = -10
+		}(src.loc)
+		new /obj/item/clothing/glasses/thermal{
+			pixel_x = 7;
+			pixel_y = -5
+		}(src.loc)
+		new /obj/item/clothing/glasses/thermal{
+			pixel_x = 8;
+			pixel_y = 0
+		}(src.loc)
+		new /obj/item/clothing/glasses/thermal{
+			pixel_x = 9;
+			pixel_y = 5
+		}(src.loc)
+
 /obj/random_item_spawner/fruits
 	name = "random fruit spawner"
 	icon_state = "rand_fruits"
@@ -1973,13 +2189,13 @@
 		/obj/item/reagent_containers/food/snacks/plant/peas/ammonia,
 		/obj/item/reagent_containers/food/snacks/plant/potato,
 		/obj/item/reagent_containers/food/snacks/plant/pumpkin,
-		/obj/item/reagent_containers/food/snacks/plant/pumpkinlatte,
+		/obj/item/reagent_containers/food/snacks/plant/pumpkin/pumpkinlatte,
 		/obj/item/reagent_containers/food/snacks/plant/garlic,
 		/obj/item/reagent_containers/food/snacks/plant/eggplant,
 		/obj/item/reagent_containers/food/snacks/plant/turmeric,
 		/obj/item/reagent_containers/food/snacks/plant/mustard,
 		/obj/item/reagent_containers/food/snacks/plant/bamboo,
-		/obj/item/reagent_containers/food/snacks/plant/soylent
+		/obj/item/reagent_containers/food/snacks/plant/soy/soylent
 	)
 
 	New()
@@ -1997,7 +2213,7 @@
 		// Exclude toxic / dangerous / fruits or subtypes
 		items2spawn -= list(/obj/item/reagent_containers/food/snacks/plant/pear/sickly,
 			/obj/item/reagent_containers/food/snacks/plant/pumpkin/summon,
-			/obj/item/reagent_containers/food/snacks/plant/pumpkinlatte,
+			/obj/item/reagent_containers/food/snacks/plant/pumpkin/pumpkinlatte,
 			/obj/item/reagent_containers/food/snacks/plant/slurryfruit,
 			/obj/item/reagent_containers/food/snacks/plant/slurryfruit/omega,
 			/obj/item/reagent_containers/food/snacks/plant/purplegoop,
@@ -2112,7 +2328,7 @@
 		items2spawn += list(/obj/item/plant/herb/poppy, /obj/item/plant/herb/catnip, /obj/item/plant/herb/hcordata)
 
 		// Exclude the non-natural ones
-		items2spawn -= list(/obj/item/plant/flower/rose/holorose)
+		items2spawn -= list(/obj/item/clothing/head/flower/rose/holorose)
 		..()
 
 	one

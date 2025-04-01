@@ -15,7 +15,7 @@
 	w_class = W_CLASS_TINY
 	pressure_resistance = 10
 	item_state = "electronic"
-	flags = FPRINT | TABLEPASS | CONDUCT
+	flags = TABLEPASS | CONDUCT
 
 /obj/item/electronics/New()
 	..()
@@ -129,6 +129,12 @@
 	var/list/needed_parts = new/list()
 	var/obj/deconstructed_thing = null
 
+	flatpack
+		icon_state = "dbox_alt"
+		HELP_MESSAGE_OVERRIDE("Use in-hand to deploy.")
+
+		attack_self(mob/user)
+			actions.start(new/datum/action/bar/icon/build_electronics_frame(src), user)
 
 	disposing()
 		if(deconstructed_thing)
@@ -155,20 +161,24 @@
 			E.set_loc(src)
 			user.u_equip(E)
 			//parts.Add(E)
-			boutput(user, "<span class='notice'>You add the [E.name] to the [src].</span>")
+			boutput(user, SPAN_NOTICE("You add the [E.name] to the [src]."))
 			needed_parts[E.type] -= 1
 			return
 		else if(istype(E,/obj/item/electronics/soldering))
 			if(!secured)
 				secured = 1
 				viewstat = 1
-				boutput(user, "<span class='notice'>You secure the [src].</span>")
+				boutput(user, SPAN_NOTICE("You secure the [src]."))
 			else if(secured == 1)
 				secured = 0
 				viewstat = 0
-				boutput(user, "<span class='notice'>You unsecure the [src].</span>")
+				boutput(user, SPAN_NOTICE("You unsecure the [src]."))
 			else if(secured == 2)
-				boutput(user, "<span class='alert'>You deploy the [src]!</span>")
+				if(!isturf(user.loc))
+					boutput(user, SPAN_ALERT("You can't deploy the [src] from in here!"))
+					return
+
+				boutput(user, SPAN_ALERT("You deploy the [src]!"))
 				logTheThing(LOG_STATION, user, "deploys a [src.name] in [user.loc.loc] ([log_loc(src)])")
 				if (!istype(user.loc,/turf) && (store_type in typesof(/obj/critter)))
 					qdel(user.loc)
@@ -178,26 +188,23 @@
 			return
 		else if(istype(E,/obj/item/electronics/scanner) && !secured)
 			if(!parts_check())
-				boutput(user, "<span class='notice'>Missing components:</span>")
+				boutput(user, SPAN_NOTICE("Missing components:"))
 				for(var/part in needed_parts)
 					var/obj/item/electronics/_part = part
 					if(needed_parts[part] > 0)
-						boutput(user, "<span class='notice'>[initial(_part.name)]: [needed_parts[part]]</span>")
+						boutput(user, SPAN_NOTICE("[initial(_part.name)]: [needed_parts[part]]"))
 			else
-				boutput(user, "<span class='notice'>All components present</span>")
+				boutput(user, SPAN_NOTICE("All components present"))
 			return
 
 	if (ispryingtool(W))
 		if (!anchored)
 			src.set_dir(turn(src.dir, 90))
 			return
-	else if (iswrenchingtool(W))
-		boutput(user, "<span class='alert'>You deconstruct [src] into its base materials!</span>")
-		src.drop_resources(W,user)
 	..()
 
 /obj/item/electronics/frame/MouseDrop_T(atom/movable/O as obj, mob/user as mob)
-	if(!iscarbon(user) || user.stat || user.getStatusDuration("weakened") || user.getStatusDuration("paralysis"))
+	if(!iscarbon(user) || user.stat || user.getStatusDuration("knockdown") || user.getStatusDuration("unconscious"))
 		return
 
 	if(BOUNDS_DIST(user, src) > 0)
@@ -205,13 +212,13 @@
 
 	var/list/bad_types = list(/obj/item/electronics/disk, /obj/item/electronics/scanner, /obj/item/electronics/soldering, /obj/item/electronics/frame)
 	if(!istype(O, /obj/item/electronics) || (O.type in bad_types))
-		boutput(user, "<span class='alert'>That is not a valid component!</span>")
+		boutput(user, SPAN_ALERT("That is not a valid component!"))
 		return
 
 	if (!src.secured)
 		var/turf/source_turf = get_turf(O)
 		if(!source_turf) return
-		user.visible_message("<span class='notice'>[user] begins quickly adding components to [src]!</span>", "<span class='notice'>You begin to quickly add components to [src]!</span>")
+		user.visible_message(SPAN_NOTICE("[user] begins quickly adding components to [src]!"), SPAN_NOTICE("You begin to quickly add components to [src]!"))
 		var/staystill = user.loc
 
 		for(var/obj/item/electronics/I in source_turf)
@@ -221,9 +228,9 @@
 			sleep(0.3 SECONDS)
 			if (user.loc != staystill) break
 
-		boutput(user, "<span class='notice'>You finish adding components to [src]!</span>")
+		boutput(user, SPAN_NOTICE("You finish adding components to [src]!"))
 	else
-		boutput(user, "<span class='alert'>The board is already secured!</span>")
+		boutput(user, SPAN_ALERT("The board is already secured!"))
 	return
 
 /obj/item/electronics/frame/attack_self(mob/user as mob)
@@ -244,7 +251,7 @@
 		if(1)
 			var/check = parts_check()
 			if(!check)
-				boutput(user, "<span class='alert'>Incomplete Object, unable to finish!</span>")
+				boutput(user, SPAN_ALERT("Incomplete Object, unable to finish!"))
 				return
 			if(dir_needed)
 				var/dirr = input("Select A Direction!", "UDLR", null, null) in list("Up","Down","Left","Right")
@@ -259,7 +266,7 @@
 						src.set_dir(EAST)
 			boutput(user, "Ready to deploy!")
 			if (tgui_alert(user, "Ready to deploy?", "Confirmation", list("Yes", "No")) == "Yes")
-				boutput(user, "<span class='alert'>Place box and solder to deploy!</span>")
+				boutput(user, SPAN_ALERT("Place box and solder to deploy!"))
 				viewstat = 2
 				secured = 2
 				icon_state = "dbox"
@@ -294,77 +301,42 @@
 	. = ..()
 	var/atom/movable/AM = Obj
 	if(AM == deconstructed_thing && !QDELETED(AM))
-		src.visible_message("<span class='notice'>[src] vanishes in a puff of logic!</span>", "<span class='notice'>You hear a mild poof.</span>", "frame_poof")
+		src.visible_message(SPAN_NOTICE("[src] vanishes in a puff of logic!"), SPAN_NOTICE("You hear a mild poof."), "frame_poof")
 		qdel(src)
 
 /obj/item/electronics/frame/proc/deploy(mob/user)
 	var/turf/T = get_turf(src)
-	var/obj/O = null
+	var/atom/movable/AM = null
 	src.stored?.transfer_stored_item(src, T, user = user)
 	if (deconstructed_thing)
-		O = deconstructed_thing
-		UnregisterSignal(O, COMSIG_ATOM_ENTERED)
+		AM = deconstructed_thing
+		UnregisterSignal(AM, COMSIG_ATOM_ENTERED)
 		deconstructed_thing = null
-		O.set_loc(T)
-		O.set_dir(src.dir)
-		O.was_built_from_frame(user, 0)
+		AM.set_loc(T)
+		AM.set_dir(src.dir)
+		AM.was_built_from_frame(user, 0)
 
 		// if we have a material, give it to the object if the object doesn't have one
-		if (src.material && !O.material)
-			O.setMaterial(src.material)
+		if (src.material && !AM.material)
+			AM.setMaterial(src.material)
 	else
-		O = new store_type(T)
-		O.set_dir(src.dir)
-		if(istype(O))
-			O.was_built_from_frame(user, 1)
+		AM = new store_type(T)
+		AM.set_dir(src.dir)
+		AM.was_built_from_frame(user, 1)
 
-		if (src.material && !O.material)
-			O.setMaterial(src.material)
+		if (src.material && !AM.material)
+			AM.setMaterial(src.material)
 
-	if(istype(O))
+	if(istype(AM, /obj))
+		var/obj/O = AM
 		O.deconstruct_flags |= DECON_BUILT
 	qdel(src)
 
 	return
 
-/obj/item/electronics/frame/proc/drop_resources(obj/item/W as obj, mob/user as mob)
-	var/datum/manufacture/mechanics/R = null
-
-	if (src.deconstructed_thing)
-		for (var/datum/manufacture/mechanics/M in manuf_controls.custom_schematics)
-			if (M.frame_path == deconstructed_thing.type)
-				R = M
-				break
-	else
-		for (var/datum/manufacture/mechanics/M in manuf_controls.custom_schematics)
-			if (M.frame_path == src.store_type)
-				R = M
-				break
-
-	if (istype(R))
-		var/looper = round(R.item_amounts[1] / 10)
-		while (looper > 0)
-			var/obj/item/material_piece/mauxite/M = new /obj/item/material_piece/mauxite
-			M.set_loc(get_turf(src))
-			looper--
-		looper = round(R.item_amounts[2] / 10)
-		while (looper > 0)
-			var/obj/item/material_piece/pharosium/P = new /obj/item/material_piece/pharosium
-			P.set_loc(get_turf(src))
-			looper--
-		looper = round(R.item_amounts[3] / 10)
-		while (looper > 0)
-			var/obj/item/material_piece/molitz/M = new /obj/item/material_piece/molitz
-			M.set_loc(get_turf(src))
-			looper--
-	else
-		boutput(user, "<span class='alert'>Could not reclaim resources.</span>")
-	qdel(src)
-
 /datum/action/bar/icon/build_electronics_frame
 	duration = 10
 	interrupt_flags = INTERRUPT_MOVE | INTERRUPT_ACT | INTERRUPT_STUNNED | INTERRUPT_ACTION
-	id = "build_electronics_frame"
 	icon = 'icons/ui/actions.dmi'
 	icon_state = "working"
 	var/obj/item/electronics/frame/F
@@ -386,8 +358,8 @@
 			interrupt(INTERRUPT_ALWAYS)
 			return
 		var/turf/T = get_turf(F)
-		if(density_check && !T.can_crossed_by(F))
-			boutput(owner, "<span class='alert'>There's no room to deploy the frame.</span>")
+		if(T.density || density_check && !T.can_crossed_by(F))
+			boutput(owner, SPAN_ALERT("There's no room to deploy the frame."))
 			src.resumable = FALSE
 			interrupt(INTERRUPT_ALWAYS)
 			return
@@ -398,8 +370,8 @@
 			interrupt(INTERRUPT_ALWAYS)
 			return
 		var/turf/T = get_turf(F)
-		if(density_check && !T.can_crossed_by(F))
-			boutput(owner, "<span class='alert'>There's no room to deploy the frame.</span>")
+		if(T.density || density_check && !T.can_crossed_by(F))
+			boutput(owner, SPAN_ALERT("There's no room to deploy the frame."))
 			src.resumable = FALSE
 			interrupt(INTERRUPT_ALWAYS)
 			return
@@ -410,8 +382,8 @@
 			interrupt(INTERRUPT_ALWAYS)
 			return
 		var/turf/T = get_turf(F)
-		if(density_check && !T.can_crossed_by(F))
-			boutput(owner, "<span class='alert'>There's no room to deploy the frame.</span>")
+		if(T.density || density_check && !T.can_crossed_by(F))
+			boutput(owner, SPAN_ALERT("There's no room to deploy the frame."))
 			src.resumable = FALSE
 			interrupt(INTERRUPT_ALWAYS)
 			return
@@ -437,6 +409,7 @@
 	throwforce = 5
 	w_class = W_CLASS_SMALL
 	pressure_resistance = 40
+	tool_flags = TOOL_SOLDERING
 
 	afterattack(atom/target as mob|obj|turf|area, mob/user as mob)
 		if (!isobj(target))
@@ -445,7 +418,7 @@
 		var/decon_len = O.decon_contexts ? O.decon_contexts.len : 0
 		O.decon_contexts = null
 		if (O.build_deconstruction_buttons() != decon_len)
-			boutput(user, "<span class='alert'>You repair [target]'s deconstructed state.</span>")
+			boutput(user, SPAN_ALERT("You repair [target]'s deconstructed state."))
 			return
 		..()
 
@@ -479,7 +452,15 @@
 	get_desc()
 		// We display this on a separate line and with a different color to show emphasis
 		. = ..()
-		. += "<br><span class='notice'>Use the Help, Disarm, or Grab intents to scan objects when you click them. Switch to Harm intent do other things.</span>"
+		. += "<br>[SPAN_NOTICE("Use the Help, Disarm, or Grab intents to scan objects when you click them. Switch to Harm intent do other things.")]"
+		. += "<br>Scanned items:"
+		if (!length(src.scanned))
+			. += " None"
+			return
+		for (var/obj/item_type as anything in src.scanned)
+			if (initial(item_type.is_syndicate))
+				continue
+			. += "<br>-" + "\proper[initial(item_type.name)]"
 
 	proc/pre_attackby(obj/item/parent_item, atom/A, mob/user)
 		if (user.a_intent == INTENT_HARM)
@@ -496,12 +477,12 @@
 		var/scan_output = null
 		switch (scan_result)
 			if (MECHANICS_ANALYSIS_SUCCESS)
-				scan_output = "<span class='notice'>Item scan successful.</span>"
+				scan_output = SPAN_NOTICE("Item scan successful.")
 				playsound(A.loc, 'sound/machines/tone_beep.ogg', 30, FALSE)
 			if (MECHANICS_ANALYSIS_INCOMPATIBLE, 0) // 0 is returned by SEND_SIGNAL if the component is not present, so we use it here too
-				scan_output = "<span class='alert'>The structure of [A] is not compatible with [parent_item].</span>"
+				scan_output = SPAN_ALERT("The structure of [A] is not compatible with [parent_item].")
 			if (MECHANICS_ANALYSIS_ALREADY_SCANNED)
-				scan_output = "<span class='alert'>You have already scanned this type of object.</span>"
+				scan_output = SPAN_ALERT("You have already scanned this type of object.")
 		if (!isnull(scan_output))
 			// this is technically sleight of hand, since the effects of scanning are only shown after the scan is actually done
 			// doing this is a lot cleaner, though, than displaying some or all of the messages if the target has MECHANICS_INTERACTION_SKIP_IF_FAIL
@@ -512,9 +493,9 @@
 	proc/do_scan_effects(atom/target, mob/user)
 		// more often than not, this will display for objects, but we include a message to scanned mobs just for consistency's sake
 		user.tri_message(target,
-			"<span class='notice'>[user] scans [user == target ? himself_or_herself(user) : target] with [src].</span>", \
-			"<span class='notice'>You run [src] over [user == target ? "yourself" : target]...</span>", \
-			"<span class='notice'>[user] waves [src] at you. You feel [pick("funny", "weird", "odd", "strange", "off")].</span>"
+			SPAN_NOTICE("[user] scans [user == target ? himself_or_herself(user) : target] with [src]."), \
+			SPAN_NOTICE("You run [src] over [user == target ? "yourself" : target]..."), \
+			SPAN_NOTICE("[user] waves [src] at you. You feel [pick("funny", "weird", "odd", "strange", "off")].")
 		)
 		animate_scanning(target, "#FFFF00")
 
@@ -546,7 +527,7 @@
 	. = ..()
 	known_rucks = new
 	ruck_controls = new
-	MAKE_SENDER_RADIO_PACKET_COMPONENT("pda", FREQ_PDA)
+	MAKE_SENDER_RADIO_PACKET_COMPONENT(src.net_id, "pda", FREQ_PDA)
 
 	if(isnull(mechanic_controls)) mechanic_controls = ruck_controls //For objective tracking and admin
 	if(!src.net_id)
@@ -671,7 +652,7 @@
 		if(world.time - boot_time <= 3 SECONDS)
 			for (var/datum/electronics/scanned_item/O in originalData.scanned_items)
 				ruck_controls.scan_in(O.name, O.item_type, O.mats, O.locked) //Copy the database on digest so we never waste the effort
-			updateDialog()
+			tgui_process.update_uis(src)
 			return
 
 		return
@@ -696,7 +677,7 @@
 			return
 	var/strippedName = scanFile.scannedName
 	ruck_controls.scan_in(strippedName, scanFile.scannedPath, scanFile.scannedMats)
-	updateDialog()
+	tgui_process.update_uis(src)
 
 	if(src.net_id != host_ruck || command != "add") //Only the host sends PDA messages, and we don't send them for internal transfer
 		return
@@ -723,7 +704,7 @@
 		for(var/datum/electronics/scanned_item/O in ruck_controls.scanned_items)
 			if (targetitem == O.name)
 				O.locked = targetlock
-				updateDialog()
+				tgui_process.update_uis(src)
 		return
 
 	if(signal.encryption)
@@ -822,103 +803,108 @@
 				S.scanned -= X
 				add_count++
 		if (add_count==  1)
-			boutput(user, "<span class='notice'>[add_count] new items entered into kit.</span>")
+			boutput(user, SPAN_NOTICE("[add_count] new items entered into kit."))
 			pda_message(null, "Notice: Item entered into database.")
 		else if (add_count > 0)
-			boutput(user, "<span class='notice'>[add_count] new items entered into kit.</span>")
+			boutput(user, SPAN_NOTICE("[add_count] new items entered into kit."))
 			pda_message(null, "Notice: [add_count] new items entered into database.")
 		else
-			boutput(user, "<span class='alert'>No new items entered into kit.</span>")
+			boutput(user, SPAN_ALERT("No new items entered into kit."))
+
+		tgui_process.update_uis(src)
 
 	else
 		..()
 
 /obj/machinery/rkit/attack_hand(mob/user)
-	src.add_fingerprint(user)
-	var/dat
-	var/hide_allowed = src.allowed(user)
-	dat = "<b>Ruckingenur Kit</b><HR>"
+	src.ui_interact(user)
 
-	dat += "<b>Scanned Items:</b><br>"
-	for(var/datum/electronics/scanned_item/S in ruck_controls.scanned_items)
-		dat += "<u>[S.name]</u><small> "
-		//dat += "<A href='?src=\ref[src];op=\ref[S];tp=done'>Frame</A>"
-		if (S.item_mats && src.olde)
-			dat += " * <A href='?src=\ref[src];op=\ref[S];tp=done'>Frame</A>"
-		else if (S.blueprint)
-			if(!S.locked || hide_allowed || src.olde)
-				dat += " * <A href='?src=\ref[src];op=\ref[S];tp=blueprint'>Blueprint</A>"
-			else
-				dat += " * Blueprint Disabled"
-		if(hide_allowed)
-			dat += " * <A href='?src=\ref[src];op=\ref[S];tp=lock'>[S.locked ? "Locked" : "Unlocked"]</A>"
-		dat += "</small><br>"
-	dat += "<br>"
+/obj/machinery/rkit/ui_interact(mob/user, datum/tgui/ui)
+	ui = tgui_process.try_update_ui(user, src, ui)
+	if(!ui)
+		ui = new(user, src, "RuckingenurKit", src.name)
+		ui.open()
 
-	dat += "<HR>"
+/obj/machinery/rkit/ui_data(mob/user)
+	var/list/scanned_items = list()
 
-	src.add_dialog(user)
-	user.Browse("<HEAD><TITLE>Ruckingenur Kit Control Panel</TITLE></HEAD><TT>[dat]</TT>", "window=rkit")
-	onclose(user, "rkit")
+	for (var/datum/electronics/scanned_item/item as anything in ruck_controls.scanned_items)
+		var/atom/A = item.item_type
+		scanned_items.Add(list(list(
+			name = item.name,
+			description = initial(A.desc),
+			has_item_mats = !!item.item_mats,
+			blueprint_available = !!item.blueprint,
+			locked = item.locked,
+			imagePath = getItemIcon(item.item_type, C = user.client),
+			ref = ref(item),
+		)))
 
-/obj/machinery/rkit/Topic(href, href_list)
+	. = list(
+		hide_allowed = src.allowed(user),
+		scanned_items = scanned_items,
+		legacyElectronicFrameMode = src.olde
+	)
+
+/obj/machinery/rkit/ui_act(action, params)
+	. = ..()
+	if(.)
+		return
+
 	if (usr.stat)
 		return
-	if ((in_interact_range(src, usr) && istype(src.loc, /turf)) || (issilicon(usr)))
-		src.add_dialog(usr)
+	if (!(in_interact_range(src, usr) && istype(src.loc, /turf)) && !(issilicon(usr)))
+		return
 
-		switch(href_list["tp"])
+	switch(action)
 
-			if("done")
-				if(href_list["op"])
-					var/datum/electronics/scanned_item/O = locate(href_list["op"])
-					if(istype(O,/datum/electronics/scanned_item/))
-						if (!(O.item_mats && src.olde))
-							return
-						var/obj/item/electronics/frame/F = new/obj/item/electronics/frame(src.loc)
-						F.name = "[O.name]-frame"
-						F.store_type = O.item_type
-						F.needed_parts = O.item_mats
+		if("done")
+			var/datum/electronics/scanned_item/O = locate(params["op"])
+			if(istype(O,/datum/electronics/scanned_item/))
+				if (!(O.item_mats && src.olde))
+					return
+				var/obj/item/electronics/frame/F = new/obj/item/electronics/frame(src.loc)
+				F.name = "[O.name]-frame"
+				F.store_type = O.item_type
+				F.needed_parts = O.item_mats
+				. = TRUE
 
-			if("blueprint")
-				if(href_list["op"])
-					if (ON_COOLDOWN(src,"anti_print_spam", 2.5 SECONDS))
-						usr.show_text("[src] isn't done with the previous print job.", "red")
-						return
-					var/datum/electronics/scanned_item/O = locate(href_list["op"]) in ruck_controls.scanned_items
-					if (istype(O.blueprint, /datum/manufacture/mechanics/))
-						if (!(!O.locked || src.allowed(usr) || src.olde))
-							return
-						usr.show_text("Print job started...", "blue")
-						var/datum/manufacture/mechanics/M = O.blueprint
-						playsound(src.loc, 'sound/machines/printer_thermal.ogg', 25, 1)
-						SPAWN(2.5 SECONDS)
-							if (src)
-								new /obj/item/paper/manufacturer_blueprint(src.loc, M)
-			if("lock")
-				if(href_list["op"])
-					if (!src.allowed(usr))
-						return
-					var/datum/electronics/scanned_item/O = locate(href_list["op"]) in ruck_controls.scanned_items
-					O.locked = !O.locked
-					for (var/datum/electronics/scanned_item/OP in ruck_controls.scanned_items) //Lock items with the same name, that's how LOCK works
-						if(O.name == OP.name)
-							OP.locked = O.locked
-					updateDialog()
-					var/datum/signal/newsignal = get_free_signal()
-					newsignal.source = src
-					newsignal.data["address_tag"] = "TRANSRKIT"
-					newsignal.data["acc_code"] = netpass_heads
-					newsignal.data["LOCK"] = O.locked
-					newsignal.data["DATA"] = O.name
-					newsignal.data["sender"] = src.net_id
-					newsignal.encryption = "ERR_12845_NT_SECURE_PACKET:"
-					SEND_SIGNAL(src, COMSIG_MOVABLE_POST_RADIO_PACKET, newsignal, null, "ruck")
+		if("blueprint")
+			if (ON_COOLDOWN(src,"anti_print_spam", 2.5 SECONDS))
+				usr.show_text("[src] isn't done with the previous print job.", "red")
+				return
+			var/datum/electronics/scanned_item/O = locate(params["op"]) in ruck_controls.scanned_items
+			if (istype(O.blueprint, /datum/manufacture/mechanics/))
+				if (!(!O.locked || src.allowed(usr) || src.olde))
+					return
+				logTheThing(LOG_STATION, usr, "printed manufactuerer blueprint for [O.item_type] from [src]")
+				usr.show_text("Print job started...", "blue")
+				var/datum/manufacture/mechanics/M = O.blueprint
+				playsound(src.loc, 'sound/machines/printer_thermal.ogg', 25, 1)
+				SPAWN(2.5 SECONDS)
+					if (src)
+						new /obj/item/paper/manufacturer_blueprint(src.loc, M)
+				. = TRUE
+		if("lock")
+			if (!src.allowed(usr))
+				return
+			var/datum/electronics/scanned_item/O = locate(params["op"]) in ruck_controls.scanned_items
+			O.locked = !O.locked
+			logTheThing(LOG_STATION, usr, "[O.locked ? "" : "un"]locked rkit blueprint for [O.item_type]")
+			for (var/datum/electronics/scanned_item/OP in ruck_controls.scanned_items) //Lock items with the same name, that's how LOCK works
+				if(O.name == OP.name)
+					OP.locked = O.locked
 
-	else
-		usr.Browse(null, "window=rkit")
-		src.remove_dialog(usr)
-	return
+			var/datum/signal/newsignal = get_free_signal()
+			newsignal.source = src
+			newsignal.data["address_tag"] = "TRANSRKIT"
+			newsignal.data["acc_code"] = netpass_heads
+			newsignal.data["LOCK"] = O.locked
+			newsignal.data["DATA"] = O.name
+			newsignal.data["sender"] = src.net_id
+			newsignal.encryption = "ERR_12845_NT_SECURE_PACKET:"
+			SEND_SIGNAL(src, COMSIG_MOVABLE_POST_RADIO_PACKET, newsignal, null, "ruck")
+			. = TRUE
 
 /obj/item/deconstructor
 	name = "deconstruction device"
@@ -932,93 +918,89 @@
 	hitsound = 'sound/machines/chainsaw.ogg'
 	hit_type = DAMAGE_CUT
 	tool_flags = TOOL_SAWING
-	flags = FPRINT | TABLEPASS
 	c_flags = ONBELT
 	w_class = W_CLASS_NORMAL
+	HELP_MESSAGE_OVERRIDE("Use the Help, Disarm, or Grab intents to attempt deconstructing objects when you click them. Switch to Harm intent to use as a weapon.")
+
+	New()
+		. = ..()
+		RegisterSignal(src, COMSIG_ITEM_ATTACKBY_PRE, PROC_REF(pre_attackby))
+
+	disposing()
+		UnregisterSignal(src, COMSIG_ITEM_ATTACKBY_PRE)
+		. = ..()
+
 
 	proc/finish_decon(atom/target,mob/user) // deconstructing work
 		if (!isobj(target))
 			return
 		var/obj/O = target
+		if(!O.can_deconstruct(user))
+			return
 		logTheThing(LOG_STATION, user, "deconstructs [target] in [user.loc.loc] ([log_loc(user)])")
 		playsound(user.loc, 'sound/items/Deconstruct.ogg', 50, 1)
 		user.visible_message("<B>[user.name]</B> deconstructs [target].")
 
-		var/turf/target_loc = get_turf(target)
-		var/obj/item/electronics/frame/F = new(target_loc)
-		F.name = "[target.name] frame"
-		if(O.deconstruct_flags & DECON_DESTRUCT)
-			F.store_type = O.type
-			qdel(O)
-		else
-			F.deconstructed_thing = target
-			if(ismob(O.loc))
-				var/mob/M = O.loc
-				M.u_equip(O)
-			O.set_loc(F)
-		// move frame to the location after object is gone, so crushers do not crusher themselves
-		F.viewstat = 2
-		F.secured = 2
-		F.icon_state = "dbox_big"
-		F.w_class = W_CLASS_BULKY
+		O.become_frame(user)
 
 		elecflash(src,power=2)
-		if(!QDELETED(O))
-			O.was_deconstructed_to_frame(user)
-			F.RegisterSignal(O, COMSIG_ATOM_ENTERED, TYPE_PROC_REF(/obj/item/electronics/frame, kickout))
 
 	MouseDrop_T(atom/target, mob/user)
-		if (!isobj(target))
-			return
-		src.AfterAttack(target,user)
+		src.pre_attackby(src, target, user)
 		..()
 
-	afterattack(atom/target as mob|obj|turf|area, mob/user as mob)
+	proc/pre_attackby(source, atom/target, mob/user)
+		if (user.a_intent == INTENT_HARM)
+			return
 		if (!isobj(target))
 			return
 		var/obj/O = target
 
+		if (O.deconstruct_flags == DECON_NONE)
+			return
+
 		var/decon_complexity = O.build_deconstruction_buttons()
-		if (!decon_complexity)
-			boutput(user, "<span class='alert'>[target] cannot be deconstructed.</span>")
+		if (!decon_complexity || !O.can_deconstruct(user))
+			boutput(user, SPAN_ALERT("[target] cannot be deconstructed."))
 			if (O.deconstruct_flags & DECON_NULL_ACCESS)
-				boutput(user, "<span class='alert'>[target] is under an access lock and must have its access requirements removed first.</span>")
-			return
+				boutput(user, SPAN_ALERT("[target] is under an access lock and must have its access requirements removed first."))
+			return ATTACK_PRE_DONT_ATTACK
 		if (istext(decon_complexity))
-			boutput(user, "<span class='alert'>[decon_complexity]</span>")
-			return
+			boutput(user, SPAN_ALERT("[decon_complexity]"))
+			return ATTACK_PRE_DONT_ATTACK
 		if (issilicon(user) && (O.deconstruct_flags & DECON_NOBORG))
-			boutput(user, "<span class='alert'>Cyborgs cannot deconstruct this [target].</span>")
-			return
+			boutput(user, SPAN_ALERT("Cyborgs cannot deconstruct this [target]."))
+			return ATTACK_PRE_DONT_ATTACK
 		if ((!(O.allowed(user) || O.deconstruct_flags & DECON_NO_ACCESS) || O.is_syndicate) && !(O.deconstruct_flags & DECON_BUILT))
-			boutput(user, "<span class='alert'>You cannot deconstruct [target] without sufficient access to operate it.</span>")
-			return
+			boutput(user, SPAN_ALERT("You cannot deconstruct [target] without sufficient access to operate it."))
+			return ATTACK_PRE_DONT_ATTACK
 
 		if(length(get_all_mobs_in(O)))
-			boutput(user, "<span class='alert'>You cannot deconstruct [target] while someone is inside it!</span>")
-			return
+			boutput(user, SPAN_ALERT("You cannot deconstruct [target] while someone is inside it!"))
+			return ATTACK_PRE_DONT_ATTACK
 
-		if (isrestrictedz(O.z) && !isitem(target))
-			boutput(user, "<span class='alert'>You cannot bring yourself to deconstruct [target] in this area.</span>")
-			return
+		if (isrestrictedz(O.z) && !isitem(target) && !istype(get_area(O), /area/salvager)) //let salvagers deconstruct on the magpie
+			boutput(user, SPAN_ALERT("You cannot bring yourself to deconstruct [target] in this area."))
+			return ATTACK_PRE_DONT_ATTACK
 
 		if (O.decon_contexts && length(O.decon_contexts) <= 0) //ready!!!
 			boutput(user, "Deconstructing [O], please remain still...")
 			playsound(user.loc, 'sound/effects/pop.ogg', 50, 1)
 			actions.start(new/datum/action/bar/icon/deconstruct_obj(target,src,(decon_complexity * 2.5 SECONDS)), user)
+			return ATTACK_PRE_DONT_ATTACK
 		else
 			user.showContextActions(O.decon_contexts, O)
-			boutput(user, "<span class='alert'>You need to use some tools on [target] before it can be deconstructed.</span>")
-			return
+			boutput(user, SPAN_ALERT("You need to use some tools on [target] before it can be deconstructed."))
+			return ATTACK_PRE_DONT_ATTACK
 
  // here be extra surgery penalties
-	attack(mob/living/carbon/M, mob/living/carbon/user)
+	attack(mob/target, mob/user, def_zone, is_special = FALSE, params = null)
 
-		if(!surgeryCheck(M, user)) // if it ain't surgery compatible, do whatever!
+		if(!surgeryCheck(target, user)) // if it ain't surgery compatible, do whatever!
 			return ..()
 
 		if(prob(20))// doing surgery with a buzzsaw isn't a good idea
-			user.visible_message("<span class='alert'><b>[user]</b> messes up and injures [himself_or_herself(user)] with the [src]! </span>")
+			user.visible_message(SPAN_ALERT("<b>[user]</b> messes up and injures [himself_or_herself(user)] with the [src]! "))
 			random_brute_damage(user, 7)
 			take_bleeding_damage(user, null, 7, DAMAGE_CUT, 1)
 			playsound(user, 'sound/machines/chainsaw.ogg', 70)
@@ -1026,15 +1008,15 @@
 
 		else if(user?.bioHolder.HasEffect("clumsy") && prob(40)) // ESPECIALLY if you're a stupid clown
 			playsound(user, 'sound/machines/chainsaw.ogg', 70)
-			user.visible_message("<span class='alert'><b>[user] fucks up really badly and maims [himself_or_herself(user)] with the [src]! </b> </span>")
+			user.visible_message(SPAN_ALERT("<b>[user] fucks up really badly and maims [himself_or_herself(user)] with the [src]! </b> "))
 			random_brute_damage(user, 15)
 			take_bleeding_damage(user, null, 15, DAMAGE_CUT, 1)
 			user.emote("scream")
 			JOB_XP(user, "Clown", 3)
 
 
-		else // congrats buddy!!!!! you managed to pass all the checks!!!!! you get to do surgery!!!!
-			saw_surgery(M,user)
+		else if(!is_special) // congrats buddy!!!!! you managed to pass all the checks!!!!! you get to do surgery!!!!
+			saw_surgery(target,user)
 
 
 /obj/item/deconstructor/borg
@@ -1058,10 +1040,13 @@
 			C.dispose()
 	. = ..()
 
+/obj/proc/can_deconstruct(mob/user)
+	. = TRUE
+
 /obj/proc/was_deconstructed_to_frame(mob/user)
 	.= 0
 
-/obj/proc/was_built_from_frame(mob/user, newly_built)
+/atom/movable/proc/was_built_from_frame(mob/user, newly_built)
 	.= 0
 
 /obj/proc/build_deconstruction_buttons()
@@ -1104,7 +1089,6 @@
 /datum/action/bar/icon/deconstruct_obj
 	duration = 20
 	interrupt_flags = INTERRUPT_MOVE | INTERRUPT_ACT | INTERRUPT_STUNNED | INTERRUPT_ACTION
-	id = "deconstruct_obj"
 	icon = 'icons/ui/actions.dmi'
 	icon_state = "decon"
 	var/obj/O
@@ -1117,19 +1101,19 @@
 
 	onUpdate()
 		..()
-		if(BOUNDS_DIST(owner, O) > 0 || O == null || owner == null || D == null || locate(/mob/living) in O)
+		if(BOUNDS_DIST(owner, O) > 0 || O == null || owner == null || D == null || (locate(/mob/living) in O) || !O.can_deconstruct(owner))
 			interrupt(INTERRUPT_ALWAYS)
 			return
 
 	onStart()
 		..()
-		if(BOUNDS_DIST(owner, O) > 0 || O == null || owner == null || D == null || locate(/mob/living) in O)
+		if(BOUNDS_DIST(owner, O) > 0 || O == null || owner == null || D == null || (locate(/mob/living) in O) || !O.can_deconstruct(owner))
 			interrupt(INTERRUPT_ALWAYS)
 			return
 
 	onEnd()
 		..()
-		if(BOUNDS_DIST(owner, O) > 0 || O == null || owner == null || D == null || locate(/mob/living) in O)
+		if(BOUNDS_DIST(owner, O) > 0 || O == null || owner == null || D == null || (locate(/mob/living) in O) || !O.can_deconstruct(owner))
 			interrupt(INTERRUPT_ALWAYS)
 			return
 		if (ismob(owner))
@@ -1141,6 +1125,6 @@
 
 	onInterrupt()
 		if (O && owner)
-			boutput(owner, "<span class='alert'>Deconstruction of [O] interrupted!</span>")
+			boutput(owner, SPAN_ALERT("Deconstruction of [O] interrupted!"))
 		..()
 

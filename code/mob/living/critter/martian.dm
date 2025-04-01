@@ -5,7 +5,7 @@
 	name = "martian"
 	real_name = "martian"
 	var/martian_type = "basic"
-	desc = "Genocidal monsters from Mars."
+	desc = "Murderous monsters from Mars."
 	density = 1
 	icon_state = "martian"
 	icon_state_dead = "martian-dead"
@@ -19,15 +19,15 @@
 	can_grab = TRUE
 	can_disarm = TRUE
 	can_help = TRUE
-	health_brute = 16
-	health_brute_vuln = 1
-	health_burn = 16
+	health_brute = 50
+	health_brute_vuln = 0.5
+	health_burn = 50
 	health_burn_vuln = 1.5
-	speechverb_say = "screeches"
+	speechverb_say = "burbles"
 	speechverb_exclaim = "screeches"
-	speechverb_ask = "screeches"
-	speechverb_gasp = "screeches"
-	speechverb_stammer = "screeches"
+	speechverb_ask = "warbles"
+	speechverb_gasp = "gurgles"
+	speechverb_stammer = "crackles"
 
 	ai_type = /datum/aiHolder/aggressive
 	ai_retaliate_patience = 3
@@ -75,6 +75,7 @@
 
 	New()
 		..()
+		abilityHolder.addAbility(/datum/targetable/artifact_limb_ability/martian_pull)
 		abilityHolder.addAbility(/datum/targetable/critter/psyblast/martian)
 		abilityHolder.addAbility(/datum/targetable/critter/teleport)
 
@@ -111,7 +112,7 @@
 				teleport.handleCast(pick(randomturfs))
 
 	say(message, involuntary = 0)
-		message = trim(copytext(sanitize(message), 1, MAX_MESSAGE_LEN))
+		message = trimtext(copytext(sanitize(message), 1, MAX_MESSAGE_LEN))
 
 		..(message)
 
@@ -153,10 +154,14 @@
 	martian_type = "warrior"
 	icon_state = "martianW"
 	icon_state_dead = "martianW-dead"
-	health_brute = 18
-	health_brute_vuln = 0.7
-	health_burn = 18
-	health_burn_vuln = 1.2
+	health_brute = 100
+	health_burn = 100
+
+	New()
+		..()
+		abilityHolder.addAbility(/datum/targetable/critter/slam)
+		abilityHolder.addAbility(/datum/targetable/critter/tackle)
+
 
 	critter_attack(var/mob/target)
 		if (src.equipped())
@@ -188,6 +193,8 @@
 	icon_state = "martianS"
 	icon_state_dead = "martianS-dead"
 	ai_type = /datum/aiHolder/ranged
+	health_brute = 100
+	health_burn = 100
 
 	setup_hands()
 		..()
@@ -207,16 +214,15 @@
 	martian_type = "mutant"
 	icon_state = "martianP"
 	icon_state_dead = "martianP-dead"
-	health_brute = 10
-	health_brute_vuln = 1
-	health_burn = 10
-	health_burn_vuln = 1
+	health_brute = 33
+	health_burn = 33
 	ai_type = /datum/aiHolder/ranged
 
 	New()
 		..()
 		abilityHolder.addAbility(/datum/targetable/critter/gibstare)
 		abilityHolder.addAbility(/datum/targetable/critter/telepathy)
+		abilityHolder.addAbility(/datum/targetable/critter/scarylook)
 
 	critter_attack(var/mob/target)
 		var/datum/targetable/critter/gibstare/gib = src.abilityHolder.getAbility(/datum/targetable/critter/gibstare)
@@ -234,14 +240,29 @@
 	martian_type = "initiate"
 	icon_state = "martianP"
 	icon_state_dead = "martianP-dead"
-	health_brute = 10
-	health_brute_vuln = 1
-	health_burn = 10
-	health_burn_vuln = 1
+	health_brute = 25
+	health_burn = 25
 
 	New()
 		..()
 		abilityHolder.addAbility(/datum/targetable/critter/telepathy)
+		abilityHolder.addAbility(/datum/targetable/critter/scarylook)
+
+/mob/living/critter/martian/mortian
+	name = "mortian"
+	real_name = "mortian"
+	martian_type = "mortian"
+	icon_state = "martianM"
+	icon_state_dead = "martianM-dead"
+	health_brute = 100
+	health_burn = 100
+
+	New()
+		..()
+		abilityHolder.addAbility(/datum/targetable/critter/telepathy)
+		abilityHolder.addAbility(/datum/targetable/critter/bholerip)
+		abilityHolder.addAbility(/datum/targetable/critter/fadeout)
+		abilityHolder.addAbility(/datum/targetable/critter/writhe)
 
 // These were for a martian gamemode so im leaving them as non-npcs for now
 /mob/living/critter/martian/sapper
@@ -250,7 +271,12 @@
 	martian_type = "sapper"
 	icon_state = "martianSP"
 	icon_state_dead = "martianSP-dead"
-	is_npc = FALSE
+
+	New()
+		..()
+		abilityHolder.addAbility(/datum/targetable/critter/zzzap)
+		abilityHolder.addAbility(/datum/targetable/critter/bury_hide)
+
 
 /mob/living/critter/martian/overseer
 	name = "martian overseer"
@@ -258,17 +284,16 @@
 	martian_type = "overseer"
 	icon_state = "martianL"
 	icon_state_dead = "martianL-dead"
-	health_brute = 25
-	health_brute_vuln = 0.8
-	health_burn = 25
-	health_burn_vuln = 1
+	health_brute = 200
+	health_burn = 200
 	leader = TRUE
-	is_npc = FALSE
+	//is_npc = FALSE
 
 	New()
 		..()
 		abilityHolder.addAbility(/datum/targetable/critter/summon)
 		abilityHolder.addAbility(/datum/targetable/critter/telepathy)
+		abilityHolder.addAbility(/datum/targetable/critter/mezzer)
 
 // this is being copied and pasted more than once, this ends now
 // merging in the admin verb stuff so we can display the appropriate stuff to admins when players speak, because knowing real names of martian babblers would be nice
@@ -284,16 +309,16 @@ proc/martian_speak(var/mob/speaker, var/message as text, var/speak_as_admin=0)
 		var/show_other_key = 0
 		if (C.stealth || C.alt_key)
 			show_other_key = 1
-		rendered = "<span class='game martiansay'><span class='name'>ADMIN([show_other_key ? C.fakekey : C.key])</span> telepathically messages, <span class='message'>\"[message]\"</span></span>"
-		adminrendered = "<span class='game martiansay'><span class='name' data-ctx='\ref[speaker.mind]'>[show_other_key ? "ADMIN([C.key] (as [C.fakekey])" : "ADMIN([C.key]"])</span> telepathically messages, <span class='message'>\"[message]\"</span></span>"
+		rendered = SPAN_MARTIANSAY("[SPAN_NAME("ADMIN([show_other_key ? C.fakekey : C.key])")] telepathically messages, [SPAN_MESSAGE("\"[message]\"")]")
+		adminrendered = SPAN_MARTIANSAY("<span class='name' data-ctx='\ref[speaker.mind]'>[show_other_key ? "ADMIN([C.key] (as [C.fakekey])" : "ADMIN([C.key]"])</span> telepathically messages, [SPAN_MESSAGE("\"[message]\"")]")
 	else
 		var/class = "martiansay"
 		if(ismartian(speaker))
 			var/mob/living/critter/martian/M = speaker
 			if(M.leader)
 				class = "martianimperial"
-		rendered = "<span class='game [class]'><span class='name'>[speaker.real_name]</span> telepathically messages, <span class='message'>\"[message]\"</span></span>"
-		adminrendered = "<span class='game [class]'><span class='name' data-ctx='\ref[speaker.mind]'>[speaker.real_name]</span> telepathically messages, <span class='message'>\"[message]\"</span></span>"
+		rendered = "<span class='[class]'>[SPAN_NAME("[speaker.real_name]")] telepathically messages, [SPAN_MESSAGE("\"[message]\"")]</span>"
+		adminrendered = "<span class='[class]'><span class='name' data-ctx='\ref[speaker.mind]'>[speaker.real_name]</span> telepathically messages, [SPAN_MESSAGE("\"[message]\"")]</span>"
 
 	for (var/client/CC)
 		if (!CC.mob) continue
@@ -317,10 +342,8 @@ proc/martian_speak(var/mob/speaker, var/message as text, var/speak_as_admin=0)
 	martian_type = "infiltrator"
 	icon_state = "martianI"
 	icon_state_dead = "martianI-dead"
-	health_brute = 50
-	health_brute_vuln = 0.5
-	health_burn = 50
-	health_burn_vuln = 1
+	health_brute = 75
+	health_burn = 75
 	is_npc = FALSE
 
 	setup_equipment_slots()
@@ -333,11 +356,11 @@ proc/martian_speak(var/mob/speaker, var/message as text, var/speak_as_admin=0)
 		// TEMPORARY THING TO ESTABLISH THESE DUDES AS EXPLICITLY ANTAGS OK
 		SPAWN(1 DECI SECOND)
 			src.show_antag_popup("martian")
-			boutput(src, "<h2><font color=red>You are a Martian Infiltrator!</font></h2>")
-			boutput(src, "<font color=red>Find a safe place to start building a base with your teammates!</font>")
+			boutput(src, "<h2>[SPAN_ALERT("You are a Martian Infiltrator!")]</h2>")
+			boutput(src, SPAN_ALERT("Find a safe place to start building a base with your teammates!"))
 			if(src.leader)
-				boutput(src, "<font color=red>You are the leader of your infiltration group, and have additional abilities they do not.</font>")
-				boutput(src, "<font color=red>You start with a biotech seed that can be used to start a base. It will spawn a seed grower. Plant it somewhere safe!</font>")
+				boutput(src, SPAN_ALERT("You are the leader of your infiltration group, and have additional abilities they do not."))
+				boutput(src, SPAN_ALERT("You start with a biotech seed that can be used to start a base. It will spawn a seed grower. Plant it somewhere safe!"))
 			if (src.mind && ticker.mode)
 				if (!src.mind.special_role)
 					src.mind.special_role = "martian"
@@ -391,7 +414,7 @@ proc/martian_speak(var/mob/speaker, var/message as text, var/speak_as_admin=0)
 
 	ex_act(severity)
 		if(severity)
-			src.visible_message("<span class='notice'><B>[src]</B> crumbles away into dust!</span>")
+			src.visible_message(SPAN_NOTICE("<B>[src]</B> crumbles away into dust!"))
 			qdel (src)
 		return
 
@@ -416,11 +439,11 @@ proc/martian_speak(var/mob/speaker, var/message as text, var/speak_as_admin=0)
 		if(damage >= 15)
 			if (src.active && src.timeleft > 10)
 				for(var/mob/O in hearers(src, null))
-					O.show_message("<span class='alert'><B>[src]</B> begins buzzing loudly!</span>", 1)
+					O.show_message(SPAN_ALERT("<B>[src]</B> begins buzzing loudly!"), 1)
 				src.timeleft = 10
 
 		if (src.health <= 0)
-			src.visible_message("<span class='notice'><B>[src]</B> crumbles away into dust!</span>")
+			src.visible_message(SPAN_NOTICE("<B>[src]</B> crumbles away into dust!"))
 			qdel (src)
 
 	attackby(obj/item/W, mob/user)
@@ -428,9 +451,9 @@ proc/martian_speak(var/mob/speaker, var/message as text, var/speak_as_admin=0)
 		src.health -= W.force
 		if (src.active && src.timeleft > 10)
 			for(var/mob/O in hearers(src, null))
-				O.show_message("<span class='alert'><B>[src]</B> begins buzzing loudly!</span>", 1)
+				O.show_message(SPAN_ALERT("<B>[src]</B> begins buzzing loudly!"), 1)
 			src.timeleft = 10
 		if (src.health <= 0)
-			src.visible_message("<span class='notice'><B>[src]</B> crumbles away into dust!</span>")
+			src.visible_message(SPAN_NOTICE("<B>[src]</B> crumbles away into dust!"))
 			qdel (src)
 

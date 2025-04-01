@@ -35,16 +35,15 @@
 			if (T)
 				var/falloff = GET_DIST(holder.owner, M)
 				M.throw_at(T, target_dist - falloff, throw_speed)
-			logTheThing(LOG_COMBAT, src.holder.owner, "[key_name(src.holder.owner)] used <b>[src.name]</b> on [key_name(target)] [log_loc(src.holder.owner)].")
 		else if (istype(target, /obj/machinery/door/airlock))
 			var/obj/machinery/door/airlock/airlock = target
 			if (airlock.hardened)
-				boutput(src.holder.owner, "<span class='alert'>[target] is hardened against your electrical attacks, your [name] skill has no effect!</span>")
+				boutput(src.holder.owner, SPAN_ALERT("[target] is hardened against your electrical attacks, your [name] skill has no effect!"))
 				return TRUE
 			airlock.loseMainPower()
 			target.add_fingerprint(src.holder.owner)
 			playsound(src.holder.owner, 'sound/effects/electric_shock.ogg', 50, TRUE)
-			boutput(src.holder.owner, "<span class='alert'>You run a powerful current into [target], temporarily cutting its power!</span>")
+			boutput(src.holder.owner, SPAN_ALERT("You run a powerful current into [target], temporarily cutting its power!"))
 		else
 			return TRUE
 		var/datum/effects/system/spark_spread/S = new /datum/effects/system/spark_spread

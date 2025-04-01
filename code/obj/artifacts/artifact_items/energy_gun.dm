@@ -37,8 +37,8 @@
 		if (!src.ArtifactSanityCheck())
 			return
 		var/datum/artifact/A = src.artifact
-		if (istext(A.examine_hint))
-			. += A.examine_hint
+		if (istext(A.examine_hint) && (usr && (usr.traitHolder?.hasTrait("training_scientist")) || isobserver(usr) || isobserver(usr)))
+			. += SPAN_ARTHINT(A.examine_hint)
 
 	UpdateName()
 		src.name = "[name_prefix(null, 1)][src.real_name][name_suffix(null, 1)]"
@@ -77,10 +77,10 @@
 
 		if(prob(20))
 			src.ArtifactDevelopFault(100)
-			user.visible_message("<span class='alert'>[src] emits \a [pick("ominous", "portentous", "sinister")] sound.</span>")
+			user.visible_message(SPAN_ALERT("[src] emits \a [pick("ominous", "portentous", "sinister")] sound."))
 		else if(prob(20))
 			src.ArtifactTakeDamage(20)
-			user.visible_message("<span class='alert'>[src] emits a terrible cracking noise.</span>")
+			user.visible_message(SPAN_ALERT("[src] emits a terrible cracking noise."))
 
 		return
 

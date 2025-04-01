@@ -9,7 +9,7 @@
 	rarity_weight = 90
 	validtypes = list("wizard","eldritch")
 	validtriggers = list(/datum/artifact_trigger/force,/datum/artifact_trigger/electric,/datum/artifact_trigger/heat,
-	/datum/artifact_trigger/radiation,/datum/artifact_trigger/cold)
+	/datum/artifact_trigger/radiation,/datum/artifact_trigger/cold, /datum/artifact_trigger/language)
 	fault_blacklist = list(ITEM_ONLY_FAULTS)
 	activ_text = "begins glowing with an enticing light!"
 	deact_text = "falls dark and quiet."
@@ -48,7 +48,7 @@
 		sleep(0.5 SECONDS)
 		boutput(user, "<b>[O]</b> resonates, \"<big>SO BE IT...</big>\"")
 		playsound(O, 'sound/musical_instruments/Gong_Rumbling.ogg', 40, TRUE)
-		O.visible_message("<span class='alert'><b>[O]</b> begins to charge up...</span>")
+		O.visible_message(SPAN_ALERT("<b>[O]</b> begins to charge up..."))
 		O.ArtifactFaultUsed(user)
 		sleep(3 SECONDS)
 		if (prob(2))
@@ -57,19 +57,19 @@
 		if (evil)
 			switch(wish)
 				if("I wish to become rich!")
-					O.visible_message("<span class='alert'><b>[O]</b> envelops [user] in a golden light!</span>")
+					O.visible_message(SPAN_ALERT("<b>[O]</b> envelops [user] in a golden light!"))
 					playsound(user, 'sound/weapons/flashbang.ogg', 50, TRUE)
 					for(var/mob/N in viewers(user, null))
 						N.flash(3 SECONDS)
 						if(N.client)
 							shake_camera(N, 6, 16)
 					logTheThing(LOG_COMBAT, user, "was turned into a gold statue by wishgranter [src] at [log_loc(user)].")
-					user.become_statue(getMaterial("gold"),"A statue of someone very wealthy", TRUE)
+					user.become_statue(getMaterial("gold"), "A statue of someone very wealthy", TRUE)
 
 				if("I wish for great power!")
-					O.visible_message("<span class='alert'><b>[O] discharges a massive bolt of electricity!</b></span>")
+					O.visible_message(SPAN_ALERT("<b>[O] discharges a massive bolt of electricity!</b>"))
 					playsound(user, 'sound/effects/elec_bigzap.ogg', 40, TRUE)
-					var/list/affected = DrawLine(O,user,/obj/line_obj/elec,'icons/obj/projectiles.dmi',"WholeLghtn",1,1,"HalfStartLghtn","HalfEndLghtn",OBJ_LAYER,1,PreloadedIcon='icons/effects/LghtLine.dmi')
+					var/list/affected = drawLineObj(O,user,/obj/line_obj/elec,'icons/obj/projectiles.dmi',"WholeLghtn",1,1,"HalfStartLghtn","HalfEndLghtn",OBJ_LAYER,1,PreloadedIcon='icons/effects/LghtLine.dmi')
 					for(var/obj/OB in affected)
 						SPAWN(0.6 SECONDS)
 							qdel(OB)
@@ -78,15 +78,15 @@
 		else
 			switch(wish)
 				if("I wish to become rich!")
-					O.visible_message("<span class='alert'>A ton of money falls out of thin air! Woah!</span>")
-					for(var/turf/T in range(user,1))
+					O.visible_message(SPAN_ALERT("A ton of money falls out of thin air! Woah!"))
+					for(var/turf/T in range(user,2))
 						if (T.density)
 							continue
-						var/obj/item/currency/spacecash/million/S = new /obj/item/currency/spacecash/million
+						var/obj/item/currency/spacecash/thousand/S = new /obj/item/currency/spacecash/thousand
 						S.setup(T)
 
 				if("I wish for great power!")
-					O.visible_message("<span class='alert'><b>[O]</b> envelops [user] in a brilliant light!</span>")
+					O.visible_message(SPAN_ALERT("<b>[O]</b> envelops [user] in a brilliant light!"))
 					if (ishuman(user))
 						var/mob/living/carbon/human/H = user
 						if (H.bioHolder)

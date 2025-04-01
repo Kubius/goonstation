@@ -150,7 +150,7 @@
 					return
 				if(!target)
 					return
-				var/obj/perm_portal/P = new /obj/perm_portal(get_turf(src))
+				var/obj/laser_sink/perm_portal/P = new /obj/laser_sink/perm_portal(get_turf(src))
 				P.target = get_turf(target)
 				if(src.invisible_portal)
 					P.invisibility = 20
@@ -167,9 +167,8 @@
 /obj/item/clothing/glasses/urs_dungeon_entry
 	name = "\improper VR goggles"
 	desc = "On the side it says \"A game for 2-4 Players\". Guess you'll need some friends to play with you."
-	icon_state = "vr"
-	item_state = "sunglasses"
-	color = "#550000"
+	icon_state = "vr_dungeon"
+	item_state = "vr_dungeon"
 	var/target = null
 	var/doing_login = 0
 	var/turf/origin = null
@@ -177,10 +176,9 @@
 	New()
 		..()
 		SPAWN(1 DECI SECOND)
-			for(var/obj/adventurepuzzle/invisible/target_link/T)
+			for_by_tcl(T, /obj/adventurepuzzle/invisible/target_link)
 				if (T.id == "UD-LANDING-ZONE")
 					target = get_turf(T)
-
 
 	equipped(var/mob/user, var/slot)
 		..()
@@ -212,7 +210,7 @@
 				ticker.minds += H.mind
 
 			V.update_colorful_parts()
-			for(var/mob/O in AIviewers(src, null)) O.show_message("<span class='alert'>[H.name] disappears in a flash of light!!</span>", 1)
+			for(var/mob/O in AIviewers(src, null)) O.show_message(SPAN_ALERT("[H.name] disappears in a flash of light!!"), 1)
 			H.emote("scream")
 			playsound(H.loc, 'sound/weapons/flashbang.ogg', 25, 1)
 			for (var/mob/N in viewers(src, null))
@@ -235,9 +233,8 @@
 /obj/item/clothing/glasses/urs_dungeon_exit
 	name = "\improper VR goggles"
 	desc = "About goddamn time."
-	icon_state = "vr"
-	item_state = "sunglasses"
-	color = "#00CCCC"
+	icon_state = "vr_dungeon_exit"
+	item_state = "vr_dungeon_exit"
 	var/turf/origin = null
 
 	New()
@@ -280,7 +277,7 @@
 					if (clear)
 						L += T3
 
-		for(var/mob/O in AIviewers(H, null)) O.show_message("<span class='alert'>[H.name] disappears in a flash of light!!</span>", 1)
+		for(var/mob/O in AIviewers(H, null)) O.show_message(SPAN_ALERT("[H.name] disappears in a flash of light!!"), 1)
 		playsound(src.loc, 'sound/weapons/flashbang.ogg', 50, 1)
 
 		for (var/mob/N in viewers(H, null))
@@ -330,7 +327,7 @@
 				if (M.client)
 					M.client.playAmbience(our_area, AMBIENCE_FX_2, 50)
 			if(src.message)
-				M.show_message("<span class='game say bold'><span class='message'><span style='color: [src.text_color]'>[message]</span></span></span>", 2)
+				M.show_message("<span class='say bold'>[SPAN_MESSAGE("<span style='color: [src.text_color]'>[message]")]</span></span>", 2)
 
 /area/adventure/urs_dungeon
 	teleport_blocked = 2
@@ -526,7 +523,7 @@
 
 	attackby(obj/item/W, mob/user)
 		if (istype(W, /obj/item/shovel))
-			user.visible_message("<span class='notice'>[user] digs in [src] with [W]!</span>")
+			user.visible_message(SPAN_NOTICE("[user] digs in [src] with [W]!"))
 			src.open()
 		return
 
@@ -619,16 +616,16 @@
 	qdel(src)
 	return
 /*
-/obj/item/ursium/attack(mob/M, mob/user)
-	if (user != M)
-		user.visible_message("<span class='alert'>[user] is trying to force [M] to eat the [src.content]!</span>")
-		if (do_mob(user, M, 40))
-			user.visible_message("<span class='alert'>[user] forced [M] to eat the [src.content]!</span>")
-			src.injest(M)
+/obj/item/ursium/attack(mob/target, mob/user, def_zone, is_special = FALSE, params = null)
+	if (user != target)
+		user.visible_message(SPAN_ALERT("[user] is trying to force [target] to eat the [src.content]!"))
+		if (do_mob(user, target, 40))
+			user.visible_message(SPAN_ALERT("[user] forced [target] to eat the [src.content]!"))
+			src.injest(target)
 	else
-		for(var/mob/O in viewers(M, null))
-			O.show_message(text("<span class='alert'>[M] ate the [content ? content : "empty canister"]!</span>"), 1)
-		src.injest(M)
+		for(var/mob/O in viewers(target, null))
+			O.show_message(SPAN_ALERT("[target] ate the [content ? content : "empty canister"]!"), 1)
+		src.injest(target)
 */
 
 var/johnbill_ursdungeon_code = "0420"

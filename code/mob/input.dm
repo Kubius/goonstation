@@ -1,14 +1,17 @@
 
+/mob/var/prev_loc = 0
 /mob/var/move_dir = 0
 /mob/var/next_move = 0
 
 
 /mob/hotkey(name)
-	if (src.use_movement_controller)
-		var/datum/movement_controller/controller = src.use_movement_controller.get_movement_controller()
-		if (controller)
-			return controller.hotkey(src, name)
+	var/datum/movement_controller/controller = src.override_movement_controller
+	if (controller)
+		return controller.hotkey(src, name)
 	return ..()
+
+/mob/proc/can_turn()
+	return !src.dir_locked && (!isliving(src) || !isdead(src)) && !HAS_ATOM_PROPERTY(src, PROP_MOB_CANTTURN)
 
 /mob/proc/keys_changed(keys, changed)
 	set waitfor = 0
@@ -34,10 +37,9 @@
 				var/atom/movable/name_tag/hover_tag = A.get_examine_tag(src)
 				hover_tag?.show_images(src.client, FALSE, FALSE)
 
-	if (src.use_movement_controller)
-		var/datum/movement_controller/controller = src.use_movement_controller.get_movement_controller()
-		if (controller)
-			controller.keys_changed(src, keys, changed)
+	var/datum/movement_controller/controller = src.override_movement_controller
+	if (controller)
+		controller.keys_changed(src, keys, changed)
 		return
 
 	if (changed & (KEY_FORWARD|KEY_BACKWARD|KEY_RIGHT|KEY_LEFT))
@@ -54,14 +56,14 @@
 		if (move_x || move_y)
 			if(!src.move_dir && src.canmove && src.restrained())
 				if (src.pulled_by || length(src.grabbed_by))
-					boutput(src, "<span class='notice'>You're restrained! You can't move!</span>")
+					boutput(src, SPAN_NOTICE("You're restrained! You can't move!"))
 
 			src.move_dir = angle2dir(arctan(move_y, move_x))
 			attempt_move(src)
 		else
 			src.move_dir = 0
 
-		if(!src.dir_locked) //in order to not turn around and good fuckin ruin the emote animation
+		if(src.can_turn()) //in order to not turn around and good fuckin ruin the emote animation
 			src.set_dir(src.move_dir)
 	if (changed & (KEY_THROW|KEY_PULL|KEY_POINT|KEY_EXAMINE|KEY_BOLT|KEY_OPEN|KEY_SHOCK)) // bleh
 		src.update_cursor()
@@ -69,15 +71,14 @@
 /mob/proc/process_move(keys)
 	set waitfor = 0
 
-	if (src.use_movement_controller)
-		var/datum/movement_controller/controller = src.use_movement_controller.get_movement_controller()
-		if (controller)
-			return controller.process_move(src, keys)
+	var/datum/movement_controller/controller = src.override_movement_controller
+	if (controller)
+		return controller.process_move(src, keys)
 
 	if (isdead(src) && isliving(src))
 		if (keys)
 			// Ghostize people who are trying to move while in a dead body.
-			boutput(src, "<span class='notice'>You leave your dead body. You can use the 'Re-enter Corpse' command to return to it.</span>")
+			boutput(src, SPAN_NOTICE("You leave your dead body. You can use the 'Re-enter Corpse' command to return to it."))
 			src.ghostize()
 		return
 
@@ -96,8 +97,6 @@
 
 		var/delay = max(src.movement_delay(get_step(src,src.move_dir), running), world.tick_lag) // don't divide by zero
 		var/move_dir = src.move_dir
-		if (move_dir & (move_dir-1))
-			delay *= DIAG_MOVE_DELAY_MULT // actual sqrt(2) unsurprisingly resulted in rounding errors
 		if (src.client && src.client.flying || (ismob(src) && HAS_ATOM_PROPERTY(src, PROP_MOB_NOCLIP)))
 			if(isnull(get_step(src, move_dir)))
 				return
@@ -127,13 +126,16 @@
 			if (prob(DISORIENT_MISSTEP_CHANCE) && src.getStatusDuration("disorient"))
 				misstep_angle += 45
 			if (prob(src.misstep_chance)) // 1.5 beecause going off straight chance felt weird; I don't want to totally nerf effects that rely on this
-				misstep_angle += rand(0,src.misstep_chance*1.5)  // 66% Misstep Chance = 9% chance of 90 degree turn
+				misstep_angle += randfloat(0,src.misstep_chance*1.5)  // 66% Misstep Chance = 9% chance of 90 degree turn
 
 			if(misstep_angle)
 				misstep_angle = min(misstep_angle,90)
 				var/move_angle = dir2angle(move_dir)
 				move_angle += pick(-misstep_angle,misstep_angle)
 				move_dir = angle2dir(move_angle)
+
+			if (move_dir & (move_dir-1))
+				delay *= DIAG_MOVE_DELAY_MULT // actual sqrt(2) unsurprisingly resulted in rounding errors
 
 			if (src.buckled && !istype(src.buckled, /obj/stool/chair))
 				src.buckled.relaymove(src, move_dir)
@@ -154,6 +156,7 @@
 						qdel(G)
 
 				var/turf/old_loc = src.loc
+				src.prev_loc = old_loc
 
 				//use commented bit if you wanna have world fps different from client. But its not perfect!
 				var/glide = (world.icon_size / ceil(delay / world.tick_lag)) //* (world.tick_lag / CLIENTSIDE_TICK_LAG_SMOOTH))
@@ -190,7 +193,7 @@
 						var/obj/effects/ion_trails/I = new /obj/effects/ion_trails
 						I.set_loc(src.loc)
 						I.set_dir(src.dir)
-						flick("ion_fade", I)
+						FLICK("ion_fade", I)
 						I.icon_state = "blank"
 						I.pixel_x = src.pixel_x
 						I.pixel_y = src.pixel_y
@@ -205,6 +208,12 @@
 						last_move_trigger = ticker ? ticker.round_elapsed_ticks : 0 //Wire note: Fix for Cannot read null.round_elapsed_ticks
 						deliver_move_trigger(running ? "sprint" : m_intent)
 
+					// Tripping (the physical kind)
+					var/trip_chance = 2 // because of how often this is called, 2% seems like more than enough
+					if (src.traitHolder && src.traitHolder.hasTrait("trippy") && prob(trip_chance))
+						src.setStatus("resting", INFINITE_STATUS)
+						src.force_laydown_standup()
+						src.visible_message(SPAN_ALERT("<B>[src]</B> trips!"))
 
 					src.glide_size = glide // dumb hack: some Move() code needs glide_size to be set early in order to adjust "following" objects
 					src.animate_movement = SLIDE_STEPS
@@ -221,7 +230,7 @@
 						break
 
 					if(ishuman(src) && !src?.client?.flying && !src.hasStatus("resting") && !src.buckled && !H.limbs.l_leg && !H.limbs.r_leg)	//do this before we move, so we can dump stuff on the old tile. Just to be mean.
-						boutput(src, "<span class='alert'>Without a leg to walk with, you flop over!</span>")
+						boutput(src, SPAN_ALERT("Without a leg to walk with, you flop over!"))
 						src.setStatus("resting", duration = INFINITE_STATUS)
 						src.force_laydown_standup()
 
@@ -235,9 +244,7 @@
 					//robust grab : Assailant gets moved here (do_step shit). this is messy, i'm sorry, blame MBC
 					if (!do_step || src.loc != old_loc)
 
-						if (mob_flags & AT_GUNPOINT) //we do this check here because if we DID take a step, we aren't tight-grabbed and the gunpoint shot will be triggered by Mob/Move(). messy i know, fix later
-							for(var/obj/item/grab/gunpoint/G in grabbed_by)
-								G.shoot()
+						SEND_SIGNAL(src, COMSIG_MOB_TRIGGER_THREAT) //we do this check here because if we DID take a step, we aren't tight-grabbed and the gunpoint shot will be triggered by Mob/Move(). messy i know, fix later
 						var/list/stepped = list()
 						for (var/obj/item/grab/G as anything in src.grabbed_by)
 							if ((G.assailant in stepped) || G.assailant == pushing || G.affecting == pushing) continue
@@ -260,12 +267,12 @@
 							if (!src?.client?.flying && !src.hasStatus("resting")) //no flop if laying or noclipping
 								//just fall over in place when in space (to prevent zooming)
 								var/turf/current_turf = get_turf(src)
-								if (!(current_turf.turf_flags & CAN_BE_SPACE_SAMPLE))
+								if (!(istype(current_turf, /turf/space)))
 									src.throw_at(get_step(src, move_dir), 1, 1)
 								src.setStatus("resting", duration = INFINITE_STATUS)
 								src.force_laydown_standup()
 								src.emote("wheeze")
-								boutput(src, "<span class='alert'>You flop over, too winded to continue running!</span>")
+								boutput(src, SPAN_ALERT("You flop over, too winded to continue running!"))
 
 						var/list/pulling = list()
 						if (src.pulling)
@@ -290,6 +297,8 @@
 							A.glide_size = glide
 							A.OnMove(src)
 			else
+				if(!src.dir_locked) //in order to not turn around and good fuckin ruin the emote animation
+					src.set_dir(move_dir)
 				if (src.loc) //ZeWaka: Fix for null.relaymove
 					delay = src.loc.relaymove(src, move_dir, delay, running) //relaymove returns 1 if we dont want to override delay
 					if (!delay)

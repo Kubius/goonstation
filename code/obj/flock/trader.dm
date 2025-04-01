@@ -62,7 +62,7 @@ TYPEINFO(/turf/simulated/floor/shuttlebay/flock)
 // FLOCK FAKEOBJECT PARENT
 ///////////////////////////
 
-/obj/decal/fakeobjects/flock
+/obj/fakeobject/flock
 	icon = 'icons/misc/featherzone.dmi'
 	anchored = ANCHORED
 	density = 1
@@ -70,18 +70,18 @@ TYPEINFO(/turf/simulated/floor/shuttlebay/flock)
 /////////
 // WING
 /////////
-/obj/decal/fakeobjects/flock/wing
+/obj/fakeobject/flock/wing
 	icon = 'icons/misc/featherzone-96x96.dmi'
 	icon_state = "wing"
 	name = "sparking blade"
 	desc = "It looks very fragile from here. And dangerously live. Best not get too close."
 
-/obj/decal/fakeobjects/flock/wing/broken
+/obj/fakeobject/flock/wing/broken
 	icon_state = "wing-broken"
 	name = "jagged blade"
 	desc = "Looks incredibly sharp. It'll probably tear your hand to shreds if you try touching it."
 
-/obj/decal/fakeobjects/flock/wing/destroyed
+/obj/fakeobject/flock/wing/destroyed
 	icon_state = "wing-destroyed"
 	name = "razor-sharp shrapnel"
 	desc = "Looks incredibly sharp. It'll probably tear your hand to shreds if you try touching it."
@@ -89,18 +89,18 @@ TYPEINFO(/turf/simulated/floor/shuttlebay/flock)
 ///////////
 // ANTENNA
 ///////////
-/obj/decal/fakeobjects/flock/antenna
+/obj/fakeobject/flock/antenna
 	icon_state = "antenna"
 	name = "fibrous pole"
 	desc = "Huh. Weird."
 
-/obj/decal/fakeobjects/flock/antenna/not_dense
+/obj/fakeobject/flock/antenna/not_dense
 	density = FALSE
 
-/obj/decal/fakeobjects/flock/antenna/end
+/obj/fakeobject/flock/antenna/end
 	icon_state = "antenna-end"
 
-/obj/decal/fakeobjects/flock/antenna/broken
+/obj/fakeobject/flock/antenna/broken
 	icon_state = "antenna-broken-1"
 	desc = "Huh. Looks busted."
 	random_icon_states = list("antenna-broken-1", "antenna-broken-2")
@@ -108,7 +108,7 @@ TYPEINFO(/turf/simulated/floor/shuttlebay/flock)
 ///////////////////
 // TELEPORT MARKER
 ///////////////////
-/obj/decal/fakeobjects/flock/telepad
+/obj/fakeobject/flock/telepad
 	icon_state = "telemarker"
 	name = "glowing marker"
 	desc = "I got nothin'."
@@ -141,7 +141,7 @@ TYPEINFO(/turf/simulated/floor/shuttlebay/flock)
 	else
 		APPLY_ATOM_PROPERTY(src, PROP_ATOM_TELEPORT_JAMMER, src, src.range)
 	icon_state = "[base_state]-[active ? "on" : "off"]"
-	boutput(user, "<span class='notice'>You fumble with [src] until you [active ? "turn it on. Space suddenly feels more thick." : "turn it off. You feel strangely exposed."]</span>")
+	boutput(user, SPAN_NOTICE("You fumble with [src] until you [active ? "turn it on. Space suddenly feels more thick." : "turn it off. You feel strangely exposed."]"))
 
 
 ////////////////
@@ -263,7 +263,7 @@ TYPEINFO(/turf/simulated/floor/shuttlebay/flock)
 
 /obj/npc/trader/flock/anger()
 	for(var/mob/M in AIviewers(src))
-		boutput(M, "<span class='alert'><B>[src.name]</B> becomes angry!</span>")
+		boutput(M, SPAN_ALERT("<B>[src.name]</B> becomes angry!"))
 	src.desc = "Looks absolutely furious, as far as you can read the expressions of holographic alien heads."
 	src.icon_state = "totem-angry"
 	SPAWN(rand(1000,3000))
@@ -354,7 +354,7 @@ TYPEINFO(/turf/simulated/floor/shuttlebay/flock)
 /obj/flock_screen/proc/say(var/message)
 	if(!message)
 		return
-	src.audible_message("<span class='game say'><span class='name'>[src]</span> beeps, \"[gradientText("#3cb5a3", "#124e43", message)]\"")
+	src.audible_message(SPAN_SAY("[SPAN_NAME("[src]")] beeps, \"[gradientText("#3cb5a3", "#124e43", message)]\""))
 
 ////////////////////////////////
 // FLOCKTRADER DONATE RECLAIMER
@@ -372,9 +372,9 @@ TYPEINFO(/turf/simulated/floor/shuttlebay/flock)
 	if(!user)
 		return
 	if(!trader)
-		boutput(user, "<span class='alert'>Nothing happens.</span>")
+		boutput(user, SPAN_ALERT("Nothing happens."))
 		return
-	src.visible_message("<span class='notice'>[user.name] waves their hand over [src.name].</span>")
+	src.visible_message(SPAN_NOTICE("[user.name] waves their hand over [src.name]."))
 	trader.greet(user)
 
 /obj/flock_reclaimer/attackby(obj/item/W, mob/user)
@@ -382,9 +382,9 @@ TYPEINFO(/turf/simulated/floor/shuttlebay/flock)
 		return
 	if(istype(W, /obj/item/grab))
 		var/obj/item/grab/G = W
-		boutput(user, "<span class='alert'>You can't fit [him_or_her(G.affecting)] into this, sadly.</span>")
+		boutput(user, SPAN_ALERT("You can't fit [him_or_her(G.affecting)] into this, sadly."))
 		return
-	src.visible_message("<span class='alert'>[user.name] puts [W] in [src].</span>")
+	src.visible_message(SPAN_ALERT("[user.name] puts [W] in [src]."))
 	var/gained_resources = (W.health * 2) + 5
 	user.remove_item(W)
 	qdel(W)

@@ -99,14 +99,6 @@
 			terminals.len = 0
 			terminals = null
 
-		if (processing)
-			processing.len = 0
-			processing = null
-
-		if (timeout_list)
-			timeout_list.len = 0
-			timeout_list = null
-
 		if (os)
 			os.dispose()
 			os = null
@@ -122,6 +114,14 @@
 			hd.dispose()
 			hd = null
 
+		if (processing)
+			processing.len = 0
+			processing = null
+
+		if (timeout_list)
+			timeout_list.len = 0
+			timeout_list = null
+
 		..()
 
 	attack_ai(mob/user as mob)
@@ -135,7 +135,7 @@
 			if(!src.hd)
 				return
 
-			boutput(user, "<span class='alert'>The mainframe is trashed, but the memory core could probably salvaged.</span>")
+			boutput(user, SPAN_ALERT("The mainframe is trashed, but the memory core could probably salvaged."))
 			return
 
 		var/dat = "<html><head><title>Mainframe Access Panel</title></head><body><hr>"
@@ -170,12 +170,12 @@
 			if(href_list["core"])
 
 				if(!(status & NOPOWER))
-					boutput(usr, "<span class='alert'>The electromagnetic lock is still on!</span>")
+					boutput(usr, SPAN_ALERT("The electromagnetic lock is still on!"))
 					return
 
 				//Ai/cyborgs cannot physically remove a memory board from a room away.
 				if(issilicon(usr) && BOUNDS_DIST(src, usr) > 0)
-					boutput(usr, "<span class='alert'>You cannot physically touch the board.</span>")
+					boutput(usr, SPAN_ALERT("You cannot physically touch the board."))
 					return
 
 				if(src.hd)
@@ -227,7 +227,7 @@
 				return
 
 			if (!src.hd)
-				boutput(user, "<span class='alert'>The memory core has already been removed.</span>")
+				boutput(user, SPAN_ALERT("The memory core has already been removed."))
 				return
 
 			status |= MAINT
@@ -454,8 +454,6 @@
 			if(3)
 				if (prob(25))
 					set_broken()
-			else
-		return
 
 	blob_act(var/power)
 		if (prob(power * 2.5))
@@ -463,7 +461,7 @@
 			src.set_density(0)
 
 	proc
-		run_program(datum/computer/file/mainframe_program/program, var/datum/mainframe2_user_data/user, var/datum/computer/file/mainframe_program/caller, var/runparams, var/allow_fork=0)
+		run_program(datum/computer/file/mainframe_program/program, var/datum/mainframe2_user_data/user, var/datum/computer/file/mainframe_program/caller_prog, var/runparams, var/allow_fork=0)
 			if(!hd || !program || (!program.holder && program.needs_holder))
 				return 0
 
@@ -533,11 +531,11 @@
 				program.useracc = user
 				user.current_prog = program
 
-			if (caller)
+			if (caller_prog)
 				if (!program.useracc)
-					program.useracc = caller.useracc
-				program.parent_task = caller
-				program.parent_id = caller.progid
+					program.useracc = caller_prog.useracc
+				program.parent_task = caller_prog
+				program.parent_id = caller_prog.progid
 
 			program.initialize(runparams)
 			//program.initialized = 1
@@ -582,21 +580,16 @@
 			theFile.dispose()
 			return 1
 
-		relay_progsignal(var/datum/computer/file/mainframe_program/caller, var/progid, var/list/data = null, var/datum/computer/file/file)
-			if (progid < 1 || progid > src.processing.len || !caller)
+		relay_progsignal(var/datum/computer/file/mainframe_program/caller_prog, var/progid, var/list/data = null, var/datum/computer/file/file)
+			if (progid < 1 || progid > src.processing.len || !caller_prog)
 				return ESIG_GENERIC
 
 			var/datum/computer/file/mainframe_program/P = src.processing[progid]
 			if(!istype(P))
 				return ESIG_GENERIC
 
-			var/callID = src.processing.Find(caller)
+			var/callID = src.processing.Find(caller_prog)
 			return P.receive_progsignal(callID, data, file)
-
-		set_broken()
-			icon_state = initial(src.icon_state)
-			icon_state += "b"
-			status |= BROKEN
 
 		reconnect_all_devices()
 			for (var/device_id in src.terminals)

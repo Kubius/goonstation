@@ -8,7 +8,7 @@
 	door_type = input("Door type", "Door type", "normal") in list("normal", "glass", "ancient", "shuttle", "wall", "runes")
 	color_rgb = input("Color", "Color", "#ffffff") as color
 	door_name = input("Door name", "Door name", "[door_type] door") as text
-	boutput(usr, "<span class='notice'>Left click to place doors, right click doors to toggle state. Ctrl+click anywhere to finish.</span>")
+	boutput(usr, SPAN_NOTICE("Left click to place doors, right click doors to toggle state. Ctrl+click anywhere to finish."))
 
 /datum/puzzlewizard/door/build_click(var/mob/user, var/datum/buildmode_holder/holder, var/list/pa, var/atom/object)
 	if ("left" in pa)
@@ -70,7 +70,7 @@
 
 /obj/adventurepuzzle/triggerable/door/bump(var/atom/A)
 	if (ismob(A))
-		flick("door_[door_type]_deny", src)
+		FLICK("door_[door_type]_deny", src)
 
 /obj/adventurepuzzle/triggerable/door/proc/toggle()
 	if (src.opening)
@@ -91,7 +91,7 @@
 	if (src.opacity != orig_opacity)
 		src.set_opacity(orig_opacity)
 	src.set_density(1)
-	flick("door_[door_type]_closing", src)
+	FLICK("door_[door_type]_closing", src)
 	src.icon_state = "door_[door_type]_closed"
 	SPAWN(1 SECOND)
 		src.opening = 0
@@ -104,7 +104,7 @@
 	if (src.opening == 1)
 		return
 	src.opening = 1
-	flick("door_[door_type]_opening", src)
+	FLICK("door_[door_type]_opening", src)
 	SPAWN(1 SECOND)
 		src.set_density(0)
 		if (src.opacity != 0)
@@ -115,8 +115,8 @@
 
 /obj/adventurepuzzle/triggerable/door/attack_hand(mob/user)
 	if (src.density)
-		user.show_message("<span class='alert'>[src] won't open. Perhaps you need a key?</span>")
-	flick("door_[door_type]_deny", src)
+		user.show_message(SPAN_ALERT("[src] won't open. Perhaps you need a key?"))
+	FLICK("door_[door_type]_deny", src)
 
 /obj/adventurepuzzle/triggerable/door/serialize(var/savefile/F, var/path, var/datum/sandbox/sandbox)
 	..()

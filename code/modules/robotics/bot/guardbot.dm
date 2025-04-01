@@ -19,6 +19,7 @@
 	var/obj/machinery/bot/guardbot/master = null
 	var/delay = 3
 	var/max_dist = 100
+	var/max_seen = 1000
 
 	New(var/newmaster, max_dist=100)
 		..()
@@ -48,6 +49,11 @@
 		if(!target_turf) //target got deleted?
 			return
 
+		if(get_turf(master) == target_turf)
+			master.moving = 0
+			qdel(src)
+			return //already there, we're done
+
 		//var/compare_movepath = current_movepath
 		SPAWN(0)
 			if (!master)
@@ -55,7 +61,8 @@
 
 			// Same distance cap as the MULE because I'm really tired of various pathfinding issues. Buddy time and docking stations are often way more than 150 steps away.
 			// It's 200 something steps alone to get from research to the bar on COG2 for instance, and that's pretty much in a straight line.
-			var/list/thePath = get_path_to(src.master, target_turf, max_distance=src.max_dist, simulated_only=istype(master.loc, /turf/simulated), \
+			var/list/thePath = get_path_to(src.master, target_turf, max_distance=src.max_dist, max_seen=src.max_seen, \
+				simulated_only=issimulatedturf(master.loc) && issimulatedturf(target_turf), \
 				id=src.master.botcard, skip_first=FALSE, cardinal_only=TRUE, do_doorcheck=TRUE)
 			if (!master)
 				return
@@ -372,9 +379,9 @@
 
 			src.net_id = generate_net_id(src)
 
-			MAKE_DEFAULT_RADIO_PACKET_COMPONENT("control", control_freq)
-			MAKE_DEFAULT_RADIO_PACKET_COMPONENT("beacon", beacon_freq)
-			MAKE_SENDER_RADIO_PACKET_COMPONENT("pda", FREQ_PDA)
+			MAKE_DEFAULT_RADIO_PACKET_COMPONENT(src.net_id, "control", control_freq)
+			MAKE_DEFAULT_RADIO_PACKET_COMPONENT(src.net_id, "beacon", beacon_freq)
+			MAKE_SENDER_RADIO_PACKET_COMPONENT(src.net_id, "pda", FREQ_PDA)
 
 			var/obj/machinery/guardbot_dock/dock = null
 			if(setup_spawn_dock)
@@ -451,17 +458,17 @@
 		else if (isscrewingtool(W))
 			if (src.health < initial(health))
 				src.health = initial(health)
-				src.visible_message("<span class='notice'>[user] repairs [src]!</span>", "<span class='notice'>You repair [src].</span>")
+				src.visible_message(SPAN_NOTICE("[user] repairs [src]!"), SPAN_NOTICE("You repair [src]."))
 
 		else if (istype(W, /obj/item/clothing/head))
 			if(src.hat)
-				boutput(user, "<span class='alert'>[src] is already wearing a hat!</span>")
+				boutput(user, SPAN_ALERT("[src] is already wearing a hat!"))
 				return
 			if(W.icon_state == "fdora")
 				boutput(user, "[src] looks [pick("kind of offended","kind of weirded-out","a bit disgusted","mildly bemused")] at your offer and turns it down.")
 				return
 			if(!(W.icon_state in BUDDY_HATS))
-				boutput(user, "<span class='alert'>It doesn't fit!</span>")
+				boutput(user, SPAN_ALERT("It doesn't fit!"))
 				return
 
 			src.hat = W
@@ -474,7 +481,7 @@
 
 		else if (istype(W, /obj/item/clothing/suit/bedsheet))
 			if (src.bedsheet != 0)
-				boutput(user, "<span class='alert'>There is already a sheet draped over [src]! Two sheets would be ridiculous!</span>")
+				boutput(user, SPAN_ALERT("There is already a sheet draped over [src]! Two sheets would be ridiculous!"))
 				return
 
 			src.bedsheet = 1
@@ -736,7 +743,7 @@
 		if (module == "ammofab") // Try to attach the thing
 			if (src.ammofab)
 				if (user)
-					boutput(user, "<span class='alert'>[src] already has one of those! A second one wouldn't do anything even if there was a spot for it!</span>")
+					boutput(user, SPAN_ALERT("[src] already has one of those! A second one wouldn't do anything even if there was a spot for it!"))
 				return
 			else if (!src.ammofab)
 				if (W && user)
@@ -753,8 +760,8 @@
 		if (src.budgun && src.ammofab && istype(src.budgun, /obj/item/gun/kinetic)) // Should also be called whenever they are given a gun
 			src.locked = 1
 			if (user)
-				boutput(user, "<span class='alert'>The BulletBuddy snakes a metallic tendril up [src]'s arm, tightening itself around their hand!</span>")
-				boutput(user, "<span class='alert'>The tendril extends into the magazine port of [src]'s gun, welding itself in place!</span>")
+				boutput(user, SPAN_ALERT("The BulletBuddy snakes a metallic tendril up [src]'s arm, tightening itself around their hand!"))
+				boutput(user, SPAN_ALERT("The tendril extends into the magazine port of [src]'s gun, welding itself in place!"))
 			else
 				if(src.on)
 					speak("Hah, that tickles. Probably.")
@@ -858,10 +865,10 @@
 		switch(thing)
 			if ("gun")
 				if (src.gunlocklock && !ignoregunlocklock)
-					src.visible_message("<span class='alert'>[user] tries to pry the [src.budgun] from [src]'s cold, metal hand, but it seems welded in place!</span>", "<span class='alert'>You try to pry the [src.budgun] from [src]'s cold, metal hand, but it seems welded in place!</span>")
+					src.visible_message(SPAN_ALERT("[user] tries to pry the [src.budgun] from [src]'s cold, metal hand, but it seems welded in place!"), SPAN_ALERT("You try to pry the [src.budgun] from [src]'s cold, metal hand, but it seems welded in place!"))
 					return 1
 				if (by_force && user)
-					src.visible_message("<span class='alert'>[user] pries the [src.budgun] from [src]'s cold, metal hand!</span>", "<span class='alert'>You pry the [src.budgun] from [src]'s cold, metal hand.</span>")
+					src.visible_message(SPAN_ALERT("[user] pries the [src.budgun] from [src]'s cold, metal hand!"), SPAN_ALERT("You pry the [src.budgun] from [src]'s cold, metal hand."))
 					set_emotion("sad")
 				else if (announce_it)
 					src.visible_message("[src] drops the [src.budgun].")
@@ -878,7 +885,7 @@
 							speak("It looks like you're trying to remove my tool module! Well... someone beat you to it.")
 					return
 				else if (by_force && user)
-					src.visible_message("<span class='alert'>[user] pries the [src.tool] out of [src]'s tool port!</span>", "<span class='alert'>You pry the [src.tool] out of [src]'s tool port!</span>")
+					src.visible_message(SPAN_ALERT("[user] pries the [src.tool] out of [src]'s tool port!"), SPAN_ALERT("You pry the [src.tool] out of [src]'s tool port!"))
 					set_emotion("sad")
 				else if (announce_it)
 					src.visible_message("[src] drops the [src.tool].")
@@ -950,8 +957,8 @@
 						break
 				if (obeygunlaw && !legalweapon)
 					if(src.on && !src.idle)
-						src.visible_message("<span class='alert'>[src] refuses to wield an unauthorized weapon!</span>",\
-																"<span class='alert'>[src] graciously refuses your [Q].</span>")
+						src.visible_message(SPAN_ALERT("[src] refuses to wield an unauthorized weapon!"),\
+																SPAN_ALERT("[src] graciously refuses your [Q]."))
 						speak("Sorry, but article-[(rand(1,6))] subsection-[rand(1,32764)] of Spacelaw prohibits any [fluffbud] [budfluff] from wielding a Class-[pick("A", "B","C", "D")] weapon.")
 						SPAWN(2 SECOND)
 							speak("...basically meaning I can only hold a weapon that can't explicitly hurt anyone. Rules are rules!")
@@ -962,10 +969,10 @@
 				else if (obeygunlaw && legalweapon)
 					if(src.on && !src.idle)
 						if (user)
-							src.visible_message("<span class='alert'>[user] gives [src] [his_or_her(user)] [Q]!</span>", \
-																	"<span class='alert'>You give your [Q] to [src]!</span>")
+							src.visible_message(SPAN_ALERT("[user] gives [src] [his_or_her(user)] [Q]!"), \
+																	SPAN_ALERT("You give your [Q] to [src]!"))
 						else
-							src.visible_message("<span class='alert'>[src] picks up [Q]!</span>")
+							src.visible_message(SPAN_ALERT("[src] picks up [Q]!"))
 						if (!weirdgimmickgun)
 							speak("[user ? "Thank you, [user]! " : ""]I'll put this [Q] to good use.")
 						else
@@ -977,10 +984,10 @@
 				else // bot's emagged or ammofabbed. Or both.
 					if(src.on && !src.idle)
 						if (user)
-							src.visible_message("<span class='alert'>[src] snatches the [Q] from [user], wielding it in its cold, dead weapon mount!</span>",\
-																	"<span class='alert'>[src] snatches the [Q] from your grip and plugs it into its weapon mount!</span>")
+							src.visible_message(SPAN_ALERT("[src] snatches the [Q] from [user], wielding it in its cold, dead weapon mount!"),\
+																	SPAN_ALERT("[src] snatches the [Q] from your grip and plugs it into its weapon mount!"))
 						else
-							src.visible_message("<span class='alert'>[src] snatches the [Q], wielding it in its cold, dead weapon mount!</span>")
+							src.visible_message(SPAN_ALERT("[src] snatches the [Q], wielding it in its cold, dead weapon mount!"))
 					else
 						boutput(user, "You slip your [Q] into [src]'s hand, and it snaps shut around the grip.")
 				// Enough fluffing around, fork over the gun
@@ -1014,6 +1021,7 @@
 					return // just in case
 				if (src.budgun)	// oh no, we have a gun! And no tool!
 					if(!DropTheThing("gun", null, 0, 1, Tdurg)) //lets see if we can drop it
+						;
 					else //guess not
 						return // message is handled in the DropTheThing proc :)
 				else // oh no we have a tool!
@@ -1044,28 +1052,28 @@
 			bar_gun.shotsLeft = 0
 			if(src.hat)
 				playsound(src, 'sound/weapons/Gunshot.ogg', 100, TRUE)
-				src.visible_message("<span class='alert'><B>BOOM!</B> [src] misses its head... screen... thing, and shoots its hat off!</span>")
+				src.visible_message(SPAN_ALERT("<B>BOOM!</B> [src] misses its head... screen... thing, and shoots its hat off!"))
 				src.hat.set_loc(get_turf(src))
 				src.hat = null
 				set_emotion("sad")
 			else if (prob(50))
 				playsound(src, 'sound/weapons/Gunshot.ogg', 100, TRUE)
-				src.visible_message("<span class='alert'><B>BOOM!</B> [src] shoots itself right in its dumb face and explodes!</span>")
+				src.visible_message(SPAN_ALERT("<B>BOOM!</B> [src] shoots itself right in its dumb face and explodes!"))
 				src.explode()
 			else
 				var/griffed = ShootTheGun()
-				src.visible_message("<span class='alert'><B>BOOM!</B> [src] misses its head... screen... thing, sending the bullet flying at [griffed]!</span>")
+				src.visible_message(SPAN_ALERT("<B>BOOM!</B> [src] misses its head... screen... thing, sending the bullet flying at [griffed]!"))
 				if (ishuman(griffed))
 					SPAWN(1 SECONDS)
 						src.visible_message("[src] gasps!")
 						speak(pick("Sorry!", "Are you okay?", "Whoops!", "Heads up!", "Oh no!"))
 				else
 					ShootTheGun()
-					src.visible_message("<span class='alert'><B>BOOM!</B> [src] misses its head... screen... thing, sending the bullet flying!</span>")
+					src.visible_message(SPAN_ALERT("<B>BOOM!</B> [src] misses its head... screen... thing, sending the bullet flying!"))
 		if(bar_gun.shotsLeft > 1)
 			bar_gun.shotsLeft--
 			playsound(src, 'sound/weapons/Gunclick.ogg', 80, TRUE)
-			src.visible_message("<span class='alert'>[src] points the gun at itself. Click!</span>")
+			src.visible_message(SPAN_ALERT("[src] points the gun at itself. Click!"))
 
 		if (bar_gun.shotsLeft == 0)
 			DropTheThing("gun", null, 0, 1, TdurgBar, 1)
@@ -1191,32 +1199,30 @@
 				var/random_direction = get_offset_target_turf(src, rand(5)-rand(5), rand(5)-rand(5))
 				shoot_projectile_ST_pixel_spread(src, thing2shoot, random_direction)
 
-		var/target_turf = get_turf(target)
-		var/my_turf = get_turf(src)
 		var/burst = shotcount	// TODO: Make rapidfire exist, then work.
 		while(burst > 0 && target)
-			if((BOUNDS_DIST(target_turf, my_turf) == 0))
-				budgun.shoot_point_blank(target, src)
+			if(istype(budgun, /obj/item/gun/kinetic/pumpweapon))
+				var/obj/item/gun/kinetic/pumpweapon/pumpy = budgun
+				pumpy.rack(src)
+			if((BOUNDS_DIST(target, src) == 0))
+				budgun.ShootPointBlank(target, src)
 			else
-				budgun.shoot(target_turf, my_turf, src, called_target = target)
+				budgun.Shoot(target, get_turf(src), src, called_target = target)
 			burst--
 			if (burst)
 				sleep(5)	// please dont fuck anything up
-			if(istype(budgun, /obj/item/gun/kinetic/riotgun))
-				var/obj/item/gun/kinetic/riotgun/RG = budgun
-				RG.rack(src)
 		ON_COOLDOWN(src, "buddy_refire_delay", src.gunfire_cooldown)
 		return 1
 
 	get_desc(dist)
 		..()
 		if (src.on && src.idle)
-			. = "<br><span class='notice'>[src] appears to be sleeping.</span>"
+			. = "<br>[SPAN_NOTICE("[src] appears to be sleeping.")]"
 		if (src.health < initial(health))
 			if (src.health > 10)
-				. += "<br><span class='alert'>[src]'s parts look loose.</span>"
+				. += "<br>[SPAN_ALERT("[src]'s parts look loose.")]"
 			else
-				. += "<br><span class='alert'><B>[src]'s parts look very loose!</B></span>"
+				. += "<br>[SPAN_ALERT("<B>[src]'s parts look very loose!</B>")]"
 
 
 	attack_ai(mob/user as mob)
@@ -1227,8 +1233,11 @@
 			return
 		if(user.a_intent == "help" && !user.using_dialog_of(src) && (BOUNDS_DIST(user, src) == 0))
 			var/affection = pick("hug","cuddle","snuggle")
-			user.visible_message("<span class='notice'>[user] [affection]s [src]!</span>","<span class='notice'>You [affection] [src]!</span>", group="buddyhug")
-			src.task?.task_input("hugged")
+			user.visible_message(SPAN_NOTICE("[user] [affection]s [src]!"),SPAN_NOTICE("You [affection] [src]!"), group="buddyhug")
+			if(user.traitHolder?.hasTrait("wasitsomethingisaid"))
+				src.task?.task_input("hugged_annoying")
+			else
+				src.task?.task_input("hugged")
 			return
 
 		if(BOUNDS_DIST(user, src) > 0)
@@ -1299,7 +1308,7 @@
 		if(P.proj_data.damage_type == D_KINETIC || P.proj_data.damage_type == D_PIERCING || (P.proj_data.damage_type == D_ENERGY && damage))
 			src.health -= damage
 			if (src.hat && prob(10))
-				src.visible_message("<span class='alert'>[src]'s hat is knocked clean off!</span>")
+				src.visible_message(SPAN_ALERT("[src]'s hat is knocked clean off!"))
 				src.hat.set_loc(get_turf(src))
 				src.hat = null
 				set_emotion("sad")
@@ -1333,7 +1342,7 @@
 				if (src.health <= 0)
 					src.explode(0)
 				else if (src.hat && prob(10))
-					src.visible_message("<span class='alert'>[src]'s hat is knocked clean off!</span>")
+					src.visible_message(SPAN_ALERT("[src]'s hat is knocked clean off!"))
 					src.hat.set_loc(get_turf(src))
 					src.hat = null
 					set_emotion("sad")
@@ -1354,7 +1363,7 @@
 			return
 
 		src.emagged = 1
-		src.visible_message("<span class='alert'><b>[src.name]</b> buzzes oddly!</span>")
+		src.visible_message(SPAN_ALERT("<b>[src.name]</b> buzzes oddly!"))
 		qdel(src.model_task)
 		src.model_task = new /datum/computer/file/guardbot_task/security/crazy
 		src.model_task.master = src
@@ -1380,7 +1389,7 @@
 		src.exploding = 1
 		var/death_message = pick("I regret nothing, but I am sorry I am about to leave my friends.","I had a good run.","Es lebe die Freiheit!","It is now safe to shut off your buddy.","System error.","Now I know why you cry.","Stay gold...","Malfunction!","Rosebud...","No regrets!", "Time to die...")
 		speak(death_message)
-		src.visible_message("<span class='alert'><b>[src] blows apart!</b></span>")
+		src.visible_message(SPAN_ALERT("<b>[src] blows apart!</b>"))
 		playsound(src.loc, 'sound/impact_sounds/Machinery_Break_1.ogg', 40, 1)
 		var/turf/T = get_turf(src)
 		if(src.mover)
@@ -1568,7 +1577,7 @@
 						return
 					if (DoAmmofab() || CheckMagCellWhatever())
 						ShootTheGun(target)
-						src.visible_message("<span class='alert'><B>[src] fires [src.budgun] at [target]!</B></span>")
+						src.visible_message(SPAN_ALERT("<B>[src] fires [src.budgun] at [target]!</B>"))
 					else
 						playsound(src, 'sound/weapons/Gunclick.ogg', 60, TRUE)
 					if (ChargeUrLaser())
@@ -1602,7 +1611,7 @@
 					SPAWN(3 SECONDS)
 						src.set_emotion("sad")		// Still kinda sad that someone would bully a defenseless little rectangle.
 			else if(src.tool && (src.tool.tool_id != "GUN"))
-				var/is_ranged = BOUNDS_DIST(src, target) > 0
+				var/is_ranged = BOUNDS_DIST(src, target)
 				src.tool.bot_attack(target, src, is_ranged, lethal)
 			return
 
@@ -1732,7 +1741,7 @@
 
 				dat += "Status: <a href='?src=\ref[src];power=1'>[src.on ? "On" : "Off"]</a><br>"
 
-			dat += "<br>Network ID: <b>\[[uppertext(src.net_id)]]</b><br>"
+			dat += "<br>Network ID: <b>\[[uppertext(src.net_id)]\]</b><br>"
 
 			user.Browse("<head><title>Guardbuddy v1.4 controls</title></head>[dat]", "window=guardbot")
 			onclose(user, "guardbot")
@@ -1788,7 +1797,7 @@
 			gun_overlay = image(src.budgun.icon, "[src.budgun.icon_state]", layer = 10, pixel_x = src.gun_x_offset, pixel_y = src.gun_y_offset)
 
 			if (istype(src.budgun, /obj/item/gun/energy/lawbringer))
-				var/image/lawbringer_lights = image('icons/obj/items/gun.dmi', "lawbringer-d100", 11, pixel_x = src.gun_x_offset, pixel_y = src.gun_y_offset)
+				var/image/lawbringer_lights = image('icons/obj/items/guns/energy.dmi', "lawbringer-d100", 11, pixel_x = src.gun_x_offset, pixel_y = src.gun_y_offset)
 				switch(lawbringer_state)
 					if ("clown")
 						lawbringer_lights.color = "#FFC0CB"
@@ -1892,7 +1901,6 @@
 /datum/action/bar/icon/buddy_cuff
 	duration = 30 // zippy zipcuffs
 	interrupt_flags = INTERRUPT_MOVE
-	id = "buddy_cuff"
 	icon = 'icons/obj/items/items.dmi'
 	icon_state = "handcuff"
 	var/obj/machinery/bot/guardbot/master
@@ -1916,7 +1924,7 @@
 			return
 
 		playsound(master, 'sound/weapons/handcuffs.ogg', 30, TRUE, -2)
-		master.visible_message("<span class='alert'><B>[master] is trying to put handcuffs on [task.arrest_target]!</B></span>")
+		master.visible_message(SPAN_ALERT("<B>[master] is trying to put handcuffs on [task.arrest_target]!</B>"))
 
 	onInterrupt(flag)
 		. = ..(flag)
@@ -1940,7 +1948,7 @@
 		if (ishuman(task.arrest_target))
 			task.arrest_target.handcuffs = new /obj/item/handcuffs/guardbot(task.arrest_target)
 			task.arrest_target.setStatus("handcuffed", duration = INFINITE_STATUS)
-			boutput(task.arrest_target, "<span class='alert'>[master] gently handcuffs you!  It's like the cuffs are hugging your wrists.</span>")
+			boutput(task.arrest_target, SPAN_ALERT("[master] gently handcuffs you!  It's like the cuffs are hugging your wrists."))
 			logTheThing(LOG_COMBAT, master, "handcuffs [constructTarget(task.arrest_target,"combat")] at [log_loc(master)].")
 			task.arrest_target:set_clothing_icon_dirty()
 
@@ -2033,14 +2041,14 @@ TYPEINFO(/obj/item/device/guardbot_tool)
 					return
 
 
-				user.visible_message("<span class='alert'><b>[master] throws a pie at [target]!</b></span>")
+				user.visible_message(SPAN_ALERT("<b>[master] throws a pie at [target]!</b>"))
 
 			else
 				var/obj/projectile/P = initialize_projectile_pixel_spread(master, current_projectile, target)
 				if (!P)
 					return
 
-				user.visible_message("<span class='alert'><b>[master] slaps [target] in the face with a pie!</b></span>")
+				user.visible_message(SPAN_ALERT("<b>[master] slaps [target] in the face with a pie!</b>"))
 				P.was_pointblank = 1
 				hit_with_existing_projectile(P, target)
 
@@ -2080,7 +2088,7 @@ TYPEINFO(/obj/item/device/guardbot_tool)
 				else
 					P.reagents.add_reagent(stun_reagent, 15)
 
-				user.visible_message("<span class='alert'><b>[master] fires a syringe at [target]!</b></span>")
+				user.visible_message(SPAN_ALERT("<b>[master] fires a syringe at [target]!</b>"))
 
 			else
 				var/obj/projectile/P = initialize_projectile_pixel_spread(master, current_projectile, target)
@@ -2094,7 +2102,7 @@ TYPEINFO(/obj/item/device/guardbot_tool)
 				else
 					P.reagents.add_reagent(stun_reagent, 15)
 
-				user.visible_message("<span class='alert'><b>[master] shoots [target] point-blank with a syringe!</b></span>")
+				user.visible_message(SPAN_ALERT("<b>[master] shoots [target] point-blank with a syringe!</b>"))
 				P.was_pointblank = 1
 				hit_with_existing_projectile(P, target)
 
@@ -2118,7 +2126,7 @@ TYPEINFO(/obj/item/device/guardbot_tool)
 
 		// Fixed. Was completely non-functional (Convair880).
 		bot_attack(var/atom/target as mob|obj, obj/machinery/bot/guardbot/user, ranged=0, lethal=0)
-			if(..() || !reagents || ranged) return
+			if(..() || !reagents || ranged > 64) return
 
 			if(src.last_use && world.time < src.last_use + 120)
 				return
@@ -2129,8 +2137,8 @@ TYPEINFO(/obj/item/device/guardbot_tool)
 			else
 				src.reagents.add_reagent(stun_reagent, 15)
 
-			smoke_reaction(src.reagents, 3, get_turf(src))
-			user.visible_message("<span class='alert'><b>[master] releases a cloud of gas!</b></span>")
+			classic_smoke_reaction(src.reagents, 3, get_turf(src))
+			user.visible_message(SPAN_ALERT("<b>[master] releases a cloud of gas!</b>"))
 
 			src.last_use = world.time
 			return
@@ -2157,14 +2165,14 @@ TYPEINFO(/obj/item/device/guardbot_tool)
 				if (!P)
 					return
 
-				user.visible_message("<span class='alert'><b>[master] fires the taser at [target]!</b></span>")
+				user.visible_message(SPAN_ALERT("<b>[master] fires the taser at [target]!</b>"))
 
 			else
 				var/obj/projectile/P = initialize_projectile_pixel_spread(master, current_projectile, target)
 				if (!P)
 					return
 
-				user.visible_message("<span class='alert'><b>[master] shoots [target] point-blank with the taser!</b></span>")
+				user.visible_message(SPAN_ALERT("<b>[master] shoots [target] point-blank with the taser!</b>"))
 				P.was_pointblank = 1
 				hit_with_existing_projectile(P, target)
 
@@ -2234,7 +2242,7 @@ TYPEINFO(/obj/item/device/guardbot_tool)
 
 			for(var/count=0, count<4, count++)
 
-				var/list/affected = DrawLine(last, target_r, /obj/line_obj/elec ,'icons/obj/projectiles.dmi',"WholeLghtn",1,1,"HalfStartLghtn","HalfEndLghtn",OBJ_LAYER,1,PreloadedIcon='icons/effects/LghtLine.dmi')
+				var/list/affected = drawLineObj(last, target_r, /obj/line_obj/elec ,'icons/obj/projectiles.dmi',"WholeLghtn",1,1,"HalfStartLghtn","HalfEndLghtn",OBJ_LAYER,1,PreloadedIcon='icons/effects/LghtLine.dmi')
 
 				for(var/obj/O in affected)
 					SPAWN(0.6 SECONDS) qdel(O)
@@ -2244,13 +2252,13 @@ TYPEINFO(/obj/item/device/guardbot_tool)
 					if (lethal)
 						var/mob/living/carbon/human/H = target_r
 						random_burn_damage(target_r, rand(45,60))
-						H.do_disorient(stamina_damage = 45, weakened = 50, stunned = 40, disorient = 20, remove_stamina_below_zero = 0)
-					boutput(target_r, "<span class='alert'><B>You feel a powerful shock course through your body!</B></span>")
+						H.do_disorient(stamina_damage = 45, knockdown = 50, stunned = 40, disorient = 20, remove_stamina_below_zero = 0)
+					boutput(target_r, SPAN_ALERT("<B>You feel a powerful shock course through your body!</B>"))
 					target_r:unlock_medal("HIGH VOLTAGE", 1)
 					target_r:Virus_ShockCure(100)
 					target_r:shock_cyberheart(33)
 					if (ishuman(target_r))
-						target_r:changeStatus("weakened", lethal ? (3 SECONDS): (8 SECONDS))
+						target_r:changeStatus("knockdown", lethal ? (3 SECONDS): (8 SECONDS))
 					break
 
 				var/list/next = new/list()
@@ -2339,8 +2347,10 @@ TYPEINFO(/obj/item/device/guardbot_module)
 						master.set_emotion("love")
 					if("joy","love")
 						if (prob(25))
-							master.visible_message("<span class='notice'>[master.name] reciprocates the hug!</span>")
+							master.visible_message(SPAN_NOTICE("[master.name] reciprocates the hug!"))
 				return 1
+			if(input == "hugged_annoying")
+				master.set_emotion("ugh")
 
 			return 0
 
@@ -2754,6 +2764,12 @@ TYPEINFO(/obj/item/device/guardbot_module)
 							return
 
 						if(BOUNDS_DIST(master, hug_target) == 0)
+							if(hug_target.traitHolder?.hasTrait("wasitsomethingisaid"))
+								master.bot_attack(hug_target, TRUE) //betrayal!!
+								master.speak(pick("As if!", "You know what you did.", "Level [rand(32,80)] dork alert!"))
+								drop_hug_target()
+								master.moving = FALSE
+								return
 							master.visible_message("<b>[master]</b> hugs [hug_target]!")
 							if (hug_target.reagents)
 								hug_target.reagents.add_reagent("hugs", 10)
@@ -2799,7 +2815,7 @@ TYPEINFO(/obj/item/device/guardbot_module)
 				*/
 				if(1)
 					// First, check if we're already cuffing someone. Quit getting sidetracked, you scatterbrained rectangles
-					if(actions.hasAction(src.master, "buddy_cuff"))
+					if(actions.hasAction(src.master, /datum/action/bar/icon/buddy_cuff))
 						return
 
 					// Next check if they have someone to arrest, and that they're alive. And that they're living.
@@ -2841,14 +2857,14 @@ TYPEINFO(/obj/item/device/guardbot_module)
 						src.arrest_target = null
 						src.last_found = world.time
 					src.arrest_attempts = 0
-					actions.stopId("buddy_cuff", src.master)
+					actions.stopId(/datum/action/bar/icon/buddy_cuff, src.master)
 
 					return 1
 
 				if("path_error","path_blocked")
 					src.arrest_attempts++
 					if(src.arrest_attempts >= 2)
-						actions.stopId("buddy_cuff", src.master)
+						actions.stopId(/datum/action/bar/icon/buddy_cuff, src.master)
 						src.target = null
 						if(arrest_target)
 							src.arrest_target = null
@@ -3030,7 +3046,10 @@ TYPEINFO(/obj/item/device/guardbot_module)
 							last_cute_action = world.time
 							switch(rand(1,5))
 								if (1)
-									master.visible_message("<b>[master]</b> waves at [C.name].")
+									if(C.traitHolder?.hasTrait("wasitsomethingisaid"))
+										master.visible_message("<b>[master]</b> gestures rudely at [C.name].") //they can't really flip you off with two hooks so
+									else
+										master.visible_message("<b>[master]</b> waves at [C.name].")
 								if (2)
 									master.visible_message("<b>[master]</b> rotates slowly around in a circle.")
 								if (3,4)
@@ -3047,7 +3066,7 @@ TYPEINFO(/obj/item/device/guardbot_module)
 			drop_arrest_target()
 				src.arrest_target = null
 				src.last_found = world.time
-				actions.stopId("buddy_cuff", src.master)
+				actions.stopId(/datum/action/bar/icon/buddy_cuff, src.master)
 				src.master.frustration = 0
 				master.set_emotion()
 				return
@@ -3066,7 +3085,7 @@ TYPEINFO(/obj/item/device/guardbot_module)
 				if(next_destination)
 					set_destination(next_destination)
 					if(!master.moving && target && (target != master.loc))
-						master.navigate_to(target, max_dist=40)
+						master.navigate_to(target, max_dist=80)
 					return
 				else
 					find_nearest_beacon()
@@ -3102,67 +3121,21 @@ TYPEINFO(/obj/item/device/guardbot_module)
 				if(ckey(perp.name) in target_names)
 					return 7
 
+				if(perp.mutantrace.jerk)
+					return 5
+
 				var/obj/item/card/id/perp_id = perp.equipped()
 				if (!istype(perp_id))
 					perp_id = perp.get_id()
 
-				var/has_carry_permit = 0
-				var/has_contraband_permit = 0
-
-				if (!has_contraband_permit)
-					. += GET_ATOM_PROPERTY(perp, PROP_MOVABLE_CONTRABAND_OVERRIDE)
-
 				if(perp_id) //Checking for targets and permits
 					if(ckey(perp_id.registered) in target_names)
 						return 7
-					if(weapon_access in perp_id.access)
-						has_carry_permit = 1
-					if(contraband_access in perp_id.access)
-						has_contraband_permit = 1
 
-				if (istype(perp.l_hand))
-					if (istype(perp.l_hand, /obj/item/gun/)) // perp is carrying a gun
-						if(!has_carry_permit)
-							. += perp.l_hand.get_contraband()
-					else // not carrying a gun, but potential contraband?
-						if(!has_contraband_permit)
-							. += perp.l_hand.get_contraband()
-
-				if (istype(perp.r_hand))
-					if (istype(perp.r_hand, /obj/item/gun/)) // perp is carrying a gun
-						if(!has_carry_permit)
-							. += perp.r_hand.get_contraband()
-					else // not carrying a gun, but potential contraband?
-						if(!has_contraband_permit)
-							. += perp.r_hand.get_contraband()
-
-				if (istype(perp.belt))
-					if (istype(perp.belt, /obj/item/gun/))
-						if (!has_carry_permit)
-							. += perp.belt.get_contraband() * 0.5
-					else
-						if (!has_contraband_permit)
-							. += perp.belt.get_contraband() * 0.5
-
-				if (istype(perp.wear_suit))
-					if (!has_contraband_permit)
-						. += perp.wear_suit.get_contraband()
-
-				if (istype(perp.back))
-					if (istype(perp.back, /obj/item/gun/)) // some weapons can be put on backs
-						if (!has_carry_permit)
-							. += perp.back.get_contraband() * 0.5
-					else // at moment of doing this we don't have other contraband back items, but maybe that'll change
-						if (!has_contraband_permit)
-							. += perp.back.get_contraband() * 0.5
-
-				if(perp.mutantrace.jerk)
-//					if(istype(perp.mutantrace, /datum/mutantrace/zombie))
-//						return 5 //Zombies are bad news!
-
-//					threatcount += 2
-
-					return 5
+				if(!perp_id || !(contraband_access in perp_id.access))
+					. += GET_ATOM_PROPERTY(perp, PROP_MOVABLE_VISIBLE_CONTRABAND)
+				if(!perp_id || !(weapon_access in perp_id.access))
+					. += GET_ATOM_PROPERTY(perp, PROP_MOVABLE_VISIBLE_GUNS)
 
 
 		halloween //Go trick or treating!
@@ -3338,7 +3311,7 @@ TYPEINFO(/obj/item/device/guardbot_module)
 					master.frustration++
 					if (master.mover)
 						qdel(master.mover)
-					master.navigate_to(protected,3,1,1, max_dist=15)
+					master.navigate_to(protected,2,1,1, max_dist=15)
 					return
 				else
 
@@ -3354,7 +3327,7 @@ TYPEINFO(/obj/item/device/guardbot_module)
 						master.moving = 0
 						if (master.mover)
 							qdel(master.mover)
-						master.navigate_to(protected,3,1,1, max_dist=15)
+						master.navigate_to(protected,2,1,1, max_dist=15)
 
 			return
 
@@ -3367,7 +3340,7 @@ TYPEINFO(/obj/item/device/guardbot_module)
 					src.protected = null
 					src.arrest_attempts = 0
 					src.follow_attempts = 0
-					actions.stopId("buddy_cuff", src.master)
+					actions.stopId(/datum/action/bar/icon/buddy_cuff, src.master)
 				if("path_error","path_blocked")
 					if (src.protected)
 						if(!(src.protected in view(7,master)))
@@ -3429,7 +3402,7 @@ TYPEINFO(/obj/item/device/guardbot_module)
 
 			drop_arrest_target()
 				src.arrest_target = null
-				actions.stopId("buddy_cuff", src.master)
+				actions.stopId(/datum/action/bar/icon/buddy_cuff, src.master)
 				return
 
 			check_buddy()
@@ -3437,12 +3410,12 @@ TYPEINFO(/obj/item/device/guardbot_module)
 				if(!(protected in view(7,master)))
 					return 0
 				//Has our buddy been attacked??
-				if(protected.lastattacker && (protected.lastattackertime + 40) >= world.time)
-					if(protected.lastattacker != protected)
+				if(protected.lastattacker?.deref() && (protected.lastattackertime + 40) >= world.time)
+					if(protected.lastattacker.deref() != protected)
 						master.moving = 0
 						if (master.mover)
 							qdel(master.mover)
-						src.arrest_target = protected.lastattacker
+						src.arrest_target = protected.lastattacker.deref()
 						src.follow_attempts = 0
 						src.arrest_attempts = 0
 						return 1
@@ -3462,7 +3435,6 @@ TYPEINFO(/obj/item/device/guardbot_module)
 	bodyguard/heckle
 		name = "heckle"
 		task_id = "HECKLE"
-		var/global/list/buddy_heckle_phrases = list("I wish we could become better strangers.","You're impossible to underestimate.","You sound like a pizza cutter — all edge and no point.","I think you should carry a potted plant to replace the oxygen you waste.","You're not the dumbest person in this station, but you'd better hope they don't die!","You’re so dense, light bends around you. Fortunately, that keeps us from having to look at you!","I was today years old when I realized I didn’t like you.","Keep rolling your eyes, you might eventually find a brain.","You are more disappointing than an unsalted pretzel.","Hold still. I’m trying to imagine you with personality.","You are like a cloud. When you disappear, it’s a beautiful day.","You make staffies look competent.","Your incompetence makes me appreciate my programmer more.","I’m not a nerd. I’m just smarter than you.","I may love to shop but I will never buy your bull.","I hope both sides of your pillow are warm.","I feel jealous of the people who haven't met you.","Your parents aren't even disappointed in you. They know this is you at your best.","Neeerrd!","Dork!","Hey! Hey! You smell...bad! Really bad!","Hey! You have an odor! A grody one! GRODY NERD ALERT!","Are you as bad at your job as you are at dressing yourself?","You, uh, should probably wash your hair. I think if you took a swim, all the seals would die.")
 		var/tmp/initial_seek_complete = 0
 
 		task_act()
@@ -3470,7 +3442,7 @@ TYPEINFO(/obj/item/device/guardbot_module)
 				return
 
 			if (src.protected && prob(10))
-				master.speak( pick(buddy_heckle_phrases) )
+				master.speak(pick_smart_string("buddy_phrases.txt", "heckles"))
 				master.point(src.protected, 1)
 
 		look_for_protected() //Search for a mob in view with the name we are programmed to guard.
@@ -3504,9 +3476,6 @@ TYPEINFO(/obj/item/device/guardbot_module)
 	bodyguard/cheer_up
 		name = "cheer_up"
 		task_id = "CHEER_UP"
-		var/global/list/buddy_cheer_up_phrases = list("What did one lobster say to the other? Nothing, since they can't talk. If they could, though, probably something about shellfish.","Remember that joke I told you about the chiropractor?  It was about a weak back.","How much does Santa pay to park his sleigh?  Nothing, it's on the house!","A new fish was discovered at the ocean floor composed of a couple sodium molecules.  Scientists have named it 2 Na ","You’re having a heart attack, the dispatcher say that help is going to arrive in a heartbeat.","You shouldn’t wear glasses while playing football. Why? Because it’s a contact sport.","A magician was walking down the street, then he turned into a grocery store. ","Three guys walked into a bar, you’d think at least one of them would have seen it. ","The past, present and future walked into a bar, things got tense. ","I asked my French friend if they like videogames, they said Wii."," RIP boiled water, you will be mist.","Haunted French pancakes give me the crepes.","A guy’s left side was cut off, don’t worry he’s all right now. ","A cow in an earthquake is called a milkshake.","A captain walks into a bar. A nearby salesman quadruples the price for a brand new 'sold-out' sign.","There are only 10 kinds of people in this world: those who understand binary and those who don’t.")
-		var/global/list/buddy_cheer_up_starters = list("Two silk worms compete in a race, who won? ","Why did the guardbuddy cross the road? ","What’re caterpillars scared of? ","What’s green and has wheels? ","What did the sea say to another sea? ","Why shouldn't you get close to trees? ","Why are there gates in graveyards? ","What do you call an illegal frog? ","What do you call a pig that does karate?","Why did the bike fall over?  ","Why did the golfer bring two pairs of pants?  ","What did the bartender say to the turkey sandwich when it tried to order a beer?  ","Why do seagulls fly over the sea?  ","Why did the scarecrow win an award?","What has four wheels and flies?","Why do cows have hooves and not feet?","What did the mama cow say to the baby cow?","Why did the two cows not like each other?","Why did the person living in Space Alaska name their dog Frost?","Why don’t pirates take a shower before they walk the plank?","What’s the best thing about Space Switzerland?","My computing software just created a new word!","My New Years' Resolution was to be less condescending. ","Whaddya call a patronising criminal going down a staircase?","What do you get when you cross a wall unit with artificial intelligence?","The opposite of Artificial Intelligence is Real Stupid.","There are two kinds of data scientists. ","What do you do if your guardbuddy catches a virus?")
-		var/global/list/buddy_cheer_up_answers = list("None of them, it ended in a tie.","It was programmed by the chicken!","Dog-apillers! ","Grass! I lied about the wheels.","Nothing, they just waved. ","Because they’re pretty shady. ","Because everyone is dying to get there. ","A toad. ","A pork chop!","It was two tired.","In case he got a hole in one.","Sorry, we don’t serve food here.","Because if they flew over the bay, they would be bagels!","Because he was outstanding in his field.","A garbage truck!","They lactose.","It's pasture bedtime.","They had BEEF.","Because Frost bites!","They just wash up on shore.","I don’t know, but the flag is a big plus.","Plagiarism!","Just so you know, condescending is a word that means talking down to people.","A condescending con descending.","Shelf-awareness.","Think about that, meatbag.","1.) Those who can extrapolate from incomplete data.","You give it some Robot-issin!")
 		var/tmp/initial_seek_complete = 0
 
 		task_act()
@@ -3516,14 +3485,16 @@ TYPEINFO(/obj/item/device/guardbot_module)
 			if (src.protected && prob(5))
 
 				if (prob(40))
-					var/buddy_cheer_up_chooser = rand(1, length(buddy_cheer_up_phrases))
-					master.speak(buddy_cheer_up_phrases[buddy_cheer_up_chooser])
+					master.speak(pick_smart_string("buddy_phrases.txt", "jokes"))
 					master.point(src.protected, 1)
 				else
-					var/buddy_cheer_up_chooser = rand(1, length(buddy_cheer_up_starters))
-					master.speak(buddy_cheer_up_starters[buddy_cheer_up_chooser])
+					var/split_joke = splittext(pick_smart_string("buddy_phrases.txt", "setupjokes"), "#")
+					if(length(split_joke) != 2)
+						master.speak("Error 404: Joke not found!")
+						return
+					master.speak(split_joke[1])
 					master.point(src.protected, 1)
-					master.speak(buddy_cheer_up_answers[buddy_cheer_up_chooser])
+					master.speak(split_joke[2])
 
 
 
@@ -3593,6 +3564,7 @@ TYPEINFO(/obj/item/device/guardbot_module)
 		handle_beacons = 1
 
 		var/wait_for_guests = 0		//Wait for people to be around before giving tour dialog?
+		var/tip_prob = 5				//Chance of giving a tip when idle
 
 		var/tmp/state = STATE_FINDING_BEACON
 		var/tmp/desired_emotion = "happy"
@@ -3635,6 +3607,9 @@ TYPEINFO(/obj/item/device/guardbot_module)
 			if(master.emotion != desired_emotion)
 				master.set_emotion(desired_emotion)
 
+
+
+
 			switch (state)
 				if (STATE_FINDING_BEACON)
 					if (awaiting_beacon)
@@ -3657,6 +3632,10 @@ TYPEINFO(/obj/item/device/guardbot_module)
 						state = STATE_FINDING_BEACON
 						return
 
+					if(prob(tip_prob) && !src.distracted && !GET_COOLDOWN(src.master, "tip"))
+						master.speak(get_random_tip())
+						ON_COOLDOWN(src.master, "tip", 10 SECONDS)
+
 					if (!src.distracted && prob(20))
 						src.look_for_neat_thing()
 
@@ -3666,7 +3645,7 @@ TYPEINFO(/obj/item/device/guardbot_module)
 							return
 
 						if (current_beacon_loc != master.loc)
-							master.navigate_to(current_beacon_loc, max_dist=30)
+							master.navigate_to(current_beacon_loc, max_dist=60)
 						else
 							state = STATE_AT_BEACON
 					return
@@ -3676,20 +3655,36 @@ TYPEINFO(/obj/item/device/guardbot_module)
 						return	//I realize this doesn't check if they're dead.  Buddies can't always tell, ok!! Maybe if people had helpful power lights too
 
 					speak_with_pause(current_tour_text, yield_to_neat=TRUE)
+					ON_COOLDOWN(src.master, "tip", 4 SECONDS)
 
 					if (next_beacon_id)
 						state = STATE_FINDING_BEACON
 						awaiting_beacon = max(awaiting_beacon, 1) //This will just serve as a delay so the buddy isn't zipping around at light speed between stops.
 					else
 						state = STATE_POST_TOUR_IDLE
-						tour_delay = 30
-						master.speak("And that concludes the tour session.  Please visit the gift shop on your way out.")
+						var/obj/machinery/guardbot_dock/dock = null
+						dock = locate() in master.loc
+						if(dock && istype(dock))
+							// Check for tour console, manual wake if present, auto wake if not
+							if (locate(/obj/machinery/computer/tour_console) in orange(1, src.master))
+								dock.connect_robot(master,0)
+							else
+								dock.connect_robot(master,2)
+							return
+						else
+							desired_emotion = "angry"
+							if(master.emotion != desired_emotion)
+								master.set_emotion(desired_emotion)
+							master.speak(pick("My dock... it's missing!", "Where's my dock? I was ready for a break.", "Hey you sleaze! My bed!"))
+							tour_delay = 30
 					return
 
 				if (STATE_POST_TOUR_IDLE)
 					if (tour_delay-- > 0)
 						return
-
+					desired_emotion = "happy"
+					if(master.emotion != desired_emotion)
+						master.set_emotion(desired_emotion)
 					next_beacon_id = initial(next_beacon_id)
 					state = STATE_FINDING_BEACON
 					neat_things = 0
@@ -3880,7 +3875,7 @@ TYPEINFO(/obj/item/device/guardbot_module)
 							END_NEAT
 						return
 
-					if (!(src.neat_things & NT_DORK) && (H.client && H.client.IsByondMember() && prob(5)))// || (H.ckey in Dorks))) //If this is too mean to clarks, remove that part I guess
+					if (!(src.neat_things & NT_DORK) && (H.client && (H.client.IsByondMember() || H.traitHolder?.hasTrait("wasitsomethingisaid")) && prob(5)))// || (H.ckey in Dorks))) //If this is too mean to clarks, remove that part I guess
 						FOUND_NEAT(NT_DORK)
 							var/insult = pick("dork","nerd","weenie","doofus","loser","dingus","dorkus")
 							var/insultphrase = "And if you look to--[insult] alert!  [pick("Huge","Total","Mega","Complete")] [insult] detected! Alert! Alert! [capitalize(insult)]! "
@@ -4077,8 +4072,8 @@ TYPEINFO(/obj/item/device/guardbot_module)
 				master.speak(pick("Hey, who turned out the lights?","Error: Visual sensor impaired!","Whoa hey, what's the big deal?","Where did everyone go?"))
 
 			if (escape_counter-- > 0)
-				flick("robuddy-ghostfumble", master)
-				master.visible_message("<span class='alert'>[master] fumbles around in the sheet!</span>")
+				FLICK("robuddy-ghostfumble", master)
+				master.visible_message(SPAN_ALERT("[master] fumbles around in the sheet!"))
 			else
 				master.visible_message("[master] cuts a hole in the sheet!")
 				master.speak(pick("Problem solved.","Oh, alright","There we go!"))
@@ -4176,7 +4171,7 @@ TYPEINFO(/obj/item/guardbot_core)
 	attackby(obj/item/W, mob/user)
 		if (istype(W, /obj/item/pen))
 			if (created_name != initial(created_name))
-				boutput(user, "<span class='alert'>This robot has already been named!</span>")
+				boutput(user, SPAN_ALERT("This robot has already been named!"))
 				return
 
 			var/t = input(user, "Enter new robot name", src.name, src.created_name) as text
@@ -4223,10 +4218,10 @@ TYPEINFO(/obj/item/guardbot_frame)
 	attackby(obj/item/W, mob/user)
 		if ((istype(W, /obj/item/guardbot_core)))
 			if(W:buddy_model != src.buddy_model)
-				boutput(user, "<span class='alert'>That core board is for a different model of robot!</span>")
+				boutput(user, SPAN_ALERT("That core board is for a different model of robot!"))
 				return
 			if(!created_cell || stage != 2)
-				boutput(user, "<span class='alert'>You need to add a power cell first!</span>")
+				boutput(user, SPAN_ALERT("You need to add a power cell first!"))
 				return
 			src.stage = 3
 			src.icon_state = "frame-3"
@@ -4899,7 +4894,7 @@ TYPEINFO(/obj/machinery/guardbot_dock)
 		src.exploding = 1
 		var/death_message = pick("It is now safe to shut off your buddy.","I regret nothing, but I am sorry I am about to leave my friends.","Malfunction!","I had a good run.","Es lebe die Freiheit!","Life was worth living.","Time to die...")
 		speak(death_message)
-		src.visible_message("<span class='alert'><b>[src] blows apart!</b></span>")
+		src.visible_message(SPAN_ALERT("<b>[src] blows apart!</b>"))
 		var/turf/T = get_turf(src)
 		if(src.mover)
 			qdel(src.mover)
@@ -5041,7 +5036,7 @@ TYPEINFO(/obj/machinery/guardbot_dock)
 
 	attackby(obj/item/W, mob/user)
 		if (istype(W, /obj/item/token/hug_token))
-			user.visible_message("<span class='alert'><b>[user]</b> inserts a [W] into the [src].</span>", "<span class='alert'>You insert a [W] into the [src].</span>")
+			user.visible_message(SPAN_ALERT("<b>[user]</b> inserts a [W] into the [src]."), SPAN_ALERT("You insert a [W] into the [src]."))
 			qdel(W)
 
 			for (var/obj/machinery/bot/guardbot/buddy in machine_registry[MACHINES_BOTS])

@@ -45,6 +45,8 @@
 	thermal_conductivity = 0.05
 	heat_capacity = 0
 	turf_flags = MOB_STEP
+	can_burn = FALSE
+	can_break = FALSE
 
 	hitby()
 		. = ..()
@@ -79,6 +81,8 @@
 	icon_state = "floor"
 	icon = 'icons/turf/shuttle.dmi'
 	turf_flags = MOB_STEP
+	can_burn = FALSE
+	can_break = FALSE
 
 /turf/unsimulated/floor/shuttle/yellow
 	icon_state = "floor2"
@@ -122,7 +126,7 @@ TYPEINFO_NEW(/turf/simulated/wall/auto/shuttle)
 #endif
 	light_mod = "wall-"
 	opacity = 0
-	flags = ALWAYS_SOLID_FLUID | IS_PERSPECTIVE_FLUID
+	flags = FLUID_DENSE | IS_PERSPECTIVE_FLUID
 
 	attackby()
 	attack_hand()
@@ -205,7 +209,7 @@ TYPEINFO_NEW(/turf/simulated/wall/auto/shuttle)
 	opacity = 0
 	gas_impermeable = TRUE
 	layer = EFFECTS_LAYER_BASE - 1
-	flags = ALWAYS_SOLID_FLUID | IS_PERSPECTIVE_FLUID
+	flags = FLUID_DENSE | IS_PERSPECTIVE_FLUID
 
 //TODO: CLEAN UP
 /turf/simulated/shuttle/wall

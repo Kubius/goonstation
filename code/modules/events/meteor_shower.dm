@@ -34,6 +34,8 @@ var/global/meteor_shower_active = 0
 		if(.)
 			if ( map_setting == "NADIR" ) // Nadir can have a counterpart to this event with acid hailstones, but it will need to function differently
 				. = FALSE
+			if (global.is_map_on_ground_terrain)
+				. = FALSE
 
 	event_effect(source, amount, direction, delay, warning_time, speed, datum/material/transmute_material_instead="random")
 		..()
@@ -122,20 +124,20 @@ var/global/meteor_shower_active = 0
 				playsound_global(world, 'sound/machines/disaster_alert.ogg', 60)
 
 	#ifndef UNDERWATER_MAP
-			var/scroll_angle
 			switch(src.wave_direction)
 				if (NORTH)
-					scroll_angle = 180
+					ADD_PARALLAX_RENDER_SOURCE_TO_GROUP(Z_LEVEL_STATION, /atom/movable/screen/parallax_render_source/meteor_shower/north, 0 SECONDS)
 				if (EAST)
-					scroll_angle = 270
+					ADD_PARALLAX_RENDER_SOURCE_TO_GROUP(Z_LEVEL_STATION, /atom/movable/screen/parallax_render_source/meteor_shower/east, 0 SECONDS)
 				if (SOUTH)
-					scroll_angle = 0
+					ADD_PARALLAX_RENDER_SOURCE_TO_GROUP(Z_LEVEL_STATION, /atom/movable/screen/parallax_render_source/meteor_shower/south, 0 SECONDS)
 				if (WEST)
-					scroll_angle = 90
-
-			if (scroll_angle)
-				ADD_PARALLAX_RENDER_SOURCE_TO_GROUP(Z_LEVEL_STATION, /atom/movable/screen/parallax_render_source/meteor_shower, 0 SECONDS)
-				GET_PARALLAX_RENDER_SOURCE_FROM_GROUP(Z_LEVEL_STATION, /atom/movable/screen/parallax_render_source/meteor_shower)?.scroll_angle = scroll_angle
+					ADD_PARALLAX_RENDER_SOURCE_TO_GROUP(Z_LEVEL_STATION, /atom/movable/screen/parallax_render_source/meteor_shower/west, 0 SECONDS)
+				if (-1)	// from ALL DIRECTIONS (may cause lag? probably not though, it's only 4 layers)
+					ADD_PARALLAX_RENDER_SOURCE_TO_GROUP(Z_LEVEL_STATION, /atom/movable/screen/parallax_render_source/meteor_shower/north, 0 SECONDS)
+					ADD_PARALLAX_RENDER_SOURCE_TO_GROUP(Z_LEVEL_STATION, /atom/movable/screen/parallax_render_source/meteor_shower/east, 0 SECONDS)
+					ADD_PARALLAX_RENDER_SOURCE_TO_GROUP(Z_LEVEL_STATION, /atom/movable/screen/parallax_render_source/meteor_shower/south, 0 SECONDS)
+					ADD_PARALLAX_RENDER_SOURCE_TO_GROUP(Z_LEVEL_STATION, /atom/movable/screen/parallax_render_source/meteor_shower/west, 0 SECONDS)
 	#endif
 
 			var/start_x
@@ -186,11 +188,17 @@ var/global/meteor_shower_active = 0
 
 				var/turf/pickedstart = locate(start_x, start_y, 1)
 				var/target = locate(targ_x, targ_y, 1)
-				var/obj/newmeteor/M = new meteor_type(pickedstart,target)
-				if(transmute_material_instead)
-					M.set_transmute(transmute_material_instead)
-					M.meteorhit_chance = 20
-				M.pix_speed = meteor_speed + rand(0 - meteor_speed_variance,meteor_speed_variance)
+				var/thrown_thing = new meteor_type(pickedstart,target)
+				if (istype(thrown_thing, /obj/newmeteor))
+					var/obj/newmeteor/meteor = thrown_thing
+					if(transmute_material_instead)
+						meteor.set_transmute(transmute_material_instead)
+						meteor.meteorhit_chance = 20
+					meteor.pix_speed = meteor_speed + rand(0 - meteor_speed_variance,meteor_speed_variance)
+				if (istype(thrown_thing, /mob))
+					var/mob/meat = thrown_thing
+					meat.throw_at(target, 300, meteor_speed + rand(0 - meteor_speed_variance,meteor_speed_variance), throw_type=THROW_GIB)
+
 				sleep(delay_between_meteors)
 
 			meteor_shower_active = 0
@@ -198,7 +206,10 @@ var/global/meteor_shower_active = 0
 				S.UpdateIcon()
 
 	#ifndef UNDERWATER_MAP
-			REMOVE_PARALLAX_RENDER_SOURCE_FROM_GROUP(Z_LEVEL_STATION, /atom/movable/screen/parallax_render_source/meteor_shower, 0 SECONDS)
+			REMOVE_PARALLAX_RENDER_SOURCE_FROM_GROUP(Z_LEVEL_STATION, /atom/movable/screen/parallax_render_source/meteor_shower/north, 0 SECONDS)
+			REMOVE_PARALLAX_RENDER_SOURCE_FROM_GROUP(Z_LEVEL_STATION, /atom/movable/screen/parallax_render_source/meteor_shower/east, 0 SECONDS)
+			REMOVE_PARALLAX_RENDER_SOURCE_FROM_GROUP(Z_LEVEL_STATION, /atom/movable/screen/parallax_render_source/meteor_shower/south, 0 SECONDS)
+			REMOVE_PARALLAX_RENDER_SOURCE_FROM_GROUP(Z_LEVEL_STATION, /atom/movable/screen/parallax_render_source/meteor_shower/west, 0 SECONDS)
 	#endif
 
 	admin_call(var/source)
@@ -229,12 +240,20 @@ var/global/meteor_shower_active = 0
 			return
 
 		var/transmute_material_instead = null
-		if(tgui_alert(usr, "Do you want the meteor to transmute into a material instead of exploding?", "Meteor Shower", list("Yes", "No")) == "Yes")
-			var/matid = tgui_input_list(usr, "Select material to transmute to:", "Set Material", material_cache)
-			transmute_material_instead = getMaterial(matid)
+		if (istype_exact(src, /datum/random_event/major/meteor_shower))
+			if(tgui_alert(usr, "Do you want the meteor to transmute into a material instead of exploding?", "Meteor Shower", list("Yes", "No")) == "Yes")
+				var/matid = tgui_input_list(usr, "Select material to transmute to:", "Set Material", material_cache)
+				transmute_material_instead = getMaterial(matid)
 
 		src.event_effect(source,amtinput,dirinput,delinput,timinput,spdinput,  transmute_material_instead)
 		return
+
+
+/datum/random_event/major/meteor_shower/meatier
+	name = "Meatier Shower"
+	shower_name = "Meatier Shower"
+	meteor_type = /mob/living/carbon/human/normal
+	disabled = TRUE // maybe a little silly
 
 ////////////////////////////////////////
 // Defines for the meteors themselves //
@@ -264,7 +283,7 @@ var/global/meteor_shower_active = 0
 	var/sound_explode = 'sound/effects/exlow.ogg'
 	var/list/oredrops = list(/obj/item/raw_material/rock)
 	var/list/oredrops_rare = list(/obj/item/raw_material/rock)
-	var/transmute_material = null
+	var/datum/material/transmute_material = null
 	var/transmute_range = 4
 	var/meteorhit_chance = 100
 
@@ -366,11 +385,17 @@ var/global/meteor_shower_active = 0
 			process()
 
 	proc/check_hits()
-		for(var/turf/simulated/S in range(1,src))
-			if(!S.density) continue
+		for(var/turf/T in range(1,src))
+			if(!T.density)
+				continue
+			//let's not just go straight through unsimmed turfs and total the inside of the listening post
+			if (!issimulatedturf(T) || !istype(T, /turf/unsimulated))
+				if(istype(T, /turf/unsimulated/wall))
+					qdel(src)
+				continue
 			hit_object = 1
 			if (prob(meteorhit_chance))
-				S.meteorhit(src)
+				T.meteorhit(src)
 
 		for(var/mob/M in range(1,src))
 			if(M == src) continue //Just to make sure
@@ -431,7 +456,7 @@ var/global/meteor_shower_active = 0
 					if("statue")
 						if(distPercent < 40) // only inner 40% of range
 							if(M)
-								M.become_statue(transmute_material)
+								M.become_statue(transmute_material, survive = TRUE)
 			else
 				G.setMaterial(transmute_material)
 
@@ -481,7 +506,7 @@ var/global/meteor_shower_active = 0
 	exp_hvy = 1
 	exp_lit = 2
 	exp_fsh = 3
-	oredrops = list(/obj/item/raw_material/char, /obj/item/raw_material/molitz, /obj/item/raw_material/rock)
+	oredrops = list(/obj/item/raw_material/char, /obj/item/raw_material/mauxite, /obj/item/raw_material/rock)
 	oredrops_rare = list(/obj/item/raw_material/starstone, /obj/item/raw_material/syreline)
 	transmute_range = 10
 	///Do we spawn a solid lump of rock on impact?

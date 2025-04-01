@@ -78,7 +78,7 @@ ADMIN_INTERACT_PROCS(/obj/airbridge_controller, proc/toggle_bridge, proc/pressur
 
 		working = 1
 
-		SPAWN(5 SECONDS)
+		SPAWN(2 SECONDS)
 			for(var/turf/simulated/T in maintaining_turfs)
 				if(!T.air && T.density)
 					continue
@@ -197,6 +197,11 @@ ADMIN_INTERACT_PROCS(/obj/airbridge_controller, proc/toggle_bridge, proc/pressur
 		if(!maintaining_bridge && linked.maintaining_bridge)
 			linked.remove_bridge()
 			return
+
+		if (global.map_currently_underwater)
+			src.original_turf = /turf/space/fluid
+		else if (src.original_turf == /turf/space/fluid)
+			src.original_turf = /turf/space
 
 		working = 1
 		maintaining_bridge = 0
@@ -339,6 +344,9 @@ ADMIN_INTERACT_PROCS(/obj/airbridge_controller, proc/toggle_bridge, proc/pressur
 		starts_established = 0
 
 	proc/update_status()
+		if(src.status & BROKEN)
+			return
+
 		if (!links.len)
 			get_links()
 
@@ -422,24 +430,24 @@ ADMIN_INTERACT_PROCS(/obj/airbridge_controller, proc/toggle_bridge, proc/pressur
 		if (href_list["create"])
 			if (src.emergency && emergency_shuttle)
 				if (emergency_shuttle.location != SHUTTLE_LOC_STATION)
-					boutput(usr, "<span class='alert'>The airbridge cannot be deployed while the shuttle is not in position.</span>")
+					boutput(usr, SPAN_ALERT("The airbridge cannot be deployed while the shuttle is not in position."))
 					return
 			if (!(src.allowed(usr)))
-				boutput(usr, "<span class='alert'>Access denied.</span>")
+				boutput(usr, SPAN_ALERT("Access denied."))
 				return
 			if (src.establish_bridge())
 				logTheThing(LOG_STATION, usr, "extended the airbridge at [usr.loc.loc] ([log_loc(usr)])")
 
 		else if (href_list["remove"])
 			if (!(src.allowed(usr)))
-				boutput(usr, "<span class='alert'>Access denied.</span>")
+				boutput(usr, SPAN_ALERT("Access denied."))
 				return
 			if (src.remove_bridge())
 				logTheThing(LOG_STATION, usr, "retracted the airbridge at [usr.loc.loc] ([log_loc(usr)])")
 
 		else if (href_list["air"])
 			if (!(src.allowed(usr)))
-				boutput(usr, "<span class='alert'>Access denied.</span>")
+				boutput(usr, SPAN_ALERT("Access denied."))
 				return
 			if (src.pressurize())
 				logTheThing(LOG_STATION, usr, "pressurized the airbridge at [usr.loc.loc] ([log_loc(usr)])")
@@ -462,15 +470,6 @@ ADMIN_INTERACT_PROCS(/obj/airbridge_controller, proc/toggle_bridge, proc/pressur
 				icon_state = "airbroff"
 				status |= NOPOWER
 				light.disable()
-	set_broken()
-		if (status & BROKEN) return
-		var/datum/effects/system/harmless_smoke_spread/smoke = new /datum/effects/system/harmless_smoke_spread()
-		smoke.set_up(5, 0, src)
-		smoke.start()
-		icon_state = initial(icon_state)
-		icon_state = "airbrbr"
-		light.disable()
-		status |= BROKEN
 
 /obj/machinery/computer/airbr/emergency_shuttle
 	emergency = 1
@@ -480,6 +479,15 @@ ADMIN_INTERACT_PROCS(/obj/airbridge_controller, proc/toggle_bridge, proc/pressur
 
 /obj/machinery/computer/airbr/trader_right
 	connected_dock = COMSIG_DOCK_TRADER_EAST
+
+/obj/machinery/computer/airbr/medical_medbay
+	connected_dock = COMSIG_DOCK_MEDICAL_MEDBAY
+
+/obj/machinery/computer/airbr/medical_pathology
+	connected_dock = COMSIG_DOCK_MEDICAL_PATHOLOGY
+
+/obj/machinery/computer/airbr/mining_station
+	connected_dock = COMSIG_DOCK_MINING_STATION
 
 /* -------------------- Button -------------------- */
 /obj/machinery/airbr_test_button
@@ -493,6 +501,6 @@ ADMIN_INTERACT_PROCS(/obj/airbridge_controller, proc/toggle_bridge, proc/pressur
 
 	attack_hand(mob/user)
 		for(var/obj/airbridge_controller/C in range(3, src))
-			boutput(user, "<span class='notice'>[C.toggle_bridge()]</span>")
+			boutput(user, SPAN_NOTICE("[C.toggle_bridge()]"))
 			break
 		return

@@ -3,12 +3,23 @@
 * GENERIC HELPERS FOR BOTH SYSTEMS
 *********************************/
 
+/proc/loadCdnManifest()
+	if (!cdn) return list()
+	if (rustg_file_exists("cdn-manifest.json"))
+		var/manifestJson = file2text("cdn-manifest.json")
+		if (rustg_json_is_valid(manifestJson))
+			logTheThing(LOG_DEBUG, null, "Successfully loaded CDN manifest")
+			return json_decode(manifestJson)
+	logTheThing(LOG_DEBUG, null, "Failed to load CDN manifest")
+	return list()
+
 
 //Generates file paths for browser resources when used in html tags e.g. <img>
 /proc/resource(file, group)
 	if (!file) return
 	if (cdn)
-		. = "[cdn]/[file]?v=" + VCS_REVISION
+		if (cdnManifest[file]) file = cdnManifest[file]
+		. = "[cdn]/[file]"
 	else
 		if (findtext(file, "{{resource")) //Got here via the dumb regex proc (local only)
 			file = group
@@ -21,6 +32,7 @@
 //Returns the file contents for storage in memory or further processing during runtime (e.g. many html files)
 /proc/grabResource(path, preventCache = 0)
 	if (!path) return 0
+	if (cdn && cdnManifest[path]) path = cdnManifest[path]
 
 	Z_LOG_DEBUG("Resource/Grab", "[path]")
 	var/file
@@ -36,7 +48,7 @@
 
 			//Actually get the file contents from the CDN
 			var/datum/http_request/request = new()
-			request.prepare(RUSTG_HTTP_METHOD_GET, "[cdn]/[path]?v=" + VCS_REVISION, "", "")
+			request.prepare(RUSTG_HTTP_METHOD_GET, "[cdn]/[path]", "", "")
 			request.begin_async()
 			UNTIL(request.is_complete())
 			var/datum/http_response/response = request.into_response()
@@ -49,7 +61,7 @@
 
 		else //No CDN, grab from local directory
 			Z_LOG_DEBUG("Resource/Grab", "[path] - locally loaded, parsing")
-			file = parseAssetLinks(file("browserassets/[path]"))
+			file = parseAssetLinks(file("browserassets/src/[path]"))
 
 		Z_LOG_DEBUG("Resource/Grab", "[path] - complete")
 
@@ -73,11 +85,12 @@
 	set name = "Debug Resource Cache"
 	set hidden = 1
 	ADMIN_ONLY
+	SHOW_VERB_DESC
 
 	var/msg = "Resource cache contents:"
 	for (var/r in cachedResources)
 		msg += "<br>[r]"
-	out(src, msg)
+	boutput(src, msg)
 
 
 /client/proc/toggleResourceCache()
@@ -85,9 +98,10 @@
 	set name = "Toggle Resource Cache"
 	set desc = "Enable or disable the resource cache system"
 	ADMIN_ONLY
+	SHOW_VERB_DESC
 
 	disableResourceCache = !disableResourceCache
-	boutput(usr, "<span class='notice'>Toggled the resource cache [disableResourceCache ? "off" : "on"]</span>")
+	boutput(usr, SPAN_NOTICE("Toggled the resource cache [disableResourceCache ? "off" : "on"]"))
 	logTheThing(LOG_ADMIN, usr, "toggled the resource cache [disableResourceCache ? "off" : "on"]")
 	logTheThing(LOG_DIARY, usr, "toggled the resource cache [disableResourceCache ? "off" : "on"]", "admin")
 	message_admins("[key_name(usr)] toggled the resource cache [disableResourceCache ? "off" : "on"]")
@@ -119,10 +133,13 @@
 	//Get file extension
 	if (path)
 		var/list/parts = splittext(path, ".")
-		var/ext = parts[parts.len]
+		var/ext = parts[length(parts)]
 		ext = lowertext(ext)
 		//Is this file a binary thing
-		if (ext in list("jpg", "jpeg", "png", "svg", "bmp", "gif", "eot", "woff", "woff2", "ttf", "otf"))
+		if (ext in list("jpg", "jpeg", "png", "svg", "bmp", "gif", "eot", "woff", "woff2", "ttf", "otf", "map", "mp4", "psd"))
+			return 0
+		// Is this file a bundled tgui file?
+		if ((length(parts) > 2) && (parts[length(parts) - 1] in list("bundle", "hot-update")))
 			return 0
 
 	//Look for resource placeholder tags. {{resource("path/to/file")}}
@@ -131,7 +148,7 @@
 		fileText = file2text(file)
 	if (fileText && findtext(fileText, "{{resource"))
 		var/regex/R = new("\\{\\{resource\\(\"(.*?)\"\\)\\}\\}", "ig")
-		fileText = R.Replace(fileText, /proc/resource)
+		fileText = R.Replace(fileText, /proc/resource) // This line specifically is /very/ slow
 
 	return fileText
 
@@ -147,7 +164,7 @@
 				LAGCHECK(LAG_HIGH)
 				recursiveFileLoader(dir + i)
 		else //Is file
-			if (dir == "browserassets/") //skip files in base dir (hardcoding dir name here because im lazy ok)
+			if (dir == "browserassets/src/") //skip files in base dir (hardcoding dir name here because im lazy ok)
 				continue
 			else
 				localResources["[dir][i]"] = file("[dir][i]")
@@ -177,7 +194,7 @@
 //A thing for coders locally testing to use (as they might be offline = can't reach the CDN)
 /client/proc/loadResources()
 	if (cdn || src.resourcesLoaded) return 0
-	boutput(src, "<span class='notice'><b>Resources are now loading, browser windows will open normally when complete.</b></span>")
+	boutput(src, SPAN_NOTICE("<b>Resources are now loading, browser windows will open normally when complete.</b>"))
 
 	src.loadResourcesFromList(localResources)
 

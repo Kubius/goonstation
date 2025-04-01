@@ -48,10 +48,11 @@
 		for(var/client/C in clients)
 			if (C.stealth && !C.fakekey) // stealthed admins don't count
 				continue
-			s["player[n]"] = "[(C.stealth || C.alt_key) ? C.fakekey : C.key]"
+			s["player[n]"] = "[ckey((C.stealth || C.alt_key) ? C.fakekey : C.key)]"
 			n++
 		s["players"] = n
 		s["map_name"] = getMapNameFromID(map_setting)
+		s["map_id"] = map_setting
 		return list2params(s)
 
 	else // Discord bot communication (or callbacks)
@@ -94,7 +95,7 @@
 							if (!plist["arg"]) return 0
 
 							var/dir = plist["arg"]
-							dir = trim(copytext(sanitize(dir), 1, MAX_MESSAGE_LEN))
+							dir = trimtext(copytext(sanitize(dir), 1, MAX_MESSAGE_LEN))
 							dir = text2dir(dir)
 
 							switch(dir)
@@ -124,7 +125,7 @@
 							if (!plist["arg"]) return 0
 
 							var/msg = plist["arg"]
-							msg = trim(copytext(sanitize(msg), 1, MAX_MESSAGE_LEN))
+							msg = trimtext(copytext(sanitize(msg), 1, MAX_MESSAGE_LEN))
 
 							if (msg == INTENT_HELP || msg == INTENT_DISARM || msg == INTENT_GRAB || msg == INTENT_HARM)
 								twitch_mob.set_a_intent(lowertext(msg))
@@ -135,14 +136,14 @@
 							if (twitch_mob.next_click > world.time) return 1
 
 							var/dir = plist["arg"]
-							dir = trim(copytext(sanitize(dir), 1, MAX_MESSAGE_LEN))
+							dir = trimtext(copytext(sanitize(dir), 1, MAX_MESSAGE_LEN))
 							dir = text2dir(dir)
 
 							if (dir == 0)
 								if (ishuman(twitch_mob))
 									var/mob/living/carbon/human/H = twitch_mob
 									var/trg = plist["arg"]
-									trg = trim(copytext(sanitize(trg), 1, MAX_MESSAGE_LEN))
+									trg = trimtext(copytext(sanitize(trg), 1, MAX_MESSAGE_LEN))
 									H.auto_interact(trg)
 
 							var/turf/target = get_ranged_target_turf(twitch_mob, dir, 7)
@@ -170,7 +171,7 @@
 							if (!plist["arg"]) return 0
 
 							var/dir = plist["arg"]
-							dir = trim(copytext(sanitize(dir), 1, MAX_MESSAGE_LEN))
+							dir = trimtext(copytext(sanitize(dir), 1, MAX_MESSAGE_LEN))
 							dir = text2dir(dir)
 
 							if (ishuman(twitch_mob))
@@ -201,7 +202,7 @@
 							if (!plist["arg"]) return 0
 
 							var/msg = plist["arg"]
-							msg = trim(copytext(sanitize(msg), 1, MAX_MESSAGE_LEN))
+							msg = trimtext(copytext(sanitize(msg), 1, MAX_MESSAGE_LEN))
 
 							twitch_mob.hotkey(msg)
 							return 1
@@ -220,7 +221,7 @@
 							if (!plist["arg"]) return 0
 
 							var/msg = plist["arg"]
-							msg = trim(copytext(sanitize(msg), 1, MAX_MESSAGE_LEN))
+							msg = trimtext(copytext(sanitize(msg), 1, MAX_MESSAGE_LEN))
 
 							if (msg == "faint" || msg == "collapse") return 1 //nope!
 
@@ -232,7 +233,7 @@
 							if (isdead(twitch_mob)) return 1
 
 							var/msg = plist["arg"]
-							msg = trim(copytext(sanitize(msg), 1, MAX_MESSAGE_LEN))
+							msg = trimtext(copytext(sanitize(msg), 1, MAX_MESSAGE_LEN))
 
 							var/list/hudlist = list()
 							if (ishuman(twitch_mob))
@@ -263,7 +264,7 @@
 							if (!plist["arg"]) return 0
 
 							var/msg = plist["arg"]
-							msg = trim(copytext(sanitize(msg), 1, MAX_MESSAGE_LEN))
+							msg = trimtext(copytext(sanitize(msg), 1, MAX_MESSAGE_LEN))
 							if (ishuman(twitch_mob))
 								var/mob/living/carbon/human/H = twitch_mob
 								H.auto_interact(msg)
@@ -276,7 +277,7 @@
 							if (isdead(twitch_mob)) return 1
 
 							var/msg = plist["arg"]
-							msg = trim(copytext(sanitize(msg), 1, MAX_MESSAGE_LEN))
+							msg = trimtext(copytext(sanitize(msg), 1, MAX_MESSAGE_LEN))
 
 							var/list/close_match = list()
 							for (var/atom/movable/I in view(1,twitch_mob))
@@ -332,7 +333,7 @@
 							if (!plist["arg"]) return 0
 
 							var/msg = plist["arg"]
-							msg = trim(copytext(sanitize(msg), 1, MAX_MESSAGE_LEN))
+							msg = trimtext(copytext(sanitize(msg), 1, MAX_MESSAGE_LEN))
 							if (ishuman(twitch_mob))
 								var/mob/living/carbon/human/H = twitch_mob
 								H.ooc(msg)
@@ -341,7 +342,7 @@
 
 		if (findtext(addr, ":")) // remove port if present
 			addr = splittext(addr, ":")[1]
-		if (addr != config.ircbot_ip && addr != config.goonhub_api_ip && addr != config.goonhub2_hostname)
+		if (addr != config.ircbot_ip && addr != config.goonhub_api_ip && addr != config.goonhub_ci_ip)
 			return 0 //ip filtering
 
 		var/list/plist = params2list(T)
@@ -400,11 +401,11 @@
 				var/nick = plist["nick"]
 				var/msg = plist["msg"]
 
-				msg = trim(copytext(sanitize(msg), 1, MAX_MESSAGE_LEN))
+				msg = trimtext(copytext(sanitize(msg), 1, MAX_MESSAGE_LEN))
 				msg = discord_emojify(msg)
 				logTheThing(LOG_OOC, nick, "OOC: [msg]")
 				logTheThing(LOG_DIARY, nick, ": [msg]", "ooc")
-				var/rendered = "<span class=\"adminooc\"><span class=\"prefix\">OOC:</span> <span class=\"name\">[nick]:</span> <span class=\"message\">[msg]</span></span>"
+				var/rendered = SPAN_ADMINOOC("[SPAN_PREFIX("OOC:")] [SPAN_NAME("[nick]:")] [SPAN_MESSAGE("[msg]")]")
 
 				for (var/client/C in clients)
 					if (C.preferences && !C.preferences.listen_ooc)
@@ -428,13 +429,13 @@
 					ircmsg["msg"] = msg
 					return ircbot.response(ircmsg)
 
-				msg = trim(copytext(sanitize(msg), 1, MAX_MESSAGE_LEN))
+				msg = trimtext(copytext(sanitize(msg), 1, MAX_MESSAGE_LEN))
 				msg = linkify(msg)
 				msg = discord_emojify(msg)
 
 				logTheThing(LOG_ADMIN, null, "Discord ASAY: [nick]: [msg]")
 				logTheThing(LOG_DIARY, null, "Discord ASAY: [nick]: [msg]", "admin")
-				var/rendered = "<span class=\"admin\"><span class=\"prefix\"></span> <span class=\"name\">[nick]:</span> <span class=\"message adminMsgWrap\">[msg]</span></span>"
+				var/rendered = SPAN_ADMIN("[SPAN_PREFIX("")] [SPAN_NAME("[nick]:")] <span class='message adminMsgWrap'>[msg]</span>")
 
 				message_admins(rendered, 1, 1)
 
@@ -451,11 +452,11 @@
 					server_name = "GOON-???"
 				var/nick = plist["nick"]
 				var/msg = plist["msg"]
-				msg = trim(copytext(sanitize(msg), 1, MAX_MESSAGE_LEN))
+				msg = trimtext(copytext(sanitize(msg), 1, MAX_MESSAGE_LEN))
 
 				logTheThing(LOG_ADMIN, null, "[server_name] PM: [nick]: [msg]")
 				logTheThing(LOG_DIARY, null, "[server_name] PM: [nick]: [msg]", "admin")
-				var/rendered = "<span class=\"admin\"><span class=\"prefix\">[server_name] PM:</span> <span class=\"name\">[nick]:</span> <span class=\"message adminMsgWrap\">[msg]</span></span>"
+				var/rendered = SPAN_ADMIN("[SPAN_PREFIX("[server_name] PM:")] [SPAN_NAME("[nick]:")] <span class='message adminMsgWrap'>[msg]</span>")
 
 				for (var/client/C)
 					if (C.holder)
@@ -477,6 +478,7 @@
 				var/msg = plist["msg"]
 				var/who = lowertext(plist["target"])
 				var/game_msg = linkify(msg)
+				var/msgid = plist["msgid"]
 				game_msg = discord_emojify(game_msg)
 
 				var/mob/M = ckey_to_mob(who, exact=0)
@@ -484,13 +486,13 @@
 					boutput(M, {"
 						<div style='border: 2px solid red; font-size: 110%;'>
 							<div style="color: black; background: #f88; font-weight: bold; border-bottom: 1px solid red; text-align: center; padding: 0.2em 0.5em;">
-								Admin PM from <a href=\"byond://?action=priv_msg_irc&nick=[ckey(nick)]\">[nick]</a>
+								Admin PM from <a href=\"byond://?action=priv_msg_irc&nick=[ckey(nick)]&msgid=[msgid]\">[nick]</a>
 							</div>
 							<div style="padding: 0.2em 0.5em;">
 								[game_msg]
 							</div>
 							<div style="font-size: 90%; background: #fcc; font-weight: bold; border-top: 1px solid red; text-align: center; padding: 0.2em 0.5em;">
-								<a href=\"byond://?action=priv_msg_irc&nick=[ckey(nick)]" style='color: #833; font-weight: bold;'>&lt; Click to Reply &gt;</a></div>
+								<a href=\"byond://?action=priv_msg_irc&nick=[ckey(nick)]&msgid=[msgid]" style='color: #833; font-weight: bold;'>&lt; Click to Reply &gt;</a></div>
 							</div>
 						</div>
 						"}, forceScroll=TRUE)
@@ -503,7 +505,7 @@
 							if (C.player_mode && !C.player_mode_ahelp)
 								continue
 							else
-								boutput(C, "<span class='ahelp'><b>PM: <a href=\"byond://?action=priv_msg_irc&nick=[ckey(nick)]\">[nick]</a> (Discord) <i class='icon-arrow-right'></i> [key_name(M)]</b>: [game_msg]</span>")
+								boutput(C, SPAN_AHELP("<b>PM: <a href=\"byond://?action=priv_msg_irc&nick=[ckey(nick)]&msgid=[msgid]\">[nick]</a> (Discord) <i class='icon-arrow-right'></i> [key_name(M, additional_url_data="&msgid=[msgid]")]</b>: [game_msg]"))
 
 				if (M)
 					var/ircmsg[] = new()
@@ -523,22 +525,25 @@
 				var/who = lowertext(plist["target"])
 				var/mob/M = ckey_to_mob(who, exact=0)
 				var/game_msg = linkify(msg)
+				var/msgid = plist["msgid"]
 				game_msg = discord_emojify(game_msg)
 
 				if (M?.client)
-					boutput(M, "<span class='mhelp'><b>MENTOR PM: FROM <a href=\"byond://?action=mentor_msg_irc&nick=[ckey(nick)]\">[nick]</a> (Discord)</b>: <span class='message'>[game_msg]</span></span>")
-					M.playsound_local(M, 'sound/misc/mentorhelp.ogg', 100, flags = SOUND_IGNORE_SPACE, channel = VOLUME_CHANNEL_MENTORPM)
+					boutput(M, SPAN_MHELP("<b>MENTOR PM: FROM <a href=\"byond://?action=mentor_msg_irc&nick=[ckey(nick)]&msgid=[msgid]\">[nick]</a> (Discord)</b>: [SPAN_MESSAGE("[game_msg]")]"))
+					M.playsound_local_not_inworld('sound/misc/mentorhelp.ogg', 100, flags = SOUND_IGNORE_SPACE | SOUND_SKIP_OBSERVERS | SOUND_IGNORE_DEAF, channel = VOLUME_CHANNEL_MENTORPM)
 					logTheThing(LOG_ADMIN, null, "Discord: [nick] Mentor PM'd [constructTarget(M,"admin")]: [msg]")
 					logTheThing(LOG_DIARY, null, "Discord: [nick] Mentor PM'd [constructTarget(M,"diary")]: [msg]", "admin")
+
+					var/M_keyname = key_name(M, 0, 0, 1, additional_url_data="&msgid=[msgid]")
 					for (var/client/C)
 						if (C.can_see_mentor_pms() && C.key != M.key)
 							if(C.holder)
 								if (C.player_mode && !C.player_mode_mhelp)
 									continue
 								else
-									boutput(C, "<span class='mhelp'><b>MENTOR PM: [nick] (Discord) <i class='icon-arrow-right'></i> [key_name(M,0,0,1)][(C.mob.real_name ? "/"+M.real_name : "")] <A HREF='?src=\ref[C.holder];action=adminplayeropts;targetckey=[M.ckey]' class='popt'><i class='icon-info-sign'></i></A></b>: <span class='message'>[game_msg]</span></span>")
+									boutput(C, SPAN_MHELP("<b>MENTOR PM: [nick] (Discord) <i class='icon-arrow-right'></i> [M_keyname][(C.mob.real_name ? "/"+M.real_name : "")] <A HREF='?src=\ref[C.holder];action=adminplayeropts;targetckey=[M.ckey]' class='popt'><i class='icon-info-sign'></i></A></b>: [SPAN_MESSAGE("[game_msg]")]"))
 							else
-								boutput(C, "<span class='mhelp'><b>MENTOR PM: [nick] (Discord) <i class='icon-arrow-right'></i> [key_name(M,0,0,1)]</b>: <span class='message'>[game_msg]</span></span>")
+								boutput(C, SPAN_MHELP("<b>MENTOR PM: [nick] (Discord) <i class='icon-arrow-right'></i> [M_keyname]</b>: [SPAN_MESSAGE("[game_msg]")]"))
 
 				if (M)
 					var/ircmsg[] = new()
@@ -615,7 +620,7 @@
 						M.full_heal()
 						logTheThing(LOG_ADMIN, nick, "healed / revived [constructTarget(M,"admin")]")
 						logTheThing(LOG_DIARY, nick, "healed / revived [constructTarget(M,"diary")]", "admin")
-						message_admins("<span class='alert'>Admin [nick] healed / revived [key_name(M)] from Discord!</span>")
+						message_admins(SPAN_ALERT("Admin [nick] healed / revived [key_name(M)] from Discord!"))
 
 						var/ircmsg[] = new()
 						ircmsg["type"] = "heal"
@@ -627,44 +632,6 @@
 					return ircbot.response(found)
 				else
 					return 0
-
-			if ("hubCallback")
-				//Wire note: Temp debug logging as this should always get data and proc
-				if (!plist["data"])
-					logTheThing(LOG_DEBUG, null, "<b>API Error (Temp):</b> Didnt get data.")
-					return 0
-				if (!plist["proc"])
-					logTheThing(LOG_DEBUG, null, "<b>API Error (Temp):</b> Didnt get proc.")
-					return 0
-
-				if (addr != config.goonhub_api_ip) return 0 //ip filtering
-				var/auth = plist["auth"]
-				if (auth != md5(config.goonhub_api_token)) return 0 //really bad md5 token security
-				var/theDatum = plist["datum"] ? plist["datum"] : null
-				var/theProc = "/proc/[plist["proc"]]"
-
-				var/list/ldata
-				try
-					ldata = json_decode(plist["data"])
-				catch
-					logTheThing(LOG_DEBUG, null, "<b>API Error:</b> Invalid JSON detected: [plist["data"]]")
-					return 0
-
-				ldata["data_hub_callback"] = 1
-
-				//calls the second stage of whatever proc specified
-				var/rVal
-				if (theDatum)
-					rVal = call(theDatum, theProc)(ldata)
-				else
-					rVal = call(theProc)(ldata)
-
-				if (rVal)
-					logTheThing(LOG_DEBUG, null, "<b>Callback Error</b> - Hub callback failed in [theDatum ? "<b>[theDatum]</b> " : ""]<b>[theProc]</b> with message: <b>[rVal]</b>")
-					logTheThing(LOG_DIARY, null, "<b>Callback Error</b> - Hub callback failed in [theDatum ? "[theDatum] " : ""][theProc] with message: [rVal]", "debug")
-					return 0
-				else
-					return 1
 
 			if ("roundEnd")
 				if (!plist["server"] || !plist["address"]) return 0
@@ -693,6 +660,13 @@
 				for (var/obj/machinery/networked/printer/P as anything in machine_registry[MACHINES_PRINTERS])
 					P.print_buffer += "[msgTitle]&title;[msgText]"
 					P.print()
+
+				return 1
+
+			if ("numbersStation")
+				if (!plist["numbers"]) return 0
+
+				lincolnshire_numbers(plist["numbers"])
 
 				return 1
 
@@ -755,15 +729,17 @@
 				var/ircmsg[] = new()
 				ircmsg["major"] = world.byond_version
 				ircmsg["minor"] = world.byond_build
-				ircmsg["goonhub_api"] = config.goonhub_api_version ? config.goonhub_api_version : 0
+				ircmsg["goonhub_api"] = apiHandler.enabled ? "Enabled" : "Disabled"
 				return ircbot.response(ircmsg)
 
 			if ("youtube")
 				if (!plist["data"]) return 0
 
-				play_music_remote(json_decode(plist["data"]))
+				play_music_remote(json_decode(plist["data"]), from_topic = TRUE)
+
 				// trigger cooldown so radio station doesn't interrupt our cool music
-				EXTEND_COOLDOWN(global, "music", 2 MINUTES) // TODO use plist duration data if available
+				var/duration = text2num(plist["duration"])
+				EXTEND_COOLDOWN(global, "music", duration SECONDS)
 				return 1
 
 			if ("delay")
@@ -774,7 +750,7 @@
 					game_end_delayer = plist["nick"]
 					logTheThing(LOG_ADMIN, null, "[game_end_delayer] delayed the server restart from Discord.")
 					logTheThing(LOG_DIARY, null, "[game_end_delayer] delayed the server restart from Discord.", "admin")
-					message_admins("<span class='internal'>[game_end_delayer] delayed the server restart from Discord.</span>")
+					message_admins(SPAN_INTERNAL("[game_end_delayer] delayed the server restart from Discord."))
 					ircmsg["msg"] = "Server restart delayed. Use undelay to cancel this."
 				else
 					ircmsg["msg"] = "The server restart is already delayed, use undelay to cancel this."
@@ -793,7 +769,7 @@
 					game_end_delayer = plist["nick"]
 					logTheThing(LOG_ADMIN, null, "[game_end_delayer] removed the restart delay from Discord.")
 					logTheThing(LOG_DIARY, null, "[game_end_delayer] removed the restart delay from Discord.", "admin")
-					message_admins("<span class='internal'>[game_end_delayer] removed the restart delay from Discord.</span>")
+					message_admins(SPAN_INTERNAL("[game_end_delayer] removed the restart delay from Discord."))
 					game_end_delayer = null
 					ircmsg["msg"] = "Removed the restart delay."
 					return ircbot.response(ircmsg)
@@ -859,67 +835,48 @@
 				if (!plist["ckey"])
 					return 0
 
-				var/list/data = list(
-					"auth" = config.player_notes_auth,
-					"action" = "get",
-					"ckey" = plist["ckey"],
-					"format" = "json"
-				)
-
-				// Fetch notes via HTTP
-				var/datum/http_request/request = new()
-				request.prepare(RUSTG_HTTP_METHOD_GET, "[config.player_notes_baseurl]/?[list2params(data)]", "", "")
-				request.begin_async()
-				UNTIL(request.is_complete())
-				var/datum/http_response/response = request.into_response()
-
-				if (response.errored || !response.body)
-					return 0
-
-				return response.body
+				try
+					var/datum/apiRoute/players/notes/get/getPlayerNotes = new
+					getPlayerNotes.queryParams = list(
+						"filters" = list(
+							"ckey" = plist["ckey"]
+						)
+					)
+					return apiHandler.queryAPI(getPlayerNotes)
+				catch
+					return FALSE
 
 			if ("getPlayerStats")
 				if (!plist["ckey"])
 					return 0
 
-				// playtime stats
-				var/list/data = list(
-					"auth" = config.player_notes_auth,
-					"action" = "user_stats",
-					"ckey" = plist["ckey"],
-					"format" = "json"
-				)
-				var/datum/http_request/playtime_request = new()
-				playtime_request.prepare(RUSTG_HTTP_METHOD_GET, "[config.player_notes_baseurl]/?[list2params(data)]", "", "")
-				playtime_request.begin_async()
-
-				// round stats
-				// cleverly making this request inbetween the start and the wait of the playtime request
-				var/list/response = null
+				var/datum/apiModel/Tracked/PlayerStatsResource/playerStats
 				try
-					response = apiHandler.queryAPI("playerInfo/get", list("ckey" = plist["ckey"]), forceResponse = 1)
+					var/datum/apiRoute/players/stats/get/getPlayerStats = new
+					getPlayerStats.queryParams = list("ckey" = plist["ckey"])
+					playerStats = apiHandler.queryAPI(getPlayerStats)
 				catch
-					return 0
-				if (!response)
-					return 0
+					return FALSE
 
-				// finish playtime stats
-				UNTIL(playtime_request.is_complete())
-				var/datum/http_response/playtime_response = playtime_request.into_response()
-				if (!playtime_response.errored && playtime_response.body)
-					response["playtime"] = playtime_response.body
+				var/list/response = list(
+					"seen" = playerStats.connected,
+					"seen_rp" = playerStats.connected_rp,
+					"participated" = playerStats.played,
+					"participated_rp" = playerStats.played_rp,
+					"playtime" = playerStats.time_played
+				)
 
 				var/datum/player/player = make_player(plist["ckey"])
-				if(isnull(player.last_seen))
+				if(!player.cached_round_stats)
 					player.cache_round_stats_blocking()
 				if(player)
 					response["last_seen"] = player.last_seen
-				if(player.cloud_fetch())
-					for(var/kkey in player.clouddata)
-						if(kkey in list("admin_preferences", "buildmode"))
-							continue
-						response[kkey] = player.clouddata[kkey]
-					response["cloudsaves"] = player.cloudsaves
+				player.cloudSaves.fetch()
+				for(var/kkey in player.cloudSaves.data)
+					if((kkey in list("admin_preferences", "buildmode")) || findtext(kkey, regex(@"^custom_job_\d+$")))
+						continue
+					response[kkey] = player.cloudSaves.data[kkey]
+				response["cloudsaves"] = player.cloudSaves.saves
 
 				return json_encode(response)
 
@@ -970,6 +927,9 @@
 				var/list/response = list()
 				for_by_tcl(canvas, /obj/item/canvas/lazy_restore)
 					response += canvas.id
+				for_by_tcl(art_exhibit, /obj/decal/exhibit)
+					if (art_exhibit.data?.art)
+						response += art_exhibit.exhibit_id
 				return json_encode(response)
 
 			if("lazy_canvas_get")
@@ -979,4 +939,51 @@
 						if(!canvas.initialized)
 							canvas.load_from_id(canvas.id)
 						response[canvas.id] = icon2base64(canvas.art)
+				for_by_tcl(art_exhibit, /obj/decal/exhibit)
+					if(art_exhibit.exhibit_id == plist["id"])
+						if (!art_exhibit.data?.art)
+							break
+						response[art_exhibit.exhibit_id] = icon2base64(art_exhibit.data.art)
 				return json_encode(response)
+
+			if("ban_added")
+				bansHandler.add(
+					plist["admin_ckey"],
+					plist["server_id"],
+					plist["ckey"],
+					plist["comp_id"],
+					plist["ip"],
+					plist["reason"],
+					text2num(plist["duration"]) * 10,
+					text2num(plist["requires_appeal"]),
+					TRUE
+				)
+				return 1
+
+			if("goonhub_auth")
+				var/ckey = plist["ckey"]
+				var/client/C = find_client(ckey)
+				if (C && C.goonhub_auth)
+					C.goonhub_auth.on_auth()
+				return 1
+
+			if ("mapSwitchDone")
+				if (!plist["map"] || !mapSwitcher.locked) return 0
+
+				var/map = plist["map"]
+				var/ircmsg[] = new()
+				var/msg
+
+				var/attemptedMap = mapSwitcher.next ? mapSwitcher.next : mapSwitcher.current
+				if (map == "FAILED")
+					msg = "Compilation of [attemptedMap] failed! Falling back to previous setting of [mapSwitcher.nextPrior ? mapSwitcher.nextPrior : mapSwitcher.current]"
+				else
+					msg = "Compilation of [attemptedMap] succeeded!"
+
+				logTheThing("admin", null, null, msg)
+				logTheThing("diary", null, null, msg, "admin")
+				message_admins(msg)
+				ircmsg["msg"] = msg
+
+				mapSwitcher.unlock(map)
+				return ircbot.response(ircmsg)

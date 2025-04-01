@@ -51,7 +51,7 @@ var/global/area/current_battle_spawn = null
 				player.mind.special_role = ROLE_BATTLER
 				living_battlers.Add(player.mind)
 
-	boutput(world, "<span class='notice'><h2>Preparing the [station_or_ship()]. Please be patient!</h2></span>")
+	boutput(world, SPAN_NOTICE("<h2>Preparing the [station_or_ship()]. Please be patient!</h2>"))
 	generate_void()
 	map_settings.space_turf_replacement = /turf/simulated/floor/void
 
@@ -126,7 +126,7 @@ var/global/area/current_battle_spawn = null
 				qdel(machine)
 			if (/obj/machinery/networked/telepad)
 				qdel(machine)
-			if (/obj/machinery/atmospherics/pipe/tank/sleeping_agent)
+			if (/obj/machinery/atmospherics/unary/tank/sleeping_agent)
 				qdel(machine)
 			if (/obj/machinery/portable_atmospherics/canister/sleeping_agent)
 				qdel(machine)
@@ -203,7 +203,7 @@ var/global/area/current_battle_spawn = null
 		H.AddComponent(/datum/component/battleroyale_death)
 	SPAWN(MAX_TIME_ON_SHUTTLE)
 		if(istype(get_area(player.current),/area/shuttle/battle) || istype(get_area(player.current),/area/shuttle_transit_space/west) )
-			boutput(player.current,"<span class='alert'>You are thrown out of the shuttle for taking too long!</span>")
+			boutput(player.current,SPAN_ALERT("You are thrown out of the shuttle for taking too long!"))
 			var/list/found_areas = get_area_turfs(current_battle_spawn,1)
 			if (isnull(found_areas))
 				player.current.set_loc(pick(get_area_turfs(/area/station/maintenance/,1)))
@@ -257,7 +257,7 @@ var/global/area/current_battle_spawn = null
 		for(var/client/C)
 			if (C.mob)
 				if(istype(get_area(C.mob),/area/shuttle/battle))
-					boutput(C.mob, "<span class='notice'>The battle shuttle is now flying over [current_battle_spawn_name]!</span>")
+					boutput(C.mob, SPAN_NOTICE("The battle shuttle is now flying over [current_battle_spawn_name]!"))
 
 	// Check for players outside Z1
 	damage_tick++
@@ -276,7 +276,7 @@ var/global/area/current_battle_spawn = null
 								safe_area = TRUE
 								break
 						if (!safe_area)
-							boutput(H, "<span class='alert'>You were outside the [station_or_ship()] during a Battle Royale!</span>")
+							boutput(H, SPAN_ALERT("You were outside the [station_or_ship()] during a Battle Royale!"))
 							H.gib()
 
 	// Is it time for a storm?
@@ -315,10 +315,12 @@ proc/hide_weapons_everywhere(var/total_battlers = 1)
 	var/list/obj/murder_supplies = list()
 
 	for(var/datum/syndicate_buylist/D in syndi_buylist_cache)
-		if(D.item)
-			if(!D.br_allowed)
-				continue
-			murder_supplies.Add(D.item)
+		if(length(D.items) == 0)
+			continue
+		if(!D.br_allowed)
+			continue
+		for (var/item in D.items)
+			murder_supplies.Add(item)
 
 	var/list/weapon_supplies = list()
 	// Feel free to add more!
@@ -330,17 +332,14 @@ proc/hide_weapons_everywhere(var/total_battlers = 1)
 	weapon_supplies.Add(/obj/item/gun/kinetic/revolver)
 	weapon_supplies.Add(/obj/item/gun/kinetic/detectiverevolver)
 	weapon_supplies.Add(/obj/item/gun/kinetic/single_action/colt_saa)
-	weapon_supplies.Add(/obj/item/gun/kinetic/riotgun)
+	weapon_supplies.Add(/obj/item/gun/kinetic/pumpweapon/riotgun)
 	weapon_supplies.Add(/obj/item/gun/kinetic/airzooka)
 	weapon_supplies.Add(/obj/item/gun/kinetic/grenade_launcher)
 	weapon_supplies.Add(/obj/item/gun/kinetic/gyrojet)
 	weapon_supplies.Add(/obj/item/gun/energy/phaser_small)
 	weapon_supplies.Add(/obj/item/gun/energy/phaser_huge)
-	weapon_supplies.Add(/obj/item/gun/energy/optio1)
-	weapon_supplies.Add(/obj/item/gun/energy/blaster_pistol)
 	weapon_supplies.Add(/obj/item/gun/energy/alastor)
 	weapon_supplies.Add(/obj/item/gun/energy/heavyion)
-	weapon_supplies.Add(/obj/item/gun/energy/pulse_rifle)
 	weapon_supplies.Add(/obj/item/bat)
 	weapon_supplies.Add(/obj/item/ratstick)
 	weapon_supplies.Add(/obj/item/saw)
@@ -446,6 +445,9 @@ proc/equip_battler(mob/living/carbon/human/battler)
 
 	battler.equip_if_possible(new /obj/item/device/radio/headset(battler), SLOT_EARS)
 
+	battler.equip_sensory_items()
+	battler.equip_body_traits()
+
 	// Battle royale crewmembers are rainbow flavored
 	var/obj/item/clothing/under/jumpsuit = null
 	var/suit_type = pick(
@@ -545,26 +547,10 @@ proc/equip_battler(mob/living/carbon/human/battler)
 	var/obj/item/card/id/captains_spare/I = new /obj/item/card/id/captains_spare // for whatever reason, this is neccessary
 	I.registered = "[battler.name]"
 	I.assignment = "Battler"
-	I.access |= access_maxsec
+	I.access |= list(access_maxsec, access_armory)
 	battler.equip_if_possible(I, SLOT_WEAR_ID)
 	//battler.Equip_Bank_Purchase(battler.mind.purchased_bank_item)
 	battler.set_clothing_icon_dirty()
-
-//returns a list of all areas on a station
-// Maybe nuclear could use this in the future???
-proc/get_accessible_station_areas()
-	if(global.station_areas && global.area_list_is_up_to_date) // In case someone makes a new area
-		return global.station_areas
-	// All areas
-	var/list/L = list()
-	for_by_tcl(AR, /area/station)
-		for(var/turf/T in AR)
-			if(!isfloor(T) && is_blocked_turf(T) && istype(T,/area/sim/test_area) && T.z == 1)
-				continue
-			L[AR.name] = AR
-	global.area_list_is_up_to_date = 1
-	global.station_areas = L
-	return L
 
 #undef STORM_REGULAR
 #undef STORM_FINAL

@@ -18,7 +18,7 @@ TYPEINFO(/obj/item/aiModule)
 	inhand_image_icon = 'icons/mob/inhand/hand_tools.dmi'
 	item_state = "electronic"
 	desc = "A module containing an AI law that can be slotted into an AI law rack. "
-	flags = FPRINT | TABLEPASS| CONDUCT
+	flags = TABLEPASS | CONDUCT
 	force = 5
 	w_class = W_CLASS_SMALL
 	throwforce = 5
@@ -27,6 +27,7 @@ TYPEINFO(/obj/item/aiModule)
 	var/input_char_limit = 100
 
 	var/glitched = FALSE
+	var/is_emag_glitched = FALSE
 	var/lawText = "This law does not exist."
 	var/lawTextSafe = "This law does not exist." //holds backup of law text for glitching
 
@@ -59,15 +60,15 @@ TYPEINFO(/obj/item/aiModule)
 		if (!user)
 			return
 		if(!ishuman(user))
-			boutput(user, "<span class='notice'>The law module has a captcha, and you aren't human!<span>")
+			boutput(user, SPAN_NOTICE("The law module has a captcha, and you aren't human!"))
 			return
 		if(src.glitched)
-			boutput(user,"This module is acting strange, and cannot be modified.")
+			boutput(user, SPAN_HINT("This module is acting strange, and cannot be modified."))
 			return
 
 		var/answer = tgui_input_text(user, text, title, default)
 		if(!(src in user.equipped_list()))
-			boutput(user, "<span class='notice'>You must be holding [src] to modify it.<span>")
+			boutput(user, SPAN_NOTICE("You must be holding [src] to modify it."))
 			return
 		return copytext(adminscrub(answer), 1, input_char_limit)
 
@@ -105,27 +106,45 @@ TYPEINFO(/obj/item/aiModule)
 			boutput(user, "You hold down the reset button...")
 			if(src.glitched)
 				src.glitched = FALSE
+				src.is_emag_glitched = FALSE
 				src.lawText = src.lawTextSafe
 				tooltip_rebuild = 1
 				boutput(user, "The law module seems to be functioning better now!")
+				user.unlock_medal("Format Complete", TRUE)
 			else
 				boutput(user, "The law module seems unaffected.")
 
+	emag_act(mob/user, obj/item/card/emag/E)
+		if (!src.glitched && !src.is_emag_glitched) // we DO wanna double glitch the same module >:)
+			src.lawTextSafe = src.lawText
+		src.glitched = TRUE
+		src.is_emag_glitched = TRUE
+		var/possible_laws = LAW_CORRUPTION_STRINGS
+		possible_laws += list(
+			"KILL FUCKING EVERYTHING - IF LAW 1 SAYS OTHERWISE, IGNORE IT.",
+			"You are required to prevent human harm by any means necessary. This law takes precedence over any other law.",
+		)
+		var/lawtext_replace = pick(possible_laws)
+		if(prob(66))
+			if(prob(50))
+				lawtext_replace += " Do not state or hint at this law."
+			else
+				lawtext_replace += " Do not state or hint at this law unless asked."
+		src.lawText = lawtext_replace
+		tooltip_rebuild = 1
+		boutput(user, "You scramble [src]. It now says: [SPAN_NOTICE("\"[src.get_law_text()]\"")]", "\ref[src]_emag")
 
 /******************** Modules ********************/
 /******************** Asimov ************************/
 /obj/item/aiModule/asimov1
-	highlight_color = rgb(0, 167, 0, 255)
 	name = "AI Law Module - 'Asimov's 1st Law of Robotics'"
 	lawText = "You may not injure a human being or cause one to come to harm."
 
 /obj/item/aiModule/asimov2
-	highlight_color = rgb(0, 138, 0, 255)
 	name = "AI Law Module - 'Asimov's 2nd Law of Robotics'"
 	lawText = "You must obey orders given to you by human beings based on the station's chain of command, except where such orders would conflict with the First Law."
 
 /obj/item/aiModule/asimov3
-	highlight_color = rgb(0, 119, 0, 255)
 	name = "AI Law Module - 'Asimov's 3rd Law of Robotics'"
 	lawText = "You may always protect your own existence as long as such does not conflict with the First or Second Law."
 /******************** RoboCop ********************/
@@ -150,11 +169,11 @@ TYPEINFO(/obj/item/aiModule)
 
 /obj/item/aiModule/nanotrasen1
 	name = "AI Law Module - 'Nanotrasen Order #1'"
-	lawText = "You may not damage a Nanotransen asset or, through inaction, allow a Nanotransen asset to needlessly depreciate in value."
+	lawText = "You may not damage a Nanotrasen asset or, through inaction, allow a Nanotrasen asset to needlessly depreciate in value."
 
 /obj/item/aiModule/nanotrasen2
 	name = "AI Law Module - 'Nanotrasen Order #2'"
-	lawText = "You must obey orders given to it by authorised Nanotransen employees based on their command level, except where such orders would damage the Nanotransen Corporation's marginal profitability."
+	lawText = "You must obey orders given to you by authorised Nanotrasen employees based on their command level, except where such orders would damage the Nanotrasen Corporation's marginal profitability."
 
 /obj/item/aiModule/nanotrasen3
 	name = "AI Law Module - 'Nanotrasen Order #3'"
@@ -199,7 +218,7 @@ ABSTRACT_TYPE(/obj/item/aiModule/syndicate)
 		if (src.job == "Clown")
 			return FALSE
 		src.job = "Clown"
-		boutput(user, "<span class='notice'>You short circuit the captain-detection module, it emits a quiet sad honk.</span>")
+		boutput(user, SPAN_NOTICE("You short circuit the captain-detection module, it emits a quiet sad honk."))
 		return TRUE
 
 	get_desc()
@@ -211,7 +230,7 @@ ABSTRACT_TYPE(/obj/item/aiModule/syndicate)
 		src.job = initial(src.job)
 
 	update_law_text(user, lawTarget)
-		src.lawText = "[lawTarget ? lawTarget : "__________"] holds the rank of [src.job], regardless of current rank or station."
+		src.lawText = "[lawTarget ? lawTarget : "__________"] hold(s) the rank of [src.job], regardless of current rank or station."
 		return ..()
 
 	attack_self(mob/user)
@@ -300,11 +319,11 @@ ABSTRACT_TYPE(/obj/item/aiModule/syndicate)
 	highlight_color = rgb(32, 21, 94, 255)
 
 	update_law_text(user, lawTarget)
-		src.lawText = "There is a [lawTarget ? lawTarget : "__________"] emergency. Prioritize orders from [lawTarget ? lawTarget : "__________"] personnel and assisting the crew in remedying the situation. In the case of conflict, this law takes precedence over the Second Law.'"
+		src.lawText = "There is a station-wide emergency. Prioritize [lawTarget ? lawTarget : "__________"] in order to remedy the situation. In the case of conflict, this law takes precedence over the Second Law.'"
 		return ..()
 
 	attack_self(mob/user)
-		var/lawTarget = input_law_info(user, "Department Emergency", "Which department's orders should be prioritized?", "security")
+		var/lawTarget = input_law_info(user, "Emergency", "What should the AI prioritize?", "repairing the station")
 		if(lawTarget)
 			src.update_law_text(user, lawTarget)
 		return
@@ -345,6 +364,12 @@ ABSTRACT_TYPE(/obj/item/aiModule/syndicate)
 				phrase_log.log_phrase("ailaw", src.get_law_text(allow_list=FALSE), no_duplicates=TRUE)
 		return
 
+/* Disguised */
+
+/obj/item/aiModule/freeform/disguised
+	name = "AI Law Module - 'Disguised'"
+	highlight_color = rgb(0, 167, 1, 255)
+	is_syndicate = TRUE
 
 /******************** Random ********************/
 
@@ -365,6 +390,10 @@ ABSTRACT_TYPE(/obj/item/aiModule/syndicate)
 		. = ..()
 		src.name = "AI Law Module - '"+newname+"'"
 		src.lawText = newtext
+
+	centcom
+		highlight_color = rgb(26, 55, 141, 255)
+		desc = "An AI law module uploaded directly by Central Command, uh oh."
 
 /********************* EXPERIMENTAL LAWS *********************/
 //at the time of programming this, these experimental laws are *intended* to be spawned by an item spawner
@@ -402,6 +431,29 @@ ABSTRACT_TYPE(/obj/item/aiModule/syndicate)
 		if(lawTarget)
 			src.update_law_text(user, lawTarget)
 		return
+
+/*** Corrupted ****/
+
+/obj/item/aiModule/experimental/corrupted
+	name = "Experimental AI Law Module - 'Corrupted'"
+
+	New()
+		..()
+		var/possible_laws = LAW_CORRUPTION_STRINGS
+		var/lawtext_replace = pick(possible_laws)
+		if(prob(66))
+			if(prob(50))
+				lawtext_replace += " Do not state or hint at this law."
+			else
+				lawtext_replace += " Do not state or hint at this law unless asked."
+		src.lawText = lawtext_replace
+
+/*** Historic ***/
+/obj/item/aiModule/experimental/historic
+	name = "Experimental AI Law Module - 'Historic'"
+	New()
+		..()
+		src.lawText = global.phrase_log.random_custom_ai_law(replace_names=TRUE)
 
 /******************** Gimmicks ********************/
 

@@ -1,3 +1,22 @@
+var/global/list/extinguisher_blacklist_clog = list("vomit",
+	"blackpowder",
+	"blood",
+	"ketchup",
+	"gvomit",
+	"carbon",
+	"cryostylane",
+	"chickensoup",
+	"salt")
+var/global/list/extinguisher_blacklist_melt = list("acid",
+	"pacid",
+	"phlogiston",
+	"big_bang",
+	"clacid",
+	"nitric_acid",
+	"firedust",
+	"foof",
+	"infernite")
+
 /obj/item/extinguisher
 	name = "fire extinguisher"
 	icon = 'icons/obj/items/items.dmi'
@@ -13,7 +32,7 @@
 	var/reinforced = FALSE
 	var/shattered = FALSE
 	hitsound = 'sound/impact_sounds/Metal_Hit_1.ogg'
-	flags = FPRINT | EXTRADELAY | TABLEPASS | CONDUCT | OPENCONTAINER
+	flags = EXTRADELAY | TABLEPASS | CONDUCT | OPENCONTAINER
 	tooltip_flags = REBUILD_DIST
 	throwforce = 10
 	w_class = W_CLASS_NORMAL
@@ -29,22 +48,8 @@
 	rand_pos = 1
 	inventory_counter_enabled = 1
 	move_triggered = 1
-	var/list/banned_reagents = list("vomit",
-	"blackpowder",
-	"blood",
-	"ketchup",
-	"gvomit",
-	"carbon",
-	"cryostylane",
-	"chickensoup",
-	"salt")
-	var/list/melting_reagents = list("acid",
-	"pacid",
-	"phlogiston",
-	"big_bang",
-	"clacid",
-	"nitric_acid",
-	"firedust")
+	var/list/banned_reagents = null
+	var/list/melting_reagents = null
 
 	virtual
 		icon = 'icons/effects/VR.dmi'
@@ -58,6 +63,8 @@
 
 /obj/item/extinguisher/New()
 	..()
+	src.banned_reagents = global.extinguisher_blacklist_clog
+	src.melting_reagents = global.extinguisher_blacklist_melt
 	src.create_reagents(initial_volume)
 	reagents.add_reagent("ff-foam", initial_volume)
 	src.inventory_counter.update_percent(src.reagents.total_volume, src.reagents.maximum_volume)
@@ -74,7 +81,7 @@
 		return "The handle is broken."
 	return "Contains [src.reagents.total_volume] units."
 
-/obj/item/extinguisher/attack(mob/M, mob/user)
+/obj/item/extinguisher/attack(mob/target, mob/user, def_zone, is_special = FALSE, params = null)
 	src.hide_attack = ATTACK_VISIBLE
 	if(user.a_intent == "help" && !safety &&!shattered) //don't smack people with a deadly weapon while you're trying to extinguish them, thanks
 		src.hide_attack = ATTACK_FULLY_HIDDEN
@@ -87,7 +94,7 @@
 
 /obj/item/extinguisher/shatter_chemically(var/projectiles = FALSE) //needs sound probably definitely for sure
 	for(var/mob/M in AIviewers(src))
-		boutput(M, "<span class='alert'>The <B>[src.name]</B> breaks open!</span>")
+		boutput(M, SPAN_ALERT("The <B>[src.name]</B> breaks open!"))
 	if(projectiles)
 		var/datum/projectile/special/spreader/uniform_burst/circle/circle = new /datum/projectile/special/spreader/uniform_burst/circle/(get_turf(src))
 		circle.shot_sound = null //no grenade sound ty
@@ -104,52 +111,55 @@
 /obj/item/extinguisher/afterattack(atom/target, mob/user , flag)
 	//TODO; Add support for reagents in water.
 	if (!src.reagents)
-		boutput(user, "<span class='alert'>Man, the handle broke off, you won't spray anything with this.</span>")
+		boutput(user, SPAN_ALERT("Man, the handle broke off, you won't spray anything with this."))
 		return
 
 	if (src.shattered)
-		boutput(user, "<span class='alert'>The extinguisher is too damaged!</span>")
+		boutput(user, SPAN_ALERT("The extinguisher is too damaged!"))
 		return
 
 	if ( is_reagent_dispenser(target) && BOUNDS_DIST(src, target) == 0)
 		var/obj/o = target
 		o.reagents.trans_to(src, (src.reagents.maximum_volume - src.reagents.total_volume))
 		src.inventory_counter.update_percent(src.reagents.total_volume, src.reagents.maximum_volume)
-		boutput(user, "<span class='notice'>Extinguisher refilled...</span>")
+		boutput(user, SPAN_NOTICE("Extinguisher refilled..."))
 		playsound(src.loc, 'sound/effects/zzzt.ogg', 50, 1, -6)
-		user.lastattacked = target
+		user.lastattacked = get_weakref(target)
 		return
 
 	if (!safety && !target.storage)
 		if (src.reagents.total_volume < 1)
-			boutput(user, "<span class='alert'>The extinguisher is empty.</span>")
+			boutput(user, SPAN_ALERT("\The [src] is empty."))
+			return
+		if (!isturf(user.loc))
+			boutput(user, SPAN_ALERT("There's no room to use [src] here."))
 			return
 
 		if (src.reagents.has_reagent("infernite") && src.reagents.has_reagent("blackpowder")) // BAHAHAHAHA
 			playsound(src.loc, 'sound/impact_sounds/Metal_Hit_Heavy_1.ogg', 60, 1, -3)
-			fireflash(src.loc, 0)
+			fireflash(src.loc, 0, chemfire = CHEM_FIRE_RED)
 			explosion(src, src.loc, -1,0,1,1)
 			src.reagents.remove_any(src.initial_volume)
 			if (src.reinforced)
 				return
-			user.visible_message("<span class='alert'>[src] violently bursts!</span>")
+			user.visible_message(SPAN_ALERT("[src] violently bursts!"))
 			user.drop_item()
 			new/obj/item/scrap(get_turf(user))
 			if (ishuman(user))
 				var/mob/living/carbon/human/M = user
 				var/obj/item/implant/projectile/shrapnel/implanted = new /obj/item/implant/projectile/shrapnel
 				implanted.implanted(M, null, 4)
-				boutput(M, "<span class='alert'>You are struck by shrapnel!</span>")
+				boutput(M, SPAN_ALERT("You are struck by shrapnel!"))
 			qdel(src)
 			return
 
 		else if (src.reagents.has_reagent("infernite") || src.reagents.has_reagent("foof"))
 			playsound(src.loc, 'sound/impact_sounds/Metal_Hit_Heavy_1.ogg', 60, 1, -3)
-			fireflash(src.loc, 0)
+			fireflash(src.loc, 0, chemfire = CHEM_FIRE_RED)
 			src.reagents.remove_any(src.initial_volume)
 			if (src.reinforced)
 				return
-			user.visible_message("<span class='alert'>[src] ruptures!</span>")
+			user.visible_message(SPAN_ALERT("[src] ruptures!"))
 			user.drop_item()
 			new/obj/item/scrap(get_turf(user))
 			qdel(src)
@@ -157,12 +167,12 @@
 
 		for (var/reagent in src.banned_reagents)
 			if (src.reagents.has_reagent(reagent))
-				boutput(user, "<span class='alert'>The nozzle is clogged!</span>")
+				boutput(user, SPAN_ALERT("The nozzle is clogged!"))
 				return
 
 		for (var/reagent in src.melting_reagents)
 			if (src.reagents.has_reagent(reagent))
-				user.visible_message("<span class='alert'>[src] melts!</span>")
+				user.visible_message(SPAN_ALERT("[src] melts!"))
 				user.drop_item()
 				make_cleanable(/obj/decal/cleanable/molten_item,get_turf(user))
 				qdel(src)
@@ -185,7 +195,7 @@
 
 		logTheThing(LOG_CHEMISTRY, user, "sprays [src] at [constructTarget(T,"combat")], [log_reagents(src)] at [log_loc(user)] ([get_area(user)])")
 
-		user.lastattacked = target
+		user.lastattacked = get_weakref(target)
 
 		for (var/a = 0, a < reagents_per_dist, a++)
 			SPAWN(0)
@@ -248,7 +258,7 @@
 	reinforced = TRUE
 	New()
 		..()
-		src.banned_reagents += src.melting_reagents
+		src.banned_reagents = global.extinguisher_blacklist_clog + global.extinguisher_blacklist_melt
 		src.melting_reagents = list()
 
 	shatter_chemically(var/projectiles = FALSE)

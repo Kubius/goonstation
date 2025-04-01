@@ -14,8 +14,23 @@
  * * items - The options that can be chosen by the user, each string is assigned a button on the UI.
  * * timeout - The timeout of the alert, after which the modal will close and qdel itself. Set to zero for no timeout.
  * * autofocus - The bool that controls if this alert should grab window focus. - BROKEN DON'T SET TO FALSE (nulls items, ask zewaka)
+ * * content_window - The name of the part to be used for the alert's content, to be used in lieu of message
+ * * do_wait - waits for user input then returns it. Set to false for asynchronism
+ * * theme - The TGUI theme used for the window.
+ * * cant_interact - A number of seconds that the user must wait before being able to interact or close the alert. None by default.
  */
-/proc/tgui_alert(mob/user, message = "", title, list/items = list("Ok"), timeout = 0, autofocus = TRUE)
+/proc/tgui_alert(
+		mob/user,
+		message = "",
+		title,
+		list/items = list("Ok"),
+		timeout = 0,
+		autofocus = TRUE,
+		content_window = null,
+		do_wait = TRUE,
+		theme = null,
+		cant_interact = 0
+)
 	if (!user)
 		user = usr
 	if (!istype(user))
@@ -33,8 +48,10 @@
 	if(length(items) > 3)
 		log_tgui(user, "Error: TGUI Alert initiated with too many items. Use a list.", "TguiAlert")
 		return tgui_input_list(user, message, title, items, timeout, autofocus)
-	var/datum/tgui_modal/alert = new(user, message, title, items, timeout, autofocus)
+	var/datum/tgui_modal/alert = new(user, message, title, items, timeout, autofocus, content_window, theme, cant_interact)
 	alert.ui_interact(user)
+	if (!do_wait)
+		return
 	alert.wait()
 	if (alert)
 		. = alert.choice
@@ -47,8 +64,6 @@
  * a message and has items for responses.
  */
 /datum/tgui_modal
-	/// The user of the TGUI window
-	var/mob/user
 	/// The title of the TGUI window
 	var/title
 	/// The textual body of the TGUI window
@@ -65,16 +80,24 @@
 	var/autofocus
 	/// Boolean field describing if the tgui_modal was closed by the user.
 	var/closed
+	/// The name of the part to be used for the alert's content, to be used in lieu of message
+	var/content_window
+	/// The TGUI theme used for the window
+	var/theme
+	/// A number of seconds that the user must wait before being able to interact or close the alert.
+	var/cant_interact
 
-/datum/tgui_modal/New(mob/user, message, title, list/items, timeout, autofocus)
-	src.user = user
+/datum/tgui_modal/New(mob/user, message, title, list/items, timeout, autofocus, content_window, theme, cant_interact)
 	src.autofocus = autofocus
 	src.items = items.Copy()
 	src.title = title
 	src.message = message
+	src.content_window = content_window
+	src.theme = theme
+	src.start_time = TIME
+	src.cant_interact = cant_interact
 	if (timeout)
 		src.timeout = timeout
-		src.start_time = TIME
 		SPAWN(timeout)
 			qdel(src)
 	. = ..()
@@ -90,7 +113,7 @@
  * the window was closed by the user.
  */
 /datum/tgui_modal/proc/wait()
-	UNTIL(!user.client || choice || closed || QDELETED(src))
+	UNTIL(choice || closed || QDELETED(src))
 
 /datum/tgui_modal/ui_interact(mob/user, datum/tgui/ui)
 	ui = tgui_process.try_update_ui(user, src, ui)
@@ -107,7 +130,7 @@
 
 /datum/tgui_modal/ui_data(mob/user)
 	. = list()
-	if(timeout)
+	if (timeout)
 		.["timeout"] = clamp(((timeout - (TIME - start_time) - 1 SECONDS) / (timeout - 1 SECONDS)), 0, 1)
 
 /datum/tgui_modal/ui_static_data(mob/user)
@@ -116,6 +139,11 @@
 		"message" = message,
 		"items" = items,
 		"autofocus" = autofocus,
+		// |GOONSTATION-ADD| all below
+		"content_window" = content_window,
+		"theme" = theme,
+		"cdn" = cdn,
+		"cant_interact" = cant_interact
 	)
 
 /datum/tgui_modal/ui_act(action, list/params)

@@ -25,6 +25,7 @@
 	health_burn = 25
 	health_burn_vuln = 1
 	speech_void = 1
+	faction = list(FACTION_DERELICT)
 	ai_retaliates = TRUE
 	ai_retaliate_patience = 3
 	ai_retaliate_persistence = RETALIATE_ONCE // They don't really want to hurt you
@@ -101,11 +102,11 @@
 		var/datum/attackResults/msgs = user.calculate_melee_attack(target, 5, 15, 0, can_punch = FALSE, can_kick = FALSE)
 		user.attack_effects(target, user.zone_sel?.selecting)
 		var/action = "grab"
-		msgs.base_attack_message = "<b><span class='alert'>[user] [action]s [target] with [src.holder]!</span></b>"
+		msgs.base_attack_message = SPAN_ALERT("<b>[user] [action]s [target] with [src.holder]!</b>")
 		msgs.played_sound = 'sound/impact_sounds/burn_sizzle.ogg'
 		msgs.damage_type = DAMAGE_BURN
 		msgs.flush(SUPPRESS_LOGS)
-		user.lastattacked = target
+		user.lastattacked = get_weakref(target)
 		ON_COOLDOWN(src, "limb_cooldown", 3 SECONDS)
 
 ////////////// Shades ////////////////
@@ -127,6 +128,7 @@
 	health_burn = 10
 	health_burn_vuln = 0
 	speech_void = 1
+	faction = list(FACTION_DERELICT)
 	ai_retaliates = TRUE
 	ai_retaliate_patience = 0
 	ai_retaliate_persistence = RETALIATE_UNTIL_DEAD
@@ -271,6 +273,7 @@
 	name = "strange robot"
 	real_name = "strange robot"
 	desc = "It looks like some sort of floating repair bot or something?"
+	icon = 'icons/mob/critter/robotic/ancient/repairbot.dmi'
 	icon_state = "ancient_repairbot"
 	hand_count = 1
 	can_throw = FALSE
@@ -284,7 +287,8 @@
 	ai_retaliates = TRUE
 	ai_retaliate_patience = 2
 	ai_retaliate_persistence = RETALIATE_UNTIL_INCAP
-	ai_type = /datum/aiHolder/aggressive
+	faction = list(FACTION_DERELICT)
+	ai_type = /datum/aiHolder/ranged
 	is_npc = TRUE
 	death_text = "%src% blows apart!"
 	custom_gib_handler = /proc/robogibs
@@ -323,7 +327,7 @@
 		ghostize()
 		qdel(src)
 
-	do_disorient(stamina_damage, weakened, stunned, paralysis, disorient = 60, remove_stamina_below_zero = 0, target_type = DISORIENT_BODY, stack_stuns = 1)
+	do_disorient(stamina_damage, knockdown, stunned, unconscious, disorient = 60, remove_stamina_below_zero = 0, target_type = DISORIENT_BODY, stack_stuns = 1)
 		return
 
 	specific_emotes(var/act, var/param = null, var/voluntary = 0)
@@ -402,7 +406,7 @@
 	health_burn_vuln = 0.6
 	var/activated = FALSE
 
-	faction = FACTION_SYNDICATE
+	faction = list(FACTION_SYNDICATE)
 
 	active
 		New()
@@ -427,7 +431,7 @@
 		src.activated = TRUE
 		src.icon_state = "drone_service_bot"
 		src.desc = "A machine. Of some sort. It looks mad"
-		src.visible_message("<span class='combat'>[src] seems to power up!</span>")
+		src.visible_message(SPAN_COMBAT("[src] seems to power up!"))
 
 ////////////// Town guards ////////////////
 /mob/living/critter/townguard
@@ -513,14 +517,14 @@
 		// Hand 2 = SWORD Hand 1 = ARM
 		if (is_incapacitated(target))
 			src.set_a_intent(INTENT_HARM)
-			src.active_hand = 1
+			set_hand(1)
 			return ..() // Punch / Kick them
 		if (prob(30))
 			src.set_a_intent(INTENT_DISARM)
-			src.active_hand = 1
+			src.set_hand(1)
 			return src.hand_attack(target) // Disarm them
 		src.set_a_intent(INTENT_HARM)
-		src.active_hand = 2
+		set_hand(2)
 		return ..() // Stab them
 
 	proc/HALT()
@@ -595,8 +599,8 @@
 		var/missing_arm = target_missing_limb(target)
 		if ((missing_arm == "r_arm" || missing_arm == "l_arm") && ishuman(target))
 			var/mob/living/carbon/human/H = target
-			src.visible_message("<span class='alert'><b>[src] latches onto [H]'s stump!!</b></span>")
-			boutput(H, "<span class='alert'>OH FUCK OH FUCK GET IT OFF GET IT OFF IT STINGS!</span>")
+			src.visible_message(SPAN_ALERT("<b>[src] latches onto [H]'s stump!!</b>"))
+			boutput(H, SPAN_ALERT("OH FUCK OH FUCK GET IT OFF GET IT OFF IT STINGS!"))
 			playsound(src.loc, 'sound/impact_sounds/Flesh_Break_1.ogg', 50, 1)
 			H.emote("scream")
 			H.changeStatus("stunned", 2 SECONDS)
@@ -622,7 +626,7 @@
 	death(var/gibbed)
 		..()
 		if (!gibbed)
-			src.visible_message("<span class='alert'>[src] explodes into viscera!</span>")
+			src.visible_message(SPAN_ALERT("[src] explodes into viscera!"))
 			src.unequip_all()
 			src.gib()
 

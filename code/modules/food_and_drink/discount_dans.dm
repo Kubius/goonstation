@@ -5,6 +5,7 @@
 	icon = 'icons/obj/foodNdrink/food_discountdans.dmi'
 	icon_state = "noodlecup"
 	heal_amt = 1
+	fill_amt = 3
 	var/activated = 0
 	initial_volume = 60
 	can_recycle = FALSE
@@ -95,11 +96,11 @@
 				src.initial_reagents["juice_tomato"] = 4 //I guess the lunar style of pasta is with a tomato wine red sauce
 				src.initial_reagents["wine"] = 2
 				src.initial_reagents["water_holy"] = 2
-				src.initial_reagents["venom"] = 2
+				src.initial_reagents["cytotoxin"] = 2
 /*				R.add_reagent("juice_tomato",4) //I guess the lunar style of pasta is with a tomato wine red sauce
 				R.add_reagent("wine",2)
 				R.add_reagent("water_holy",2)
-				R.add_reagent("venom",2)
+				R.add_reagent("cytotoxin",2)
 */
 			if (10)
 				src.real_name = "Rabatt Dan's Snabb-Nudlar - Inkokt Lax Smörgåsbord Smak"
@@ -183,6 +184,7 @@
 	icon_state = "burrito"
 	bites_left = 3
 	heal_amt = 2
+	fill_amt = 3
 	doants = 0 //Ants aren't dumb enough to try to eat these.
 	var/activated = 0
 	initial_volume = 50
@@ -277,7 +279,7 @@
 			return
 
 		if (prob(10) || user.is_hulk())
-			user.visible_message("<span class='alert'><b>[user]</b> snaps the burrito in half!</span>", "<span class='alert'>You accidentally snap the burrito apart. Fuck!</span>")
+			user.visible_message(SPAN_ALERT("<b>[user]</b> snaps the burrito in half!"), SPAN_ALERT("You accidentally snap the burrito apart. Fuck!"))
 			src.splat()
 			return
 
@@ -300,7 +302,7 @@
 		..()
 		if (prob(5))
 			if (M.mind && M.mind.ckey)
-				boutput(M, "<span class='notice'>You find a shiny golden ticket in this bite!</span>")
+				boutput(M, SPAN_NOTICE("You find a shiny golden ticket in this bite!"))
 				new /obj/item/ticket/golden(get_turf(M))
 			else
 				M.emote("choke")
@@ -353,7 +355,7 @@
 
 		var/i = 3
 		while(i-- > 0)
-			reagents.add_reagent(pick("beff","sugar","eggnog","chocolate","vanilla","cleaner","luminol","poo","urine","nicotine","weedkiller","venom","jenkem","ethanol","ectoplasm","itching","infernite","histamine","foof","pancuronium","cyanide"), 5)
+			reagents.add_reagent(pick("beff","sugar","eggnog","chocolate","vanilla","cleaner","luminol","poo","nicotine","weedkiller","cytotoxin","ethanol","ectoplasm","itching","infernite","histamine","foof","pancuronium","cyanide"), 5)
 
 		if (prob(color_prob))
 			src.color = random_saturated_hex_color()
@@ -361,7 +363,7 @@
 	/*heal(var/mob/M)
 		if (prob(5))
 			if (M.mind && M.mind.ckey)
-				boutput(M, "<span class='notice'>You find a shiny platinum ticket in this bite!</span>")
+				boutput(M, SPAN_NOTICE("You find a shiny platinum ticket in this bite!"))
 				new /obj/item/ticket/platinum(get_turf(M))
 			else
 				M.emote("choke")*/
@@ -375,7 +377,6 @@
 	throwforce = 2
 	var/full = 1
 	var/traytype = 0
-	flags = TABLEPASS | FPRINT
 	c_flags = ONBELT
 	stamina_damage = 0
 	stamina_cost = 0
@@ -439,6 +440,7 @@
 	required_utensil = REQUIRED_UTENSIL_FORK
 	bites_left = 2
 	heal_amt = 2
+	fill_amt = 4 //it's a whole dinner!
 	doants = 0 //Ants aren't dumb enough to try to eat these.
 	var/activated = 0
 	initial_volume = 50
@@ -564,7 +566,7 @@
 		..()
 		if (prob(8))
 			if (M.mind && M.mind.ckey)
-				boutput(M, "<span class='notice'>You find a shiny golden ticket in this bite!</span>")
+				boutput(M, SPAN_NOTICE("You find a shiny golden ticket in this bite!"))
 				new /obj/item/ticket/golden(get_turf(M))
 			else
 				M.emote("choke")
@@ -576,6 +578,7 @@
 	icon_state = "strudel"
 	bites_left = 2
 	heal_amt = 2
+	fill_amt = 2
 	doants = 0
 	initial_volume = 30
 	initial_reagents = list("juice_strawberry"=15,"vanilla"=6)
@@ -586,14 +589,14 @@
 
 		var/i = 3
 		while(i-- > 0)
-			reagents.add_reagent(pick("beff","sugar","eggnog","chocolate","cleaner","luminol","poo","urine","nicotine","mint","tea","juice_lemon","juice_lime","juice_apple","juice_banana","juice_cherry","guacamole","egg","sewage","uranium"), 3)
+			reagents.add_reagent(pick("beff","sugar","eggnog","chocolate","cleaner","luminol","poo","nicotine","mint","tea","juice_lemon","juice_lime","juice_apple","juice_banana","juice_cherry","guacamole","egg","sewage","uranium"), 3)
 
 
 	heal(var/mob/M)
 		..()
 		if (prob(5))
 			if (M.mind && M.mind.ckey)
-				boutput(M, "<span class='notice'>You find a shiny golden ticket in this bite!</span>")
+				boutput(M, SPAN_NOTICE("You find a shiny golden ticket in this bite!"))
 				new /obj/item/ticket/golden(get_turf(M))
 			else
 				M.emote("choke")

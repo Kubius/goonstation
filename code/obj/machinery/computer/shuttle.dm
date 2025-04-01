@@ -134,11 +134,11 @@ ABSTRACT_TYPE(/obj/machinery/computer/transit_shuttle)
 		if (Console.shuttlename != src.shuttlename) continue
 		if(!currentlocation || !end_location)
 			if (src.transit_delay)
-				Console.visible_message("<span class='alert'>[src.shuttlename] cant seem to move! Uh Oh.</span>")
+				Console.visible_message(SPAN_ALERT("[src.shuttlename] cant seem to move! Uh Oh."))
 		else
 			Console.active = TRUE
 			if (src.transit_delay)
-				Console.visible_message("<span class='alert'>[src.shuttlename] is moving to [end_location]!</span>")
+				Console.visible_message(SPAN_ALERT("[src.shuttlename] is moving to [end_location]!"))
 				playsound(Console.loc, 'sound/machines/transport_move.ogg', 75, 0)
 	return (currentlocation && end_location)
 
@@ -196,11 +196,11 @@ ABSTRACT_TYPE(/obj/machinery/computer/transit_shuttle)
 		if (currentlocation.z == Z_LEVEL_STATION && station_repair.station_generator)
 			var/list/turf/turfs_to_fix = get_area_turfs(currentlocation)
 			if(length(turfs_to_fix))
-				station_repair.repair_turfs(turfs_to_fix)
+				station_repair.repair_turfs(turfs_to_fix, force_floor=TRUE)
 
 	for(var/obj/machinery/computer/transit_shuttle/Console in machine_registry[MACHINES_SHUTTLECOMPS])
 		if (Console.shuttlename != src.shuttlename) continue
-		Console.visible_message("<span class='alert'>[src.shuttlename] has Moved!</span>")
+		Console.visible_message(SPAN_ALERT("[src.shuttlename] has Moved!"))
 		Console.currentlocation = end_location
 		Console.active = FALSE
 
@@ -217,6 +217,40 @@ ABSTRACT_TYPE(/obj/machinery/computer/transit_shuttle)
 	/area/shuttle/mining/outpost)
 	currentlocation = locate(/area/shuttle/mining/diner)
 
+/obj/machinery/computer/transit_shuttle/mining/
+
+/obj/machinery/computer/transit_shuttle/mining/announce_move(area/end_location)
+	. = ..()
+	if(istype(src.currentlocation, /area/shuttle/mining/station))
+		SEND_GLOBAL_SIGNAL(COMSIG_DOCK_MINING_STATION, DOCK_EVENT_OUTGOING)
+	else if(istype(src.currentlocation, /area/shuttle/mining/diner))
+		SEND_GLOBAL_SIGNAL(COMSIG_DOCK_MINING_DINER, DOCK_EVENT_OUTGOING)
+	else if(istype(src.currentlocation, /area/shuttle/mining/outpost))
+		SEND_GLOBAL_SIGNAL(COMSIG_DOCK_MINING_OUTPOST, DOCK_EVENT_OUTGOING)
+
+	if(istype(end_location, /area/shuttle/mining/station))
+		SEND_GLOBAL_SIGNAL(COMSIG_DOCK_MINING_STATION, DOCK_EVENT_INCOMING)
+	else if(istype(end_location, /area/shuttle/mining/diner))
+		SEND_GLOBAL_SIGNAL(COMSIG_DOCK_MINING_DINER, DOCK_EVENT_INCOMING)
+	else if(istype(end_location, /area/shuttle/mining/outpost))
+		SEND_GLOBAL_SIGNAL(COMSIG_DOCK_MINING_OUTPOST, DOCK_EVENT_INCOMING)
+
+/obj/machinery/computer/transit_shuttle/mining/call_shuttle(area/end_location)
+	if(istype(src.currentlocation, /area/shuttle/mining/station))
+		SEND_GLOBAL_SIGNAL(COMSIG_DOCK_MINING_STATION, DOCK_EVENT_DEPARTED)
+	else if(istype(src.currentlocation, /area/shuttle/mining/diner))
+		SEND_GLOBAL_SIGNAL(COMSIG_DOCK_MINING_DINER, DOCK_EVENT_DEPARTED)
+	else if(istype(src.currentlocation, /area/shuttle/mining/outpost))
+		SEND_GLOBAL_SIGNAL(COMSIG_DOCK_MINING_OUTPOST, DOCK_EVENT_DEPARTED)
+
+	if(istype(end_location, /area/shuttle/mining/station))
+		SEND_GLOBAL_SIGNAL(COMSIG_DOCK_MINING_STATION, DOCK_EVENT_ARRIVED)
+	else if(istype(end_location, /area/shuttle/mining/diner))
+		SEND_GLOBAL_SIGNAL(COMSIG_DOCK_MINING_DINER, DOCK_EVENT_ARRIVED)
+	else if(istype(end_location, /area/shuttle/mining/outpost))
+		SEND_GLOBAL_SIGNAL(COMSIG_DOCK_MINING_OUTPOST, DOCK_EVENT_ARRIVED)
+	. = ..()
+
 // asylum shuttle
 /obj/machinery/computer/transit_shuttle/asylum
 	shuttlename = "Asylum Shuttle"
@@ -227,6 +261,39 @@ ABSTRACT_TYPE(/obj/machinery/computer/transit_shuttle)
 	/area/shuttle/asylum/pathology)
 	currentlocation = locate(/area/shuttle/asylum/medbay)
 
+/obj/machinery/computer/transit_shuttle/asylum/announce_move(area/end_location)
+	. = ..()
+	if(istype(src.currentlocation, /area/shuttle/asylum/medbay))
+		SEND_GLOBAL_SIGNAL(COMSIG_DOCK_MEDICAL_MEDBAY, DOCK_EVENT_OUTGOING)
+	else if(istype(src.currentlocation, /area/shuttle/asylum/observation))
+		SEND_GLOBAL_SIGNAL(COMSIG_DOCK_MEDICAL_ASYLUM, DOCK_EVENT_OUTGOING)
+	else if(istype(src.currentlocation, /area/shuttle/asylum/pathology))
+		SEND_GLOBAL_SIGNAL(COMSIG_DOCK_MEDICAL_PATHOLOGY, DOCK_EVENT_OUTGOING)
+
+	if(istype(end_location, /area/shuttle/asylum/medbay))
+		SEND_GLOBAL_SIGNAL(COMSIG_DOCK_MEDICAL_MEDBAY, DOCK_EVENT_INCOMING)
+	else if(istype(end_location, /area/shuttle/asylum/observation))
+		SEND_GLOBAL_SIGNAL(COMSIG_DOCK_MEDICAL_ASYLUM, DOCK_EVENT_INCOMING)
+	else if(istype(end_location, /area/shuttle/asylum/pathology))
+		SEND_GLOBAL_SIGNAL(COMSIG_DOCK_MEDICAL_PATHOLOGY, DOCK_EVENT_INCOMING)
+
+
+/obj/machinery/computer/transit_shuttle/asylum/call_shuttle(area/end_location)
+	if(istype(src.currentlocation, /area/shuttle/asylum/medbay))
+		SEND_GLOBAL_SIGNAL(COMSIG_DOCK_MEDICAL_MEDBAY, DOCK_EVENT_DEPARTED)
+	else if(istype(src.currentlocation, /area/shuttle/asylum/observation))
+		SEND_GLOBAL_SIGNAL(COMSIG_DOCK_MEDICAL_ASYLUM, DOCK_EVENT_DEPARTED)
+	else if(istype(src.currentlocation, /area/shuttle/asylum/pathology))
+		SEND_GLOBAL_SIGNAL(COMSIG_DOCK_MEDICAL_PATHOLOGY, DOCK_EVENT_DEPARTED)
+
+	if(istype(end_location, /area/shuttle/asylum/medbay))
+		SEND_GLOBAL_SIGNAL(COMSIG_DOCK_MEDICAL_MEDBAY, DOCK_EVENT_ARRIVED)
+	else if(istype(end_location, /area/shuttle/asylum/observation))
+		SEND_GLOBAL_SIGNAL(COMSIG_DOCK_MEDICAL_ASYLUM, DOCK_EVENT_ARRIVED)
+	else if(istype(end_location, /area/shuttle/asylum/pathology))
+		SEND_GLOBAL_SIGNAL(COMSIG_DOCK_MEDICAL_PATHOLOGY, DOCK_EVENT_ARRIVED)
+	. = ..()
+
 // research shuttle
 /obj/machinery/computer/transit_shuttle/research
 	shuttlename = "Research Shuttle"
@@ -235,6 +302,30 @@ ABSTRACT_TYPE(/obj/machinery/computer/transit_shuttle)
 	destinations = list(/area/shuttle/research/station,
 	/area/shuttle/research/outpost)
 	currentlocation = locate(/area/shuttle/research/outpost)
+
+/obj/machinery/computer/transit_shuttle/research/announce_move(area/end_location)
+	. = ..()
+	if(istype(src.currentlocation, /area/shuttle/research/station))
+		SEND_GLOBAL_SIGNAL(COMSIG_DOCK_RESEARCH_STATION, DOCK_EVENT_OUTGOING)
+	else if(istype(src.currentlocation, /area/shuttle/research/outpost))
+		SEND_GLOBAL_SIGNAL(COMSIG_DOCK_RESEARCH_OUTPOST, DOCK_EVENT_OUTGOING)
+
+	if(istype(end_location, /area/shuttle/research/station))
+		SEND_GLOBAL_SIGNAL(COMSIG_DOCK_RESEARCH_STATION, DOCK_EVENT_INCOMING)
+	else if(istype(end_location, /area/shuttle/research/outpost))
+		SEND_GLOBAL_SIGNAL(COMSIG_DOCK_RESEARCH_OUTPOST, DOCK_EVENT_INCOMING)
+
+/obj/machinery/computer/transit_shuttle/research/call_shuttle(area/end_location)
+	if(istype(src.currentlocation, /area/shuttle/research/station))
+		SEND_GLOBAL_SIGNAL(COMSIG_DOCK_RESEARCH_STATION, DOCK_EVENT_DEPARTED)
+	else if(istype(src.currentlocation, /area/shuttle/research/outpost))
+		SEND_GLOBAL_SIGNAL(COMSIG_DOCK_RESEARCH_OUTPOST, DOCK_EVENT_DEPARTED)
+
+	if(istype(end_location, /area/shuttle/research/station))
+		SEND_GLOBAL_SIGNAL(COMSIG_DOCK_RESEARCH_STATION, DOCK_EVENT_ARRIVED)
+	else if(istype(end_location, /area/shuttle/research/outpost))
+		SEND_GLOBAL_SIGNAL(COMSIG_DOCK_RESEARCH_OUTPOST, DOCK_EVENT_ARRIVED)
+	. = ..()
 
 /obj/machinery/computer/transit_shuttle/research/embedded
 	icon_state = "shuttle-embed";
@@ -266,24 +357,45 @@ var/bombini_saved
 		A = locate(/area/shuttle/john/grillnasium)
 		.["destinations"] += list(list("type" = A?.type,"name" = A?.name))
 
+/obj/machinery/computer/transit_shuttle/johnbus/announce_move(area/end_location)
+	. = ..()
+
+	if(istype(src.currentlocation, /area/shuttle/john/owlery))
+		SEND_GLOBAL_SIGNAL(COMSIG_DOCK_JOHN_OWLERY, DOCK_EVENT_OUTGOING)
+	else if(istype(src.currentlocation, /area/shuttle/john/diner))
+		SEND_GLOBAL_SIGNAL(COMSIG_DOCK_JOHN_DINER, DOCK_EVENT_OUTGOING)
+	else if(istype(src.currentlocation, /area/shuttle/john/mining))
+		SEND_GLOBAL_SIGNAL(COMSIG_DOCK_JOHN_OUTPOST, DOCK_EVENT_OUTGOING)
+	else if (istype(src.currentlocation, /area/shuttle/john/grillnasium))
+		SEND_GLOBAL_SIGNAL(COMSIG_DOCK_JOHN_GRILLNASIUM, DOCK_EVENT_OUTGOING)
+
+	if(istype(end_location, /area/shuttle/john/owlery))
+		SEND_GLOBAL_SIGNAL(COMSIG_DOCK_JOHN_OWLERY, DOCK_EVENT_INCOMING)
+	else if(istype(end_location, /area/shuttle/john/diner))
+		SEND_GLOBAL_SIGNAL(COMSIG_DOCK_JOHN_DINER, DOCK_EVENT_INCOMING)
+	else if(istype(end_location, /area/shuttle/john/mining))
+		SEND_GLOBAL_SIGNAL(COMSIG_DOCK_JOHN_OUTPOST, DOCK_EVENT_INCOMING)
+	else if(istype(end_location, /area/shuttle/john/grillnasium))
+		SEND_GLOBAL_SIGNAL(COMSIG_DOCK_JOHN_GRILLNASIUM, DOCK_EVENT_INCOMING)
+
 /obj/machinery/computer/transit_shuttle/johnbus/call_shuttle(area/end_location)
 	var/turf/T = get_turf(src)
 	if(bombini_saved && istype(currentlocation,/area/shuttle/john/owlery))
 		for(var/obj/npc/trader/bee/b in currentlocation)
 			bombini_saved = TRUE
 			for(var/mob/M in currentlocation)
-				boutput(M, "<span class='notice'>It would be great if things worked that way, but they don't. You'll need to find what <b>Bombini</b> is missing, now.</span>")
+				boutput(M, SPAN_NOTICE("It would be great if things worked that way, but they don't. You'll need to find what <b>Bombini</b> is missing, now."))
 
 	for(var/obj/machinery/computer/transit_shuttle/Console in machine_registry[MACHINES_SHUTTLECOMPS])
 		if (Console.shuttlename != src.shuttlename) continue
-		Console.visible_message("<span class='alert'>John is starting up the engines, this could take a minute!</span>")
+		Console.visible_message(SPAN_ALERT("John is starting up the engines, this could take a minute!"))
 		if(!Console.embed) continue
 		T = get_turf(Console)
 		SPAWN(1 DECI SECOND)
 			playsound(T, 'sound/effects/ship_charge.ogg', 60, TRUE)
 			sleep(3 SECONDS)
 			playsound(T, 'sound/machines/weaponoverload.ogg', 60, TRUE)
-			Console.visible_message("<span class='alert'>The shuttle is making a hell of a racket!</span>")
+			Console.visible_message(SPAN_ALERT("The shuttle is making a hell of a racket!"))
 			sleep(5 SECONDS)
 			playsound(T, 'sound/impact_sounds/Machinery_Break_1.ogg', 60, TRUE)
 			for(var/mob/living/M in range(Console.loc, 10))
@@ -293,9 +405,9 @@ var/bombini_saved
 			sleep(2 SECONDS)
 			playsound(T, 'sound/effects/creaking_metal2.ogg', 70, TRUE)
 			sleep(3 SECONDS)
-			Console.visible_message("<span class='alert'>The shuttle engine alarms start blaring!</span>")
+			Console.visible_message(SPAN_ALERT("The shuttle engine alarms start blaring!"))
 			playsound(T, 'sound/machines/pod_alarm.ogg', 60, TRUE)
-			var/obj/decal/fakeobjects/shuttleengine/smokyEngine = locate() in get_area(Console)
+			var/obj/fakeobject/shuttleengine/smokyEngine = locate() in get_area(Console)
 			var/datum/effects/system/harmless_smoke_spread/smoke = new /datum/effects/system/harmless_smoke_spread()
 			smoke.set_up(5, 0, smokyEngine)
 			smoke.start()
@@ -307,6 +419,24 @@ var/bombini_saved
 	T = get_turf(src)
 	SPAWN(25 SECONDS)
 		playsound(T, 'sound/effects/flameswoosh.ogg', 70, TRUE)
+		if(istype(src.currentlocation, /area/shuttle/john/owlery))
+			SEND_GLOBAL_SIGNAL(COMSIG_DOCK_JOHN_OWLERY, DOCK_EVENT_DEPARTED)
+		else if(istype(src.currentlocation, /area/shuttle/john/diner))
+			SEND_GLOBAL_SIGNAL(COMSIG_DOCK_JOHN_DINER, DOCK_EVENT_DEPARTED)
+		else if(istype(src.currentlocation, /area/shuttle/john/mining))
+			SEND_GLOBAL_SIGNAL(COMSIG_DOCK_JOHN_OUTPOST, DOCK_EVENT_DEPARTED)
+		else if (istype(src.currentlocation, /area/shuttle/john/grillnasium))
+			SEND_GLOBAL_SIGNAL(COMSIG_DOCK_JOHN_GRILLNASIUM, DOCK_EVENT_DEPARTED)
+
+		if(istype(end_location, /area/shuttle/john/owlery))
+			SEND_GLOBAL_SIGNAL(COMSIG_DOCK_JOHN_OWLERY, DOCK_EVENT_ARRIVED)
+		else if(istype(end_location, /area/shuttle/john/diner))
+			SEND_GLOBAL_SIGNAL(COMSIG_DOCK_JOHN_DINER, DOCK_EVENT_ARRIVED)
+		else if(istype(end_location, /area/shuttle/john/mining))
+			SEND_GLOBAL_SIGNAL(COMSIG_DOCK_JOHN_OUTPOST, DOCK_EVENT_ARRIVED)
+		else if(istype(end_location, /area/shuttle/john/grillnasium))
+			SEND_GLOBAL_SIGNAL(COMSIG_DOCK_JOHN_GRILLNASIUM, DOCK_EVENT_ARRIVED)
+
 		..()
 
 /obj/machinery/computer/shuttle/embedded/syndieshuttle
@@ -314,29 +444,28 @@ var/bombini_saved
 	icon = 'icons/obj/decoration.dmi'
 	icon_state = "syndiepc4"
 
-/obj/machinery/computer/shuttle/emag_act(var/mob/user, var/obj/item/card/emag/E)
-	if(emergency_shuttle.location != SHUTTLE_LOC_STATION)
-		return
-	for (var/datum/flock/flock in flocks)
-		if (flock.relay_in_progress)
-			boutput(user, "<span class='alert'>[src] emits a pained burst of static, but nothing happens!</span>")
-			return
-
-	if (user)
-		var/choice = tgui_alert(user, "Would you like to launch the shuttle?", "Shuttle control", list("Launch", "Cancel"))
-		if(BOUNDS_DIST(user, src) > 0 || emergency_shuttle.location != SHUTTLE_LOC_STATION) return
-		if (choice == "Launch")
-			boutput(world, "<span class='notice'><B>Alert: Shuttle launch time shortened to 10 seconds!</B></span>")
-			emergency_shuttle.settimeleft( 10 )
-			logTheThing(LOG_ADMIN, user, "shortens Emergency Shuttle launch time to 10 seconds.")
-	else
-		boutput(world, "<span class='notice'><B>Alert: Shuttle launch time shortened to 10 seconds!</B></span>")
-		emergency_shuttle.settimeleft( 10 )
-	return TRUE
-
 /obj/machinery/computer/shuttle/attackby(var/obj/item/W, var/mob/user)
-	if(status & (BROKEN|NOPOWER))
-		return
+	if(!(istype(W, /obj/item/disk/data/floppy/read_only/authentication) || istype(W, /obj/item/card/id)) || (status & (BROKEN|NOPOWER)))
+		return ..()
+
+	if (istype(W, /obj/item/disk/data/floppy/read_only/authentication))
+		if(emergency_shuttle.location != SHUTTLE_LOC_STATION)
+			return
+		for (var/datum/flock/flock in flocks)
+			if (flock.relay_in_progress)
+				boutput(user, SPAN_ALERT("[src] emits a pained burst of static, but nothing happens!"))
+				return
+
+		if (user)
+			var/choice = tgui_alert(user, "Would you like to launch the escape shuttle early?", "Shuttle control", list("Launch", "Cancel"))
+
+			if (BOUNDS_DIST(user, src) > 0 || emergency_shuttle.location != SHUTTLE_LOC_STATION) return
+
+			if (choice == "Launch")
+				boutput(world, SPAN_NOTICE("<B>Alert: Shuttle launch time shortened to 10 seconds!</B>"))
+				emergency_shuttle.settimeleft( 10 )
+				logTheThing(LOG_ADMIN, user, "shortens Emergency Shuttle launch time to 10 seconds.")
+
 
 	var/obj/item/card/id/id_card = get_id_card(W)
 	if (istype(id_card))
@@ -365,7 +494,8 @@ var/bombini_saved
 		if(!choice || emergency_shuttle.location != SHUTTLE_LOC_STATION || BOUNDS_DIST(user, src) > 0) return
 		switch(choice)
 			if("Authorize")
-				for (var/datum/flock/flock in flocks)
+				for (var/flockname in flocks)
+					var/datum/flock/flock = flocks[flockname]
 					if (flock.relay_in_progress)
 						boutput(user, "Unable to contact central command, authorization rejected.")
 						return
@@ -374,22 +504,22 @@ var/bombini_saved
 					return
 				src.authorized |= W:registered
 				if (src.auth_need - length(src.authorized) > 0)
-					boutput(world, text("<span class='notice'><B>Alert: [] authorizations needed until shuttle is launched early</B></span>", src.auth_need - src.authorized.len))
+					boutput(world, SPAN_NOTICE("<B>Alert: [src.auth_need - length(src.authorized)] authorizations needed until shuttle is launched early</B>"))
 				else
-					boutput(world, "<span class='notice'><B>Alert: Shuttle launch time shortened to 60 seconds!</B></span>")
+					boutput(world, SPAN_NOTICE("<B>Alert: Shuttle launch time shortened to 60 seconds!</B>"))
 					emergency_shuttle.settimeleft(60)
 					qdel(src.authorized)
 					src.authorized = list(  )
 
 			if("Repeal")
 				src.authorized -= W:registered
-				boutput(world, text("<span class='notice'><B>Alert: [] authorizations needed until shuttle is launched early</B></span>", src.auth_need - src.authorized.len))
+				boutput(world, SPAN_NOTICE("<B>Alert: [src.auth_need - length(src.authorized)] authorizations needed until shuttle is launched early</B>"))
 
 			if("Abort")
-				boutput(world, "<span class='notice'><B>All authorizations to shorting time for shuttle launch have been revoked!</B></span>")
+				boutput(world, SPAN_NOTICE("<B>All authorizations to shorting time for shuttle launch have been revoked!</B>"))
 				src.authorized.len = 0
 				src.authorized = list(  )
-	return
+
 
 ABSTRACT_TYPE(/obj/machinery/computer/elevator)
 /obj/machinery/computer/elevator
@@ -405,6 +535,7 @@ ABSTRACT_TYPE(/obj/machinery/computer/elevator)
 	var/logBioeleAccident = FALSE
 	var/adminOnly = FALSE
 
+
 /obj/machinery/computer/elevator/icebase
 	machine_registry_idx = MACHINES_ELEVATORICEBASE
 	areaLower = /area/shuttle/icebase_elevator/lower
@@ -415,14 +546,24 @@ ABSTRACT_TYPE(/obj/machinery/computer/elevator)
 	machine_registry_idx = MACHINES_ELEVATORBIODOME
 	areaLower = /area/shuttle/biodome_elevator/lower
 	areaUpper = /area/shuttle/biodome_elevator/upper
-	endTurfToLeave = /turf/unsimulated/floor/setpieces/ancient_pit/shaft
+	endTurfToLeave = /turf/simulated/floor/auto/elevator_shaft/biodome
 	logBioeleAccident = TRUE
 
 /obj/machinery/computer/elevator/sea
 	machine_registry_idx = MACHINES_ELEVATORSEA
 	areaLower = /area/shuttle/sea_elevator/lower
 	areaUpper = /area/shuttle/sea_elevator/upper
-	endTurfToLeave = /turf/simulated/floor/specialroom/sea_elevator_shaft
+	endTurfToLeave = /turf/simulated/floor/auto/elevator_shaft/sea
+	circuit_type = /obj/item/circuitboard/sea_elevator
+
+	New()
+		..()
+		var/area/top = locate(areaUpper)
+		var/turf/topshaft = top.find_middle()
+		if(topshaft && topshaft?.type == endTurfToLeave)
+			location = 0
+		else
+			location = 1
 
 /obj/machinery/computer/elevator/centcomm
 	machine_registry_idx = MACHINES_ELEVATORCENTCOM
@@ -471,7 +612,7 @@ ABSTRACT_TYPE(/obj/machinery/computer/elevator)
 				if(!active)
 					for(var/obj/machinery/computer/elevator/C in machine_registry[machine_registry_idx])
 						C.active = 1
-						C.visible_message("<span class='alert'>The elevator begins to move!</span>")
+						C.visible_message(SPAN_ALERT("The elevator begins to move!"))
 						playsound(C.loc, 'sound/machines/elevator_move.ogg', 100, 0)
 						tgui_process.update_uis(C)
 					SPAWN(5 SECONDS)
@@ -501,7 +642,7 @@ ABSTRACT_TYPE(/obj/machinery/computer/elevator)
 
 	for(var/obj/machinery/computer/elevator/C in machine_registry[machine_registry_idx])
 		C.active = 0
-		C.visible_message("<span class='alert'>The elevator has moved.</span>")
+		C.visible_message(SPAN_ALERT("The elevator has moved."))
 		C.location = src.location
 		tgui_process.update_uis(C)
 
@@ -509,7 +650,6 @@ ABSTRACT_TYPE(/obj/machinery/computer/elevator)
 	name = "Elevator Safety Sign"
 	icon = 'icons/obj/decals/wallsigns.dmi'
 	icon_state = "accidents_sign"
-	flags = FPRINT
 	density = 0
 	anchored = ANCHORED
 

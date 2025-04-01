@@ -83,15 +83,15 @@ ABSTRACT_TYPE(/mob/living/critter/human)
 
 ABSTRACT_TYPE(/mob/living/critter/human/syndicate)
 /mob/living/critter/human/syndicate
-	name = "Syndicate Operative"
-	real_name = "Syndicate Operative"
+	name = "\improper Syndicate Operative"
+	real_name = "\improper Syndicate Operative"
 	desc = "A Syndicate Operative, oh dear."
 	health_brute = 25
 	health_burn = 25
 	corpse_spawner = /obj/mapping_helper/mob_spawn/corpse/human/syndicate/old
 	human_to_copy = /mob/living/carbon/human/normal/syndicate_old
 
-	faction = FACTION_SYNDICATE
+	faction = list(FACTION_SYNDICATE)
 
 	post_setup()
 		src.name = "[syndicate_name()] Operative"

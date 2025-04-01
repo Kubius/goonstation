@@ -12,7 +12,7 @@
 	var/mob/living/intangible/flock/F = holder.owner
 
 	if (!(isliving(M) || iscritter(M) || isvehicle(M)) || isflockmob(M) || isintangible(M))
-		boutput(F, "<span class='alert'>That isn't a valid target.</span>")
+		boutput(F, SPAN_ALERT("That isn't a valid target."))
 		return TRUE
 
 	var/datum/flock/flock = F.flock
@@ -33,6 +33,9 @@
 
 	flock.updateEnemy(M)
 
+/datum/targetable/flockmindAbility/designateEnemy/logCast(atom/target)
+	return
+
 /datum/targetable/flockmindAbility/designateIgnore
 	name = "Designate Ignore"
 	desc = "Designate someone to be ignored by your Flock."
@@ -46,7 +49,7 @@
 	var/mob/living/intangible/flock/F = holder.owner
 
 	if (!isflockvalidenemy(target))
-		boutput(F, "<span class='alert'>That isn't a valid target.</span>")
+		boutput(F, SPAN_ALERT("That isn't a valid target."))
 		return TRUE
 
 	if (!F.flock)
@@ -61,3 +64,6 @@
 		F.flock.removeEnemy(target)
 
 	F.flock.addIgnore(target)
+
+/datum/targetable/flockmindAbility/designateIgnore/logCast(atom/target)
+	return

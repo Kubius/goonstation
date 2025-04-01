@@ -56,9 +56,12 @@
 		External()
 			for(var/obj/machinery/mining_magnet/MM in range(7,src.ship))
 				linked_magnet = MM
+				if (!linked_magnet.allowed(usr))
+					boutput(usr, SPAN_ALERT("Access Denied."))
+					return
 				ui_interact(usr)
 				return null
-			boutput(usr, "<span class='alert'>No magnet found in range of seven meters.</span>")
+			boutput(usr, SPAN_ALERT("No magnet found in range of seven meters."))
 			return null
 
 	syndicate
@@ -80,7 +83,7 @@
 		access_type = list(POD_ACCESS_SECURITY, POD_ACCESS_STANDARD)
 
 	opencomputer(mob/user as mob)
-		ship.intercom?.attack_self(user)
+		ship.intercom?.AttackSelf(user)
 		return
 
 	deactivate()
@@ -97,12 +100,12 @@
 
 	proc/External()
 		var/broadcast = copytext(html_encode(input(usr, "Please enter what you want to say over the external speaker.", "[src.name]")), 1, MAX_MESSAGE_LEN)
-		if(!broadcast)
+		if(!broadcast || usr.loc != src.ship) // need to check if something wasn't entered or if user isn't in a vehicle
 			return
 		logTheThing(LOG_DIARY, usr, "(POD) : [broadcast]", "say")
 		if (ishuman(usr))//istype(usr:wear_mask, /obj/item/clothing/mask/gas/voice))
 			var/mob/living/carbon/human/H = usr
-			if (H.wear_mask && H.wear_mask.vchange && H.wear_id)
+			if (H.wear_mask && H.wear_mask.vchange && H.wear_id && length(H.wear_id:registered))
 				. = H.wear_id:registered
 			else if (H.vdisfigured)
 				. = "Unknown"
@@ -134,7 +137,7 @@
 	New()
 		..()
 		src.net_id = format_net_id("\ref[src]")
-		MAKE_SENDER_RADIO_PACKET_COMPONENT(null, frequency)
+		MAKE_SENDER_RADIO_PACKET_COMPONENT(src.net_id, null, frequency)
 
 	proc/post_signal(datum/signal/signal,var/newfreq)
 		if(!signal)

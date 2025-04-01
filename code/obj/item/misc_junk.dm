@@ -45,7 +45,7 @@
 
 	attack_self(mob/user as mob)
 		if(last_laugh + 50 < world.time)
-			user.visible_message("<span class='notice'><b>[user]</b> hugs [src]!</span>","<span class='notice'>You hug [src]!</span>")
+			user.visible_message(SPAN_NOTICE("<b>[user]</b> hugs [src]!"),SPAN_NOTICE("You hug [src]!"))
 			playsound(src.loc, 'sound/misc/gnomegiggle.ogg', 50, 1)
 			last_laugh = world.time
 
@@ -55,7 +55,7 @@
 		if (prob(50) || current_state < GAME_STATE_PLAYING) // Takes around 12 seconds for ol chompski to vanish
 			return
 		// No teleporting if youre in a container
-		if (istype(src.loc,/obj/storage) || istype(src.loc,/mob/living))
+		if (istype(src.loc,/obj/storage) || istype(src.loc,/mob/living) || istype(src.loc,/obj/item/reagent_containers/glass/jar) || istype(src.loc,/obj/cabinet))
 			return
 		// Nobody can ever see Chompski move
 		for (var/mob/M in viewers(src))
@@ -97,7 +97,7 @@
 
 	attackby(obj/item/W, mob/user)
 		if(issnippingtool(W))
-			boutput(user, "<span class='notice'>You cut [src] horizontally across and flatten it out.</span>")
+			boutput(user, SPAN_NOTICE("You cut [src] horizontally across and flatten it out."))
 			new /obj/item/c_sheet(get_turf(src))
 			qdel(src)
 
@@ -105,7 +105,7 @@
 	suicide(var/mob/user as mob)
 		if (!src.user_can_suicide(user))
 			return 0
-		user.visible_message("<span class='alert'><b>[user] attempts to beat [him_or_her(user)]self to death with the cardboard tube, but fails!</b></span>")
+		user.visible_message(SPAN_ALERT("<b>[user] attempts to beat [him_or_her(user)]self to death with the cardboard tube, but fails!</b>"))
 		user.suiciding = 0
 		return 1
 
@@ -122,7 +122,7 @@
 	stamina_cost = 0
 
 	attack_self(mob/user as mob)
-		boutput(user, "<span class='notice'>You deftly fold [src] into a party hat!.</span>")
+		boutput(user, SPAN_NOTICE("You deftly fold [src] into a party hat!."))
 		user.put_in_hand_or_drop(new /obj/item/clothing/head/party)
 		qdel(src)
 
@@ -138,7 +138,7 @@ TYPEINFO(/obj/item/disk)
 	invisibility = INVIS_ALWAYS
 	anchored = ANCHORED_ALWAYS
 	flags = TABLEPASS | UNCRUSHABLE
-	burn_possible = 0
+	burn_possible = FALSE
 	item_function_flags = IMMUNE_TO_ACID
 
 	disposing()
@@ -169,7 +169,7 @@ TYPEINFO(/obj/item/disk)
 	w_class = W_CLASS_SMALL
 	inhand_image_icon = 'icons/mob/inhand/hand_tools.dmi'
 	item_state = "electronic"
-	flags = FPRINT|TABLEPASS|CONDUCT
+	flags = TABLEPASS|CONDUCT
 	var/mtype = 1						// 1=electronic 2=hardware
 
 /obj/item/module/card_reader
@@ -204,12 +204,49 @@ TYPEINFO(/obj/item/disk)
 	icon_state = "brick"
 	item_state = "brick"
 	force = 8
-	w_class = W_CLASS_TINY
-	throwforce = 10
+	w_class = W_CLASS_SMALL
+	throwforce = 15
 	rand_pos = 1
 	stamina_damage = 40
 	stamina_cost = 20
 	stamina_crit_chance = 5
+	custom_suicide = TRUE
+
+	throw_impact(obj/window/window)
+		if (istype(window) && window.health <= (/obj/window/auto::health * /obj/window/auto::health_multiplier))
+			window.smash()
+			return
+		..()
+
+	suicide(var/mob/user as mob)
+		if (!src.user_can_suicide(user))
+			return 0
+		APPLY_ATOM_PROPERTY(user, PROP_MOB_CANTMOVE, "brick_suicide")
+		user.visible_message(SPAN_ALERT("<b>[user] throws [src] into the air!</b>"))
+
+		src.set_loc(get_turf(user))
+		src.pixel_x = 0
+		src.pixel_y = 0
+		src.anchored = ANCHORED_ALWAYS
+		src.layer += 4
+		animate(src, pixel_y = 80, easing = EASE_OUT | QUAD_EASING, time = 0.7 SECONDS)
+		playsound(get_turf(src), 'sound/effects/throw.ogg', 50, FALSE)
+		SPAWN(0.7 SECONDS)
+			animate(src, pixel_y = 15, easing = EASE_IN | QUAD_EASING, time = 0.5 SECONDS)
+			SPAWN(0.5 SECONDS)
+				playsound(get_turf(src), 'sound/impact_sounds/Flesh_Break_1.ogg', 50, FALSE)
+				user.take_brain_damage(999)
+				user.TakeDamage("Head", 999, 0, 0, DAMAGE_CRUSH, TRUE)
+				REMOVE_ATOM_PROPERTY(user, PROP_MOB_CANTMOVE, "brick_suicide")
+				SPAWN(0.2 SECONDS)
+					animate(src, pixel_y = 0, easing = EASE_OUT | BOUNCE_EASING, time = 0.5 SECOND)
+					SPAWN(0.5 SECONDS)
+						src.anchored = UNANCHORED
+						src.layer -= 4
+		SPAWN(50 SECONDS)
+			if (user && !isdead(user))
+				user.suiciding = 0
+		return 1
 
 /obj/item/emeter
 	name = "E-Meter"
@@ -217,10 +254,10 @@ TYPEINFO(/obj/item/disk)
 	icon = 'icons/obj/items/device.dmi'
 	icon_state = "emeter"
 
-	attack(mob/M, mob/user, def_zone)
-		if (ismob(M))
+	attack(mob/target, mob/user, def_zone, is_special = FALSE, params = null)
+		if (ismob(target))
 			user.visible_message("<b>[user]</b> takes a reading with the [src].",\
-			"[M]'s Thetan Level: [(user == M) ? 0 : rand(1, 10)]")
+			"[target]'s Thetan Level: [(user == target) ? 0 : rand(1, 10)]")
 			return
 		else
 			return ..()
@@ -255,7 +292,6 @@ TYPEINFO(/obj/item/disk)
 	desc = "Looks like one of those fair toys."
 	icon = 'icons/obj/items/weapons.dmi'
 	icon_state = "rubber_hammer"
-	flags = FPRINT | TABLEPASS
 	c_flags = ONBELT
 	force = 0
 
@@ -263,14 +299,14 @@ TYPEINFO(/obj/item/disk)
 		..()
 		BLOCK_SETUP(BLOCK_ALL)
 
-	attack(mob/M, mob/user)
+	attack(mob/target, mob/user, def_zone, is_special = FALSE, params = null)
 		src.add_fingerprint(user)
 
-		playsound(M, 'sound/musical_instruments/Bikehorn_1.ogg', 50, TRUE, -1)
-		playsound(M, "sound/misc/boing/[rand(1,6)].ogg", 20, 1)
-		user.visible_message("<span class='alert'><B>[user] bonks [M] on the head with [src]!</B></span>",\
-							"<span class='alert'><B>You bonk [M] on the head with [src]!</B></span>",\
-							"<span class='alert'>You hear something squeak.</span>")
+		playsound(target, 'sound/musical_instruments/Bikehorn_1.ogg', 50, TRUE, -1)
+		playsound(target, "sound/misc/boing/[rand(1,6)].ogg", 20, 1)
+		user.visible_message(SPAN_ALERT("<B>[user] bonks [target] on the head with [src]!</B>"),\
+							SPAN_ALERT("<B>You bonk [target] on the head with [src]!</B>"),\
+							SPAN_ALERT("You hear something squeak."))
 
 
 	earthquake
@@ -292,7 +328,7 @@ TYPEINFO(/obj/item/reagent_containers/vape)
 	initial_reagents = "nicotine"
 	item_state = "ecig"
 	icon_state = "ecig"
-	flags = FPRINT | TABLEPASS | OPENCONTAINER | NOSPLASH
+	flags = TABLEPASS | OPENCONTAINER | NOSPLASH
 	c_flags = ONBELT
 	var/emagged = 0
 	var/last_used = 0
@@ -326,7 +362,7 @@ TYPEINFO(/obj/item/reagent_containers/vape)
 				var/mob/M = src.loc
 				M.show_text("[src] identifies and removes a non-smokable substance.", "red")
 			else
-				src.visible_message("<span class='alert'>[src] identifies and removes a non-smokable substance.</span>")
+				src.visible_message(SPAN_ALERT("[src] identifies and removes a non-smokable substance."))
 
 
 	on_reagent_change(add)
@@ -371,15 +407,15 @@ TYPEINFO(/obj/item/reagent_containers/vape)
 					PH = usr.l_hand
 				else
 					PH = usr.r_hand
-				if(PH.parent.linked && PH.parent.linked.handset && PH.parent.linked.handset.holder)
-					target_loc = PH.parent.linked.handset.holder.loc
+				if(PH.parent.linked && PH.parent.linked.handset && PH.parent.linked.handset.get_holder())
+					target_loc = PH.parent.linked.handset.get_holder().loc
 
 
 			R.my_atom = src
 			src.reagents.trans_to(usr, 5)
 			src.reagents.trans_to_direct(R, 5)
-			if(PH?.parent.linked?.handset?.holder)
-				smoke_reaction(R, range, get_turf(PH.parent.linked.handset.holder))
+			if(PH?.parent.linked?.handset?.get_holder())
+				smoke_reaction(R, range, get_turf(PH.parent.linked.handset.get_holder()))
 			else
 				smoke_reaction(R, range, get_turf(usr))
 			particleMaster.SpawnSystem(new /datum/particleSystem/blow_cig_smoke(target_loc, NORTH))
@@ -394,13 +430,13 @@ TYPEINFO(/obj/item/reagent_containers/vape)
 				sleep(1 SECOND)
 
 			if(!PH)
-				usr.visible_message("<span class='alert'><B>[usr] blows a cloud of smoke with their [prob(90) ? "ecig" : "mouth fedora"]! They look [pick("really lame", "like a total dork", "unbelievably silly", "a little ridiculous", "kind of pathetic", "honestly pitiable")]. </B></span>",\
-				"<span class='alert'>You puff on the ecig and let out a cloud of smoke. You feel [pick("really cool", "totally awesome", "completely euphoric", "like the coolest person in the room", "like everybody respects you", "like the latest trend-setter")].</span>")
+				usr.visible_message(SPAN_ALERT("<B>[usr] blows a cloud of smoke with their [prob(90) ? "ecig" : "mouth fedora"]! They look [pick("really lame", "like a total dork", "unbelievably silly", "a little ridiculous", "kind of pathetic", "honestly pitiable")]. </B>"),\
+				SPAN_ALERT("You puff on the ecig and let out a cloud of smoke. You feel [pick("really cool", "totally awesome", "completely euphoric", "like the coolest person in the room", "like everybody respects you", "like the latest trend-setter")]."))
 			else
-				usr.visible_message("<span class='alert'><B>[usr] blows a cloud of smoke right into the phone! They look [pick("really lame", "like a total dork", "unbelievably silly", "a little ridiculous", "kind of pathetic", "honestly pitiable")]. </B></span>",\
-				"<span class='alert'>You puff on the ecig and blow a cloud of smoke right into the phone. You feel [pick("really cool", "totally awesome", "completely euphoric", "like the coolest person in the room", "like everybody respects you", "like the latest trend-setter")].</span>")
-				if(PH.parent.linked && PH.parent.linked.handset && PH.parent.linked.handset.holder)
-					boutput(PH.parent.linked.handset.holder,"<span class='alert'><B>[usr] blows a cloud of smoke right through the phone! What a total [pick("dork","loser","dweeb","nerd","useless piece of shit","dumbass")]!</B></span>")
+				usr.visible_message(SPAN_ALERT("<B>[usr] blows a cloud of smoke right into the phone! They look [pick("really lame", "like a total dork", "unbelievably silly", "a little ridiculous", "kind of pathetic", "honestly pitiable")]. </B>"),\
+				SPAN_ALERT("You puff on the ecig and blow a cloud of smoke right into the phone. You feel [pick("really cool", "totally awesome", "completely euphoric", "like the coolest person in the room", "like everybody respects you", "like the latest trend-setter")]."))
+				if(PH.parent.linked && PH.parent.linked.handset && PH.parent.linked.handset.get_holder())
+					boutput(PH.parent.linked.handset.get_holder(),SPAN_ALERT("<B>[usr] blows a cloud of smoke right through the phone! What a total [pick("dork","loser","dweeb","nerd","useless piece of shit","dumbass")]!</B>"))
 
 			logTheThing(LOG_COMBAT, usr, "vapes a cloud of [log_reagents(src)] at [log_loc(target_loc)].")
 			last_used = world.time
@@ -436,7 +472,7 @@ TYPEINFO(/obj/item/reagent_containers/vape)
 	initial_reagents = "nicotine"
 	item_state = "ecigrefill"
 	icon_state = "ecigrefill"
-	flags = FPRINT | TABLEPASS
+	flags = TABLEPASS
 
 /obj/item/wrestlingbell
 	name = "Wrestling bell"
@@ -489,8 +525,8 @@ TYPEINFO(/obj/item/reagent_containers/vape)
 			if(owner?.bioHolder.HasEffect("fire_resist"))
 				owner.bioHolder.RemoveEffect("fire_resist")
 			pickup_time = world.time
-			boutput(user, "<h3><span class='alert'>You have captured [src.name]!</span></h3>")
-			boutput(user, "<h3><span class='alert'>Don't let anyone else pick it up for 30 seconds and you'll respawn!</span></h3>")
+			boutput(user, SPAN_ALERT("<h3>You have captured [src.name]!</h3>"))
+			boutput(user, SPAN_ALERT("<h3>Don't let anyone else pick it up for 30 seconds and you'll respawn!</h3>"))
 			if(owner)
 				boutput(owner, "<h2>You have lost [src.name]!</h2>")
 			owner = user
@@ -508,7 +544,7 @@ TYPEINFO(/obj/item/reagent_containers/vape)
 	process()
 		if(!owner) return
 		if(world.time - pickup_time >= 300)
-			boutput(owner, "<h3><span class='alert'>You have held [src.name] long enough! Good job!</span></h3>")
+			boutput(owner, SPAN_ALERT("<h3>You have held [src.name] long enough! Good job!</h3>"))
 			if(owner?.client)
 				src.set_loc(pick_landmark(LANDMARK_ASS_ARENA_SPAWN))
 				INVOKE_ASYNC(owner.client, TYPE_PROC_REF(/client, respawn_target), owner, 1)
@@ -607,7 +643,7 @@ TYPEINFO(/obj/item/reagent_containers/vape)
 				if("antignome-negachompski")
 					g.name = "Ikspmohc-Emong"
 		user.put_in_hand_or_drop(g)
-		user.visible_message("<span style=\"color:red\">[user.name] unwraps [g]!</span>")
+		user.visible_message(SPAN_ALERT("[user.name] unwraps [g]!"))
 		qdel(src)
 
 /obj/item/nuclear_waste
@@ -616,16 +652,21 @@ TYPEINFO(/obj/item/reagent_containers/vape)
 	icon = 'icons/misc/reactorcomponents.dmi'
 	icon_state = "waste"
 	default_material = "slag"
+	var/datum/gas_mixture/leak_gas = new
 
 	New()
 		. = ..()
-		src.AddComponent(/datum/component/radioactive, 20, FALSE, FALSE, 1)
+		src.AddComponent(/datum/component/radioactive, 40, FALSE, FALSE, 1)
+		leak_gas.radgas = 100
+		leak_gas.temperature = T20C
+		leak_gas.volume = 200 //I guess??
+
+	return_air(direct = FALSE)
+		return src.leak_gas
 
 	ex_act(severity) //blowing up nuclear waste is always a good idea
 		var/turf/current_loc = get_turf(src)
-		var/datum/gas_mixture/leak_gas = new/datum/gas_mixture()
-		leak_gas.radgas += 100
-		current_loc.assume_air(leak_gas)
+		current_loc.assume_air(src.leak_gas)
 		qdel(src)
 
 /obj/tombstone/nuclear_warning
@@ -643,13 +684,23 @@ TYPEINFO(/obj/item/reagent_containers/vape)
 	<br>
 	...spooky!"}
 
+	ex_act(severity)
+		// we look for the nearest floor because the jerks are probably gonna blow up a hole under the stone or something, rude
+		for(var/turf/simulated/floor/floor in range(3, get_turf(src)))
+			if(floor.parent?.spaced)
+				continue
+			var/datum/gas_mixture/gas = new
+			gas.radgas = 10 * 2 ** (3 - severity)
+			floor.assume_air(gas)
+			break // only the first floor we found
+
 /obj/item/boarvessel
 	name = "\improper Boar Vessel, 600-500 BC, Etruscan, ceramic"
 	desc = "Oh my God! A REAL Boar Vessel, 600-500 BC, Etruscan, ceramic."
 	icon_state = "boarvessel"
 
 	attack_self(mob/user as mob)
-		user.visible_message("<span class='notice'>[user] pets [src]!</span>", "<span class='notice'>You pet [src]!</span>")
+		user.visible_message(SPAN_NOTICE("[user] pets [src]!"), SPAN_NOTICE("You pet [src]!"))
 
 /obj/item/boarvessel/forgery
 	name = "\improper Boar Vessel, 600-500 BC, Etruscan, ceramic"
@@ -658,3 +709,133 @@ TYPEINFO(/obj/item/reagent_containers/vape)
 	New()
 		. = ..()
 		src.AddComponent(/datum/component/radioactive, 1, FALSE, FALSE, 1)
+
+/obj/item/yoyo
+	name = "Atomic Yo-Yo"
+	desc = "Molded into the transparent neon plastic are the words \"ATOMIC CONTAGION F VIRAL YO-YO.\"  It's as extreme as the 1990s."
+	icon = 'icons/obj/items/items.dmi'
+	icon_state = "yoyo"
+	item_state = "yoyo"
+	inhand_image_icon = 'icons/mob/inhand/hand_general.dmi'
+
+	New()
+		..()
+		BLOCK_SETUP(BLOCK_ROPE)
+
+/obj/item/cash_briefcase
+	name = "Cash Briefcase"
+	desc = "A foldable briefcase that can hold a large amount of cash. "
+	icon = 'icons/obj/items/storage.dmi'
+	icon_state = "briefcase"
+	inhand_image_icon = 'icons/mob/inhand/hand_general.dmi'
+	item_state = "briefcase"
+	w_class = W_CLASS_BULKY
+
+	var/balance = 0 // Current amount of cash in the case
+	var/maximum_balance = 30000 // Maximum amount of cash in the case
+	var/open = FALSE // Is the briefcase open?
+	var/open_icon_state = "briefcase-open"
+	var/closed_icon_state = "briefcase"
+
+	get_desc()
+		. = ""
+		if(src.balance > 0)
+			.+= "It has [src.balance] credits inside!"
+		else
+			.+= "It's empty!"
+
+	update_icon()
+		. = ..()
+		var/overlay_icon_state = null
+		var/image/cashoverlay = null
+		if (src.open)
+			src.icon_state = open_icon_state
+			switch (src.balance)
+				if (12 to 119)
+					overlay_icon_state = "briefcashgreen"
+				if (120 to 1199)
+					overlay_icon_state = "briefcashblue"
+				if (1200 to 5999)
+					overlay_icon_state = "briefcashindi"
+				if (6000 to 11999)
+					overlay_icon_state = "briefcashpurp"
+				if (12000 to INFINITY)
+					overlay_icon_state = "briefcashred"
+				else
+					overlay_icon_state = null
+			if (overlay_icon_state)
+				cashoverlay = image(src.icon, overlay_icon_state)
+		else
+			src.icon_state = closed_icon_state
+		src.UpdateOverlays(cashoverlay, "cash_overlay")
+
+	attack_self(mob/user)
+		src.toggleCase(user)
+
+	attackby(obj/item/W, mob/user)
+		if(istype(W, /obj/item/currency/spacecash))
+			if (!src.open)
+				boutput(user, "You need to open the briefcase to put cash in it.")
+				return
+			else if (src.balance >= src.maximum_balance)
+				boutput(user, "The briefcase is full!")
+				return
+			else
+				var/space_left = src.maximum_balance - src.balance
+				var/obj/item/currency/spacecash/cashstack = W
+				if (space_left < cashstack.amount)
+					src.balance += space_left
+					var/money_to_destroy = cashstack.split_stack(space_left)
+					qdel(money_to_destroy)
+				else
+					src.balance += cashstack.amount
+					user.u_equip(W)
+					qdel(W)
+				src.UpdateIcon()
+				src.tooltip_rebuild = TRUE
+		else
+			. = ..()
+
+	attack_hand(mob/user)
+		if (src.open && (user.a_intent != INTENT_GRAB))
+			var/amount = round(tgui_input_number(user, "How much cash do you want to take from the briefcase?", "Cash Briefcase", src.balance, src.balance))
+			if (isnum_safe(amount))
+				if (amount > src.balance || amount < 1)
+					boutput(user, SPAN_ALERT("You wish!"))
+					return
+				var/obj/item/currency/spacecash/taken_cash = new /obj/item/currency/spacecash
+				taken_cash.setup(src.loc, amount)
+				src.balance -= amount
+				user.put_in_hand_or_drop(taken_cash)
+				src.UpdateIcon()
+				src.tooltip_rebuild = TRUE
+		else
+			..(user)
+
+	verb/openclose()
+		set src in view(1)
+		set category = "Local"
+		set name = "Open/Close briefcase"
+		toggleCase(usr)
+
+	proc/toggleCase(mob/user)
+		if (src.open)
+			playsound(src.loc, 'sound/machines/click.ogg', 30, 0)
+			src.open = FALSE
+			src.UpdateIcon()
+		else
+			playsound(src.loc, 'sound/machines/click.ogg', 30, 0)
+			src.open = TRUE
+			src.UpdateIcon()
+			return
+
+/obj/item/cash_briefcase/syndicate
+	icon_state = "syndiecase"
+	item_state = "syndiecase"
+
+	maximum_balance = 50000
+	open_icon_state = "syndiecase-open"
+	closed_icon_state = "syndiecase"
+
+	loaded
+		balance = 15000

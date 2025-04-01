@@ -66,7 +66,7 @@ var/global/obj/fluid/ocean_fluid_obj = null
 		handle_light_generating_turfs()
 
 		for (var/turf/space/fluid/T in processing_fluid_turfs)
-			if (!T) continue
+			if (!T || !T.ocean_canpass()) continue
 			adjacent_space = 0
 			adjacent_block = 0
 			for (var/dir in cardinal)
@@ -75,7 +75,7 @@ var/global/obj/fluid/ocean_fluid_obj = null
 
 				t = get_step(T,dir)
 
-				if (t.turf_flags & CAN_BE_SPACE_SAMPLE)
+				if (istype(t, /turf/space))
 					adjacent_space += 1
 					continue
 

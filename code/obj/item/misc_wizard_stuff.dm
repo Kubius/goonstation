@@ -10,7 +10,6 @@
 	icon = 'icons/obj/wizard.dmi'
 	icon_state = "scroll_seal"
 	var/uses = 4
-	flags = FPRINT | TABLEPASS
 	w_class = W_CLASS_SMALL
 	inhand_image_icon = 'icons/mob/inhand/hand_books.dmi'
 	item_state = "paper"
@@ -18,45 +17,30 @@
 	throw_range = 20
 	desc = "This isn't that old, you just spilled mugwort tea on it the other day."
 
-/obj/item/teleportation_scroll/attack_self(mob/user as mob)
-	src.add_dialog(user)
-	var/dat = ""
-	if (!iswizard(user))
-		src.remove_dialog(user)
-		boutput(user, "<span class='alert'><b>The text is illegible!</b></span>")
-		return
-	if (!src.uses)
-		boutput(user, "<span class='notice'><b>The depleted scroll vanishes in a puff of smoke!</b></span>")
-		src.remove_dialog(user)
-		user.Browse(null,"window=scroll")
-		qdel(src)
-		return
-	dat += "<b>Teleportation Scroll:</b><br><br>"
-	dat += "Charges left: [src.uses]<br><hr><br>"
-	dat += "<A href='byond://?src=\ref[src];spell_teleport=1'>Teleport</A><br><br><hr>"
-	user.Browse(dat,"window=scroll")
-	onclose(user, "scroll")
-	return
+/obj/item/teleportation_scroll/get_desc()
+	. = "Charges left: [src.uses]."
 
-/obj/item/teleportation_scroll/Topic(href, href_list)
-	..()
-	if (usr.getStatusDuration("paralysis") || !isalive(usr) || usr.restrained())
+/obj/item/teleportation_scroll/attack_self(mob/user as mob)
+	if (!iswizard(user))
+		boutput(user, SPAN_ALERT("<b>The text is illegible!</b>"))
 		return
+
+	if (usr.getStatusDuration("unconscious") || !isalive(usr) || usr.restrained())
+		return
+
 	var/mob/living/carbon/human/H = usr
 	if (!( ishuman(H)))
 		return 1
+
 	if ((usr.contents.Find(src) || (in_interact_range(src, usr) && istype(src.loc, /turf))))
-		src.add_dialog(usr)
-		if (href_list["spell_teleport"])
-			if (src.uses >= 1 && usr.teleportscroll(1, 1, src, null, TRUE) == 1)
-				src.uses -= 1
-		if (ismob(src.loc))
-			attack_self(src.loc)
-		else
-			for(var/mob/M in viewers(1, src))
-				if (M.client)
-					src.attack_self(M)
-	return
+		if (src.uses >= 1 && usr.teleportscroll(1, 1, src, null, TRUE) == 1)
+			src.uses -= 1
+			tooltip_rebuild = TRUE
+
+	if (!src.uses)
+		boutput(user, SPAN_NOTICE("<b>The depleted scroll vanishes in a puff of smoke!</b>"))
+		qdel(src)
+
 
 ////////////////////////////////////////////////////// Staves /////////////////////////////////////////////////////
 
@@ -73,7 +57,7 @@
 	throw_range = 5
 	health = 8
 	w_class = W_CLASS_SMALL
-	flags = FPRINT | TABLEPASS | NOSHIELD
+	flags = TABLEPASS | NOSHIELD
 	object_flags = NO_ARM_ATTACH
 	var/wizard_key = "" // The owner of this staff.
 	var/eldritch = 0	//was for robe and wizard hat, now nothing.
@@ -90,27 +74,27 @@
 
 		switch (severity)
 			if (0)
-				affected_mob.visible_message("<span class='alert'>[affected_mob] is knocked off-balance by the curse upon [src]!</span>")
-				affected_mob.do_disorient(30, weakened = 1 SECOND, stunned = 0, disorient = 1 SECOND, remove_stamina_below_zero = 0)
+				affected_mob.visible_message(SPAN_ALERT("[affected_mob] is knocked off-balance by the curse upon [src]!"))
+				affected_mob.do_disorient(30, knockdown = 1 SECOND, stunned = 0, disorient = 1 SECOND, remove_stamina_below_zero = 0)
 				affected_mob.stuttering += 2
 				affected_mob.take_brain_damage(2)
 
 			if (1)
-				affected_mob.visible_message("<span class='alert'>[affected_mob]'s consciousness is overwhelmed by the curse upon [src]!</span>")
+				affected_mob.visible_message(SPAN_ALERT("[affected_mob]'s consciousness is overwhelmed by the curse upon [src]!"))
 				affected_mob.show_text("Horrible visions of depravity and terror flood your mind!", "red")
 				if (prob(50))
 					affected_mob.emote("scream")
 
-				affected_mob.do_disorient(80, weakened = 5 SECONDS, stunned = 0, paralysis = 2 SECONDS, disorient = 2 SECONDS, remove_stamina_below_zero = 0)
+				affected_mob.do_disorient(80, knockdown = 5 SECONDS, stunned = 0, unconscious = 2 SECONDS, disorient = 2 SECONDS, remove_stamina_below_zero = 0)
 				affected_mob.stuttering += 10
 				affected_mob.take_brain_damage(6)
 
 			else
 				elecflash(affected_mob)
-				affected_mob.visible_message("<span class='alert'>The curse upon [src] rebukes [affected_mob]!</span>")
-				boutput(affected_mob, "<span class='alert'>Horrible visions of depravity and terror flood your mind!</span>")
+				affected_mob.visible_message(SPAN_ALERT("The curse upon [src] rebukes [affected_mob]!"))
+				boutput(affected_mob, SPAN_ALERT("Horrible visions of depravity and terror flood your mind!"))
 				affected_mob.emote("scream")
-				affected_mob.changeStatus("paralysis", 8 SECONDS)
+				affected_mob.changeStatus("unconscious", 8 SECONDS)
 				affected_mob.changeStatus("stunned", 10 SECONDS)
 				affected_mob.stuttering += 20
 				affected_mob.take_brain_damage(25)
@@ -122,7 +106,7 @@
 		if (!src || !istype(src) || !M || !istype(M))
 			return
 
-		src.visible_message("<span class='alert'><b>The [src.name] is suddenly warped away!</b></span>")
+		src.visible_message(SPAN_ALERT("<b>The [src.name] is suddenly warped away!</b>"))
 		elecflash(src)
 
 		if (ismob(src.loc))
@@ -156,8 +140,6 @@
 	desc = "A dark staff infused with eldritch power. Trying to steal this is probably a bad idea."
 	icon_state = "staffcthulhu"
 	item_state = "staffcthulhu"
-	force = 14
-	hitsound = 'sound/effects/ghost2.ogg'
 	eldritch = 1
 
 	New()
@@ -168,11 +150,24 @@
 		. = ..()
 		STOP_TRACKING
 
+	pickup(mob/user)
+		. = ..()
+		if(iswizard(user))
+			src.force = 14
+			src.hitsound = 'sound/effects/ghost2.ogg'
+			src.tooltip_rebuild = TRUE
+
+	dropped(mob/user)
+		. = ..()
+		src.force = src::force
+		src.hitsound = src::hitsound
+		src.tooltip_rebuild = TRUE
+
 	attack_hand(var/mob/user)
 		if (user.mind)
 			if (iswizard(user) || check_target_immunity(user))
 				if (user.mind.key != src.wizard_key && !check_target_immunity(user))
-					boutput(user, "<span class='alert'>The [src.name] is magically attuned to another wizard! You can use it, but the staff will refuse your attempts to control or summon it.</span>")
+					boutput(user, SPAN_ALERT("The [src.name] is magically attuned to another wizard! You can use it, but the staff will refuse your attempts to control or summon it."))
 				..()
 				return
 			else
@@ -180,18 +175,18 @@
 				return
 		else ..()
 
-	attack(mob/M, mob/user)
-		if (iswizard(user) && !iswizard(M) && !isdead(M) && !check_target_immunity(M))
-			if (M?.traitHolder?.hasTrait("training_chaplain"))
-				M.visible_message("<spab class='alert'>A divine light shields [M] from harm!</span>")
-				playsound(M, 'sound/impact_sounds/Energy_Hit_1.ogg', 40, TRUE)
-				JOB_XP(M, "Chaplain", 2)
+	attack(mob/target, mob/user, def_zone, is_special = FALSE, params = null)
+		if (iswizard(user) && !iswizard(target) && !isdead(target) && !check_target_immunity(target))
+			if (target?.traitHolder?.hasTrait("training_chaplain"))
+				target.visible_message("<spab class='alert'>A divine light shields [target] from harm!</span>")
+				playsound(target, 'sound/impact_sounds/Energy_Hit_1.ogg', 40, TRUE)
+				JOB_XP(target, "Chaplain", 2)
 				return
 
-			if (M.get_brain_damage() >= 30 && prob(20))
-				src.do_brainmelt(M, 1)
+			if (target.get_brain_damage() >= 30 && prob(20))
+				src.do_brainmelt(target, 1)
 			else if (prob(35))
-				src.do_brainmelt(M, 0)
+				src.do_brainmelt(target, 0)
 		..()
 		return
 
@@ -238,13 +233,13 @@
 			return
 		var/area/A = get_area(target)
 		if (istype(A, /area/station/chapel))
-			boutput(user, "<span class='alert'>You cannot summon lightning on holy ground!</span>") //phrasing works if either target or mob are in chapel heh
+			boutput(user, SPAN_ALERT("You cannot summon lightning on holy ground!")) //phrasing works if either target or mob are in chapel heh
 			return
 		if (A?.sanctuary || istype(A, /area/wizard_station))
-			boutput(user, "<span class='alert'>You cannot summon lightning in this place!</span>")
+			boutput(user, SPAN_ALERT("You cannot summon lightning in this place!"))
 			return
 		if (thunder_charges <= 0)
-			boutput(user, "<span class='alert'>[name] is out of charges! Magically recall it to restore it's power.</span>")
+			boutput(user, SPAN_ALERT("[name] is out of charges! Magically recall it to restore it's power."))
 			return
 		thunder_charges -= 1
 		var/turf/T = get_turf(target)
@@ -252,14 +247,14 @@
 		playsound(T, 'sound/effects/electric_shock_short.ogg', 70, TRUE)
 		lightning.caster = user
 		UpdateIcon()
-		flick("[icon_state]_fire", src)
+		FLICK("[icon_state]_fire", src)
 		..()
 
 	attack_hand(var/mob/user)
 		if (user.mind)
 			if (iswizard(user) || check_target_immunity(user))
 				if (user.mind.key != src.wizard_key && !check_target_immunity(user))
-					boutput(user, "<span class='alert'>The [src.name] is magically attuned to another wizard! You can use it, but may not summon it magically.</span>")
+					boutput(user, SPAN_ALERT("The [src.name] is magically attuned to another wizard! You can use it, but may not summon it magically."))
 				..()
 				return
 			else
@@ -298,15 +293,15 @@
 		if(thunder_charges <= 3) //doesn't ever reduce charge even though three is usually max
 			thunder_charges = 3
 		UpdateIcon()
-		flick("[icon_state]_fire", src)
+		FLICK("[icon_state]_fire", src)
 
 	proc/zap_person(var/mob/target) //purposefully doesn't do any damage, here to offer non-chat feedback when trying to pick up
-		boutput(target, "<span class='alert'>Static electricity arcs from [name] to your hand when you try and touch it!</span>")
+		boutput(target, SPAN_ALERT("Static electricity arcs from [name] to your hand when you try and touch it!"))
 		playsound(target.loc, 'sound/effects/sparks4.ogg', 70, 1)
 		if (target.bioHolder?.HasEffect("resist_electric"))
 			return
 		else
-			target.do_disorient(stamina_damage = 0, weakened = 0, stunned = 0, disorient = 20)
+			target.do_disorient(stamina_damage = 0, knockdown = 0, stunned = 0, disorient = 20)
 
 /obj/item/staff/monkey_staff
 	name = "staff of monke"
@@ -364,6 +359,6 @@
 		var/percentage
 		percentage = (corrupt / count) * 100
 		if (corrupt >= 2100)
-			. += "<br><span class='success'><b>The Corruption</b> is at [percentage]%!</span>"
+			. += "<br>[SPAN_SUCCESS("<b>The Corruption</b> is at [percentage]%!")]"
 		else
-			. += "<br><span class='alert'><b>The Corruption</b> is at [percentage]%!</span>"*/
+			. += "<br>[SPAN_ALERT("<b>The Corruption</b> is at [percentage]%!")]"*/

@@ -1,4 +1,5 @@
 #define DC_ALL "Disconnect All"
+#define LIST_CONNECTIONS "List Connections"
 #define CONNECT_COMP "Connect Component"
 #define SET_SEND "Set Send-Signal"
 #define TOGGLE_MATCH "Toggle Exact Match"
@@ -8,6 +9,8 @@
 #define _MECHCOMP_VALIDATE_RESPONSE_BAD 1
 #define _MECHCOMP_VALIDATE_RESPONSE_HALT 2
 #define _MECHCOMP_VALIDATE_RESPONSE_HALT_AFTER 3
+
+#define MAX_OUTGOING_PER_TICK 25
 
 /datum/mechanicsMessage
 	var/signal = "1"
@@ -72,12 +75,21 @@
 */
 
 /datum/component/mechanics_holder
+	/// associative list of atoms to the input they're registered to
+	/// list[atom] = "name of input"
 	var/list/connected_outgoing
+	/// simple list of atoms that are connected (no inputs)
+	/// list[] = [atom, atom, ...]
 	var/list/connected_incoming
 	var/list/inputs
 	var/list/configs
+	///Associative list of atoms to the pair of line images drawn from us to them (there are two so it renders when either end is rendered)
+	var/list/lines
 
 	var/defaultSignal = "1"
+
+	var/activation_count = 0
+	var/current_tick = 0
 
 TYPEINFO(/datum/component/mechanics_holder)
 	initialization_args = list()
@@ -87,8 +99,9 @@ TYPEINFO(/datum/component/mechanics_holder)
 	src.connected_incoming = list()
 	src.inputs = list()
 	src.configs = list()
+	src.lines = list()
 
-	src.configs.Add(list(DC_ALL, CONNECT_COMP))
+	src.configs.Add(list(DC_ALL, CONNECT_COMP, LIST_CONNECTIONS))
 	..()
 
 /datum/component/mechanics_holder/RegisterWithParent()
@@ -136,6 +149,7 @@ TYPEINFO(/datum/component/mechanics_holder)
 //Delete all connections. (Often caused by DC_ALL user command, and unwrenching MechComp devices.)
 /datum/component/mechanics_holder/proc/WipeConnections()
 	for(var/atom/A in src.connected_incoming)
+		src.removeLines(A)
 		SEND_SIGNAL(A, _COMSIG_MECHCOMP_RM_OUTGOING, parent)
 	for(var/atom/A in src.connected_outgoing)
 		SEND_SIGNAL(A, _COMSIG_MECHCOMP_RM_INCOMING, parent)
@@ -143,10 +157,40 @@ TYPEINFO(/datum/component/mechanics_holder)
 	src.connected_outgoing.Cut()
 	return
 
+// List all of the incoming and outgoing connections to/from this thing
+/datum/component/mechanics_holder/proc/ListConnections(mob/user)
+	var/list/out = list()
+	out += "<b>Connections to [bicon(parent)] [src.parent]:</b>"
+	if (length(src.connected_incoming))
+		out += "<br>Incoming:"
+		for(var/atom/A in src.connected_incoming)
+			var/pointer_container[1] //A list of size 1, to store the address of the list we want
+			SEND_SIGNAL(A, _COMSIG_MECHCOMP_GET_OUTGOING, pointer_container)
+			var/list/trg_outgoing = pointer_container[1]
+			out += "<br>&nbsp;&nbsp;&nbsp;&nbsp;[bicon(A)] [SPAN_NOTICE(A.name)] &rarr; [SPAN_SUCCESS(trg_outgoing[parent])]"
+	else
+		out += "<br>No incoming connections."
+
+	if (length(src.connected_outgoing))
+		out += "<br>Outgoing:"
+		for(var/atom/A in src.connected_outgoing)
+			out += "<br>&nbsp;&nbsp;&nbsp;&nbsp;[bicon(A)] [SPAN_NOTICE(A.name)] &rarr; [SPAN_SUCCESS(src.connected_outgoing[A])]"
+	else
+		out += "<br>No outgoing connections."
+	boutput(user, out.Join())
+	return
+
+/datum/component/mechanics_holder/proc/removeLines(atom/A)
+	var/datum/client_image_group/image_group = get_image_group(CLIENT_IMAGE_GROUP_MECHCOMP)
+	for (var/image/line as anything in src.lines[A])
+		image_group.remove_image(line)
+		line.loc = null
+	src.lines -= A
+
 //Remove a device from our list of transitting devices.
 /datum/component/mechanics_holder/proc/removeIncoming(var/comsig_target, var/atom/A)
 	src.connected_incoming.Remove(A)
-	return
+	src.removeLines(A)
 
 //Remove a device from our list of receiving devices.
 /datum/component/mechanics_holder/proc/removeOutgoing(var/comsig_target, var/atom/A)
@@ -195,6 +239,14 @@ TYPEINFO(/datum/component/mechanics_holder)
 //Fire an outgoing connection with given value. Try to re-use incoming messages for outgoing signals whenever possible!
 //This reduces load AND preserves the node list which prevents infinite loops.
 /datum/component/mechanics_holder/proc/fireOutgoing(var/comsig_target, var/datum/mechanicsMessage/msg)
+	//ratelimit components
+	if(current_tick == TIME)
+		if(activation_count++ > MAX_OUTGOING_PER_TICK)
+			return 0
+	else //if it's the next tick, reset the trackers
+		activation_count = 0
+		current_tick = TIME
+
 	//If we're already in the node list we will not send the signal on.
 	if(msg.hasNode(parent))
 		return 0
@@ -233,7 +285,7 @@ TYPEINFO(/datum/component/mechanics_holder)
 		return
 
 	if (!user.find_tool_in_hand(TOOL_PULSING))
-		boutput(user, "<span class='alert'>[MECHFAILSTRING]</span>")
+		boutput(user, SPAN_ALERT("[MECHFAILSTRING]"))
 		return
 
 	//Need to use comsig_target instead of parent, to access .loc
@@ -249,14 +301,14 @@ TYPEINFO(/datum/component/mechanics_holder)
 				cabinet = I.stored.linked_item
 		if(cabinet)
 			if(!cabinet.anchored)
-				boutput(user,"<span class='alert'>Cannot create connection through an unsecured component housing</span>")
+				boutput(user,SPAN_ALERT("Cannot create connection through an unsecured component housing"))
 				return
 
 	if(GET_DIST(parent, A) > SQUARE_TILE_WIDTH)
-		boutput(user, "<span class='alert'>Components need to be within a range of 14 meters to connect.</span>")
+		boutput(user, SPAN_ALERT("Components need to be within a range of 14 meters to connect."))
 		return
 
-	var/typesel = input(user, "Use [parent] as:", "Connection Type") in list("Trigger", "Receiver", "*CANCEL*")
+	var/typesel = tgui_alert(user, "Use [parent] as:", "Connection Type", list("Trigger", "Receiver", "*CANCEL*"))
 	switch(typesel)
 		if("Trigger")
 			SEND_SIGNAL(A, _COMSIG_MECHCOMP_LINK, parent, user)
@@ -271,10 +323,10 @@ TYPEINFO(/datum/component/mechanics_holder)
 /datum/component/mechanics_holder/proc/link_devices(atom/comsig_target, atom/trigger, mob/user)
 	var/atom/receiver = parent
 	if(trigger == comsig_target)
-		boutput(user, "<span class='alert'>Can not connect a component to itself.</span>")
+		boutput(user, SPAN_ALERT("Can not connect a component to itself."))
 		return
 	if(trigger in src.connected_outgoing)
-		boutput(user, "<span class='alert'>Can not create a direct loop between 2 components.</span>")
+		boutput(user, SPAN_ALERT("Can not create a direct loop between 2 components."))
 		return
 	if(trigger.loc != comsig_target.loc)
 		var/obj/item/storage/mechanics/cabinet = null
@@ -288,33 +340,50 @@ TYPEINFO(/datum/component/mechanics_holder)
 				cabinet = I.stored.linked_item
 		if(cabinet)
 			if(!cabinet.anchored)
-				boutput(user,"<span class='alert'>Cannot create connection through an unsecured component housing</span>")
+				boutput(user,SPAN_ALERT("Cannot create connection through an unsecured component housing"))
 				return
 	if(!IN_RANGE(receiver, trigger, WIDE_TILE_WIDTH))
-		boutput(user, "<span class='alert'>These two components are too far apart to connect.</span>")
+		boutput(user, SPAN_ALERT("These two components are too far apart to connect."))
 		return
 	var/atom/movable/moveable_target = comsig_target
 	if(istype(moveable_target) && !moveable_target.anchored)
-		boutput(user, "<span class='alert'>[moveable_target] must be anchored to connect it.</span>")
+		boutput(user, SPAN_ALERT("[moveable_target] must be anchored to connect it."))
 		return
 	var/atom/movable/moveable_trigger = trigger
 	if(istype(moveable_trigger) && !moveable_trigger.anchored)
-		boutput(user, "<span class='alert'>[moveable_trigger] must be anchored to connect it.</span>")
+		boutput(user, SPAN_ALERT("[moveable_trigger] must be anchored to connect it."))
 		return
 	if(!src.inputs.len)
-		boutput(user, "<span class='alert'>[receiver.name] has no input slots. Can not connect [trigger.name] as Trigger.</span>")
+		boutput(user, SPAN_ALERT("[receiver.name] has no input slots. Can not connect [trigger.name] as Trigger."))
 		return
 
 	var/pointer_container[1] //A list of size 1, to store the address of the list we want
 	SEND_SIGNAL(trigger, _COMSIG_MECHCOMP_GET_OUTGOING, pointer_container)
 	var/list/trg_outgoing = pointer_container[1]
-	var/selected_input = input(user, "Select \"[receiver.name]\" Input", "Input Selection") in inputs + "*CANCEL*"
-	if(selected_input == "*CANCEL*") return
+	var/selected_input = tgui_input_list(user, "Select \"[receiver.name]\" Input", "Input Selection", inputs + "*CANCEL*")
+	if(selected_input == "*CANCEL*")
+		return
+
+	//draw a line for meson lookers
+	var/datum/lineResult/R1 = drawLineImg(get_turf(trigger), get_turf(receiver), "data", null,\
+		trigger.pixel_x, trigger.pixel_y,\
+		receiver.pixel_x, receiver.pixel_y,\
+		getCrossed = 0, mode = LINEMODE_SIMPLE)
+	var/datum/lineResult/R2 = drawLineImg(get_turf(receiver), get_turf(trigger), "data", null,\
+		receiver.pixel_x, receiver.pixel_y,\
+		trigger.pixel_x, trigger.pixel_y,\
+		getCrossed = 0, mode = LINEMODE_SIMPLE_REVERSED)
+	src.lines[trigger] = list(R1.lineImage, R2.lineImage)
+	var/datum/client_image_group/image_group = get_image_group(CLIENT_IMAGE_GROUP_MECHCOMP)
+	for (var/image/line as anything in src.lines[trigger])
+		line.plane = PLANE_OVERLAY_EFFECTS
+		line.alpha = 190
+		image_group.add_image(line)
 
 	trg_outgoing |= receiver //Let's not allow making many of the same connection.
 	trg_outgoing[receiver] = selected_input
 	src.connected_incoming |= trigger //Let's not allow making many of the same connection.
-	boutput(user, "<span class='success'>You connect the [trigger.name] to the [receiver.name].</span>")
+	boutput(user, SPAN_SUCCESS("You connect the [trigger.name] to the [receiver.name]."))
 	logTheThing(LOG_STATION, user, "connects a [log_object(trigger)] [log_loc(trigger)] to a [log_object(receiver)] [log_loc(receiver)].")
 	SEND_SIGNAL(trigger,_COMSIG_MECHCOMP_DISPATCH_ADD_FILTER, receiver, user)
 	return
@@ -348,28 +417,34 @@ TYPEINFO(/datum/component/mechanics_holder)
 		var/obj/machinery/vending/hacked_vendor = comsig_target
 		if(hacked_vendor.panel_open)
 			return
+	//slightly cursed pattern here, maybe factor out into a signal/init var if we add any more of these
+	if (istype(comsig_target, /obj/machinery/shieldgenerator))
+		return
 	if(length(src.configs))
-		var/selected_config = input("Select a config to modify!", "Config", null) as null|anything in src.configs
+		var/selected_config = tgui_input_list(user, "Select a config to modify!", "Config", src.configs)
 		if (!in_interact_range(parent, user)) return TRUE
 		if(selected_config)
 			switch(selected_config)
 				if(SET_SEND)
-					var/inp = input(user,"Please enter Signal:","Signal setting","1") as text
+					var/inp = tgui_input_text(user, "Please enter Signal:", "Signal setting", defaultSignal)
 					if(!in_interact_range(parent, user) || user.stat)
 						return
-					inp = trim(strip_html_tags(inp))
+					inp = trimtext(strip_html_tags(inp))
 					if(length(inp))
 						defaultSignal = inp
-						boutput(user, "<span class='success'>The signal is now set to [inp].</span>")
+						boutput(user, SPAN_SUCCESS("The signal is now set to [inp]."))
 				if(DC_ALL)
 					WipeConnections()
 					if(istype(parent, /atom))
 						var/atom/AP = parent
-						boutput(user, "<span class='notice'>You disconnect [AP.name].</span>")
+						boutput(user, SPAN_NOTICE("You disconnect [AP.name]."))
 					return TRUE
 				if(CONNECT_COMP)
 					W.AddComponent(/datum/component/mechanics_connector, src.parent)
-					boutput(user, "<span class='notice'>Your [W] will now link other mechanics components to [src.parent]! Use it in hand to stop linking!</span>")
+					boutput(user, SPAN_NOTICE("Your [W] will now link other mechanics components to [src.parent]! Use it in hand to stop linking!"))
+					return TRUE
+				if(LIST_CONNECTIONS)
+					ListConnections(user)
 					return TRUE
 				else
 					//must be a custom config specific to the device, so let the device handle it
@@ -400,9 +475,11 @@ TYPEINFO(/datum/component/mechanics_holder)
 
 /// we remove ourself here, the user no longer wishes to link components via us :(
 /datum/component/mechanics_connector/proc/stop_linking(var/obj/item/thing, mob/user)
-	boutput(user, "<span class='notice'>You stop linking with the [parent].</span>")
+	boutput(user, SPAN_NOTICE("You stop linking with the [parent]."))
 	src.RemoveComponent()
 
 /datum/component/mechanics_connector/UnregisterFromParent()
 	UnregisterSignal(parent, COMSIG_ITEM_ATTACK_SELF)
 	. = ..()
+
+#undef MAX_OUTGOING_PER_TICK

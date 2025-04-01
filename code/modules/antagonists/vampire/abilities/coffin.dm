@@ -30,7 +30,7 @@
 			..()
 
 	attackby(obj/item/I, mob/user)
-		user.lastattacked = src
+		user.lastattacked = get_weakref(src)
 		_health -= I.force
 		attack_particle(user,src)
 		playsound(src.loc, 'sound/impact_sounds/Wood_Hit_1.ogg', 50, 1, pitch = 1.1)
@@ -71,11 +71,12 @@
 		var/datum/abilityHolder/vampire/V = holder
 
 		if (istype(target,/turf/space) || isrestrictedz(target.z))
-			boutput(M, "<span class='alert'>You cannot place your coffin there.</span>")
+			boutput(M, SPAN_ALERT("You cannot place your coffin there."))
 			return 1
 
+		. = ..()
 		V.coffin_turf = target
-		boutput(M, "<span class='notice'>You plant your coffin on [target].</span>")
+		boutput(M, SPAN_NOTICE("You plant your coffin on [target]."))
 
 		logTheThing(LOG_COMBAT, M, "marks coffin on tile on [constructTarget(target,"combat")] at [log_loc(M)].")
 		return 0
@@ -109,10 +110,11 @@
 			spawnturf = get_turf(M)
 		var/turf/owner_turf = get_turf(M)
 		if (spawnturf.z != owner_turf?.z)
-			boutput(M, "<span class='alert'>You cannot escape to a different Z-level.</span>")
+			boutput(M, SPAN_ALERT("You cannot escape to a different Z-level."))
 			return 1
 
 
+		. = ..()
 		var/obj/storage/closet/coffin/vampire/coffin = new(spawnturf)
 		animate_buff_in(coffin)
 

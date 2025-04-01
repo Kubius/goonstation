@@ -2,27 +2,32 @@
 //enables travel to other Z-Spaces.
 /obj/item/shipcomponent/engine
 	name = "Warp-1 Engine"
-	desc = "A standard engine"
+	desc = "A standard engine."
 	var/powergenerated = 200 //how much power for components the engine generates
 	var/currentgen = 200 //handles engine power debuffs
 	var/warprecharge = 300 //Interval it takes for warp to be ready again
 	//delay between dropping wormhole and being able to enter it
 	var/portaldelay = 3 SECONDS
 	var/status = "Normal"
-	var/speedmod = 2 // how fast should the vehicle be, lower is faster
+	// multiplicative speed mod this engine has on its pod's speed
+	var/engine_speed = 1
 	var/wormholeQueued = 0 //so users cant open a million inputs and bypass all cooldowns
 	var/warp_autopilot = 0		//prevents us from mistakenly moving when trying to warp. Checked in pod movement_controller
 	power_used = 0
 	system = "Engine"
 	icon_state = "engine-1"
 
+	get_desc()
+		return "Rated for [src.powergenerated] units of continuous power output."
+
 	activate()
 		..()
-		if(ship.fueltank.air_contents.toxins <= 0)
+		if(ship.fueltank?.air_contents.toxins <= 0)
 			boutput(usr, "[ship.ship_message("No plasma located inside of the fuel tank!")]")
 			src.deactivate()
 			return
 		ship.powercapacity = src.powergenerated
+		src.ship.speedmod *= src.engine_speed
 		return
 	////Warp requires recharge time
 	ready()
@@ -33,6 +38,7 @@
 	deactivate()
 		..()
 		ship.powercapacity = 0
+		src.ship.speedmod /= src.engine_speed
 		for(var/obj/item/shipcomponent/S in ship.components)
 			if(S.active)
 				S.deactivate()
@@ -109,7 +115,7 @@
 			beacons["[T.name][count[T.name] == 1 ? null : " #[count[T.name]]"]"] = T
 	wormholeQueued = 1
 	var/obj/target = beacons[tgui_input_list(usr, "Please select a location to warp to.", "Warp Computer", sortList(beacons, /proc/cmp_text_asc))]
-	if(!target)
+	if(!target || usr.loc != src.ship) // we need to make sure the user is still in the vehicle or selected a target
 		wormholeQueued = 0
 		return
 
@@ -144,6 +150,10 @@
 
 	sleep(portaldelay)
 	P.target = target
+	if (istype(target, /obj/warp_beacon))
+		var/obj/warp_beacon/WB = target
+		if (WB.encrypted) // special beacon, ignore restricted Z checks and similar
+			P.bypass_tele_block = TRUE
 	ready = 0
 	warp_autopilot = 0
 	logTheThing(LOG_STATION, usr, "creates a wormhole (pod portal) (<b>Destination:</b> [target]) at [log_loc(usr)].")
@@ -172,31 +182,41 @@
 		if(SOUTHWEST)
 			A.pixel_y = dist*32
 			A.pixel_x = dist*32
+
+/obj/item/shipcomponent/engine/scout
+	name = "Scout Engine"
+	desc = "An engine optimized for speed and warp travel over power. Warning: Power is insufficient to operate most non-factory installed pod components."
+	powergenerated = 50
+	currentgen = 50
+	warprecharge = 5 SECONDS
+	engine_speed = 1.4
+	icon_state = "engine-0"
+
 /obj/item/shipcomponent/engine/helios
 	name = "Helios Mark-II Engine"
-	desc = "A really fast engine"
+	desc = "A really fast engine."
 	powergenerated = 300 //how much power for components the engine generates
 	currentgen = 300 //handles engine power debuffs
 	warprecharge = 150 //Interval it takes for warp to be ready again
-	speedmod = 1
+	engine_speed = 1.25
 	icon_state = "engine-2"
 
 /obj/item/shipcomponent/engine/hermes
 	name = "Hermes 3.0 Engine"
-	desc = "An incredibly powerful but slow engine"
+	desc = "An incredibly powerful but slow engine."
 	powergenerated = 500
 	currentgen = 500
 	warprecharge = 300
-	speedmod = 3
+	engine_speed = 0.5
 	icon_state = "engine-3"
 
 /obj/item/shipcomponent/engine/zero
 	name = "Warp-0 Engine"
-	desc = "An old prototype engine"
+	desc = "An old prototype engine."
 	powergenerated = 190
 	currentgen = 190
 	warprecharge = -1 //This disables the ability to create wormholes completely.
-	speedmod = 2
+	engine_speed = 1.1
 	icon_state = "engine-4"
 
 /obj/item/shipcomponent/engine/escape

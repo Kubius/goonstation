@@ -58,6 +58,10 @@ TYPEINFO(/obj/machinery/door/firedoor)
 			FALSE \
 		)
 
+		var/obj/machinery/door/airlock/pyro/glass/windoor/mydoor = locate(/obj/machinery/door/airlock/pyro/glass/windoor) in src.loc
+		if(istype(mydoor))
+			src.layer = EFFECTS_LAYER_UNDER_3 // windoors have altered layers
+
 /obj/machinery/door/firedoor/proc/set_open()
 	if(!blocked)
 		if(operating)
@@ -106,7 +110,7 @@ TYPEINFO(/obj/machinery/door/firedoor)
 	src.add_fingerprint(user)
 	if (!ispryingtool(C))
 		if (src.density)
-			user.lastattacked = src
+			user.lastattacked = get_weakref(src)
 			attack_particle(user,src)
 			playsound(src.loc, src.hitsound , 50, 1, pitch = 1.6)
 			if (C)
@@ -147,7 +151,7 @@ TYPEINFO(/obj/machinery/door/firedoor)
 /obj/machinery/door/firedoor/attack_ai(mob/user as mob)
 	var/obj/machinery/door/airlock/mydoor = locate(/obj/machinery/door/airlock) in src.loc
 	if(mydoor?.aiControlDisabled == 1)
-		boutput(user, "<span class='notice'>You cannot control this firelock because its associated airlock's AI control is disabled!</span>")
+		boutput(user, SPAN_NOTICE("You cannot control this firelock because its associated airlock's AI control is disabled!"))
 		return
 	if(!blocked && !operating)
 		if(density)
@@ -178,26 +182,29 @@ TYPEINFO(/obj/machinery/door/firedoor)
 	return (dir != get_dir(src,target))
 
 /obj/machinery/door/firedoor/border_only/update_nearby_tiles(need_rebuild)
-	if(!air_master) return 0
+	if (!air_master) return 0
 
 	var/turf/simulated/source = loc
-	var/turf/simulated/destination = get_step(source,dir)
+	var/turf/simulated/target = get_step(source,dir)
 
-	if(need_rebuild)
-		if(istype(source)) //Rebuild/update nearby group geometry
-			if(source.parent)
-				air_master.groups_to_rebuild |= source.parent
+	if (need_rebuild)
+		if (istype(source)) // Rebuild resp. update nearby group geometry.
+			if (source.parent)
+				air_master.groups_to_rebuild[source.parent] = null
 			else
-				air_master.tiles_to_update |= source
-		if(istype(destination))
-			if(destination.parent)
-				air_master.groups_to_rebuild |= destination.parent
-			else
-				air_master.tiles_to_update |= destination
+				air_master.tiles_to_update[source] = null
 
+		if (istype(target))
+			if (target.parent)
+				air_master.groups_to_rebuild[target.parent] = null
+			else
+				air_master.tiles_to_update[target] = null
 	else
-		if(istype(source)) air_master.tiles_to_update |= source
-		if(istype(destination)) air_master.tiles_to_update |= destination
+		if (istype(source)) air_master.tiles_to_update[source] = null
+		if (istype(target)) air_master.tiles_to_update[target] = null
+
+	if (istype(source))
+		source.selftilenotify() //for fluids
 
 	return 1
 
@@ -226,7 +233,7 @@ TYPEINFO(/obj/machinery/door/firedoor)
 		return FALSE
 	if (src.density)
 		return FALSE
-	user.visible_message("<span class='alert'><b>[user] sticks [his_or_her(user)] head into [src] and closes it!</b></span>")
+	user.visible_message(SPAN_ALERT("<b>[user] sticks [his_or_her(user)] head into [src] and closes it!</b>"))
 	src.close()
 	var/obj/head = user.organHolder.drop_organ("head")
 	qdel(head)

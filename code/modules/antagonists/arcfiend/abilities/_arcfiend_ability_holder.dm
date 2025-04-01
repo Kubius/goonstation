@@ -53,12 +53,16 @@ ABSTRACT_TYPE(/datum/targetable/arcfiend)
 	var/container_safety_bypass = FALSE
 
 	castcheck(atom/target)
+		var/area/A = get_area(holder.owner)
+		if (A.sanctuary)
+			boutput(holder.owner, SPAN_ALERT("You cannot use your abilities in a sanctuary."))
+			return FALSE
 		var/mob/living/M = src.holder.owner
 		if (!container_safety_bypass && !isturf(M.loc))
-			boutput(holder.owner, "<span class='alert'>Interference from [M.loc] is preventing use of this ability!</span>")
+			boutput(holder.owner, SPAN_ALERT("Interference from [M.loc] is preventing use of this ability!"))
 			return FALSE
 		if (!can_act(M) && target != holder.owner) // we can self cast while incapacitated
-			boutput(holder.owner, "<span class='alert'>Not while incapacitated.</span>")
+			boutput(holder.owner, SPAN_ALERT("Not while incapacitated."))
 			return FALSE
 		return TRUE
 

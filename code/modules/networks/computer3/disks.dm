@@ -54,7 +54,7 @@
 
 	proc/wipe_or_zap(mob/user)
 		if(!read_only)
-			user.visible_message("<span class='alert'><b>[user] wipes the [src.name]!</b></span>")
+			user.visible_message(SPAN_ALERT("<b>[user] wipes the [src.name]!</b>"))
 			elecflash(src,0, power=2, exclude_center = 0)
 			if (src.root)
 				src.root.dispose()
@@ -63,12 +63,21 @@
 			src.root.holder = src
 			src.root.name = "root"
 		else
-			user.visible_message("<span class='alert'><b>[user] is zapped as the multitool backfires! The [src.name] seems unphased.</b></span>")
+			user.visible_message(SPAN_ALERT("<b>[user] is zapped as the multitool backfires! The [src.name] seems unphased.</b>"))
 			elecflash(user,0, power=2, exclude_center = 0)
+
+	emp_act()
+		. = ..()
+		if (src.root)
+			src.root.dispose()
+
+		src.root = new /datum/computer/folder
+		src.root.holder = src
+		src.root.name = "root"
 
 	attackby(obj/item/W, mob/user)
 		if (ispulsingtool(W))
-			user.visible_message("<span class='alert'><b>[user] begins to wipe [src.name]!</b></span>")
+			user.visible_message(SPAN_ALERT("<b>[user] begins to wipe [src.name]!</b>"))
 			SETUP_GENERIC_ACTIONBAR(user, src, 3 SECONDS, /obj/item/disk/data/proc/wipe_or_zap, list(user), src.icon, src.icon_state, null, null)
 
 /obj/item/disk/data/floppy
@@ -95,6 +104,54 @@
 /obj/item/disk/data/floppy/monkey
 	name = "data disk - 'Mr. Muggles'"
 	read_only = 1
+
+/obj/item/disk/data/floppy/lrt
+	name = "galactic coordinate disk - 'Blank'"
+	title = "Teleconsole"
+	icon_state = "datadisktele0"
+	random_color = FALSE
+
+	var/target_name
+
+	New()
+		. = ..()
+		var/datum/computer/file/lrt_data/place = new /datum/computer/file/lrt_data(src)
+		place.place_name = src.target_name
+		src.root.add_file( place )
+
+	icemoon
+		name = "galactic coordinate disk - 'Senex'"
+		target_name = "Senex"
+
+	solarium
+		name = "galactic coordinate disk - 'Sol'"
+		icon_state = "datadisktele1"
+		target_name = "Sol"
+
+	biodome
+		name = "galactic coordinate disk - 'Fatuus'"
+		target_name = "Fatuus"
+
+	mars_outpost
+		name = "galactic coordinate disk - 'Mars'"
+		target_name = "Mars"
+
+	lavamoon
+		name = "galactic coordinate disk - 'Io'"
+		target_name = "Io"
+
+	luna_museum
+		name = "galactic coordinate disk - 'Lunar Museum'"
+		target_name = "Luna"
+
+	ainley
+		name = "galactic coordinate disk - 'Ainley'"
+		target_name = "Ainley Staff Retreat"
+
+	meat_derelict
+		name = "galactic coordinate disk - 'Derelict Station'"
+		target_name = "Derelict Station"
+
 
 /obj/item/disk/data/fixed_disk
 	name = "Storage Drive"
@@ -143,8 +200,28 @@
 	name = "permafloppy"
 
 	attack_self(mob/user as mob)
-		boutput(user, "<span class='alert'>You can't flip the write-protect tab, it's held in place with glue or something!</span>")
+		boutput(user, SPAN_ALERT("You can't flip the write-protect tab, it's held in place with glue or something!"))
 		return
+
+/obj/item/disk/data/floppy/security
+	icon_state = "datadiskmed" //yeah its "med" but its not used anywhere
+	random_color = FALSE
+	New()
+		..()
+		var/datum/computer/file/record/authrec = new /datum/computer/file/record {name = "SECAUTH";} (src)
+		authrec.fields = list("SEC"="[netpass_security]")
+		src.root.add_file( authrec )
+
+/obj/item/disk/data/floppy/sec_command
+	icon_state = "datadisksyn" //yeah its "syndie" but its not used anywhere
+	random_color = FALSE
+
+	New()
+		..()
+		var/datum/computer/file/record/authrec = new /datum/computer/file/record {name = "SECAUTH";} (src)
+		authrec.fields = list("HEADS"="[netpass_heads]",
+							"SEC"="[netpass_security]",)
+		src.root.add_file(authrec)
 
 /obj/item/disk/data/floppy/computer3boot
 	name = "data disk-'ThinkDOS'"
@@ -187,14 +264,24 @@
 		src.read_only = 1
 
 /obj/item/disk/data/floppy/read_only/security_progs
-	name = "data disk-'SecMate 6'"
-	desc = "It manages security records.  It is the law."
-	title = "SecMate 6"
+	name = "data disk-'SecMate 7'"
+	desc = "It manages security records. It is the law."
+	title = "SecMate 7"
 
 	New()
 		. = ..()
 		src.root.add_file( new /datum/computer/file/terminal_program/secure_records(src))
 		src.root.add_file( new /datum/computer/file/terminal_program/manifest(src))
+		src.read_only = 1
+
+/obj/item/disk/data/floppy/read_only/bank_progs
+	name = "data disk-'BankBoss 2'"
+	desc = "For managing and micro-managing staff payroll."
+	title = "BankBoss 2"
+
+	New()
+		. = ..()
+		src.root.add_file( new /datum/computer/file/terminal_program/bank_records(src))
 		src.read_only = 1
 
 /obj/item/disk/data/floppy/read_only/research_progs
@@ -263,6 +350,9 @@ TYPEINFO(/obj/item/disk/data/floppy/read_only/authentication)
 	w_class = W_CLASS_TINY
 	random_color = 0
 	file_amount = 32
+	HELP_MESSAGE_OVERRIDE({"Use on an armed nuclear bomb to alter the time remaining until detonation.
+	Use on an armory authorization computer to issue an emergency authorization or unauthorization.
+	Use on an escape shuttle launch computer to alter the time until departure."})
 
 	New()
 		. = ..()
@@ -276,6 +366,18 @@ TYPEINFO(/obj/item/disk/data/floppy/read_only/authentication)
 			src.root.add_file( authrec )
 			src.root.add_file( new /datum/computer/file/terminal_program/communications(src))
 			src.read_only = 1
+
+	attack_self(mob/user as mob)
+		if(ON_COOLDOWN(user, "showoff_item", SHOWOFF_COOLDOWN))
+			return
+		user.visible_message("[user] flashes the [name].", "You show off the [name].")
+		actions.start(new /datum/action/show_item(user, src, "disk"), user)
+
+	attack(mob/target, mob/user, def_zone, is_special = FALSE, params = null)
+		if(ON_COOLDOWN(user, "showoff_item", SHOWOFF_COOLDOWN))
+			return
+		user.visible_message("[user] flashes the [name] at [target.name].", "You show off the [name] to [target.name]")
+		actions.start(new /datum/action/show_item(user, src, "disk"), user)
 
 /obj/item/disk/data/floppy/devkit
 	name = "data disk-'Development'"

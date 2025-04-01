@@ -71,13 +71,12 @@
 
 	castcheck()
 		if (incapacitationCheck())
-			boutput(holder.owner, "<span class='alert'>Not while incapacitated.</span>")
+			boutput(holder.owner, SPAN_ALERT("Not while incapacitated."))
 			return 0
 		if (disabled)
-			boutput(holder.owner, "<span class='alert'>You cannot use that ability at this time.</span>")
+			boutput(holder.owner, SPAN_ALERT("You cannot use that ability at this time."))
 			return 0
 		return 1
 
 	cast(atom/target)
 		. = ..()
-		actions.interrupt(holder.owner, INTERRUPT_ACT)

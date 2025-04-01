@@ -18,6 +18,7 @@ ADMIN_INTERACT_PROCS(/obj/fluid, proc/admin_clear_fluid)
 	anchored = ANCHORED_ALWAYS
 	mouse_opacity = FALSE
 	layer = FLUID_LAYER
+	flags = UNCRUSHABLE | OPENCONTAINER
 
 	event_handler_flags = IMMUNE_MANTA_PUSH
 
@@ -79,10 +80,6 @@ ADMIN_INTERACT_PROCS(/obj/fluid, proc/admin_clear_fluid)
 			if (!waterflow_enabled)
 				src.removed()
 				return
-
-		flags |= OPENCONTAINER | UNCRUSHABLE
-
-		//src.floated_atoms = list()
 
 		for (var/dir in cardinal)
 			blocked_perspective_objects["[dir]"] = 0
@@ -176,7 +173,7 @@ ADMIN_INTERACT_PROCS(/obj/fluid, proc/admin_clear_fluid)
 		if (!src.group || !src.group.reagents)
 			return
 		. += "<br><b class='notice'>[capitalize(src.name)] analysis:</b>"
-		. += "<br><span class='notice'>[src.group.reagents.get_description(user,(RC_VISIBLE | RC_SPECTRO))]</span>"
+		. += "<br>[SPAN_NOTICE("[src.group.reagents.get_description(user,(RC_VISIBLE | RC_SPECTRO))]")]"
 
 	admin_visible_name()
 		return "[src.name] \[[src.group.reagents.get_master_reagent_name()]\]"
@@ -213,7 +210,7 @@ ADMIN_INTERACT_PROCS(/obj/fluid, proc/admin_clear_fluid)
 		if (A.event_handler_flags & USE_FLUID_ENTER)
 			A.EnteredFluid(src, A.last_turf)
 
-	proc/force_mob_to_ingest(var/mob/M, var/mult = 1)//called when mob is drowning
+	proc/force_mob_to_ingest(var/mob/M, var/mult = 1, var/exception = null)//called when mob is drowning
 		if (!M) return
 		if (!src.group || !src.group.reagents || !src.group.reagents.reagent_list) return
 
@@ -222,7 +219,7 @@ ADMIN_INTERACT_PROCS(/obj/fluid, proc/admin_clear_fluid)
 		if (M.reagents)
 			react_volume = min(react_volume, abs(M.reagents.maximum_volume - M.reagents.total_volume)) //don't push out other reagents if we are full
 		src.group.reagents.reaction(M, INGEST, react_volume,1,src.group.members.len)
-		src.group.reagents.trans_to(M, react_volume)
+		src.group.reagents.trans_to(M, react_volume, exception = exception)
 
 	Uncrossed(atom/movable/AM)
 
@@ -256,7 +253,7 @@ ADMIN_INTERACT_PROCS(/obj/fluid, proc/admin_clear_fluid)
 			var/mob/M = AM
 			M.set_clothing_icon_dirty()
 
-	temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
+	temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume, cannot_be_cooled = FALSE)
 		..()
 		if (!src.group || !src.group.reagents || !length(src.group.members)) return
 		src.group.last_temp_change = world.time
@@ -332,7 +329,7 @@ ADMIN_INTERACT_PROCS(/obj/fluid, proc/admin_clear_fluid)
 						push_thing = thing
 
 					if (found)
-						if( thing.density || (thing.flags & FLUID_DENSE) )
+						if( thing.density || (thing.flags & FLUID_DENSE_ALWAYS) )
 							suc=0
 							blocked_dirs++
 							if (IS_PERSPECTIVE_BLOCK(thing))
@@ -607,7 +604,7 @@ ADMIN_INTERACT_PROCS(/obj/fluid, proc/admin_clear_fluid)
 		overlay.pixel_y = poy
 		wall_overlay_images[overlay_key] = overlay
 
-		src.UpdateOverlays(overlay, overlay_key)
+		src.AddOverlays(overlay, overlay_key)
 
 	proc/clear_overlay(var/key = 0)
 		if (!key)
@@ -718,20 +715,20 @@ ADMIN_INTERACT_PROCS(/obj/fluid, proc/admin_clear_fluid)
 						checks--
 						if (checks <= 0) break
 					if (prob(slippery) && src.slip())
-						src.visible_message("<span class='alert'><b>[src]</b> slips on [F]!</span>",\
-						"<span class='alert'>You slip on [F]!</span>")
+						src.visible_message(SPAN_ALERT("<b>[src]</b> slips on [F]!"),\
+						SPAN_ALERT("You slip on [F]!"))
 				if(-1) //space lube. this code bit is shit but i'm too lazy to make it Real right now. the proper implementation should also make exceptions for ice and stuff.
 					src.remove_pulling()
-					src.changeStatus("weakened", 3.5 SECONDS)
-					boutput(src, "<span class='notice'>You slipped on [F]!</span>")
+					src.changeStatus("knockdown", 3.5 SECONDS)
+					boutput(src, SPAN_NOTICE("You slipped on [F]!"))
 					playsound(T, 'sound/misc/slip.ogg', 50, TRUE, -3)
 					var/atom/target = get_edge_target_turf(src, src.dir)
 					src.throw_at(target, 12, 1, throw_type = THROW_SLIP)
 				if(-2) //superlibe
 					src.remove_pulling()
-					src.changeStatus("weakened", 6 SECONDS)
+					src.changeStatus("knockdown", 6 SECONDS)
 					playsound(T, 'sound/misc/slip.ogg', 50, TRUE, -3)
-					boutput(src, "<span class='notice'>You slipped on [F]!</span>")
+					boutput(src, SPAN_NOTICE("You slipped on [F]!"))
 					var/atom/target = get_edge_target_turf(src, src.dir)
 					src.throw_at(target, 30, 1, throw_type = THROW_SLIP)
 					random_brute_damage(src, 10)
@@ -790,6 +787,8 @@ ADMIN_INTERACT_PROCS(/obj/fluid, proc/admin_clear_fluid)
 	if (F.my_depth_level == 1)
 		if(!src.lying && src.shoes && src.shoes.hasProperty ("chemprot") && (src.shoes.getProperty("chemprot") >= 5)) //sandals do not help
 			do_reagent_reaction = 0
+			if (!src.wear_suit || !(src.wear_suit.c_flags & SPACEWEAR)) // suits can go over shoes
+				F.group.reagents.reaction(src.shoes, TOUCH, F.group.amt_per_tile, can_spawn_fluid = FALSE)
 
 	if (entered_group) //if entered_group == 1, it may not have been set yet
 		if (isturf(oldloc))

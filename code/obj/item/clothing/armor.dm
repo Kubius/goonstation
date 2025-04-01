@@ -26,7 +26,6 @@ TYPEINFO(/obj/item/clothing/suit/armor/vest)
 	name = "armor vest"
 	desc = "An armored vest that protects against some damage. Contains carbon fibres."
 	icon_state = "armorvest"
-	uses_multiple_icon_states = 1
 	item_state = "armorvest"
 	body_parts_covered = TORSO
 	bloodoverlayimage = SUITBLOOD_ARMOR
@@ -71,7 +70,6 @@ TYPEINFO(/obj/item/clothing/suit/armor/vest)
 	name = "light armor vest"
 	desc = "A cheap armored vest that gives a little bit of protection."
 	icon_state = "armorvest-old"
-	uses_multiple_icon_states = 0
 	item_state = "armorvest-old"
 
 	setupProperties()
@@ -90,9 +88,8 @@ TYPEINFO(/obj/item/clothing/suit/armor/vest)
 	name = "suicide bomb vest"
 	desc = "A makeshift mechanical vest set to trigger a payload when the user dies."
 	icon_state = "bombvest0"
-	uses_multiple_icon_states = 1
 	item_state = "armorvest"
-	flags = FPRINT | TABLEPASS | CONDUCT | NOSPLASH
+	flags = TABLEPASS | CONDUCT | NOSPLASH
 	body_parts_covered = TORSO
 	bloodoverlayimage = SUITBLOOD_ARMOR
 	hides_from_examine = 0
@@ -116,9 +113,9 @@ TYPEINFO(/obj/item/clothing/suit/armor/vest)
 	examine()
 		. = ..()
 		if (src.payload)
-			. += "<span class='alert'>Looks like the payload is a [src.payload].</span>"
+			. += SPAN_ALERT("Looks like the payload is a [src.payload].")
 		else
-			. += "<span class='alert'>There doesn't appear to be a payload attached.</span>"
+			. += SPAN_ALERT("There doesn't appear to be a payload attached.")
 
 	attackby(obj/item/W, mob/user)
 		src.add_fingerprint(user)
@@ -126,7 +123,13 @@ TYPEINFO(/obj/item/clothing/suit/armor/vest)
 		if (istype(W, /obj/item/chem_grenade/))
 			if (!src.grenade && !src.grenade_old && !src.pipebomb && !src.beaker)
 				var/obj/item/chem_grenade/CG = W
-				if (CG.stage == 2 && !CG.armed)
+				var/grenade_ready = TRUE
+				if(istype(CG, /obj/item/chem_grenade/custom))
+					//we want to only fit custom grenades if they are ready to be applied
+					var/obj/item/chem_grenade/custom/custom_grenade = CG
+					if (custom_grenade.stage != 2)
+						grenade_ready = FALSE
+				if (grenade_ready && !CG.armed)
 					user.u_equip(CG)
 					CG.set_loc(src)
 					src.grenade = CG
@@ -234,13 +237,13 @@ TYPEINFO(/obj/item/clothing/suit/armor/vest)
 		if (!src.grenade && !src.grenade_old && !src.pipebomb && !src.beaker)
 			return
 		if (!isdead(wearer) || (wearer.suiciding && prob(60))) // Don't abuse suiciding.
-			wearer.visible_message("<span class='alert'><b>[wearer]'s suicide bomb vest clicks softly, but nothing happens.</b></span>")
+			wearer.visible_message(SPAN_ALERT("<b>[wearer]'s suicide bomb vest clicks softly, but nothing happens.</b>"))
 			return
 
 		if (!src.payload)
 			src.payload = "*unknown or null*"
 
-		wearer.visible_message("<span class='alert'><b>[wearer]'s suicide bomb vest clicks loudly!</b></span>")
+		wearer.visible_message(SPAN_ALERT("<b>[wearer]'s suicide bomb vest clicks loudly!</b>"))
 		message_admins("[key_name(wearer)]'s suicide bomb vest triggers (Payload: [src.payload]) at [log_loc(wearer)].")
 		logTheThing(LOG_BOMBING, wearer, "'s suicide bomb vest triggers (<b>Payload:</b> [src.payload])[src.payload == "beaker" ? " [log_reagents(src.beaker)]" : ""] at [log_loc(wearer)].")
 
@@ -291,6 +294,7 @@ TYPEINFO(/obj/item/clothing/suit/armor/vest)
 	desc = "A suit of protective formal armor made for the station's captain."
 	icon_state = "caparmor"
 	item_state = "caparmor"
+	hides_from_examine = C_UNIFORM
 
 	setupProperties()
 		..()
@@ -311,7 +315,7 @@ TYPEINFO(/obj/item/clothing/suit/armor/vest)
 
 /obj/item/clothing/suit/armor/capcoat //old alt armour for the captain
 	name = "captain's coat"
-	desc = "A luxorious formal coat made for the station's captain. It seems to be made out of some thermally resistant material."
+	desc = "A luxurious formal coat made for the station's captain. It seems to be made out of some thermally resistant material."
 	icon_state = "capcoat"
 	item_state = "capcoat"
 	hides_from_examine = 0
@@ -434,9 +438,12 @@ TYPEINFO(/obj/item/clothing/suit/armor/vest)
 /obj/item/clothing/suit/armor/NT
 	name = "armored nanotrasen jacket"
 	desc = "An armored jacket worn by NanoTrasen security commanders."
-	icon_state = "ntarmor_o"
-	item_state = "ntarmor"
-	coat_style = "ntarmor"
+	icon_state = "ntjacket_o"
+	item_state = "ntjacket"
+	coat_style = "ntjacket"
+	icon = 'icons/obj/clothing/overcoats/item_suit.dmi' //someone moved the sprite!!
+	inhand_image_icon = 'icons/mob/inhand/overcoat/hand_suit.dmi'
+	wear_image_icon = 'icons/mob/clothing/overcoats/worn_suit.dmi'
 	body_parts_covered = TORSO
 	hides_from_examine = 0
 
@@ -481,7 +488,6 @@ TYPEINFO(/obj/item/clothing/suit/armor/NT_alt)
 	icon_state = "hos-cape"
 	item_state = "hos-cape"
 	hides_from_examine = 0
-	wear_layer = MOB_GLASSES_LAYER2
 	c_flags = ONBACK
 
 	setupProperties()
@@ -490,3 +496,68 @@ TYPEINFO(/obj/item/clothing/suit/armor/NT_alt)
 		setProperty("rangedprot", 0.7)
 		setProperty("coldprot", 5)
 		setProperty("heatprot", 35)
+
+/obj/item/clothing/suit/armor/gang
+	name = "light armor vest"
+	desc = "A minimalist plate carrier strapped to your torso. Provides as much protection as you can get without cramping your style."
+	icon = 'icons/obj/items/gang.dmi'
+	icon_state = "lightvest"
+	item_state = "lightvest"
+	body_parts_covered = TORSO
+	hides_from_examine = 0
+
+	setupProperties()
+		..()
+		setProperty("meleeprot", 5)
+		setProperty("rangedprot", 0.5)
+
+TYPEINFO(/obj/item/clothing/suit/armor/tacticalvest)
+	mat_appearances_to_ignore = list("carbonfibre")
+
+/obj/item/clothing/suit/armor/tacticalvest // Using own type to avoid having to mess with all the attackby junk with armor vests
+	name = "tactical vest"
+	desc = "A tactical vest with carrying pouches on the front. Contains carbon fibres."
+	icon_state = "armorvest"
+	item_state = "armorvest"
+	body_parts_covered = TORSO
+	bloodoverlayimage = SUITBLOOD_ARMOR
+	hides_from_examine = 0
+	mat_changename = FALSE
+	default_material = "carbonfibre"
+	var/maxslots = 3
+
+	New()
+		..()
+		src.create_storage(/datum/storage, max_wclass = W_CLASS_POCKET_SIZED, slots = maxslots, opens_if_worn = TRUE)
+
+	setupProperties()
+		..()
+		setProperty("meleeprot", 6)
+		setProperty("rangedprot", 1)
+
+
+/obj/item/clothing/suit/armor/tacticalvest/light
+	name = "light tactical vest"
+	desc = "A lightweight tactical vest with lots of carrying pouches on the front. It only offers minor protections. Contains carbon fibres."
+	icon_state = "armorvest-light"
+	item_state = "armorvest-light"
+	maxslots = 5
+
+	setupProperties()
+		..()
+		setProperty("meleeprot", 3)
+		setProperty("rangedprot", 0.5)
+
+/obj/item/clothing/suit/armor/tacticalvest/heavy
+	name = "heavy tactical vest"
+	desc = "A heavy duty tactical vest with lots of carrying pouches on the front. Contains carbon fibres."
+	icon_state = "heavy"
+	item_state = "heavy"
+	maxslots = 5
+
+	setupProperties()
+		..()
+		setProperty("meleeprot", 8)
+		setProperty("rangedprot", 1.5)
+		setProperty("disorient_resist", 10)
+		setProperty("movespeed", 0.75)

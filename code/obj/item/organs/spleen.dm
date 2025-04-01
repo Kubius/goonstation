@@ -3,14 +3,17 @@
 	organ_name = "spleen"
 	organ_holder_name = "spleen"
 	organ_holder_location = "chest"
-	organ_holder_required_op_stage = 6
 	icon_state = "spleen"
 	body_side = L_ORGAN
+	surgery_flags = SURGERY_SNIPPING | SURGERY_CUTTING
+	region = SUBCOSTAL
 
 
 	on_life(var/mult = 1)
 		if (!..())
 			return 0
+		if (HAS_ATOM_PROPERTY(src.donor, PROP_MOB_NO_BLOOD_REGEN))
+			return
 		if (donor.blood_volume < 500 && donor.blood_volume > 0) // if we're full or empty, don't bother v
 			if (prob(66))
 				donor.blood_volume += 1 * mult // maybe get a little blood back ^

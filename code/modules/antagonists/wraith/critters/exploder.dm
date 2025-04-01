@@ -19,7 +19,7 @@
 	health_burn_vuln = 1.5
 	is_npc = TRUE
 
-	faction = FACTION_WRAITH
+	faction = list(FACTION_WRAITH)
 
 	use_stamina = FALSE
 
@@ -65,11 +65,12 @@
 			if (ishuman(M))
 				var/mob/living/carbon/human/H = M
 				if(H.clothing_protects_from_chems())
-					boutput(M, "<span class='notice'>You are sprayed with guts, but your biosuit protects you!</span>")
+					boutput(M, SPAN_NOTICE("You are sprayed with guts, but your biosuit protects you!"))
 					continue
 				else
-					boutput(M, "<span class='alert'>You are sprayed with disgusting rotting flesh! You're pretty sure some of it got in your mouth.</span>")
-			M.emote("scream")
+					boutput(M, SPAN_ALERT("You are sprayed with disgusting rotting flesh! You're pretty sure some of it got in your mouth."))
+			if (isalive(M) && !isintangible(M))
+				M.emote("scream")
 			M.take_toxin_damage(25)
 			if (M.reagents)
 				M.reagents.add_reagent("miasma", 20, null, T0C)
@@ -104,7 +105,7 @@
 /mob/living/critter/exploder/say(message, involuntary = 0)	//Should probably remove this
 	if(isdead(src) && src.is_npc)
 		return
-	message = trim(copytext(sanitize(message), 1, MAX_MESSAGE_LEN))
+	message = trimtext(copytext(sanitize(message), 1, MAX_MESSAGE_LEN))
 
 	..(message)
 

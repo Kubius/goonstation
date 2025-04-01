@@ -42,11 +42,11 @@
 		buttons.Add(B)
 
 	if (customContextLayout)
-		customContextLayout.showButtons(buttons,target)
+		customContextLayout.showButtons(buttons, target, src)
 	else if(target.contextLayout)
-		target.contextLayout.showButtons(buttons,target)
+		target.contextLayout.showButtons(buttons, target, src)
 	else
-		contextLayout.showButtons(buttons,target)
+		contextLayout.showButtons(buttons, target, src)
 
 	contextButtons = buttons
 
@@ -130,7 +130,7 @@
 
 /proc/buildContextActions()
 	globalContextActions = list()
-	for(var/datum/contextAction/A as anything in childrentypesof(/datum/contextAction))
+	for(var/datum/contextAction/A as anything in concrete_typesof(/datum/contextAction))
 		globalContextActions[A] = new A()
 
 /atom/movable/screen/contextButton
@@ -205,7 +205,7 @@
 			SPAWN(0)
 				action.execute(target, user)
 			if (action.flick_on_click)
-				flick(action.flick_on_click, src)
+				FLICK(action.flick_on_click, src)
 			if (action.close_clicked)
 				user.closeContextActions()
 

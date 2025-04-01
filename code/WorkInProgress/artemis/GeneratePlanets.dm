@@ -11,10 +11,10 @@ var/list/planet_seeds = list()
 	//var/list/turf/planetZ = list()
 	var/startTime = world.timeofday
 	if(!planetZLevel)
-		boutput(world, "<span class='alert'>Skipping Planet Generation!</span>")
+		boutput(world, SPAN_ALERT("Skipping Planet Generation!"))
 		return
 	else
-		boutput(world, "<span class='alert'>Generating Planet Level ...</span>")
+		boutput(world, SPAN_ALERT("Generating Planet Level ..."))
 
 	// SEED zee Planets!!!!
 	for(var/area/map_gen/planet/A in by_type[/area/map_gen])
@@ -29,7 +29,7 @@ var/list/planet_seeds = list()
 			var/num_to_place = PLANET_NUMPREFABS + GALAXY.Rand.xor_rand(0, PLANET_NUMPREFABSEXTRA)
 			for (var/n = 1, n <= num_to_place, n++)
 				game_start_countdown?.update_status("Setting up planet level...\n(Prefab [n]/[num_to_place])")
-				var/datum/mapPrefab/planet/M = pick_map_prefab(/datum/mapPrefab/planet)
+				var/datum/mapPrefab/planet/M = pick_map_prefab(/datum/mapPrefab/planet, wanted_tags_any=PREFAB_PLANET)
 				if (M)
 					var/maxX = (world.maxx - M.prefabSizeX - PLANET_MAPBORDER)
 					var/maxY = (world.maxy - M.prefabSizeY - PLANET_MAPBORDER)
@@ -70,16 +70,6 @@ var/list/planet_seeds = list()
 			parent_area.overlays += A.overlays
 			for(var/turf/T in A)
 				new parent_area.type(T)
-		else
-			for(var/datum/loadedProperties/prefab in A.prefabs)
-				var/list/turf/prefab_turfs = block(locate(prefab.sourceX, prefab.sourceY, prefab.sourceZ),locate(prefab.maxX, prefab.maxY, prefab.maxZ))
-				var/list/turf/regen_turfs = list()
-				for(var/turf/variableTurf/T in prefab_turfs)
-					regen_turfs += T
-					if(istype(T.loc, /area/space)) //space...
-						new A.type(T)
-				if(length(regen_turfs))
-					A.map_generator.generate_terrain(regen_turfs, reuse_seed=TRUE)
 
 	// // remove temporary areas
 	var/area/A
@@ -109,7 +99,7 @@ var/list/planet_seeds = list()
 		A = get_area(west_turf)
 		new A.type(AT)
 
-	boutput(world, "<span class='alert'>Generated Planet Level in [((world.timeofday - startTime)/10)] seconds!")
+	boutput(world, SPAN_ALERT("Generated Planet Level in [((world.timeofday - startTime)/10)] seconds!"))
 
 /obj/landmark/artemis_planets
 	name = "zlevel"
@@ -210,7 +200,7 @@ DEFINE_PLANET(indigo, "Indigo")
 					var/datum/planetData/planet = regions[region]
 					if(planet)
 						planet.generator.generate_terrain(list(T), reuse_seed=TRUE, flags=MAPGEN_IGNORE_FLORA|MAPGEN_IGNORE_FAUNA)
-						T.UpdateOverlays(planet.ambient_light, "ambient")
+						T.AddOverlays(planet.ambient_light, "ambient")
 						return TRUE
 
 	proc/get_generator(turf/T)
@@ -224,8 +214,9 @@ DEFINE_PLANET(indigo, "Indigo")
 var/global/datum/planetManager/PLANET_LOCATIONS = new /datum/planetManager()
 
 /proc/GeneratePlanetChunk(width=null, height=null, prefabs_to_place=1, datum/map_generator/generator=/datum/map_generator/desert_generator, color=null, name=null, use_lrt=TRUE, seed_ore=TRUE, mapgen_flags=null)
+	var/startTime = world.timeofday
 	var/turf/T
-
+	if(istext(generator)) generator = text2path(generator)
 	if(ispath(generator)) generator = new generator()
 	if(!width)	width = rand(80,130)
 	if(!height)	height = rand(80,130)
@@ -263,6 +254,9 @@ var/global/datum/planetManager/PLANET_LOCATIONS = new /datum/planetManager()
 	else if(istype(generator, /datum/map_generator/forest_generator) && prob(95))
 		planet_area.area_parallax_render_source_group = new /datum/parallax_render_source_group/planet/forest()
 
+	else if(istype(generator, /datum/map_generator/lavamoon_generator) && prob(95))
+		planet_area.area_parallax_render_source_group = new /datum/parallax_render_source_group/planet/lava_moon()
+
 	// Occlude overlays on edges
 	if(planet_area.area_parallax_render_source_group)
 		planet_area.no_prefab_ref.area_parallax_render_source_group = planet_area.area_parallax_render_source_group
@@ -273,18 +267,24 @@ var/global/datum/planetManager/PLANET_LOCATIONS = new /datum/planetManager()
 	var/turfs = block(locate(region.bottom_left.x+1, region.bottom_left.y+1, region.bottom_left.z), locate(region.bottom_left.x+region.width-2, region.bottom_left.y+region.height-2, region.bottom_left.z) )
 	generator.generate_terrain(turfs, reuse_seed=TRUE, flags=mapgen_flags)
 
+	var/list/turf/secondary_turfs = list()
+	for(var/turf/space/missed in turfs)
+		secondary_turfs += missed
+
+	if(length(secondary_turfs))
+		logTheThing(LOG_DEBUG, null, "Planet Generation required second pass!")
+		message_admins("Planet region required second pass with [generator]. (WHY??!?)")
+		generator.generate_terrain(secondary_turfs, reuse_seed=TRUE, flags=mapgen_flags)
+
 	//Force Outer Edge to be Cordon Area
 	var/area/border_area = new /area/cordon(null)
 	for(var/x in 1 to region.width)
 		for(var/y in 1 to region.height)
 			if(x == 1 || y == 1 || x == region.width || y == region.height)
 				T = region.turf_at(x, y)
-				border_area.contents += T
-
-			if (current_state >= GAME_STATE_PLAYING)
-				LAGCHECK(LAG_LOW)
-			else
-				LAGCHECK(LAG_HIGH)
+				if(T)
+					border_area.contents += T
+			generator.lag_check(mapgen_flags)
 
 	//Lighten' Up the Place
 	var/image/ambient_light = new /image/ambient
@@ -294,7 +294,7 @@ var/global/datum/planetManager/PLANET_LOCATIONS = new /datum/planetManager()
 		ambient_light.color = color
 
 	for(T in turfs)
-		T.UpdateOverlays(ambient_light, "ambient")
+		T.AddOverlays(ambient_light, "ambient")
 		LAGCHECK(LAG_LOW)
 
 	PLANET_LOCATIONS.add_planet(region, new /datum/planetData(name, ambient_light, generator))
@@ -302,13 +302,17 @@ var/global/datum/planetManager/PLANET_LOCATIONS = new /datum/planetManager()
 	var/failsafe = 800
 	//Make it interesting, slap some prefabs on that thing
 	for (var/n = 1, n <= prefabs_to_place && failsafe-- > 0)
-		var/datum/mapPrefab/planet/P = pick_map_prefab(/datum/mapPrefab/planet)
+		var/datum/mapPrefab/planet/P = pick_map_prefab(/datum/mapPrefab/planet, wanted_tags_any=PREFAB_PLANET)
 		if (P)
 			var/maxX = (region.bottom_left.x + region.width - P.prefabSizeX - AST_MAPBORDER)
 			var/maxY = (region.bottom_left.y + region.height - P.prefabSizeY - AST_MAPBORDER)
 			var/stop = 0
 			var/count= 0
 			var/maxTries = (P.required ? 200:80)
+
+			if(region.bottom_left.x+AST_MAPBORDER >= maxX || region.bottom_left.y+AST_MAPBORDER >= maxY)
+				continue
+
 			while (!stop && count < maxTries && failsafe-- > 0) //Kinda brute forcing it. Dumb but whatever.
 				var/turf/target = locate(rand(region.bottom_left.x+AST_MAPBORDER, maxX), rand(region.bottom_left.y+AST_MAPBORDER,maxY), region.bottom_left.z)
 				if(!P.check_biome_requirements(target))
@@ -323,8 +327,8 @@ var/global/datum/planetManager/PLANET_LOCATIONS = new /datum/planetManager()
 							space_turfs -= T
 					generator.generate_terrain(space_turfs, reuse_seed=TRUE)
 					for(T in space_turfs)
-						T.UpdateOverlays(ambient_light, "ambient")
-						LAGCHECK(LAG_LOW)
+						T.AddOverlays(ambient_light, "ambient")
+						generator.lag_check(mapgen_flags)
 
 					logTheThing(LOG_DEBUG, null, "Prefab placement #[n] [P.type][P.required?" (REQUIRED)":""] succeeded. [target] @ [log_loc(target)]")
 					n++
@@ -332,6 +336,7 @@ var/global/datum/planetManager/PLANET_LOCATIONS = new /datum/planetManager()
 				else
 					logTheThing(LOG_DEBUG, null, "Prefab placement #[n] [P.type] failed due to blocked area. [target] @ [log_loc(target)]")
 				count++
+				generator.lag_check(mapgen_flags)
 			if (count == maxTries)
 				logTheThing(LOG_DEBUG, null, "Prefab placement #[n] [P.type] failed due to maximum tries [maxTries][P.required?" WARNING: REQUIRED FAILED":""].")
 		else break
@@ -344,7 +349,7 @@ var/global/datum/planetManager/PLANET_LOCATIONS = new /datum/planetManager()
 			var/seed_density = clamp(length(mountains)/500, 2, 30)
 			for(var/j in 1 to seed_density)
 				Turfspawn_Asteroid_SeedOre(mountains, fullbright=FALSE)
-				LAGCHECK(LAG_LOW)
+				generator.lag_check(mapgen_flags)
 
 			for(var/i in 1 to seed_density/2)
 				if(length(mountains))
@@ -354,6 +359,7 @@ var/global/datum/planetManager/PLANET_LOCATIONS = new /datum/planetManager()
 						ast_list |= AST
 					Turfspawn_Asteroid_SeedOre(ast_list, veins=rand(1,3), rarity_mod=rand(0,40), fullbright=FALSE)
 					Turfspawn_Asteroid_SeedEvents(mountains)
+					generator.lag_check(mapgen_flags)
 
 	//Allow folks to like uh, get here?
 	if(use_lrt)
@@ -367,6 +373,7 @@ var/global/datum/planetManager/PLANET_LOCATIONS = new /datum/planetManager()
 			T = pick(turfs)
 			if(!checkTurfPassable(T))
 				maxTries--
+				generator.lag_check(mapgen_flags)
 				continue
 
 			new /obj/landmark/lrt/planet(T, name)
@@ -374,11 +381,13 @@ var/global/datum/planetManager/PLANET_LOCATIONS = new /datum/planetManager()
 			lrt_placed = TRUE
 			special_places.Add(name)
 
-	logTheThing(LOG_ADMIN, usr, "Planet region generated at [log_loc(region.bottom_left)] with [generator].")
-	logTheThing(LOG_DIARY, usr, "Planet region generated at [log_loc(region.bottom_left)] with [generator].", "admin")
-	message_admins("Planet region generated at [log_loc(region.bottom_left)] with [generator].")
+	var/gen_text = "Planet region generated at [log_loc(region.bottom_left)] with [generator] in [(world.timeofday - startTime)/10] seconds."
+	logTheThing(LOG_ADMIN, usr, gen_text)
+	logTheThing(LOG_DIARY, usr, gen_text, "admin")
+	message_admins(gen_text)
 
 	return turfs
+
 /datum/map_generator/asteroids
 	clear_turf_type = /turf/space
 
@@ -475,6 +484,6 @@ obj/decal/teleport_mark
 		..()
 		for(var/obj/O in location)
 			if(O == src) continue
-			if(istype(O, /obj/decal/teleport_mark) || istype(O,/obj/machinery/lrteleporter) || istype(O,/obj/decal/fakeobjects/teleport_pad) )
+			if(istype(O, /obj/decal/teleport_mark) || istype(O,/obj/machinery/lrteleporter) || istype(O,/obj/fakeobject/teleport_pad) )
 				qdel(src)
 				return

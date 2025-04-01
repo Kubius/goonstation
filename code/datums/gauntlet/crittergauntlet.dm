@@ -62,7 +62,7 @@
 		if (gauntlet_controller.state != 0)
 			return
 		if (ticker.round_elapsed_ticks < 3000)
-			boutput(usr, "<span class='alert'>You may not initiate the Gauntlet before 5 minutes into the round.</span>")
+			boutput(usr, SPAN_ALERT("You may not initiate the Gauntlet before 5 minutes into the round."))
 			return
 		if (alert("Start the Gauntlet? No more players will be given admittance to the staging area!",, "Yes", "No") == "Yes")
 			if (gauntlet_controller.state != 0)
@@ -291,7 +291,8 @@
 				C.add_centcom_report(ALERT_GENERAL, command_report)
 
 			command_alert(command_report, "Critter Gauntlet match finished")
-		statlog_gauntlet(moblist_names, score, current_level)
+		var/datum/eventRecord/GauntletHighScore/gauntletHighScoreEvent = new()
+		gauntletHighScoreEvent.send(moblist_names, score, current_level)
 
 		SPAWN(0)
 			for (var/obj/item/I in staging)
@@ -337,7 +338,7 @@
 		resetting = 0
 
 	proc/spawnGear(var/turf/target, var/mob/forwhom)
-		new /obj/item/storage/backpack/NT(target)
+		new /obj/item/storage/backpack/empty/NT(target)
 		new /obj/item/clothing/suit/armor/tdome/yellow(target)
 		var/list/masks = list(/obj/item/clothing/mask/batman, /obj/item/clothing/mask/clown_hat, /obj/item/clothing/mask/horse_mask, /obj/item/clothing/mask/moustache, /obj/item/clothing/mask/gas/swat, /obj/item/clothing/mask/owl_mask, /obj/item/clothing/mask/hunter, /obj/item/clothing/mask/skull, /obj/item/clothing/mask/spiderman)
 		var/masktype = pick(masks)
@@ -353,15 +354,15 @@
 		for (var/medtype in list(/obj/item/storage/firstaid/vr/regular, /obj/item/storage/firstaid/vr/fire, /obj/item/storage/firstaid/vr/brute, /obj/item/storage/firstaid/vr/toxin, /obj/item/reagent_containers/pill/vr/mannitol, /obj/item/storage/box/donkpocket_w_kit/vr))
 			new medtype(target)
 
-	proc/increaseCritters(var/obj/critter/C)
-		var/name = initial(C.name)
+	proc/increaseCritters(atom/mob_or_critter)
+		var/name = initial(mob_or_critter.name)
 		if (!(name in critters_left))
 			critters_left += name
 			critters_left[name] = 0
 		critters_left[name] += 1
 
-	proc/decreaseCritters(var/obj/critter/C)
-		var/name = initial(C.name)
+	proc/decreaseCritters(atom/mob_or_critter)
+		var/name = initial(mob_or_critter.name)
 		if (!(name in critters_left))
 			return
 		critters_left[name] -= 1
@@ -571,10 +572,10 @@ var/global/datum/arena/gauntletController/gauntlet_controller = new()
 		. = ..()
 		STOP_TRACKING_CAT(TR_CAT_GHOST_OBSERVABLES)
 
-	gauntlet
-		name = "The Gauntlet Arena"
-		has_camera = 1
-		cam_network = "Zeta"
+/obj/observable/gauntlet
+	name = "The Gauntlet Arena"
+	has_camera = 1
+	cam_network = "public"
 
 /datum/gauntletDrop
 	var/name = "Drop"
@@ -621,6 +622,10 @@ var/global/datum/arena/gauntletController/gauntlet_controller = new()
 		melee
 			minimum_level = 15
 			supplies = list(/obj/item/artifact/melee_weapon)
+
+		talisman
+			minimum_level = 35
+			supplies = list(/obj/item/artifact/talisman)
 
 	inactive_artifact
 		name = "An Artifact"
@@ -782,6 +787,12 @@ var/global/datum/arena/gauntletController/gauntlet_controller = new()
 		minimum_level = 15
 		supplies = list(/obj/item/storage/firstaid/vr/toxin, /obj/item/storage/firstaid/vr/oxygen, /obj/item/storage/firstaid/vr/brain, /obj/item/reagent_containers/emergency_injector/vr/calomel)
 
+	chair
+		name = "Chair"
+		point_cost = -1
+		minimum_level = 20
+		supplies = list(/obj/item/chair/folded)
+
 /datum/gauntletEvent
 	var/name = "Event"
 	var/point_cost = 0.5
@@ -829,7 +840,7 @@ var/global/datum/arena/gauntletController/gauntlet_controller = new()
 			else
 				for (var/mob/living/M in gauntlet_controller.gauntlet)
 					M.HealDamage("All", 5, 5)
-					//boutput(M, "<span class='notice'>A soothing wave of energy washes over you!</span>")
+					//boutput(M, SPAN_NOTICE("A soothing wave of energy washes over you!"))
 				counter = 10
 
 		tearDown()
@@ -876,7 +887,7 @@ var/global/datum/arena/gauntletController/gauntlet_controller = new()
 				M.bodytemperature = T0C + 120
 				if (prob(10))
 					if (!M.getStatusDuration("burning"))
-						boutput(M, "<span class='alert'>You spontaneously combust!</span>")
+						boutput(M, SPAN_ALERT("You spontaneously combust!"))
 					M.changeStatus("burning", 7 SECONDS)
 
 		tearDown()
@@ -903,7 +914,7 @@ var/global/datum/arena/gauntletController/gauntlet_controller = new()
 			if (prob(20))
 				for (var/mob/living/M in gauntlet_controller.gauntlet)
 					M.TakeDamage("chest", 1, 0, 0, DAMAGE_CUT)
-					//boutput(M, "<span class='alert'>The void tears at you!</span>")
+					//boutput(M, SPAN_ALERT("The void tears at you!"))
 					// making the zone name a bit more obvious and making its spam chatbox less - ISN
 
 		tearDown()
@@ -1033,12 +1044,14 @@ var/global/datum/arena/gauntletController/gauntlet_controller = new()
 			else if (isliving(mob_or_critter))
 				var/mob/living/critter/C = mob_or_critter
 				C.health *= health_multiplier //for critters that don't user health holders
+				C.faction = list(FACTION_GUANTLET)
 				for(var/damage_key in C.healthlist) //for critters that do
 					var/datum/healthHolder/HH = C.healthlist[damage_key]
 					HH.maximum_value *= health_multiplier
 					HH.value *= health_multiplier
 			else
 				CRASH("Gauntlet tried to spawn [identify_object(mob_or_critter)], but only /mob/living or /obj/critter are allowed.")
+			mob_or_critter.AddComponent(/datum/component/gauntlet_critter)
 			if (ev)
 				ev.onSpawn(mob_or_critter)
 			count--
@@ -1050,7 +1063,7 @@ var/global/datum/arena/gauntletController/gauntlet_controller = new()
 	mimic
 		name = "Mimic"
 		point_cost = 1
-		count = 6
+		count = 3
 		types = list(/mob/living/critter/mimic/virtual)
 
 	meaty
@@ -1062,19 +1075,19 @@ var/global/datum/arena/gauntletController/gauntlet_controller = new()
 	martian
 		name = "Martian"
 		point_cost = 1
-		count = 6
+		count = 3
 		types = list(/mob/living/critter/martian)
 
 	soldier
 		name = "Martian Soldier"
 		point_cost = 3
-		count = 4
+		count = 2
 		types = list(/mob/living/critter/martian/soldier)
 
 	warrior
 		name = "Martian Warrior"
 		point_cost = 3
-		count = 2
+		count = 1
 		types = list(/mob/living/critter/martian/warrior)
 
 	mutant
@@ -1086,7 +1099,7 @@ var/global/datum/arena/gauntletController/gauntlet_controller = new()
 	martian_assorted
 		name = "Martian Assortment"
 		point_cost = 6
-		count = 12
+		count = 6
 		types = list(/mob/living/critter/martian/soldier, /mob/living/critter/martian/soldier, /mob/living/critter/martian/soldier, /mob/living/critter/martian/warrior)
 
 	bear
@@ -1147,7 +1160,7 @@ var/global/datum/arena/gauntletController/gauntlet_controller = new()
 		name = "Micro Man"
 		point_cost = 3
 		count = 0.1
-		types = list(/obj/critter/microman)
+		types = list(/mob/living/critter/microman)
 
 	spiderbaby
 		name = "Spider Baby"
@@ -1233,21 +1246,18 @@ var/global/datum/arena/gauntletController/gauntlet_controller = new()
 		count = 10
 		types = list(/mob/living/critter/small_animal/floateye)
 
-/proc/queryGauntletMatches(data)
-	if (islist(data) && data["data_hub_callback"])
-		logTheThing(LOG_DEBUG, null, "<b>Marquesas/Gauntlet Query:</b> Invoked (data is [data])")
-		for (var/userkey in data["keys"])
-			logTheThing(LOG_DEBUG, null, "<b>Marquesas/Gauntlet Query:</b> Got key [userkey].")
-			var/matches = data[userkey]
-			logTheThing(LOG_DEBUG, null, "<b>Marquesas/Gauntlet Query:</b> Matches for [userkey]: [matches].")
-			var/obj/item/card/id/gauntlet/G = locate("gauntlet-id-[userkey]") in world
-			if (G && istype(G))
-				G.SetMatchCount(text2num(matches))
-			else
-				logTheThing(LOG_DEBUG, null, "<b>Marquesas/Gauntlet Query:</b> Could not locate ID 'gauntlet-id-[userkey]'.")
-				return 1
+/proc/queryGauntletMatches(key)
+	var/datum/apiModel/PreviousGauntlets/previousGauntlets
+	try
+		var/datum/apiRoute/gauntlet/getprevious/getPreviousGauntlets = new
+		getPreviousGauntlets.queryParams = list("key" = key)
+		previousGauntlets = apiHandler.queryAPI(getPreviousGauntlets)
+	catch
+		return FALSE
 
+	var/obj/item/card/id/gauntlet/G = locate("gauntlet-id-[key]") in world
+	if (G && istype(G))
+		G.SetMatchCount(previousGauntlets.gauntlets_completed)
 	else
-		var/list/query = list()
-		query["key"] = data
-		apiHandler.queryAPI("gauntlet/getPrevious", query)
+		logTheThing(LOG_DEBUG, null, "<b>Marquesas/Gauntlet Query:</b> Could not locate ID 'gauntlet-id-[key]'.")
+		return FALSE

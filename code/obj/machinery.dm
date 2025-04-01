@@ -11,7 +11,7 @@
 /obj/machinery
 	name = "machinery"
 	icon = 'icons/obj/stationobjs.dmi'
-	flags = FPRINT | FLUID_SUBMERGE | TGUI_INTERACTIVE
+	flags = FLUID_SUBMERGE | TGUI_INTERACTIVE
 	object_flags = NO_GHOSTCRITTER
 	pass_unstable = FALSE // Machines hopefully are stable.
 	var/status = 0
@@ -79,15 +79,21 @@
 		. = ..()
 	else
 		. = can_access_remotely_default(user)
-
 	/*
 	 *	Prototype procs common to all /obj/machinery objects
 	 */
+
+///wrapper proc for /obj/machinery/process so that signals are always sent. Call this, but do not override it.
+/obj/machinery/proc/ProcessMachine(var/mult)
+	SHOULD_NOT_OVERRIDE(1)
+	if(SEND_SIGNAL(src, COMSIG_MACHINERY_PROCESS, mult))
+		return
+	src.process(mult)
+
 // Want a mult on your machine process? Put var/mult in its arguments and put mult wherever something could be mangled by lagg
 /obj/machinery/proc/process(var/mult) //<- like that, but in your machine's process()
-
+	PROTECTED_PROC(TRUE)
 	SHOULD_NOT_SLEEP(TRUE)
-
 	// Called for all /obj/machinery in the "machines" list, approximately once per second
 	// by /datum/controller/game_controller/process() when a game round is active
 	// Any regular action of the machine is executed by this proc.
@@ -147,10 +153,10 @@
 /obj/machinery/Topic(href, href_list)
 	..()
 	if(status & (NOPOWER|BROKEN))
-		//boutput(usr, "<span class='alert'>That machine is not powered!</span>")
+		//boutput(usr, SPAN_ALERT("That machine is not powered!"))
 		return 1
 	if(usr.restrained() || usr.lying || usr.stat)
-		//boutput(usr, "<span class='alert'>You are unable to do that currently!</span>")
+		//boutput(usr, SPAN_ALERT("You are unable to do that currently!"))
 		return 1
 	if(!hasvar(src,"portable") || !src:portable)
 		if ((!in_interact_range(src, usr) || !istype(src.loc, /turf)) && !issilicon(usr) && !isAI(usr))
@@ -158,11 +164,11 @@
 				message_coders("[type]/Topic(): no usr in Topic - [name] at [showCoords(x, y, z)].")
 			else if ((x in list(usr.x - 1, usr.x, usr.x + 1)) && (y in list(usr.y - 1, usr.y, usr.y + 1)) && z == usr.z && isturf(loc))
 				message_coders("[type]/Topic(): is in range of usr, but in_range failed - [name] at [showCoords(x, y, z) ]")
-			//boutput(usr, "<span class='alert'>You must be near the machine to do this!</span>")
+			//boutput(usr, SPAN_ALERT("You must be near the machine to do this!"))
 			return 1
 	else
 		if ((!in_interact_range(src.loc, usr) || !istype(src.loc.loc, /turf)) && !issilicon(usr) && !isAI(usr))
-			//boutput(usr, "<span class='alert'>You must be near the machine to do this!</span>")
+			//boutput(usr, SPAN_ALERT("You must be near the machine to do this!"))
 			return 1
 	src.add_fingerprint(usr)
 	return 0
@@ -182,7 +188,7 @@
 	if (user)
 		if (ishuman(user))
 			if(user.get_brain_damage() >= 60 || prob(user.get_brain_damage()))
-				boutput(user, "<span class='alert'>You are too dazed to use [src] properly.</span>")
+				boutput(user, SPAN_ALERT("You are too dazed to use [src] properly."))
 				return 1
 
 		src.add_fingerprint(user)
@@ -222,8 +228,6 @@
 			if (prob(25))
 				qdel(src)
 				return
-		else
-	return
 
 /obj/machinery/blob_act(var/power)
 	// Called when attacked by a blob
@@ -305,16 +309,15 @@
 
 	A.use_power(amount, chan)
 
-
-/obj/machinery/proc/power_change()		// called whenever the power settings of the containing area change
-										// by default, check equipment channel & set flag
-										// can override if needed
+///Checks the machinery's equipment channel and local power, setting the `NOPOWER` flag as needed.
+///
+///Called when the power settings of the containing area change.
+/obj/machinery/proc/power_change()
 	if(powered())
 		status &= ~NOPOWER
 	else
-
 		status |= NOPOWER
-	return
+	src.UpdateIcon()
 
 /obj/machinery/emp_act()
 	if(src.flags & EMP_SHORT) return
@@ -332,6 +335,26 @@
 	SPAWN(1 SECOND)
 		src.flags &= ~EMP_SHORT
 		qdel(pulse2)
+	return
+
+///Attempt to break a machine. Returns `TRUE` if already broken.
+/obj/machinery/proc/set_broken()
+	if (src.is_broken())
+		return TRUE
+	src.status |= BROKEN
+	src.power_change()
+
+/obj/machinery/proc/is_broken()
+	return (src.status & BROKEN)
+
+/obj/machinery/proc/has_no_power()
+	return (src.status & NOPOWER)
+
+/obj/machinery/proc/is_disabled()
+	return src.is_broken() || src.has_no_power()
+
+/// Called when contents are added to the machine so it can do any special things it needs to
+/obj/machinery/proc/on_add_contents(obj/item/I)
 	return
 
 /obj/machinery/sec_lock
@@ -388,6 +411,14 @@
 	var/list/signals = list()
 	var/list/transmitters = list()
 
+/obj/machinery/bug_reporter
+	name = "bug reporter"
+	desc = "Creates bug reports."
+	icon = 'icons/obj/objects.dmi'
+	icon_state = "moduler-on"
+	density = TRUE
+	anchored = ANCHORED
+
 /obj/machinery/set_loc(atom/target)
 	var/area/A1 = get_area(src)
 	. = ..()
@@ -395,6 +426,8 @@
 	if(A1 != A2)
 		if(A1) A1.machines -= src
 		if(A2) A2.machines += src
+		// call power_change on machine so it can check if the new area is powered and update it's status flag appropriately
+		src.power_change()
 
 /obj/machinery/Move(atom/target)
 	var/area/A1 = get_area(src)
@@ -403,6 +436,11 @@
 	if(A1 && A2 && A1 != A2)
 		A1.machines -= src
 		A2.machines += src
+		src.power_change()
+
+/// check if a mob is allowed to eject occupants from various machines
+/obj/machinery/proc/can_eject_occupant(mob/user)
+	return !(isintangible(user) || isghostcritter(user) || isghostdrone(user) || !can_act(user))
 
 /datum/action/bar/icon/rotate_machinery
 	duration = 3 SECONDS
@@ -431,8 +469,9 @@
 			interrupt(INTERRUPT_ALWAYS)
 			return
 
-		src.machine.visible_message("<span class='alert'><b>[owner]</b> begins to rotate [src.machine]</span>", 1)
+		src.machine.visible_message(SPAN_ALERT("<b>[owner]</b> begins to rotate [src.machine]"))
 
 	onEnd()
 		..()
 		src.machine.set_dir(turn(src.machine.dir, -90))
+

@@ -14,10 +14,11 @@
 	health_brute_vuln = 0.7
 	health_burn = 90
 	health_burn_vuln = 0.3
+	can_bleed = FALSE
 	var/mob/living/intangible/wraith/master = null
 	var/deathsound = "sound/impact_sounds/plate_break.ogg"
 
-	faction = FACTION_WRAITH
+	faction = list(FACTION_WRAITH)
 
 	New(var/turf/T, var/mob/living/intangible/wraith/M = null)
 		..(T)
@@ -70,6 +71,7 @@
 		HH.can_range_attack = 1
 
 /datum/limb/halberd
+	can_beat_up_robots = TRUE
 	attack_range(atom/target, var/mob/user, params)
 		switch (user.a_intent)
 			if (INTENT_HELP)
@@ -168,8 +170,8 @@
 		var/datum/attackResults/msgs = user.calculate_melee_attack(target, 6, 9, rand(5,7), can_punch = 0, can_kick = 0)
 		user.attack_effects(target, user.zone_sel?.selecting)
 		var/action = pick("slashes", "stabs", "pierces")
-		msgs.base_attack_message = "<b><span class='alert'>[user] [action] [target] with their [src.holder]!</span></b>"
+		msgs.base_attack_message = SPAN_ALERT("<b>[user] [action] [target] with their [src.holder]!</b>")
 		msgs.played_sound = "sound/impact_sounds/Flesh_Stab_3.ogg"
 		msgs.damage_type = DAMAGE_STAB
 		msgs.flush(SUPPRESS_LOGS)
-		user.lastattacked = target
+		user.lastattacked = get_weakref(target)

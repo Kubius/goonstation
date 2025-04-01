@@ -11,7 +11,7 @@
 			A.update_appearance()
 			return 1
 		else
-			boutput(activator, "<span class='alert'>You need to be an AI to use this, you goof!</span>")
+			boutput(activator, SPAN_ALERT("You need to be an AI to use this, you goof!"))
 
 /datum/achievementReward/aicase/bee
 	title = "(AI Core Skin) Bee"
@@ -22,7 +22,7 @@
 /datum/achievementReward/aicase/ai_ailes
 	title = "(AI Core Skin) Bulky"
 	desc = "Replaces your core with a bulky older model."
-	required_medal = "I'm In"
+	required_medal = "I'm in"
 	aiskin = "ailes"
 
 datum/achievementReward/aicase/ai_crt
@@ -45,7 +45,7 @@ datum/achievementReward/aicase/ai_dwaine
 
 datum/achievementReward/aicase/ai_industrial
 	title = "(AI Core Skin) Industrial"
-	desc = "Reenforces your AI core with a shiny reenforced alloy straight from mining-- purely superficially, of course."
+	desc = "Reinforces your AI core with a shiny reinforced alloy straight from mining-- purely superficially, of course."
 	required_medal = "This object menaces with spikes of..."
 	aiskin = "industrial"
 
@@ -57,8 +57,8 @@ datum/achievementReward/aicase/ai_industrial
 
 datum/achievementReward/aicase/ai_salvage
 	title = "(AI Core Skin) Salvaged"
-	desc = "Superficially smashes up your AI core a bit - for that really RUGGED aethetic."
-	required_medal = "40k" //placeholder until salvagers get a greentext medal - ideally also have the core frame in the magpie use this skin
+	desc = "Superficially smashes up your AI core a bit - for that really RUGGED aesthetic."
+	required_medal = "40K" //placeholder until salvagers get a greentext medal - ideally also have the core frame in the magpie use this skin
 	aiskin = "salvage"
 
 /datum/achievementReward/aicase/ai_shock

@@ -1,6 +1,6 @@
 
 // CE's pet rock! A true hellburn companion
-obj/item/rocko
+/obj/item/rocko
 	name = "Rocko"
 	icon = 'icons/obj/materials.dmi'
 	icon_state = "rock1"
@@ -100,7 +100,7 @@ obj/item/rocko
 
 		for(var/mob/O in targets)
 			if(src.can_mob_observe(O))
-				O.show_message("<span class='game say bold'><span class='name'>[src.name]</span> says, <span class='message'>\"[message]\"</span></span>", 2, assoc_maptext = chat_text)
+				O.show_message("<span class='say bold'>[SPAN_NAME("[src.name]")] says, [SPAN_MESSAGE("\"[message]\"")]</span>", 2, assoc_maptext = chat_text)
 
 	proc/emote(message, maptext_out)
 		var/list/targets
@@ -114,7 +114,7 @@ obj/item/rocko
 
 		for (var/mob/O in targets)
 			if(src.can_mob_observe(O))
-				O.show_message("<span class='emote'>[message]</span>", assoc_maptext = chat_text)
+				O.show_message(SPAN_EMOTE("[message]"), assoc_maptext = chat_text)
 
 	update_icon()
 		var/image/smiley = image('icons/misc/rocko.dmi', src.smile ? "smile" : "frown")
@@ -160,6 +160,11 @@ obj/item/rocko
 			W.set_loc(src)
 			user.visible_message("[user] manages to fit [W] snugly on top of [src].")
 			update_hat()
+		if(istype(W, /obj/item/pet_carrier))
+			var/obj/item/pet_carrier/carrier = W
+			carrier.trap_mob(src, user)
+			user.visible_message(SPAN_ALERT("[user] places [src] into [carrier]."))
+			return
 		. = ..()
 
 	attack_self(mob/user as mob)

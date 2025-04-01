@@ -116,8 +116,8 @@
 
 	initializeBioholder()
 		bioHolder.age = 400
-		bioHolder.mobAppearance.customization_first = new /datum/customization_style/hair/short/pomp
-		bioHolder.mobAppearance.customization_first_color = "#000000"
+		bioHolder.mobAppearance.customizations["hair_bottom"].style = new /datum/customization_style/hair/short/pomp
+		bioHolder.mobAppearance.customizations["hair_bottom"].color = "#000000"
 		bioHolder.mobAppearance.gender = "male"
 		bioHolder.mobAppearance.underwear = "boxers"
 		. = ..()
@@ -204,7 +204,7 @@ ADMIN_INTERACT_PROCS(/mob/living/carbon/human/fathergrife, proc/chatter)
 		src.equip_new_if_possible(/obj/item/clothing/under/misc/chaplain, SLOT_W_UNIFORM)
 		src.traitHolder.addTrait("training_chaplain")
 		if(prob(20))
-			src.bioHolder.AddEffectInstance(random_accent())
+			src.bioHolder.AddEffectInstance(random_accent().GetCopy())
 
 	initializeBioholder()
 		. = ..()
@@ -231,16 +231,16 @@ ADMIN_INTERACT_PROCS(/mob/living/carbon/human/fathergrife, proc/chatter)
 	proc/chatter()
 		set name = "Chatter"
 		var/phrase = pick_smart_string("father_grife.txt", "say", list(
-			"job" = PROC_REF(say_helper_job),
-			"crewmember" = PROC_REF(say_helper_crewmember),
-			"logged_phrase" = PROC_REF(say_helper_logged_phrase)
+			"job" = /mob/living/carbon/human/fathergrife/proc/say_helper_job,
+			"crewmember" = /mob/living/carbon/human/fathergrife/proc/say_helper_crewmember,
+			"logged_phrase" = /mob/living/carbon/human/fathergrife/proc/say_helper_logged_phrase
 		))
 		src.say(phrase)
 
 	attackby(obj/item/W, mob/M)
 		if (istype(W, /obj/item/paper/postcard/owlery))
 			if(ON_COOLDOWN(src, "attackby_chatter", 3 SECONDS)) return
-			boutput(M, "<span class='notice'><b>You show [W] to [src]</b> </span>")
+			boutput(M, SPAN_NOTICE("<b>You show [W] to [src]</b> "))
 			SPAWN(1 SECOND)
 				say("Aye! Bill won't stop talking about it!")
 			return
@@ -250,7 +250,7 @@ ADMIN_INTERACT_PROCS(/mob/living/carbon/human/fathergrife, proc/chatter)
 		. = ..()
 		if (special) //vamp or ling
 			src.target = M
-			src.ai_state = AI_ATTACKING
+			src.ai_set_state(AI_ATTACKING)
 			src.ai_threatened = world.timeofday
 			src.ai_target = M
 
@@ -413,10 +413,10 @@ proc/empty_mouse_params()//TODO MOVE THIS!!!
 
 	initializeBioholder()
 		. = ..()
-		bioHolder.mobAppearance.customization_first_color = "#292929"
-		bioHolder.mobAppearance.customization_second_color = "#292929"
-		bioHolder.mobAppearance.customization_first = new /datum/customization_style/hair/gimmick/shitty_hair
-		bioHolder.mobAppearance.customization_second = new /datum/customization_style/hair/gimmick/shitty_beard
+		bioHolder.mobAppearance.customizations["hair_bottom"].color = "#292929"
+		bioHolder.mobAppearance.customizations["hair_middle"].color = "#292929"
+		bioHolder.mobAppearance.customizations["hair_bottom"].style = new /datum/customization_style/hair/gimmick/shitty_hair
+		bioHolder.mobAppearance.customizations["hair_middle"].style =  new /datum/customization_style/hair/gimmick/shitty_beard
 		bioHolder.age = 62
 		bioHolder.bloodType = "A-"
 		bioHolder.mobAppearance.gender = "male"
@@ -439,7 +439,7 @@ proc/empty_mouse_params()//TODO MOVE THIS!!!
 			var/turf/target_turf = pick(afterlife_bar_turfs)
 			var/mob/living/carbon/human/biker/newbody = new()
 			newbody.set_loc(target_turf)
-			newbody.overlays += image('icons/misc/32x64.dmi',"halo")
+			newbody.setStatus("in_afterlife", INFINITE_STATUS, newbody)
 			if(inafterlifebar(src))
 				qdel(src)
 			return
@@ -662,13 +662,13 @@ proc/empty_mouse_params()//TODO MOVE THIS!!!
 	attackby(obj/item/W, mob/M)
 		if (istype(W, /obj/item/paper/tug/invoice))
 			if(ON_COOLDOWN(src, "attackby_chatter", 3 SECONDS)) return
-			boutput(M, "<span class='notice'><b>You show [W] to [src]</b> </span>")
+			boutput(M, SPAN_NOTICE("<b>You show [W] to [src]</b> "))
 			SPAWN(1 SECOND)
 				say("Hard to believe, but I think my [BILL_PICK("friends")] would be proud to see it.")
 			return
 		if (istype(W, /obj/item/paper/postcard/owlery))
 			if(ON_COOLDOWN(src, "attackby_chatter", 3 SECONDS)) return
-			boutput(M, "<span class='notice'><b>You show [W] to [src]</b> </span>")
+			boutput(M, SPAN_NOTICE("<b>You show [W] to [src]</b> "))
 			SPAWN(1 SECOND)
 				say("Yep, can't wait to go on that trip! That [pick_string("johnbill.txt", "insults")] oughta be here soon!")
 			return
@@ -677,10 +677,10 @@ proc/empty_mouse_params()//TODO MOVE THIS!!!
 			return
 		if (istype(W, /obj/item/ursium/antiU))
 			var/obj/item/ursium/antiU/aU = W
-			boutput(M, "<span class='notice'><b>You show [W] to [src]</b> </span>")
+			boutput(M, SPAN_NOTICE("<b>You show [W] to [src]</b> "))
 			say("Whoa nelly! Mind if i have a taste?")
 			SPAWN(1 SECOND)
-				M.visible_message("<span class='alert'>[src] touches the [W]! Something isnt right! </span>")
+				M.visible_message(SPAN_ALERT("[src] touches the [W]! Something isnt right! "))
 				aU:annihilation(2 * aU.ursium)
 			return
 		..()
@@ -691,7 +691,7 @@ proc/empty_mouse_params()//TODO MOVE THIS!!!
 		. = ..()
 		if (special) //vamp or ling
 			src.target = M
-			src.ai_state = AI_ATTACKING
+			src.ai_set_state(AI_ATTACKING)
 			src.ai_threatened = world.timeofday
 			src.ai_target = M
 			src.set_a_intent(INTENT_HARM)
@@ -748,7 +748,7 @@ proc/empty_mouse_params()//TODO MOVE THIS!!!
 	Life(datum/controller/process/mobs/parent)
 		if (..(parent))
 			return 1
-		src.changeStatus("weakened", 5 SECONDS)
+		src.changeStatus("knockdown", 5 SECONDS)
 		if(prob(15))
 			SPAWN(0) emote(pick("giggle", "laugh"))
 		if(prob(1))
@@ -802,11 +802,11 @@ proc/empty_mouse_params()//TODO MOVE THIS!!!
 			step(src, pick(cardinal))
 	proc/illusion_expire(mob/user)
 		if(user)
-			boutput(user, "<span class='alert'><B>You reach out to attack the Waldo illusion but it explodes into dust, knocking you off your feet!</B></span>")
-			user.changeStatus("weakened", 4 SECONDS)
+			boutput(user, SPAN_ALERT("<B>You reach out to attack the Waldo illusion but it explodes into dust, knocking you off your feet!</B>"))
+			user.changeStatus("knockdown", 4 SECONDS)
 		for(var/mob/M in viewers(src, null))
 			if(M.client && M != user)
-				M.show_message("<span class='alert'><b>The Waldo illusion explodes into smoke!</b></span>")
+				M.show_message(SPAN_ALERT("<b>The Waldo illusion explodes into smoke!</b>"))
 		var/datum/effects/system/harmless_smoke_spread/smoke = new /datum/effects/system/harmless_smoke_spread()
 		smoke.set_up(1, 0, src.loc)
 		smoke.start()
@@ -841,15 +841,15 @@ proc/empty_mouse_params()//TODO MOVE THIS!!!
 		. = ..()
 		bioHolder.age = 44
 		bioHolder.bloodType = "Worchestershire"
-		bioHolder.mobAppearance.customization_first = new /datum/customization_style/hair/short/pomp
-		bioHolder.mobAppearance.customization_first_color = "#F6D646"
+		bioHolder.mobAppearance.customizations["hair_bottom"].style = new /datum/customization_style/hair/short/pomp
+		bioHolder.mobAppearance.customizations["hair_bottom"].color = "#F6D646"
 		bioHolder.mobAppearance.gender = "male"
 		bioHolder.mobAppearance.underwear = "boxers"
 
 	attackby(obj/item/W, mob/M)
 		if (istype(W, /obj/item/paper/postcard/owlery))
 			if(ON_COOLDOWN(src, "attackby_chatter", 3 SECONDS)) return
-			boutput(M, "<span class='notice'><b>You show [W] to [src]</b> </span>")
+			boutput(M, SPAN_NOTICE("<b>You show [W] to [src]</b> "))
 			SPAWN(1 SECOND)
 				say("Oh yeah sure, I seen it. That ol- how would he say it, [BILL_PICK("insults")]? He won't stop going on and on and on...")
 		..()
@@ -858,7 +858,7 @@ proc/empty_mouse_params()//TODO MOVE THIS!!!
 		. = ..()
 		if (special) //vamp or ling
 			src.target = M
-			src.ai_state = AI_ATTACKING
+			src.ai_set_state(AI_ATTACKING)
 			src.ai_threatened = world.timeofday
 			src.ai_target = M
 
@@ -895,7 +895,7 @@ proc/empty_mouse_params()//TODO MOVE THIS!!!
 		src.real_name = Create_Tommyname()
 
 		src.gender = "male"
-		bioHolder.mobAppearance.customization_first = new /datum/customization_style/hair/long/dreads
+		bioHolder.mobAppearance.customizations["hair_bottom"].style = new /datum/customization_style/hair/long/dreads
 		bioHolder.mobAppearance.gender = "male"
 		bioHolder.mobAppearance.s_tone = "#FAD7D0"
 		bioHolder.mobAppearance.s_tone_original = "#FAD7D0"
@@ -954,6 +954,7 @@ proc/empty_mouse_params()//TODO MOVE THIS!!!
 /mob/living/carbon/human/spacer
 	is_npc = TRUE
 	uses_mobai = 1
+	ailment_immune = TRUE
 	New()
 		..()
 		src.say("Hey there [JOHN_PICK("insults")]")//debug
@@ -964,7 +965,6 @@ proc/empty_mouse_params()//TODO MOVE THIS!!!
 
 		src.ai = new /datum/aiHolder/human/yank(src)
 		remove_lifeprocess(/datum/lifeprocess/blindness)
-		remove_lifeprocess(/datum/lifeprocess/viruses)
 		src.ai.disable()
 
 	initializeBioholder()
@@ -993,6 +993,7 @@ proc/empty_mouse_params()//TODO MOVE THIS!!!
 	gender = MALE
 	is_npc = TRUE
 	uses_mobai = 1
+	ailment_immune = TRUE
 
 	New()
 		..()
@@ -1002,14 +1003,13 @@ proc/empty_mouse_params()//TODO MOVE THIS!!!
 
 		src.ai = new /datum/aiHolder/human/yank(src)
 		remove_lifeprocess(/datum/lifeprocess/blindness)
-		remove_lifeprocess(/datum/lifeprocess/viruses)
 		src.ai.disable()
 
 	initializeBioholder()
 		. = ..()
 		bioHolder.age = 49
-		bioHolder.mobAppearance.customization_first = new /datum/customization_style/beard/fullbeard
-		bioHolder.mobAppearance.customization_first_color = "#555555"
+		bioHolder.mobAppearance.customizations["hair_bottom"].style = new /datum/customization_style/beard/fullbeard
+		bioHolder.mobAppearance.customizations["hair_bottom"].color = "#555555"
 		bioHolder.mobAppearance.gender = "male"
 		bioHolder.mobAppearance.underwear = "boxers"
 		real_name = "[pick("Chut","Brendt","Franko","Steephe","Geames","Whitney","Thom","Cheddar")] \"Big Yank\" Whitney"
@@ -1028,7 +1028,7 @@ proc/empty_mouse_params()//TODO MOVE THIS!!!
 	attackby(obj/item/W, mob/M)
 		if (istype(W, /obj/item/paper/tug/invoice))
 			if(ON_COOLDOWN(src, "attackby_chatter", 3 SECONDS)) return
-			boutput(M, "<span class='notice'><b>You show [W] to [src]</b> </span>")
+			boutput(M, SPAN_NOTICE("<b>You show [W] to [src]</b> "))
 			SPAWN(1 SECOND)
 				say(pick("Brudder, I did that job months ago. Fuck outta here with that.","Oh come on, quit wastin my time [pick_string("johnbill.txt", "insults")]."))
 			return

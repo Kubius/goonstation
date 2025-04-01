@@ -19,7 +19,7 @@
 	setup_default_startup_task = /datum/computer/file/guardbot_task/security/crazy
 	setup_default_tool_path = /obj/item/device/guardbot_tool/taser
 	no_camera = 1
-	req_access_txt = "8088"
+	req_access = list(access_impossible)
 	object_flags = 0
 
 	speak(var/message)
@@ -53,12 +53,12 @@
 
 			if (7)
 				for(var/mob/O in hearers(src, null))
-					O.show_message("<span class='combat'><b>[src]'s speaker crackles oddly!</b></span>", 2)
+					O.show_message(SPAN_COMBAT("<b>[src]'s speaker crackles oddly!</b>"), 2)
 				return
 
 			if (8)
 				message = uppertext(message)
 
 		for(var/mob/O in hearers(src, null))
-			O.show_message("<span class='game say'><span class='name'>[src]</span> beeps, \"[message]\"",2)
+			O.show_message(SPAN_SAY("[SPAN_NAME("[src]")] beeps, \"[message]\""), 2)
 		return

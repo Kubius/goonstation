@@ -29,6 +29,8 @@
 	allows_vehicles = 1
 	step_material = "step_lattice"
 	step_priority = STEP_PRIORITY_MED
+	can_burn = FALSE
+	can_break = FALSE
 
 	attackby(obj/item/C, mob/user, params)
 		if(istype(C, /obj/item/rods))
@@ -82,6 +84,8 @@
 	allows_vehicles = 1
 	step_material = "step_lattice"
 	step_priority = STEP_PRIORITY_MED
+	can_burn = FALSE
+	can_break = FALSE
 
 /turf/unsimulated/floor/airless/plating/catwalk/auto
 	icon = 'icons/turf/catwalk_support.dmi'
@@ -384,6 +388,26 @@
 /turf/simulated/floor/airless/darkblue/checker/other
 	icon_state = "blue-dblue2"
 
+/turf/simulated/floor/airless/darkblue/side
+	icon_state = "dblue"
+
+/turf/simulated/floor/airless/darkblue/corner
+	icon_state = "dbluecorner"
+
+/turf/simulated/floor/airless/darkblue/checker
+	icon_state = "dbluechecker"
+
+/turf/simulated/floor/airless/darkblueblack
+	icon_state = "dblueblack"
+
+/turf/simulated/floor/airless/darkblueblack/corner
+	icon_state = "dblueblackcorner"
+
+/turf/simulated/floor/airless/darkbluewhite
+	icon_state = "dbluewhite"
+
+/turf/simulated/floor/airless/darkbluewhite/corner
+	icon_state = "dbluewhitecorner"
 /////////////////////////////////////////
 
 /turf/simulated/floor/airless/bluegreen
@@ -394,6 +418,33 @@
 
 /turf/simulated/floor/airless/bluegreen/corner
 	icon_state = "blugreencorner"
+
+/////////////////////////////////////////
+
+
+/turf/simulated/floor/airless/darkpurple
+	icon_state = "fulldpurple"
+
+/turf/simulated/floor/airless/darkpurple/side
+	icon_state = "dpurple"
+
+/turf/simulated/floor/airless/darkpurple/corner
+	icon_state = "dpurplecorner"
+
+/turf/simulated/floor/airless/darkpurple/checker
+	icon_state = "dpurplechecker"
+
+/turf/simulated/floor/airless/darkpurpleblack
+	icon_state = "dpurpleblack"
+
+/turf/simulated/floor/airless/darkpurpleblack/corner
+	icon_state = "dpurpleblackcorner"
+
+/turf/simulated/floor/airless/darkpurplewhite
+	icon_state = "dpurplewhite"
+
+/turf/simulated/floor/airless/darkpurplewhite/corner
+	icon_state = "dpurplewhitecorner"
 
 /////////////////////////////////////////
 
@@ -607,6 +658,28 @@ TYPEINFO(/turf/simulated/floor/airless/carpet)
 
 /////////////////////////////////////////
 
+/turf/simulated/floor/pool/lightblue
+	icon_state = "pooltiles_lightblue"
+
+/turf/simulated/floor/pool/white
+	icon_state = "pooltiles_white"
+
+/turf/simulated/floor/pool/blue
+	icon_state = "pooltiles_blue"
+
+/turf/simulated/floor/pool/bluewhite
+	icon_state = "pooltiles_bluew"
+
+/turf/simulated/floor/pool/lightbluewhite
+	icon_state = "pooltiles_lightbluew"
+
+/turf/simulated/floor/pool/bluewhitecorner
+	icon_state = "pooltiles_bluewcorner"
+
+/turf/simulated/floor/pool/lightbluewhitecorner
+	icon_state = "pooltiles_lightbluewcorner"
+
+////////////////////////////////////////////////
 /turf/simulated/floor/airless/sanitary
 	icon_state = "freezerfloor"
 

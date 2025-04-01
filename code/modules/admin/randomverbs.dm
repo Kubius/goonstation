@@ -1,18 +1,23 @@
 /verb/restart_the_fucking_server_i_mean_it()
 	set name = "Emergency Restart"
 	SET_ADMIN_CAT(ADMIN_CAT_NONE)
-	if(config.update_check_enabled)
-		world.installUpdate()
-	world.Reboot()
+	if (world.installUpdate())
+		Shutdown_server()
+	else
+		world.Reboot()
 
-/verb/rebuild_flow_networks()
+/client/proc/rebuild_flow_networks()
 	set name = "Rebuild Flow Networks"
 	SET_ADMIN_CAT(ADMIN_CAT_DEBUG)
+	ADMIN_ONLY
+	SHOW_VERB_DESC
 	make_fluid_networks()
 
-/verb/print_flow_networks()
+/client/proc/print_flow_networks()
 	set name = "Print Flow Networks"
 	SET_ADMIN_CAT(ADMIN_CAT_DEBUG)
+	ADMIN_ONLY
+	SHOW_VERB_DESC
 	DEBUG_MESSAGE("Dumping flow network refs")
 	for_by_tcl(network, /datum/flow_network)
 		DEBUG_MESSAGE_VARDBG("[showCoords(network.nodes[1].x,network.nodes[1].y,network.nodes[1].z)]", network)
@@ -27,6 +32,7 @@
 	set popup_menu = 0
 	set name = "Drop Everything"
 	ADMIN_ONLY
+	SHOW_VERB_DESC
 
 	M.unequip_all()
 
@@ -39,6 +45,7 @@
 	set popup_menu = 0
 	set name = "Prison"
 	ADMIN_ONLY
+	SHOW_VERB_DESC
 
 	if (M && ismob(M))
 		var/area/A = get_area(M)
@@ -52,7 +59,7 @@
 			if (ASLoc)
 				M.set_loc(ASLoc)
 
-			M.show_text("<h2><font color=red><b>You have been unprisoned and sent back to the station.</b></font></h2>", "red")
+			M.show_text("<h2>[SPAN_ALERT("<b>You have been unprisoned and sent back to the station.</b>")]</h2>", "red")
 			message_admins("[key_name(usr)] has unprisoned [key_name(M)].")
 			logTheThing(LOG_ADMIN, usr, "has unprisoned [constructTarget(M,"admin")].")
 			logTheThing(LOG_DIARY, usr, "has unprisoned [constructTarget(M,"diary")].", "admin")
@@ -69,7 +76,7 @@
 			var/PLoc = pick_landmark(LANDMARK_PRISONWARP)
 			var/turf/origin_turf = get_turf(M)
 			if (PLoc)
-				M.changeStatus("paralysis", 8 SECONDS)
+				M.changeStatus("unconscious", 8 SECONDS)
 				M.set_loc(PLoc)
 			else
 				message_admins("[key_name(usr)] couldn't send [key_name(M)] to the prison zone (no landmark found).")
@@ -77,10 +84,10 @@
 				logTheThing(LOG_DIARY, usr, "couldn't send [constructTarget(M,"diary")] to the prison zone (no landmark found).")
 				return
 
-			M.show_text("<h2><font color=red><b>You have been sent to the penalty box, and an admin should contact you shortly. If nobody does within a minute or two, please inquire about it in adminhelp (F1 key).</b></font></h2>", "red")
+			M.show_text("<h2>[SPAN_ALERT("<b>You have been sent to the penalty box, and an admin should contact you shortly. If nobody does within a minute or two, please inquire about it in adminhelp (F1 key).</b>")]</h2>", "red")
 			logTheThing(LOG_ADMIN, usr, "sent [constructTarget(M,"admin")] to the prison zone.")
 			logTheThing(LOG_DIARY, usr, "[constructTarget(M,"diary")] to the prison zone.", "admin")
-			message_admins("<span class='internal'>[key_name(usr)] sent [key_name(M)] to the prison zone[isturf(origin_turf) ? " from [log_loc(origin_turf)]" : ""].</span>")
+			message_admins(SPAN_INTERNAL("[key_name(usr)] sent [key_name(M)] to the prison zone[isturf(origin_turf) ? " from [log_loc(origin_turf)]" : ""]."))
 
 	return
 
@@ -88,6 +95,8 @@
 	SET_ADMIN_CAT(ADMIN_CAT_NONE)
 	set name = "Subtle Message"
 	set popup_menu = 0
+	ADMIN_ONLY
+	SHOW_VERB_DESC
 
 	if (!src.holder)
 		boutput(src, "Only administrators may use this command.")
@@ -100,8 +109,8 @@
 	if (!msg)
 		return
 	if (src?.holder)
-		M.playsound_local(M, 'sound/misc/prayerchime.ogg', 100, flags = SOUND_IGNORE_SPACE, channel = VOLUME_CHANNEL_MENTORPM)
-		boutput(Mclient.mob, "<span class='notice'>You hear a voice in your head... <i>[msg]</i></span>")
+		M.playsound_local_not_inworld('sound/misc/prayerchime.ogg', 100, flags = SOUND_IGNORE_SPACE | SOUND_SKIP_OBSERVERS | SOUND_IGNORE_DEAF, channel = VOLUME_CHANNEL_MENTORPM)
+		boutput(Mclient.mob, SPAN_NOTICE("You hear a voice in your head... <i>[msg]</i>"))
 
 	logTheThing(LOG_ADMIN, src.mob, "Subtle Messaged [constructTarget(Mclient.mob,"admin")]: [msg]")
 	logTheThing(LOG_DIARY, src.mob, "Subtle Messaged [constructTarget(Mclient.mob,"diary")]: [msg]", "admin")
@@ -109,12 +118,14 @@
 	var/subtle_href = null
 	if(M.client)
 		subtle_href = "?src=%admin_ref%;action=subtlemsg&targetckey=[M.client.ckey]"
-	message_admins("<span class='internal'><b>SubtleMessage: [key_name(src.mob)] <i class='icon-arrow-right'></i> [key_name(Mclient.mob, custom_href=subtle_href)] : [msg]</b></span>")
+	message_admins(SPAN_INTERNAL("<b>SubtleMessage</b>: [key_name(src.mob)] <i class='icon-arrow-right'></i> [key_name(Mclient.mob, custom_href=subtle_href)] : [msg]"))
 
 /client/proc/cmd_admin_plain_message(mob/M as mob in world)
 	SET_ADMIN_CAT(ADMIN_CAT_NONE)
 	set name = "Plain Message"
 	set popup_menu = 0
+	ADMIN_ONLY
+	SHOW_VERB_DESC
 
 	if (!src.holder)
 		boutput(src, "Only administrators may use this command.")
@@ -130,15 +141,17 @@
 	if (!msg)
 		return
 	if (src?.holder)
-		boutput(Mclient.mob, "<span class='alert'>[msg]</span>")
+		boutput(Mclient.mob, SPAN_ALERT("[msg]"))
 
 	logTheThing(LOG_ADMIN, src.mob, "Plain Messaged [constructTarget(Mclient.mob,"admin")]: [html_encode(msg)]")
 	logTheThing(LOG_DIARY, src.mob, ": Plain Messaged [constructTarget(Mclient.mob,"diary")]: [html_encode(msg)]", "admin")
-	message_admins("<span class='internal'><b>PlainMSG: [key_name(src.mob)] <i class='icon-arrow-right'></i> [key_name(Mclient.mob)] : [html_encode(msg)]</b></span>")
+	message_admins(SPAN_INTERNAL("<b>PlainMSG: [key_name(src.mob)] <i class='icon-arrow-right'></i> [key_name(Mclient.mob)] : [html_encode(msg)]</b>"))
 
 /client/proc/cmd_admin_plain_message_all()
 	SET_ADMIN_CAT(ADMIN_CAT_FUN)
 	set name = "Plain Message to All"
+	ADMIN_ONLY
+	SHOW_VERB_DESC
 
 	if (!src.holder)
 		boutput(src, "Only administrators may use this command.")
@@ -156,7 +169,7 @@
 
 	logTheThing(LOG_ADMIN, src.mob, "Plain Messaged All: [html_encode(msg)]")
 	logTheThing(LOG_DIARY, src.mob, "Plain Messaged All: [html_encode(msg)]", "admin")
-	message_admins("<span class='internal'>[key_name(src.mob)] showed a plain message to all</span>")
+	message_admins(SPAN_INTERNAL("[key_name(src.mob)] showed a plain message to all"))
 
 /client/proc/cmd_admin_pm(mob/M as mob in world)
 	SET_ADMIN_CAT(ADMIN_CAT_NONE)
@@ -164,6 +177,7 @@
 	set popup_menu = 0
 
 	ADMIN_ONLY
+	SHOW_VERB_DESC
 
 	do_admin_pm(M.ckey, src.mob) //Changed to work off of ckeys instead of mobs.
 
@@ -175,6 +189,7 @@
 	set name = "Admin Alert"
 	set popup_menu = 0
 	ADMIN_ONLY
+	SHOW_VERB_DESC
 
 	var/client/Mclient = M.client
 
@@ -203,7 +218,7 @@
 
 	var/body = "<ol><center>ADMIN PM</center><br><br>"
 
-	var/admin_pm = trim(copytext(sanitize(msg), 1, MAX_MESSAGE_LEN))
+	var/admin_pm = trimtext(copytext(sanitize(msg), 1, MAX_MESSAGE_LEN))
 
 	var/pm_in_browser = "<center>Click on my name to respond.</center><br><br>"
 
@@ -244,6 +259,7 @@
 	set popup_menu = 0
 	set name = "Mute Permanently"
 	ADMIN_ONLY
+	SHOW_VERB_DESC
 	if (M.client && M.client.holder && (M.client.holder.level >= src.holder.level))
 		alert("You cannot perform this action. You must be of a higher administrative rank!", null, null, null, null, null)
 		return
@@ -267,6 +283,7 @@
 	set popup_menu = 0
 	set name = "Mute Temporarily"
 	ADMIN_ONLY
+	SHOW_VERB_DESC
 	if (M.client && M.client.holder && (M.client.holder.level >= src.holder.level))
 		alert("You cannot perform this action. You must be of a higher administrative rank!", null, null, null, null, null)
 		return
@@ -290,6 +307,7 @@
 	set name = "AI: Add Law"
 
 	ADMIN_ONLY
+	SHOW_VERB_DESC
 
 	var/input = input(usr, "Please enter anything you want the AI to do. Anything. Serious.", "Law for default AI law rack", "") as text
 	if (!input)
@@ -301,7 +319,7 @@
 	if (law_num < 1 || law_num > 9)
 		return
 	else
-		ticker.ai_law_rack_manager.default_ai_rack.SetLawCustom("Centcom Law Module",input,law_num,TRUE,TRUE)
+		ticker.ai_law_rack_manager.default_ai_rack.SetLawCustom("Centcom Law Module",input,law_num,TRUE,TRUE,/obj/item/aiModule/custom/centcom)
 	boutput(usr, "Uploaded '[input]' as law # [law_num]")
 	ticker.ai_law_rack_manager.default_ai_rack.UpdateLaws() //I don't love this, but meh
 
@@ -317,6 +335,7 @@
 	SET_ADMIN_CAT(ADMIN_CAT_SERVER)
 	set name = "AI: Bulk Law Change"
 	ADMIN_ONLY
+	SHOW_VERB_DESC
 
 	var/current_laws = list()
 	for (var/obj/item/aiModule/X in ticker.ai_law_rack_manager.default_ai_rack.law_circuits)
@@ -349,7 +368,7 @@
 					ticker.ai_law_rack_manager.default_ai_rack.ai_abilities |= expansion.ai_abilities
 
 			else
-				ticker.ai_law_rack_manager.default_ai_rack.SetLawCustom("Centcom Law Module", split[i], i, TRUE, TRUE)
+				ticker.ai_law_rack_manager.default_ai_rack.SetLawCustom("Centcom Law Module", split[i], i, TRUE, TRUE,/obj/item/aiModule/custom/centcom)
 	ticker.ai_law_rack_manager.default_ai_rack.UpdateLaws()
 	logTheThing(LOG_ADMIN, usr, "has set the AI laws to [input]")
 	logTheThing(LOG_DIARY, usr, "has set the AI laws to [input]", "admin")
@@ -362,6 +381,8 @@
 /client/proc/cmd_admin_show_ai_laws()
 	SET_ADMIN_CAT(ADMIN_CAT_SERVER)
 	set name = "AI: Show Laws"
+	ADMIN_ONLY
+	SHOW_VERB_DESC
 	boutput(usr, "The AI laws are:")
 	if (ticker.ai_law_rack_manager == null)
 		boutput(usr, "Oh god somehow the law rack manager is null. This is real bad. Contact an admin. You are an admin? Oh no...")
@@ -373,6 +394,7 @@
 	SET_ADMIN_CAT(ADMIN_CAT_SERVER)
 	set name = "AI: Law Reset"
 	ADMIN_ONLY
+	SHOW_VERB_DESC
 
 	if (alert(src, "Are you sure you want to reset the AI's laws?", "Confirmation", "Yes", "No") == "Yes")
 		ticker.ai_law_rack_manager.default_ai_rack.DeleteAllLaws()
@@ -390,6 +412,7 @@
 	set name = "Heal"
 	set popup_menu = 0
 	ADMIN_ONLY
+	SHOW_VERB_DESC
 	if(!src.mob)
 		return
 	if(isobserver(M))
@@ -400,7 +423,7 @@
 
 		logTheThing(LOG_ADMIN, usr, "healed / revived [constructTarget(M,"admin")]")
 		logTheThing(LOG_DIARY, usr, "healed / revived [constructTarget(M,"diary")]", "admin")
-		message_admins("<span class='alert'>Admin [key_name(usr)] healed / revived [key_name(M)]!</span>")
+		message_admins(SPAN_ALERT("Admin [key_name(usr)] healed / revived [key_name(M)]!"))
 	else
 		alert("Admin revive disabled")
 
@@ -409,6 +432,7 @@
 	set name = "Heal All"
 
 	ADMIN_ONLY
+	SHOW_VERB_DESC
 	if (alert(src, "Are you sure?", "Confirmation", "Yes", "No") == "Yes")
 		var/heal_dead = alert(src, "Heal and revive the dead?", "Confirmation", "Yes", "No")
 		var/healed = 0
@@ -424,12 +448,13 @@
 
 		logTheThing(LOG_ADMIN, usr, "healed / revived [healed] mobs via Heal All")
 		logTheThing(LOG_DIARY, usr, "healed / revived [healed] mobs via Heal All", "admin")
-		message_admins("<span class='alert'>Admin [key_name(usr)] healed / revived [healed] mobs via Heal All!</span>")
+		message_admins(SPAN_ALERT("Admin [key_name(usr)] healed / revived [healed] mobs via Heal All!"))
 
 /client/proc/cmd_admin_create_centcom_report()
 	SET_ADMIN_CAT(ADMIN_CAT_FUN)
 	set name = "Create Command Report"
 	ADMIN_ONLY
+	SHOW_VERB_DESC
 	var/input = input(usr, "Enter the text for the alert. Anything. Serious.", "What?", "") as null|message
 	if(!input)
 		return
@@ -453,6 +478,7 @@
 	SET_ADMIN_CAT(ADMIN_CAT_FUN)
 	set name = "Adv. Command Report"
 	ADMIN_ONLY
+	SHOW_VERB_DESC
 
 	var/input = input(usr, "Please enter anything you want. Anything. Serious.", "What?", "") as null|message
 	if (!input)
@@ -470,6 +496,7 @@
 	SET_ADMIN_CAT(ADMIN_CAT_FUN)
 	set name = "Adv. Command Report - Help"
 	ADMIN_ONLY
+	SHOW_VERB_DESC
 
 	var/T = {"<TT><h1>Advanced Command Report</h1><hr>
 	This report works exactly like the normal report, except it sends a tailored message
@@ -509,10 +536,8 @@
 	SET_ADMIN_CAT(ADMIN_CAT_UNUSED)
 	set name = "Delete"
 	set popup_menu = 0
-
-	if (!src.holder)
-		boutput(src, "Only administrators may use this command.")
-		return
+	ADMIN_ONLY
+	SHOW_VERB_DESC
 
 	if (alert(src, "Are you sure you want to delete:\n[O]\nat ([O.x], [O.y], [O.z])?", "Confirmation", "Yes", "No") == "Yes")
 		logTheThing(LOG_ADMIN, usr, "deleted [O] at ([log_loc(O)])")
@@ -527,6 +552,8 @@
 	SET_ADMIN_CAT(ADMIN_CAT_UNUSED)
 	set name = "Check Contents"
 	set popup_menu = 0
+	ADMIN_ONLY
+	SHOW_VERB_DESC
 
 	if (M && ismob(M))
 		M.print_contents(usr)
@@ -536,6 +563,8 @@
 	SET_ADMIN_CAT(ADMIN_CAT_PLAYERS)
 	set name = "Check Vehicle Occupant"
 	set popup_menu = 0
+	ADMIN_ONLY
+	SHOW_VERB_DESC
 
 	var/list/piloted_vehicles = list()
 
@@ -562,13 +591,14 @@
 		var/info = ""
 		info = M == MV?.pilot ? "*Pilot*" : ""
 		var/role = getRole(M)
-		boutput(usr, "<span class='notice'><b>[key_name(M, 1, 0)][role ? " ([role])" : ""] [info]</b></span>")
+		boutput(usr, SPAN_NOTICE("<b>[key_name(M, 1, 0)][role ? " ([role])" : ""] [info]</b>"))
 
 /client/proc/cmd_admin_remove_plasma()
 	SET_ADMIN_CAT(ADMIN_CAT_SERVER)
 	set name = "Stabilize Atmos"
 	set desc = "Resets the air contents of every turf in view to normal."
 	ADMIN_ONLY
+	SHOW_VERB_DESC
 	SPAWN(0)
 		for(var/turf/simulated/T in view())
 			if(!T.air)
@@ -581,6 +611,7 @@
 	set name = "Stabilize All Atmos"
 	set desc = "Resets the air contents of THE ENTIRE STATION to normal."
 	ADMIN_ONLY
+	SHOW_VERB_DESC
 	if (alert(usr, "This will reset the air of ALL TURFS IN THE ENTIRE STATION, are you sure you want to continue?", "Cause big lag", "Yes", "No") != "Yes")
 		return
 	SPAWN(0)
@@ -595,6 +626,8 @@
 	SET_ADMIN_CAT(ADMIN_CAT_FUN)
 	set name = "Flip View"
 	set desc = "Rotates a client's viewport"
+	ADMIN_ONLY
+	SHOW_VERB_DESC
 
 	var/list/keys = list()
 	for(var/mob/M in mobs)
@@ -617,22 +650,21 @@
 
 	logTheThing(LOG_ADMIN, usr, "set [constructTarget(selection,"admin")]'s viewport orientation to [rotation].")
 	logTheThing(LOG_DIARY, usr, "set [constructTarget(src,"diary")]'s viewport orientation to [rotation].", "admin")
-	message_admins("<span class='internal'>[key_name(usr)] set [key_name(selection)]'s viewport orientation to [rotation].</span>")
+	message_admins(SPAN_INTERNAL("[key_name(usr)] set [key_name(selection)]'s viewport orientation to [rotation]."))
 
 /client/proc/cmd_admin_clownify(mob/living/M as mob in world)
 	SET_ADMIN_CAT(ADMIN_CAT_NONE)
 	set name = "Clownify"
 	set popup_menu = 0
-	if (!src.holder)
-		boutput(src, "Only administrators may use this command.")
-		return
+	ADMIN_ONLY
+	SHOW_VERB_DESC
 
 	var/datum/effects/system/harmless_smoke_spread/smoke = new /datum/effects/system/harmless_smoke_spread()
 	smoke.set_up(5, 0, M.loc)
 	smoke.attach(M)
 	smoke.start()
 
-	boutput(M, "<span class='alert'><B>You HONK painfully!</B></span>")
+	boutput(M, SPAN_ALERT("<B>You HONK painfully!</B>"))
 	M.take_brain_damage(80)
 	M.stuttering = 120
 	M.contract_disease(/datum/ailment/disease/cluwneing_around/cluwne, null, null, 1) // path, name, strain, bypass resist
@@ -663,6 +695,7 @@
 	set desc = "View the notes for a current player's key."
 	SET_ADMIN_CAT(ADMIN_CAT_PLAYERS)
 	ADMIN_ONLY
+	SHOW_VERB_DESC
 
 	src.holder.viewPlayerNotes(ckey(target))
 
@@ -671,6 +704,7 @@
 	set desc = "Change a player's login notice."
 	SET_ADMIN_CAT(ADMIN_CAT_PLAYERS)
 	ADMIN_ONLY
+	SHOW_VERB_DESC
 
 	src.holder.setLoginNotice(ckey(target))
 
@@ -679,10 +713,8 @@
 	set name = "Polymorph Player"
 	set desc = "Futz with a human mob's DNA."
 	set popup_menu = 0
-
-	if (!src.holder)
-		boutput(src, "Only administrators may use this command.")
-		return
+	ADMIN_ONLY
+	SHOW_VERB_DESC
 
 	if(!ishuman(M))
 		alert("Invalid mob")
@@ -760,28 +792,25 @@
 			src.tf_holder.mobAppearance.flavor_text = new_text
 
 		else if (href_list["customization_first"])
-			var/list/customization_types = concrete_typesof(/datum/customization_style)
-			var/new_style = select_custom_style(customization_types, usr)
+			var/new_style = select_custom_style(usr)
 
 			if (new_style)
-				src.tf_holder.mobAppearance.customization_first = new_style
-				src.tf_holder.mobAppearance.customization_first_original = new_style
+				src.tf_holder.mobAppearance.customizations["hair_bottom"].style = new_style
+				src.tf_holder.mobAppearance.customizations["hair_bottom"].style_original = new_style
 
 		else if (href_list["customization_second"])
-			var/list/customization_types = concrete_typesof(/datum/customization_style)
-			var/new_style = select_custom_style(customization_types, usr)
+			var/new_style = select_custom_style(usr)
 
 			if (new_style)
-				src.tf_holder.mobAppearance.customization_second = new_style
-				src.tf_holder.mobAppearance.customization_second_original = new_style
+				src.tf_holder.mobAppearance.customizations["hair_middle"].style = new_style
+				src.tf_holder.mobAppearance.customizations["hair_middle"].style_original = new_style
 
 		else if (href_list["customization_third"])
-			var/list/customization_types = concrete_typesof(/datum/customization_style)
-			var/new_style = select_custom_style(customization_types, usr)
+			var/new_style = select_custom_style(usr)
 
 			if (new_style)
-				src.tf_holder.mobAppearance.customization_third = new_style
-				src.tf_holder.mobAppearance.customization_third_original = new_style
+				src.tf_holder.mobAppearance.customizations["hair_top"].style = new_style
+				src.tf_holder.mobAppearance.customizations["hair_top"].style_original = new_style
 
 		else if (href_list["age"])
 			var/minage = 20
@@ -805,20 +834,20 @@
 		else if (href_list["hair"])
 			var/new_hair = input(usr, "Please select hair color.", "Polymorph Menu") as color
 			if(new_hair)
-				src.tf_holder.mobAppearance.customization_first_color = new_hair
-				src.tf_holder.mobAppearance.customization_first_color_original = new_hair
+				src.tf_holder.mobAppearance.customizations["hair_bottom"].color = new_hair
+				src.tf_holder.mobAppearance.customizations["hair_bottom"].color_original = new_hair
 
 		else if (href_list["facial"])
 			var/new_facial = input(usr, "Please select detail 1 color.", "Polymorph Menu") as color
 			if(new_facial)
-				src.tf_holder.mobAppearance.customization_second_color = new_facial
-				src.tf_holder.mobAppearance.customization_second_color_original = new_facial
+				src.tf_holder.mobAppearance.customizations["hair_middle"].color = new_facial
+				src.tf_holder.mobAppearance.customizations["hair_middle"].color_original = new_facial
 
 		else if (href_list["detail"])
 			var/new_detail = input(usr, "Please select detail 2 color.", "Polymorph Menu") as color
 			if(new_detail)
-				src.tf_holder.mobAppearance.customization_third_color = new_detail
-				src.tf_holder.mobAppearance.customization_third_color_original = new_detail
+				src.tf_holder.mobAppearance.customizations["hair_top"].color = new_detail
+				src.tf_holder.mobAppearance.customizations["hair_top"].color_original = new_detail
 
 		else if (href_list["eyes"])
 			var/new_eyes = input(usr, "Please select eye color.", "Polymorph Menu") as color
@@ -900,7 +929,7 @@
 		dat += "<a href='byond://?src=\ref[src];real_name=input'><b>[src.real_name]</b></a> "
 		dat += "<br>"
 
-		dat += "<b>Gender:</b> <a href='byond://?src=\ref[src];gender=input'><b>[src.tf_holder.mobAppearance.gender == MALE ? "Male" : "Female"]</b></a><br>"
+		dat += "<b>Body Type:</b> <a href='byond://?src=\ref[src];gender=input'><b>[src.tf_holder.mobAppearance.gender == MALE ? "Male" : "Female"]</b></a><br>"
 		dat += "<b>Age:</b> <a href='byond://?src=\ref[src];age=input'>[src.tf_holder.age]</a>"
 
 		dat += "<hr><table><tr><td><b>Body</b><br>"
@@ -916,14 +945,14 @@
 		dat += "</td><td><b>Preview</b><br><img src=polymorphicon.png height=64 width=64></td></tr></table>"
 
 		dat += "<hr><b>Bottom Detail</b><br>"
-		dat += "<a href='byond://?src=\ref[src];hair=input'>Change Color</a> <font face=\"fixedsys\" size=\"3\" color=\"[src.tf_holder.mobAppearance.customization_first_color]\"><table bgcolor=\"[src.tf_holder.mobAppearance.customization_first_color]\"><tr><td>C1</td></tr></table></font>"
-		dat += "Style: <a href='byond://?src=\ref[src];customization_first=input'>[src.tf_holder.mobAppearance.customization_first.name]</a>"
+		dat += "<a href='byond://?src=\ref[src];hair=input'>Change Color</a> <font face=\"fixedsys\" size=\"3\" color=\"[src.tf_holder.mobAppearance.customizations["hair_bottom"].color]\"><table bgcolor=\"[src.tf_holder.mobAppearance.customizations["hair_bottom"].color]\"><tr><td>C1</td></tr></table></font>"
+		dat += "Style: <a href='byond://?src=\ref[src];customization_first=input'>[src.tf_holder.mobAppearance.customizations["hair_bottom"].style.name]</a>"
 		dat += "<hr><b>Mid Detail</b><br>"
-		dat += "<a href='byond://?src=\ref[src];facial=input'>Change Color</a> <font face=\"fixedsys\" size=\"3\" color=\"[src.tf_holder.mobAppearance.customization_second_color]\"><table bgcolor=\"[src.tf_holder.mobAppearance.customization_second_color]\"><tr><td>C2</td></tr></table></font>"
-		dat += "Style: <a href='byond://?src=\ref[src];customization_second=input'>[src.tf_holder.mobAppearance.customization_second.name]</a>"
+		dat += "<a href='byond://?src=\ref[src];facial=input'>Change Color</a> <font face=\"fixedsys\" size=\"3\" color=\"[src.tf_holder.mobAppearance.customizations["hair_middle"].color]\"><table bgcolor=\"[src.tf_holder.mobAppearance.customizations["hair_middle"].color]\"><tr><td>C2</td></tr></table></font>"
+		dat += "Style: <a href='byond://?src=\ref[src];customization_second=input'>[src.tf_holder.mobAppearance.customizations["hair_middle"].style.name]</a>"
 		dat += "<hr><b>Top Detail</b><br>"
-		dat += "<a href='byond://?src=\ref[src];detail=input'>Change Color</a> <font face=\"fixedsys\" size=\"3\" color=\"[src.tf_holder.mobAppearance.customization_third_color]\"><table bgcolor=\"[src.tf_holder.mobAppearance.customization_third_color]\"><tr><td>C3</td></tr></table></font>"
-		dat += "Style: <a href='byond://?src=\ref[src];customization_third=input'>[src.tf_holder.mobAppearance.customization_third.name]</a>"
+		dat += "<a href='byond://?src=\ref[src];detail=input'>Change Color</a> <font face=\"fixedsys\" size=\"3\" color=\"[src.tf_holder.mobAppearance.customizations["hair_top"].color]\"><table bgcolor=\"[src.tf_holder.mobAppearance.customizations["hair_top"].color]\"><tr><td>C3</td></tr></table></font>"
+		dat += "Style: <a href='byond://?src=\ref[src];customization_third=input'>[src.tf_holder.mobAppearance.customizations["hair_top"].style.name]</a>"
 
 		dat += "<hr><b>Eyes</b><br>"
 		dat += "<a href='byond://?src=\ref[src];eyes=input'>Change Color</a> <font face=\"fixedsys\" size=\"3\" color=\"[src.tf_holder.mobAppearance.e_color]\"><table bgcolor=\"[src.tf_holder.mobAppearance.e_color]\"><tr><td>EC</td></tr></table></font>"
@@ -958,7 +987,7 @@
 
 		switch(src.cinematic)
 			if("Changeling") //Heh
-				target_mob.visible_message("<span class='alert'><b>[target_mob] transforms!</b></span>")
+				target_mob.visible_message(SPAN_ALERT("<b>[target_mob] transforms!</b>"))
 
 			if("Wizard") //Heh 2: Merlin Edition
 				qdel(target_mob.wear_suit)
@@ -975,7 +1004,7 @@
 				smoke.attach(target_mob)
 				smoke.start()
 
-				target_mob.visible_message("<span class='alert'><b>The glamour around [old_name] drops!</b></span>")
+				target_mob.visible_message(SPAN_ALERT("<b>The glamour around [old_name] drops!</b>"))
 				target_mob.say("DISPEL!")
 
 			if("Smoke")
@@ -995,24 +1024,27 @@
 	proc/sanitize_null_values(var/mob/living/carbon/human/target_mob)
 		if (!target_mob || !target_mob.bioHolder || !target_mob.bioHolder.mobAppearance) return
 		var/datum/appearanceHolder/AH = target_mob.bioHolder.mobAppearance
+		var/datum/customizationHolder/customization_first = AH.customizations["hair_bottom"]
+		var/datum/customizationHolder/customization_second = AH.customizations["hair_middle"]
+		var/datum/customizationHolder/customization_third = AH.customizations["hair_top"]
 		if (!src.tf_holder.mobAppearance.gender || !(src.tf_holder.mobAppearance.gender == MALE || src.tf_holder.mobAppearance.gender == FEMALE))
 			src.tf_holder.mobAppearance.gender = MALE
 		if (!AH)
 			AH = new
 		if (AH.gender != src.tf_holder.mobAppearance.gender)
 			AH.gender = src.tf_holder.mobAppearance.gender
-		if (AH.customization_first_color == null)
-			AH.customization_first_color = "#101010"
-		if (AH.customization_first == null)
-			AH.customization_first = new /datum/customization_style/none
-		if (AH.customization_second_color == null)
-			AH.customization_second_color = "#101010"
-		if (AH.customization_second == null)
-			AH.customization_second = new /datum/customization_style/none
-		if (AH.customization_third_color == null)
-			AH.customization_third_color = "#101010"
-		if (AH.customization_third == null)
-			AH.customization_third = new /datum/customization_style/none
+		if (customization_first.color == null)
+			customization_first.color = "#101010"
+		if (customization_first.style == null)
+			customization_first.style = new /datum/customization_style/none
+		if (customization_second.color == null)
+			customization_second.color = "#101010"
+		if (customization_second.style == null)
+			customization_second.style = new /datum/customization_style/none
+		if (customization_third.color == null)
+			customization_third.color = "#101010"
+		if (customization_third.style == null)
+			customization_third.style = new /datum/customization_style/none
 		if (AH.e_color == null)
 			AH.e_color = "#101010"
 		if (AH.u_color == null)
@@ -1035,7 +1067,7 @@
 		var/customization_second_r = null
 		var/customization_third_r = null
 
-		src.preview_icon = new /icon(src.mutantrace.icon, src.mutantrace.icon_state) //todo: #14465
+		src.preview_icon = new /icon(src.mutantrace.get_typeinfo().icon, src.mutantrace.icon_state) //todo: #14465
 
 		if(!src.mutantrace?.override_skintone)
 			// Skin tone
@@ -1049,27 +1081,27 @@
 			src.preview_icon.Blend(eyes_s, ICON_OVERLAY)
 
 		if(!src.mutantrace?.override_hair)
-			customization_first_r = src.tf_holder.mobAppearance.customization_first.id
+			customization_first_r = src.tf_holder.mobAppearance.customizations["hair_bottom"].style.id
 			if(!customization_first_r)
 				customization_first_r = "none"
-			var/icon/hair_s = new/icon("icon" = 'icons/mob/human_hair.dmi', "icon_state" = customization_first_r)
-			hair_s.Blend(src.tf_holder.mobAppearance.customization_first_color, ICON_MULTIPLY)
+			var/icon/hair_s = new/icon("icon" =  src.tf_holder.mobAppearance.customizations["hair_bottom"].style.icon, "icon_state" = customization_first_r)
+			hair_s.Blend(src.tf_holder.mobAppearance.customizations["hair_bottom"].color, ICON_MULTIPLY)
 			eyes_s.Blend(hair_s, ICON_OVERLAY)
 
 		if(!src.mutantrace?.override_beard)
-			customization_second_r = src.tf_holder.mobAppearance.customization_second.id
+			customization_second_r = src.tf_holder.mobAppearance.customizations["hair_middle"].style.id
 			if(!customization_second_r)
 				customization_second_r = "none"
-			var/icon/facial_s = new/icon("icon" = 'icons/mob/human_hair.dmi', "icon_state" = customization_second_r)
-			facial_s.Blend(src.tf_holder.mobAppearance.customization_second_color, ICON_MULTIPLY)
+			var/icon/facial_s = new/icon("icon" = src.tf_holder.mobAppearance.customizations["hair_middle"].style.icon, "icon_state" = customization_second_r)
+			facial_s.Blend(src.tf_holder.mobAppearance.customizations["hair_middle"].color, ICON_MULTIPLY)
 			eyes_s.Blend(facial_s, ICON_OVERLAY)
 
 		if(!src.mutantrace?.override_detail)
-			customization_third_r = src.tf_holder.mobAppearance.customization_third.id
+			customization_third_r = src.tf_holder.mobAppearance.customizations["hair_top"].style.id
 			if(!customization_third_r)
 				customization_third_r = "none"
-			var/icon/detail_s = new/icon("icon" = 'icons/mob/human_hair.dmi', "icon_state" = customization_third_r)
-			detail_s.Blend(src.tf_holder.mobAppearance.customization_third_color, ICON_MULTIPLY)
+			var/icon/detail_s = new/icon("icon" = src.tf_holder.mobAppearance.customizations["hair_top"].style.icon, "icon_state" = customization_third_r)
+			detail_s.Blend(src.tf_holder.mobAppearance.customizations["hair_top"].color, ICON_MULTIPLY)
 			eyes_s.Blend(detail_s, ICON_OVERLAY)
 
 		src.preview_icon.Blend(eyes_s, ICON_OVERLAY)
@@ -1080,6 +1112,8 @@
 	SET_ADMIN_CAT(ADMIN_CAT_ATOM)
 	set name = "Remove All Labels"
 	set popup_menu = 0
+	ADMIN_ONLY
+	SHOW_VERB_DESC
 
 	for (var/atom/A in world)
 		if(!isnull(A.name_suffixes))
@@ -1094,6 +1128,7 @@
 	set name = "Aview"
 	set popup_menu = 0
 	ADMIN_ONLY
+	SHOW_VERB_DESC
 	if (!src.holder)
 		boutput(src, "Only administrators may use this command.")
 		return
@@ -1119,6 +1154,7 @@
 	set name = "iddt"
 	set popup_menu = 0
 	ADMIN_ONLY
+	SHOW_VERB_DESC
 	usr.client.cmd_admin_advview()
 	if (src.adventure_view)
 		src.mob.bioHolder.AddEffect("xray", magical = 1)
@@ -1131,6 +1167,8 @@
 	set name = "Adventure View"
 	set popup_menu = 0
 	set desc = "When toggled on, you will be able to see all 'hidden' adventure elements regardless of your current mob."
+	ADMIN_ONLY
+	SHOW_VERB_DESC
 
 	src._cmd_admin_advview()
 
@@ -1166,10 +1204,11 @@
 	set popup_menu = 0
 	M.oldmob = usr
 	M.oldmind = M.mind
-	boutput(M, "<span class='alert'>Your soul is forced out of your body!</span>")
+	boutput(M, SPAN_ALERT("Your soul is forced out of your body!"))
 	M.ghostize()
 	var/ckey = usr.key
 	M.mind = usr.mind
+	usr.mind.current = M
 	M.ckey = ckey
 
 /proc/releasemob(mob/M as mob in world)
@@ -1179,12 +1218,15 @@
 	if(M.oldmob)
 		M.oldmob.mind = usr.mind
 		usr.client.mob = M.oldmob
+		usr.mind.current = M.oldmob
 	else
 		M.ghostize()
 	M.mind = M.oldmind
+	if (M.oldmind) // If mob was an admin spawned human or npc, no need to set oldmind as there is none
+		M.oldmind.current = M
 	if(M.mind)
 		M.ckey = M.mind.key
-	boutput(M, "<span class='alert'>Your soul is sucked back into your body!</span>")
+	boutput(M, SPAN_ALERT("Your soul is sucked back into your body!"))
 
 /client/proc/cmd_whois(target as text)
 	set name = "Whois"
@@ -1192,11 +1234,12 @@
 	set desc = "Lookup a player by string (can search: mob names, byond keys and job titles)"
 	set popup_menu = 0
 	ADMIN_ONLY
+	SHOW_VERB_DESC
 
-	target = trim(lowertext(target))
+	target = trimtext(lowertext(target))
 	if (!target) return 0
 
-	var/list/msg = list("<span class='notice'>")
+	var/list/msg = list()
 	var/whois = whois(target)
 	if (whois)
 		var/list/whoisR = whois
@@ -1207,8 +1250,7 @@
 	else
 		msg += "No players found for '[target]'"
 
-	msg += "</span>"
-	boutput(src, msg.Join())
+	boutput(src, SPAN_NOTICE("[msg.Join()]"))
 
 /client/proc/cmd_whodead()
 	set name = "Whodead"
@@ -1216,8 +1258,9 @@
 	set desc = "Lookup everyone who's dead"
 	set popup_menu = 0
 	ADMIN_ONLY
+	SHOW_VERB_DESC
 
-	var/list/msg = list("<span class='notice'>")
+	var/list/msg = list()
 	var/list/whodead = whodead()
 	if (whodead.len)
 		msg += "<b>Dead player[(length(whodead) == 1 ? "" : "s")] found:</b><br>"
@@ -1226,9 +1269,7 @@
 			msg += "<b>[key_name(M, 1, 0)][role ? " ([role])" : ""]</b><br>"
 	else
 		msg += "No dead players found"
-
-	msg += "</span>"
-	boutput(src, msg.Join())
+	boutput(src, SPAN_NOTICE("[msg.Join()]"))
 
 /client/proc/debugreward()
 	set background = 1
@@ -1237,9 +1278,10 @@
 	SET_ADMIN_CAT(ADMIN_CAT_DEBUG)
 	set popup_menu = 0
 	ADMIN_ONLY
+	SHOW_VERB_DESC
 
 	SPAWN(0)
-		boutput(usr, "<span class='alert'>Generating reward list.</span>")
+		boutput(usr, SPAN_ALERT("Generating reward list."))
 		var/list/eligible = list()
 		for (var/A in rewardDB)
 			var/datum/achievementReward/D = rewardDB[A]
@@ -1247,7 +1289,7 @@
 			eligible[D.title] = D
 
 		if (!length(eligible))
-			boutput(usr, "<span class='alert'>Sorry, you don't have any rewards available.</span>")
+			boutput(usr, SPAN_ALERT("Sorry, you don't have any rewards available."))
 			return
 
 		var/selection = input(usr,"Please select your reward", "VIP Rewards","CANCEL") as null|anything in eligible
@@ -1264,7 +1306,7 @@
 				break
 
 		if (S == null)
-			boutput(usr, "<span class='alert'>Invalid Rewardtype after selection. Please inform a coder.</span>")
+			boutput(usr, SPAN_ALERT("Invalid Rewardtype after selection. Please inform a coder."))
 
 		var/M = alert(usr,S.desc + "\n(Earned through the \"[S.required_medal]\" Medal)","Claim this Reward?","Yes","No")
 		if (M == "Yes")
@@ -1276,6 +1318,7 @@
 	set name = "Check Health"
 	set desc = "Checks the health of someone."
 	ADMIN_ONLY
+	SHOW_VERB_DESC
 
 	if (!target)
 		return
@@ -1290,6 +1333,7 @@
 	set name = "Check Reagents"
 	set desc = "Checks the reagents of something."
 	ADMIN_ONLY
+	SHOW_VERB_DESC
 
 	src.check_reagents_internal(target)
 
@@ -1310,13 +1354,13 @@
 				src.check_reagents_internal(T.active_airborne_liquid, refresh)
 
 	var/datum/reagents/reagents = 0
-	if (!target.reagents) // || !target.reagents.total_volume)
+	if (!target.reagents || (isturf(target) && !target.reagents.total_volume)) // || !target.reagents.total_volume)
 		if (istype(target,/obj/fluid))
 			var/obj/fluid/F = target
 			if (F.group && F.group.reagents)
 				reagents = F.group.reagents
 		if (!reagents)
-			boutput(usr, "<span class='notice'><b>[target] contains no reagents.</b></span>")
+			boutput(usr, SPAN_NOTICE("<b>[target] contains no reagents.</b>"))
 			return
 	else
 		reagents = target.reagents
@@ -1330,6 +1374,7 @@
 	var/pct = display_max ? (reagents.total_volume / display_max) : 1
 	var/datum/color/color = reagents.get_average_color()
 	var/log_reagents = ""
+	var/base_url = "?src=\ref[src.holder];target=\ref[target];origin=reagent_report;action="
 
 	var/report_reagents = ""
 
@@ -1347,21 +1392,21 @@
 		<tr>
 			<td>[current_reagent.name]</td>
 			<td>[current_reagent.id]</td>
-			<td align='right'>[current_reagent.volume]</td>
+			<td align='right'>[current_reagent.volume] <a href="[base_url]removereagent;skip_pick=[current_reagent.id]">\[-\]</a></td>
 		</tr>
 		"}
 
 
-	var/refresh_url = "?src=\ref[src.holder];action=checkreagent_refresh;target=\ref[target];origin=reagent_report"
 	var/final_report = {"
 	<style type='text/css'>
 		* {
 			box-sizing: border-box;
 		}
+		#cmd { float: right; text-align: right; }
 		.reagents {
 			position: relative;
 			width: 100%;
-			padding: 2px;
+			padding: 1px 0 0 0;
 			border: 1px solid white;
 			background: black;
 			height: 2em;
@@ -1404,11 +1449,17 @@
 			}
 
 	</style>
-	Reagent Report for <b>[target]</b> <a style="display:block;float:right;" href="[refresh_url]">Refresh</a>
+	<div id="cmd">
+		<a href="[base_url]checkreagent_refresh">Refresh</a><br>
+		<a href="[base_url]checkreagent_add">Add Reagent</a><br>
+		<a href="[base_url]removereagent">Remove Reagents</a><br>
+		<a href="[base_url]checkreagent_flush">Flush All</a>
+	</div>Reagent Report for <b>[target]</b>
 	<hr>
-	<br>Temperature: [reagents.total_temperature]&deg;K ([reagents.total_temperature - 273.15]&deg;C)
+	Temperature: [reagents.total_temperature]&deg;K ([reagents.total_temperature - 273.15]&deg;C)
 	<br>Volume: [reagents.total_volume] / [reagents.maximum_volume]
-	<br><div class='reagents' id='reagents2'>[bar]</div><div class='reagents' style='height: 0.75em;'><div style='color: [color.to_rgb()]; width: [pct * 100]%;'></div></div>
+	<hr style="clear: both;">
+	<div class='reagents' id='reagents2'>[bar]</div><div class='reagents' style='height: 0.75em;'><div style='color: [color.to_rgb()]; width: [pct * 100]%;'></div></div>
 	<br>Colour: <div style='display: inline-block; width: 1em; border: 1px solid black; background: [color.to_rgb()]; position: relative; height: 1em;'></div> [color.to_rgba()] ([color.r] [color.g] [color.b], [color.a])
 	<table border="0" style="width:100%">
 	<tbody>
@@ -1425,7 +1476,7 @@
 		log_reagents = "(nothing)"
 
 	if(!refresh)
-		boutput(usr, "<span class='notice'><b>[target]'s reagents</b> ([reagents.total_volume] / [reagents.maximum_volume])<br>[log_reagents]</span><br>Temp: <i>[reagents.total_temperature]&deg;K ([reagents.total_temperature - 273.15]&deg;C)</i>") // Added temperature (Convair880).
+		boutput(usr, "[SPAN_NOTICE("<b>[target]'s reagents</b> ([reagents.total_volume] / [reagents.maximum_volume])<br>[log_reagents]")]<br>Temp: <i>[reagents.total_temperature]&deg;K ([reagents.total_temperature - 273.15]&deg;C)</i>") // Added temperature (Convair880).
 	usr.Browse(final_report, "window=reagent_report")
 
 	logTheThing(LOG_ADMIN, usr, "checked the reagents of [target] <i>(<b>Contents:</b>[log_reagents])</i>. <b>Temp:</b> <i>[reagents.total_temperature] K</i>) [log_loc(target)]")
@@ -1437,6 +1488,7 @@
 	SET_ADMIN_CAT(ADMIN_CAT_PLAYERS)
 	set popup_menu = 0
 	ADMIN_ONLY
+	SHOW_VERB_DESC
 
 	src.POK(ckey)
 
@@ -1446,6 +1498,7 @@
 	SET_ADMIN_CAT(ADMIN_CAT_NONE)
 	set popup_menu = 0
 	ADMIN_ONLY
+	SHOW_VERB_DESC
 
 	var/mob/target
 	if (!ckey)
@@ -1466,6 +1519,7 @@
 	SET_ADMIN_CAT(ADMIN_CAT_NONE)
 	set popup_menu = 0
 	ADMIN_ONLY
+	SHOW_VERB_DESC
 
 	if (!M)
 		M = input("Please, select a player!", "Player Options (Mob)", null, null) as null|anything in mob
@@ -1475,28 +1529,13 @@
 	if(holder)
 		src.holder.playeropt(M)
 
-/obj/proc/addpathogens()
-	USR_ADMIN_ONLY
-	var/obj/A = src
-	if(!A.reagents) A.create_reagents(100)
-	var/amount = input(usr,"Amount:","Amount",50) as num
-	if(!amount) return
-
-	A.reagents.add_reagent("pathogen", amount)
-	var/datum/reagent/blood/pathogen/R = A.reagents.get_reagent("pathogen")
-	var/datum/pathogen/P = new /datum/pathogen
-	P.setup(1)
-	R.pathogens += P.pathogen_uid
-	R.pathogens[P.pathogen_uid] = P
-
-	boutput(usr, "<span class='success'>Added [amount] units of pathogen to [A.name] with pathogen [P.name].</span>")
-
 /client/proc/addreagents(var/atom/A in world)
 	SET_ADMIN_CAT(ADMIN_CAT_NONE)
 	set name = "Add Reagent"
 	set popup_menu = 0
 
 	ADMIN_ONLY
+	SHOW_VERB_DESC
 
 	var/datum/reagents/reagents = A.reagents
 
@@ -1507,29 +1546,15 @@
 		A.create_reagents(100) // we don't ask for a specific amount since if you exceed 100 it gets asked about below
 		reagents = A.reagents
 
-	var/list/L = list()
-	var/searchFor = input(usr, "Look for a part of the reagent name (or leave blank for all)", "Add reagent") as null|text
-	if(searchFor)
-		for(var/R in concrete_typesof(/datum/reagent))
-			if(findtext("[R]", searchFor)) L += R
-
-	var/type
-	if(length(L) == 1)
-		type = L[1]
-	else if(length(L) > 1)
-		type = input(usr,"Select Reagent:","Reagents",null) as null|anything in L
-	else
-		usr.show_text("No reagents matching that name", "red")
+	var/datum/reagent/reagent = pick_reagent(src.mob)
+	if (!reagent)
 		return
-
-	if(!type) return
-	var/datum/reagent/reagent = new type()
 
 	var/amount = input(usr, "Amount:", "Amount", 50) as null|num
 	if(!amount)
 		return
 	var/overflow = amount - (reagents.maximum_volume - reagents.total_volume)
-	if (overflow > 0) // amount exceeds reagent space
+	if (overflow > 0.0001) // amount exceeds reagent space by more than micro-amounts
 		if (tgui_alert(usr, "That amount of reagents exceeds the available space by [overflow] units. Increase the reagent cap of [A] to fit?",
 			"Reagent Cap Expansion", list("Yes", "No")) == "Yes")
 			reagents.maximum_volume += overflow
@@ -1542,7 +1567,7 @@
 			amount = -(overflow - amount)
 
 	reagents.add_reagent(reagent.id, amount)
-	boutput(usr, "<span class='success'>Added [amount] units of [reagent.id] to [A.name].</span>")
+	boutput(usr, SPAN_SUCCESS("Added [amount] units of [reagent.id] to [A.name]."))
 
 	// Brought in line with adding reagents via the player panel (Convair880).
 	logTheThing(LOG_ADMIN, src, "added [amount] units of [reagent.id] to [A] at [log_loc(A)].")
@@ -1553,6 +1578,18 @@
 		var/obj/fluid/fluid = A
 		fluid.group?.update_loop()
 
+
+/client/proc/flushreagents(var/atom/A in world)
+	SET_ADMIN_CAT(ADMIN_CAT_NONE)
+	set name = "Flush Reagents"
+	set popup_menu = 0
+
+	ADMIN_ONLY
+	SHOW_VERB_DESC
+
+	var/datum/reagents/reagents = A.reagents
+	if (reagents)
+		reagents.remove_any(INFINITY)
 
 /client/proc/cmd_set_material(var/atom/A in world)
 	SET_ADMIN_CAT(ADMIN_CAT_NONE)
@@ -1574,6 +1611,7 @@
 	set name = "Cat County"
 	set desc = "We can't stop here!"
 	ADMIN_ONLY
+	SHOW_VERB_DESC
 
 	var/catcounter = 0
 	for(var/obj/vehicle/segway/S in by_type[/obj/vehicle])
@@ -1595,6 +1633,7 @@
 	SET_ADMIN_CAT(ADMIN_CAT_FUN)
 	set name = "Fake PDA Message To All"
 	ADMIN_ONLY
+	SHOW_VERB_DESC
 
 	var/sender_name = tgui_input_text(src, "PDA message sender name", "Name")
 	var/message = tgui_input_text(src, "PDA message contents", "Contents")
@@ -1614,9 +1653,14 @@
 	SET_ADMIN_CAT(ADMIN_CAT_FUN)
 	set name = "Force Say In Range"
 	ADMIN_ONLY
+	SHOW_VERB_DESC
 
 	var/speech = tgui_input_text(src, "What to force say", "Say")
+	if(isnull(speech))
+		return
 	var/range = tgui_input_number(src, "Tile range", "Range", 5, 7, 1)
+	if(isnull(range))
+		return
 
 	for (var/mob/M in range(range, usr))
 		if (isalive(M))
@@ -1639,7 +1683,7 @@
 			Bee.set_density(initial(Bee.density))
 			Bee.UpdateIcon()
 			Bee.on_revive()
-			Bee.visible_message("<span class='alert'>[Bee] seems to rise from the dead!</span>")
+			Bee.visible_message(SPAN_ALERT("[Bee] seems to rise from the dead!"))
 			revived ++
 	for (var/obj/critter/domestic_bee_larva/Larva in world)
 		LAGCHECK(LAG_LOW)
@@ -1649,7 +1693,7 @@
 			Larva.icon_state = initial(Larva.icon_state)
 			Larva.set_density(initial(Larva.density))
 			Larva.on_revive()
-			Larva.visible_message("<span class='alert'>[Larva] seems to rise from the dead!</span>")
+			Larva.visible_message(SPAN_ALERT("[Larva] seems to rise from the dead!"))
 			revived ++
 	logTheThing(LOG_ADMIN, src, "revived [revived] bee[revived == 1 ? "" : "s"].")
 	message_admins("[key_name(src)] revived [revived] bee[revived == 1 ? "" : "s"]!")
@@ -1665,7 +1709,7 @@
 		if (isdead(Cat))
 			Cat.full_heal()
 			Cat.set_icon_state(Cat.icon_state_alive)
-			Cat.visible_message("<span class='alert'>[Cat] seems to rise from the dead!</span>")
+			Cat.visible_message(SPAN_ALERT("[Cat] seems to rise from the dead!"))
 			revived ++
 	logTheThing(LOG_ADMIN, src, "revived [revived] cat[revived == 1 ? "" : "s"].")
 	message_admins("[key_name(src)] revived [revived] cat[revived == 1 ? "" : "s"]!")
@@ -1684,7 +1728,7 @@
 			Bird.icon_state = Bird.species
 			Bird.set_density(initial(Bird.density))
 			Bird.on_revive()
-			Bird.visible_message("<span class='alert'>[Bird] seems to rise from the dead!</span>")
+			Bird.visible_message(SPAN_ALERT("[Bird] seems to rise from the dead!"))
 			revived ++
 	logTheThing(LOG_ADMIN, src, "revived [revived] parrot[revived == 1 ? "" : "s"].")
 	message_admins("[key_name(src)] revived [revived] parrot[revived == 1 ? "" : "s"]!")
@@ -1704,6 +1748,7 @@
 	set desc = "Transfer a client to the selected mob."
 	set popup_menu = 0 //Imagine if we could have subcategories in the popup menus. Wouldn't that be nice?
 	ADMIN_ONLY
+	SHOW_VERB_DESC
 
 	if (M.ckey)
 		var/con = alert("[M] currently has a ckey. Continue?",, "Yes", "No")
@@ -1731,6 +1776,7 @@
 	set popup_menu = 0 //Imagine if we could have subcategories in the popup menus. Wouldn't that be nice?
 
 	ADMIN_ONLY
+	SHOW_VERB_DESC
 	if(!M || M == usr ) return
 
 	if(usr.mind)
@@ -1802,26 +1848,11 @@
 	SET_ADMIN_CAT(ADMIN_CAT_UNUSED)
 	set popup_menu = 0
 	ADMIN_ONLY
+	SHOW_VERB_DESC
 
-	var/list/L = list()
-	var/searchFor = input(usr, "Look for a part of the reagent name (or leave blank for all)", "Add reagent") as null|text
-	if(searchFor)
-		for(var/R in concrete_typesof(/datum/reagent))
-			if(findtext("[R]", searchFor)) L += R
-	else
-		L = concrete_typesof(/datum/reagent)
-
-	var/type
-	if(length(L) == 1)
-		type = L[1]
-	else if(length(L) > 1)
-		type = input(usr,"Select Reagent:","Reagents",null) as null|anything in L
-	else
-		usr.show_text("No reagents matching that name", "red")
+	var/datum/reagent/reagent = pick_reagent(src.mob)
+	if (!reagent)
 		return
-
-	if(!type) return
-	var/datum/reagent/reagent = new type()
 
 	var/amount = input(usr,"Amount:","Amount",50) as null|num
 	if(!amount) return
@@ -1849,25 +1880,9 @@
 	if (!T)
 		return
 
-	var/list/L = list()
-	var/searchFor = input(usr, "Look for a part of the reagent name (or leave blank for all)", "Add reagent") as null|text
-	if(searchFor)
-		for(var/R in concrete_typesof(/datum/reagent))
-			if(findtext("[R]", searchFor)) L += R
-	else
-		L = concrete_typesof(/datum/reagent)
-
-	var/type = 0
-	if(length(L) == 1)
-		type = L[1]
-	else if(length(L) > 1)
-		type = input(usr,"Select Reagent:","Reagents",null) as null|anything in L
-	else
-		usr.show_text("No reagents matching that name", "red")
+	var/datum/reagent/reagent = pick_reagent(src.mob)
+	if (!reagent)
 		return
-
-	if(!type) return
-	var/datum/reagent/reagent = new type()
 	var/amount = input(usr,"Amount:","Amount",100) as null|num
 	if(!amount) return
 
@@ -1877,64 +1892,13 @@
 
 	T.fluid_react_single(reagent.id, amount)
 
-/*
-/client/proc/admin_airborne_fluid(var/turf/T in world)
-	set name = "Create Airborne Fluid"
-	SET_ADMIN_CAT(ADMIN_CAT_UNUSED)
-	set desc = "Attempt an airborne fluid reaction on a turf."
-	set popup_menu = 1
-	ADMIN_ONLY
-
-	if (!T)
-		return
-
-	var/list/L = list()
-	var/searchFor = input(usr, "Look for a part of the reagent name (or leave blank for all)", "Add reagent") as null|text
-	if(searchFor)
-		for(var/R in concrete_typesof(/datum/reagent))
-			if(findtext("[R]", searchFor)) L += R
-	else
-		L = concrete_typesof(/datum/reagent)
-
-	var/type = 0
-	if(length(L) == 1)
-		type = L[1]
-	else if(length(L) > 1)
-		type = input(usr,"Select Reagent:","Reagents",null) as null|anything in L
-	else
-		usr.show_text("No reagents matching that name", "red")
-		return
-
-	if(!type) return
-	var/datum/reagent/reagent = new type()
-	var/amount = input(usr,"Amount:","Amount",100) as null|num
-	if(!amount) return
-
-
-	logTheThing(LOG_ADMIN, src, "created fluid at [T] : [reagent.id] with volume [amount] at [log_loc(T)].")
-	message_admins("[key_name(src)] created fluid at [T] : [reagent.id] with volume [amount] at [log_loc(T)].)")
-
-	T.fluid_react_single(reagent.id, amount, airborne = 1)
-
-
-	if (T.active_airborne_liquid && T.active_airborne_liquid.group)
-		var/datum/fluid_group/FG
-		FG = T.active_airborne_liquid.group
-		spawn()
-			FG.required_to_spread = 1
-			FG.update_once()
-			FG.update_once()
-			FG.update_once()
-			FG.required_to_spread = initial(FG.required_to_spread)
-*/
-
-
 /client/proc/admin_follow_mobject(var/atom/target as mob|obj in world)
 	SET_ADMIN_CAT(ADMIN_CAT_ATOM)
 	set popup_menu = 0
 	set name = "Follow Thing"
 	set desc = "It's like observing, but without that part where you see everything as the person you're observing. Move to cancel if an observer, or use any jump command to leave if alive."
 	ADMIN_ONLY
+	SHOW_VERB_DESC
 
 	usr:set_loc(target)
 	logTheThing(LOG_ADMIN, usr, "began following [target].")
@@ -1945,13 +1909,14 @@
 	set name = "Observe Random Player"
 	set desc = "Observe a random living logged-in player."
 	ADMIN_ONLY
+	SHOW_VERB_DESC
 
 	if (!isobserver(src.mob))
-		boutput(src, "<span class='alert'>Error: you must be an observer to use this command.</span>")
+		boutput(src, SPAN_ALERT("Error: you must be an observer to use this command."))
 		return
 
 	if (istype(src.mob, /mob/dead/target_observer))
-		qdel(src.mob)
+		qdel(src.mob) // so we don't leave a bunch of these empty observers inside mobs
 
 	var/mob/dead/observer/O = src.mob
 	var/client/C
@@ -1961,13 +1926,16 @@
 	while (!isliving(M))
 		i++
 		if (i > 10) // sorry, magic
-			boutput(src, "<span class='alert'>Error: no valid players found.</span>")
+			boutput(src, SPAN_ALERT("Error: no valid players found."))
 			return
 		C = pick(clients)
 		if (C?.mob)
 			M = C.mob
 
 	O.insert_observer(M)
+	usr = src.mob // necessary so the get_desc() call works
+	boutput(src, SPAN_NOTICE("Now observing <b>[M] ([C])</b><br>") + M.get_desc())
+
 
 /client/proc/orp()
 	SET_ADMIN_CAT(ADMIN_CAT_NONE)
@@ -1977,11 +1945,53 @@
 
 	src.admin_observe_random_player()
 
+
+/client/proc/admin_observe_next_player()
+	SET_ADMIN_CAT(ADMIN_CAT_PLAYERS)
+	set name = "Observe Next Player"
+	set desc = "Observe the next living logged-in player in some unspecified order."
+	ADMIN_ONLY
+	SHOW_VERB_DESC
+
+	if (!isobserver(src.mob))
+		boutput(src, SPAN_ALERT("Error: you must be an observer to use this command."))
+		return
+
+	var/client/currently_observed_client = null
+	if (istype(src.mob, /mob/dead/target_observer))
+		var/mob/currently_observed_mob = src.mob.loc
+		if(istype(currently_observed_mob))
+			currently_observed_client = currently_observed_mob.client
+		qdel(src.mob)
+
+	var/mob/dead/observer/O = src.mob
+
+	for(var/i = 1 to 2) // so we wrap around if we are on the last valid one
+		for(var/client/client in clients)
+			if(currently_observed_client == client)
+				currently_observed_client = null // makes it so the next one is accepted
+				continue
+			if(isliving(client.mob) && isnull(currently_observed_client))
+				O.insert_observer(client.mob)
+				return
+
+	boutput(src, SPAN_ALERT("Error: no valid players found."))
+
+
+/client/proc/onp()
+	SET_ADMIN_CAT(ADMIN_CAT_NONE)
+	set name = "ONP"
+	set popup_menu = 0
+	ADMIN_ONLY
+
+	src.admin_observe_next_player()
+
 /client/proc/admin_pick_random_player()
 	SET_ADMIN_CAT(ADMIN_CAT_PLAYERS)
 	set name = "Pick Random Player"
 	set desc = "Picks a random logged-in player and brings up their player panel."
 	ADMIN_ONLY
+	SHOW_VERB_DESC
 
 	var/what_group = input(src, "What group would you like to pick from?", "Selection", "Everyone") as null|anything in list("Everyone", "Traitors Only", "Non-Traitors Only")
 	if (!what_group)
@@ -2007,7 +2017,7 @@
 		player_pool += M
 
 	if (!player_pool.len)
-		boutput(src, "<span class='alert'>Error: no valid mobs found via selected options.</span>")
+		boutput(src, SPAN_ALERT("Error: no valid mobs found via selected options."))
 		return
 
 	var/chosen_player = pick(player_pool)
@@ -2019,6 +2029,7 @@ var/global/night_mode_enabled = 0
 	set name = "Toggle Night Mode"
 	set desc = "Switch the station into night mode so the crew can rest and relax off-work."
 	ADMIN_ONLY
+	SHOW_VERB_DESC
 
 	night_mode_enabled = !night_mode_enabled
 	message_admins("[key_name(src)] toggled Night Mode [night_mode_enabled ? "on" : "off"]")
@@ -2036,6 +2047,7 @@ var/global/night_mode_enabled = 0
 	set name = "Toggle AI VOX"
 	set desc = "Grant or revoke AI access to VOX"
 	ADMIN_ONLY
+	SHOW_VERB_DESC
 
 	var/answer = alert("Set AI VOX access.", "Fun stuff.", "Grant Access", "Revoke Access", "Cancel")
 	switch(answer)
@@ -2078,7 +2090,7 @@ var/global/night_mode_enabled = 0
 	ADMIN_ONLY
 
 	if (!istype(H))
-		boutput(usr, "<span class='alert'>This can only be used on humans!</span>")
+		boutput(usr, SPAN_ALERT("This can only be used on humans!"))
 		return
 	if (!H.organHolder)
 		if (alert(usr, "[H] lacks an organHolder! Create a new one?", "Error", "Yes", "No") == "Yes")
@@ -2164,13 +2176,13 @@ var/global/night_mode_enabled = 0
 			var/obj/item/created_organ = new new_organ
 			created_organ:donor = H
 			H.organHolder.receive_organ(created_organ, organ)
-			boutput(usr, "<span class='notice'>[H]'s [lowertext(organ)] replaced with [created_organ].</span>")
+			boutput(usr, SPAN_NOTICE("[H]'s [lowertext(organ)] replaced with [created_organ]."))
 			logTheThing(LOG_ADMIN, usr, "replaced [constructTarget(H,"admin")]'s [lowertext(organ)] with [created_organ]")
 			logTheThing(LOG_DIARY, usr, "replaced [constructTarget(H,"diary")]'s [lowertext(organ)] with [created_organ]", "admin")
 		if ("Drop")
 			if (alert(usr, "Are you sure you want [H] to drop their [lowertext(organ)]?", "Confirmation", "Yes", "No") == "Yes")
 				H.organHolder.drop_organ(organ)
-				boutput(usr, "<span class='notice'>[H]'s [lowertext(organ)] dropped.</span>")
+				boutput(usr, SPAN_NOTICE("[H]'s [lowertext(organ)] dropped."))
 				logTheThing(LOG_ADMIN, usr, "dropped [constructTarget(H,"admin")]'s [lowertext(organ)]")
 				logTheThing(LOG_DIARY, usr, "dropped [constructTarget(H,"diary")]'s [lowertext(organ)]", "admin")
 			else
@@ -2179,7 +2191,7 @@ var/global/night_mode_enabled = 0
 			if (alert(usr, "Are you sure you want to delete [H]'s [lowertext(organ)]?", "Confirmation", "Yes", "No") == "Yes")
 				var/organ2del = H.organHolder.drop_organ(organ)
 				qdel(organ2del)
-				boutput(usr, "<span class='notice'>[H]'s [lowertext(organ)] deleted.</span>")
+				boutput(usr, SPAN_NOTICE("[H]'s [lowertext(organ)] deleted."))
 				logTheThing(LOG_ADMIN, usr, "deleted [constructTarget(H,"admin")]'s [lowertext(organ)]")
 				logTheThing(LOG_DIARY, usr, "deleted [constructTarget(H,"diary")]'s [lowertext(organ)]", "admin")
 			else
@@ -2191,6 +2203,7 @@ var/global/night_mode_enabled = 0
 	set desc = "Get a list of every canister- and tank-transfer bomb on station."
 	SET_ADMIN_CAT(ADMIN_CAT_SERVER)
 	ADMIN_ONLY
+	SHOW_VERB_DESC
 	if(!bomb_monitor) bomb_monitor = new
 	bomb_monitor.display_ui(src.mob, 1)
 
@@ -2218,7 +2231,7 @@ var/global/night_mode_enabled = 0
 			if (alert(usr, "Boot [M]?", "Confirmation", "Yes", "No") == "Yes")
 				logTheThing(LOG_ADMIN, usr, "booted [constructTarget(M,"admin")].")
 				logTheThing(LOG_DIARY, usr, "booted [constructTarget(M,"diary")].", "admin")
-				message_admins("<span class='internal'>[key_name(usr)] booted [key_name(M)].</span>")
+				message_admins(SPAN_INTERNAL("[key_name(usr)] booted [key_name(M)]."))
 				del(M.client)
 	else
 		alert("You need to be at least a Moderator to kick players.")
@@ -2230,6 +2243,7 @@ var/global/night_mode_enabled = 0
 	set popup_menu = 0
 
 	ADMIN_ONLY
+	SHOW_VERB_DESC
 
 	if (!msg)
 		msg = input("Enter message", "Message", "[src.key] earned the Banned medal.") as null|text
@@ -2244,7 +2258,7 @@ var/global/night_mode_enabled = 0
 		audience = input("Select the mob. Cancel to select every mob.", "Select Mob") as null|anything in mobs
 
 	if (alert("Show the message: \"[msg]\" to [audience ? audience : "everyone"]?", "Confirm", "OK", "Cancel") == "OK")
-		msg = "<span class='medal'>" + msg + "</span>"
+		msg = SPAN_MEDAL("" + msg + "")
 		logTheThing(LOG_ADMIN, usr, "showed a fake medal message to [audience ? audience : "everyone"]: \"[msg]\"")
 		logTheThing(LOG_DIARY, usr, "showed a fake medal message to [audience ? audience : "everyone"]: \"[msg]\"", "admin")
 		message_admins("[key_name(usr)] showed a fake medal message to [audience ? audience : "everyone"]: \"[msg]\"")
@@ -2261,6 +2275,7 @@ var/global/night_mode_enabled = 0
 	set popup_menu = 0
 
 	ADMIN_ONLY
+	SHOW_VERB_DESC
 
 	if (!M || !src.mob || !M.client || !M.client.player || !M.client.player.shamecubed)
 		return 0
@@ -2295,6 +2310,7 @@ var/global/night_mode_enabled = 0
 	set popup_menu = 0
 
 	ADMIN_ONLY
+	SHOW_VERB_DESC
 
 	if (!M || !src.mob || !M.client || !M.client.player || M.client.player.shamecubed)
 		return 0
@@ -2330,7 +2346,7 @@ var/global/night_mode_enabled = 0
 	if (announce == "Yes")
 		command_alert("[M.name] has been shamecubed in [where]!", "Dumb person detected!")
 
-	out(M, "<span class='bold alert'>You have been shame-cubed by an admin! Take this embarrassing moment to reflect on what you have done.</span>")
+	boutput(M, "<span class='bold alert'>You have been shame-cubed by an admin! Take this embarrassing moment to reflect on what you have done.</span>")
 	logTheThing(LOG_ADMIN, src, "shame-cubed [constructTarget(M,"admin")] at [where] ([log_loc(M)])")
 	logTheThing(LOG_DIARY, src, "shame-cubed [constructTarget(M,"diary")] at [where] ([log_loc(M)])", "admin")
 	message_admins("[key_name(src)] shame-cubed [key_name(M)] at [where] ([log_loc(M)])")
@@ -2342,6 +2358,7 @@ var/global/night_mode_enabled = 0
 	set desc = "make some stupid junk, laugh"
 	SET_ADMIN_CAT(ADMIN_CAT_FUN)
 	ADMIN_ONLY
+	SHOW_VERB_DESC
 
 	if (src.holder.level >= LEVEL_PA)
 		var/obj/O = makeshittyweapon()
@@ -2378,9 +2395,10 @@ var/global/night_mode_enabled = 0
 
 /client/proc/admin_toggle_lighting() //shameless copied from the ghost one
 	set name = "Toggle Lighting"
-	set desc = "Turns the scary darkness off"
+	set desc = "Toggle lighting on or off for yourself only."
 	SET_ADMIN_CAT(ADMIN_CAT_SELF)
 	ADMIN_ONLY
+	SHOW_VERB_DESC
 
 	if (!src.holder)
 		boutput(src, "Only administrators may use this command.")
@@ -2424,18 +2442,10 @@ var/global/night_mode_enabled = 0
 
 	if (!target_key)
 		target_key = input("Enter target key", "Target account key", null) as null|text
-	var/medals = world.GetMedal("", null, config.medal_hub, config.medal_password)
-	medals = params2list(medals)
-	var/mob/M
-	for (var/client/C in clients)
-		LAGCHECK(LAG_LOW)
-		if (C.key == target_key	)
-			M = C.mob
-	if (isnull(M))
-		M = new /mob
-		M.key = target_key
+	var/datum/player/player = make_player(target_key)
+	var/list/medals = player.get_all_medals()
 	for (var/medal in medals)
-		var/result = world.ClearMedal(medal, M, config.medal_hub, config.medal_password)
+		var/result = player.clear_medal(medal)
 		if (isnull(result))
 			boutput(src, "Failed to clear medal; error!")
 			break
@@ -2448,9 +2458,6 @@ var/global/night_mode_enabled = 0
 
 	ADMIN_ONLY
 
-	if (!config || !config.medal_hub || !config.medal_password)
-		return
-
 	if (!medal)
 		medal = input("Enter medal name", "Medal name", "Banned") as null|text
 		if (!medal)
@@ -2459,12 +2466,12 @@ var/global/night_mode_enabled = 0
 	var/revoke = (alert(src, "Mass grant or revoke medals?", "Mass grant/revoke", "Grant", "Revoke") == "Revoke")
 	var/key = input("Enter player key", "Player key", null) as null|text
 	while(key)
-		var/player = ckey(key)
+		var/datum/player/player = make_player(key)
 		var/result
 		if (revoke)
-			result = world.ClearMedal(medal, player, config.medal_hub, config.medal_password)
+			result = player.clear_medal(medal)
 		else
-			result = world.SetMedal(medal, player, config.medal_hub, config.medal_password)
+			result = player.unlock_medal_sync(medal)
 		if (isnull(result))
 			boutput(src, "Failed to set medal; error communicating with BYOND hub!")
 			break
@@ -2478,30 +2485,21 @@ var/global/night_mode_enabled = 0
 
 	ADMIN_ONLY
 
-	if (!config || !config.medal_hub || !config.medal_password)
-		return
-	var/mob/M = new /mob
 	if (!old_key)
-		old_key = input("Enter old account key", "Old account key", null) as null|text
-	M.key = old_key // Old key shouldn't be online, so
+		old_key = input("Enter old account ckey", "Old account ckey", null) as null|text
 	if (!new_key)
-		new_key = input("Enter new account key", "New account key", null) as null|text
-	var/medals = world.GetMedal("", M, config.medal_hub, config.medal_password)
-	if (!medals)
-		boutput(src, "No medals; error communicating with BYOND hub!")
-		return
-	medals = params2list(medals)
-	for (var/client/C in clients)
-		LAGCHECK(LAG_LOW)
-		if (C.ckey == ckey(new_key))
-			M = C.mob
-	if (M.ckey == ckey(old_key))
-		M.ckey = ckey(new_key)
-	for (var/medal in medals)
-		var/result = world.SetMedal(medal, M, config.medal_hub, config.medal_password)
-		if (isnull(result))
-			boutput(src, "Failed to set medal; error communicating with BYOND hub!")
-			break
+		new_key = input("Enter new account ckey", "New account ckey", null) as null|text
+
+	try
+		var/datum/apiRoute/players/medals/transfer/transferMedals = new
+		transferMedals.buildBody(old_key, new_key)
+		apiHandler.queryAPI(transferMedals)
+	catch (var/exception/e)
+		var/datum/apiModel/Error/error = e.name
+		boutput(src, "Error communicating with the place where medals live: [error.message]")
+		return FALSE
+
+	boutput(src, "Successfully copied medals!")
 
 /client/proc/copy_cloud_saves(old_key as null|text)
 	set name  = "Copy Cloud Data"
@@ -2514,41 +2512,23 @@ var/global/night_mode_enabled = 0
 	if (!old_key)
 		old_key = input("Enter old account key", "Old account key", null) as null|text
 	if (!old_key)
-		boutput(usr, "<span class='alert'>Transfer aborted.</span>")
+		boutput(usr, SPAN_ALERT("Transfer aborted."))
 		return
 	old_key = ckey(old_key)
-
 	var/new_key = ckey(input("Enter new account key", "New account key", null) as null|text)
 	if (!new_key)
-		boutput(usr, "<span class='alert'>Transfer aborted.</span>")
+		boutput(usr, SPAN_ALERT("Transfer aborted."))
 		return
 
-	//criminal activity
-	var/datum/player/dummy_player = new
-	dummy_player.clouddata = list() // trick it into thinking we have cloud data I guess. only gets nullchecked
-	dummy_player.cloudsaves = list() // ditto
-	var/datum/preferences/dummy_preferences = new
-	var/list/save_names = dummy_player.cloud_fetch_target_saves_only(old_key) // technically a map from names to nums
-
-	if (!save_names)
-		boutput(usr, "<span class='alert'>Couldn't find cloud data for that key.</span>")
-		return
-	if (!length(save_names))
-		boutput(usr, "<span class='alert'>Couldn't find any cloud saves for that key.</span>")
-		return
-	if (tgui_alert(usr, "You're about to transfer [length(save_names)] saves from [old_key] to [new_key]. This will overwrite all the existing saves on the target account. Do it?", "Cloud Save Transfer", list("Yes", "No")) == "No")
-		boutput(usr, "<span class='alert'>Transfer aborted.</span>")
+	if (tgui_alert(usr, "You're about to transfer all saves from [old_key] to [new_key]. This will overwrite all the existing saves on the target account. Do it?", "Cloud Save Transfer", list("Yes", "No")) == "No")
+		boutput(usr, SPAN_ALERT("Transfer aborted."))
 		return
 
-	for (var/name in save_names)
-		dummy_preferences.cloudsave_load(null, name, old_key)
-		var/ret = dummy_preferences.cloudsave_save(null, name, new_key)
-		if (ret != 1) //yes this is intentional
-			boutput(usr, "<span class='alert'>Something went wrong while saving to the cloud. Return value was: ([ret]). Transfer aborted.</span>")
-			return
-
-	dummy_player.cloud_put_target(new_key, "saves", save_names)
-	boutput(usr, "<span class='success'>Cloud saves transferred.</span>")
+	try
+		cloud_saves_transfer(old_key, new_key)
+		boutput(usr, SPAN_SUCCESS("Cloud saves transferred."))
+	catch (var/exception/e)
+		boutput(usr, SPAN_ALERT("Transfer aborted because: [e.name]"))
 
 /client/proc/cmd_admin_disable()
 	set name = "Disable Admin Powers"
@@ -2569,7 +2549,7 @@ var/global/night_mode_enabled = 0
 	set desc = "Returns your admin powers to you. If you had any. If not you will always and forever be a chumperton."
 	set category = "Commands"
 	set popup_menu = 0
-
+	SHOW_VERB_DESC
 	if(src.init_admin())
 		message_admins("[key_name(src)] has re-enabled their admin powers.")
 	else
@@ -2582,6 +2562,7 @@ var/global/night_mode_enabled = 0
 	set desc = "Makes a client see the game in ASCII vision."
 	SET_ADMIN_CAT(ADMIN_CAT_FUN)
 	ADMIN_ONLY
+	SHOW_VERB_DESC
 
 	var/is_text = winget(C,  "mapwindow.map", "text-mode") == "true"
 	logTheThing(LOG_ADMIN, usr, "has toggled [constructTarget(C.mob,"admin")]'s text mode to [!is_text]")
@@ -2596,6 +2577,7 @@ var/global/night_mode_enabled = 0
 	SET_ADMIN_CAT(ADMIN_CAT_SELF)
 	set popup_menu = 0
 	ADMIN_ONLY
+	SHOW_VERB_DESC
 
 	//it's a mess, sue me
 	var/list/areas = get_areas(/area/centcom/offices)
@@ -2612,11 +2594,11 @@ var/global/night_mode_enabled = 0
 						var/turf/chair_turf = get_turf(chair)
 						src.mob.set_loc(chair_turf)
 						src.mob.dir = chair.dir
-						boutput(src, "<span class='notice'>Arrived at your office, safe and sound in your favorite chair!</span>")
+						boutput(src, SPAN_NOTICE("Arrived at your office, safe and sound in your favorite chair!"))
 						return
 				//put em in a random place in their office if they don't have a chair.
 				src.mob.set_loc(pick(turfs))
-				boutput(src, "<span class='alert'>Arrived at your office, but where's your chair? Maybe someone stole it!</span>")
+				boutput(src, SPAN_ALERT("Arrived at your office, but where's your chair? Maybe someone stole it!"))
 			else
 				boutput(src, "Can't seem to find any turfs in your office. You must not have one here!")
 			return
@@ -2629,6 +2611,7 @@ var/global/mirrored_physical_zone_created = FALSE //enables secondary code branc
 	SET_ADMIN_CAT(ADMIN_CAT_SELF)
 	set popup_menu = 0
 	ADMIN_ONLY
+	SHOW_VERB_DESC
 
 	var/turf/src_turf = get_turf(src.mob)
 	if (!src_turf) return
@@ -2659,7 +2642,7 @@ var/global/mirrored_physical_zone_created = FALSE //enables secondary code branc
 				turfs -= get_turf(O)
 
 			if (!office_entry)
-				boutput(src, "<span class='alert'>Can't find the entry to your office!</span>")
+				boutput(src, SPAN_ALERT("Can't find the entry to your office!"))
 				return
 
 			if (!office_entry) return
@@ -2692,6 +2675,7 @@ var/global/mirrored_physical_zone_created = FALSE //enables secondary code branc
 				src.mob.visible_message("[src.mob] manipulates the very fabric of spacetime around themselves linking their current location with another! Wow!", "You skillfully manipulate spacetime to join the space containing your office with your current location.", "You have no idea what's happening but it sure does sound cool!")
 				playsound(src.mob, 'sound/machines/door_open.ogg', 50, 1)
 				if (!mirrored_physical_zone_created)
+					logTheThing(LOG_DEBUG, null, "mirrored physical zone enabled by office summon")
 					mirrored_physical_zone_created = TRUE
 			else
 				src.mob.visible_message("[src.mob] returns the fabric of spacetime to normal! Wow!", "You wave your office away, returning the space to normal.", "You have no idea what's happening but it sure does sound cool!")
@@ -2702,14 +2686,16 @@ var/global/mirrored_physical_zone_created = FALSE //enables secondary code branc
 /client/proc/cmd_crusher_walls()
 	SET_ADMIN_CAT(ADMIN_CAT_FUN)
 	set name = "Crusher Walls"
+	ADMIN_ONLY
+	SHOW_VERB_DESC
 	if(holder && src.holder.level >= LEVEL_ADMIN)
 		switch(alert("Holy shit are you sure?! This is going to turn the walls into crushers!",,"Yes","No"))
 			if("Yes")
 				for(var/turf/simulated/wall/W in world)
 					if (W.z != 1) continue
-					var/obj/machinery/crusher/O = locate() in W.contents //in case someone presses it again
+					var/obj/machinery/crusher/slow/O = locate() in W.contents //in case someone presses it again
 					if (O) continue
-					new /obj/machinery/crusher(locate(W.x, W.y, W.z))
+					new /obj/machinery/crusher/slow/wall(locate(W.x, W.y, W.z))
 					W.set_density(0)
 
 				logTheThing(LOG_ADMIN, src, "has turned every wall into a crusher! God damn.")
@@ -2725,6 +2711,8 @@ var/global/mirrored_physical_zone_created = FALSE //enables secondary code branc
 	SET_ADMIN_CAT(ADMIN_CAT_FUN)
 	set name = "Disco Lights"
 	set desc = "Set every light on the station to a random color"
+	ADMIN_ONLY
+	SHOW_VERB_DESC
 	var/R = null
 	var/G = null
 	var/B = null
@@ -2752,9 +2740,56 @@ var/global/mirrored_physical_zone_created = FALSE //enables secondary code branc
 	else
 		boutput(src, "You must be at least an Administrator to use this command.")
 
+/client/proc/cmd_nukie_colour()
+	SET_ADMIN_CAT(ADMIN_CAT_FUN)
+	set name = "Recolor Syndicate"
+	set desc = "Recolor (most) syndicate gear, mostly nukie gear."
+	ADMIN_ONLY
+	SHOW_VERB_DESC
+
+	if(holder && src.holder.level >= LEVEL_ADMIN)
+		switch(tgui_alert(src,"Recolor syndicate gear?","Syndicate Recolor",list("Yes", "No","Reset"), theme = "syndicate"))
+			if("Yes")
+				var/list/inputted_color_matrix = nuke_op_color_matrix.Copy()
+				for (var/i in 1 to 3)
+					inputted_color_matrix[i] = input("Choose a color for syndicate","Syndicate Recolor", nuke_op_color_matrix[i]) as color
+				if (length(inputted_color_matrix) != 3)
+					boutput(src, "You must input 3 colors.")
+					return
+				nuke_op_camo_matrix = inputted_color_matrix
+				var/color_matrix = color_mapping_matrix(nuke_op_color_matrix, nuke_op_camo_matrix)
+				for (var/atom/A as anything in by_cat[TR_CAT_NUKE_OP_STYLE])
+					A.color = color_matrix
+					var/obj/item/Item = A
+					if(istype(Item) && Item.equipped_in_slot)
+						var/mob/living/carbon/human/wearer = Item.loc
+						wearer.update_clothing()
+					LAGCHECK(LAG_LOW)
+				logTheThing(LOG_ADMIN, src, "changed the syndicate colour scheme.")
+				logTheThing(LOG_DIARY, src, "changed the syndicate colour scheme.", "admin")
+				message_admins("[key_name(src)] changed the syndicate colour scheme.")
+			if ("Reset")
+				nuke_op_camo_matrix = null
+				for (var/atom/A as anything in by_cat[TR_CAT_NUKE_OP_STYLE])
+					A.color = null
+					var/obj/item/Item = A
+					if(istype(Item) && Item.equipped_in_slot)
+						var/mob/living/carbon/human/wearer = Item.loc
+						wearer.update_clothing()
+					LAGCHECK(LAG_LOW)
+				logTheThing(LOG_ADMIN, src, "reset the syndicate colour scheme.")
+				logTheThing(LOG_DIARY, src, "reset the syndicate colour scheme.", "admin")
+				message_admins("[key_name(src)] reset the syndicate colour scheme.")
+			if("No")
+				return
+	else
+		boutput(src, "You must be at least an Administrator to use this command.")
+
 /client/proc/cmd_blindfold_monkeys()
 	SET_ADMIN_CAT(ADMIN_CAT_FUN)
 	set name = "See No Evil"
+	ADMIN_ONLY
+	SHOW_VERB_DESC
 	if(holder && src.holder.level >= LEVEL_ADMIN)
 		switch(alert("Really blindfold all monkeys?",,"Yes","No"))
 			if("Yes")
@@ -2781,6 +2816,7 @@ var/global/mirrored_physical_zone_created = FALSE //enables secondary code branc
 	set name = "Special Shuttle"
 	set desc = "Spawn in a special escape shuttle"
 	ADMIN_ONLY
+	SHOW_VERB_DESC
 	if(src.holder.level >= LEVEL_ADMIN)
 		var/list/shuttles = get_map_prefabs(/datum/mapPrefab/shuttle)
 		var/datum/mapPrefab/shuttle/shuttle = shuttles[tgui_input_list(src, "Select a shuttle", "Special Shuttle", shuttles)]
@@ -2812,6 +2848,7 @@ var/global/force_radio_maptext = FALSE
 	SET_ADMIN_CAT(ADMIN_CAT_FUN)
 	set name = "Toggle Forced Radio maptext"
 	ADMIN_ONLY
+	SHOW_VERB_DESC
 
 	if(holder && src.holder.level >= LEVEL_ADMIN)
 		if(!force_radio_maptext)
@@ -2838,7 +2875,7 @@ var/global/force_radio_maptext = FALSE
 	set name = "idkfa"
 	set popup_menu = 0
 	ADMIN_ONLY
-	boutput(usr, "<span class='notice'><b>Very Happy Ammo Added</b></span>")
+	boutput(usr, SPAN_NOTICE("<b>Very Happy Ammo Added</b>"))
 
 	// yes... ha ha ha... YES!
 	var/obj/item/storage/backpack/syndie/backpack_full_of_ammo = new()
@@ -2920,3 +2957,165 @@ var/global/force_radio_maptext = FALSE
 
 	else
 		backpack_full_of_ammo.set_loc(get_turf(src.mob))
+
+
+/client/proc/cmd_move_lobby()
+	SET_ADMIN_CAT(ADMIN_CAT_FUN)
+	set name = "Move Lobby"
+	ADMIN_ONLY
+	SHOW_VERB_DESC
+	if(holder && src.holder.level >= LEVEL_ADMIN)
+		switch(alert("Really move lobby to your current position?",,"Yes","No"))
+			if("Yes")
+				var/turf/T = get_turf(src.mob)
+				landmarks[LANDMARK_NEW_PLAYER] = list(T)
+				for_by_tcl(new_player, /mob/new_player)
+					new_player.set_loc(T)
+
+				logTheThing(LOG_ADMIN, src, "moved the lobby to [log_loc(T)]")
+				message_admins("[key_name(usr)] moved the lobby to [log_loc(T)]")
+
+			if("No")
+				return
+	else
+		boutput(src, "You must be at least an Administrator to use this command.")
+/client/proc/toggle_all_artifacts()
+	// Housekeeping
+	SET_ADMIN_CAT(ADMIN_CAT_FUN)
+	set name = "Toggle All Artifacts"
+	ADMIN_ONLY
+	SHOW_VERB_DESC
+	if (holder && src.holder.level >= LEVEL_ADMIN)
+		switch(alert("What would you like to do?",,"Activate All","Deactivate All","Cancel"))
+			if("Cancel")
+				return
+			if("Activate All")
+				// You definitely can activate an artnuke like this maybe be sure we're sure
+				var/response = input(src, "Extremely stupid button pressing shenanagains detected - Type YES to continue", "Caution!") as null|text
+				if (response != "YES")
+					message_admins("[key_name(usr)] aborted toggling every dang artifact due to failing to type 'YES'") // im telling on u!!!
+					return
+				logTheThing(LOG_ADMIN, src, "started activating all available artifacts.")
+				message_admins("[key_name(usr)] started activating all available artifacts.")
+				for(var/artifact as anything in by_cat[TR_CAT_ARTIFACTS])
+					var/obj/holder = artifact
+					holder.ArtifactActivated()
+			if("Deactivate All")
+				// No confirmation for this since you cant really activate an artnuke like this
+				logTheThing(LOG_ADMIN, src, "started deactivating all available artifacts.")
+				message_admins("[key_name(usr)] started deactivating all available artifacts.")
+				for(var/artifact as anything in by_cat[TR_CAT_ARTIFACTS])
+					var/obj/holder = artifact
+					holder.ArtifactDeactivated()
+	else
+		boutput(src, "You must be at least an Administrator to use this command.")
+
+#define ARTIFACT_BULK_LIMIT 100
+#define ARTIFACT_HARD_LIMIT 2000
+#define ARTIFACT_MAX_SPAWN_ATTEMPTS 100
+
+/client/proc/spawn_tons_of_artifacts()
+	SET_ADMIN_CAT(ADMIN_CAT_FUN)
+	set name = "Bulk Spawn Artifacts"
+	ADMIN_ONLY
+	SHOW_VERB_DESC
+
+	var/artifacts_spawned = 0
+	var/spawn_fails = 0
+	var/artifact_spawn_attempts
+
+	if (holder && src.holder.level >= LEVEL_ADMIN)
+		switch(alert("THIS COULD SERIOUSLY FUCK THINGS UP. That being said, do it anyway?","WOAH THERE BUCKAROO","Yes","No"))
+			if("No")
+				return
+			if("Yes")
+				var/amt_artifacts = min(input(usr,"How many artifacts do we want to spawn?\n(Default: 50)",,50) as num, ARTIFACT_HARD_LIMIT)
+				if (amt_artifacts > ARTIFACT_BULK_LIMIT)
+					var/response = input(src, "High number of types: [length(amt_artifacts)] - Type YES to continue", "Caution!") as null|text
+					if (response != "YES")
+						message_admins("[key_name(usr)] aborted spawning [amt_artifacts] due to failing to type 'YES'") // im telling on u!!!
+						return
+				var/floors_only = (alert(src, "Only spawn artifacts on floors?",, "Yes", "No") == "Yes")
+				logTheThing(LOG_ADMIN, src, "started spawning [amt_artifacts] artifacts.")
+				message_admins("[key_name(usr)] started spawning [amt_artifacts] artifacts.")
+
+				while (artifacts_spawned < amt_artifacts)
+					var/turf/T = locate(rand(1, world.maxx), rand(1, world.maxy), Z_LEVEL_STATION)
+
+					if (floors_only)
+						while (artifact_spawn_attempts < ARTIFACT_MAX_SPAWN_ATTEMPTS)
+							if (istype(T, /turf/simulated/floor) && checkTurfPassable(T))
+								break
+							artifact_spawn_attempts += 1
+							T = locate(rand(1, world.maxx), rand(1, world.maxy), Z_LEVEL_STATION)
+						if (artifact_spawn_attempts >= ARTIFACT_MAX_SPAWN_ATTEMPTS)
+							spawn_fails += 1
+						else
+							Artifact_Spawn(T)
+						artifact_spawn_attempts = 0
+					else
+						Artifact_Spawn(T)
+					artifacts_spawned += 1
+					if (artifacts_spawned % ARTIFACT_BULK_LIMIT == 0)
+						sleep(1 SECOND)
+
+				logTheThing(LOG_ADMIN, src, "finished spawning [amt_artifacts] artifacts.")
+				message_admins("[key_name(usr)] finished spawning [amt_artifacts] artifacts.")
+				if (spawn_fails > 0)
+					logTheThing(LOG_ADMIN, src, "[spawn_fails] artifact\s failed to spawn")
+					message_admins("[spawn_fails] artifact\s failed to spawn")
+	else
+		boutput(src, "You must be at least an Administrator to use this command.")
+
+/// Spawn custom reagent that can transform turfs and objs to whatever material you desire.
+/client/proc/spawn_custom_transmutation()
+	SET_ADMIN_CAT(ADMIN_CAT_FUN)
+	set name = "Spawn Custom Transmutation Reagent"
+	ADMIN_ONLY
+	var/containers = list("Small Beaker" = /obj/item/reagent_containers/glass/beaker,
+	"Large Beaker" = /obj/item/reagent_containers/glass/beaker/large,
+	"Grenade" = /obj/item/chem_grenade/custom)
+
+
+	var/matId = tgui_input_list(src, "Select material to transmute to:", "Set Material", material_cache)
+	if (!matId)
+		return
+
+	var/material_selected = getMaterial(matId)
+	if(!material_selected)
+		alert(src, "Invalid material selected: [matId]", "Invalid Material", "Ok")
+		return
+
+	var/containerId = tgui_input_list(src, "Select container for custom reagent:", "Select container", containers)
+	if (!containerId)
+		alert(src, "Invalid container selected: [containerId]", "Invalid Container", "Ok")
+
+	var/containerType = containers[containerId]
+
+	var/obj/item/container = new containerType()
+	if (containerId == "Grenade")
+		var/obj/item/chem_grenade/custom/grenade = container
+		var/obj/item/reagent_containers/glass/beaker/grenadeBeaker = new()
+		grenadeBeaker.reagents.add_reagent("custom_transmutation", 50, sdata=matId)
+		grenade.beakers += grenadeBeaker
+		grenade.stage = 2
+		grenade.icon_state = "grenade-chem3"
+	else
+
+		var/amount = tgui_input_number(src, "Please select reagent amount:", "Reagent Amount", 1, container.reagents.maximum_volume, 1)
+		container.reagents.add_reagent("custom_transmutation", amount, sdata=matId)
+	usr.put_in_hand_or_drop(container)
+
+/client/proc/show_mining_map()
+	set name = "Show Mining Map"
+	set desc = "Show the Z5 Mining Zlevel map."
+	SET_ADMIN_CAT(ADMIN_CAT_SELF)
+	ADMIN_ONLY
+	SHOW_VERB_DESC
+
+	if (usr.client && hotspot_controller)
+		hotspot_controller.show_map(usr.client)
+
+#undef ARTIFACT_BULK_LIMIT
+#undef ARTIFACT_HARD_LIMIT
+#undef ARTIFACT_MAX_SPAWN_ATTEMPTS

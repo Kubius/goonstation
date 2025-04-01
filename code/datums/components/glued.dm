@@ -51,7 +51,7 @@ TYPEINFO(/datum/component/glued)
 	parent.vis_flags |= VIS_INHERIT_PLANE | VIS_INHERIT_LAYER
 	RegisterSignal(parent, COMSIG_ATTACKHAND, PROC_REF(on_attackhand))
 	RegisterSignal(parent, COMSIG_ATTACKBY, PROC_REF(pass_on_attackby))
-	RegisterSignal(parent, COMSIG_MOVABLE_BLOCK_MOVE, PROC_REF(move_blocked_check))
+	RegisterSignal(parent, COMSIG_MOVABLE_PRE_MOVE, PROC_REF(move_blocked_check))
 	RegisterSignal(parent, COMSIG_MOVABLE_SET_LOC, PROC_REF(on_set_loc))
 	RegisterSignals(parent, list(COMSIG_ATOM_EXPLODE, COMSIG_ATOM_EXPLODE_INSIDE), PROC_REF(on_explode))
 	RegisterSignal(parent, COMSIG_ATOM_HITBY_PROJ, PROC_REF(on_hitby_proj))
@@ -72,28 +72,28 @@ TYPEINFO(/datum/component/glued)
 		return
 	var/atom/movable/parent = src.parent
 	var/turf/T = get_turf(parent)
-	T.visible_message("<span class='notice'>The glue on [parent] dries up and it falls off from [glued_to].</span>")
+	T.visible_message(SPAN_NOTICE("The glue on [parent] dries up and it falls off from [glued_to]."))
 	qdel(src)
 
 /datum/component/glued/proc/on_attackhand(atom/movable/parent, mob/user)
-	if(user?.a_intent == INTENT_HELP)
+	if(user?.a_intent == INTENT_HELP && !isintangible(user))
 		src.start_ungluing(parent, user)
 	else
 		src.glued_to.Attackhand(user)
-		user.lastattacked = user
+		user.lastattacked = get_weakref(user)
 
 /datum/component/glued/proc/start_ungluing(atom/movable/parent, mob/user)
 	if(isnull(src.glue_removal_time))
-		boutput(user, "<span class='alert'>You try to unglue [parent] from [src.glued_to] but the glue is too strong.</span>")
+		boutput(user, SPAN_ALERT("You try to unglue [parent] from [src.glued_to] but the glue is too strong."))
 		return FALSE
 	var/turf/T = get_turf(parent)
 	if(parent == user)
-		T.visible_message("<span class='notice'>[user] starts ungluing [himself_or_herself(user)] from [src.glued_to].</span>")
+		T.visible_message(SPAN_NOTICE("[user] starts ungluing [himself_or_herself(user)] from [src.glued_to]."))
 	else
-		T.visible_message("<span class='notice'>[user] starts ungluing [parent] from [src.glued_to].</span>")
+		T.visible_message(SPAN_NOTICE("[user] starts ungluing [parent] from [src.glued_to]."))
 	actions.start(
 		new /datum/action/bar/icon/callback(user, parent, src.glue_removal_time, PROC_REF(delete_self), null, parent.icon, parent.icon_state,\
-		"<span class='notice'>[user] manages to unglue [parent] from [src.glued_to].</span>", 0, src), user)
+		SPAN_NOTICE("[user] manages to unglue [parent] from [src.glued_to]."), 0, src), user)
 	return TRUE
 
 /datum/component/glued/proc/on_resist(mob/living/parent)
@@ -101,7 +101,7 @@ TYPEINFO(/datum/component/glued)
 
 /datum/component/glued/proc/pass_on_attackby(atom/movable/parent, obj/item/item, mob/user, list/params, is_special)
 	src.glued_to.Attackby(item, user, params, is_special)
-	user.lastattacked = user
+	user.lastattacked = get_weakref(user)
 
 /datum/component/glued/proc/on_hitby_proj(atom/movable/parent, obj/projectile/proj)
 	src.glued_to.bullet_act(proj)
@@ -117,7 +117,7 @@ TYPEINFO(/datum/component/glued)
 		SPAWN(1) // but first wait if the glued_to doesn't move in with us 🥺
 			if(src.set_loc_rippoff_in_progress && !QDELETED(src))
 				var/turf/T = get_turf(parent)
-				T?.visible_message("<span class='notice'>\The [parent] is ripped off from [glued_to].</span>")
+				T?.visible_message(SPAN_NOTICE("\The [parent] is ripped off from [glued_to]."))
 				qdel(src)
 
 /datum/component/glued/proc/on_explode(atom/movable/parent, list/explode_args)
@@ -127,7 +127,7 @@ TYPEINFO(/datum/component/glued)
 
 /datum/component/glued/UnregisterFromParent()
 	var/atom/movable/parent = src.parent
-	UnregisterSignal(parent, list(COMSIG_ATTACKHAND, COMSIG_ATTACKBY, COMSIG_MOVABLE_BLOCK_MOVE, COMSIG_MOVABLE_SET_LOC, COMSIG_ATOM_EXPLODE,
+	UnregisterSignal(parent, list(COMSIG_ATTACKHAND, COMSIG_ATTACKBY, COMSIG_MOVABLE_PRE_MOVE, COMSIG_MOVABLE_SET_LOC, COMSIG_ATOM_EXPLODE,
 		COMSIG_ATOM_EXPLODE_INSIDE, COMSIG_ATOM_HITBY_PROJ, COMSIG_MOB_RESIST))
 	UnregisterSignal(glued_to, COMSIG_PARENT_PRE_DISPOSING)
 	parent.remove_filter("glued_outline")

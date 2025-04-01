@@ -1,30 +1,34 @@
-/mob/proc/bball_nova()
-	set category = "Spells"
-	set name = "B-Ball Nova"
-	set desc = "Causes an eruption of explosive basketballs from your location"
+/datum/targetable/bball
+	var/required_power = 3
 
-	var/mob/M = src
+/datum/targetable/bball/tryCast(atom/target, params)
+	if(holder.owner.stat)
+		boutput(holder.owner, "Not when you're incapacitated.")
+		return CAST_ATTEMPT_FAIL_NO_COOLDOWN
 
-	if(M.stat)
-		boutput(M, "Not when you're incapacitated.")
-		return
+	if(!isturf(holder.owner.loc))
+		return CAST_ATTEMPT_FAIL_NO_COOLDOWN
 
-	if(!isturf(M.loc))
-		return
+	if(!(holder.owner.bball_spellpower() >= src.required_power))
+		boutput(holder.owner, SPAN_ALERT("You are not balling!"))
+		return CAST_ATTEMPT_FAIL_NO_COOLDOWN
+	. = ..()
 
-	if(!M.bball_spellpower())
-		return
+/datum/targetable/bball/nova
+	name = "B-Ball Nova"
+	desc = "Causes an eruption of explosive basketballs from your location"
+	targeted = FALSE
+	cooldown = 30 SECONDS
+	icon_state = "fireball"
 
-	M.verbs -= /mob/proc/bball_nova
-	SPAWN(30 SECONDS)
-		M.verbs += /mob/proc/bball_nova
+/datum/targetable/bball/nova/cast(atom/target)
+	. = ..()
+	holder.owner.visible_message(SPAN_ALERT("A swarm of basketballs erupts from [holder.owner]!"))
 
-	M.visible_message("<span class='alert'>A swarm of basketballs erupts from [M]!</span>")
-
-	for(var/turf/T in orange(1, M))
+	for(var/turf/T in orange(1, holder.owner))
 		if(!T.density)
-			var/target_dir = get_dir(M.loc, T)
-			var/turf/U = get_edge_target_turf(M, target_dir)
+			var/target_dir = get_dir(holder.owner.loc, T)
+			var/turf/U = get_edge_target_turf(holder.owner, target_dir)
 			new /obj/newmeteor/basketball(my_spawn = T, trg = U)
 
 
@@ -34,23 +38,17 @@
 	icon_state = "bball_spin"
 	hits = 6
 
-/mob/proc/showboat_slam(mob/target as mob in oview(6))
-	set category = "Spells"
-	set name = "Showboat Slam"
-	set desc = "Leap up and slam your target for massive damage"
+/datum/targetable/bball/showboat_slam
+	name = "Showboat Slam"
+	desc = "Leap up and slam your target for massive damage"
+	cooldown = 30 SECONDS
+	max_range = 6
+	targeted = TRUE
+	icon_state = "Drop"
 
-	var/mob/M = src
-
-	if(M.stat)
-		boutput(M, "Not when you're incapacitated.")
-		return
-
-	if(!isturf(M.loc) || !M.bball_spellpower())
-		return
-
-	M.verbs -= /mob/proc/showboat_slam
-	SPAWN(30 SECONDS)
-		M.verbs += /mob/proc/showboat_slam
+/datum/targetable/bball/showboat_slam/cast(atom/target)
+	. = ..()
+	var/mob/M = holder.owner
 
 	for(var/obj/item/basketball/B in M.contents)
 		B.item_state = "bball2"
@@ -59,7 +57,7 @@
 	M.transforming = 1
 	M.layer = EFFECTS_LAYER_BASE
 
-	M.visible_message("<span class='alert'>[M] takes a mighty leap towards the ceiling!</span>")
+	M.visible_message(SPAN_ALERT("[M] takes a mighty leap towards the ceiling!"))
 	playsound(M.loc, 'sound/effects/bionic_sound.ogg', 50)
 
 	for(var/i = 0, i < 10, i++)
@@ -89,30 +87,24 @@
 	for(var/mob/N in AIviewers(M, null))
 		if(GET_DIST(N, target) <= 2)
 			if(N != M)
-				N.changeStatus("weakened", 5 SECONDS)
+				N.changeStatus("knockdown", 5 SECONDS)
 				random_brute_damage(N, 10)
 		if(N.client)
 			shake_camera(N, 6, 32)
-			N.show_message("<span class='alert'>[M] showboat slams [target] to the ground!</span>", 1)
+			N.show_message(SPAN_ALERT("[M] showboat slams [target] to the ground!"), 1)
 	random_brute_damage(target, 40)
 
-/mob/proc/holy_jam()
-	set category = "Spells"
-	set name = "Holy Jam"
-	set desc = "Powerful jam that blinds surrounding enemies"
+/datum/targetable/bball/holy_jam
+	name = "Holy Jam"
+	desc = "Powerful jam that blinds surrounding enemies"
+	cooldown = 15 SECONDS
+	targeted = FALSE
+	icon = 'icons/mob/genetics_powers.dmi'
+	icon_state = "photokinesis"
 
-	var/mob/M = src
-
-	if(M.stat)
-		boutput(M, "Not when you're incapacitated.")
-		return
-
-	if(!isturf(M.loc) || !M.bball_spellpower())
-		return
-
-	M.verbs -= /mob/proc/holy_jam
-	SPAWN(15 SECONDS)
-		M.verbs += /mob/proc/holy_jam
+/datum/targetable/bball/holy_jam/cast(atom/target)
+	. = ..()
+	var/mob/M = holder.owner
 
 	for(var/obj/item/basketball/B in M.contents)
 		B.item_state = "bball2"
@@ -121,7 +113,7 @@
 	M.transforming = 1
 	M.layer = EFFECTS_LAYER_BASE
 
-	M.visible_message("<span class='alert'>[M] takes a divine leap towards the ceiling!</span>")
+	M.visible_message(SPAN_ALERT("[M] takes a divine leap towards the ceiling!"))
 
 	playsound(M.loc, 'sound/voice/heavenly.ogg', 50, 1)
 
@@ -144,20 +136,26 @@
 					N.gib()
 		if(N.client)
 			shake_camera(N, 6, 16)
-			N.show_message("<span class='alert'>[M]'s basketball unleashes a brilliant flash of light!</span>", 1)
+			N.show_message(SPAN_ALERT("[M]'s basketball unleashes a brilliant flash of light!"), 1)
 
 	playsound(M.loc, 'sound/weapons/flashbang.ogg', 50, 1)
 
-/mob/proc/blitz_slam()
-	set category = "Spells"
-	set name = "Blitz Slam"
-	set desc="Teleport randomly to a nearby tile."
+/datum/targetable/bball/blitz_slam
+	name = "Blitz Slam"
+	desc = "Teleport randomly to a nearby tile."
+	targeted = FALSE
+	cooldown = 4 SECONDS
+	icon_state = "blink"
 
-	var/mob/M = src
+/datum/targetable/bball/blitz_slam/tryCast(atom/target, params)
+	if (isrestrictedz(get_z(holder.owner)))
+		boutput(holder.owner, SPAN_ALERT("You cannot cast that here"))
+		return CAST_ATTEMPT_FAIL_NO_COOLDOWN
+	. = ..()
 
-	if(M.stat)
-		boutput(M, "Not when you're incapacitated.")
-		return
+/datum/targetable/bball/blitz_slam/cast(atom/target)
+	. = ..()
+	var/mob/M = holder.owner
 
 	var/SPrange = 2
 	if (M.bball_spellpower()) SPrange = 6
@@ -171,31 +169,32 @@
 		turfs += T
 	if(!turfs.len) turfs += pick(/turf in orange(6))
 	var/datum/effects/system/harmless_smoke_spread/smoke = new /datum/effects/system/harmless_smoke_spread()
+	playsound(M.loc, 'sound/items/bball_bounce.ogg', 65, 1)
 	smoke.set_up(10, 0, M.loc)
 	smoke.start()
 	var/turf/picked = pick(turfs)
 	if(!isturf(picked)) return
 	M.set_loc(picked)
-	M.verbs -= /mob/proc/blitz_slam
-	SPAWN(4 SECONDS)
-		M.verbs += /mob/proc/blitz_slam
 
-/mob/proc/clown_jam(mob/living/target as mob in oview(6))
-	set category = "Spells"
-	set name = "Clown Jam"
-	set desc = "Jams the target into a cursed clown"
+/datum/targetable/bball/clown_jam
+	name = "Clown Jam"
+	desc = "Jams the target into a cursed clown"
+	max_range = 6
+	cooldown = 90 SECONDS
+	targeted = TRUE
+	icon_state = "clownrevenge"
 
-	var/mob/M = src
-
-	if(M.stat)
-		boutput(M, "Not when you're incapacitated.")
+/datum/targetable/bball/clown_jam/tryCast(atom/target, params)
+	if (!isliving(target))
 		return
+	. = ..()
 
-	var/SPtime = 3000
-	if (M.bball_spellpower()) SPtime = 900
-	M.verbs -= /mob/proc/clown_jam
-	SPAWN(SPtime)
-	M.verbs += /mob/proc/clown_jam
+/datum/targetable/bball/clown_jam/cast(mob/living/target)
+	. = ..()
+	var/mob/M = holder.owner
+
+	if (!M.bball_spellpower())
+		src.cooldown = 300 SECONDS
 
 	for(var/obj/item/basketball/B in M.contents)
 		B.item_state = "bball2"
@@ -204,7 +203,7 @@
 	M.transforming = 1
 	M.layer = EFFECTS_LAYER_BASE
 
-	M.visible_message("<span class='alert'>[M] comically leaps towards the ceiling!</span>")
+	M.visible_message(SPAN_ALERT("[M] comically leaps towards the ceiling!"))
 	playsound(M.loc, 'sound/effects/bionic_sound.ogg', 50)
 
 	for(var/i = 0, i < 10, i++)
@@ -222,10 +221,10 @@
 	for(var/mob/N in AIviewers(M, null))
 		if(GET_DIST(N, target) <= 2)
 			if(N != M)
-				N.changeStatus("weakened", 5 SECONDS)
+				N.changeStatus("knockdown", 5 SECONDS)
 		if(N.client)
 			shake_camera(N, 6, 16)
-			N.show_message("<span class='alert'>[M] clown jams [target]!</span>", 1)
+			N.show_message(SPAN_ALERT("[M] clown jams [target]!"), 1)
 
 	for(var/obj/item/basketball/B in M.contents)
 		B.item_state = "bball"
@@ -240,7 +239,7 @@
 	smoke.start()
 
 	if(target.job != "Clown")
-		boutput(target, "<span class='alert'><B>You HONK painfully!</B></span>")
+		boutput(target, SPAN_ALERT("<B>You HONK painfully!</B>"))
 		target.take_brain_damage(80)
 		target.stuttering = 120
 		target.job = "Clown"
@@ -263,7 +262,7 @@
 		var/mob/living/carbon/human/H = target
 		if(!istype(H))
 			return
-		boutput(H, "<span class='alert'><b>You don't feel very funny.</b></span>")
+		boutput(H, SPAN_ALERT("<b>You don't feel very funny.</b>"))
 		H.take_brain_damage(-120)
 		H.stuttering = 0
 		H.job = "Lawyer"
@@ -297,12 +296,16 @@
 
 		return
 
-/mob/proc/chaos_dunk()
-	set category = "Spells"
-	set name = "Chaos Dunk"
-	set desc = "Destroy the entire station with the ultimate slam"
+/obj/ability_button/chaos_dunk
+	name = "Chaos Dunk"
+	desc = "Destroy the entire station with the ultimate slam"
+	targeted = FALSE
+	icon = 'icons/mob/spell_buttons.dmi'
+	icon_state = "bballslam"
 
-	var/mob/M = src
+/obj/ability_button/chaos_dunk/execute_ability()
+	. = ..()
+	var/mob/M = the_mob
 
 	if(M.stat)
 		boutput(M, "Not when you're incapacitated.")
@@ -312,17 +315,17 @@
 	if(istype(equipped_thing, /obj/item/basketball))
 		var/obj/item/basketball/BB = equipped_thing
 		if(!BB.payload)
-			boutput(M, "<span class='alert'>This b-ball doesn't have the right heft to it!</span>")
+			boutput(M, SPAN_ALERT("This b-ball doesn't have the right heft to it!"))
 			return
 		else //Safety thing to ensure the plutonium core is only good for one dunk
 			var/pl = BB.payload
 			BB.payload = null
 			qdel(pl)
 	else
-		boutput(M, "<span class='alert'>You can't dunk without a b-ball, yo!</span>")
+		boutput(M, SPAN_ALERT("You can't dunk without a b-ball, yo!"))
 		return
 
-	M.verbs -= /mob/proc/chaos_dunk
+	the_item.remove_item_ability(the_mob, src.type)
 	APPLY_ATOM_PROPERTY(M, PROP_MOB_CANTMOVE, "chaosdunk")//you cannot move while doing this
 	logTheThing(LOG_COMBAT, M, "<b>triggers a chaos dunk in [M.loc.loc] ([log_loc(M)])!</b>")
 
@@ -333,7 +336,7 @@
 	M.transforming = 1
 	M.layer = EFFECTS_LAYER_BASE
 
-	M.visible_message("<span class='alert'>[M] flies through the ceiling!</span>")
+	M.visible_message(SPAN_ALERT("[M] flies through the ceiling!"))
 	playsound(M.loc, 'sound/effects/bionic_sound.ogg', 50)
 
 	for(var/i = 0, i < 50, i++)
@@ -357,7 +360,7 @@
 		while(thunder > 0)
 			thunder--
 			if(prob(15))
-				world << sound('sound/effects/thunder.ogg', volume = 80)
+				playsound_global(world, 'sound/effects/thunder.ogg', 80)
 				for(var/mob/N in mobs)
 					N.flash(3 SECONDS)
 			sleep(0.5 SECONDS)
@@ -373,7 +376,7 @@
 	siren.status = SOUND_UPDATE
 	siren.channel = 5
 	world << siren
-	M.visible_message("<span class='alert'>[M] successfully executes a Chaos Dunk!</span>")
+	M.visible_message(SPAN_ALERT("[M] successfully executes a Chaos Dunk!"))
 	M.unlock_medal("Shut Up and Jam", 1)
 	REMOVE_ATOM_PROPERTY(M, PROP_MOB_CANTMOVE, "chaosdunk")
 	explosion_new(src, get_turf(M), 2500)
@@ -383,28 +386,26 @@
 		A.eject = 0
 		A.UpdateIcon()
 
-/mob/proc/spin()
-	set category = "Spells"
-	set name = "360 Spin"
-	set desc = "Get fools off your back."
+/datum/targetable/bball/spin
+	name = "360 Spin"
+	desc = "Get fools off your back."
+	cooldown = 4 SECONDS
+	targeted = FALSE
+	icon_state = "Throw"
 
-	var/mob/M = src
-
-	if(!M.bball_spellpower())
-		return
-
-	if(M.stat)
-		boutput(M, "Not when you're incapacitated.")
-		return
+/datum/targetable/bball/spin/cast(atom/target)
+	. = ..()
+	var/mob/M = holder.owner
 
 	M.transforming = 1
 
 	for(var/mob/N in AIviewers(M, null))
-		if(N.client)
-			N.show_message("<span class='alert'>[M] does a quick spin, knocking you off guard!</span>", 1)
+		if(N.client && N != M)
+			N.show_message(SPAN_ALERT("[M] does a quick spin, knocking you off guard!"), 1)
 		if(GET_DIST(N, M) <= 2)
 			if(N != M)
 				N.changeStatus("stunned", 2 SECONDS)
+				playsound(N.loc, 'sound/impact_sounds/Generic_Hit_1.ogg', 50, TRUE)
 
 	M.set_dir(NORTH)
 	sleep(0.1 SECONDS)
@@ -416,9 +417,29 @@
 
 	M.transforming = 0
 
-	M.verbs -= /mob/proc/spin
-	SPAWN(4 SECONDS)
-		M.verbs += /mob/proc/spin
+/datum/targetable/bball/summon
+	name = "Summon b-ball"
+	desc = "Summon a highly lethal basketball to your hands."
+	cooldown = 30 SECONDS
+	required_power = 1
+	icon_state = "summon-bball"
+
+/datum/targetable/bball/summon/cast(atom/target)
+	. = ..()
+	for_by_tcl(bball, /obj/item/basketball/lethal/summonable)
+		if (bball.owner_ckey == holder.owner.mind.key)
+			if (bball in holder.owner)
+				boutput(holder.owner, SPAN_ALERT("You are already balling!"))
+				return CAST_ATTEMPT_FAIL_NO_COOLDOWN
+			boutput(holder.owner, SPAN_NOTICE("You flick your wrist and pull a basketball out of nowhere."))
+			holder.owner.put_in_hand_or_drop(bball)
+			return CAST_ATTEMPT_SUCCESS
+
+	var/obj/item/basketball/lethal/summonable/new_bball = new()
+	new_bball.owner_ckey = holder.owner.mind.key
+	holder.owner.put_in_hand_or_drop(new_bball)
+	boutput(holder.owner, SPAN_NOTICE("You flick your wrist and pull a basketball out of nowhere."))
+	return CAST_ATTEMPT_SUCCESS
 
 /obj/item/bball_uplink
 	name = "station bounced radio"
@@ -429,7 +450,7 @@
 	var/selfdestruct = 0
 	var/traitor_frequency = 0
 	var/obj/item/device/radio/origradio = null
-	flags = FPRINT | TABLEPASS| CONDUCT
+	flags = TABLEPASS | CONDUCT
 	c_flags = ONBELT
 	item_state = "radio"
 	throwforce = 5
@@ -467,6 +488,7 @@
 			dat += "<A href='byond://?src=\ref[src];spell_holy=1'>Holy Jam</A> (15)<BR>"
 			dat += "<A href='byond://?src=\ref[src];spell_blink=1'>Blitz Slam</A> (2)<BR>"
 			dat += "<A href='byond://?src=\ref[src];spell_revengeclown=1'>Clown Jam</A> (90)<BR>"
+			dat += "<A href='byond://?src=\ref[src];spell_summon=1'>B-Ball Summon</A> (30)<BR>"
 //			dat += "<A href='byond://?src=\ref[src];spell_summongolem=1'>Summon Basketball Golem</A> (60)<BR>"
 			dat += "<A href='byond://?src=\ref[src];spell_spin=1'>Spin (free)</A> (4)<BR>"
 			dat += "<HR>"
@@ -491,29 +513,34 @@
 			if (src.uses >= 1)
 				src.uses -= 1
 				src.temp = "This jam will cause an eruption of explosive basketballs from your location."
-				usr.verbs += /mob/proc/bball_nova
+				H.addAbility(/datum/targetable/bball/nova)
 		if (href_list["spell_showboat"])
 			if (src.uses >= 1)
 				src.uses -= 1
-				usr.verbs += /mob/proc/showboat_slam
+				H.addAbility(/datum/targetable/bball/showboat_slam)
 				src.temp = "Leap up high above your target and slam them for massive damage."
 		if (href_list["spell_holy"])
 			if (src.uses >= 1)
 				src.uses -= 1
-				usr.verbs += /mob/proc/holy_jam
+				H.addAbility(/datum/targetable/bball/holy_jam)
 				src.temp = "A powerful and sacred jam that blinds surrounding enemies."
 		if (href_list["spell_blink"])
 			if (src.uses >= 1)
 				src.uses -= 1
-				usr.verbs += /mob/proc/blitz_slam
+				H.addAbility(/datum/targetable/bball/blitz_slam)
 				src.temp = "This slam will allow you to teleport randomly at a short distance."
+		if (href_list["spell_summon"])
+			if (src.uses >= 1)
+				src.uses -= 1
+				H.addAbility(/datum/targetable/bball/summon)
+				src.temp = "Summon a basketball that gains in power the more times it's passed. Throwing the charged b-ball at someone will perform a potentially very lethal vibe check."
 		if (href_list["spell_revengeclown"])
 			if (src.uses >= 1)
 				src.uses -= 1
-				usr.verbs += /mob/proc/clown_jam
+				H.addAbility(/datum/targetable/bball/clown_jam)
 				src.temp = "This unspoken jam bamboozles your target to the extent that they will become an idiotic, horrible, and useless clown."
 		if (href_list["spell_spin"])
-			usr.verbs += /mob/proc/spin
+			H.addAbility(/datum/targetable/bball/spin)
 			src.temp = "This spell lets you do a 360 spin, knocking down any fools tailing you."
 /*
 		if (href_list["spell_summongolem"])
@@ -535,7 +562,7 @@
 			usr.u_equip(R)
 			usr.put_in_hand_or_drop(T)
 			T.set_frequency(initial(T.frequency))
-			T.attack_self(usr)
+			T.AttackSelf(usr)
 			return
 		else if (href_list["selfdestruct"])
 			src.temp = "<A href='byond://?src=\ref[src];selfdestruct2=1'>Self-Destruct</A>"
@@ -548,11 +575,11 @@
 			if (href_list["temp"])
 				src.temp = null
 		if (ismob(src.loc))
-			attack_self(src.loc)
+			src.AttackSelf(src.loc)
 		else
 			for(var/mob/M in viewers(1, src))
 				if (M.client)
-					src.attack_self(M)
+					src.AttackSelf(M)
 	return
 
 /mob/proc/bball_spellpower()
@@ -564,6 +591,4 @@
 		magcount += 1
 	for (var/obj/item/basketball/B in usr.contents)
 		magcount += 2
-	if (magcount >= 3)
-		return 1
-	return 0
+	return magcount

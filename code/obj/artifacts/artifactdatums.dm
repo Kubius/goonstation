@@ -65,7 +65,8 @@ ABSTRACT_TYPE(/datum/artifact/)
 	var/list/triggers = list()
 	/// List from which to pick the triggers
 	var/validtriggers = list(/datum/artifact_trigger/force,/datum/artifact_trigger/electric,/datum/artifact_trigger/heat,
-	/datum/artifact_trigger/radiation,/datum/artifact_trigger/carbon_touch,/datum/artifact_trigger/silicon_touch,/datum/artifact_trigger/data)
+	/datum/artifact_trigger/radiation,/datum/artifact_trigger/carbon_touch,/datum/artifact_trigger/silicon_touch,/datum/artifact_trigger/data,
+	/datum/artifact_trigger/language)
 	/// minimum amount of triggers the artifact will have
 	var/min_triggers = 1
 	/// maximum amount of triggers the artifact will have
@@ -211,6 +212,16 @@ ABSTRACT_TYPE(/datum/artifact/)
 	/// By the old Tier system this would be ~0.63 for a tier 4 artifact, ~0.1 for a tier 1 artifact
 	proc/get_rarity_modifier()
 		return src.rarity_weight ? 0.995**src.rarity_weight : 0.2
+
+	/// show artifact fx
+	proc/show_fx(obj/artifact)
+		artifact.vis_contents += src.fx_image
+		artifact.vis_contents += src.fx_fallback
+
+	/// hide artifact fx
+	proc/hide_fx(obj/artifact)
+		artifact.vis_contents -= src.fx_image
+		artifact.vis_contents -= src.fx_fallback
 
 // SPECIFIC DATUMS
 

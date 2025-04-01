@@ -14,7 +14,6 @@
 	var/use_bloodoverlay = 1
 	var/stapled = 0
 	var/allow_staple = 1
-	var/path_prot = 1 // protection from airborne pathogens, multiplier for chance to be infected
 
 	New()
 		..()
@@ -48,6 +47,9 @@
 			return
 	else if (issnippingtool(W))
 		if (src.vchange)
+			if (src.vchange.permanent)
+				user.show_text("[src]'s [src.vchange.name] cannot be removed!", "red")
+				return
 			user.show_text("You begin removing [src.vchange] from [src].", "blue")
 			if (!do_after(user, 2 SECONDS))
 				user.show_text("You were interrupted!", "red")
@@ -83,10 +85,10 @@
 	if (!source || !target) return
 	if( src.unstaple()) //Try a staple if it worked, yay
 		if (!src.stapled) //That's the last staple!
-			source.visible_message("<span class='alert'><B>[source] rips out the staples from [src]!</B></span>", "<span class='alert'><B>You rip out the staples from [src]!</B></span>", "<span class='alert'>You hear a loud ripping noise.</span>")
+			source.visible_message(SPAN_ALERT("<B>[source] rips out the staples from [src]!</B>"), SPAN_ALERT("<B>You rip out the staples from [src]!</B>"), SPAN_ALERT("You hear a loud ripping noise."))
 			. = 1
 		else //Did you get some of them?
-			source.visible_message("<span class='alert'><B>[source] rips out some of the staples from [src]!</B></span>", "<span class='alert'><B>You rip out some of the staples from [src]!</B></span>", "<span class='alert'>You hear a loud ripping noise.</span>")
+			source.visible_message(SPAN_ALERT("<B>[source] rips out some of the staples from [src]!</B>"), SPAN_ALERT("<B>You rip out some of the staples from [src]!</B>"), SPAN_ALERT("You hear a loud ripping noise."))
 			. = 0
 
 		//Commence owie
@@ -94,7 +96,7 @@
 		playsound(target, 'sound/impact_sounds/Slimy_Splat_1.ogg', 50, TRUE) //head,
 		target.emote("scream") 									//FUCKING
 		target.TakeDamage("head", rand(12, 18), 0) 				//OW!
-		target.changeStatus("weakened", 4 SECONDS)
+		target.changeStatus("knockdown", 4 SECONDS)
 
 		logTheThing(LOG_COMBAT, source, "rips out the staples on [constructTarget(target,"combat")]'s [src]") //Crime
 
@@ -109,7 +111,6 @@
 	color_r = 0.8 // green tint
 	color_g = 1
 	color_b = 0.8
-	path_prot = 0
 
 	setupProperties()
 		..()
@@ -179,7 +180,7 @@ TYPEINFO(/obj/item/clothing/mask/moustache)
 
 	unremovable
 		name = "slasher's gas mask"
-		desc = "A close-fitting sealed gas mask, this one seems to be protruding some kind of dark aura."
+		desc = "A close-fitting sealed gas mask, this one seems to be producing some kind of dark aura."
 		cant_self_remove = 1
 		cant_other_remove = 1
 		icon_state = "slasher_mask"
@@ -220,9 +221,13 @@ TYPEINFO(/obj/item/clothing/mask/moustache)
 	color_g = 0.8
 	color_b = 0.8
 
+	New()
+		. = ..()
+		src.AddComponent(/datum/component/log_item_pickup, first_time_only=FALSE, authorized_job=null, message_admins_too=FALSE)
+
 	syndicate
 		name = "syndicate field protective mask"
-		desc = "A tight-fitting mask designed to protect syndicate operatives from all manner of toxic inhalants. Worn with a buckle around the back of the head."
+		desc = "A tight-fitting mask designed to protect syndicate operatives from all manner of toxic inhalants. Has a built-in voice changer."
 		icon_state = "gas_mask_syndicate"
 		item_state = "gas_mask_syndicate"
 		color_r = 0.8 //this one's also green
@@ -231,8 +236,9 @@ TYPEINFO(/obj/item/clothing/mask/moustache)
 		item_function_flags = IMMUNE_TO_ACID
 
 		New()
-			..()
 			START_TRACKING_CAT(TR_CAT_NUKE_OP_STYLE)
+			..()
+			src.vchange = new /obj/item/voice_changer/permanent(src)
 
 		disposing()
 			STOP_TRACKING_CAT(TR_CAT_NUKE_OP_STYLE)
@@ -267,10 +273,14 @@ TYPEINFO(/obj/item/voice_changer)
 
 /obj/item/voice_changer
 	name = "voice changer"
-	desc = "This voice-modulation device will dynamically disguise your voice to that of whoever is listed on your identification card, via incredibly complex algorithms. Discretely fits inside most masks, and can be removed with wirecutters."
+	desc = "This voice-modulation device will dynamically disguise your voice to that of whoever is listed on your identification card, via incredibly complex algorithms. Discreetly fits inside most masks, and can be removed with wirecutters."
 	icon_state = "voicechanger"
 	is_syndicate = 1
+	var/permanent = FALSE
 	HELP_MESSAGE_OVERRIDE({"Use the voice changer on a face-concealing mask to fit it inside. You will speak as and appear in chat as the name of your worn ID, or as "unknown" if you aren't wearing your ID. Use wirecutters on the mask to remove the voice changer."})
+
+/obj/item/voice_changer/permanent
+	permanent = TRUE
 
 TYPEINFO(/obj/item/clothing/mask/monkey_translator)
 	mats = 12	// 2x voice changer cost. It's complicated ok
@@ -344,6 +354,7 @@ TYPEINFO(/obj/item/clothing/mask/monkey_translator)
 	icon_state = "clown"
 	item_state = "clown_hat"
 	see_face = FALSE
+	var/base_icon_state = "clown"
 
 	var/spam_flag = 0
 	var/spam_timer = 100
@@ -369,16 +380,30 @@ TYPEINFO(/obj/item/clothing/mask/monkey_translator)
 			src.mask_bald = TRUE
 			src.name = "wigless clown mask"
 			src.desc = bald_desc_state
-			src.icon_state = "[src.icon_state]_bald"
+			src.icon_state = "[src.base_icon_state]_bald"
 			src.item_state = "clown_bald"
 			user.show_text("You tuck back the wig on the [src].")
 		else
 			src.mask_bald = FALSE
 			src.name = initial(src.name)
 			src.desc = initial(src.desc)
-			src.icon_state = initial(src.icon_state)
+			src.icon_state = src.base_icon_state
 			src.item_state = "clown_hat"
 			user.show_text("You untuck the wig from the [src].")
+
+	autumn
+		name = "autumn clown wig and mask"
+		desc = "A special clown mask made to celebrate Autumn. Orange you glad you have it?!"
+		icon_state = "clown_autumn"
+		item_state = "clown_autumn"
+		base_icon_state = "clown_autumn"
+
+	winter
+		name = "winter clown wig and mask"
+		desc = "A special clown mask made to celebrate Winter. You'd be blue without it!! Like cold things? Blue? Get it?"
+		icon_state = "clown_winter"
+		item_state = "clown_winter"
+		base_icon_state = "clown_winter"
 
 /obj/item/clothing/mask/gas/syndie_clown
 	name = "clown wig and mask"
@@ -386,7 +411,7 @@ TYPEINFO(/obj/item/clothing/mask/monkey_translator)
 	icon_state = "clown"
 	item_state = "clown_hat"
 	item_function_flags = IMMUNE_TO_ACID
-	burn_possible = 0
+	burn_possible = FALSE
 	color_r = 1
 	color_g = 1
 	color_b = 1
@@ -403,7 +428,7 @@ TYPEINFO(/obj/item/clothing/mask/monkey_translator)
 				src.cant_other_remove = 1
 				src.cant_self_remove = 0
 			else
-				boutput (user, "<span class='alert'>[src] latches onto your face! It burns!</span>")
+				boutput (user, SPAN_ALERT("[src] latches onto your face! It burns!"))
 				src.victim = H
 				src.cant_other_remove = 0
 				src.cant_self_remove = 1
@@ -425,7 +450,7 @@ TYPEINFO(/obj/item/clothing/mask/monkey_translator)
 			if ( src.victim.health <= 0 )
 				return
 			if (prob(45))
-				boutput (src.victim, "<span class='alert'>[src] burns your face!</span>")
+				boutput (src.victim, SPAN_ALERT("[src] burns your face!"))
 				if (prob(25))
 					src.victim.emote("scream")
 				src.victim.TakeDamage("head",0,3,0,DAMAGE_BURN)
@@ -443,7 +468,7 @@ TYPEINFO(/obj/item/clothing/mask/monkey_translator)
 			var/mob/living/carbon/human/U = user
 			var/mob/living/carbon/human/T = target
 			if ( U.a_intent != INTENT_HELP && U.zone_sel.selecting == "head" && T.can_equip(src, SLOT_WEAR_MASK) )
-				U.visible_message("<span class='alert'>[src] latches onto [T]'s face!</span>","<span class='alert'>You slap [src] onto [T]'s face!'</span>")
+				U.visible_message(SPAN_ALERT("[src] latches onto [T]'s face!"),SPAN_ALERT("You slap [src] onto [T]'s face!'"))
 				logTheThing(LOG_COMBAT, user, "forces [T] to wear [src] (cursed clown mask) at [log_loc(T)].")
 				U.u_equip(src)
 
@@ -477,8 +502,7 @@ TYPEINFO(/obj/item/clothing/mask/monkey_translator)
 	icon_state = "sterile"
 	item_state = "s_mask"
 	w_class = W_CLASS_TINY
-	c_flags = COVERSMOUTH
-	path_prot = 0
+	c_flags = COVERSMOUTH | BLOCKMIASMA
 
 	setupProperties()
 		..()
@@ -541,18 +565,18 @@ TYPEINFO(/obj/item/clothing/mask/monkey_translator)
 	desc = "A little mask, made of paper. It isn't gunna stay on anyone's face like this, though."
 	burn_point = 220
 	burn_output = 900
-	burn_possible = 1
+	burn_possible = TRUE
 	health = 3
 
 	attackby(obj/item/W, mob/user)
 		if (istype(W, /obj/item/pen))
 			var/obj/item/pen/P = W
 			if (P.font_color)
-				boutput(user, "<span class='notice'>You scribble on the mask until it's filled in.</span>")
+				boutput(user, SPAN_NOTICE("You scribble on the mask until it's filled in."))
 				if (P.font_color)
 					src.color = P.font_color
 		else if (istype(W,/obj/item/cable_coil/))
-			boutput(user, "<span class='notice'>You attach the cable to the mask. Looks like you can wear it now.</span>")
+			boutput(user, SPAN_NOTICE("You attach the cable to the mask. Looks like you can wear it now."))
 			var/obj/item/cable_coil/C = W
 			C.use(1)
 			var/obj/item/clothing/mask/paper/M = new /obj/item/clothing/mask/paper(src.loc)
@@ -570,13 +594,13 @@ TYPEINFO(/obj/item/clothing/mask/monkey_translator)
 	see_face = FALSE
 	burn_point = 220
 	burn_output = 900
-	burn_possible = 1
+	burn_possible = TRUE
 
 	attackby(obj/item/W, mob/user)
 		if (istype(W, /obj/item/pen))
 			var/obj/item/pen/P = W
 			if (P.font_color)
-				boutput(user, "<span class='notice'>You scribble on the mask until it's filled in.</span>")
+				boutput(user, SPAN_NOTICE("You scribble on the mask until it's filled in."))
 				src.color = P.font_color
 
 /obj/item/clothing/mask/melons
@@ -617,6 +641,48 @@ TYPEINFO(/obj/item/clothing/mask/wrestling)
 	item_state = "anime"
 	see_face = FALSE
 
+/obj/item/clothing/mask/steel
+	name = "sheet welded mask"
+	desc = "A crudely welded mask made by attaching bent sheets. Highly protective at the cost of visibility"
+	icon_state = "steel"
+	item_state = "steel"
+	see_face = FALSE
+	allow_staple = 0
+	var/low_visibility = TRUE
+	material_amt = 0.5
+
+	attackby(obj/item/W, mob/user) // Allows the mask be modified, if one only wants the fashion
+		if (isweldingtool(W) && low_visibility)
+			if(!W:try_weld(user, 1))
+				return
+			user.visible_message(SPAN_ALERT("<B>[user]</B> melts the mask's eye slits to be larger."))
+			if(src in user.get_equipped_items())
+				user.removeOverlayComposition(/datum/overlayComposition/steelmask)
+				user.updateOverlaysClient(user.client)
+			setProperty("meleeprot_head", 3)
+			delProperty("disorient_resist_eye")
+			src.low_visibility = FALSE
+			src.desc = "A crudely welded mask made by attaching bent sheets. It's had it's eye slits widened for better visibility."
+		else
+			..()
+
+	setupProperties()
+		..() // Has some level of protection, at the cost of visibility
+		setProperty("meleeprot_head", 5)
+		setProperty("disorient_resist_eye", 35)
+
+	equipped(mob/user, slot)
+		. = ..()
+		if (low_visibility)
+			user.addOverlayComposition(/datum/overlayComposition/steelmask)
+			user.updateOverlaysClient(user.client)
+
+	unequipped(mob/user)
+		. = ..()
+		if (low_visibility)
+			user.removeOverlayComposition(/datum/overlayComposition/steelmask)
+			user.updateOverlaysClient(user.client)
+
 /obj/item/clothing/mask/gas/plague
 	name = "plague doctor mask"
 	desc = "A beak-shaped mask filled with pleasant-smelling herbs to help protect you from miasma, the leading cause of the spread of disease*.<br><small><i>*This information may be slightly outdated, please use caution if using mask later than the 17th century.</i></small>"
@@ -625,7 +691,6 @@ TYPEINFO(/obj/item/clothing/mask/wrestling)
 	color_r = 0.95 // darken just a little
 	color_g = 0.95
 	color_b = 0.95
-	path_prot = 0
 
 /obj/item/clothing/mask/chicken
 	name = "chicken mask"
@@ -694,7 +759,7 @@ ABSTRACT_TYPE(/obj/item/clothing/mask/bandana)
 	src.copy_filters_to(the_handkerchief)
 	qdel(src)
 	user.put_in_hand_or_drop(the_handkerchief)
-	boutput(user, "<span class='notice'>You unfold \the [src] into \a [the_handkerchief].</span>")
+	boutput(user, SPAN_NOTICE("You unfold \the [src] into \a [the_handkerchief]."))
 
 /obj/item/clothing/mask/bandana/white
 	icon_state = "bandana_white"
@@ -733,7 +798,7 @@ ABSTRACT_TYPE(/obj/item/clothing/mask/bandana)
 	handkerchief = /obj/item/cloth/handkerchief/colored/orange
 
 /obj/item/clothing/mask/bandana/nt
-	name = "nt bandana"
+	name = "\improper NT bandana"
 	item_state = "bandana_nt"
 	icon_state = "bandana_nt"
 	desc = "The rebel outlaw's choice."
@@ -766,3 +831,27 @@ ABSTRACT_TYPE(/obj/item/clothing/mask/bandana)
 	var/obj/item/clothing/mask/bandana/bandana_to_spawn = pick(possible_bandana)
 	new bandana_to_spawn(src.loc)
 	qdel(src)
+
+/obj/item/clothing/mask/tengu
+	name = "tengu mask"
+	desc = "Traditionally thought to repel evil spirits, thanks to the tengu's alarming face. Maybe it works on staffies, too."
+	item_state = "tengu"
+	icon_state = "tengu"
+	see_face = FALSE
+
+// New chaplain stuff
+
+/obj/item/clothing/mask/greencultmask
+	name = "lost horror veil"
+	desc = "A dark green shroud with loose fabric tendrils at the end of the face. You feel dizzy and lost just gazing into the visage."
+	item_state = "greencultmask"
+	icon_state = "greencultmask"
+	wear_layer = MOB_OVER_TOP_LAYER
+	see_face = FALSE
+/obj/item/clothing/mask/burnedcultmask
+	name = "incendiary mask"
+	desc = "A face mask designed to look like a burning candle's flame. It smells of smoke when worn."
+	item_state = "burnedcultmask"
+	icon_state = "burnedcultmask"
+	wear_layer = MOB_OVER_TOP_LAYER
+	see_face = FALSE

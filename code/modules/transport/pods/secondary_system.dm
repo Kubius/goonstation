@@ -62,6 +62,10 @@
 		onclose(user, "ship_sec_system")
 		return
 
+	run_component()
+		if (!src.ship.passengers)
+			src.deactivate()
+
 /obj/item/shipcomponent/secondary_system/orescoop
 	name = "Alloyed Solutions Ore Scoop/Hold"
 	desc = "Allows the ship to scoop up ore automatically."
@@ -104,7 +108,7 @@
 
 	Clickdrag_PodToObject(var/mob/living/user,var/atom/A)
 		if (length(contents) < 1)
-			boutput(user, "<span class='alert'>[src] has nothing to unload.</span>")
+			boutput(user, SPAN_ALERT("[src] has nothing to unload."))
 			return
 
 		var/turf/T = get_turf(A)
@@ -115,7 +119,7 @@
 				inrange = 1
 				break
 		if (!inrange)
-			boutput(user, "<span class='alert'>That tile too far away.</span>")
+			boutput(user, SPAN_ALERT("That tile too far away."))
 			return
 
 		if (T.density)
@@ -123,7 +127,7 @@
 
 		for(var/obj/O in T.contents)
 			if(O.density)
-				boutput(user, "<span class='alert'>That tile is blocked by [O].</span>")
+				boutput(user, SPAN_ALERT("That tile is blocked by [O]."))
 				return
 
 		for(var/obj/item/I in src.contents)
@@ -172,6 +176,8 @@
 
 /obj/item/shipcomponent/secondary_system/cargo/activate()
 	var/loadmode = tgui_input_list(usr, "Unload/Load", "Unload/Load", list("Load", "Unload"))
+	if(usr.loc != src.ship)
+		return
 	switch(loadmode)
 		if("Load")
 			var/atom/movable/AM = null
@@ -187,7 +193,7 @@
 			if (length(load) == 1)
 				crate = load[1]
 			else
-				crate = input(usr, "Choose which cargo to unload..", "Choose cargo")  as null|anything in load
+				crate = src.get_unloadable(usr)
 			if(!crate)
 				return
 			unload(crate)
@@ -211,17 +217,21 @@
 
 /obj/item/shipcomponent/secondary_system/cargo/Clickdrag_PodToObject(var/mob/living/user,var/atom/A)
 	if (!length(src.load))
-		boutput(user, "<span class='alert'>[src] has nothing to unload.</span>")
+		boutput(user, SPAN_ALERT("[src] has nothing to unload."))
 		return
-	var/turf/T = get_turf(A)
 
+	var/crate = src.get_unloadable(user)
+	if(!crate)
+		return
+
+	var/turf/T = get_turf(A)
 	var/inrange = 0
 	for(var/turf/ST in src.ship.locs)
 		if (in_interact_range(T,ST) && in_interact_range(user,ST))
 			inrange = 1
 			break
 	if (!inrange)
-		boutput(user, "<span class='alert'>That tile too far away.</span>")
+		boutput(user, SPAN_ALERT("That tile too far away."))
 		return
 
 	if (T.density)
@@ -229,54 +239,64 @@
 
 	for(var/obj/O in T.contents)
 		if(O.density)
-			boutput(user, "<span class='alert'>That tile is blocked by [O].</span>")
+			boutput(user, SPAN_ALERT("That tile is blocked by [O]."))
 			return
 
-	var/crate = input(user, "Choose which cargo to unload..", "Choose cargo")  as null|anything in load
-	if(!crate)
-		return
 	unload(crate,T)
 	return
 
 /obj/item/shipcomponent/secondary_system/cargo/Clickdrag_ObjectToPod(var/mob/living/user,var/atom/A)
+	if(isturf(A))
+		return
 	if (length(src.load) > src.maxcap)
-		boutput(user, "<span class='alert'>[src] has no available cargo space.</span>")
+		boutput(user, SPAN_ALERT("[src] has no available cargo space."))
 		return
 
 	switch(src.load(A))
 		if (1)
 			// if cargo system is not emagged, only allow crates to be loaded
-			boutput(user, "<span class='alert'>The pod's cargo autoloader rejects [A].</span>")
+			boutput(user, SPAN_ALERT("The pod's cargo autoloader rejects [A]."))
 			return
 		if (2)
 			// cargo system full (this should never happen)
-			boutput(user, "<span class='alert'>[src] has no available cargo space.</span>")
+			boutput(user, SPAN_ALERT("[src] has no available cargo space."))
 			return
 		if (3)
 			// out of range (this should never happen)
-			boutput(user, "<span class='alert'>Something is too far away to do that.</span>")
+			boutput(user, SPAN_ALERT("Something is too far away to do that."))
+			return
+		if (4)
+			// crate is anchored
+			boutput(user, SPAN_ALERT("The pod's cargo autoloader fails to budge [A]!"))
 			return
 		if (0)
 			// success
-			src.visible_message("<span style=\"color:blue\">[user] loads the [A] into [src]'s cargo bay.</span>")
+			src.visible_message(SPAN_NOTICE("[user] loads the [A] into [src]'s cargo bay."))
 			return
 
-	boutput(user, "<span class='alert'>[src] has no cargo system or no available cargo space.</span>")
+	boutput(user, SPAN_ALERT("[src] has no cargo system or no available cargo space."))
 	return
 
-/obj/item/shipcomponent/secondary_system/cargo/proc/load(var/atom/movable/C)
+/obj/item/shipcomponent/secondary_system/cargo/proc/load(var/atom/movable/C, var/mob/user)
+	if(!user)
+		user = usr
+
 	if(length(src.load) >= maxcap)
 		playsound(src.loc, 'sound/machines/buzz-sigh.ogg', 50, 0)
-		boutput(usr, "[ship.ship_message("Cargo hold is full!")]")
+		boutput(user, "[ship.ship_message("Cargo hold is full!")]")
 		return 2
 
 	var/inrange = 0
 	for (var/turf/T in src.ship.locs)
-		if (in_interact_range(T,C) && in_interact_range(usr,C))
+		if (in_interact_range(T, C) && in_interact_range(user, C))
 			inrange = 1
 			break
 	if (!inrange)
 		return 3
+
+	if(C.anchored)
+		playsound(src.loc, 'sound/machines/buzz-sigh.ogg', 50, 0)
+		return 4
 
 	// if a crate, close before loading
 	var/obj/storage/crate/crate = C
@@ -312,16 +332,298 @@
 	step(C, turn(ship.dir,180))
 	return C
 
+/obj/item/shipcomponent/secondary_system/cargo/proc/get_unloadable(mob/user)
+	var/list/cargo_by_name = list()
+	var/list/counts_by_type = list()
+	for (var/atom/movable/AM as anything in src.load)
+		counts_by_type[AM.type] += 1
+		if (counts_by_type[AM.type] == 1)
+			cargo_by_name[AM.name] = AM
+		else
+			cargo_by_name["[AM.name] #[counts_by_type[AM.type]]"] = AM
+
+	return cargo_by_name[tgui_input_list(user, "Choose which cargo to unload", "Choose Cargo", sortList(cargo_by_name, GLOBAL_PROC_REF(cmp_text_asc)))]
+
 /obj/item/shipcomponent/secondary_system/cargo/on_shipdeath(var/obj/machinery/vehicle/ship)
 	shuffle_list(src.load)
 	for(var/atom/movable/AM in src.load)
 		if (src.unload(AM))
-			AM.visible_message("<span class='alert'><b>[AM]</b> is flung out of [src.ship]!</span>")
+			AM.visible_message(SPAN_ALERT("<b>[AM]</b> is flung out of [src.ship]!"))
 			AM.throw_at(get_edge_target_turf(AM, pick(alldirs)), rand(3,7), 3)
 		else
 			break
 	..()
 
+/obj/item/shipcomponent/secondary_system/cargo/jumpseat
+	name = "personal containment unit"
+	desc = "Allows the ship to load people as cargo. It is designed to integrate with the Life-Support System so it is probably safe?"
+	acceptable = list(/mob/living/carbon, /mob/living/silicon)
+	maxcap = 1
+	hud_state = "jumpseat"
+
+/obj/item/shipcomponent/secondary_system/cargo/jumpseat/handle_internal_lifeform(mob/lifeform_inside_me, breath_request, mult)
+		. = src.ship.handle_internal_lifeform(lifeform_inside_me, breath_request, mult)
+
+/obj/item/shipcomponent/secondary_system/cargo/jumpseat/activate()
+	var/loadmode = tgui_input_list(usr, "Unload/Load", "Unload/Load", list("Load", "Unload"))
+	switch(loadmode)
+		if("Load")
+			var/mob/AM = null
+			for(var/mob/living/LM in get_step(ship.loc, turn(ship.dir,180) ))
+				if(!LM.anchored)
+					AM = LM
+					break
+			if(AM)
+				AM.show_text(SPAN_NOTICE("\The [src.ship] is trying to load you in!"))
+				SETUP_GENERIC_ACTIONBAR(AM, src, 2 SECONDS, /obj/item/shipcomponent/secondary_system/cargo/proc/load, list(AM,usr), src.icon, src.icon_state, "[AM] successfully enters [his_or_her(AM)] \the [src.ship]'s!", null)
+			return
+		if("Unload")
+			if (length(load) == 1)
+				unload(load[1])
+		else
+			return
+	return
+
+/obj/item/shipcomponent/secondary_system/cargo/jumpseat/relaymove(mob/user as mob)
+	if(is_incapacitated(user))
+		return
+	if(ON_COOLDOWN(src, "relaymove", 1.5 SECOND))
+		return
+
+	if(!user.restrained() && prob(33))
+		user.show_text(SPAN_NOTICE("You manage to find the internal manual release!"))
+		if(tgui_alert(user, "Are you sure you want to activate the release?", "Exit [src.ship]", list("Yes", "No")) == "Yes")
+			src.unload(user)
+	else
+		user.show_text(SPAN_ALERT("You kick at [src], but it doesn't budge!"))
+
+/obj/item/shipcomponent/secondary_system/cargo/jumpseat/mob_flip_inside(var/mob/user)
+	..(user)
+	if(prob(3) || (!user.restrained() && prob(33)))
+		if (src.unload(user))
+			user.show_text(SPAN_ALERT("You manage to catch something and hear a click!"))
+			user.visible_message(SPAN_ALERT("<b>[user]</b> is flung out of [src.ship]!"))
+			user.throw_at(get_edge_target_turf(user, pick(alldirs)), rand(3,7), 3)
+
+/obj/item/shipcomponent/secondary_system/storage
+	name = "Storage Hold"
+	desc = "Allows the ship to hold many smaller items, versus a typical cargo hold."
+	hud_state = "cargo"
+	f_active = TRUE
+	var/obj/dummy_storage/dummy_storage
+
+	New()
+		..()
+		src.dummy_storage = new(null, src)
+
+	disposing()
+		qdel(src.dummy_storage)
+		src.dummy_storage = null
+		..()
+
+/obj/item/shipcomponent/secondary_system/auto_repair_kit
+	name = "Automatic Repair System"
+	desc = "When fueled with welding fuel, consumes it over time to automatically repair any damage to the ship."
+	hud_state = "auto_repair"
+	power_used = 25
+
+	New()
+		src.flags |= OPENCONTAINER
+		..()
+		src.create_reagents(100)
+
+	activate()
+		if (src.reagents.get_reagent_amount("fuel") <= 0)
+			boutput(src.ship.pilot, "[src.ship.ship_message("[src] is out of fuel!")]")
+			return
+		var/obj/machinery/vehicle/vehicle = src.ship
+		if (vehicle.health >= vehicle.maxhealth)
+			boutput(src.ship.pilot, "[src.ship.ship_message("The ship is at full health!")]")
+			return
+
+		return ..()
+
+	run_component(mult)
+		if (!src.active)
+			return
+		if (GET_COOLDOWN(src.ship, "in_combat"))
+			return
+		if (src.reagents.get_reagent_amount("fuel") <= 0)
+			boutput(src.ship.pilot, "[src.ship.ship_message("[src] is out of fuel!")]")
+			src.deactivate()
+			return
+		var/obj/machinery/vehicle/vehicle = src.ship
+		if (vehicle.health >= vehicle.maxhealth)
+			boutput(src.ship.pilot, "[src.ship.ship_message("The ship is now at full health.")]")
+			src.deactivate()
+			return
+		var/fuel_to_use = min(src.reagents.get_reagent_amount("fuel"), 1 * mult)
+		src.reagents.remove_reagent("fuel", fuel_to_use)
+		vehicle.health = min(vehicle.health + 15 * mult, vehicle.maxhealth)
+		vehicle.checkhealth()
+
+	get_desc(dist, mob/user)
+		. = ..()
+		. += "<br>[SPAN_NOTICE("[src.reagents.get_description(user, RC_SCALE)]")]"
+
+	attack_self(mob/user)
+		..()
+		if (tgui_alert(user, "Empty reagents?", "Confirmation", list("Yes", "No")) == "Yes")
+			src.reagents.trans_to(get_turf(src), src.reagents.maximum_volume)
+
+	afterattack(obj/O, mob/user)
+		..()
+		if (src.reagents.total_volume >= src.reagents.maximum_volume)
+			boutput(user, SPAN_ALERT("[src] is at max capacity!"))
+			return
+		if ((istype(O, /obj/reagent_dispensers) || istype(O, /obj/item/reagent_containers/food/drinks/fueltank)) && BOUNDS_DIST(src, O) == 0)
+			if (O.reagents.total_volume)
+				O.reagents.trans_to(src, 100)
+				playsound(src.loc, 'sound/effects/zzzt.ogg', 50, TRUE, -6)
+			else
+				boutput(user, SPAN_ALERT("The [O.name] is empty!"))
+
+/obj/item/shipcomponent/secondary_system/storage/Use(mob/user)
+	src.dummy_storage.storage.show_hud(user)
+
+/obj/item/shipcomponent/secondary_system/storage/activate()
+	src.dummy_storage.storage.show_hud(usr)
+
+/obj/item/shipcomponent/secondary_system/storage/deactivate()
+	for (var/atom/A as anything in src.dummy_storage.storage.get_contents())
+		src.dummy_storage.storage.transfer_stored_item(A, get_turf(src))
+
+/obj/item/shipcomponent/secondary_system/storage/Clickdrag_PodToObject(mob/living/user, atom/A)
+	if (user == A)
+		src.dummy_storage.storage.show_hud(user)
+
+/obj/item/shipcomponent/secondary_system/storage/Clickdrag_ObjectToPod(mob/living/user, atom/A)
+	if (istype(A, /obj/item) && src.dummy_storage.storage.check_can_hold(A) == STORAGE_CAN_HOLD)
+		src.dummy_storage.storage.add_contents(A, user)
+	else
+		boutput(user, SPAN_NOTICE("[src] can't hold this!"))
+
+/obj/item/shipcomponent/secondary_system/storage/on_shipdeath(var/obj/machinery/vehicle/ship)
+	var/atom/movable/AM
+	for (var/atom/A in src.dummy_storage.storage.get_contents())
+		src.dummy_storage.storage.transfer_stored_item(A, get_turf(src.ship))
+		A.visible_message(SPAN_ALERT("<b>[A]</b> is flung out of [src.ship]!"))
+		if (istype(A, /atom/movable))
+			AM = A
+			AM.throw_at(get_edge_target_turf(AM, pick(alldirs)), rand(3, 7), 3)
+
+/obj/dummy_storage
+	name = "Storage Hold"
+
+	New(turf/newLoc, obj/item/shipcomponent/secondary_system/storage/parent_storage)
+		..()
+		src.create_storage(/datum/storage, max_wclass = W_CLASS_NORMAL, slots = 10)
+		src.set_loc(parent_storage)
+
+ABSTRACT_TYPE(/obj/item/shipcomponent/secondary_system/thrusters)
+/obj/item/shipcomponent/secondary_system/thrusters
+	f_active = TRUE
+	power_used = 50
+	var/power_in_use = FALSE
+	var/cooldown_time
+	var/cd_message
+
+	Use(mob/user)
+		src.activate(user)
+
+	toggle()
+		src.activate()
+
+	activate(mob/user)
+		. = TRUE
+
+		user = user || usr
+
+		if (user != src.ship.pilot)
+			return FALSE
+
+		if (src.disrupted)
+			boutput(src.ship.pilot, "[src.ship.ship_message("ALERT: [src] is temporarily disabled!")]")
+			return FALSE
+
+		if (ON_COOLDOWN(src, "thruster_movement", src.cooldown_time))
+			boutput(user, "[src.ship.ship_message("[src.cd_message] [round(GET_COOLDOWN(src, "thruster_movement") / 10, 0.1)] seconds left.")]")
+			return FALSE
+
+		if (!src.power_in_use)
+			if (src.ship.powercapacity < (src.ship.powercurrent + src.power_used))
+				boutput(src.ship.pilot, "[src.ship.ship_message("Not enough power to activate [src]! ([ship.powercurrent + power_used]/[ship.powercapacity])")]")
+				return FALSE
+			src.ship.powercurrent += src.power_used
+			src.active = TRUE
+			src.power_in_use = TRUE
+
+		src.use_thrusters(user)
+
+	deactivate()
+		..()
+		src.power_in_use = FALSE
+
+	proc/use_thrusters(mob/user)
+		return
+
+	proc/change_thruster_direction()
+		return
+
+/obj/item/shipcomponent/secondary_system/thrusters/lateral
+	name = "Lateral Thrusters"
+	desc = "A thruster system that provides a burst of lateral movement upon use. Note, NanoTrasen is not liable for any resulting injuries."
+	help_message = "Initialized to provide movement to the right. When installed in a pod, click the pod and use the context menu button to change direction."
+	hud_state = "lat_thrusters_right"
+	cooldown_time = 5 SECONDS
+	cd_message = "Thrusters are cooling down!"
+	var/turn_dir = "right"
+
+	use_thrusters(mob/user)
+		var/turn_angle = src.turn_dir == "right" ? -90 : 90
+
+		// spawn to allow button clunk sound to play right away
+		SPAWN(0)
+			for (var/i in 1 to 5)
+				step(src.ship, turn(src.ship.dir, turn_angle))
+				sleep(0.125 SECONDS)
+			src.deactivate(FALSE)
+
+	change_thruster_direction()
+		if (src.turn_dir == "right")
+			src.turn_dir = "left"
+			src.hud_state = "lat_thrusters_left"
+			src.ship.myhud.update_states()
+		else
+			src.turn_dir = "right"
+			src.hud_state = "lat_thrusters_right"
+			src.ship.myhud.update_states()
+		boutput(usr, SPAN_NOTICE("Thrusters will now provide ship movement to the [src.turn_dir]."))
+
+/obj/item/shipcomponent/secondary_system/thrusters/afterburner
+	name = "Afterburner"
+	desc = "An engine augment that enhances the burning of plasma, increasing maximum velocity for a short duration."
+	icon_state = "afterburner"
+	hud_state = "lat_thrusters_right"
+	f_active = TRUE
+	power_used = 50
+	cooldown_time = 20 SECONDS
+	cd_message = "Afterburner is recharging!"
+
+
+	use_thrusters(mob/user)
+		// spawn to allow button clunk sound to play right away
+		SPAWN(0)
+			boutput(user, "[src.ship.ship_message("Afterburner is now active!")]")
+			src.ship.afterburner_accel_mod *= 1.1
+			src.ship.afterburner_speed_mod *= 1.75
+			sleep(5 SECONDS)
+			src.deactivate()
+
+	deactivate()
+		..()
+		src.ship.afterburner_accel_mod /= 1.1
+		src.ship.afterburner_speed_mod /= 1.75
 
 /obj/item/shipcomponent/secondary_system/tractor_beam
 	name = "Tri-Corp Tractor Beam"
@@ -353,25 +655,34 @@
 		..()
 		if(!active)
 			return
-		var/list/targets = list()
+
+		var/list/targets_by_name = list()
+		var/list/counts_by_type = list()
 		for (var/atom/movable/a in view(src.seekrange,ship.loc))
 			if(!a.anchored)
-				targets += a
+				counts_by_type[a.type] += 1
+				if (counts_by_type[a.type] == 1)
+					targets_by_name[a.name] = a
+				else
+					targets_by_name["[a.name] #[counts_by_type[a.type]]"] = a
 
-		target = input(usr, "Choose what to use the tractor beam on", "Choose Target")  as null|anything in targets
+		target = targets_by_name[tgui_input_list(usr, "Choose what to use the tractor beam on", "Choose Target", sortList(targets_by_name, GLOBAL_PROC_REF(cmp_text_asc)))]
 
 		if(!target)
 			deactivate()
 			return
 		tractor = image("icon" = 'icons/obj/ship.dmi', "icon_state" = "tractor", "layer" = FLOAT_LAYER)
 		target.overlays += tractor
+		RegisterSignal(src.ship, COMSIG_MOVABLE_MOVED, PROC_REF(tractor_drag))
 		settingup = 0
+
 	deactivate()
 		..()
 		settingup = 1
 		if(target)
 			target.overlays -= tractor
 			target = null
+			UnregisterSignal(src.ship, COMSIG_MOVABLE_MOVED)
 		return
 
 	opencomputer(mob/user as mob)
@@ -387,6 +698,12 @@
 		user.Browse(dat, "window=ship_sec_system")
 		onclose(user, "ship_sec_system")
 		return
+
+	proc/tractor_drag(obj/machinery/vehicle/holding_ship, atom/previous_loc, direction)
+		if (QDELETED(src.target) || GET_DIST(holding_ship, src.target) > src.seekrange)
+			UnregisterSignal(src.ship, COMSIG_MOVABLE_MOVED)
+			return
+		step_to(src.target, src.ship, 1)
 
 /obj/item/shipcomponent/secondary_system/repair
 	name = "Duracorp Construction Device"
@@ -484,6 +801,8 @@
 		opencomputer(user)
 		return
 	opencomputer(mob/user as mob)
+		if(user.loc != src.ship)
+			return
 		src.add_dialog(user)
 
 		var/dat = "<TT><B>[src] Console</B><BR><HR><BR>"
@@ -502,12 +821,14 @@
 	Use(mob/user as mob)
 		var/mob/target = input(user, "Choose Who to Abduct", "Choose Target")  as mob in view(ship.loc)
 		if(target)
-			boutput(target, "<span class='alert'><B>You have been abducted!</B></span>")
+			boutput(target, SPAN_ALERT("<B>You have been abducted!</B>"))
 			showswirl(get_turf(target))
 			target.set_loc(ship)
 		return
 
 	opencomputer(mob/user as mob)
+		if(user.loc != src.ship)
+			return
 		var/dat = "<TT><B>[src] Console</B><BR><HR>"
 		for(var/mob/M in ship)
 			if(M == ship.pilot) continue
@@ -540,6 +861,7 @@
 	icon_state = "lock"
 	var/code = ""
 	var/configure_mode = 0 //If true, entering a valid code sets that as the code.
+	var/can_reset = TRUE //! Can you reset the code for this lock?
 
 	disposing()
 		if (ship)
@@ -598,12 +920,12 @@
 	</table>
 	<br>
 	<table class = "keypad">
-		<tr><td><a href='javascript:keypadIn(7);'>7</a></td><td><a href='javascript:keypadIn(8);'>8</a></td><td><a href='javascript:keypadIn(9);'>9</a></td></td><td><a href='javascript:keypadIn("A");'>A</a></td></tr>
-		<tr><td><a href='javascript:keypadIn(4);'>4</a></td><td><a href='javascript:keypadIn(5);'>5</a></td><td><a href='javascript:keypadIn(6)'>6</a></td></td><td><a href='javascript:keypadIn("B");'>B</a></td></tr>
-		<tr><td><a href='javascript:keypadIn(1);'>1</a></td><td><a href='javascript:keypadIn(2);'>2</a></td><td><a href='javascript:keypadIn(3)'>3</a></td></td><td><a href='javascript:keypadIn("C");'>C</a></td></tr>
-		<tr><td><a href='javascript:keypadIn(0);'>0</a></td><td><a href='javascript:keypadIn("F");'>F</a></td><td><a href='javascript:keypadIn("E");'>E</a></td></td><td><a href='javascript:keypadIn("D");'>D</a></td></tr>
+		<tr><td><a href='#' onclick='keypadIn(7); return false;'>7</a></td><td><a href='#' onclick='keypadIn(8); return false;'>8</a></td><td><a href='#' onclick='keypadIn(9); return false;'>9</a></td></td><td><a href='#' onclick='keypadIn("A"); return false;'>A</a></td></tr>
+		<tr><td><a href='#' onclick='keypadIn(4); return false;'>4</a></td><td><a href='#' onclick='keypadIn(5); return false;'>5</a></td><td><a href='#' onclick='keypadIn(6); return false;'>6</a></td></td><td><a href='#' onclick='keypadIn("B"); return false;'>B</a></td></tr>
+		<tr><td><a href='#' onclick='keypadIn(1); return false;'>1</a></td><td><a href='#' onclick='keypadIn(2); return false;'>2</a></td><td><a href='#' onclick='keypadIn(3); return false;'>3</a></td></td><td><a href='#' onclick='keypadIn("C"); return false;'>C</a></td></tr>
+		<tr><td><a href='#' onclick='keypadIn(0); return false;'>0</a></td><td><a href='#' onclick='keypadIn("F"); return false;'>F</a></td><td><a href='#' onclick='keypadIn("E"); return false;'>E</a></td></td><td><a href='#' onclick='keypadIn("D"); return false;'>D</a></td></tr>
 
-		<tr><td colspan=2 width = 100px><a id = "enterkey" href='?src=\ref[src];enter=0;'>ENTER</a></td><td colspan = 2 width = 100px><a href='javascript:keypadIn("reset");'>RESET</a></td></tr>
+		<tr><td colspan=2 width = 100px><a id = "enterkey" href='?src=\ref[src];enter=0;'>ENTER</a></td><td colspan = 2 width = 100px><a href='#' onclick='keypadIn("reset"); return false;'>RESET</a></td></tr>
 	</table>
 
 <script language="JavaScript">
@@ -693,7 +1015,7 @@
 					usr << output("!OK!&0", "ship_lock.browser:updateReadout")
 					if (ship)
 						ship.locked = 0
-						boutput(usr, "<span class='alert'>The lock mechanism clicks unlocked.</span>")
+						boutput(usr, SPAN_ALERT("The lock mechanism clicks unlocked."))
 					//	ship.access_computer(usr)
 				else
 					usr << output("ERR!&0", "ship_lock.browser:updateReadout")
@@ -758,62 +1080,67 @@
 								desctext += "a rather long boop"
 
 						if (desctext)
-							boutput(usr, "<span class='alert'>The lock panel emits [desctext].</span>")
+							boutput(usr, SPAN_ALERT("The lock panel emits [desctext]."))
 
 		else if (href_list["lock"])
 			if  (usr.loc != src.ship)
-				boutput(usr, "<span class='alert'>You must be inside the ship to do that!</span>")
+				boutput(usr, SPAN_ALERT("You must be inside the ship to do that!"))
 				return
 
 			if (ship && !ship.locked)
 				ship.locked = 1
-				boutput(usr, "<span class='alert'>The lock mechanism clunks locked.</span>")
+				boutput(usr, SPAN_ALERT("The lock mechanism clunks locked."))
 				//ship.access_computer(usr)
 
 		else if (href_list["unlock"])
 			if  (usr.loc != src.ship)
-				boutput(usr, "<span class='alert'>You must be inside the ship to do that!</span>")
+				boutput(usr, SPAN_ALERT("You must be inside the ship to do that!"))
 				return
 
 			if (ship?.locked)
 				ship.locked = 0
-				boutput(usr, "<span class='alert'>The ship mechanism clicks unlocked.</span>")
+				boutput(usr, SPAN_ALERT("The ship mechanism clicks unlocked."))
 				//ship.access_computer(usr)
 
 		else if (href_list["setcode"])
 			if  (usr.loc != src.ship)
-				boutput(usr, "<span class='alert'>You must be inside the ship to do that!</span>")
+				boutput(usr, SPAN_ALERT("You must be inside the ship to do that!"))
 				return
+
+			if (src.is_set())
+				if(!src.can_reset)
+					boutput(usr, SPAN_ALERT("This lock cannot have its code reset."))
+					return
+				boutput(usr, SPAN_NOTICE("Code reset. Please type new code and press enter."))
 
 			src.configure_mode = 1
 			if (src.ship)
 				src.ship.locked = 0
 			src.code = ""
 
-			boutput(usr, "Code reset.  Please type new code and press enter.")
 			show_lock_panel(usr)
+		ship.myhud.update_states()
+
+	/// Has this lock been set
+	proc/is_set()
+		return !(code == "")
 
 /obj/item/shipcomponent/secondary_system/lock/bioscan
 	name = "Biometric Hatch Locking Unit"
 	desc = "A basic hatch locking mechanism with a biometric scan."
-	system = "Lock"
-	f_active = 1
-	power_used = 0
-	icon_state = "lock"
-	code = ""
-	configure_mode = 0 //If true, entering a valid code sets that as the code.
+	can_reset = FALSE
 	var/bdna = null
 
 	show_lock_panel(mob/living/user)
 		if (isliving(user))
 			if (isnull(bdna))
-				boutput(user, "<span class='notice'>[ship]'s locking mechinism recognizes you as its key!</span>")
+				boutput(user, SPAN_NOTICE("[ship]'s locking mechanism recognizes you as its key!"))
 				playsound(src.loc, 'sound/machines/ping.ogg', 50, 0)
 				bdna = user?.bioHolder?.Uid
 				ship.locked = 0
 			else if ((bdna == user.bioHolder?.Uid) || (bdna == user.blood_DNA) )
 				ship.locked = !ship.locked
-				boutput(user, "<span class='alert'>[ship] is now [ship.locked ? "locked" : "unlocked"]!</span>")
+				boutput(user, SPAN_ALERT("[ship] is now [ship.locked ? "locked" : "unlocked"]!"))
 			else
 				var/valid_dna_source = null
 				if(ishuman(user))
@@ -828,11 +1155,17 @@
 
 				if(valid_dna_source)
 					if(user.loc == src.ship)
-						boutput(user, "<span class='alert'>You press [valid_dna_source] against \the [src] for a moment.</span>")
+						boutput(user, SPAN_ALERT("You press [valid_dna_source] against \the [src] for a moment."))
 					else
 						src.ship.visible_message("[user] holds [valid_dna_source] against the [src.ship] for a moment.")
 					ship.locked = !ship.locked
-					boutput(user, "<span class='alert'>[ship] is now [ship.locked ? "locked" : "unlocked"]!</span>")
+					boutput(user, SPAN_ALERT("[ship] is now [ship.locked ? "locked" : "unlocked"]!"))
+				else
+					boutput(user, SPAN_ALERT("You are not recognized by the biometric lock for [ship]!"))
+			ship.myhud.update_states()
+
+	is_set()
+		return !isnull(bdna)
 
 /obj/item/shipcomponent/secondary_system/crash
 	name = "Syndicate Explosive Entry Device"
@@ -861,9 +1194,9 @@
 
 /obj/item/shipcomponent/secondary_system/crash/proc/dispense()
 	for (var/mob/living/B in ship.contents)
-		boutput(B, "<span class='alert'>You eject!</span>")
+		boutput(B, SPAN_ALERT("You eject!"))
 		ship.leave_pod(B)
-		ship.visible_message("<span class='alert'>[B] launches out of the [ship]!</span>")
+		ship.visible_message(SPAN_ALERT("[B] launches out of the [ship]!"))
 		for(var/i in 1 to 3)
 			step(B, turn(ship.dir, 180), 0)
 		step_rand(B, 0)
@@ -891,7 +1224,7 @@
 			T.dismantle_wall(1)
 			playsound(src.loc, 'sound/impact_sounds/Generic_Hit_Heavy_1.ogg', 40, 1)
 			playsound(src, 'sound/impact_sounds/Generic_Hit_Heavy_1.ogg', 40, TRUE)
-			boutput(ship.pilot, "<span class='alert'><B>You crash through the wall!</B></span>")
+			boutput(ship.pilot, SPAN_ALERT("<B>You crash through the wall!</B>"))
 			in_bump = 0
 		if(istype(A, /turf/simulated/floor))
 			var/turf/T = A
@@ -905,14 +1238,14 @@
 			if(prob(30))
 				playsound(src.loc, 'sound/impact_sounds/Generic_Hit_Heavy_1.ogg', 40, 1)
 				playsound(src, 'sound/impact_sounds/Generic_Hit_Heavy_1.ogg', 40, TRUE)
-				boutput(ship.pilot, "<span class='alert'><B>You plow through the floor!</B></span>")
+				boutput(ship.pilot, SPAN_ALERT("<B>You plow through the floor!</B>"))
 	if(ismob(A))
 		var/mob/M = A
-		boutput(ship.pilot, "<span class='alert'><B>You crash into [M]!</B></span>")
+		boutput(ship.pilot, SPAN_ALERT("<B>You crash into [M]!</B>"))
 		shake_camera(M, 8, 16)
-		boutput(M, "<span class='alert'><B>The [src] crashes into [M]!</B></span>")
+		boutput(M, SPAN_ALERT("<B>The [src] crashes into you!</B>"))
 		M.changeStatus("stunned", 8 SECONDS)
-		M.changeStatus("weakened", 5 SECONDS)
+		M.changeStatus("knockdown", 5 SECONDS)
 		M.TakeDamageAccountArmor("chest", 20, damage_type = DAMAGE_BLUNT)
 		var/turf/target = get_edge_target_turf(ship, ship.dir)
 		M.throw_at(target, 4, 2)
@@ -923,8 +1256,7 @@
 		var/obj/O = A
 		var/turf/T = get_turf(O)
 		if(O.density && O.anchored != ANCHORED_ALWAYS && !isrestrictedz(T?.z))
-			boutput(ship.pilot, "<span class='alert'><B>You crash into [O]!</B></span>")
-			boutput(O, "<span class='alert'><B>[ship] crashes into you!</B></span>")
+			boutput(ship.pilot, SPAN_ALERT("<B>You crash into [O]!</B>"))
 			var/turf/target = get_edge_target_turf(ship, ship.dir)
 			playsound(src.loc, 'sound/impact_sounds/Generic_Hit_Heavy_1.ogg', 40, 1)
 			playsound(src, 'sound/impact_sounds/Generic_Hit_Heavy_1.ogg', 40, TRUE)
@@ -938,10 +1270,10 @@
 				O:dump_contents()
 				qdel(O)
 			if(istype(O, /obj/window))
-				for(var/obj/grille/G in get_turf(O))
+				for(var/obj/mesh/grille/G in get_turf(O))
 					qdel(G)
 				qdel(O)
-			if(istype(O, /obj/grille))
+			if(istype(O, /obj/mesh/grille))
 				for(var/obj/window/W in get_turf(O))
 					qdel(W)
 				qdel(O)
@@ -979,13 +1311,13 @@
 
 	activate()
 		if(!core_inserted)
-			boutput(ship.pilot, "<span class='alert'><B>The system requires a unique power source to function!</B></span>")
+			boutput(ship.pilot, SPAN_ALERT("<B>The system requires a unique power source to function!</B>"))
 			return
 		else if(cooldown > TIME)
-			boutput(ship.pilot, "<span class='alert'><B>The system is still recharging!</B></span>")
+			boutput(ship.pilot, SPAN_ALERT("<B>The system is still recharging!</B>"))
 			return
 		else
-			boutput(ship.pilot, "<span class='alert'><B>Snapshot created!</B></span>")
+			boutput(ship.pilot, SPAN_ALERT("<B>Snapshot created!</B>"))
 			playsound(ship.loc, 'sound/machines/reprog.ogg', 75, 1)
 			cooldown = 20 SECONDS + TIME
 			health_snapshot = ship.health
@@ -1002,9 +1334,9 @@
 				playsound(ship.loc, 'sound/machines/bweep.ogg', 75, 1)
 				if(ship.health < health_snapshot)
 					ship.health = health_snapshot
-					boutput(ship.pilot, "<span class='alert'><B>Snapshot applied!</B></span>")
+					boutput(ship.pilot, SPAN_ALERT("<B>Snapshot applied!</B>"))
 				else
-					boutput(ship.pilot, "<span class='alert'><B>Snapshot discarded!</B></span>")
+					boutput(ship.pilot, SPAN_ALERT("<B>Snapshot discarded!</B>"))
 				return
 		return
 
@@ -1013,7 +1345,7 @@
 			core_inserted = FALSE
 			set_icon_state("SRS_empty")
 			user.put_in_hand_or_drop(new /obj/item/sword_core)
-			user.show_message("<span class='notice'>You remove the SWORD core from the Syndicate Rewind System!</span>", 1)
+			user.show_message(SPAN_NOTICE("You remove the SWORD core from the Syndicate Rewind System!"), 1)
 			desc = "After a delay, rewinds the ship's integrity to the state it was in at the moment of activation. The core is missing."
 			tooltip_rebuild = 1
 			return
@@ -1021,7 +1353,188 @@
 			core_inserted = TRUE
 			qdel(W)
 			set_icon_state("SRS")
-			user.show_message("<span class='notice'>You insert the SWORD core into the Syndicate Rewind System!</span>", 1)
+			user.show_message(SPAN_NOTICE("You insert the SWORD core into the Syndicate Rewind System!"), 1)
 			desc = "After a delay, rewinds the ship's integrity to the state it was in at the moment of activation. The core is installed."
 			tooltip_rebuild = 1
 			return
+
+ABSTRACT_TYPE(/obj/item/shipcomponent/secondary_system/shielding)
+/obj/item/shipcomponent/secondary_system/shielding
+	name = "Shielding System"
+	desc = "Provides a timed shield to block incoming projectiles and explosions. Recharge is required between uses."
+	f_active = TRUE
+	hud_state = "shielding"
+	/// % of damage, that the shielding blocks (0.5 would make a 40 dmg projectile deal 20 dmg instead)
+	var/block_pct = 0
+	/// health of the shield in dmg points
+	var/life = 100
+	/// how long the shield stays on
+	var/duration = 0 SECONDS
+	/// once deactivated, how long it takes for the shield to be ready again
+	var/recharge_time = 0 SECONDS
+	/// color of the shield
+	var/shield_color
+
+	New()
+		..()
+		src.desc += " Has a life of [src.life] damage, providing [round(block_pct * 100, 1)]% damage reduction. Shielding can be provided for [src.duration / 10] seconds" + \
+					" with a shield recharge time of [src.recharge_time / 10] seconds."
+
+	activate()
+		var/cooldown = GET_COOLDOWN(src, "ship_shielding_recharge")
+		if (cooldown)
+			boutput(src.ship.pilot, "[src.ship.ship_message("[src] is currently recharging, and cannot be turned on. Wait [cooldown / 10] seconds.")]")
+			return
+		if (!..())
+			return
+
+		src.ship.add_filter("shield_outline", 0, outline_filter(2, src.shield_color))
+
+		playsound(src.ship.loc, 'sound/effects/MagShieldUp.ogg', 75, TRUE, pitch = 1.5)
+
+		SPAWN(src.duration)
+			if (src.active)
+				src.deactivate()
+
+	deactivate()
+		if (src.active)
+			ON_COOLDOWN(src, "ship_shielding_recharge", src.recharge_time)
+			for (var/mob/M in src.ship)
+				boutput(M, "[src.ship.ship_message("[src]'s shield is now offline. Please wait for full recharge after [src.recharge_time / 10] seconds.")]")
+			src.ship.remove_filter("shield_outline")
+			playsound(src.ship.loc, 'sound/effects/MagShieldDown.ogg', 75, TRUE, pitch = 1.5)
+			src.life = initial(src.life)
+		..()
+
+	// takes incoming damage "dmg", returns damage dealt to pod
+	proc/process_incoming_dmg(dmg)
+		var/dmg_dealt = dmg * (1 - src.block_pct)
+
+		src.life -= dmg * src.block_pct
+
+		if (src.life <= 0)
+			src.deactivate()
+
+		return dmg_dealt
+
+/obj/item/shipcomponent/secondary_system/shielding/light
+	name = "Light Shielding System"
+	power_used = 50
+	block_pct = 0.25
+	life = 100
+	duration = 10 SECONDS
+	recharge_time = 60 SECONDS
+	shield_color = "#1a4cf0"
+
+/obj/item/shipcomponent/secondary_system/shielding/heavy
+	name = "High Impact Shielding System"
+	power_used = 150
+	block_pct = 0.9
+	life = 1000
+	duration = 3 SECONDS
+	recharge_time = 120 SECONDS
+	shield_color = "#ff3916"
+
+/obj/item/shipcomponent/secondary_system/trailblazer
+	name = "Inferno Trailblazer"
+	desc = "A totally RADICAL plasma igniter for your ship! Leave behind the COOLEST flames in the Frontier! Manufacturer is not responsible for deaths this device may cause."
+	hud_state = "trailblazer"
+	f_active = TRUE
+
+	Use()
+		return
+
+	toggle()
+		return
+
+	activate()
+		return
+
+	deactivate()
+		return
+/obj/item/shipcomponent/secondary_system/weapons_loader
+	name = "Weapons Loader"
+	desc = "An automatic weapon loading system that quickly swaps a stored weapon with the ship's main weapon."
+	icon_state = "weapons_loader-unloaded"
+	help_message = "Attack with a pod weapon to load it in. Use in-hand to eject the loaded weapon."
+	hud_state = "weapon-swap"
+	f_active = TRUE
+	var/obj/item/shipcomponent/mainweapon/loaded_wep = null
+
+	Use(mob/user)
+		src.activate(user)
+
+	toggle()
+		src.activate()
+
+	activate()
+		. = ..(FALSE)
+		src.active = FALSE
+		if (!.)
+			return
+
+		if (!src.loaded_wep && !src.ship.m_w_system)
+			return
+
+		if (src.loaded_wep && GET_COOLDOWN(src.loaded_wep, "weapon_swap_cd") || src.ship.m_w_system && GET_COOLDOWN(src.ship.m_w_system, "weapon_swap_cd"))
+			var/swap_cd = round((GET_COOLDOWN(src.loaded_wep, "weapon_swap_cd") || GET_COOLDOWN(src.ship.m_w_system, "weapon_swap_cd")) / 10, 1)
+			boutput(src.ship.pilot, "[src.ship.ship_message("[src.ship]'s weapons are too hot to swap out! [swap_cd] seconds left.")]")
+			return
+
+		for (var/mob/M in src.ship)
+			if (src.loaded_wep && src.ship.m_w_system)
+				boutput(M, "[src.ship.ship_message("[src.ship.m_w_system] has been swapped out for [src.loaded_wep].")]")
+			else if (src.ship.m_w_system)
+				boutput(M, "[src.ship.ship_message("[src.ship.m_w_system] has been swapped out.")]")
+				src.ship.UpdateOverlays(null, "mainweapon") //todo: make pod components actually clean up their own overlays
+			else
+				boutput(M, "[src.ship.ship_message("[src.loaded_wep] has been swapped in.")]")
+
+		var/obj/item/shipcomponent/mainweapon/weapon = src.ship?.m_w_system
+		if (istype(weapon))
+			src.ship.eject_part(weapon, FALSE)
+			src.ship.null_part(weapon)
+		var/obj/item/shipcomponent/mainweapon/stored_weapon = src.loaded_wep
+		if (stored_weapon)
+			stored_weapon.ship = src.ship // prevents a bug in activate()
+			src.ship.Install(stored_weapon, FALSE)
+			src.loaded_wep = null
+			src.UpdateIcon()
+		if (istype(weapon))
+			src.loaded_wep = weapon
+			src.loaded_wep.set_loc(src)
+			src.UpdateIcon()
+
+		src.ship.myhud.update_systems()
+
+	attack_self(mob/user)
+		src.eject_wep(user)
+
+	attack_hand(mob/user)
+		if (!src.loaded_wep || src.loc != user)
+			return ..()
+		src.eject_wep(user)
+
+	proc/eject_wep(mob/user)
+		if (!src.loaded_wep)
+			return
+		src.loaded_wep.set_loc(get_turf(src))
+		user.put_in_hand_or_drop(src.loaded_wep)
+		src.loaded_wep = null
+		src.UpdateIcon()
+
+	attackby(obj/item/W, mob/user, params)
+		..()
+		if (src.loaded_wep)
+			return
+		if (!istype(W, /obj/item/shipcomponent/mainweapon))
+			return
+		user.drop_item(W)
+		src.loaded_wep = W
+		src.loaded_wep.set_loc(src)
+		src.UpdateIcon()
+		playsound(get_turf(src), 'sound/items/Deconstruct.ogg', 50, FALSE)
+
+	update_icon()
+		..()
+		src.icon_state = "weapons_loader-[src.loaded_wep ? "loaded" : "unloaded"]"

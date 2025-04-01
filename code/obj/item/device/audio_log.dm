@@ -79,8 +79,8 @@ TYPEINFO(/obj/item/device/audio_log)
 /obj/item/device/audio_log
 	name = "audio log"
 	desc = "A fairly spartan recording device."
-	icon_state = "recorder"
-	uses_multiple_icon_states = TRUE
+	icon = 'icons/obj/radiostation.dmi'
+	icon_state = "audiolog_newSmall"
 	item_state = "electronic"
 	w_class = W_CLASS_SMALL
 	var/obj/item/audio_tape/tape = null
@@ -99,7 +99,7 @@ TYPEINFO(/obj/item/device/audio_log)
 		max_lines = 30
 
 		attack_hand(mob/user)
-			return attack_self(user)
+			return src.AttackSelf(user)
 
 		updateSelfDialog()
 			return updateUsrDialog()
@@ -233,7 +233,7 @@ TYPEINFO(/obj/item/device/audio_log)
 			speaker_name = "Unknown"
 
 		if (ishuman(speaker) && speaker.wear_mask && speaker.wear_mask.vchange)
-			if (speaker:wear_id)
+			if (speaker:wear_id && length(speaker:wear_id:registered))
 				speaker_name = speaker:wear_id:registered
 			else
 				speaker_name = "Unknown"
@@ -300,7 +300,7 @@ TYPEINFO(/obj/item/device/audio_log)
 				for (var/image/chat_maptext/I in src.chat_text.lines)
 					if (I != audio_log_text)
 						I.bump_up(audio_log_text.measured_height)
-		src.audible_message("<span class='game radio' style='color: [speaker_colour]'><span class='name'>[speaker]</span><b> [bicon(src)]\[Log\]</b> <span class='message'>\"[message]\"</span></span>", 2, assoc_maptext = audio_log_text)
+		src.audible_message("<span class='radio' style='color: [speaker_colour]'>[SPAN_NAME("[speaker]")]<b> [bicon(src)]\[Log\]</b> [SPAN_MESSAGE("\"[message]\"")]</span>", assoc_maptext = audio_log_text)
 		return
 
 	proc/explode()
@@ -327,8 +327,7 @@ TYPEINFO(/obj/item/device/audio_log)
 			name_colours[unique_names[1]] = text_colour
 			return
 
-		var/list/text_rgb = hex_to_rgb_list(text_colour)
-		var/list/text_hsl = rgb2hsl(text_rgb[1], text_rgb[2], text_rgb[3])
+		var/list/text_hsl = hex_to_hsl_list(text_colour)
 		var/lightness_part = 60 / (length(unique_names) + 1)
 
 		for (var/i in 1 to length(unique_names))
@@ -364,6 +363,9 @@ TYPEINFO(/obj/item/device/audio_log)
 
 			src.tape.speakers = src.audiolog_speakers
 			src.audiolog_speakers = null
+
+			SPAWN(10 SECONDS) // Let people get their bearings first
+				src.play()
 
 			return
 
@@ -446,7 +448,7 @@ TYPEINFO(/obj/item/device/audio_log)
 								"Re-routing remaaaaaainiiiiiing power to top-deck cyro-sleepers.",
 								"*humming electronics*",
 								"Autopilot disengaged.",
-								"Delopying emergency beacon.",
+								"Deploying emergency beacon.",
 								"Central c-c-cOmpUtEr shut- d-dow-ow-ow-ownnnnn in 5,",
 								"4,",
 								"3-",

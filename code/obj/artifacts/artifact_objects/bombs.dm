@@ -7,7 +7,7 @@ ABSTRACT_TYPE(/datum/artifact/bomb)
 	rarity_weight = 0
 	validtypes = list("ancient","eldritch","precursor")
 	validtriggers = list(/datum/artifact_trigger/force,/datum/artifact_trigger/electric,/datum/artifact_trigger/heat,
-	/datum/artifact_trigger/cold,/datum/artifact_trigger/radiation)
+	/datum/artifact_trigger/cold,/datum/artifact_trigger/radiation, /datum/artifact_trigger/language)
 	fault_blacklist = list(ITEM_ONLY_FAULTS, TOUCH_ONLY_FAULTS) // can't sting you at range
 	react_xray = list(12,75,30,11,"COMPLEX")
 	var/explode_delay = 600
@@ -45,7 +45,7 @@ ABSTRACT_TYPE(/datum/artifact/bomb)
 		var/turf/T = get_turf(O)
 		src.detonation_time = TIME + src.explode_delay
 		if(recharge_delay && ON_COOLDOWN(O, "bomb_cooldown", recharge_delay))
-			T.visible_message("<b><span class='alert'>[O] [text_cooldown]</span></b>")
+			T.visible_message(SPAN_ALERT("<b>[O] [text_cooldown]</b>"))
 			playsound(T, sound_cooldown, 100, TRUE)
 			SPAWN(3 SECONDS)
 				O.ArtifactDeactivated() // lol get rekt spammer
@@ -53,12 +53,13 @@ ABSTRACT_TYPE(/datum/artifact/bomb)
 
 		// this is all just fluff
 		if (warning_initial)
-			T.visible_message("<b><span class='alert'>[O] [warning_initial]</b></span>")
+			T.visible_message("<b>[SPAN_ALERT("[O] [warning_initial]</b>")]")
 		if (alarm_initial)
 			playsound(T, alarm_initial, 100, TRUE, doAlert?200:-1)
 		if (doAlert)
 			var/area/A = get_area(O)
 			command_alert("An extremely unstable object of [artitype.type_name] origin has been detected in [A]. The crew is advised to dispose of it immediately.", "Station Threat Detected", alert_origin = ALERT_ANOMALY)
+		message_ghosts("<b>An artifact bomb</b> has just been triggered in [log_loc(T, ghostjump=TRUE)].")
 		O.add_simple_light("artbomb", lightColor)
 		animate(O, pixel_y = rand(-3,3), pixel_y = rand(-3,3),time = 1,loop = src.explode_delay + 10 SECONDS, easing = ELASTIC_EASING, flags=ANIMATION_PARALLEL)
 		animate(O.simple_light, flags=ANIMATION_PARALLEL, time = src.explode_delay + 10 SECONDS, transform = matrix() * animationScale)
@@ -80,7 +81,7 @@ ABSTRACT_TYPE(/datum/artifact/bomb)
 
 			// more fluff
 			if (warning_final)
-				T.visible_message("<b><span class='alert'>[O] [warning_final]</b></span>")
+				T.visible_message("<b>[SPAN_ALERT("[O] [warning_final]</b>")]")
 			if (alarm_final)
 				playsound(T, alarm_final, 100, TRUE, -1)
 			animate(O, pixel_y = rand(-3,3), pixel_y = rand(-3,3),time = 1,loop = 10 SECONDS, easing = ELASTIC_EASING, flags=ANIMATION_PARALLEL)
@@ -103,7 +104,7 @@ ABSTRACT_TYPE(/datum/artifact/bomb)
 		SPAWN(3 SECONDS)
 			O.remove_simple_light("artbomb")
 		var/turf/T = get_turf(O)
-		T.visible_message("<b><span class='notice'>[O] [text_disarmed]</b></span>")
+		T.visible_message("<b>[SPAN_NOTICE("[O] [text_disarmed]</b>")]")
 		if(src.doAlert && !src.blewUp && !ON_COOLDOWN(O, "alertDisarm", 10 MINUTES)) // lol, don't give the message if it was destroyed by exploding itself
 			command_alert("The object of [src.artitype.type_name] origin has been neutralized. All personnel should return to their duties.", "Station Threat Neutralized", alert_origin = ALERT_ANOMALY)
 
@@ -207,6 +208,12 @@ ABSTRACT_TYPE(/datum/artifact/bomb)
 			O.ArtifactDestroyed()
 
 // chemical bombs
+// different types of bombs for "payload_type"
+#define CHEMBOMB_FOAMY 0
+#define CHEMBOMB_SMOKEY 1
+#define CHEMBOMB_CLASSICAL_GAS 2
+#define CHEMBOMB_FLUIDY 3
+
 
 /obj/machinery/artifact/bomb/chemical
 	name = "artifact chemical bomb"
@@ -236,13 +243,13 @@ ABSTRACT_TYPE(/datum/artifact/bomb)
 		payload_type = rand(0,3)
 		var/payload_type_name = "unknown"
 		switch (payload_type)
-			if (0)
-				payload_type_name = "smoke"
-			if (1)
+			if (CHEMBOMB_FOAMY)
 				payload_type_name = "foam"
-			if (2)
+			if (CHEMBOMB_SMOKEY)
+				payload_type_name = "smoke"
+			if (CHEMBOMB_CLASSICAL_GAS)
 				payload_type_name = "propellant"
-			if (3)
+			if (CHEMBOMB_FLUIDY)
 				payload_type_name = "fluid"
 
 		var/list/potential_reagents = list()
@@ -257,14 +264,14 @@ ABSTRACT_TYPE(/datum/artifact/bomb)
 				potential_reagents = list("charcoal","styptic_powder","salbutamol","anti_rad","silver_sulfadiazine","synaptizine",
 				"omnizine","synthflesh","saline","salicylic_acid","menthol","calomel","penteticacid","antihistamine","atropine","solipsizine",
 				"perfluorodecalin","ipecac","mutadone","insulin","epinephrine","cyanide","ketamine","toxin","neurotoxin","neurodepressant","mutagen",
-				"fake_initropidril","toxic_slurry","jenkem","space_fungus","blood","vomit","gvomit","urine","meat_slurry","grease","butter")
+				"fake_initropidril","toxic_slurry","space_fungus","blood","vomit","gvomit","meat_slurry","grease","butter","spaceglue", "ants")
 			if ("eldritch")
 				// all the worst stuff. all of it
 				potential_reagents = list("chlorine","fluorine","lithium","mercury","plasma","radium","uranium","strange_reagent",
 				"phlogiston","thermite","infernite","foof","fuel","blackpowder","acid","amanitin","coniine","cyanide","curare",
 				"formaldehyde","lipolicide","initropidril","cholesterol","itching","pacid","pancuronium","polonium",
-				"sodium_thiopental","ketamine","sulfonal","toxin","venom","neurotoxin","mutagen","wolfsbane",
-				"toxic_slurry","histamine","saxitoxin","viper_venom","ricin")
+				"sodium_thiopental","ketamine","sulfonal","toxin","cytotoxin","neurotoxin","mutagen","wolfsbane",
+				"toxic_slurry","histamine","saxitoxin","hemotoxin","ricin","tetrodotoxin")
 			else
 				// absolutely everything
 				potential_reagents = all_functional_reagent_ids
@@ -279,7 +286,7 @@ ABSTRACT_TYPE(/datum/artifact/bomb)
 						continue
 				looper--
 				payload_reagents += reagent
-			log_addendum = "Payload: [payload_type_name], [kText.list2text(payload_reagents, ", ")]"
+			log_addendum = "Payload: [payload_type_name], [jointext(payload_reagents, ", ")]"
 
 		recharge_delay = rand(300,800)
 
@@ -303,26 +310,36 @@ ABSTRACT_TYPE(/datum/artifact/bomb)
 
 		var/turf/location = get_turf(O)
 		switch(payload_type)
-			if(0)
+			if(CHEMBOMB_FOAMY)
 				var/datum/effects/system/foam_spread/s = new()
 				s.set_up(O.reagents.total_volume, location, O.reagents, 0)
 				s.start()
-			if(1)
+			if(CHEMBOMB_SMOKEY)
+				// normal smoke
 				O.reagents.smoke_start(50)
-			if(2)
+			if(CHEMBOMB_CLASSICAL_GAS)
+				// "classic" smoke
 				O.reagents.smoke_start(50,1)
-			if(3)
+			if(CHEMBOMB_FLUIDY)
 				location.fluid_react(O.reagents, O.reagents.total_volume)
 				var/datum/fluid_group/FG = location.active_liquid?.group
 				if(FG)
 					FG.base_evaporation_time = 30 SECONDS
 					FG.bonus_evaporation_time = 0 SECONDS
 
+		if(QDELETED(O))
+			return
 		O.reagents.clear_reagents()
 
 		SPAWN(recharge_delay)
 			if (O)
 				O.ArtifactDeactivated()
+
+// undef chembomb payload_type types
+#undef CHEMBOMB_FOAMY
+#undef CHEMBOMB_SMOKEY
+#undef CHEMBOMB_CLASSICAL_GAS
+#undef CHEMBOMB_FLUIDY
 
 // matter transmutation bomb
 
@@ -376,7 +393,6 @@ ABSTRACT_TYPE(/datum/artifact/bomb)
 					100;"silver",
 					100;"cobryl",
 					50;"miracle",
-					50;"soulsteel",
 					50;"hauntium",
 					50;"ectoplasm",
 					10;"ectofibre",
@@ -462,6 +478,20 @@ ABSTRACT_TYPE(/datum/artifact/bomb)
 
 		range = rand(3,7)
 
+	onVarChanged(variable, oldval, newval)
+		. = ..()
+		if(variable == "material")
+			mat = getMaterial(material)
+		if(variable == "mat" || variable == "material")
+			warning_initial = "appears to be turning into [mat.getName()]."
+			warning_final = "begins transmuting nearby matter into [mat.getName()]!"
+			log_addendum = "Material: [mat.getName()]"
+
+			var/matR = GetRedPart(mat.getColor())
+			var/matG = GetGreenPart(mat.getColor())
+			var/matB = GetBluePart(mat.getColor())
+			lightColor = list(matR, matG, matB, 255)
+
 	effect_activate(obj/O)
 		if(..())
 			return
@@ -480,7 +510,7 @@ ABSTRACT_TYPE(/datum/artifact/bomb)
 			var/range_squared = range**2
 			var/turf/T = get_turf(O)
 			for(var/atom/G in range(range, T))
-				if(istype(G, /obj/overlay) || istype(G, /obj/effects) || istype(G, /turf/space) || istype(G, /obj/fluid))
+				if(istype(G, /obj/overlay) || istype(G, /obj/effects) || istype(G, /turf/space) || istype(G, /obj/fluid) || istype(G, /obj/particle))
 					continue
 				var/dist = GET_SQUARED_EUCLIDEAN_DIST(O, G)
 				var/distPercent = (dist/range_squared)*100

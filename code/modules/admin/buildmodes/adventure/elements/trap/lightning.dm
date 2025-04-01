@@ -11,8 +11,8 @@
 		selection = new /obj/adventurepuzzle/marker
 		damage = input("Trap damage? (500+ to gib instantly)", "Trap damage", 20) as num
 		stun = input("Stun time?", "Stun time", 6) as num
-		boutput(usr, "<span class='notice'>Right click to set trap target. Right click active target to clear target. Left click to place trap. Ctrl+click anywhere to finish.</span>")
-		boutput(usr, "<span class='notice'>Special note: If no target is set, all mobs within 6 tiles in the line of sight of the trap will be shocked.</span>")
+		boutput(usr, SPAN_NOTICE("Right click to set trap target. Right click active target to clear target. Left click to place trap. Ctrl+click anywhere to finish."))
+		boutput(usr, SPAN_NOTICE("Special note: If no target is set, all mobs within 6 tiles in the line of sight of the trap will be shocked."))
 
 	disposing()
 		if (target)
@@ -82,7 +82,7 @@
 					var/attack_amt = 0
 					if (target)
 						attack_amt = 1
-						var/list/affected = DrawLine(target, src, /obj/line_obj/elec ,'icons/obj/projectiles.dmi',"WholeLghtn",1,1,"HalfStartLghtn","HalfEndLghtn",OBJ_LAYER,1,PreloadedIcon='icons/effects/LghtLine.dmi')
+						var/list/affected = drawLineObj(target, src, /obj/line_obj/elec ,'icons/obj/projectiles.dmi',"WholeLghtn",1,1,"HalfStartLghtn","HalfEndLghtn",OBJ_LAYER,1,PreloadedIcon='icons/effects/LghtLine.dmi')
 						for(var/obj/OB in affected)
 							SPAWN(0.6 SECONDS)
 								qdel(OB)
@@ -90,7 +90,7 @@
 							if (damage < 500)
 								M.TakeDamage("chest", 0, damage, 0, DAMAGE_BURN)
 								M.changeStatus("stunned", stun SECONDS)
-								boutput(M, "<b><span class='alert'>You feel a powerful shock course through your body!</span></b>")
+								boutput(M, SPAN_ALERT("<b>You feel a powerful shock course through your body!</b>"))
 							else
 								if(ishuman(M))
 									logTheThing(LOG_COMBAT, M, "was gibbed by [src] ([src.type]) at [log_loc(M)].")
@@ -98,14 +98,14 @@
 					else
 						for (var/mob/living/M in view(src, range))
 							attack_amt = 1
-							var/list/affected = DrawLine(M, src, /obj/line_obj/elec ,'icons/obj/projectiles.dmi',"WholeLghtn",1,1,"HalfStartLghtn","HalfEndLghtn",OBJ_LAYER,1,PreloadedIcon='icons/effects/LghtLine.dmi')
+							var/list/affected = drawLineObj(M, src, /obj/line_obj/elec ,'icons/obj/projectiles.dmi',"WholeLghtn",1,1,"HalfStartLghtn","HalfEndLghtn",OBJ_LAYER,1,PreloadedIcon='icons/effects/LghtLine.dmi')
 							for(var/obj/OB in affected)
 								SPAWN(0.6 SECONDS)
 									qdel(OB)
 							if (damage < 500)
 								M.TakeDamage("chest", 0, damage, 0, DAMAGE_BURN)
 								M.changeStatus("stunned", stun SECONDS)
-								boutput(M, "<b><span class='alert'>You feel a powerful shock course through your body!</span></b>")
+								boutput(M, SPAN_ALERT("<b>You feel a powerful shock course through your body!</b>"))
 							else
 								if(ishuman(M))
 									logTheThing(LOG_COMBAT, M, "was gibbed by [src] ([src.type]) at [log_loc(M)].")

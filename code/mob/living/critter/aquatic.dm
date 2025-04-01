@@ -24,7 +24,7 @@ ABSTRACT_TYPE(/mob/living/critter/aquatic)
 	health_burn = 10
 	health_burn_vuln = 2
 
-	faction = FACTION_AQUATIC
+	faction = list(FACTION_AQUATIC)
 
 	var/out_of_water_debuff = 1 // debuff amount for being out of water
 	var/in_water_buff = 1 // buff amount for being in water
@@ -41,8 +41,11 @@ ABSTRACT_TYPE(/mob/living/critter/aquatic)
 	if(src.is_pet)
 		START_TRACKING_CAT(TR_CAT_PETS)
 	..()
-	aquabreath_process = add_lifeprocess(/datum/lifeprocess/aquatic_breathing,src.in_water_buff,src.out_of_water_debuff)
 	remove_lifeprocess(/datum/lifeprocess/blood) // caused lag, not sure why exactly
+
+/mob/living/critter/aquatic/restore_life_processes()
+	. = ..()
+	src.aquabreath_process = add_lifeprocess(/datum/lifeprocess/aquatic_breathing,src.in_water_buff,src.out_of_water_debuff)
 
 /mob/living/critter/aquatic/disposing()
 	ai?.dispose()
@@ -458,15 +461,15 @@ ABSTRACT_TYPE(/mob/living/critter/aquatic)
 			var/obj/window/W = AM
 			W.health = 0
 			W.smash()
-		else if(istype(AM, /obj/grille))
-			var/obj/grille/G = AM
+		else if(istype(AM, /obj/mesh/grille))
+			var/obj/mesh/grille/G = AM
 			G.damage_blunt(30)
 		else if(istype(AM, /obj/machinery/vehicle/tank) || istype(AM, /obj/table))
 			AM.meteorhit()
 		else if(istype(AM, /obj/foamedmetal))
 			AM.dispose()
 		playsound(src.loc, 'sound/effects/exlow.ogg', 70,1)
-		src.visible_message("<span class='alert'><B>[src]</B> smashes into \the [AM]!</span>")
+		src.visible_message(SPAN_ALERT("<B>[src]</B> smashes into \the [AM]!"))
 
 /mob/living/critter/aquatic/king_crab/harmed_by(var/mob/living/M)
 	..()
@@ -480,7 +483,7 @@ ABSTRACT_TYPE(/mob/living/critter/aquatic)
 				playsound(src.loc, 'sound/voice/animal/crab_chirp.ogg', 80, 0, 7, channel=VOLUME_CHANNEL_EMOTE)
 				for (var/mob/living/M in oview(src, 7))
 					M.apply_sonic_stun(0, 5, 3, 12, 40, rand(0,3))
-				return "<span class='alert'><b>[src]</b> lets out an eerie wail.</span>"
+				return SPAN_ALERT("<b>[src]</b> lets out an eerie wail.")
 		if ("dance")
 			if (src.emote_check(voluntary, 300))
 				for (var/i = 0, i < 4, i++)
@@ -493,14 +496,14 @@ ABSTRACT_TYPE(/mob/living/critter/aquatic)
 					sleep(0.2 SECONDS)
 				SPAWN(5 SECONDS)
 				for (var/mob/living/M in oview(src, 7))
-					M.reagents.add_reagent(pick("cyanide","neurotoxin","venom","histamine","jenkem","lsd"), 5)
-				return "<span class='alert'><b>[src]</b> does a sinister dance.</span>"
+					M.reagents.add_reagent(pick("cyanide","neurotoxin","cytotoxin","histamine","lsd"), 5)
+				return SPAN_ALERT("<b>[src]</b> does a sinister dance.")
 		if ("snap")
 			if (src.emote_check(voluntary, 300))
-				src.changeStatus("paralysis", -30 SECONDS)
+				src.changeStatus("unconscious", -30 SECONDS)
 				src.changeStatus("stunned", -30 SECONDS)
-				src.changeStatus("weakened", -30 SECONDS)
-				return "<span class='alert'><b>[src]</b> clacks menacingly.</span>"
+				src.changeStatus("knockdown", -30 SECONDS)
+				return SPAN_ALERT("<b>[src]</b> clacks menacingly.")
 		if ("flex")
 			if (src.emote_check(voluntary, 300))
 				src.health_brute_vuln = 0.1
@@ -509,7 +512,7 @@ ABSTRACT_TYPE(/mob/living/critter/aquatic)
 					if (src)
 						src.health_brute_vuln = 0.5
 						src.health_burn_vuln = 3
-				return "<span class='alert'><b>[src]'s</b> chitin gleams.</span>"
+				return SPAN_ALERT("<b>[src]'s</b> chitin gleams.")
 	return null
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -600,10 +603,11 @@ ABSTRACT_TYPE(/mob/living/critter/aquatic)
 		. = ..()
 
 		if (length(.) && prob(10))
-			playsound(src.loc, 'sound/misc/jaws.ogg', 50, 0)
+			if (!ON_COOLDOWN(src, "jaws_sound", 50 SECONDS))
+				playsound(src.loc, 'sound/misc/jaws.ogg', 50, 0, 0, 1)
 
 	critter_scavenge(var/mob/target)
-		src.visible_message("<span class='combat'><B>[src]</B> gibs [target] in one bite!</span>")
+		src.visible_message(SPAN_COMBAT("<B>[src]</B> gibs [target] in one bite!"))
 		logTheThing(LOG_COMBAT, target, "was gibbed by [src] at [log_loc(src)].") // Some logging for instakill critters would be nice (Convair880).
 		playsound(src.loc, 'sound/items/eatfood.ogg', 30, 1, -2)
 		target.gib()
@@ -655,18 +659,18 @@ ABSTRACT_TYPE(/mob/living/critter/aquatic)
 			if (0)
 				if (isitem(target))
 					if (prob(33))
-						boutput(user, "<span class='alert'>[target] slips through your pincers!</span>")
+						boutput(user, SPAN_ALERT("[target] slips through your pincers!"))
 						return
 					return ..()
 				if (istype(target,/obj/sea_plant))
-					user.visible_message("<span class='alert'><b>[user] smashes [target] into sea foam!</b></span>", "<span class='alert'><b>You smash [target] into sea foam!</b></span>")
+					user.visible_message(SPAN_ALERT("<b>[user] smashes [target] into sea foam!</b>"), SPAN_ALERT("<b>You smash [target] into sea foam!</b>"))
 					animate_melt_pixel(target)
 					qdel(target)
 				if (istype(target,/obj/machinery/power/apc))
 					var/obj/machinery/power/apc/APC = target
 					for (var/i=1,i<=4,i++)
 						APC.cut(i)
-					user.visible_message("<span class='alert'><b>[user]'s pincers slither inside [target] and slash the wires!</b></span>", "<span class='alert'><b>Your pincers slither inside [target] and slash the wires!</b></span>")
+					user.visible_message(SPAN_ALERT("<b>[user]'s pincers slither inside [target] and slash the wires!</b>"), SPAN_ALERT("<b>Your pincers slither inside [target] and slash the wires!</b>"))
 					return
 				if (istype(target,/obj/cable))
 					var/obj/cable/C = target
@@ -683,7 +687,7 @@ ABSTRACT_TYPE(/mob/living/critter/aquatic)
 		return 0
 	if (prob(15))
 		logTheThing(LOG_COMBAT, user, "accidentally slashes [constructTarget(target,"combat")] with pincers at [log_loc(user)].")
-		user.visible_message("<span class='alert'><b>[user] accidentally slashes [target] while trying to [user.a_intent] them!</b></span>", "<span class='alert'><b>You accidentally slash [target] while trying to [user.a_intent] them!</b></span>")
+		user.visible_message(SPAN_ALERT("<b>[user] accidentally slashes [target] while trying to [user.a_intent] them!</b>"), SPAN_ALERT("<b>You accidentally slash [target] while trying to [user.a_intent] them!</b>"))
 		harm(target, user, 1)
 		return 1
 	return 0
@@ -709,7 +713,7 @@ ABSTRACT_TYPE(/mob/living/critter/aquatic)
 	var/datum/attackResults/msgs = user.calculate_melee_attack(target, 10, 20, 0, 2, can_punch = 0, can_kick = 0)
 	user.attack_effects(target, user.zone_sel?.selecting)
 	var/action = pick("slashes", "tears into", "gouges", "rips into", "lacerates", "mutilates")
-	msgs.base_attack_message = "<b><span class='alert'>[user] [action] [target] with their [src.holder]!</span></b>"
+	msgs.base_attack_message = SPAN_ALERT("<b>[user] [action] [target] with their [src.holder]!</b>")
 	msgs.played_sound = 'sound/impact_sounds/Glub_1.ogg'
 	msgs.damage_type = DAMAGE_CUT
 	msgs.flush(SUPPRESS_LOGS)

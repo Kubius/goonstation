@@ -57,7 +57,7 @@ var/static/list/obj/machinery/disposal_pipedispenser/availdisposalpipes = list(
 	switch(action)
 		if("dmake")
 			if (!dispenser_ready)
-				boutput(ui.user, "<span class='alert'>The [src] isn't ready yet!</span>")
+				boutput(ui.user, SPAN_ALERT("The [src] isn't ready yet!"))
 				return
 			var/p_type = text2num_safe(availdisposalpipes[params["disposal_type"]])
 			if (isnull(p_type))
@@ -71,7 +71,7 @@ var/static/list/obj/machinery/disposal_pipedispenser/availdisposalpipes = list(
 			dummy_pipe.ptype = p_type
 			dummy_pipe.update()
 			SETUP_GENERIC_ACTIONBAR(src, null, duration, /obj/machinery/disposal_pipedispenser/proc/build_disposal_pipe, list(p_type, amount),\
-			 dummy_pipe.icon, dummy_pipe.icon_state, "<span class='notice'>The [src] finishes making pipes!</span>", INTERRUPT_NONE)
+			 dummy_pipe.icon, dummy_pipe.icon_state, SPAN_NOTICE("The [src] finishes making pipes!"), INTERRUPT_NONE)
 			qdel(dummy_pipe) //Above creates a construct and changes its icon for usage in the actionbar icon.
 			. = TRUE
 
@@ -118,7 +118,8 @@ TYPEINFO(/obj/machinery/disposal_pipedispenser/mobile)
 			else if(src.removing_pipe)
 				if(!new_loc.intact || istype(new_loc,/turf/space))
 					for(var/obj/disposalpipe/pipe in old_loc)
-						qdel(pipe)
+						if (pipe.weldable)
+							qdel(pipe)
 			prev_dir = direction // might want to actually do this even when old_loc == loc but idk, it sucks with attempted diagonal movement
 
 	proc/connect_pipe(var/turf/new_loc, var/new_dir)

@@ -1,11 +1,11 @@
 //handheld device for manual calibration of siphon systems
 TYPEINFO(/obj/item/device/calibrator)
-	mats = list("CRY-1", "CON-1")
-
+	mats = list("crystal" = 1,
+				"conductive" = 1)
 /obj/item/device/calibrator
 	name = "harmonic systems calibrator"
 	icon_state = "calibrator"
-	flags = FPRINT | TABLEPASS| CONDUCT
+	flags = TABLEPASS | CONDUCT
 	c_flags = ONBELT
 	force = 5.0
 	w_class = W_CLASS_SMALL
@@ -36,7 +36,7 @@ ABSTRACT_TYPE(/obj/machinery/siphon)
 
 	New()
 		src.net_id = generate_net_id(src)
-		MAKE_DEFAULT_RADIO_PACKET_COMPONENT(null, src.frequency)
+		MAKE_DEFAULT_RADIO_PACKET_COMPONENT(src.net_id, null, src.frequency)
 		..()
 
 	disposing()
@@ -157,7 +157,7 @@ ABSTRACT_TYPE(/obj/machinery/siphon)
 		var/mob/living/L = user
 		if (!istype(L))
 			return 0
-		L.visible_message("<span class='alert'><b>[L] shoves their head into [src]'s beam, ripping it off in the matter stream! Holy shit!</b></span>")
+		L.visible_message(SPAN_ALERT("<b>[L] shoves their head into [src]'s beam, ripping it off in the matter stream! Holy shit!</b>"))
 		playsound(src.loc, 'sound/impact_sounds/Flesh_Tear_2.ogg', 75)
 		L.organHolder.drop_organ("head",src) //you've met a terrible fate
 		return 1
@@ -230,7 +230,7 @@ ABSTRACT_TYPE(/obj/machinery/siphon)
 					//option 2 - running resonators with the panel open is a bad idea
 					if(src.extract_ticks > M.tick_req)
 						if(src.extract_overloaded == FALSE) //warn if newly overloaded
-							src.visible_message("<span class='alert'><B>[src]</B> emits an excess accumulated EEU warning.<span>")
+							src.visible_message(SPAN_ALERT("<B>[src]</B> emits an excess accumulated EEU warning."))
 						playsound(src, 'sound/machines/pod_alarm.ogg', 30, TRUE)
 						src.extract_overloaded = TRUE
 					else
@@ -275,7 +275,7 @@ ABSTRACT_TYPE(/obj/machinery/siphon)
 							RSO.shear_overload()
 			else
 				SPAWN(0.1 SECONDS)
-					flick("drill-extract",src.drawlight)
+					FLICK("drill-extract",src.drawlight)
 
 			playsound(src.loc, 'sound/machines/siphon_run.ogg', 50, !extract_progressed) //noise warbles if no progress occurred
 
@@ -332,19 +332,19 @@ ABSTRACT_TYPE(/obj/machinery/siphon)
 
 	mouse_drop(over_object, src_location, over_location)
 		if(!isliving(usr))
-			boutput(usr, "<span class='alert'>Only living mobs are able to set the siphon's output target.</span>")
+			boutput(usr, SPAN_ALERT("Only living mobs are able to set the siphon's output target."))
 			return
 
 		if(!in_interact_range(over_object,src))
-			boutput(usr, "<span class='alert'>The siphon is too far away from the target.</span>")
+			boutput(usr, SPAN_ALERT("The siphon is too far away from the target."))
 			return
 
 		if(!in_interact_range(over_object,usr))
-			boutput(usr, "<span class='alert'>You are too far away from the target.</span>")
+			boutput(usr, SPAN_ALERT("You are too far away from the target."))
 			return
 
 		if(src.mode == "active")
-			boutput(usr, "<span class='alert'>You can't unload the siphon while it's running.</span>")
+			boutput(usr, SPAN_ALERT("You can't unload the siphon while it's running."))
 			return
 
 		if (istype(over_object,/obj/storage/crate/) || istype(over_object,/obj/storage/cart) || istype(over_object,/obj/storage/closet))
@@ -353,12 +353,12 @@ ABSTRACT_TYPE(/obj/machinery/siphon)
 				I.set_loc(over_object)
 				offload_count++
 			playsound(src, sound_unload, 40, TRUE)
-			usr.visible_message("<span class='notice'>[usr] uses [src]'s automatic ore offloader on [over_object].</span>", "<span class='notice'>You load [offload_count] materials into [over_object] from [src].</span>")
+			usr.visible_message(SPAN_NOTICE("[usr] uses [src]'s automatic ore offloader on [over_object]."), SPAN_NOTICE("You load [offload_count] materials into [over_object] from [src]."))
 			src.update_storage_bar()
 
 		if (istype(over_object,/obj/item/satchel/mining))
 			var/obj/item/satchel/mining/satchel = over_object
-			usr.visible_message("<span class='notice'>[usr] begins unloading ore into [satchel].</span>")
+			usr.visible_message(SPAN_NOTICE("[usr] begins unloading ore into [satchel]."))
 			if (length(satchel.contents) < satchel.maxitems)
 				var/staystill = usr.loc
 				var/interval = 0
@@ -373,19 +373,19 @@ ABSTRACT_TYPE(/obj/machinery/siphon)
 					sleep(0.1 SECONDS)
 					if (usr.loc != staystill) break
 					if (length(satchel.contents) >= satchel.maxitems)
-						boutput(usr, "<span class='notice'>\The [satchel] is now full!</span>")
+						boutput(usr, SPAN_NOTICE("\The [satchel] is now full!"))
 						break
 				var/incomplete = 1 //you're not done filling
 				if(length(satchel.contents) == satchel.maxitems || !length(src.contents)) incomplete = 0
-				boutput(usr, "<span class='notice'>You [incomplete ? "stop" : "finish"] filling \the [satchel].</span>")
+				boutput(usr, SPAN_NOTICE("You [incomplete ? "stop" : "finish"] filling \the [satchel]."))
 				satchel.UpdateIcon()
 				satchel.tooltip_rebuild = 1
 				src.update_storage_bar()
 			else
-				boutput(usr, "<span class='notice'>\The [satchel] doesn't have any room to accept materials.</span>")
+				boutput(usr, SPAN_NOTICE("\The [satchel] doesn't have any room to accept materials."))
 
 		else if (istype(over_object, /turf/))
-			usr.visible_message("<span class='notice'>[usr] begins unloading ore from [src].</span>")
+			usr.visible_message(SPAN_NOTICE("[usr] begins unloading ore from [src]."))
 			var/staystill = usr.loc
 			var/interval = 0
 			for (var/obj/item/I in src.contents)
@@ -396,7 +396,7 @@ ABSTRACT_TYPE(/obj/machinery/siphon)
 				playsound(src, sound_unload, 30, TRUE)
 				sleep(0.1 SECONDS)
 				if (usr.loc != staystill) break
-			boutput(usr, "<span class='notice'>You [length(src.contents) ? "stop" : "finish"] unloading ore from [src].</span>")
+			boutput(usr, SPAN_NOTICE("You [length(src.contents) ? "stop" : "finish"] unloading ore from [src]."))
 			src.update_storage_bar()
 
 		else ..()
@@ -445,10 +445,12 @@ ABSTRACT_TYPE(/obj/machinery/siphon)
 		src.toggling = TRUE
 		playsound(src, 'sound/machines/click.ogg', 40, TRUE)
 		src.icon_state = "drill-low"
-		flick("drilldrop",src)
+		FLICK("drilldrop",src)
 		SPAWN(2 SECONDS)
 			for (var/obj/machinery/siphon/resonator/res in orange(4,src))
 				if (res.status & BROKEN) continue
+				var/turf/T = get_turf(res)
+				if (ON_COOLDOWN(T, "resonator_anti_stack", 1 DECI SECOND)) continue
 				var/xadj = res.x - src.x
 				var/yadj = res.y - src.y
 				if(abs(xadj) > 4 || abs(yadj) > 4) continue //this is apparently necessary?
@@ -476,7 +478,7 @@ ABSTRACT_TYPE(/obj/machinery/siphon)
 		src.clear_siphon_console()
 		SPAWN(1 SECOND)
 			src.icon_state = "drill-high"
-			flick("drillraise",src)
+			FLICK("drillraise",src)
 			SPAWN(3 SECONDS)
 				src.toggling = FALSE
 
@@ -628,6 +630,7 @@ ABSTRACT_TYPE(/obj/machinery/siphon)
 		else if(istype(W,/obj/item/cable_coil))
 			if(!src.panelopen)
 				boutput(user,"The service panel isn't open.")
+				return
 			if(HAS_FLAG(src.status,BROKEN))
 				if(W.amount >= 3)
 					playsound(src.loc, 'sound/items/Deconstruct.ogg', 40, 1)
@@ -651,6 +654,9 @@ ABSTRACT_TYPE(/obj/machinery/siphon)
 				return
 		else if(istype(W,/obj/item/device/calibrator))
 			var/scalex = input(user,"Accepts values 0 through [src.max_intensity]","Adjust Intensity","1") as num
+			if(BOUNDS_DIST(src, user) > 1)
+				boutput(user, SPAN_NOTICE("You are too far away from [src] to calibrate it!"))
+				return
 			scalex = clamp(scalex,0,src.max_intensity)
 			src.intensity = scalex
 			src.update_fx()
@@ -688,7 +694,7 @@ ABSTRACT_TYPE(/obj/machinery/siphon)
 		else //disengage lock includes fx update of its own
 			src.update_fx()
 		if(catastrophic)
-			src.visible_message("<span class='alert'>[src] explodes!</span>")
+			src.visible_message(SPAN_ALERT("[src] explodes!"))
 			new /obj/effects/explosion(src.loc)
 			playsound(src, 'sound/effects/Explosion1.ogg', 50, TRUE)
 			SPAWN(0)
@@ -696,7 +702,7 @@ ABSTRACT_TYPE(/obj/machinery/siphon)
 				qdel(src)
 		else
 			var/faildesc = pick("short-circuits","malfunctions","suddenly deactivates","shorts out","shoots out sparks")
-			src.visible_message("<span class='alert'>[src] [faildesc]!</span>")
+			src.visible_message(SPAN_ALERT("[src] [faildesc]!"))
 			playsound(src, 'sound/effects/shielddown2.ogg', 30, TRUE)
 			if(limiter.canISpawn(/obj/effects/sparks))
 				var/obj/sparks = new /obj/effects/sparks

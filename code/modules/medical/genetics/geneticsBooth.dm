@@ -99,7 +99,7 @@ TYPEINFO(/obj/machinery/genetics_booth)
 		workingoverlay.pixel_y = 2
 		workingoverlay.layer = src.layer + 0.1
 
-		MAKE_SENDER_RADIO_PACKET_COMPONENT("pda", FREQ_PDA)
+		MAKE_SENDER_RADIO_PACKET_COMPONENT(null, "pda", FREQ_PDA)
 
 	disposing()
 		STOP_TRACKING
@@ -121,8 +121,8 @@ TYPEINFO(/obj/machinery/genetics_booth)
 			if (started == 2)
 				if (!try_billing(occupant))
 					for (var/mob/O in hearers(src, null))
-						O.show_message("<span class='subtle'><span class='game say'><span class='name'>[src]</span> beeps, \"<b>[occupant.name]<b>! You can't afford [selected_product.name] with a bank account like that.\"</span></span>", 2)
-					occupant.show_message("<span class='subtle'><span class='game say'><span class='name'>[src]</span> beeps, \"<b>[occupant.name]<b>! You can't afford [selected_product.name] with a bank account like that.\"</span></span>", 2)
+						O.show_message(SPAN_SUBTLE(SPAN_SAY("[SPAN_NAME("[src]")] beeps, \"<b>[occupant.name]<b>! You can't afford [selected_product.name] with a bank account like that.\"")), 2)
+					occupant.show_message(SPAN_SUBTLE(SPAN_SAY("[SPAN_NAME("[src]")] beeps, \"<b>[occupant.name]<b>! You can't afford [selected_product.name] with a bank account like that.\"")), 2)
 
 					eject_occupant(0)
 		else if (started)
@@ -138,7 +138,7 @@ TYPEINFO(/obj/machinery/genetics_booth)
 			return
 
 		if (status & (NOPOWER | BROKEN))
-			boutput(user, "<span class='alert'>The gene booth is currently nonfunctional.</span>")
+			boutput(user, SPAN_ALERT("The gene booth is currently nonfunctional."))
 			return
 
 
@@ -202,7 +202,7 @@ TYPEINFO(/obj/machinery/genetics_booth)
 						var/price = input(usr, "Please enter price for [P.name].", "Gene Price", 0) as null|num
 						if(!isnum_safe(price))
 							return
-						price = max(price,0)
+						price = ceil(clamp(price, 0, 999999))
 						P.cost = price
 
 				if("lock")
@@ -260,7 +260,7 @@ TYPEINFO(/obj/machinery/genetics_booth)
 				if(selected_product?.BE)
 
 					var/datum/bioEffect/NEW = new selected_product.BE.type()
-					copy_datum_vars(selected_product.BE,NEW)
+					copy_datum_vars(selected_product.BE, NEW, blacklist=list("owner", "holder", "dnaBlocks"))
 					occupant.bioHolder.AddEffectInstanceNoDelay(NEW)
 
 					selected_product.uses -= 1
@@ -322,9 +322,10 @@ TYPEINFO(/obj/machinery/genetics_booth)
 
 							for (var/mob/O in hearers(src, null))
 								//if (src.glitchy_slogans)
-								//	O.show_message("<span class='game say'><span class='name'>[src]</span> beeps,</span> \"[voidSpeak(message)]\"", 2)
+								//	O.show_message("<span class='say'>[SPAN_NAME("[src]")] beeps,</span> \"[voidSpeak(message)]\"", 2)
 								//else
-								O.show_message("<span class='subtle'><span class='game say'><span class='name'>[src]</span> beeps, \"Thank you for your patronage, <b>[M.name]<b>.\"</span></span>", 2)
+
+								O.show_message(SPAN_SUBTLE(SPAN_SAY("[SPAN_NAME("[src]")] beeps, \"Thank you for your patronage, <b>[M.name]<b>.\"")), 2)
 
 
 							.= 1
@@ -388,7 +389,7 @@ TYPEINFO(/obj/machinery/genetics_booth)
 
 	mob_flip_inside(var/mob/user)
 		..(user)
-		user.show_text("<span class='alert'>[src] [pick("bends","shakes","groans")].</span>")
+		user.show_text(SPAN_ALERT("[src] [pick("bends","shakes","groans")]."))
 		if (prob(33))
 			src.eject_occupant(add_power = 0)
 
@@ -399,7 +400,7 @@ TYPEINFO(/obj/machinery/genetics_booth)
 					src.eject_occupant(0,0, direction)
 
 	attackby(obj/item/W, mob/user)
-		user.lastattacked = src
+		user.lastattacked = get_weakref(src)
 		letgo_hp -= W.force
 		attack_particle(user,src)
 		playsound(src.loc, 'sound/impact_sounds/Metal_Clang_3.ogg', 50, 1, pitch = 0.8)

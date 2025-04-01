@@ -6,7 +6,6 @@
 // Outpost self-destruct !nuke!
 // A wirenet -> wireless link thing.
 // A printer! All the fun of printing, now in SS13!
-// Pathogen manipulator TO-DO
 // Security system monitor
 // A dangerous teleportation-oriented testing apparatus.
 // Generic testing appartus
@@ -99,6 +98,19 @@
 			src.link = null
 
 		..()
+
+	set_loc(atom/target)
+		..()
+		if(src.link)
+			src.link.master = null
+			src.link = null
+		if(!isturf(src.loc))
+			return
+		var/turf/T = src.loc
+		var/obj/machinery/power/data_terminal/test_link = locate() in T
+		if(test_link && !DATA_TERMINAL_IS_VALID_MASTER(test_link, test_link.master))
+			src.link = test_link
+			src.link.master = src
 
 
 TYPEINFO(/obj/machinery/networked/storage)
@@ -266,12 +278,12 @@ TYPEINFO(/obj/machinery/networked/storage)
 
 		if(href_list["tape"])
 			if(src.locked)
-				boutput(usr, "<span class='alert'>The cover is screwed shut.</span>")
+				boutput(usr, SPAN_ALERT("The cover is screwed shut."))
 				return
 
 			//Ai/cyborgs cannot physically remove a tape from a room away.
 			if(issilicon(usr) && BOUNDS_DIST(src, usr) > 0)
-				boutput(usr, "<span class='alert'>You cannot press the ejection button.</span>")
+				boutput(usr, SPAN_ALERT("You cannot press the ejection button."))
 				return
 
 			if(src.tape)
@@ -335,10 +347,10 @@ TYPEINFO(/obj/machinery/networked/storage)
 	attackby(obj/item/W, mob/user)
 		if (istype(W, src.setup_tape_type) && setup_accept_tapes) //INSERT SOME TAPES
 			if (src.tape)
-				boutput(user, "<span class='alert'>There is already a [src.setup_tape_tag] in the drive.</span>")
+				boutput(user, SPAN_ALERT("There is already a [src.setup_tape_tag] in the drive."))
 				return
 			if (src.locked)
-				boutput(user, "<span class='alert'>The cover is screwed shut.</span>")
+				boutput(user, SPAN_ALERT("The cover is screwed shut."))
 				return
 			user.drop_item()
 			W.set_loc(src)
@@ -668,21 +680,25 @@ TYPEINFO(/obj/machinery/networked/storage)
 	icon_state = "bomb_scanner0"
 	base_icon_state = "bomb_scanner"
 
-	setup_access_click = 0
-	read_only = 1
+	setup_access_click = FALSE
+	read_only = TRUE
 	setup_drive_size = 4
 	setup_drive_type = /obj/item/disk/data/bomb_tester
-	setup_accept_tapes = 0
+	setup_accept_tapes = FALSE
 
+	/// One of two tanks this holds as a basis for the simulation
 	var/obj/item/tank/tank1 = null
+	/// Two of two tanks this holds as a basis for the simulation
 	var/obj/item/tank/tank2 = null
+	/// File record where the simulation results are kept
 	var/datum/computer/file/record/results = null
-	var/setup_result_name = "Bomblog"
+	/// Our VR TTV to attach tank1 and tank2 to
 	var/obj/item/device/transfer_valve/vr/vrbomb = null
-	var/last_sim = 0 //Last world.time we tested a bomb.
-	var/sim_delay = 300 //Time until next simulation.
 	power_usage = 200
-
+	HELP_MESSAGE_OVERRIDE("Simulates the mixture of two tanks of gas.</br>\
+						   You can use the <b>VR Goggles</b> typically found nearby to watch the simulation unfold.</br>\
+						   A <b>screwdriver</b> can open the maintenence panel to manage the host connection.")
+	/// Where the bomb gets dropped
 	var/vr_landmark = LANDMARK_VR_BOMB
 
 	power_change()
@@ -693,9 +709,8 @@ TYPEINFO(/obj/machinery/networked/storage)
 			SPAWN(rand(0, 15))
 				status |= NOPOWER
 				UpdateIcon()
-				if(vrbomb)
-					qdel(vrbomb)
-
+				if(src.vrbomb)
+					qdel(src.vrbomb)
 		return
 
 	process()
@@ -722,278 +737,139 @@ TYPEINFO(/obj/machinery/networked/storage)
 
 		return
 
-	attackby(obj/item/W, mob/user)
-		if (istype(W, /obj/item/tank))
-			return attack_hand(user)
-		else if (isscrewingtool(W))
-			playsound(src.loc, 'sound/items/Screwdriver.ogg', 50, 1)
-			boutput(user, "You [src.locked ? "secure" : "unscrew"] the maintenance panel.")
-			src.panel_open = !src.panel_open
-			src.updateUsrDialog()
-			return
+	/// Handheld tanks and butts are both fair game here
+	proc/is_valid_tank(obj/item/I)
+		return (istype(I, /obj/item/tank) || istype(I, /obj/item/clothing/head/butt))
+
+	/// Determine if the simulator is ready, returns a list of a bool for whether it's ready, and a dialogue for the user
+	proc/can_simulate()
+		if(!(src.tank1 && src.tank2))
+			return list(FALSE, "Both tanks are required!")
+		else if (GET_COOLDOWN(global, "bomb_simulator"))
+			return list(FALSE, "Simulator not ready, please try again later.")
+		else if (src.vrbomb)
+			return list(TRUE, "Simulation in progress!")
 		else
-			..()
-		return
+			return list(TRUE, "Simulator ready.")
 
-	attack_hand(mob/user)
-		if(status & (NOPOWER|BROKEN))
+#define TANK_ONE 1
+#define TANK_TWO 2
+/// Checks if we have a tank in the specified slot
+#define HAS_TANK(tanknum) ((tanknum == TANK_ONE) && src.tank1) || ((tanknum == TANK_TWO) && src.tank2)
+/// Add the tank to the slot being interact with in the device
+#define ADD_TANK(tanknum, tank) tank.set_loc(src); if ((tanknum) == TANK_ONE) {src.tank1 = tank;}\
+								else {src.tank2 = tank;};
+	/// Interact with one of the tank slots on the machine. 1 for the first slot, 2 for the second. "null" to use an empty slot, if there is one.
+	proc/add_tank(mob/user, obj/item/I, slot=null)
+		if(issilicon(user) && BOUNDS_DIST(src, user) > 0)
+			boutput(user, SPAN_ALERT("You cannot interact with \the [src] from that far away!"))
 			return
-
-		if(user.lying || user.stat)
-			return 1
-
-		if ((BOUNDS_DIST(src, user) > 0 || !istype(src.loc, /turf)) && !issilicon(user))
-			return 1
-
-		src.add_dialog(user)
-
-		var/dat = "<html><head><title>SimUnit - \[[bank_id]]</title></head><body>"
-
-		dat += "<b>Tank One:</b> <a href='?src=\ref[src];tank=1'>[src.tank1 ? "Eject" : "None"]</a><br>"
-		dat += "<b>Tank Two:</b> <a href='?src=\ref[src];tank=2'>[src.tank2 ? "Eject" : "None"]</a><hr>"
-
-		dat += "<b>Simulation:</b> [vrbomb ? "IN PROGRESS" : "<a href='?src=\ref[src];simulate=1'>BEGIN</a>"]<br>"
-
-		var/readout_color = "#000000"
-		var/readout = "ERROR"
-		if(src.host_id)
-			readout_color = "#33FF00"
-			readout = "OK CONNECTION"
+		// No slot specified, try to interact with an empty slot
+		if (!slot)
+			if (HAS_TANK(TANK_ONE))
+				if (HAS_TANK(TANK_TWO))
+					boutput(user, SPAN_ALERT("There is no room to insert that into \the [src]!"))
+					return
+				else
+					slot = TANK_TWO
+			else
+				slot = TANK_ONE
+		// Magtractors need special handling
+		if (istype(I, /obj/item/magtractor))
+			var/obj/item/magtractor/mag = I
+			I = mag.holding
+			if (!src.is_valid_tank(I))
+				boutput(user, "That won't work inside of the [src]!")
+			else
+				mag.dropItem(0)
+				ADD_TANK(slot, I)
+				playsound(src, 'sound/machines/click.ogg', 50, TRUE)
+				boutput(user, "You insert \the [I].")
+		else if (!src.is_valid_tank(I))
+			boutput(user, "That won't work inside of the [src]!")
 		else
-			readout_color = "#F80000"
-			readout = "NO CONNECTION"
+			user.drop_item()
+			ADD_TANK(slot, I)
+			playsound(src, 'sound/machines/click.ogg', 50, TRUE)
+			boutput(user, "You insert \the [I].")
 
-		dat += "Host Connection: "
-		dat += "<table border='1' style='background-color:[readout_color]'><tr><td><font color=white>[readout]</font></td></tr></table><br>"
+	ui_act(action, params)
+		. = ..()
+		switch(action)
+			if ("add_item")
+				src.add_tank(usr, usr.equipped(), params["tank"])
 
-		dat += "<a href='?src=\ref[src];reset=1'>Reset Connection</a><br>"
+			if ("remove_tank_one")
+				if (HAS_TANK(TANK_ONE))
+					usr.put_in_hand_or_eject(src.tank1)
+					boutput(usr, "You eject \the [src.tank1].")
+					src.tank1 = null
+					if (src.vrbomb)
+						qdel(src.vrbomb)
 
-		if (src.panel_open)
-			dat += net_switch_html()
+			if ("remove_tank_two")
+				if (HAS_TANK(TANK_TWO))
+					usr.put_in_hand_or_eject(src.tank2)
+					boutput(usr, "You eject \the [src.tank2].")
+					src.tank2 = null
+					if (src.vrbomb)
+						qdel(src.vrbomb)
 
-		user.Browse(dat,"window=bombtester;size=245x302")
-		onclose(user,"bombtester")
-		return
+			if("simulate")
+				// Button is disabled on these conditions, but can't hurt to check em' twice
+				var/simulator_dialogue = src.can_simulate()
+				if (!simulator_dialogue[1])
+					boutput(usr, SPAN_ALERT(simulator_dialogue[2]))
+				ON_COOLDOWN(global, "bomb_simulator", 30 SECONDS)
+				src.generate_vrbomb()
+				src.updateUsrDialog()
 
-	Topic(href, href_list)
-		if(..())
-			return
-
-		src.add_dialog(usr)
-
-		if (href_list["tank"])
-
-			//Ai/cyborgs cannot physically remove a tape from a room away.
-			if(issilicon(usr) && BOUNDS_DIST(src, usr) > 0)
-				boutput(usr, "<span class='alert'>You cannot press the ejection button.</span>")
+			if ("reset")
+				if (!host_id || ON_COOLDOWN(src, "reset", NETWORK_MACHINE_RESET_DELAY))
+					return
+				var/rem_host = src.host_id ? src.host_id : src.old_host_id
+				src.host_id = null
+				src.old_host_id = null
+				src.post_status(rem_host, "command","term_disconnect")
+				SPAWN(0.5 SECONDS)
+					src.post_status(rem_host, "command","term_connect","device",src.device_tag)
 				return
 
-			switch(href_list["tank"])
-				if("1")
-					if(src.tank1)
-						src.tank1.set_loc(src.loc)
-						src.tank1 = null
-						boutput(usr, "You remove the tank.")
-						if(vrbomb)
-							qdel(vrbomb)
-					else
-						var/obj/item/I = usr.equipped()
-						if (istype(I, /obj/item/tank))
-							usr.drop_item()
-							I.set_loc(src)
-							src.tank1 = I
-							boutput(usr, "You insert [I].")
-						else if (istype(I, /obj/item/magtractor))
-							var/obj/item/magtractor/mag = I
-							if (istype(mag.holding, /obj/item/tank))
-								I = mag.holding
-								mag.dropItem(0)
-								I.set_loc(src)
-								src.tank1 = I
-								boutput(usr, "You insert [I].")
-					src.UpdateIcon()
-				if("2")
-					if(src.tank2)
-						src.tank2.set_loc(src.loc)
-						src.tank2 = null
-						boutput(usr, "You remove the tank.")
-						if(vrbomb)
-							qdel(vrbomb)
-					else
-						var/obj/item/I = usr.equipped()
-						if (istype(I, /obj/item/tank))
-							usr.drop_item()
-							I.set_loc(src)
-							src.tank2 = I
-							boutput(usr, "You insert [I].")
-						else if (istype(I, /obj/item/magtractor))
-							var/obj/item/magtractor/mag = I
-							if (istype(mag.holding, /obj/item/tank))
-								I = mag.holding
-								mag.dropItem(0)
-								I.set_loc(src)
-								src.tank2 = I
-								boutput(usr, "You insert [I].")
-					src.UpdateIcon()
+			if ("config_switch")
+				src.net_number = src.net_number ^ (1 << params["switch_flicked"])
 
-			src.updateUsrDialog()
-
-		else if(href_list["simulate"])
-			if(!tank1 || !tank2)
-				boutput(usr, "<span class='alert'>Both tanks are required!</span>")
-				return
-
-			if(last_sim && (last_sim + sim_delay > world.time))
-				boutput(usr, "<span class='alert'>Simulator not ready, please try again later.</span>")
-				return
-
-			if(vrbomb)
-				boutput(usr, "<span class='alert'>Simulation already in progress!</span>")
-				return
-
-			src.generate_vrbomb()
-			src.updateUsrDialog()
-
-		else if (href_list["reset"])
-			if(last_reset && (last_reset + NETWORK_MACHINE_RESET_DELAY >= world.time))
-				return
-
-			if(!host_id)
-				return
-
-			src.last_reset = world.time
-			var/rem_host = src.host_id ? src.host_id : src.old_host_id
-			src.host_id = null
-			src.old_host_id = null
-			src.post_status(rem_host, "command","term_disconnect")
-			SPAWN(0.5 SECONDS)
-				src.post_status(rem_host, "command","term_connect","device",src.device_tag)
-
-			src.updateUsrDialog()
-			return
-
+		tgui_process.update_uis(src)
 		src.add_fingerprint(usr)
 		return
 
-	proc
-		generate_vrbomb()
-			if(!tank1 || !tank2)
-				return
+#undef HAS_TANK
+#undef ADD_TANK
+#undef TANK_ONE
+#undef TANK_TWO
 
-			if(vrbomb)
-				qdel(vrbomb)
+	ui_interact(mob/user, datum/tgui/ui)
+		ui = tgui_process.try_update_ui(user, src, ui)
+		if (!ui)
+			ui = new(user, src, "Bombsim", src.name)
+			ui.open()
 
-			var/turf/B = pick_landmark(vr_landmark)
-			if(!B)
-				playsound(src.loc, 'sound/machines/buzz-sigh.ogg', 50, 1)
-				src.visible_message("[src] emits a somber ping.")
-				return
-
-			vrbomb = new
-			vrbomb.set_loc(B)
-			vrbomb.anchored = ANCHORED
-			vrbomb.tester = src
-
-			var/obj/item/device/timer/T = new
-			vrbomb.attached_device = T
-			T.master = vrbomb
-			T.time = 6
-
-			var/obj/item/tank/vrtank1 = new tank1.type
-			var/obj/item/tank/vrtank2 = new tank2.type
-
-			vrtank1.air_contents.copy_from(tank1.air_contents)
-			vrtank2.air_contents.copy_from(tank2.air_contents)
-
-			vrbomb.tank_one = vrtank1
-			vrbomb.tank_two = vrtank2
-			vrtank1.master = vrbomb
-			vrtank1.set_loc(vrbomb)
-			vrtank2.master = vrbomb
-			vrtank2.set_loc(vrbomb)
-
-			vrbomb.UpdateIcon()
-
-			T.timing = 1
-			T.c_state(1)
-			processing_items |= T
-			src.last_sim = world.time
-
-			var/area/to_reset = get_area(vrbomb) //Reset the magic vr turf.
-			if(to_reset && to_reset.name != "Space")
-				for(var/turf/unsimulated/bombvr/VT in to_reset)
-					VT.icon_state = initial(VT.icon_state)
-				for(var/turf/unsimulated/wall/bombvr/VT in to_reset)
-					VT.icon_state = initial(VT.icon_state)
-					VT.set_opacity(1)
-					VT.set_density(1)
-
-			if(results)
-				//qdel(results)
-				results.dispose()
-			src.new_bomb_log()
-			return
-
-		new_bomb_log()
-			if(!tape)
-				return
-
-			if(results)
-				//qdel(results)
-				results.dispose()
-
-			results = new
-			results.name = setup_result_name
-
-			results.fields += "Test [time2text(world.realtime, "DDD MMM DD hh:mm:ss")], [CURRENT_SPACE_YEAR]"
-
-			results.fields += "Atmospheric Tank #1:"
-			if(tank1)
-				var/datum/gas_mixture/environment = tank1.return_air()
-				var/pressure = MIXTURE_PRESSURE(environment)
-				var/total_moles = TOTAL_MOLES(environment)
-
-				results.fields += "Tank Pressure: [round(pressure,0.1)] kPa"
-				if(total_moles)
-					LIST_CONCENTRATION_REPORT(environment, results.fields)
-					results.fields += "|n"
-
-				else
-					results.fields += "Tank Empty"
-			else
-				results.fields += "None. (Sensor Error?)"
-
-			results.fields += "Atmospheric Tank #2:"
-			if(tank2)
-				var/datum/gas_mixture/environment = tank2.return_air()
-				var/pressure = MIXTURE_PRESSURE(environment)
-				var/total_moles = TOTAL_MOLES(environment)
-
-				results.fields += "Tank Pressure: [round(pressure,0.1)] kPa"
-				if(total_moles)
-					LIST_CONCENTRATION_REPORT(environment, results.fields)
-					results.fields += "|n"
-
-				else
-					results.fields += "Tank Empty"
-			else
-				results.fields += "None. (Sensor Error?)"
-
-			results.fields += "VR Bomb Monitor log:|nWaiting for monitor..."
-
-			src.tape.root.add_file( src.results )
-			src.sync(src.host_id)
-			return
-
-		//Called by our vrbomb as it heats up (Or doesn't.)
-		update_bomb_log(var/newdata, var/sync_log = 0)
-			if(!results || !newdata || !tape)
-				return
-
-			results.fields += newdata
-			if (sync_log)
-				src.sync(src.host_id)
-			return
+/// Gets relevant properties of the tank as a list for ui_data
+#define TANK_AS_LIST(tank) (tank != null) ? list("name"=capitalize(tank.name),\
+								"pressure"=((hasvar(tank, "air_contents") && tank.air_contents != null) ? MIXTURE_PRESSURE(tank.air_contents) : null),\
+								"maxPressure"=TANK_FRAGMENT_PRESSURE) : list("name"=null, "pressure"=null,"maxPressure"=null)
+	ui_data()
+		var/simulator_dialogue = src.can_simulate()
+		return list(
+			"tank_one" = TANK_AS_LIST(src.tank1),
+			"tank_two" = TANK_AS_LIST(src.tank2),
+			"host_id" = src.host_id,
+			"vr_bomb" = src.vrbomb,
+			"panel_open" = src.panel_open,
+			"is_ready" = simulator_dialogue[1],
+			"cooldown" = "[GET_COOLDOWN(global, "bomb_simulator")/10] Second\s",
+			"readiness_dialogue" = simulator_dialogue[2],
+			"net_number" = src.net_number,
+		)
 
 	update_icon()
 		if(tank1) //Update tank overlays.
@@ -1018,16 +894,145 @@ TYPEINFO(/obj/machinery/networked/storage)
 			icon_state = "bomb_scanner0"
 		return
 
-//Generic disk to hold VR bomb log
+	attackby(obj/item/I, mob/user)
+		..()
+		if (src.is_valid_tank(I)) // Insert tanks by hand
+			src.add_tank(user, I)
+
+	attack_hand(mob/user)
+		if(status & (NOPOWER|BROKEN))
+			return
+
+		if(user.lying || user.stat)
+			return 1
+
+		if ((BOUNDS_DIST(src, user) > 0 || !istype(src.loc, /turf)) && !issilicon(user))
+			return 1
+
+		src.ui_interact(user)
+
+	proc/generate_vrbomb()
+		if(!(src.tank1 && src.tank2))
+			return
+
+		if(src.vrbomb)
+			qdel(src.vrbomb)
+
+		var/turf/B = pick_landmark(vr_landmark)
+		if(!B)
+			playsound(src.loc, 'sound/machines/buzz-sigh.ogg', 50, 1)
+			src.visible_message("[src] emits a somber ping.")
+			return
+
+		// Create and setup our vr explosive
+		src.vrbomb = new
+		src.vrbomb.set_loc(B)
+		src.vrbomb.anchored = ANCHORED
+		src.vrbomb.tester = src
+
+		var/obj/item/tank/vrtank1 = new tank1.type
+		var/obj/item/tank/vrtank2 = new tank2.type
+
+		if (hasvar(src.tank1, "air_contents"))
+			vrtank1.air_contents.copy_from(src.tank1.air_contents)
+		if (hasvar(src.tank2, "air_contents"))
+			vrtank2.air_contents.copy_from(src.tank2.air_contents)
+
+		src.vrbomb.tank_one = vrtank1
+		src.vrbomb.tank_two = vrtank2
+		vrtank1.set_loc(src.vrbomb)
+		vrtank2.set_loc(src.vrbomb)
+
+		src.vrbomb.UpdateIcon()
+		SPAWN(3 SECONDS)
+			src.vrbomb.toggle_valve()
+
+		var/area/to_reset = get_area(src.vrbomb) //Reset the magic vr turf.
+		if(to_reset && to_reset.name != "Space")
+			for(var/turf/unsimulated/bombvr/VT in to_reset)
+				VT.icon_state = initial(VT.icon_state)
+			for(var/turf/unsimulated/wall/bombvr/VT in to_reset)
+				VT.icon_state = initial(VT.icon_state)
+				VT.set_opacity(1)
+				VT.set_density(1)
+
+		src.new_bomb_log()
+		return
+
+	proc/new_bomb_log()
+		if(!tape)
+			return
+
+		if(src.results)
+			src.results.dispose()
+
+		src.results = new
+		src.results.name = "Bomblog"
+
+		src.results.fields += "Test [time2text(world.realtime, "DDD MMM DD hh:mm:ss")], [CURRENT_SPACE_YEAR]"
+
+		src.results.fields += "Atmospheric Tank #1:"
+		if(tank1 && tank1?.air_contents)
+			var/datum/gas_mixture/environment = tank1.return_air()
+			var/pressure = MIXTURE_PRESSURE(environment)
+			var/total_moles = TOTAL_MOLES(environment)
+
+			src.results.fields += "Tank Pressure: [round(pressure,0.1)] kPa"
+			if(total_moles)
+				LIST_CONCENTRATION_REPORT(environment, src.results.fields)
+				src.results.fields += "|n"
+
+			else
+				src.results.fields += "Tank Empty"
+		else
+			src.results.fields += "None. (Sensor Error?)"
+
+		src.results.fields += "Atmospheric Tank #2:"
+		if(tank2 && tank1?.air_contents)
+			var/datum/gas_mixture/environment = tank2.return_air()
+			var/pressure = MIXTURE_PRESSURE(environment)
+			var/total_moles = TOTAL_MOLES(environment)
+
+			src.results.fields += "Tank Pressure: [round(pressure,0.1)] kPa"
+			if(total_moles)
+				LIST_CONCENTRATION_REPORT(environment, src.results.fields)
+				src.results.fields += "|n"
+
+			else
+				src.results.fields += "Tank Empty"
+		else
+			src.results.fields += "None. (Sensor Error?)"
+
+		src.results.fields += "VR Bomb Monitor log:|nWaiting for monitor..."
+
+		src.tape.root.add_file( src.results )
+		src.sync(src.host_id)
+		return
+
+	///Called by our vrbomb as it heats up (Or doesn't.)
+	proc/update_bomb_log(var/newdata, var/sync_log = 0)
+		if(!src.results || !newdata || !tape)
+			return
+
+		src.results.fields += newdata
+		if (sync_log)
+			src.sync(src.host_id)
+		return
+
+///Generic disk to hold VR bomb log
 /obj/item/disk/data/bomb_tester
 	desc = "You shouldn't be seeing this!"
 	title = "TEMPBUFFER"
 	file_amount = 4
 
 
-TYPEINFO(/obj/machinery/networked/nuclear_charge)
-	mats = list("POW-3" = 27, "MET-3" = 25, "CON-2" = 13, "CRY-2" = 15) //haha this is a bad idea
+ADMIN_INTERACT_PROCS(/obj/machinery/networked/nuclear_charge, proc/activate, proc/deactivate, proc/detonate)
 
+TYPEINFO(/obj/machinery/networked/nuclear_charge)
+	mats = list("energy_extreme" = 27,
+				"metal_superdense" = 25,
+				"conductive_high" = 13,
+				"crystal_dense" = 15) //haha this is a bad idea
 /obj/machinery/networked/nuclear_charge
 	name = "Nuclear Charge"
 	anchored = ANCHORED_ALWAYS
@@ -1050,7 +1055,7 @@ TYPEINFO(/obj/machinery/networked/nuclear_charge)
 	New()
 		..()
 		src.net_id = generate_net_id(src)
-		MAKE_DEFAULT_RADIO_PACKET_COMPONENT(null, status_display_freq)
+		MAKE_DEFAULT_RADIO_PACKET_COMPONENT(src.net_id, null, status_display_freq)
 		SPAWN(0.5 SECONDS)
 			if(!src.link)
 				var/turf/T = get_turf(src)
@@ -1115,6 +1120,11 @@ TYPEINFO(/obj/machinery/networked/nuclear_charge)
 		src.add_fingerprint(usr)
 		return
 
+	was_deconstructed_to_frame(mob/user)
+		. = ..()
+		src.timing = FALSE
+		src.time = initial(src.time)
+
 	process()
 		..()
 		if(status & NOPOWER)
@@ -1146,7 +1156,7 @@ TYPEINFO(/obj/machinery/networked/nuclear_charge)
 				playsound_global(world, 'sound/misc/airraid_loop_short.ogg', 90)
 			if(src.time <= DISARM_CUTOFF)
 				src.icon_state = "net_nuke2"
-				boutput(world, "<span class='alert'><b>[src.time] seconds until nuclear charge detonation.</b></span>")
+				boutput(world, SPAN_ALERT("<b>[src.time] seconds until nuclear charge detonation.</b>"))
 			else
 				src.time -= 2
 				src.icon_state = "net_nuke1"
@@ -1271,21 +1281,9 @@ TYPEINFO(/obj/machinery/networked/nuclear_charge)
 						if(data["auth"] != netpass_heads)
 							src.post_status(target,"command","term_message","data","command=status&status=badauth&session=[sessionid]")
 							return
-						src.timing = 1
-						src.post_status(target,"command","term_message","data","command=status&status=success&session=[sessionid]")
 
-						var/admessage = "NUKE: Network Nuclear Charge armed for [time] seconds."
-						var/turf/T = get_turf(src)
-						if(T)
-							admessage += "<b> ([T.x],[T.y],[T.z])</b>"
-						message_admins(admessage)
-						//World announcement.
-						if (src.z == Z_LEVEL_STATION)
-							command_alert("The [station_or_ship()]'s self-destruct sequence has been activated at coordinates (<b>X</b>: [src.x], <b>Y</b>: [src.y], <b>Z</b>: [src.z]), please evacuate the [station_or_ship()] or abort the sequence as soon as possible. Detonation in T-[src.time] seconds", "Self-Destruct Activated", alert_origin = ALERT_STATION)
-							playsound_global(world, 'sound/machines/engine_alert2.ogg', 40)
-						else
-							command_alert("A nuclear charge at [get_area(src)] has been activated, please stay clear or abort the sequence as soon as possible. Detonation in T-[src.time] seconds", "Nuclear Charge Activated", alert_origin = ALERT_STATION)
-							playsound_global(world, 'sound/misc/airraid_loop.ogg', 25)
+						src.post_status(target,"command","term_message","data","command=status&status=success&session=[sessionid]")
+						src.activate()
 						return
 					if("deact")
 						if(data["auth"] != netpass_heads)
@@ -1295,18 +1293,8 @@ TYPEINFO(/obj/machinery/networked/nuclear_charge)
 							src.post_status(target,"command","term_message","data","command=status&status=failure&session=[sessionid]")
 							return
 
-						src.timing = 0
-						src.time = max(src.time,MIN_NUKE_TIME) //so we don't have some jerk letting it tick down to 11 and then saving it for later.
-						src.icon_state = "net_nuke0"
 						src.post_status(target,"command","term_message","data","command=status&status=success&session=[sessionid]")
-						//World announcement.
-						if (src.z == Z_LEVEL_STATION)
-							command_alert("The [station_or_ship()]'s detonation has been aborted. Please return to your regular duties.", "Self-Destruct Aborted", alert_origin = ALERT_STATION)
-							playsound_global(world, 'sound/misc/announcement_1.ogg', 25)
-						else
-							command_alert("The nuclear charge at [get_area(src)] has been de-activated.", "Nuclear Charge De-activated", alert_origin = ALERT_STATION)
-							playsound_global(world, 'sound/misc/announcement_1.ogg', 25)
-						post_display_status(-1)
+						src.deactivate()
 						return
 
 				return
@@ -1329,6 +1317,34 @@ TYPEINFO(/obj/machinery/networked/nuclear_charge)
 				return
 
 		return
+
+	proc/activate()
+		src.timing = 1
+		var/admessage = "NUKE: Network Nuclear Charge armed for [time] seconds."
+		var/turf/T = get_turf(src)
+		if(T)
+			admessage += "<b> ([T.x],[T.y],[T.z])</b>"
+		message_admins(admessage)
+		//World announcement.
+		if (src.z == Z_LEVEL_STATION)
+			command_alert("The [station_or_ship()]'s self-destruct sequence has been activated at coordinates (<b>X</b>: [src.x], <b>Y</b>: [src.y], <b>Z</b>: [src.z]), please evacuate the [station_or_ship()] or abort the sequence as soon as possible. Detonation in T-[src.time] seconds", "Self-Destruct Activated", alert_origin = ALERT_STATION)
+			playsound_global(world, 'sound/machines/engine_alert2.ogg', 40)
+		else
+			command_alert("A nuclear charge at [get_area(src)] has been activated, please stay clear or abort the sequence as soon as possible. Detonation in T-[src.time] seconds", "Nuclear Charge Activated", alert_origin = ALERT_STATION)
+			playsound_global(world, 'sound/misc/airraid_loop.ogg', 25)
+
+	proc/deactivate()
+		src.timing = 0
+		src.time = max(src.time,MIN_NUKE_TIME) //so we don't have some jerk letting it tick down to 11 and then saving it for later.
+		src.icon_state = "net_nuke0"
+		//World announcement.
+		if (src.z == Z_LEVEL_STATION)
+			command_alert("The [station_or_ship()]'s detonation has been aborted. Please return to your regular duties.", "Self-Destruct Aborted", alert_origin = ALERT_STATION)
+			playsound_global(world, 'sound/misc/announcement_1.ogg', 25)
+		else
+			command_alert("The nuclear charge at [get_area(src)] has been de-activated.", "Nuclear Charge De-activated", alert_origin = ALERT_STATION)
+			playsound_global(world, 'sound/misc/announcement_1.ogg', 25)
+		post_display_status(-1)
 
 	proc/detonate()
 		playsound_global(world, 'sound/effects/kaboom.ogg', 70)
@@ -1394,7 +1410,7 @@ TYPEINFO(/obj/machinery/networked/radio)
 					src.link.master = src
 
 	proc/add_frequency(newFreq)
-		frequencies["[newFreq]"] = MAKE_DEFAULT_RADIO_PACKET_COMPONENT("f[newFreq]", newFreq)
+		frequencies["[newFreq]"] = MAKE_DEFAULT_RADIO_PACKET_COMPONENT(src.net_id, "f[newFreq]", newFreq)
 
 	attack_hand(mob/user)
 		if(..() || (status & (NOPOWER|BROKEN)))
@@ -1653,7 +1669,7 @@ TYPEINFO(/obj/machinery/networked/radio)
 
 				SPAWN(0)
 					SEND_SIGNAL(src, COMSIG_MOVABLE_POST_RADIO_PACKET, rsignal, transmission_range, "f[newFreq]")
-					flick("net_radio-blink", src)
+					FLICK("net_radio-blink", src)
 				src.post_status(target,"command","term_message","data","command=status&status=success")
 
 				return
@@ -1731,11 +1747,11 @@ TYPEINFO(/obj/machinery/networked/printer)
 	attackby(obj/item/W, mob/user)
 		if (istype(W, /obj/item/paper)) //Load up the printer!
 			if (sheets_remaining >= MAX_SHEETS)
-				boutput(user, "<span class='alert'>The tray is full!</span>")
+				boutput(user, SPAN_ALERT("The tray is full!"))
 				return
 
 			if(W:info)
-				boutput(user, "<span class='alert'>That paper has already been used!</span>")
+				boutput(user, SPAN_ALERT("That paper has already been used!"))
 				return
 
 			user.drop_item()
@@ -1749,18 +1765,19 @@ TYPEINFO(/obj/machinery/networked/printer)
 			return
 
 		else if (istype(W, /obj/item/paper_bin)) //Load up the printer!
+			var/obj/item/paper_bin/bin = W
 			if (sheets_remaining >= MAX_SHEETS)
-				boutput(user, "<span class='alert'>The tray is full!</span>")
+				boutput(user, SPAN_ALERT("The tray is full!"))
 				return
 
 			var/to_remove = MAX_SHEETS - sheets_remaining
-			if(W:amount > to_remove)
-				W:amount -= to_remove
+			if(bin.amount_left > to_remove)
+				bin.amount_left -= to_remove
 				boutput(user, "You load [to_remove] sheets into the tray.")
 				src.sheets_remaining += to_remove
 			else
-				boutput(user, "You load [W:amount] sheets into the tray.")
-				src.sheets_remaining += W:amount
+				boutput(user, "You load [bin.amount_left] sheets into the tray.")
+				src.sheets_remaining += bin.amount_left
 				user.drop_item()
 				qdel(W)
 
@@ -1840,7 +1857,7 @@ TYPEINFO(/obj/machinery/networked/printer)
 				src.UpdateIcon()
 				src.temp_msg = "PRINTER OK"
 				src.updateUsrDialog()
-				boutput(usr, "<span class='notice'>You clear the jam.</span>")
+				boutput(usr, SPAN_NOTICE("You clear the jam."))
 			else
 				boutput(usr, "There is no jam to clear.")
 
@@ -2046,7 +2063,7 @@ TYPEINFO(/obj/machinery/networked/printer)
 			sheets_remaining--
 			use_power(200)
 
-			flick("printer-printing",src)
+			FLICK("printer-printing",src)
 			playsound(src.loc, 'sound/machines/printer_dotmatrix.ogg', 50, 1)
 			SPAWN(3.2 SECONDS)
 
@@ -2106,7 +2123,7 @@ TYPEINFO(/obj/machinery/networked/printer)
 			jam++
 			if(jam >= SETUP_JAM_IGNITION && !(status & BROKEN))
 				status |= BROKEN
-				src.visible_message("<span class='alert'><b>[src]</b> bursts into flames!</span>")
+				src.visible_message(SPAN_ALERT("<b>[src]</b> bursts into flames!"))
 				src.printing = 0
 				src.print_buffer.len = 0
 
@@ -2125,7 +2142,7 @@ TYPEINFO(/obj/machinery/networked/printer)
 			blinking = 1
 			src.UpdateIcon()
 			playsound(src.loc, 'sound/machines/buzz-sigh.ogg', 50, 1)
-			src.visible_message("<span class='alert'>[src] pings!</span>")
+			src.visible_message(SPAN_ALERT("[src] pings!"))
 			return
 
 		clear_alert()
@@ -2221,7 +2238,7 @@ TYPEINFO(/obj/machinery/networked/printer)
 	attackby(obj/item/W, mob/user)
 		if (istype(W, /obj/item/paper) || istype(W, /obj/item/photo))
 			if (scanned_thing)
-				boutput(user, "<span class='alert'>There is already something in the scanner!</span>")
+				boutput(user, SPAN_ALERT("There is already something in the scanner!"))
 				return
 
 			user.drop_item()
@@ -2236,6 +2253,26 @@ TYPEINFO(/obj/machinery/networked/printer)
 		else
 			return ..()
 
+	MouseDrop_T(obj/item/W, mob/user)
+		if (!in_interact_range(src, user)  || BOUNDS_DIST(W, user) > 0 || !can_act(user))
+			return
+		else
+			if (istype(W, /obj/item/paper) || istype(W, /obj/item/photo))
+				if (scanned_thing)
+					boutput(user, SPAN_ALERT("There is already something in the scanner!"))
+					return
+
+				W.set_loc(src)
+				scanned_thing = W
+				power_change()
+				SPAWN(0)
+					if(!scan_document(0))
+						use_power(200)
+				src.updateUsrDialog()
+
+			else
+				return ..()
+
 	Topic(href, href_list)
 		if(..())
 			return
@@ -2244,7 +2281,7 @@ TYPEINFO(/obj/machinery/networked/printer)
 
 		if (href_list["document"])
 			if(issilicon(usr) && BOUNDS_DIST(src, usr) > 0)
-				boutput(usr, "<span class='alert'>There is no electronic control over the actual document.</span>")
+				boutput(usr, SPAN_ALERT("There is no electronic control over the actual document."))
 				return
 
 			if (scanned_thing)
@@ -2319,7 +2356,7 @@ TYPEINFO(/obj/machinery/networked/printer)
 			return 1
 
 		scanning = 1
-		flick("scanner-scanning",src)
+		FLICK("scanner-scanning",src)
 		sleep(2 SECONDS)
 		if (scan_buffer)
 			scan_buffer.dispose()
@@ -2671,8 +2708,6 @@ TYPEINFO(/obj/machinery/networked/printer)
 				if (prob(25))
 					src.status |= BROKEN
 					src.UpdateIcon(0)
-			else
-		return
 
 	power_change()
 		if(powered(ENVIRON))
@@ -2869,12 +2904,10 @@ TYPEINFO(/obj/machinery/networked/printer)
 	device_tag = "PNET_HEPT_EMIT"
 	dir = NORTH
 
-	var/obj/beam/h7_beam/beam = null
+	var/obj/linked_laser/h7_beam/beam = null
 	var/list/telecrystals[5]
 	var/crystalCount = 0
 	power_usage = 0
-
-	var/setup_beam_length = 48
 
 	New()
 		..()
@@ -2946,14 +2979,14 @@ TYPEINFO(/obj/machinery/networked/printer)
 			if (src.beam)
 
 				if (isnull(telecrystals[i]))
-					dat += "<td style='background-color:#F80000'><font color=white>-----<font></td>"
+					dat += "<td style='background-color:#F80000'><font color=white>-----</font></td>"
 				else
-					dat += "<td style='background-color:#33FF00'><font color=white>+++++<font></td>"
+					dat += "<td style='background-color:#33FF00'><font color=white>+++++</font></td>"
 			else
 				if (isnull(telecrystals[i]))
-					dat += "<td style='background-color:#F80000'><font color=white><a href='?src=\ref[src];insert=[i]'>-----</a><font></td>"
+					dat += "<td style='background-color:#F80000'><font color=white><a href='?src=\ref[src];insert=[i]'>-----</a></font></td>"
 				else
-					dat += "<td style='background-color:#33FF00'><font color=white><a href='?src=\ref[src];eject=[i]'>EJECT</a><font></td>"
+					dat += "<td style='background-color:#33FF00'><font color=white><a href='?src=\ref[src];eject=[i]'>EJECT</a></font></td>"
 
 		var/readout_color = "#000000"
 		var/readout = "ERROR"
@@ -2985,7 +3018,7 @@ TYPEINFO(/obj/machinery/networked/printer)
 
 		if (href_list["insert"])
 			if (src.beam)
-				boutput(usr, "<span class='alert'>The panel is locked.</span>")
+				boutput(usr, SPAN_ALERT("The panel is locked."))
 				return
 
 			var/targetSlot = round(text2num_safe(href_list["insert"]))
@@ -3001,7 +3034,7 @@ TYPEINFO(/obj/machinery/networked/printer)
 				I.set_loc(src)
 				telecrystals[targetSlot] = I
 				crystalCount = min(crystalCount + 1, telecrystals.len)
-				boutput(usr, "<span class='notice'>You insert [I] into the slot.</span>")
+				boutput(usr, SPAN_NOTICE("You insert [I] into the slot."))
 			else if (istype(I, /obj/item/magtractor))
 				var/obj/item/magtractor/mag = I
 				if (istype(mag.holding, /obj/item/raw_material/telecrystal))
@@ -3010,14 +3043,14 @@ TYPEINFO(/obj/machinery/networked/printer)
 					I.set_loc(src)
 					telecrystals[targetSlot] = I
 					crystalCount = min(crystalCount + 1, telecrystals.len)
-					boutput(usr, "<span class='notice'>You insert [I] into the slot.</span>")
+					boutput(usr, SPAN_NOTICE("You insert [I] into the slot."))
 
 			src.updateUsrDialog()
 			return
 
 		else if (href_list["eject"])
 			if (src.beam)
-				boutput(usr, "<span class='alert'>The panel is locked.</span>")
+				boutput(usr, SPAN_ALERT("The panel is locked."))
 				return
 
 			var/targetCrystal = round(text2num_safe(href_list["eject"]))
@@ -3030,7 +3063,7 @@ TYPEINFO(/obj/machinery/networked/printer)
 				crystalCount = max(crystalCount - 1, 0)
 				toEject.set_loc(get_turf(src))
 				usr.put_in_hand_or_eject(toEject) // try to eject it into the users hand, if we can
-				boutput(usr, "<span class='notice'>You remove [toEject] from the slot.</span>")
+				boutput(usr, SPAN_NOTICE("You remove [toEject] from the slot."))
 
 			src.updateUsrDialog()
 			return
@@ -3176,8 +3209,6 @@ TYPEINFO(/obj/machinery/networked/printer)
 				if (prob(25))
 					src.status |= BROKEN
 					src.UpdateIcon()
-			else
-		return
 
 	update_icon()
 		if (status & (NOPOWER|BROKEN))
@@ -3198,190 +3229,17 @@ TYPEINFO(/obj/machinery/networked/printer)
 				var/turf/beamTurf = get_step(src, src.dir)
 				if (!istype(beamTurf) || beamTurf.density)
 					return 0
-				src.beam = new /obj/beam/h7_beam(beamTurf, setup_beam_length, crystalCount)
+				src.beam = new /obj/linked_laser/h7_beam(beamTurf, src.dir)
 				src.beam.master = src
-				src.beam.set_dir(src.dir)
-				for (var/atom/movable/hitAtom in beamTurf)
-					if (hitAtom.density && !hitAtom.anchored)
-						src.beam.hit(hitAtom)
-
-					continue
+				src.beam.try_propagate()
 			else
-				src.beam.update_power(src.crystalCount)
+				src.beam.traverse(/obj/linked_laser/h7_beam/proc/update_master_power)
 
 			UpdateIcon()
 			src.updateUsrDialog()
 			return 1
 
 //Deathbeam for preceding death emitter
-/obj/beam/h7_beam
-	name = "energy beam"
-	desc = "A rather threatening beam of photons!"
-	icon = 'icons/obj/projectiles.dmi'
-	icon_state = "h7beam1"
-	layer = NOLIGHT_EFFECTS_LAYER_BASE
-	var/power = 1 //How dangerous is this beam, anyhow? 1-5. 1-3 cause minor teleport hops and radiation damage, 4 tends to deposit people in a place separate from their stuff (or organs), and 5 tears their molecules apart
-	//var/obj/beam/h7_beam/next = null
-	var/obj/machinery/networked/h7_emitter/master = null
-	limit = 48
-	anchored = ANCHORED
-	flags = TABLEPASS
-	var/datum/light/light
-
-	New(location, newLimit, newPower)
-		..()
-		light = new /datum/light/point
-		light.attach(src)
-		light.set_color(0.28, 0.07, 0.58)
-		light.set_brightness(min(src.power, 3) / 5)
-		light.set_height(0.5)
-		light.enable()
-
-		if (newLimit != null)
-			src.limit = newLimit
-		if (newPower != null)
-			src.power = newPower
-		src.icon_state = "h7beam[min(src.power, 5)]"
-		SPAWN(0.2 SECONDS)
-			generate_next()
-		return
-
-	disposing()
-		if (src.master)
-			if (src.master.beam == src)
-				src.master.beam = null
-			src.master = null
-		..()
-/*
-	disposing()
-		if (src.next)
-			qdel(src.next)
-
-		..()
-
-	disposing()
-		if (src.next)
-			src.next.dispose()
-			src.next = null
-
-		if (src.master)
-			if (src.master.beam == src)
-				src.master.beam = null
-			src.master = null
-		..()
-
-	Bumped()
-		src.hit()
-		return
-
-	Crossed(atom/movable/AM as mob|obj)
-		if (istype(AM, /obj/beam) || istype(AM, /mob/living/critter/aberration))
-			return
-		SPAWN( 0 )
-			src.hit(AM)
-			return
-		return
-*/
-	proc
-		update_power(var/newPower)
-			if (!newPower)
-				return
-
-			src.power = max(1, newPower)
-			if (src.next)
-				src.next:update_power(newPower)
-			return
-
-		telehop(atom/movable/hopAtom as mob|obj, hopOffset=1, varyZ=0)
-			var/targetZLevel = hopAtom.z
-			if (varyZ)
-				targetZLevel = pick(1,3,4,5)
-
-			hopOffset *= 3
-
-			var/turf/lowerLeft = locate( max(hopAtom.x - hopOffset, 1), max(1, hopAtom.y - hopOffset), targetZLevel)
-			var/turf/upperRight = locate( min( world.maxx, hopAtom.x + hopOffset), min(world.maxy, hopAtom.y + hopOffset), targetZLevel)
-
-			if (!lowerLeft || !upperRight)
-				return
-
-			var/list/hopTurfs = block(lowerLeft, upperRight)
-			if (!hopTurfs.len)
-				return
-
-			playsound(hopAtom.loc, "warp", 50, 1)
-			do_teleport(hopAtom, pick(hopTurfs), 0, 0)
-			return
-
-	hit(atom/movable/AM as mob|obj)
-		if (isliving(AM))
-			var/mob/living/hitMob = AM
-
-			switch (src.power)
-				if (1 to 3)
-					//telehop + radiation
-					if (iscarbon(hitMob))
-						hitMob.take_radiation_dose(3 SIEVERTS)
-						hitMob.changeStatus("weakened", 2 SECONDS)
-					telehop(hitMob, src.power, src.power > 2)
-					return
-
-				if (4)
-					//big telehop + might leave parts behind.
-					if (iscarbon(hitMob))
-						hitMob.take_radiation_dose(3 SIEVERTS)
-
-						random_brute_damage(hitMob, 25)
-						hitMob.changeStatus("weakened", 2 SECONDS)
-						if (ishuman(hitMob) && prob(25))
-							var/mob/living/carbon/human/hitHuman = hitMob
-							if (hitHuman.organHolder && hitHuman.organHolder.brain)
-								var/obj/item/organ/brain/B = hitHuman.organHolder.drop_organ("Brain", hitHuman.loc)
-								telehop(B, 2, 0)
-								boutput(hitHuman, "<span class='alert'><b>You seem to have left something...behind.</b></span>")
-
-						telehop(hitMob, src.power, 1)
-					return
-
-				else
-					//Are they a human wearing the obsidian crown?
-					if (ishuman(hitMob) && istype(hitMob:head, /obj/item/clothing/head/void_crown))
-						var/obj/source = locate(/obj/dfissure_from)
-						if (!source)
-							telehop(AM, 5, 1)
-							return
-
-						AM.set_loc(get_turf(source))
-						return
-
-					//death!!
-					hitMob.vaporize()
-					return
-		else if (istype(AM, /obj) && !istype(AM, /obj/effects))
-			telehop(AM, src.power, src.power > 2)
-			return
-
-
-		return
-
-	generate_next()
-		if (src.limit < 1)
-			return
-
-		var/turf/nextTurf = get_step(src, src.dir)
-		if (istype(nextTurf))
-			if (nextTurf.density)
-				return
-
-			src.next = new /obj/beam/h7_beam(nextTurf, src.limit-1, src.power)
-			next:master = src.master
-			next.set_dir(src.dir)
-			for (var/atom/movable/hitAtom in nextTurf)
-				if (hitAtom.density && !hitAtom.anchored)
-					src.hit(hitAtom)
-
-				continue
-		return
 
 //Generic test apparatus
 TYPEINFO(/obj/machinery/networked/test_apparatus)
@@ -3473,7 +3331,7 @@ TYPEINFO(/obj/machinery/networked/test_apparatus)
 		if (!in_interact_range(user, O) || !in_interact_range(user, src) || !isalive(user)) return
 		if (src.dragload)
 			if (src.contents.len)
-				boutput(user, "<span class='alert'>[src.name] is already loaded!</span>")
+				boutput(user, SPAN_ALERT("[src.name] is already loaded!"))
 				return
 			src.visible_message("<b>[user.name]</b> loads [O] into [src.name]!")
 			O.set_loc(src)
@@ -3496,7 +3354,7 @@ TYPEINFO(/obj/machinery/networked/test_apparatus)
 		if (BOUNDS_DIST(src, target_location) > 0) return
 		if (!in_interact_range(unloader, target_location) || !in_interact_range(unloader, src) || !isalive(unloader)) return
 		if (src.active)
-			boutput(unloader, "<span class='alert'>You can't unload it while it's active!</span>")
+			boutput(unloader, SPAN_ALERT("You can't unload it while it's active!"))
 			return
 		for (var/atom/movable/O in src.contents) O.set_loc(target_location)
 		src.visible_message("<b>[unloader.name]</b> unloads [src.name]!")
@@ -3649,8 +3507,6 @@ TYPEINFO(/obj/machinery/networked/test_apparatus)
 				if (prob(25))
 					src.status |= BROKEN
 					src.UpdateIcon()
-			else
-		return
 
 	update_icon()
 		if (status & (NOPOWER|BROKEN))
@@ -3799,6 +3655,9 @@ TYPEINFO(/obj/machinery/networked/test_apparatus)
 			return
 		if (istype(I, /obj/item/grab))
 			return
+		if(!istype(I))
+			boutput(user, "That is far too big to fit!")
+			return
 
 		var/obj/item/magtractor/mag
 		if (istype(I, /obj/item/magtractor))
@@ -3814,7 +3673,7 @@ TYPEINFO(/obj/machinery/networked/test_apparatus)
 					return
 				if (mag)
 					mag.dropItem(0)
-				else
+				else if (I == user.equipped())
 					user.drop_item()
 				I.set_loc(src)
 				user.visible_message("<b>[user]</b> loads [I] into [src.name]!")
@@ -3825,6 +3684,12 @@ TYPEINFO(/obj/machinery/networked/test_apparatus)
 		else
 			boutput(user, "That is far too big to fit!")
 			return
+
+	MouseDrop_T(atom/movable/O as mob|obj, mob/user as mob)
+		if (!istype(O,/obj/) || O.anchored) return
+		if (BOUNDS_DIST(src, O) > 0 || !isturf(O.loc)) return
+		if (!in_interact_range(user, O) || !in_interact_range(user, src) || !isalive(user)) return
+		src.Attackby(O, user)
 
 /obj/machinery/networked/test_apparatus/impact_pad
 	name = "Impact Sensor Pad"
@@ -3865,18 +3730,18 @@ TYPEINFO(/obj/machinery/networked/test_apparatus)
 						src.visible_message("<b>[src.name]</b> extends its stand.")
 						src.set_density(1)
 						src.setup_base_icon_state = "impactstand"
-						flick("impactpad-extend",src)
+						FLICK("impactpad-extend",src)
 						src.UpdateIcon()
 						playsound(src.loc, 'sound/effects/pump.ogg', 50, 1)
 					else
-						src.visible_message("<span class='alert'><b>[src.name]</b> clanks and clatters noisily!</span>")
+						src.visible_message(SPAN_ALERT("<b>[src.name]</b> clanks and clatters noisily!"))
 						playsound(src.loc, 'sound/impact_sounds/Metal_Clang_1.ogg', 50, 1)
 					message_host("command=ack")
 				else if (standval == 0 && src.density == 1)
 					src.visible_message("<b>[src.name]</b> retracts its stand.")
 					src.set_density(0)
 					src.setup_base_icon_state = "impactpad"
-					flick("impactstand-retract",src)
+					FLICK("impactstand-retract",src)
 					src.UpdateIcon()
 					playsound(src.loc, 'sound/effects/pump.ogg', 50, 1)
 					message_host("command=ack")
@@ -3913,18 +3778,18 @@ TYPEINFO(/obj/machinery/networked/test_apparatus)
 
 		if (src.density)
 			if (locate(/obj/item/) in src.loc.contents)
-				boutput(user, "<span class='alert'>There's already something on the stand!</span>")
+				boutput(user, SPAN_ALERT("There's already something on the stand!"))
 				return
 			else
-				if(I.cant_drop)
+				if(isitem(I) && I.cant_drop)
 					return
 				if (mag)
 					mag.dropItem(0)
-				else
+				else if (I == user.equipped())
 					user.drop_item()
 				I.set_loc(src.loc)
 		else
-			if(I.cant_drop)
+			if(isitem(I) && I.cant_drop)
 				return
 			if (mag)
 				mag.dropItem(0)
@@ -3933,6 +3798,12 @@ TYPEINFO(/obj/machinery/networked/test_apparatus)
 			I.set_loc(src.loc)
 
 		return
+
+	MouseDrop_T(atom/movable/O as mob|obj, mob/user as mob)
+		if (!istype(O,/obj/) || O.anchored) return
+		if (BOUNDS_DIST(src, O) > 0 || !isturf(O.loc)) return
+		if (!in_interact_range(user, O) || !in_interact_range(user, src) || !isalive(user)) return
+		src.Attackby(O, user)
 
 	hitby(atom/movable/M, datum/thrown_thing/thr)
 		if (src.density)
@@ -4157,9 +4028,9 @@ TYPEINFO(/obj/machinery/networked/test_apparatus)
 
 						for(var/datum/artifact_fault in A.faults)
 							if (prob(50))
-								src.sensed[1] *= rand(1.5,4.0)
+								src.sensed[1] *= randfloat(1.5,4.0)
 							else
-								src.sensed[1] /= rand(1.5,4.0)
+								src.sensed[1] /= randfloat(1.5,4.0)
 							src.sensed[3] += rand(-4,4)
 
 						var/datum/artifact_trigger/AT = A.get_trigger_by_string("elec")
@@ -4304,12 +4175,7 @@ TYPEINFO(/obj/machinery/networked/test_apparatus)
 					active = 1
 					src.UpdateIcon()
 					src.visible_message("<b>[src.name]</b> begins to operate.")
-					if (narrator_mode)
-						playsound(src.loc, 'sound/vox/genetics.ogg', 50, 1)
-					else if (prob(1))
-						playsound(src.loc, 'sound/vox/genetics.ogg', 50, 1)
-					else
-						playsound(src.loc, 'sound/machines/genetics.ogg', 50, 1)
+					playsound(src.loc, 'sound/machines/genetics.ogg', 50, 1)
 
 					if (src.contents.len)
 						var/obj/M = pick(src.contents)

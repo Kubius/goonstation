@@ -6,6 +6,7 @@ client/proc/enable_waterflow(var/enabled as num)
 	set desc = "0 to disable, 1 to enable"
 	SET_ADMIN_CAT(ADMIN_CAT_DEBUG)
 	ADMIN_ONLY
+	SHOW_VERB_DESC
 	waterflow_enabled = !!enabled
 
 client/proc/delete_fluids()
@@ -13,6 +14,7 @@ client/proc/delete_fluids()
 	set desc = "Probably safe to run. Probably."
 	SET_ADMIN_CAT(ADMIN_CAT_DEBUG)
 	ADMIN_ONLY
+	SHOW_VERB_DESC
 
 	var/exenabled = waterflow_enabled
 	enable_waterflow(0)
@@ -45,6 +47,7 @@ client/proc/special_fullbright()
 	SET_ADMIN_CAT(ADMIN_CAT_DEBUG)
 	set hidden = 1
 	ADMIN_ONLY
+	SHOW_VERB_DESC
 
 	message_admins("[key_name(src)] is making all Z1 Sea Lights static...")
 	SPAWN(0)
@@ -60,24 +63,9 @@ client/proc/replace_space()
 	SET_ADMIN_CAT(ADMIN_CAT_UNUSED)
 	ADMIN_ONLY
 
-	var/list/L = list()
-	var/searchFor = input(usr, "Look for a part of the reagent name (or leave blank for all)", "Add reagent") as null|text
-	if(searchFor)
-		for(var/R in concrete_typesof(/datum/reagent))
-			if(findtext("[R]", searchFor)) L += R
-	else
-		L = concrete_typesof(/datum/reagent)
-
-	var/type = 0
-	if(length(L) == 1)
-		type = L[1]
-	else if(length(L) > 1)
-		type = input(usr,"Select Reagent:","Reagents",null) as null|anything in L
-	else
-		usr.show_text("No reagents matching that name", "red")
+	var/datum/reagent/reagent = pick_reagent(src.mob)
+	if (!reagent)
 		return
-	if(!type) return
-	var/datum/reagent/reagent = new type()
 
 	logTheThing(LOG_ADMIN, src, "began to convert all space tiles into an ocean of [reagent.id].")
 	message_admins("[key_name(src)] began to convert all space tiles into an ocean of [reagent.id]. Oh no.")
@@ -102,25 +90,9 @@ client/proc/replace_space_exclusive()
 	set desc = "This is the safer one."
 	SET_ADMIN_CAT(ADMIN_CAT_FUN)
 	ADMIN_ONLY
+	SHOW_VERB_DESC
 
-	var/list/L = list()
-	var/searchFor = input(usr, "Look for a part of the reagent name (or leave blank for all)", "Add reagent") as null|text
-	if(searchFor)
-		for(var/R in concrete_typesof(/datum/reagent))
-			if(findtext("[R]", searchFor)) L += R
-	else
-		L = concrete_typesof(/datum/reagent)
-
-	var/type = 0
-	if(length(L) == 1)
-		type = L[1]
-	else if(length(L) > 1)
-		type = input(usr,"Select Reagent:","Reagents",null) as null|anything in L
-	else
-		usr.show_text("No reagents matching that name", "red")
-		return
-	if(!type) return
-	var/datum/reagent/reagent = new type()
+	var/datum/reagent/reagent = pick_reagent(src)
 
 	logTheThing(LOG_ADMIN, src, "began to convert all station space tiles into an ocean of [reagent.id].")
 	message_admins("[key_name(src)] began to convert all station space tiles into an ocean of [reagent.id].")
@@ -197,6 +169,7 @@ client/proc/dereplace_space()
 	set desc = "uh oh."
 	SET_ADMIN_CAT(ADMIN_CAT_FUN)
 	ADMIN_ONLY
+	SHOW_VERB_DESC
 
 	var/answer = alert("Replace Z1 only?",,"Yes","No")
 

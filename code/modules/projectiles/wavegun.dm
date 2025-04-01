@@ -28,6 +28,8 @@
 	color_green = 0
 	color_blue = 0
 
+	has_impact_particles = TRUE
+
 	get_power(obj/projectile/P, atom/A)
 		return 12.5 + 2.5 * clamp(GET_DIST(A, P.orig_turf) - 4, 0, 7)
 
@@ -49,6 +51,10 @@
 	color_red = 0
 	color_green = 1
 	color_blue = 0
+
+	on_hit(atom/hit, dirflag, obj/projectile/proj)
+		if(ismob(hit) && proj.power == 40) //hax
+			elecflash(get_turf(hit),radius=0, power=1, exclude_center = 0)
 
 	get_power(obj/projectile/P, atom/A)
 		return 10 + 30 * (P.travelled >= 128)

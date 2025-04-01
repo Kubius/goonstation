@@ -2,11 +2,11 @@
 ->The sawfly, by NightmareChamillian
 This file is the critter itself, and all the custom procs it needs in order to function.
 
--For the AI, check the critter/AI folder, it should be in sawflyai.dm
+-For the AI, sawflies use a mostly generic critter AI with some localized baked-in changes
 -For the grenade and controller, check code/obj/sawflymisc.dm
 */
 /mob/living/critter/robotic/sawfly
-	name = "Ranodyne antipersonnel microdrone"
+	name = "\improper Ranodyne antipersonnel microdrone"
 	desc = "A folding antipersonnel drone, made by Ranodyne LLC. It'd be pretty cute if it wasn't trying to kill people."
 	icon = 'icons/obj/items/sawfly.dmi'
 	death_text = "%src% jutters and falls from the air, whirring to a stop."
@@ -15,6 +15,7 @@ This file is the critter itself, and all the custom procs it needs in order to f
 
 	var/sawflynames = list("A", "B", "C", "D", "E", "F", "V", "W", "X", "Y", "Z", "Alpha", "Beta", "Gamma", "Lambda", "Delta")
 	var/static/list/priority_target_jobs = list("Head of Security", "Security Officer", "Nanotrasen Security Consultant")
+	var/datum/weakref/master = null //first friendly they imprint upon for /datum/aiTask/timed/targeted/follower
 	var/obj/item/old_grenade/sawfly/ourgrenade = null
 
 	speechverb_say = "whirrs"
@@ -24,6 +25,8 @@ This file is the critter itself, and all the custom procs it needs in order to f
 	var/beeps = list('sound/machines/sawfly1.ogg','sound/machines/sawfly2.ogg','sound/machines/sawfly3.ogg')
 	var/retaliate = FALSE
 	misstep_chance = 40 //makes them behave more like drones, and harder to kite into a straightaway then shoot
+
+	HELP_MESSAGE_OVERRIDE({"Syndicate only: can be walked through if your intent is set to <span class='help'>help</span>. To deactivate, use the remote or (syndicate only) click on the sawfly with <span class='help'>help</span> or <span class='grab'>grab</span> intent."})
 
 	//mob variables
 	isFlying = 1
@@ -37,21 +40,20 @@ This file is the critter itself, and all the custom procs it needs in order to f
 	can_burn = FALSE
 	pet_text = "cuddles"
 	hand_count = 1 //stabby hands
+	ailment_immune = TRUE
 
-	faction = FACTION_SYNDICATE
+	faction = list(FACTION_SYNDICATE)
 
 	New()
 		..()
 		remove_lifeprocess(/datum/lifeprocess/blindness)
-		remove_lifeprocess(/datum/lifeprocess/viruses)
 		remove_lifeprocess(/datum/lifeprocess/blood)
 
 		if(name == initial(name))
-			name = "Sawfly [pick(sawflynames)]-[rand(1,999)]"
+			name = "sawfly [pick(sawflynames)]-[rand(1,999)]"
 
 		animate_bumble(src) // gotta get the float goin' on
-		src.set_a_intent(INTENT_HARM) // incredibly stupid way of ensuring they aren't passable but it works
-		APPLY_MOVEMENT_MODIFIER(src, /datum/movement_modifier/robot_base, "robot_health_slow_immunity") //prevents them from having movespeed slowdown when injured
+		APPLY_MOVEMENT_MODIFIER(src, /datum/movement_modifier/robot_part/robot_base, "robot_health_slow_immunity") //prevents them from having movespeed slowdown when injured
 		START_TRACKING
 
 	setup_healths()
@@ -94,30 +96,28 @@ This file is the critter itself, and all the custom procs it needs in order to f
 			N.heldfly = src
 			src.set_loc(N)
 
-
-	proc/communalbeep() // distributes the beepchance among the number of sawflies nearby
-		var/fliesnearby = 1 //for rolling chance to beep
-		for_by_tcl(E, /mob/living/critter/robotic/sawfly)
-			if(!isdead(E) && IN_RANGE(src, E, 16)) //counts all of them within more or less earshot
-				fliesnearby += 1 //that's your buddies!
-		var/beepchance = (1 / fliesnearby) * 100 //if two sawflies, give 50% chance that any one will beep
-		if(fliesnearby<3) beepchance -=20 //heavily reduce chance of beep in swarm
-		if(prob(beepchance))
-			if(!isdead(src))
-				playsound(src, pick(src.beeps), 40, 1)
-				src.visible_message("<b>[src] [pick(list("beeps",  "boops", "bwoops", "bips", "bwips", "bops", "chirps", "whirrs", "pings", "purrs", "thrums"))].</b>")
-
 	emp_act() // allows armory's pulse rifles to wreck their shit
 		if(prob(80))
-			src.visible_message("<span class='combat'>[src] buzzes oddly and starts to spiral out of control!</span>")
+			src.visible_message(SPAN_COMBAT("[src] buzzes oddly and starts to spiral out of control!"))
 			SPAWN(2 SECONDS)
 				src.blowup()
 		else
 			src.foldself()
 
-	Cross(atom/movable/mover) //code that ensures projectiles hit them when they're alive, but won't when they're dead
-		if(istype(mover, /obj/projectile))
+	Cross(atom/movable/mover)
+
+		//since sawflies have a density of 1 and will auto-set intent to harm, we have to recode tile-sharing
+		if(istype(mover, /mob/living))
+			var/mob/living/movingmob = mover
+			if((issawflybuddy(movingmob)) && (movingmob.a_intent == INTENT_HELP))
+				return TRUE
+			else
+				return ..() //default behavior
+
+		//code that ensures projectiles hit them when they're alive, but won't when they're dead
+		if(istype(mover, /obj/projectile)) //hardcoding for bullets going over dead bodies
 			return isdead(src)
+
 		return ..()
 
 	attackby(obj/item/W as obj, mob/living/user as mob)
@@ -128,9 +128,9 @@ This file is the critter itself, and all the custom procs it needs in order to f
 		if(!(issawflybuddy(user) || (user in src.friends) || (user.health < 40)))//are you an eligible target: nonantag or healthy enough?
 			if(prob(50) && !ON_COOLDOWN(src, "sawfly_retaliate_cd", 5 SECONDS) && !isdead(src))//now that you're eligible, are WE eligible?
 				if(ai && (ai.target != user))
-					src.lastattacker = user
+					src.lastattacker = get_weakref(user)
 					src.retaliate = TRUE
-					src.visible_message("<span class='alert'><b>[src]'s targeting subsystems identify [user] as a high priority threat!</b></span>")
+					src.visible_message(SPAN_ALERT("<b>[src]'s targeting subsystems identify [user] as a high priority threat!</b>"))
 					playsound(src, pick(src.beeps), 40, 1)
 					ai.interrupt()
 
@@ -144,15 +144,14 @@ This file is the critter itself, and all the custom procs it needs in order to f
 			animate(src) //no more float animation
 			src.anchored = UNANCHORED
 			desc = "A folding antipersonnel drone, made by Ranodyne LLC. It's totally wrecked."
-			if (prob(20))
-				new /obj/item/device/prox_sensor(src.loc)
-				return
+
+			//time to roll for death effects
 			if(prob(60))
 				elecflash(src, 1, 3)
 
 			if(prob(22)) // congrats, little guy! You're special! You're going to blow up!
 				if(prob(70)) //decide whether or not people get a warning
-					src.visible_message("<span class='combat'>[src] makes a[pick(" gentle", "n odd", " slight", " weird", " barely audible", " concerning", " quiet")] [pick("hiss", "drone", "whir", "thump", "grinding sound", "creak", "buzz", "khunk")]...<span>")
+					src.visible_message(SPAN_COMBAT("[src] makes a[pick(" gentle", "n odd", " slight", " weird", " barely audible", " concerning", " quiet")] [pick("hiss", "drone", "whir", "thump", "grinding sound", "creak", "buzz", "khunk")]..."))
 				SPAWN(rand(1, 5) SECONDS)
 					src?.blowup()
 
@@ -162,24 +161,21 @@ This file is the critter itself, and all the custom procs it needs in order to f
 		src.pixel_x += rand(-5, 5)
 		src.pixel_y += rand(-1, 5)
 
-		remove_lifeprocess(/datum/lifeprocess/canmove)
 		remove_lifeprocess(/datum/lifeprocess/disability)
-		remove_lifeprocess(/datum/lifeprocess/fire)
 		remove_lifeprocess(/datum/lifeprocess/hud)
 		remove_lifeprocess(/datum/lifeprocess/mutations)
 		remove_lifeprocess(/datum/lifeprocess/organs)
 		remove_lifeprocess(/datum/lifeprocess/sight)
-		remove_lifeprocess(/datum/lifeprocess/skin)
 		remove_lifeprocess(/datum/lifeprocess/statusupdate)
 
 
 	proc/blowup() //chance to activate when they die and get EMP'd
 		if(prob(66))
-			src.visible_message("<span class='combat'>[src]'s [pick("motor", "core", "fuel tank", "battery", "thruster")] [pick("combusts", "catches on fire", "ignites", "lights up", "bursts into flames")]!<span>")
-			fireflash(src,1,TRUE)
+			src.visible_message(SPAN_COMBAT("[src]'s [pick("motor", "core", "fuel tank", "battery", "thruster")] [pick("combusts", "catches on fire", "ignites", "lights up", "bursts into flames")]!"))
+			fireflash(src,1, checkLos = FALSE, chemfire = CHEM_FIRE_RED)
 		else
-			src.visible_message("<span class='combat'>[src]'s [pick("motor", "core", "head", "engine", "thruster")] [pick("overloads", "blows up", "catastrophically fails", "explodes")]!<span>")
-			fireflash(src,0,TRUE)
+			src.visible_message(SPAN_COMBAT("[src]'s [pick("motor", "core", "head", "engine", "thruster")] [pick("overloads", "blows up", "catastrophically fails", "explodes")]!"))
+			fireflash(src,0, checkLos = FALSE, chemfire = CHEM_FIRE_RED)
 			explosion(src, get_turf(src), 0, 0.75, 1.5, 3)
 			qdel(src)
 
@@ -195,21 +191,27 @@ This file is the critter itself, and all the custom procs it needs in order to f
 					src.foldself()
 			else
 				if(prob(50)&& !isdead(src))
-					boutput(user, "<span class='alert'>In your attempt to pet [src], you cut yourself on it's blades!</span>")
+					boutput(user, SPAN_ALERT("In your attempt to pet [src], you cut yourself on it's blades!"))
 				random_brute_damage(user, 7)
 				take_bleeding_damage(user, null, 7, DAMAGE_CUT, 1)
 		else //harm or shove intent is an attack
 			do_retaliate(user)
 		..()
 
+	proc/dobeep()
+		if(isturf(src.loc) && !isdead(src))
+			playsound(src, pick(src.beeps), 40, 1)
+			src.visible_message("<b>[src] [pick(list("beeps",  "boops", "bwoops", "bips", "bwips", "bops", "chirps", "whirrs", "pings", "purrs", "thrums"))].</b>")
+
 	Life()
 		..()
-		if(prob(8) && isturf(src.loc)) communalbeep() //beep only when not in a grenade
 
+		if(prob(5)) //roll chance to beep
+			dobeep()
 
 	seek_target(range) //ai mob critter targetting behaviour - returns a list of acceptable targets
-		if(src.lastattacker && src.retaliate && GET_DIST(src, src.lastattacker) <= range)
-			return list(src.lastattacker)
+		if(src.lastattacker?.deref() && src.retaliate && GET_DIST(src, src.lastattacker.deref()) <= range)
+			return list(src.lastattacker.deref())
 		var/targetcount = 0
 		. = list()
 		for (var/mob/living/C in viewers(range, src))
@@ -221,13 +223,17 @@ This file is the critter itself, and all the custom procs it needs in order to f
 				continue
 			if(C.mind?.special_role && issawflybuddy(C))
 				if(!(C.weakref in src.friends))
-					boutput(C, "<span class='alert'>[src]'s IFF system silently flags you as an ally! </span>")
 					src.friends += get_weakref(C)
+					if(src.master == null)
+						src.master = get_weakref(C) //assign only one master
+						boutput(C, SPAN_ALERT("[src]'s IFF system silently flags you as its master!"))
+					else
+						boutput(C, SPAN_ALERT("[src]'s IFF system silently flags you as an ally!"))
 				continue
 			if(C.job in priority_target_jobs)
 				. = list(C) //go get em, tiger
 				return
-			. += C //you passed all the checks it, now you get added to the list for consideration
+			. += C //you passed all the checks, now you get added to the list for consideration
 
 			targetcount++
 			if(targetcount >= 8) //prevents them from getting too hung up on finding folks

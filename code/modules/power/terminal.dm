@@ -4,7 +4,7 @@
 // using this solves the problem of having the APC in a wall yet also inside an area
 
 /obj/machinery/power/terminal
-	name = "terminal"
+	name = "power terminal"
 	icon_state = "term"
 	desc = "An underfloor wiring terminal for power equipment"
 	level = 1
@@ -125,6 +125,11 @@ TYPEINFO(/obj/machinery/power/data_terminal)
 	proc
 		post_signal(obj/source, datum/signal/signal)
 			if(!src.powernet || !signal)
+				return
+
+			var/sender = signal.data["sender"]
+			//block any packet asking every device to send a ping back, trivial amplification attack that can seriously lag the server
+			if (sender == "ping")
 				return
 
 			if(source != src.master || !DATA_TERMINAL_IS_VALID_MASTER(src, src.master))

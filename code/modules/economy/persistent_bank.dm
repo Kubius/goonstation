@@ -46,7 +46,7 @@
 
 		if(user.client.persistent_bank_item && user.client.persistent_bank_item != "none" && !found_held)
 			user.client.set_last_purchase(null)
-			boutput(user, "<span class='notice'><b>The thing you previously purchased has been removed from your inventory due to it no longer existing.</b></span>")
+			boutput(user, SPAN_NOTICE("<b>The thing you previously purchased has been removed from your inventory due to it no longer existing.</b>"))
 
 		var/truebalance = user.client.persistent_bank
 		if(istype(src.bought_this_round))
@@ -65,11 +65,11 @@
 		if(istype(ui.user,/mob/new_player))
 			var/mob/new_player/playermob = ui.user
 			if(playermob.spawning)
-				boutput(ui.user, "<span class='notice'><b>The round has started, you'll have to wait until the next round!</b></span>" )
+				boutput(ui.user, SPAN_NOTICE("<b>The round has started, you'll have to wait until the next round!</b>") )
 				ui.close()
 				return
 		else
-			boutput(ui.user, "<span class='notice'><b>The round has started, you'll have to wait until the next round!</b></span>" )
+			boutput(ui.user, SPAN_NOTICE("<b>The round has started, you'll have to wait until the next round!</b>") )
 			ui.close()
 			return
 
@@ -83,7 +83,7 @@
 			if (try_purchase(ui.user.client, purchased))
 				ui.close()
 		else
-			boutput( ui.user, "<span class='notice'><b>Oh no! Something is broken. Please tell a coder. (problem retrieving purchaseable id : [id])</b></span>" )
+			boutput( ui.user, SPAN_NOTICE("<b>Oh no! Something is broken. Please tell a coder. (problem retrieving purchaseable id : [id])</b>") )
 
 	proc/try_purchase(var/client/c, var/datum/bank_purchaseable/p)
 		if(istype(c.mob,/mob/new_player))
@@ -102,7 +102,7 @@
 
 		if (c.bank_can_afford(p.cost))
 			usr.playsound_local(usr, 'sound/misc/cashregister.ogg', 50, 0)
-			boutput( usr, "<span class='notice'><b>You purchased [p.name] for the round!</b></span>" )
+			boutput( usr, SPAN_NOTICE("<b>You purchased [p.name] for the round!</b>") )
 			if (istype(c.mob,/mob/new_player))
 				var/mob/new_player/playermob = c.mob
 				if (playermob.mind)
@@ -110,61 +110,17 @@
 					playermob.mind.purchased_bank_item = p
 					c.persistent_bank_item = 0
 				else
-					boutput( usr, "<span class='notice'><b>Can't find mind of new player mob [playermob]... please report this to a coder</b></span>" )
+					boutput( usr, SPAN_NOTICE("<b>Can't find mind of new player mob [playermob]... please report this to a coder</b>") )
 					return FALSE
 			else
-				boutput( usr, "<span class='notice'><b>Can't find new player mob from client [c]... please report this to a coder</b></span>" )
+				boutput( usr, SPAN_NOTICE("<b>Can't find new player mob from client [c]... please report this to a coder</b>") )
 				return FALSE
 
 			return TRUE
 		else
 			usr.playsound_local(usr, 'sound/items/penclick.ogg', 80, 0)
-			boutput( usr, "<span class='notice'><b>You can't afford [p.name]!</b></span>" )
+			boutput( usr, SPAN_NOTICE("<b>You can't afford [p.name]!</b>") )
 			return FALSE
-
-
-/chui/window/earn_spacebux
-	name = "Spacebux"
-	windowSize = "250x380"
-
-	var/wage_base = 0
-	var/wage_after_score = 0
-	var/escaped = 1
-	var/final_payout = 0
-	var/new_balance = 0
-	var/badguy = 0
-	var/part_time = 0
-	var/held_item = 0
-	var/completed_objs = 0
-	var/all_objs = 0
-	var/pilot = 0 //buckled into pilots chair
-	var/pilot_bonus = 0
-
-	GetBody()
-		var/ret
-		if (!badguy)
-			ret = "<p style=\"text-align:left;\">Base Wage [part_time ? "(part-time)" : ""].....<span style=\"float:right;\"><b>[wage_base]   </b></span> </p><br>"
-			ret += "<p style=\"text-align:left;\">Station Grade Tax .....<span style=\"float:right;\"><b>- [wage_base-wage_after_score]  </b></span> </p><br>"
-			if (!escaped)
-				ret += "<p style=\"text-align:left;\">Did not escape .....<span style=\"float:right;\"><b>- [wage_after_score - final_payout] </b></span> </p>"
-			if (completed_objs > 0)
-				ret += "<p style=\"text-align:left;\">Crew objective bonus .....<span style=\"float:right;\"><b>+ [completed_objs] </b></span> </p>"
-				if (all_objs > 0)
-					ret += "<p style=\"text-align:left;\">All crew objective bonus .....<span style=\"float:right;\"><b>+ [all_objs] </b></span> </p>"
-		else
-			ret = "<p style=\"text-align:left;\">Base Wage .....<span style=\"float:right;\"><b>[final_payout]   </b></span> </p><br style=\"line-height:0px;\" />"
-			ret += "<p style=\"text-align:left;\">Antagonist - No tax!</p>"
-		if (pilot)
-			ret += "<p style=\"text-align:left;\">Pilot's bonus ....<span style=\"float:right;\"><b>+ [pilot_bonus] </b></span> </p>"
-
-
-		ret += "<hr>"
-		ret += "<big><b><p style=\"text-align:left;\">PAYOUT ..... <span style=\"float:right;\">[final_payout]</span> </p></b></big><br>"
-		ret += "<p style=\"text-align:left;\"><span style=\"float:right;\">ACCOUNT BALANCE :	<b>[new_balance]</b></span></p><br>"
-		ret += "<p style=\"text-align:left;\"><span style=\"float:right;\">HELD ITEM :	<b>[held_item ? held_item : "none"]</b></span></p><br>"
-		ret += "<p style=\"font-size:75%;\">Spend Spacebux from your bank when you Declare Ready for the next round!</p>"
-		return ret
-
 
 //Subtract cash from bank on successful equip
 /mob/proc/Equip_Bank_Purchase(var/datum/bank_purchaseable/purchase)
@@ -173,14 +129,14 @@
 
 	if(purchase in persistent_bank_purchaseables)
 		if (purchase.Create(src))
-			boutput( src, "<span class='notice'><b>[purchase.name] equipped successfully.</b></span>" )
+			boutput( src, SPAN_NOTICE("<b>[purchase.name] equipped successfully.</b>") )
 		else
-			boutput( src, "<span class='notice'><b>[purchase.name] is not available for the job you rolled. It will not be billed.</b></span>" )
+			boutput( src, SPAN_NOTICE("<b>[purchase.name] is not available for the job you rolled. It will be refunded.</b>") )
 			src.client.add_to_bank(purchase.cost)
 			src.client.set_last_purchase(null)
 			return
 	else
-		boutput( src, "<span class='notice'><b>The thing you previously purchased has been removed from your inventory due to it no longer existing.</b></span>")
+		boutput( src, SPAN_NOTICE("<b>The thing you previously purchased has been removed from your inventory due to it no longer existing.</b>"))
 		src.client.set_last_purchase(null)
 		return
 

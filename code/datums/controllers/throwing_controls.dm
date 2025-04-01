@@ -1,3 +1,5 @@
+#define THROW_SPEED_COEFFICIENT 1/1.5
+
 /datum/thrown_thing
 	var/atom/movable/thing
 	var/atom/target
@@ -16,20 +18,21 @@
 	var/mob/thrown_by
 	var/atom/return_target
 	var/bonus_throwforce = 0
-	var/end_throw_callback
+	var/datum/callback/end_throw_callback
 	var/mob/user
 	var/hitAThing = FALSE
 	var/dist_travelled = 0
 	var/speed_error = 0
 	var/throw_type
+	var/stops_on_mob_hit = TRUE
 
 	New(atom/movable/thing, atom/target, error, speed, dx, dy, dist_x, dist_y, range,
 			target_x, target_y, matrix/transform_original, list/params, turf/thrown_from, mob/thrown_by, atom/return_target,
-			bonus_throwforce=0, end_throw_callback=null, throw_type=1)
+			bonus_throwforce=0, datum/callback/end_throw_callback=null, throw_type=1)
 		src.thing = thing
 		src.target = target
 		src.error = error
-		src.speed = speed
+		src.speed = speed * THROW_SPEED_COEFFICIENT
 		src.dx = dx
 		src.dy = dy
 		src.dist_x = dist_x
@@ -65,7 +68,7 @@ var/global/datum/controller/throwing/throwing_controller = new
 	src.running = TRUE
 	SPAWN(0)
 		while(src.tick())
-			sleep(0.1 SECONDS)
+			sleep(0.001 SECONDS)
 		src.running = FALSE
 
 /datum/controller/throwing/proc/tick()
@@ -103,6 +106,21 @@ var/global/datum/controller/throwing/throwing_controller = new
 				end_throwing = TRUE
 				break
 			thing.glide_size = (32 / (1/thr.speed)) * world.tick_lag
+			if (thr.throw_type == THROW_THROUGH_WALL)
+				var/busted = FALSE
+				if (istype(next, /turf/simulated/wall))
+					var/turf/simulated/wall/wall = next
+					wall.ReplaceWithFloor()
+					busted = TRUE
+				else
+					for (var/obj/object in next.contents)
+						if (object.density)
+							object.ex_act(1)
+							busted = TRUE
+				if (busted)
+					new /obj/effects/explosion/dangerous(next)
+					end_throwing = FALSE
+					thr.throw_type = THROW_NORMAL
 			if (!thing.Move(next))  // Grayshift: Race condition fix. bump proc calls are delayed past the end of the loop and won't trigger end condition
 				thr.hitAThing = TRUE // of !throwing on their own, so manually checking if Move failed as end condition
 				end_throwing = TRUE
@@ -118,7 +136,7 @@ var/global/datum/controller/throwing/throwing_controller = new
 		if(end_throwing)
 			thrown -= thr
 			if(thr.end_throw_callback)
-				if(call(thr.end_throw_callback)(thr)) // return 1 to continue the throw, might be useful!
+				if(thr.end_throw_callback.Invoke(thr)) // pass /datum/thrown_thing, return 1 to continue the throw, might be useful!
 					thrown += thr
 					continue
 			if(!thing || thing.disposed)
@@ -160,3 +178,5 @@ var/global/datum/controller/throwing/throwing_controller = new
 		var/atom/movable/thing = thr.thing
 		if(thing == AM)
 			. += thr
+
+#undef THROW_SPEED_COEFFICIENT

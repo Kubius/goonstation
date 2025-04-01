@@ -37,26 +37,28 @@
 			user.u_equip(W)
 			src.amount++
 			src.UpdateIcon()
-			boutput(user, "<span class='notice'>You put \the [W] into \the [src]. [display_amount ? "There's [src.amount] left.": null ]</span>")
+			boutput(user, SPAN_NOTICE("You put \the [W] into \the [src]. [display_amount ? "There's [src.amount] left.": null ]"))
 			qdel(W)
 
 	attack_hand(mob/user)
+		if (is_dead_or_ghost_role(user))
+			return 1
 		add_fingerprint(user)
-		user.lastattacked = src //prevents spam
+		user.lastattacked = get_weakref(src) //prevents spam
 		if (src.cant_withdraw)
 			..()
-			return
+			return 1
 
 		if (src.amount >= 1)
 			if (last_dispense_time + dispense_rate > TIME)
-				boutput(user, "<span class='alert'>The timer says that you must wait [round(( last_dispense_time + dispense_rate-TIME)/10)] second(s) before the next item is ready!</span>")
+				boutput(user, SPAN_ALERT("The timer says that you must wait [round(( last_dispense_time + dispense_rate-TIME)/10)] second(s) before the next item is ready!"))
 				playsound(src, 'sound/machines/buzz-sigh.ogg', 30, TRUE)
 				return
 			src.amount--
 			last_dispense_time = TIME 	//gotta go before the UpdateIcon
 			src.UpdateIcon()
 			var/obj/item/I = new src.withdraw_type
-			boutput(user, "<span class='notice'>You take \the [I] from \the [src]. [display_amount ? "There's [src.amount] left.": null ]</span>")
+			boutput(user, SPAN_NOTICE("You take \the [I] from \the [src]. [display_amount ? "There's [src.amount] left.": null ]"))
 			user.put_in_hand_or_drop(I)
 
 			//This is pretty lame, but it's simpler than putting these in a process loop when they are rarely used. - kyle
@@ -64,7 +66,8 @@
 				SPAWN(dispense_rate)
 					UpdateIcon()
 		else
-			boutput(user, "<span class='alert'>There's nothing in \the [src] to take!</span>")
+			boutput(user, SPAN_ALERT("There's nothing in \the [src] to take!"))
+			return 1
 
 	update_icon()
 		if (src.amount <= 0)
@@ -126,9 +129,8 @@
 	amount = 7
 
 	attack_hand(mob/user)
-		if (!src.cant_withdraw && src.amount >= 1)
+		if(!..())
 			playsound(src.loc, 'sound/machines/printer_dotmatrix.ogg', 25, 1)
-		..()
 
 /obj/item_dispenser/icedispenser
 	name = "ice dispenser"
@@ -140,13 +142,13 @@
 	amount = 10000
 	display_amount = 0
 	pixel_y = 0
-	flags = FPRINT | NOSPLASH
+	flags = NOSPLASH
 
 	attackby(obj/item/W, mob/user)
 		if (istype(W, /obj/item/reagent_containers/glass) || istype(W, /obj/item/reagent_containers/food/drinks))
 			if (W.reagents.total_volume <= (W.reagents.maximum_volume - 10))
 				W.reagents.add_reagent("ice", 10, null, (T0C - 50))
 				user.visible_message("[user] adds some ice to the [W].",\
-			"<span class='notice'>You add some ice to the [W].</span>")
+			SPAN_NOTICE("You add some ice to the [W]."))
 			else
-				boutput(user, "<span class='alert'>[W] is too full!</span>")
+				boutput(user, SPAN_ALERT("[W] is too full!"))

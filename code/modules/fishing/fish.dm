@@ -76,6 +76,7 @@ Alien/mutant/other fish:
 #define FISH_CATEGORY_OCEAN "ocean"
 #define FISH_CATEGORY_AQUARIUM "aquarium"
 
+ABSTRACT_TYPE(/obj/item/reagent_containers/food/fish)
 /obj/item/reagent_containers/food/fish
 	icon = 'icons/obj/foodNdrink/food_fish.dmi'
 	inhand_image_icon = 'icons/mob/inhand/hand_food.dmi'
@@ -105,9 +106,9 @@ Alien/mutant/other fish:
 	src.setItemSpecial(/datum/item_special/swipe)
 	src.make_reagents()
 
-/obj/item/reagent_containers/food/fish/attack(mob/M, mob/user)
+/obj/item/reagent_containers/food/fish/attack(mob/target, mob/user, def_zone, is_special = FALSE, params = null)
 	if(user?.bioHolder.HasEffect("clumsy") && prob(50))
-		user.changeStatus("weakened", 2 * src.force SECONDS)
+		user.changeStatus("knockdown", 2 * src.force SECONDS)
 		JOB_XP(user, "Clown", 1)
 		..(user, user) // bonk
 	else
@@ -125,7 +126,7 @@ Alien/mutant/other fish:
 	return src
 
 /obj/item/reagent_containers/food/fish/proc/make_reagents()
-	src.reagents.add_reagent("fishoil",10)
+	src.reagents.add_reagent("fishoil", 20)
 	return
 
 
@@ -209,7 +210,7 @@ Alien/mutant/other fish:
 
 /obj/item/reagent_containers/food/fish/pike
 	name = "pike"
-	desc = "Named after the long and pointy weapon of war, the Pike features in the Finnish Kalevala, where it's jawbown in turned in to a magical kantele."
+	desc = "Named after the long and pointy weapon of war, the pike features in the Finnish Kalevala, where it's jawbone is turned in to a magical kantele."
 	icon = 'icons/obj/foodNdrink/food_fish_48x32.dmi'
 	icon_state = "pike"
 	inhand_color = "#24d10d"
@@ -284,6 +285,69 @@ Alien/mutant/other fish:
 	category = FISH_CATEGORY_OCEAN
 	rarity = ITEM_RARITY_COMMON
 
+/obj/item/reagent_containers/food/fish/pufferfish
+	name = "pufferfish"
+	desc = "Adorable. Quite poisonous."
+	icon_state = "pufferfish"
+	inhand_color = "#8d754e"
+	slice_product = /obj/item/reagent_containers/food/snacks/ingredient/meat/fish/fillet/pufferfish
+	category = FISH_CATEGORY_AQUARIUM
+	rarity = ITEM_RARITY_UNCOMMON
+
+	New()
+		global.processing_items += src
+		return ..()
+
+	disposing()
+		global.processing_items -= src
+		. = ..()
+
+	process() // the part where the puffed up fish hurts you
+		if (ishuman(src.loc))
+			var/mob/living/carbon/human/H = src.loc
+			if (src.spikes_protected(H, src))
+				return
+			boutput(H, SPAN_ALERT("YOWCH! You prick yourself on [src]'s spikes! Maybe you should've used gloves..."))
+			random_brute_damage(H, 3)
+			H.setStatusMin("stunned", 2 SECONDS)
+			take_bleeding_damage(H, null, 3, DAMAGE_STAB)
+
+	make_reagents()
+		..() //it still contains fish oil
+		src.reagents.add_reagent("tetrodotoxin",20) // REALLY don't eat raw pufferfish
+
+	onSlice(var/mob/user) // Don't eat pufferfish the staff assistant made
+		if (user.traitHolder?.hasTrait("training_chef"))
+			user.visible_message(SPAN_NOTICE("<b>[user]</b> carefully separates the toxic parts out of the [src]."))
+
+			var/obj/item/reagent_containers/food/snacks/ingredient/meat/fish/pufferfish_liver/liver =\
+			new /obj/item/reagent_containers/food/snacks/ingredient/meat/fish/pufferfish_liver(src.loc)
+			if (src.reagents?.total_volume > 0)
+				src.reagents.trans_to(liver, src.reagents.total_volume)
+		else
+			if (prob(25)) // Don't try doing it if you don't know what you're doing
+				boutput(user, SPAN_NOTICE("You prick yourself trying to cut [src], and feel a bit numb."))
+				src.reagents.trans_to(user, 5)
+			else if (prob(30)) // 30% of 75%(slightly more than 22%) chance of still being safe to eat
+				src.reagents.remove_reagent("tetrodotoxin",src.reagents.get_reagent_amount("tetrodotoxin"))
+
+
+	proc/spikes_protected(mob/living/carbon/human/H, obj/fish)
+		if(H.gloves)
+			return TRUE
+		if(H.traitHolder?.hasTrait("training_chef"))
+			return TRUE
+
+		if (H.l_hand == fish)
+			if (istype(H.limbs.l_arm,/obj/item/parts/robot_parts))
+				return TRUE
+		else if (H.r_hand == fish)
+			if (istype(H.limbs.r_arm,/obj/item/parts/robot_parts))
+				return TRUE
+		else
+			return TRUE //no pokey if not holdy :salute:
+
+
 /obj/item/reagent_containers/food/fish/flounder
 	name = "flounder"
 	desc = "A flatfish found at the bottom of oceans around the world. It's got it's eyes on you!"
@@ -349,7 +413,7 @@ Alien/mutant/other fish:
 
 /obj/item/reagent_containers/food/fish/clownfish
 	name = "clownfish"
-	desc = "A pop-culturarly significant orange fish that lives in a symbiotic relationship with an enemone."
+	desc = "A pop-culturally significant orange fish that lives in a symbiotic relationship with an anemone."
 	icon_state = "clownfish"
 	inhand_color = "#ff6601"
 	category = FISH_CATEGORY_AQUARIUM
@@ -533,6 +597,7 @@ Alien/mutant/other fish:
 	icon_state = "lavafish"
 	inhand_color = "#eb2d2d"
 	rarity = ITEM_RARITY_EPIC
+	firesource = FIRESOURCE_OPEN_FLAME
 
 	New()
 		global.processing_items += src
@@ -545,6 +610,12 @@ Alien/mutant/other fish:
 	process()
 		if (ismob(src.loc) && prob(60))
 			src.loc.changeStatus("burning", pick(3, 5) SECONDS)
+
+	attack(mob/target, mob/user, def_zone, is_special, params)
+		. = ..()
+		if (prob(50))
+			playsound(target, 'sound/impact_sounds/burn_sizzle.ogg', 50, TRUE)
+			target.changeStatus("burning", 2 SECONDS)
 
 /obj/item/reagent_containers/food/fish/igneous_fish
 	name = "igneous fish"
@@ -564,6 +635,10 @@ Alien/mutant/other fish:
 	slice_product = /obj/item/material_piece/wad/blob/random
 
 //other
+
+TYPEINFO(/obj/item/reagent_containers/food/fish/real_goldfish)
+	mat_appearances_to_ignore = list("gold")
+
 /obj/item/reagent_containers/food/fish/real_goldfish
 	name = "prosperity pilchard"
 	desc = "A symbol of good fortune, this fish's shining scales are said to be extremely valuable!."
@@ -571,6 +646,10 @@ Alien/mutant/other fish:
 	inhand_color = "#f0ec08"
 	rarity = ITEM_RARITY_LEGENDARY
 	slice_product = /obj/item/raw_material/gold
+	default_material = "gold"
+
+TYPEINFO(/obj/item/reagent_containers/food/fish/treefish)
+	mat_appearances_to_ignore = list("wood")
 
 /obj/item/reagent_containers/food/fish/treefish
 	name = "arboreal bass"
@@ -580,6 +659,7 @@ Alien/mutant/other fish:
 	inhand_color = "#22c912"
 	rarity = ITEM_RARITY_RARE
 	slice_product = /obj/item/material_piece/organic/wood
+	default_material = "wood"
 
 	slapsound()
 		playsound(src.loc, 'sound/impact_sounds/Bush_Hit.ogg', 50, 1, -1)
@@ -591,3 +671,12 @@ Alien/mutant/other fish:
 			var/fish = pick(/obj/item/reagent_containers/food/fish/salmon,/obj/item/reagent_containers/food/fish/carp,/obj/item/reagent_containers/food/fish/bass)
 			new fish(get_turf(src))
 			qdel(src)
+
+/obj/item/reagent_containers/food/fish/borgfish
+	name = "cyborg fish"
+	desc = "This must be an experiment from a bored roboticist."
+	icon_state = "borgfish"
+	inhand_color = "#b6b5b5"
+	slice_product = /obj/item/material_piece/steel
+	default_material = "steel"
+	rarity = ITEM_RARITY_RARE

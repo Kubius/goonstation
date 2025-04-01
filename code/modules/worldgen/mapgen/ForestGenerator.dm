@@ -32,7 +32,7 @@
 	///Used to select "zoom" level into the perlin noise, higher numbers result in slower transitions
 	var/perlin_zoom = 65
 	wall_turf_type	= /turf/simulated/wall/auto/asteroid/mountain
-	floor_turf_type = /turf/simulated/floor/plating/airless/asteroid/mountain
+	floor_turf_type = /turf/unsimulated/floor/plating/asteroid/mountain
 
 ///Seeds the rust-g perlin noise with a random number.
 /datum/map_generator/forest_generator/generate_terrain(list/turfs, reuse_seed, flags)
@@ -47,7 +47,6 @@
 		var/drift_y = (gen_turf.y + rand(-BIOME_RANDOM_SQUARE_DRIFT, BIOME_RANDOM_SQUARE_DRIFT)) / perlin_zoom
 
 		var/height = text2num(rustg_noise_get_at_coordinates("[height_seed]", "[drift_x]", "[drift_y]"))
-
 
 		var/datum/biome/selected_biome
 		if(height <= 0.85) //If height is less than 0.85, we generate biomes based on the heat and humidity of the area.
@@ -77,13 +76,11 @@
 			selected_biome = possible_biomes[heat_level][humidity_level]
 		else //Over 0.85; It's a mountain
 			selected_biome = /datum/biome/mountain
+		selected_biome = adjust_biome(gen_turf, selected_biome)
 		selected_biome = biomes[selected_biome]
 		selected_biome.generate_turf(gen_turf, flags)
 
-		if (current_state >= GAME_STATE_PLAYING)
-			LAGCHECK(LAG_LOW)
-		else
-			LAGCHECK(LAG_HIGH)
+		src.lag_check(flags)
 
 /datum/biome/forest/generate_turf(turf/gen_turf, flags)
 	. = ..()
@@ -105,3 +102,55 @@
 					return
 
 #undef BIOME_RANDOM_SQUARE_DRIFT
+
+
+/datum/map_generator/forest_generator/proc/adjust_biome(turf/gen_turf, datum/biome/path)
+	. = path
+
+/datum/biome/forest/dense/dark
+	flora_types = list(/obj/tree{layer = EFFECTS_LAYER_UNDER_1} = 5, /obj/tree/elm_random=25, /obj/shrub/random{last_use=INFINITY} = 5, /obj/machinery/plantpot/bareplant/swamp_flora = 1)
+#ifdef HALLOWEEN
+	fauna_types = list(/mob/living/critter/changeling/eyespider/ai_controlled = 5, /mob/living/critter/changeling/legworm/ai_controlled = 5, /mob/living/critter/changeling/handspider/ai_controlled = 5, /mob/living/critter/bear=1, /mob/living/critter/small_animal/frog=5, /mob/living/critter/small_animal/bird/owl=1)
+#else
+	fauna_types = list(/mob/living/critter/bear=1, /mob/living/critter/small_animal/frog=5, /mob/living/critter/small_animal/bird/owl=1)
+#endif
+
+/datum/biome/forest
+	var/dark = FALSE
+
+/datum/biome/forest/thin/dark
+	dark = TRUE
+	flora_types = list(/obj/tree{layer = EFFECTS_LAYER_UNDER_1} = 5, /obj/tree/elm_random=5, /obj/shrub/random{last_use=INFINITY} = 50, /obj/machinery/plantpot/bareplant/tree = 5, /obj/machinery/plantpot/bareplant/swamp_flora = 50)
+	fauna_types = list(/mob/living/critter/small_animal/mouse=5, /mob/living/critter/small_animal/mouse/mad=1, /mob/living/critter/small_animal/snake=2, /mob/living/critter/small_animal/bird/crow=1)
+
+/datum/biome/forest/dark
+	dark = TRUE
+	flora_types = list(/obj/tree{layer = EFFECTS_LAYER_UNDER_1} = 5, /obj/tree/elm_random=30, /obj/shrub/random{last_use=INFINITY} = 50)
+	fauna_types = list(/mob/living/critter/small_animal/firefly/ai_controlled = 1, /mob/living/critter/small_animal/firefly/pyre/ai_controlled = 3, /mob/living/critter/small_animal/firefly/lightning/ai_controlled = 3, /mob/living/critter/bear=1, /mob/living/critter/small_animal/bird/crow=5)
+
+/datum/biome/forest/clearing/dark
+	dark = TRUE
+	flora_types = list(/obj/shrub/random{last_use=INFINITY} = 150, /obj/machinery/plantpot/bareplant/flower = 5, /obj/machinery/plantpot/bareplant/swamp_flora = 1 )
+	fauna_types = list(/mob/living/critter/small_animal/mouse=5, /mob/living/critter/small_animal/mouse/mad=1, /mob/living/critter/small_animal/snake=3)
+
+/datum/map_generator/forest_generator/dark
+	var/list/dark_region
+	var/static/list/dark_lookup = list(/datum/biome/forest/clearing=/datum/biome/forest/clearing/dark,
+						   /datum/biome/forest/thin=/datum/biome/forest/thin/dark,
+						   /datum/biome/forest=/datum/biome/forest/dark,
+						   /datum/biome/forest/dense=/datum/biome/forest/dense/dark)
+
+	New()
+		..()
+		if(!dark_region)
+			dark_region = rustg_dbp_generate("[rand(1,420)]", "5", "15", "[world.maxx]", "0.001", "0.9")
+
+/datum/map_generator/forest_generator/dark/adjust_biome(turf/gen_turf, datum/biome/path)
+	var/dark
+	var/index = gen_turf.x * world.maxx + gen_turf.y
+	if(index <= length(dark_region))
+		dark = text2num(dark_region[index])
+	if(dark && dark_lookup[path])
+		. = dark_lookup[path]
+	else
+		. = path

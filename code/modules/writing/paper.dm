@@ -29,7 +29,6 @@
 	name = "paper"
 	icon = 'icons/obj/writing.dmi'
 	icon_state = "paper_blank"
-	uses_multiple_icon_states = 1
 	wear_image_icon = 'icons/mob/clothing/head.dmi'
 	inhand_image_icon = 'icons/mob/inhand/hand_books.dmi'
 	item_state = "paper"
@@ -43,7 +42,7 @@
 	//cogwerks - burning vars
 	burn_point = 220
 	burn_output = 900
-	burn_possible = 2
+	burn_possible = TRUE
 	var/list/form_startpoints
 	var/list/form_endpoints
 	var/font_css_crap = null
@@ -62,6 +61,8 @@
 	var/list/stamps = null
 	var/list/form_fields = list()
 	var/field_counter = 1
+	///Some subtypes might want to hide the scrollbar
+	var/scrollbar = TRUE
 
 /obj/item/paper/New()
 	..()
@@ -84,7 +85,7 @@
 /obj/item/paper/suicide(var/mob/user as mob)
 	if (!src.user_can_suicide(user))
 		return 0
-	user.visible_message("<span class='alert'><b>[user] cuts [him_or_her(user)]self over and over with the paper.</b></span>")
+	user.visible_message(SPAN_ALERT("<b>[user] cuts [him_or_her(user)]self over and over with the paper.</b>"))
 	user.TakeDamage("chest", 150, 0)
 	return 1
 
@@ -95,29 +96,37 @@
 	else if (menuchoice == "Read")
 		src.examine(user)
 	else
-		var/fold = tgui_input_list(user, "What would you like to fold [src] into?", "Fold paper", list("Paper hat", "Paper plane", "Paper ball", "Cigarette packet"))
+		var/fold = tgui_input_list(user, "What would you like to fold [src] into?", "Fold paper", list("Paper hat", "Paper plane", "Paper crane", "Paper ball", "Cigarette packet"))
 		if(src.disposed || !fold) //It's possible to queue multiple of these menus before resolving any.
 			return
 		user.u_equip(src)
 		if (fold == "Paper hat")
 			user.show_text("You fold the paper into a hat! Neat.", "blue")
 			var/obj/item/clothing/head/paper_hat/H = new()
+			H.setMaterial(src.material)
 			user.put_in_hand_or_drop(H)
 		else if (fold == "Cigarette packet")
 			user.show_text("You fold the paper into a cigarette packet! Neat.", "blue")
 			var/obj/item/cigpacket/paperpack/H = new()
+			H.setMaterial(src.material)
 			user.put_in_hand_or_drop(H)
 		else
 			var/obj/item/paper/folded/F = null
 			if (fold == "Paper plane")
 				user.show_text("You fold the paper into a plane! Neat.", "blue")
 				F = new /obj/item/paper/folded/plane(user)
+
+			else if (fold == "Paper crane")
+				user.show_text("You fold the paper into a crane! Neat.", "blue")
+				F = new /obj/item/paper/folded/crane(user)
 			else
 				user.show_text("You crumple the paper into a ball! Neat.", "blue")
 				F = new /obj/item/paper/folded/ball(user)
 			F.info = src.info
 			F.old_desc = src.desc
 			F.old_icon_state = src.icon_state
+			F.stamps = src.stamps
+			F.setMaterial(src.material)
 			user.put_in_hand_or_drop(F)
 
 		qdel(src)
@@ -129,7 +138,7 @@
 
 /obj/item/paper/proc/stamp(x, y, r, stamp_png, icon_state)
 	if(length(stamps) < PAPER_MAX_STAMPS)
-		var/list/stamp_info = list(list(stamp_png, x, y, r))
+		var/list/stamp_info = list(list(stamp_png, x, y, r, icon_state))
 		LAZYLISTADD(stamps, stamp_info)
 	if(icon_state)
 		var/image/stamp_overlay = image('icons/obj/writing.dmi', "paper_[icon_state]");
@@ -147,7 +156,7 @@
 
 /obj/item/paper/ui_status(mob/user,/datum/ui_state/state)
 	if(!user.literate)
-		boutput(user, "<span class='alert'>You don't know how to read.</span>")
+		boutput(user, SPAN_ALERT("You don't know how to read."))
 		return UI_CLOSE
 	if(istype(src.loc, /obj/item/clipboard))
 		if (isliving(user))
@@ -164,22 +173,25 @@
 	if(.)
 		return
 	if(src.sealed)
-		boutput(usr, "<span class='alert'>You can't do that while [src] is folded up.</span>")
+		boutput(usr, SPAN_ALERT("You can't do that while [src] is folded up."))
 		return
 	switch(action)
 		if("stamp")
 			if(!src.stampable)
-				boutput(usr, "<span class='alert'>You can't stamp [src].</span>")
+				boutput(usr, SPAN_ALERT("You can't stamp [src]."))
 				return
 			var/stamp_x = text2num_safe(params["x"])
 			var/stamp_y = text2num_safe(params["y"])
 			var/stamp_r = text2num_safe(params["r"])	// rotation in degrees
 			var/obj/item/stamp/stamp = ui.user.equipped()
+			if(!istype(stamp))
+				boutput(usr, "What stamp? Where stamp?")
+				return
 
 			if(length(stamps) < PAPER_MAX_STAMPS)
 				stamp(stamp_x, stamp_y, stamp_r, stamp.current_state, stamp.icon_state)
 				update_static_data(usr, ui)
-				boutput(usr, "<span class='notice'>[ui.user] stamps [src] with \the [stamp.name]!</span>")
+				boutput(usr, SPAN_NOTICE("[ui.user] stamps [src] with \the [stamp.name]!"))
 				playsound(usr.loc, 'sound/misc/stamp_paper.ogg', 50, 0.5)
 			else
 				boutput(usr, "There is no where else you can stamp!")
@@ -220,6 +232,7 @@
 		"stamps" = src.stamps,
 		"stampable" = src.stampable,
 		"sealed" = src.sealed,
+		"scrollbar" = src.scrollbar,
 	)
 
 /obj/item/paper/ui_data(mob/user)
@@ -252,6 +265,12 @@
 		"stamp-sprite-centcom" = "[resource("images/tgui/stamp_icons/stamp-centcom.png")]",
 		"stamp-sprite-syndicate" = "[resource("images/tgui/stamp_icons/stamp-syndicate.png")]",
 		"stamp-sprite-void" = "[resource("images/tgui/stamp_icons/stamp-void.png")]",
+		"stamp-sprite-classified" = "[resource("images/tgui/stamp_icons/stamp-classified.png")]",
+		"stamp-sprite-req-nt" = "[resource("images/tgui/stamp_icons/stamp-req-nt.png")]",
+		"stamp-sprite-stain-1" = "[resource("images/tgui/stamp_icons/stamp-stain-1.png")]",
+		"stamp-sprite-stain-2" = "[resource("images/tgui/stamp_icons/stamp-stain-2.png")]",
+		"stamp-sprite-stain-3" = "[resource("images/tgui/stamp_icons/stamp-stain-3.png")]",
+		"stamp-sprite-gtc" = "[resource("images/tgui/stamp_icons/stamp-gtc.png")]",
 		"stamp-text-time" =  T,
 		"stamp-text-name" = user.name
 	)
@@ -298,22 +317,22 @@
 		return // suppress attack sound, the typewriter will load the paper in afterattack
 	if(istype(P, /obj/item/pen) || istype(P, /obj/item/pen/crayon))
 		if(src.sealed)
-			boutput(user, "<span class='alert'>You can't write on [src].</span>")
+			boutput(user, SPAN_ALERT("You can't write on [src]."))
 			return
 		if(length(info) >= PAPER_MAX_LENGTH) // Sheet must have less than 1000 charaters
-			boutput(user, "<span class='warning'>This sheet of paper is full!</span>")
+			boutput(user, SPAN_ALERT("This sheet of paper is full!"))
 			return
 		ui_interact(user)
 		return
 	else if(istype(P, /obj/item/stamp))
 		if(src.sealed)
-			boutput(user, "<span class='alert'>You can't stamp [src].</span>")
+			boutput(user, SPAN_ALERT("You can't stamp [src]."))
 			return
-		boutput(user, "<span class='notice'>You ready your stamp over the paper! </span>")
+		boutput(user, SPAN_NOTICE("You ready your stamp over the paper! "))
 		ui_interact(user)
 		return // Normaly you just stamp, you don't need to read the thing
 	else if (issnippingtool(P))
-		boutput(user, "<span class='notice'>You cut the paper into a mask.</span>")
+		boutput(user, SPAN_NOTICE("You cut the paper into a mask."))
 		playsound(src.loc, 'sound/items/Scissor.ogg', 30, 1)
 		var/obj/item/paper_mask/M = new /obj/item/paper_mask(get_turf(src.loc))
 		user.put_in_hand_or_drop(M)
@@ -329,7 +348,7 @@
 			booklet.Attackby(P, user, params)
 			return
 		else
-			boutput(user, "<span class='alert'>You need a loaded stapler in hand to staple the sheets into a booklet.</span>")
+			boutput(user, SPAN_ALERT("You need a loaded stapler in hand to staple the sheets into a booklet."))
 	else
 		// cut paper?  the sky is the limit!
 		ui_interact(user)	// The other ui will be created with just read mode outside of this
@@ -503,15 +522,14 @@
 	desc = "Fancy."
 	var/print_icon = 'icons/effects/sstv.dmi'
 	var/print_icon_state = "sstv_1"
+	sizex = 640 + 0
+	sizey = 480 + 32
+	scrollbar = FALSE
 
 	New()
 		..()
-		src.info = {"<IMG SRC="sstv_cachedimage.png">"}
+		src.info = "<img style='width: 100%; position: absolute; top: 0; left: 0' src='data:image/png;base64,[icon2base64(icon(print_icon,print_icon_state))]'>"
 		return
-
-	examine()
-		usr << browse_rsc(icon(print_icon,print_icon_state), "sstv_cachedimage.png")
-		. = ..()
 
 	satellite
 		print_icon_state = "sstv_2"
@@ -565,8 +583,7 @@
 	name = "paper bin"
 	icon = 'icons/obj/writing.dmi'
 	icon_state = "paper_bin1"
-	uses_multiple_icon_states = 1
-	amount = 10
+	var/amount_left = 10
 	item_state = "sheet-metal"
 	throwforce = 1
 	w_class = W_CLASS_NORMAL
@@ -576,7 +593,7 @@
 	//cogwerks - burn vars
 	burn_point = 600
 	burn_output = 800
-	burn_possible = 1
+	burn_possible = TRUE
 
 	/// the item type this bin contains, should always be a subtype for /obj/item for reasons...
 	var/bin_type = /obj/item/paper
@@ -586,7 +603,7 @@
 	desc = "A tray full of forms for classifying alien artifacts."
 	icon = 'icons/obj/writing.dmi'
 	icon_state = "artifact_form_tray"
-	amount = INFINITY
+	amount_left = INFINITY
 	bin_type = /obj/item/sticker/postit/artifact_paper
 
 	update()
@@ -594,7 +611,7 @@
 
 /obj/item/paper_bin/proc/update()
 	tooltip_rebuild = 1
-	src.icon_state = "paper_bin[(src.amount || locate(bin_type, src)) ? "1" : null]"
+	src.icon_state = "paper_bin[(src.amount_left || locate(bin_type, src)) ? "1" : null]"
 	return
 
 /obj/item/paper_bin/mouse_drop(mob/user as mob)
@@ -608,8 +625,8 @@
 	if (paper)
 		user.put_in_hand_or_drop(paper)
 	else
-		if (src.amount >= 1 && user) //Wire: Fix for Cannot read null.loc (&& user)
-			src.amount--
+		if (src.amount_left >= 1 && user) //Wire: Fix for Cannot read null.loc (&& user)
+			src.amount_left--
 			var/obj/item/P = new bin_type(src)
 			user.put_in_hand_or_drop(P)
 			if (rand(1,100) == 13 && istype(P, /obj/item/paper))
@@ -631,7 +648,7 @@
 		return ..()
 
 /obj/item/paper_bin/get_desc()
-	var/n = src.amount
+	var/n = src.amount_left
 	if (n == INFINITY)
 		return "There's an infinite amount of paper in \the [src], the wonders of future technology."
 	for(var/obj/item/paper/P in src)
@@ -643,10 +660,10 @@
 	var/next_generate = 0
 
 	attack_self(mob/user as mob)
-		if (src.amount < 1 && isnull(locate(bin_type) in src))
+		if (src.amount_left < 1 && isnull(locate(bin_type) in src))
 			if (src.next_generate < TIME)
 				boutput(user, "The [src] generates another sheet of paper using the power of [pick("technology","science","computers","nanomachines",5;"magic",5;"extremely tiny clowns")].")
-				src.amount++
+				src.amount_left++
 				src.update()
 				src.next_generate = TIME + 5 SECONDS
 				return
@@ -655,7 +672,7 @@
 			return
 
 		boutput(user, "You remove a piece of paper from the [src].")
-		return attack_hand(user)
+		return src.Attackhand(user)
 
 /obj/item/stamp
 	name = "rubber stamp"
@@ -663,7 +680,6 @@
 	icon = 'icons/obj/writing.dmi'
 	icon_state = "stamp"
 	item_state = "stamp"
-	flags = FPRINT | TABLEPASS
 	throwforce = 0
 	w_class = W_CLASS_TINY
 	throw_speed = 7
@@ -698,16 +714,16 @@
 	if (istype(C, /obj/item/card/id))
 		var/obj/item/card/id/ID = C
 		if (!src.is_reassignable)
-			boutput(user, "<span class='alert'>This rubber stamp cannot be reassigned!</span>")
+			boutput(user, SPAN_ALERT("This rubber stamp cannot be reassigned!"))
 			return
 		if (!isnull(src.assignment))
-			boutput(user, "<span class='alert'>This rubber stamp has already been assigned!</span>")
+			boutput(user, SPAN_ALERT("This rubber stamp has already been assigned!"))
 			return
 		else if (!ID.assignment)
-			boutput(user, "<span class='alert'>This ID isn't assigned to a job!</span>")
+			boutput(user, SPAN_ALERT("This ID isn't assigned to a job!"))
 			return
 		src.set_assignment(ID.assignment)
-		boutput(user, "<span class='notice'>You update the assignment of the rubber stamp.</span>")
+		boutput(user, SPAN_NOTICE("You update the assignment of the rubber stamp."))
 		return
 
 /obj/item/stamp/attack_self() // change current mode
@@ -715,7 +731,7 @@
 	if (!NM || !length(NM) || !(NM in src.available_modes))
 		return
 	src.current_mode = NM
-	boutput(usr, "<span class='notice'>You set \the [src] to '[NM]'.</span>")
+	boutput(usr, SPAN_NOTICE("You set \the [src] to '[NM]'."))
 	return
 
 /obj/item/stamp/get_desc()
@@ -738,7 +754,7 @@
 /obj/item/stamp/suicide(var/mob/user as mob)
 	if (!src.user_can_suicide(user))
 		return 0
-	user.visible_message("<span class='alert'><b>[user] stamps 'VOID' on [his_or_her(user)] forehead!</b></span>")
+	user.visible_message(SPAN_ALERT("<b>[user] stamps 'VOID' on [his_or_her(user)] forehead!</b>"))
 	user.TakeDamage("head", 250, 0)
 	return 1
 
@@ -839,7 +855,7 @@
 /obj/item/paper/folded
 	name = "folded paper"
 	icon_state = "paper"
-	burn_possible = 1
+	burn_possible = TRUE
 	sealed = 1
 	var/old_desc = null
 	var/old_icon_state = null
@@ -848,7 +864,17 @@
 	if (src.sealed)
 		user.show_text("You unfold the [src] back into a sheet of paper! It looks pretty crinkled.", "blue")
 		src.name = "crinkled paper"
-		src.desc = src.old_desc
+		src.desc = "This sheet has seen better days"
+		tooltip_rebuild = TRUE // tooltip description won't update otherwise
+		var/i = 0
+		for (var/list/stamp in stamps)
+			var/image/stamp_overlay = image('icons/obj/writing.dmi', "paper_[stamp[5]]");
+			var/matrix/stamp_matrix = matrix()
+			stamp_matrix.Scale(1, 1)
+			stamp_matrix.Translate(rand(-2, 2), rand(-3, 2))
+			stamp_overlay.transform = stamp_matrix
+			src.UpdateOverlays(stamp_overlay, "stamps_[i % PAPER_MAX_STAMPS_OVERLAYS]")
+			i++
 		if(src.old_icon_state)
 			src.icon_state = src.old_icon_state
 		else
@@ -862,7 +888,7 @@
 
 /obj/item/paper/folded/examine()
 	if (src.sealed)
-		return list(desc)
+		return list("This is \an [src.name].", desc)
 	else
 		return ..()
 
@@ -872,6 +898,12 @@
 	icon_state = "paperplane"
 	throw_speed = 1
 	throw_spin = 0
+
+/obj/item/paper/folded/crane
+	name = "paper crane"
+	desc = "If you fold a lot of these do you get a wish granted?"
+	icon_state = "papercrane"
+	throw_speed = 1
 
 /obj/item/paper/folded/plane/hit_check(datum/thrown_thing/thr)
 	if(src.throwing && src.sealed)
@@ -888,11 +920,11 @@
 	desc = "It's really fun pelting your coworkers with these."
 	icon_state = "paperball"
 
-/obj/item/paper/folded/ball/attack(mob/M, mob/user)
-	if (iscarbon(M) && M == user && src.sealed)
-		M.visible_message("<span class='notice'>[M] stuffs [src] into [his_or_her(M)] mouth and eats it.</span>")
-		playsound(M, 'sound/misc/gulp.ogg', 30, TRUE)
-		eat_twitch(M)
+/obj/item/paper/folded/ball/attack(mob/target, mob/user, def_zone, is_special = FALSE, params = null)
+	if (iscarbon(target) && target == user && src.sealed)
+		target.visible_message(SPAN_NOTICE("[target] stuffs [src] into [his_or_her(target)] mouth and eats it."))
+		playsound(target, 'sound/misc/gulp.ogg', 30, TRUE)
+		eat_twitch(target)
 		var/obj/item/paper/P = src
 		user.u_equip(P)
 		qdel(P)
@@ -932,6 +964,7 @@
 	sealed = TRUE
 	two_handed = TRUE
 	info = ""
+	hitsound = 'sound/impact_sounds/Generic_Stab_1.ogg'
 	var/headline = ""
 	var/publisher = ""
 
@@ -944,11 +977,23 @@
 /obj/item/paper/newspaper/New()
 	. = ..()
 	// it picks a random set of info at new, then the printing press overrides it
-	src.publisher = pick_smart_string("newspaper.txt", "publisher")
+	if (!length(src.publisher))
+		src.publisher = pick_smart_string("newspaper.txt", "publisher")
 	src.name = "[src.publisher]"
-	src.generate_headline()
-	src.generate_article()
+	if (!length(src.headline))
+		src.generate_headline()
+	if (!length(src.info))
+		src.generate_article()
 	src.update_desc()
+
+/obj/item/paper/newspaper/pickup(mob/user)
+	. = ..()
+	user.UpdateName() //hide their face
+
+/obj/item/paper/newspaper/dropped(mob/user)
+	. = ..()
+	SPAWN(0) //sigh
+		user.UpdateName()
 
 /obj/item/paper/newspaper/ui_interact(mob/user, datum/tgui/ui)
 	if (!src.two_handed)
@@ -1026,3 +1071,12 @@
 			if (9)
 				temporary += "<br><br>When [name1] [event1], there was some mild [emotion1] visible from [name2]."
 	src.info += temporary
+
+/obj/item/paper/newspaper/rolled/centcom_plasma
+	publisher = "Seneca Journal"
+	headline = "Nanotrasen denies responsibility for Seneca Lake plasma contamination"
+	info = {"
+		In a rare personal appearance, Nanotrasen CEO John Nanotrasen today categorically denied his company's involvement in the recent Seneca Lake plasma contamination scare.<br>
+		Levels of FAAE (commonly known as "plasma") in the lakewater have reached 500μg per liter according to an EPA source, prompting the agency to declare a substantial threat to public health.<br>
+		Nanotrasen is the only company in the Seneca area licensed to transport plasma, hundreds of kilograms of which are used in the fuelling of their inter-channel shuttle services every month.
+	"}

@@ -7,6 +7,7 @@
 	targeted = 1
 	target_anything = 1
 	icon_state = "hatpicture"
+	var/store_pics = TRUE
 	cast(atom/target)
 		if (..())
 			return 1
@@ -98,8 +99,14 @@
 		photo.icon = photo_icon
 
 		var/obj/item/photo/P
-		P = new/obj/item/photo(get_turf(holder.owner), photo, photo_icon, finished_title, finished_detail)
+		var/atom/where = holder.owner
+		if (length(holder.owner?.contents) >= 15 || !src.store_pics)
+			where = get_turf(where)
+		P = new/obj/item/photo(where, photo, photo_icon, finished_title, finished_detail)
 		return isnull(P)
+
+/datum/targetable/critter/takepicture/nostorage
+	store_pics = FALSE
 
 /datum/targetable/critter/flash
 	name = "Blinding flash"
@@ -111,7 +118,7 @@
 		if (..())
 			return 1
 		if (BOUNDS_DIST(holder.owner, target) > 0)
-			boutput(holder.owner, "<span class='alert'>That is too far away to flash.</span>")
+			boutput(holder.owner, SPAN_ALERT("That is too far away to flash."))
 			return 1
 		if (target == holder.owner)
 			return 1
@@ -123,23 +130,25 @@
 	name = "Return to body"
 	desc = "Leave the scuttlebot and return to your body"
 	icon_state = "shutdown"
+	needs_turf = FALSE
 	cast(atom/target)
 		if (..())
 			return 1
 		if (istype(holder.owner, /mob/living/critter/robotic/scuttlebot))
 			if(!holder.owner.mind)
-				boutput(holder.owner, "<span class='alert'>You dont have a mind somehow.</span>")
+				boutput(holder.owner, SPAN_ALERT("You don't have a mind somehow."))
 				return 1
 
 			var/mob/living/critter/robotic/scuttlebot/E = holder.owner
 			if (!E.controller)
-				boutput(holder.owner, "<span class='alert'>You didn't have a body to go back to! The scuttlebot shuts down with a sad boop.</span>")
+				boutput(holder.owner, SPAN_ALERT("You didn't have a body to go back to! The scuttlebot shuts down with a sad boop."))
 				holder.owner.ghostize()
 				return 1
 			E.mind.transfer_to(E.controller)
+			E.controller.network_device = null
 			E.controller = null
 		else //In case this ability is put on another mob
-			boutput(holder.owner, "<span class='alert'>You dont have a body to go back to!</span>")
+			boutput(holder.owner, SPAN_ALERT("You don't have a body to go back to!"))
 			return 1
 
 	incapacitationCheck()
@@ -160,5 +169,5 @@
 		if (BOUNDS_DIST(target, holder.owner) > 0 || istype(target, /obj/ability_button))
 			return
 
-		holder.owner.visible_message("<span class='alert'><b>[holder.owner]</b> has scanned [target].</span>")
+		holder.owner.visible_message(SPAN_ALERT("<b>[holder.owner]</b> has scanned [target]."))
 		boutput(holder.owner, scan_forensic(target, visible = 1))
