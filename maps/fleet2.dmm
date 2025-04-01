@@ -115,7 +115,7 @@
 /obj/cable{
 	icon_state = "4-8"
 	},
-/obj/grille/catwalk,
+/obj/mesh/catwalk,
 /turf/simulated/floor/airless/plating/catwalk{
 	dir = 4
 	},
@@ -2206,12 +2206,11 @@
 /turf/simulated/wall/auto/reinforced/jen/yellow,
 /area/station/maintenance/disposal/maru)
 "aZh" = (
-/obj/table/wood/auto,
-/obj/machinery/computer3/generic/personal,
 /obj/cable{
 	icon_state = "0-2"
 	},
 /obj/machinery/power/data_terminal,
+/obj/machinery/computer3/generic/bank_data,
 /turf/simulated/floor/wood/seven,
 /area/station/bridge/hos{
 	name = "Dionysus Command Center"
@@ -4191,7 +4190,7 @@
 /turf/simulated/floor/sanitary/white,
 /area/station/crew_quarters/toilets/asclepius)
 "bRG" = (
-/obj/grille/catwalk,
+/obj/mesh/catwalk,
 /obj/cable{
 	icon_state = "4-8"
 	},
@@ -6590,7 +6589,7 @@
 	},
 /area/station/security/brig/solitary2)
 "cMS" = (
-/obj/grille/catwalk,
+/obj/mesh/catwalk,
 /obj/machinery/power/tracker/small_backup4,
 /obj/cable,
 /turf/space,
@@ -6608,7 +6607,7 @@
 	},
 /area/station/hallway/primary/central/meridian)
 "cNb" = (
-/obj/grille/catwalk,
+/obj/mesh/catwalk,
 /turf/simulated/floor/airless/plating/catwalk{
 	dir = 4
 	},
@@ -8988,7 +8987,7 @@
 	},
 /area/station/engine/storage)
 "dOc" = (
-/obj/grille/catwalk,
+/obj/mesh/catwalk,
 /obj/cable{
 	icon_state = "0-4"
 	},
@@ -12537,7 +12536,7 @@
 /turf/simulated/floor/white,
 /area/station/hallway/primary/south/asclepius)
 "fof" = (
-/obj/grille/catwalk,
+/obj/mesh/catwalk,
 /obj/landmark/magnet_shield,
 /obj/securearea{
 	desc = "A warning that demarcates where the magnetic area begins.";
@@ -14200,7 +14199,7 @@
 /turf/simulated/floor/grey,
 /area/station/engine/substation/hammer)
 "fUn" = (
-/obj/grille/catwalk,
+/obj/mesh/catwalk,
 /obj/landmark/magnet_shield,
 /obj/securearea{
 	desc = "A warning that demarcates where the magnetic area begins.";
@@ -15735,7 +15734,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/southeast/meridian)
 "gxR" = (
-/obj/grille/catwalk,
+/obj/mesh/catwalk,
 /obj/cable{
 	icon_state = "1-2"
 	},
@@ -15895,7 +15894,7 @@
 /obj/cable{
 	icon_state = "0-4"
 	},
-/obj/grille/catwalk,
+/obj/mesh/catwalk,
 /turf/simulated/floor/airless/plating/catwalk{
 	dir = 4
 	},
@@ -16020,7 +16019,7 @@
 /turf/simulated/floor/wood/two,
 /area/station/chapel/office)
 "gEC" = (
-/obj/grille/catwalk,
+/obj/mesh/catwalk,
 /obj/cable{
 	icon_state = "0-8"
 	},
@@ -17057,7 +17056,7 @@
 	},
 /area/station/hallway/primary/north/maru)
 "hem" = (
-/obj/grille/catwalk,
+/obj/mesh/catwalk,
 /obj/landmark/magnet_shield,
 /obj/securearea{
 	desc = "A warning that demarcates where the magnetic area begins.";
@@ -21635,7 +21634,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/disposal/meridian)
 "iVX" = (
-/obj/grille/catwalk,
+/obj/mesh/catwalk,
 /obj/cable{
 	icon_state = "0-2"
 	},
@@ -23077,7 +23076,7 @@
 	name = "Security Office"
 	})
 "jEF" = (
-/obj/machinery/computer/bank_data,
+/obj/machinery/computer3/generic/bank_data,
 /obj/machinery/light{
 	dir = 1;
 	layer = 9.1;
@@ -23515,7 +23514,7 @@
 /obj/cable{
 	icon_state = "1-2"
 	},
-/obj/grille/catwalk,
+/obj/mesh/catwalk,
 /turf/simulated/floor/airless/plating/catwalk,
 /area/space)
 "jPD" = (
@@ -23807,7 +23806,7 @@
 /turf/simulated/floor/white,
 /area/station/science/lab)
 "jWP" = (
-/obj/grille/catwalk,
+/obj/mesh/catwalk,
 /obj/cable{
 	icon_state = "0-4"
 	},
@@ -24999,7 +24998,7 @@
 /turf/simulated/floor/circuit/off,
 /area/station/teleporter/hammer)
 "kuq" = (
-/obj/grille/catwalk,
+/obj/mesh/catwalk,
 /obj/cable,
 /obj/cable{
 	icon_state = "0-4"
@@ -25149,7 +25148,7 @@
 /turf/simulated/floor,
 /area/station/hallway/primary/central/meridian)
 "kxu" = (
-/obj/grille/catwalk,
+/obj/mesh/catwalk,
 /obj/cable{
 	icon_state = "1-4"
 	},
@@ -25705,7 +25704,7 @@
 /turf/simulated/floor/darkblue,
 /area/station/turret_protected/ai)
 "kKz" = (
-/obj/grille/steel,
+/obj/mesh/grille/steel,
 /turf/simulated/floor/airless/plating,
 /area/station/science/lab)
 "kKM" = (
@@ -28932,7 +28931,7 @@
 /turf/simulated/floor/purple,
 /area/station/hallway/primary/south/tenebrae)
 "mjB" = (
-/obj/grille/catwalk,
+/obj/mesh/catwalk,
 /obj/cable,
 /obj/cable{
 	icon_state = "0-4"
@@ -32673,7 +32672,7 @@
 /obj/cable{
 	icon_state = "0-8"
 	},
-/obj/grille/catwalk,
+/obj/mesh/catwalk,
 /turf/simulated/floor/airless/plating/catwalk{
 	dir = 4;
 	icon_state = "catwalk_cross"
@@ -33027,7 +33026,7 @@
 /turf/simulated/floor/plating,
 /area/station/engine/substation/asclepius)
 "nXK" = (
-/obj/grille/catwalk,
+/obj/mesh/catwalk,
 /obj/cable{
 	icon_state = "2-4"
 	},
@@ -33783,12 +33782,10 @@
 /turf/simulated/floor/black,
 /area/station/bridge/tenebrae)
 "ooZ" = (
+/mob/living/critter/small_animal/opossum/morty,
 /obj/stool/bed/moveable{
 	desc = "A solid metal frame with some padding on it, useful for sleeping on. It's got wheels, and smells vaguely of fur and death.";
 	name = "Morty's roller bed"
-	},
-/obj/critter/opossum/morty{
-	dir = 4
 	},
 /obj/machinery/light_switch/west,
 /turf/simulated/floor/blackwhite,
@@ -34998,7 +34995,7 @@
 /turf/simulated/floor,
 /area/station/hydroponics/bay)
 "oTO" = (
-/obj/grille/catwalk,
+/obj/mesh/catwalk,
 /obj/landmark/magnet_shield,
 /obj/securearea{
 	desc = "A warning that demarcates where the magnetic area begins.";
@@ -35154,7 +35151,7 @@
 	},
 /area/station/hangar/maru)
 "oWo" = (
-/obj/grille/catwalk,
+/obj/mesh/catwalk,
 /obj/cable{
 	icon_state = "2-4"
 	},
@@ -35849,7 +35846,7 @@
 /obj/cable{
 	icon_state = "0-8"
 	},
-/obj/grille/catwalk,
+/obj/mesh/catwalk,
 /turf/simulated/floor/airless/plating/catwalk{
 	dir = 4;
 	icon_state = "catwalk_cross"
@@ -36112,7 +36109,7 @@
 /turf/simulated/floor/purple,
 /area/station/hallway/primary/north/tenebrae)
 "pov" = (
-/obj/machinery/computer/bank_data,
+/obj/machinery/computer3/generic/bank_data,
 /obj/machinery/power/data_terminal,
 /obj/cable{
 	icon_state = "0-2"
@@ -36443,7 +36440,7 @@
 /turf/simulated/floor/grey,
 /area/station/hallway/secondary/exit)
 "pvo" = (
-/obj/grille/catwalk,
+/obj/mesh/catwalk,
 /turf/simulated/floor/airless/plating/catwalk,
 /area/space)
 "pvp" = (
@@ -36707,7 +36704,7 @@
 	icon_state = "magwarning";
 	name = "Magnet Area Boundary"
 	},
-/obj/grille/catwalk,
+/obj/mesh/catwalk,
 /turf/simulated/floor/airless/plating/catwalk,
 /area/mining/magnet)
 "pAg" = (
@@ -37373,7 +37370,7 @@
 	name = "Limoncello Pod Bay"
 	})
 "pRq" = (
-/obj/grille/catwalk,
+/obj/mesh/catwalk,
 /obj/cable{
 	icon_state = "0-4"
 	},
@@ -37419,7 +37416,7 @@
 	},
 /area/station/hallway/primary/central/tenebrae)
 "pSq" = (
-/obj/grille/catwalk,
+/obj/mesh/catwalk,
 /obj/cable{
 	icon_state = "1-8"
 	},
@@ -37631,7 +37628,7 @@
 	},
 /area/station/security/brig/solitary)
 "pXl" = (
-/obj/grille/catwalk,
+/obj/mesh/catwalk,
 /obj/landmark/magnet_shield,
 /obj/securearea{
 	desc = "A warning that demarcates where the magnetic area begins.";
@@ -37757,7 +37754,7 @@
 	},
 /area/station/science/chemistry)
 "qay" = (
-/obj/grille/catwalk,
+/obj/mesh/catwalk,
 /turf/simulated/floor/airless/plating/catwalk{
 	dir = 1;
 	icon_state = "catwalk_cross"
@@ -40004,7 +40001,7 @@
 /turf/simulated/floor/black/grime,
 /area/station/maintenance/disposal/meridian)
 "rcM" = (
-/obj/grille/catwalk,
+/obj/mesh/catwalk,
 /obj/cable{
 	icon_state = "0-8"
 	},
@@ -40974,7 +40971,7 @@
 /turf/simulated/floor/black,
 /area/station/crew_quarters/lounge)
 "rys" = (
-/obj/grille/catwalk,
+/obj/mesh/catwalk,
 /obj/landmark/magnet_shield,
 /obj/securearea{
 	desc = "A warning that demarcates where the magnetic area begins.";
@@ -42182,7 +42179,7 @@
 /obj/cable{
 	icon_state = "0-4"
 	},
-/obj/grille/catwalk,
+/obj/mesh/catwalk,
 /turf/simulated/floor/airless/plating/catwalk{
 	dir = 4
 	},
@@ -44979,7 +44976,7 @@
 	name = "Hammer Command Center"
 	})
 "tfI" = (
-/obj/grille/catwalk,
+/obj/mesh/catwalk,
 /obj/landmark/magnet_shield,
 /obj/securearea{
 	desc = "A warning that demarcates where the magnetic area begins.";
@@ -45760,7 +45757,7 @@
 /turf/simulated/floor/black/side,
 /area/station/teleporter/dionysus)
 "tun" = (
-/obj/grille/catwalk,
+/obj/mesh/catwalk,
 /obj/landmark/magnet_shield,
 /obj/securearea{
 	desc = "A warning that demarcates where the magnetic area begins.";
@@ -46427,7 +46424,7 @@
 	name = "Subacute Care"
 	})
 "tJf" = (
-/obj/grille/catwalk,
+/obj/mesh/catwalk,
 /obj/machinery/power/tracker/small_backup4,
 /obj/cable{
 	icon_state = "0-2"
@@ -46850,7 +46847,7 @@
 	icon_state = "magwarning";
 	name = "Magnet Area Boundary"
 	},
-/obj/grille/catwalk,
+/obj/mesh/catwalk,
 /turf/simulated/floor/airless/plating/catwalk{
 	dir = 8;
 	icon_state = "catwalk_cross"
@@ -47080,7 +47077,7 @@
 /turf/simulated/floor/wood,
 /area/station/hallway/primary/north/dionysus)
 "tVK" = (
-/obj/grille/catwalk,
+/obj/mesh/catwalk,
 /turf/simulated/floor/airless/plating/catwalk,
 /area/station/mining/refinery)
 "tWd" = (
@@ -47103,7 +47100,7 @@
 /obj/cable{
 	icon_state = "0-8"
 	},
-/obj/grille/catwalk,
+/obj/mesh/catwalk,
 /turf/simulated/floor/airless/plating/catwalk{
 	dir = 4;
 	icon_state = "catwalk_cross"
@@ -47930,7 +47927,7 @@
 /turf/simulated/floor/engine/caution/northsouth,
 /area/station/maintenance/disposal/maru)
 "unT" = (
-/obj/grille/catwalk,
+/obj/mesh/catwalk,
 /obj/cable{
 	icon_state = "0-2"
 	},
@@ -48588,7 +48585,7 @@
 	},
 /area/station/science/chemistry)
 "uAi" = (
-/obj/grille/catwalk,
+/obj/mesh/catwalk,
 /obj/cable{
 	icon_state = "1-4"
 	},
@@ -50435,7 +50432,7 @@
 	},
 /area/station/teleporter/dionysus)
 "vjU" = (
-/obj/grille/catwalk,
+/obj/mesh/catwalk,
 /obj/cable{
 	icon_state = "4-8"
 	},
@@ -54418,7 +54415,7 @@
 	name = "Nuclear Control Room"
 	})
 "wWR" = (
-/obj/grille/catwalk,
+/obj/mesh/catwalk,
 /obj/cable{
 	icon_state = "1-2"
 	},
@@ -54472,7 +54469,7 @@
 /obj/cable{
 	icon_state = "1-2"
 	},
-/obj/critter/turtle/sylvester/HoS,
+/mob/living/critter/small_animal/turtle/sylvester/HoS,
 /turf/simulated/floor/redblack{
 	dir = 1
 	},
@@ -55639,7 +55636,7 @@
 /turf/simulated/floor/specialroom/gym,
 /area/station/crew_quarters/fitness)
 "xAh" = (
-/obj/grille/catwalk,
+/obj/mesh/catwalk,
 /obj/cable,
 /obj/cable{
 	icon_state = "0-2"
@@ -57236,7 +57233,7 @@
 	},
 /area/station/teleporter/meridian)
 "yks" = (
-/obj/grille/catwalk,
+/obj/mesh/catwalk,
 /obj/cable{
 	icon_state = "0-2"
 	},
