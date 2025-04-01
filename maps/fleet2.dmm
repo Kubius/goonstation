@@ -18519,7 +18519,7 @@
 /turf/simulated/floor/grey,
 /area/station/crew_quarters/hammer)
 "hJA" = (
-/obj/machinery/conveyor/WE{
+/obj/machinery/conveyor/SE{
 	id = "qmin"
 	},
 /obj/machinery/camera{
@@ -18528,7 +18528,7 @@
 	name = "autoname - SS13";
 	pixel_x = -10
 	},
-/turf/simulated/floor/caution/northsouth,
+/turf/simulated/floor/caution/corner/nw,
 /area/station/quartermaster/office)
 "hJC" = (
 /obj/decal/tile_edge/line/green{
@@ -27415,10 +27415,10 @@
 	},
 /area/station/turret_protected/Zeta)
 "lyh" = (
-/obj/machinery/conveyor/SN{
+/obj/machinery/conveyor/WN{
 	id = "qmin"
 	},
-/turf/simulated/floor/caution/westeast,
+/turf/simulated/floor/caution/corner/se,
 /area/station/quartermaster/office)
 "lyi" = (
 /turf/simulated/wall/auto/jen/purple,
@@ -47036,7 +47036,7 @@
 /turf/simulated/floor/purplewhite,
 /area/station/hallway/primary/central/tenebrae)
 "tUU" = (
-/obj/machinery/conveyor/WE{
+/obj/machinery/conveyor/SE{
 	id = "qmin"
 	},
 /obj/machinery/light{
@@ -47044,7 +47044,7 @@
 	layer = 9.1;
 	pixel_x = -10
 	},
-/turf/simulated/floor/caution/northsouth,
+/turf/simulated/floor/caution/corner/nw,
 /area/station/quartermaster/office)
 "tUW" = (
 /obj/machinery/drainage,
