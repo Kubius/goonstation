@@ -12589,7 +12589,7 @@
 /area/space)
 "foV" = (
 /obj/machinery/traymachine/morgue{
-	dir = 1
+	dir = 2
 	},
 /obj/machinery/firealarm/west,
 /turf/simulated/floor/blackwhite{
@@ -13201,7 +13201,7 @@
 /area/station/maintenance/disposal/maru)
 "fBS" = (
 /obj/machinery/traymachine/morgue{
-	dir = 1
+	dir = 2
 	},
 /obj/cable{
 	icon_state = "0-4"
@@ -17001,7 +17001,7 @@
 	})
 "hcY" = (
 /obj/machinery/traymachine/morgue{
-	dir = 1
+	dir = 2
 	},
 /obj/machinery/light/small{
 	dir = 1;
@@ -36153,7 +36153,7 @@
 /area/station/hallway/primary/north/meridian)
 "ppO" = (
 /obj/machinery/traymachine/morgue{
-	dir = 1
+	dir = 2
 	},
 /obj/machinery/camera{
 	c_tag = "autotag";
