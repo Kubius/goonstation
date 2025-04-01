@@ -131,19 +131,6 @@
 	},
 /turf/simulated/floor/longtile,
 /area/station/bridge)
-"aas" = (
-/obj/machinery/power/data_terminal,
-/obj/cable{
-	icon_state = "0-8"
-	},
-/obj/cable{
-	icon_state = "4-8"
-	},
-/obj/machinery/computer/bank_data/console_upper{
-	dir = 4
-	},
-/turf/simulated/floor/longtile,
-/area/station/bridge)
 "aau" = (
 /obj/machinery/power/data_terminal,
 /obj/cable{
@@ -509,7 +496,7 @@
 /obj/cable{
 	icon_state = "4-8"
 	},
-/obj/critter/turtle/sylvester/HoS,
+/mob/living/critter/small_animal/turtle/sylvester/HoS,
 /turf/simulated/floor/carpet/red/fancy/edge/se,
 /area/station/security/hos)
 "abA" = (
@@ -951,19 +938,7 @@
 /obj/marker/supplymarker,
 /turf/simulated/floor/grime,
 /area/skeleton_trader)
-"acY" = (
-/obj/submachine/slot_machine,
-/turf/simulated/floor/specialroom/bar,
-/area/diner/dining)
-"acZ" = (
-/obj/machinery/light/incandescent/netural,
-/turf/simulated/floor/specialroom/bar,
-/area/diner/dining)
 "ada" = (
-/turf/simulated/floor/specialroom/bar,
-/area/diner/dining)
-"adb" = (
-/obj/machinery/computer/tetris,
 /turf/simulated/floor/specialroom/bar,
 /area/diner/dining)
 "adc" = (
@@ -14848,9 +14823,7 @@
 /area/station/security/brig/genpop)
 "aRj" = (
 /obj/stool/bed,
-/obj/item/clothing/glasses/vr{
-	network = "arcadevr"
-	},
+/obj/item/clothing/glasses/vr/arcade,
 /obj/item/paper/mantasecscanners,
 /obj/decal/poster/wallsign/cdnp{
 	pixel_y = 32
@@ -15072,9 +15045,7 @@
 /area/station/security/brig/genpop)
 "aRQ" = (
 /obj/stool/bed,
-/obj/item/clothing/glasses/vr{
-	network = "arcadevr"
-	},
+/obj/item/clothing/glasses/vr/arcade,
 /obj/decoration/clock{
 	pixel_x = 32
 	},
@@ -15429,9 +15400,7 @@
 /area/station/security/brig/genpop)
 "aTa" = (
 /obj/stool/bed,
-/obj/item/clothing/glasses/vr{
-	network = "arcadevr"
-	},
+/obj/item/clothing/glasses/vr/arcade,
 /obj/decal/cleanable/dirt,
 /obj/submachine/ATM/atm_alt{
 	dir = 8
@@ -15460,17 +15429,6 @@
 	icon_state = "0-2"
 	},
 /obj/item_dispenser/idcarddispenser,
-/turf/simulated/floor/wood,
-/area/station/hos)
-"aTd" = (
-/obj/machinery/computer/bank_data,
-/obj/machinery/power/data_terminal,
-/obj/cable{
-	icon_state = "0-2"
-	},
-/obj/decoration/clock{
-	pixel_y = 32
-	},
 /turf/simulated/floor/wood,
 /area/station/hos)
 "aTe" = (
@@ -19218,7 +19176,6 @@
 /turf/simulated/floor/sanitary,
 /area/station/medical/morgue)
 "bds" = (
-/obj/critter/opossum/morty,
 /obj/disposalpipe/segment/morgue{
 	dir = 4;
 	name = "crematorium pipe"
@@ -19226,6 +19183,7 @@
 /obj/cable{
 	icon_state = "4-8"
 	},
+/mob/living/critter/small_animal/opossum/morty,
 /turf/simulated/floor/sanitary,
 /area/station/medical/morgue)
 "bdt" = (
@@ -22011,9 +21969,7 @@
 	name = "VR simulation pod";
 	network = "arcadevr"
 	},
-/obj/item/clothing/glasses/vr{
-	network = "arcadevr"
-	},
+/obj/item/clothing/glasses/vr/arcade,
 /turf/simulated/floor/carpet/arcade,
 /area/station/crew_quarters/arcade)
 "bku" = (
@@ -22038,9 +21994,7 @@
 	name = "VR simulation pod";
 	network = "arcadevr"
 	},
-/obj/item/clothing/glasses/vr{
-	network = "arcadevr"
-	},
+/obj/item/clothing/glasses/vr/arcade,
 /turf/simulated/floor/carpet/arcade,
 /area/station/crew_quarters/arcade)
 "bky" = (
@@ -27009,7 +26963,7 @@
 /turf/simulated/floor/plating/random,
 /area/station/maintenance/disposal)
 "bxX" = (
-/obj/machinery/crusher,
+/obj/machinery/crusher/slow,
 /obj/machinery/conveyor/EW{
 	id = "disposals";
 	move_lag = 30;
@@ -31083,6 +31037,12 @@
 	icon_state = "red2"
 	},
 /area/station/security/detectives_office_manta)
+"bKA" = (
+/obj/machinery/light/incandescent/netural{
+	dir = 1
+	},
+/turf/simulated/floor/specialroom/bar,
+/area/diner/backroom)
 "bKB" = (
 /turf/simulated/floor/carpet{
 	icon_state = "fred2"
@@ -32776,6 +32736,10 @@
 /obj/machinery/fluid_canister,
 /turf/simulated/floor/plating/random,
 /area/station/maintenance/upperport)
+"cqj" = (
+/obj/machinery/light/incandescent/warm,
+/turf/simulated/floor/specialroom/bar,
+/area/diner/dining)
 "csq" = (
 /obj/mapping_helper/firedoor_spawn,
 /obj/mapping_helper/access/brig,
@@ -32934,7 +32898,7 @@
 /turf/simulated/floor/white,
 /area/station/medical/medbay/surgery)
 "cJM" = (
-/obj/grille/catwalk{
+/obj/mesh/catwalk{
 	dir = 6;
 	icon_state = "catwalk_cross"
 	},
@@ -33485,6 +33449,15 @@
 	icon_state = "fred2"
 	},
 /area/station/science/restroom)
+"dVn" = (
+/obj/lattice{
+	dir = 4;
+	icon_state = "lattice-dir";
+	tag = "icon-lattice-dir (EAST)"
+	},
+/obj/machinery/light/traffic_light/trader_diner/delay2,
+/turf/space/fluid/manta,
+/area/mantaSpace)
 "dWm" = (
 /obj/cable{
 	icon_state = "1-2"
@@ -33492,6 +33465,15 @@
 /obj/landmark/gps_waypoint,
 /turf/simulated/floor/longtile/black,
 /area/station/turret_protected/ai_upload)
+"dWN" = (
+/obj/lattice{
+	dir = 4;
+	icon_state = "lattice-dir";
+	tag = "icon-lattice-dir (EAST)"
+	},
+/obj/machinery/light/traffic_light/trader_diner/delay4,
+/turf/space/fluid/manta,
+/area/mantaSpace)
 "dXJ" = (
 /obj/machinery/light/incandescent/netural{
 	dir = 8;
@@ -34269,9 +34251,7 @@
 	name = "VR simulation pod";
 	network = "arcadevr"
 	},
-/obj/item/clothing/glasses/vr{
-	network = "arcadevr"
-	},
+/obj/item/clothing/glasses/vr/arcade,
 /obj/machinery/light/incandescent/netural{
 	dir = 4;
 	pixel_x = 10
@@ -34367,7 +34347,7 @@
 /turf/simulated/floor/shuttlebay,
 /area/station/hangar/starboard)
 "fxo" = (
-/obj/grille/catwalk{
+/obj/mesh/catwalk{
 	dir = 9;
 	icon_state = "catwalk_cross"
 	},
@@ -35102,6 +35082,10 @@
 	icon_state = "yellowblack"
 	},
 /area/station/engine/engineering/ce)
+"hdx" = (
+/obj/mapping_helper/wingrille_spawn/auto,
+/turf/simulated/floor/plating,
+/area/mantaSpace)
 "hhp" = (
 /obj/mapping_helper/wingrille_spawn/auto,
 /obj/cable,
@@ -35522,7 +35506,7 @@
 /turf/space/fluid/manta,
 /area/mantaSpace)
 "ibY" = (
-/obj/grille/catwalk{
+/obj/mesh/catwalk{
 	dir = 6
 	},
 /turf/space/fluid/manta,
@@ -35706,8 +35690,7 @@
 /turf/simulated/floor/yellow,
 /area/station/engine/engineering/ce)
 "isu" = (
-/obj/displaycase{
-	displayed = /obj/item/captaingun;
+/obj/displaycase/captain{
 	pixel_y = 8
 	},
 /obj/table/wood/auto,
@@ -36305,6 +36288,12 @@
 	},
 /turf/simulated/floor/longtile/black,
 /area/station/turret_protected/ai_upload)
+"jSp" = (
+/turf/simulated/floor/specialroom/bar,
+/area/diner/backroom)
+"jTR" = (
+/turf/simulated/wall/auto/reinforced/supernorn,
+/area/mantaSpace)
 "jUI" = (
 /obj/railing/orange/reinforced{
 	dir = 8
@@ -37351,6 +37340,10 @@
 	},
 /turf/simulated/floor/longtile/black,
 /area/station/turret_protected/ai_upload_foyer)
+"mCU" = (
+/obj/submachine/slot_machine,
+/turf/simulated/floor/specialroom/bar,
+/area/diner/backroom)
 "mFN" = (
 /obj/cable{
 	icon_state = "4-8"
@@ -37944,7 +37937,7 @@
 /turf/simulated/floor/plating/random,
 /area/station/maintenance/lowerstarboard)
 "nZD" = (
-/obj/grille/catwalk{
+/obj/mesh/catwalk{
 	dir = 10;
 	icon_state = "catwalk_cross"
 	},
@@ -38148,6 +38141,13 @@
 	},
 /turf/simulated/floor/shuttlebay,
 /area/station/hangar/port)
+"orZ" = (
+/obj/machinery/light/incandescent/warm{
+	dir = 1;
+	pixel_y = 20
+	},
+/turf/simulated/floor/specialroom/bar,
+/area/diner/dining)
 "osd" = (
 /obj/storage/closet/coffin,
 /obj/machinery/camera{
@@ -38229,6 +38229,14 @@
 	dir = 1
 	},
 /area/station/ranch)
+"oxY" = (
+/obj/lattice{
+	dir = 9;
+	icon_state = "lattice-dir"
+	},
+/obj/machinery/light/traffic_light/trader_diner,
+/turf/space/fluid/manta,
+/area/mantaSpace)
 "oyW" = (
 /obj/table/wood/auto,
 /obj/item/clothing/head/powdered_wig,
@@ -39646,6 +39654,9 @@
 	},
 /turf/simulated/floor,
 /area/station/hallway/portlowerhallway)
+"rSy" = (
+/turf/space/fluid/manta,
+/area/shuttle/merchant_shuttle/diner_station)
 "rTh" = (
 /obj/submachine/chicken_incubator,
 /obj/item/reagent_containers/food/snacks/ingredient/egg{
@@ -39662,7 +39673,7 @@
 /turf/space/fluid/manta,
 /area/listeningpost/syndicateassaultvessel)
 "rVY" = (
-/obj/grille/catwalk{
+/obj/mesh/catwalk{
 	dir = 5;
 	icon_state = "catwalk_cross"
 	},
@@ -39712,6 +39723,15 @@
 	},
 /turf/simulated/floor/plating/random,
 /area/station/maintenance/upperport)
+"rYZ" = (
+/obj/lattice{
+	dir = 4;
+	icon_state = "lattice-dir";
+	tag = "icon-lattice-dir (EAST)"
+	},
+/obj/machinery/light/traffic_light/trader_diner/delay3,
+/turf/space/fluid/manta,
+/area/mantaSpace)
 "rZK" = (
 /obj/submachine/chem_extractor,
 /obj/decal/tile_edge/line/black{
@@ -39728,6 +39748,19 @@
 	},
 /turf/simulated/floor/specialroom/bar,
 /area/station/crew_quarters/bar)
+"scl" = (
+/obj/machinery/power/data_terminal,
+/obj/cable{
+	icon_state = "0-8"
+	},
+/obj/cable{
+	icon_state = "4-8"
+	},
+/obj/machinery/computer3/generic/bank_data/console_upper{
+	dir = 4
+	},
+/turf/simulated/floor/longtile,
+/area/station/bridge)
 "scL" = (
 /obj/machinery/camera{
 	c_tag = "autotag";
@@ -39749,7 +39782,7 @@
 	},
 /area/station/security/secwing)
 "sdW" = (
-/obj/grille/catwalk{
+/obj/mesh/catwalk{
 	dir = 4
 	},
 /turf/space/fluid/manta,
@@ -40342,6 +40375,15 @@
 	},
 /turf/simulated/floor/plating/random,
 /area/shuttle/escape/station)
+"tWw" = (
+/obj/machinery/door/airlock/pyro/external{
+	dir = 4
+	},
+/obj/forcefield/energyshield/perma/doorlink{
+	dir = 4
+	},
+/turf/simulated/floor/specialroom/bar,
+/area/diner/dining)
 "tWT" = (
 /obj/machinery/camera{
 	c_tag = "autotag";
@@ -40575,6 +40617,17 @@
 	},
 /turf/simulated/floor/plating/random,
 /area/station/maintenance/upperport)
+"uzH" = (
+/obj/machinery/computer3/generic/bank_data,
+/obj/machinery/power/data_terminal,
+/obj/cable{
+	icon_state = "0-2"
+	},
+/obj/decoration/clock{
+	pixel_y = 32
+	},
+/turf/simulated/floor/wood,
+/area/station/hos)
 "uFt" = (
 /obj/decal/tile_edge/line/green{
 	color = "#e7c88c";
@@ -41867,6 +41920,10 @@
 	},
 /turf/simulated/floor/wood/seven,
 /area/station/crew_quarters/cafeteria/the_rising_tide_bar)
+"xxB" = (
+/obj/machinery/computer/tetris,
+/turf/simulated/floor/specialroom/bar,
+/area/diner/backroom)
 "xyl" = (
 /obj/cable{
 	icon_state = "2-5"
@@ -42185,9 +42242,7 @@
 	name = "VR simulation pod";
 	network = "arcadevr"
 	},
-/obj/item/clothing/glasses/vr{
-	network = "arcadevr"
-	},
+/obj/item/clothing/glasses/vr/arcade,
 /obj/machinery/light/incandescent/netural{
 	dir = 8;
 	pixel_x = -10
@@ -86784,7 +86839,7 @@ aaa
 aaa
 act
 aaj
-aas
+scl
 aaD
 aaI
 ail
@@ -91640,7 +91695,7 @@ aDq
 fit
 aRS
 aaf
-aTd
+uzH
 aTI
 atL
 bAC
@@ -111808,16 +111863,16 @@ aaa
 aaa
 aaa
 aaa
+oxY
 aaa
 aaa
+rSy
+rSy
+rSy
+rSy
 aaa
 aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
+oxY
 aaa
 aaa
 aaa
@@ -112110,16 +112165,16 @@ aaa
 aaa
 aaa
 aaa
+vWe
 aaa
 aaa
+rSy
+rSy
+rSy
+rSy
 aaa
 aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
+vWe
 aaa
 aaa
 aaa
@@ -112412,16 +112467,16 @@ aaa
 aaa
 aaa
 aaa
+dVn
 aaa
+rSy
+rSy
+rSy
+rSy
+rSy
+rSy
 aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
+dVn
 aaa
 aaa
 aaa
@@ -112714,16 +112769,16 @@ aaa
 aaa
 aaa
 aaa
+vWe
 aaa
+rSy
+rSy
+rSy
+rSy
+rSy
+rSy
 aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
+vWe
 aaa
 aaa
 aaa
@@ -113016,16 +113071,16 @@ aaa
 aaa
 aaa
 aaa
+rYZ
 aaa
+rSy
+rSy
+rSy
+rSy
+rSy
+rSy
 aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
+rYZ
 aaa
 aaa
 aaa
@@ -113318,16 +113373,16 @@ aaa
 aaa
 aaa
 aaa
+vWe
 aaa
+rSy
+rSy
+rSy
+rSy
+rSy
+rSy
 aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
+vWe
 aaa
 aaa
 aaa
@@ -113620,16 +113675,16 @@ aaa
 aaa
 aaa
 aaa
+dWN
 aaa
 aaa
+adq
+tWw
+tWw
+adq
 aaa
 aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
+dWN
 aaa
 aaa
 aaa
@@ -113922,12 +113977,12 @@ aaa
 aaa
 aaa
 aaa
-aaa
 acG
 acG
 acG
 acG
-adq
+ada
+ada
 adA
 adA
 adA
@@ -114224,12 +114279,12 @@ aaa
 aaa
 aaa
 aaa
-aaa
 acG
 acK
 adf
 acG
-dnT
+ada
+cqj
 adA
 adH
 adN
@@ -114526,11 +114581,11 @@ aaa
 aaa
 aaa
 aaa
-aaa
 acG
 eIb
 adg
 ado
+ada
 ada
 adB
 adI
@@ -114828,11 +114883,11 @@ aaa
 aaa
 aaa
 aaa
-aaa
 acG
 acQ
 adf
 acG
+ada
 ada
 adA
 adJ
@@ -115127,14 +115182,14 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aac
+jTR
 aad
 aad
 acG
 acX
 adh
 acG
+orZ
 ada
 adA
 adK
@@ -115428,8 +115483,7 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aac
+jTR
 aac
 ace
 acn
@@ -115437,6 +115491,7 @@ acG
 acG
 acG
 acG
+ada
 ada
 adA
 adA
@@ -115729,14 +115784,14 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aac
+jTR
 aac
 aaN
 ach
 abS
 aac
-acY
+mCU
+ada
 ada
 ada
 ada
@@ -116031,17 +116086,17 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aad
+hdx
 len
 abS
 abS
 acw
 aac
-acZ
+bKA
 ada
 adp
-dNz
+ada
+ada
 ada
 adi
 ada
@@ -116333,15 +116388,15 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aad
+hdx
 aaA
 abY
 abS
 acA
 acI
+jSp
 ada
-ada
+adq
 adq
 adq
 adC
@@ -116635,15 +116690,15 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aad
+hdx
 aaA
 aca
 abS
 abS
 acI
-ada
+jSp
 adi
+adq
 adq
 adq
 adD
@@ -116937,14 +116992,14 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aad
+hdx
 kRd
 abS
 ack
 acF
 aac
-acZ
+bKA
+ada
 ada
 ada
 dNz
@@ -117239,14 +117294,14 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aac
+jTR
 aac
 aaN
 abS
 abS
 aac
-adb
+xxB
+ada
 ada
 ada
 ada
@@ -117542,14 +117597,14 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aac
+jTR
 aac
 acm
 acn
-acJ
+aac
 acJ
 adj
+acJ
 acJ
 acJ
 adj
@@ -117845,13 +117900,13 @@ aaa
 aaa
 aaa
 aaa
-aaa
+jTR
+aad
+aad
 aac
-aad
-aad
-acJ
 adc
 adk
+acJ
 acJ
 adw
 adE
@@ -118150,10 +118205,10 @@ aaa
 aaa
 aaa
 aaa
-aaa
-acJ
+aac
 add
 adl
+acJ
 acJ
 ady
 adF
@@ -118452,11 +118507,11 @@ aaa
 aaa
 aaa
 aaa
-aaa
-acJ
+aac
 ade
 adm
 adr
+acJ
 adz
 adG
 acJ
@@ -118754,10 +118809,10 @@ aaa
 aaa
 aaa
 aaa
-aaa
-acJ
+aac
 acJ
 adn
+acJ
 acJ
 acJ
 acJ
@@ -119056,16 +119111,16 @@ aaa
 aaa
 aaa
 aaa
+vWe
 aaa
 aaa
+acJ
+acJ
+acJ
+acJ
 aaa
 aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
+vWe
 aaa
 aaa
 aaa
@@ -119358,6 +119413,7 @@ aaa
 aaa
 aaa
 aaa
+vWe
 aaa
 aaa
 aaa
@@ -119366,8 +119422,7 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
+vWe
 aaa
 aaa
 aaa
@@ -119660,6 +119715,7 @@ aaa
 aaa
 aaa
 aaa
+vWe
 aaa
 aaa
 aaa
@@ -119668,8 +119724,7 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
+vWe
 aaa
 aaa
 aaa
@@ -119962,6 +120017,7 @@ aaa
 aaa
 aaa
 aaa
+vWe
 aaa
 aaa
 aaa
@@ -119970,8 +120026,7 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
+vWe
 aaa
 aaa
 aaa
@@ -120264,6 +120319,7 @@ aaa
 aaa
 aaa
 aaa
+vWe
 aaa
 aaa
 aaa
@@ -120272,8 +120328,7 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
+vWe
 aaa
 aaa
 aaa
@@ -120566,6 +120621,7 @@ aaa
 aaa
 aaa
 aaa
+vWe
 aaa
 aaa
 aaa
@@ -120574,8 +120630,7 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
+vWe
 aaa
 aaa
 aaa
@@ -120868,6 +120923,7 @@ aaa
 aaa
 aaa
 aaa
+akY
 aaa
 aaa
 aaa
@@ -120876,8 +120932,7 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
+akY
 aaa
 aaa
 aaa

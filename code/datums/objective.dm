@@ -194,7 +194,7 @@ proc/create_fluff(datum/mind/target)
 			if("aurora MKII utility belt")
 				steal_target = /obj/item/storage/belt/utility/prepared/ceshielded
 			if("Head of Security\'s war medal")
-				steal_target = /obj/item/clothing/suit/hosmedal
+				steal_target = /obj/item/clothing/suit/security_badge/hosmedal
 			if("Research Director\'s Diploma")
 				steal_target = /obj/item/rddiploma
 			if("Medical Director\'s Medical License")
@@ -1078,6 +1078,27 @@ ABSTRACT_TYPE(/datum/multigrab_target)
 			return 1
 		else
 			return 0
+
+/datum/objective/specialist/phoenix_collect_humans
+	explanation_text = "Collect 5 dead humans in your nest."
+
+	check_completion()
+		var/mob/living/critter/space_phoenix/phoenix = src.owner.current
+		return length(phoenix?.collected_humans) >= 5
+
+/datum/objective/specialist/phoenix_collect_critters
+	explanation_text = "Collect 5 dead critters in your nest."
+
+	check_completion()
+		var/mob/living/critter/space_phoenix/phoenix = src.owner.current
+		return length(phoenix?.collected_critters) >= 5
+
+/datum/objective/specialist/phoenix_permafrost_areas
+	explanation_text= "Use Permafrost on 5 station areas."
+
+	check_completion()
+		var/mob/living/critter/space_phoenix/phoenix = src.owner.current
+		return length(phoenix?.permafrosted_areas) >= 5
 
 /////////////////////////////
 // Round-ending objectives //
