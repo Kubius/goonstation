@@ -48,6 +48,7 @@
 		if (!length(eligible_parking_spaces))
 			message_admins("Parking Incident event couldn't find any open tiles in visited areas.")
 			logTheThing(LOG_DEBUG, null, "Failed to find any open tiles for a Parking Incident event.")
+			return
 
 		var/turf/parking_turf = pick(eligible_parking_spaces)
 		new /obj/machinery/vehicle/miniputt/unfueled(parking_turf)
