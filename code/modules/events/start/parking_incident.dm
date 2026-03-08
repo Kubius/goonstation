@@ -5,9 +5,6 @@
 	required_elapsed_round_time = 0
 	wont_occur_past_this_time = 1 MINUTE
 
-	admin_call(var/source)
-		if (..())
-			return
 
 	event_effect(var/source)
 		..()
