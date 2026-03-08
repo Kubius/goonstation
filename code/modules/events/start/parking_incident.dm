@@ -36,7 +36,7 @@
 
 				var/turf_ineligible = FALSE
 
-				for (var/atom/O in T.contents)
+				for (var/obj/O in T.contents)
 					if (O.density || istype(O,/obj/machinery))
 						turf_ineligible = TRUE
 						break
