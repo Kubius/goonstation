@@ -21,6 +21,7 @@
 		if (!length(real_maint_areas))
 			message_admins("Parking Incident event couldn't find any maintenance areas!")
 			logTheThing(LOG_DEBUG, null, "Failed to find any maintenance areas for a Parking Incident event.")
+			return
 
 		var/attempts = 0
 		var/list/turf/eligible_parking_spaces = list()
