@@ -310,7 +310,7 @@
 					var/mobpos = "[morb.x]-[morb.y]"
 					if (!mobs_being_sent[morb.name] || mobs_being_sent[morb.name] != mobpos)
 						src.teleouch(morb,TELE_INJURY_MOTION)
-				use_power(400000)
+				use_power(100000)
 				SPAWN(6 DECI SECONDS)
 					do_teleport(AM,offset_target,FALSE,sparks=FALSE)
 			if (this_turf_teleporting)
