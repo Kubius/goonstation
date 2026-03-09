@@ -7141,13 +7141,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/disposal/asclepius)
-"cYT" = (
-/obj/disposaloutlet/south{
-	pixel_y = -4
-	},
-/obj/disposalpipe/trunk/produce,
-/turf/simulated/wall/auto/jen/green,
-/area/station/crew_quarters/kitchen)
 "cZa" = (
 /obj/machinery/door/airlock/pyro{
 	dir = 4
@@ -19527,8 +19520,12 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/southeast/asclepius)
 "idC" = (
-/obj/machinery/light/small/floor,
-/obj/disposalpipe/segment/produce,
+/obj/disposalpipe/trunk/produce,
+/obj/disposaloutlet/transit,
+/obj/machinery/light/small{
+	dir = 1;
+	pixel_y = 21
+	},
 /turf/simulated/floor/specialroom/freezer,
 /area/station/crew_quarters/kitchen)
 "idD" = (
@@ -114098,7 +114095,7 @@ pto
 pto
 jKI
 bJZ
-cYT
+tXi
 idC
 aCB
 uyA
