@@ -3679,11 +3679,6 @@
 /area/station/crew_quarters/md{
 	name = "Asclepius Command Center"
 	})
-"bGK" = (
-/turf/simulated/wall/auto/reinforced/jen/blue,
-/area/station/medical/medbay/reception{
-	name = "Subacute Care"
-	})
 "bHg" = (
 /obj/cable{
 	icon_state = "4-8"
@@ -45933,9 +45928,6 @@
 /obj/machinery/light/small/floor,
 /turf/simulated/floor/black,
 /area/station/hallway/primary/central/maru)
-"tIN" = (
-/turf/simulated/wall/auto/reinforced/jen/red,
-/area/station/construction)
 "tJe" = (
 /obj/machinery/light/small/floor,
 /obj/cable{
@@ -53700,7 +53692,7 @@
 	},
 /obj/mapping_helper/access/brig,
 /turf/simulated/floor/red,
-/area/station/construction)
+/area/station/security/interrogation)
 "wUE" = (
 /turf/simulated/floor/black/side,
 /area/station/teleporter/maru)
@@ -91799,7 +91791,7 @@ erJ
 aKp
 fLm
 rOJ
-tIN
+kvk
 imW
 hQl
 lXJ
@@ -116578,7 +116570,7 @@ gNQ
 kVn
 hKr
 vvo
-bGK
+vvo
 pto
 pto
 pto
