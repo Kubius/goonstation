@@ -1223,7 +1223,6 @@
 	icon_state = "plant"
 	},
 /obj/machinery/camera/directional/east,
-/obj/machinery/info_map,
 /turf/simulated/floor/darkblue,
 /area/station/hallway/primary/north/meridian)
 "aDe" = (
@@ -2749,6 +2748,7 @@
 "blE" = (
 /obj/machinery/vending/medical_public,
 /obj/machinery/firealarm/directional/west,
+/obj/machinery/info_map,
 /turf/simulated/floor/industrial,
 /area/station/hallway/primary/north/hammer)
 "blK" = (
@@ -3300,13 +3300,6 @@
 /obj/machinery/vending/computer3,
 /turf/simulated/floor/plating,
 /area/station/maintenance/southeast/maru)
-"bzs" = (
-/turf/simulated/wall/false_wall{
-	color = "#ff9999";
-	icon = 'icons/turf/walls/jen.dmi';
-	icon_state = "R12"
-	},
-/area/station/security/beepsky)
 "bzA" = (
 /obj/machinery/door/airlock/pyro/command{
 	dir = 4;
@@ -8522,7 +8515,6 @@
 	icon_state = "plant"
 	},
 /obj/machinery/camera/directional/east,
-/obj/machinery/info_map,
 /turf/simulated/floor/darkblue,
 /area/station/hallway/primary/north/dionysus)
 "dGp" = (
@@ -9157,8 +9149,8 @@
 /turf/simulated/floor/grey,
 /area/station/engine/substation/dionysus)
 "dUk" = (
-/obj/machinery/light_switch/north,
 /obj/disposalpipe/segment/mail/horizontal,
+/obj/machinery/info_map,
 /turf/simulated/floor/wood,
 /area/station/hallway/primary/north/dionysus)
 "dUF" = (
@@ -9938,6 +9930,16 @@
 /obj/cable,
 /turf/simulated/floor/black/grime,
 /area/station/security/beepsky)
+"emZ" = (
+/obj/machinery/light{
+	dir = 1;
+	layer = 9.1;
+	pixel_y = 21
+	},
+/obj/disposalpipe/segment/mail/horizontal,
+/obj/machinery/light_switch/north,
+/turf/simulated/floor/wood,
+/area/station/hallway/primary/north/dionysus)
 "enb" = (
 /obj/machinery/door/airlock/pyro/glass,
 /obj/mapping_helper/firedoor_spawn,
@@ -11138,7 +11140,7 @@
 /turf/simulated/floor/redblack,
 /area/station/bridge/hammer)
 "eNa" = (
-/obj/machinery/light_switch/north,
+/obj/machinery/info_map,
 /turf/simulated/floor/black/side{
 	dir = 1
 	},
@@ -14492,6 +14494,7 @@
 "gbg" = (
 /obj/machinery/vending/medical_public,
 /obj/machinery/firealarm/directional/west,
+/obj/machinery/info_map,
 /turf/simulated/floor/yellowblack{
 	dir = 9
 	},
@@ -15551,7 +15554,7 @@
 /turf/simulated/floor/carpet/green/fancy/edge/nw,
 /area/station/crew_quarters/courtroom)
 "gxu" = (
-/obj/machinery/light_switch/north,
+/obj/machinery/info_map,
 /turf/simulated/floor/industrial,
 /area/station/hallway/primary/north/hammer)
 "gxI" = (
@@ -20162,6 +20165,7 @@
 "iur" = (
 /obj/machinery/vending/medical_public,
 /obj/machinery/firealarm/directional/west,
+/obj/machinery/info_map,
 /turf/simulated/floor/blue,
 /area/station/hallway/primary/north/asclepius)
 "ius" = (
@@ -25385,6 +25389,15 @@
 	},
 /turf/simulated/floor/engine/caution/corner,
 /area/station/hangar/maru)
+"kJR" = (
+/obj/machinery/light{
+	dir = 1;
+	layer = 9.1;
+	pixel_y = 21
+	},
+/obj/machinery/light_switch/north,
+/turf/simulated/floor/industrial,
+/area/station/hallway/primary/north/hammer)
 "kJS" = (
 /obj/machinery/door/airlock/pyro/glass,
 /obj/mapping_helper/firedoor_spawn,
@@ -26909,6 +26922,7 @@
 	layer = 9.1;
 	pixel_y = 21
 	},
+/obj/machinery/light_switch/north,
 /turf/simulated/floor/black/side{
 	dir = 1
 	},
@@ -28031,6 +28045,15 @@
 	dir = 4
 	},
 /area/station/teleporter/hammer)
+"lVZ" = (
+/obj/cable/brown{
+	icon_state = "4-8"
+	},
+/obj/machinery/light_switch/north,
+/turf/simulated/floor/grey/side{
+	dir = 1
+	},
+/area/station/hallway/primary/north/meridian)
 "lWp" = (
 /obj/random_item_spawner/junk/maybe_few,
 /obj/machinery/power/apc/autoname_north,
@@ -31713,7 +31736,6 @@
 	icon_state = "plant"
 	},
 /obj/machinery/camera/directional/east,
-/obj/machinery/info_map,
 /turf/simulated/floor/darkblue,
 /area/station/hallway/primary/north/maru)
 "nEk" = (
@@ -35578,6 +35600,7 @@
 "poq" = (
 /obj/machinery/vending/medical_public,
 /obj/machinery/firealarm/directional/west,
+/obj/machinery/info_map,
 /turf/simulated/floor/purple,
 /area/station/hallway/primary/north/tenebrae)
 "pov" = (
@@ -35626,6 +35649,7 @@
 "ppy" = (
 /obj/machinery/vending/medical_public,
 /obj/machinery/firealarm/directional/west,
+/obj/machinery/info_map,
 /turf/simulated/floor/grey/side{
 	dir = 9
 	},
@@ -37136,7 +37160,6 @@
 	icon_state = "plant"
 	},
 /obj/machinery/camera/directional/east,
-/obj/machinery/info_map,
 /turf/simulated/floor/darkblue,
 /area/station/hallway/primary/north/asclepius)
 "pXT" = (
@@ -39068,7 +39091,6 @@
 	icon_state = "plant"
 	},
 /obj/machinery/camera/directional/east,
-/obj/machinery/info_map,
 /turf/simulated/floor/darkblue,
 /area/station/hallway/primary/north/tenebrae)
 "qRI" = (
@@ -39333,6 +39355,7 @@
 "qZa" = (
 /obj/machinery/vending/medical_public,
 /obj/machinery/firealarm/directional/west,
+/obj/machinery/info_map,
 /turf/simulated/floor/wood,
 /area/station/hallway/primary/north/dionysus)
 "qZc" = (
@@ -41864,6 +41887,15 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/northwest/meridian)
+"scG" = (
+/obj/machinery/light{
+	dir = 1;
+	layer = 9.1;
+	pixel_y = 21
+	},
+/obj/machinery/light_switch/north,
+/turf/simulated/floor/white/side,
+/area/station/hallway/primary/north/tenebrae)
 "scH" = (
 /obj/cable{
 	icon_state = "4-8"
@@ -42068,7 +42100,6 @@
 	icon_state = "plant"
 	},
 /obj/machinery/camera/directional/east,
-/obj/machinery/info_map,
 /turf/simulated/floor/darkblue,
 /area/station/hallway/primary/north/hammer)
 "shh" = (
@@ -45871,10 +45902,10 @@
 	},
 /area/station/hallway/primary/south/maru)
 "tIc" = (
-/obj/machinery/light_switch/north,
 /obj/cable/brown{
 	icon_state = "4-8"
 	},
+/obj/machinery/info_map,
 /turf/simulated/floor/white/side,
 /area/station/hallway/primary/north/asclepius)
 "tIn" = (
@@ -46861,10 +46892,10 @@
 /turf/simulated/floor/engine/caution/west,
 /area/station/hangar/asclepius)
 "udd" = (
-/obj/machinery/light_switch/north,
 /obj/cable/brown{
 	icon_state = "4-8"
 	},
+/obj/machinery/info_map,
 /turf/simulated/floor/grey/side{
 	dir = 1
 	},
@@ -47260,6 +47291,7 @@
 /obj/cable/brown{
 	icon_state = "4-10"
 	},
+/obj/machinery/light_switch/north,
 /turf/simulated/floor/white/side,
 /area/station/hallway/primary/north/asclepius)
 "ujE" = (
@@ -52536,7 +52568,7 @@
 /obj/item/clothing/head/flatcap,
 /obj/item/reagent_containers/food/drinks/bottle/ntbrew,
 /obj/item/dice,
-/obj/item/clothing/glasses/sunglasses,
+/obj/item/clothing/glasses/sunglasses/tanning,
 /obj/blind_switch/area/north,
 /turf/simulated/floor/black/grime,
 /area/station/crew_quarters/jazz)
@@ -54492,7 +54524,7 @@
 /turf/simulated/floor/engine,
 /area/station/engine/core/nuclear)
 "xqL" = (
-/obj/machinery/light_switch/north,
+/obj/machinery/info_map,
 /turf/simulated/floor/white/side,
 /area/station/hallway/primary/north/tenebrae)
 "xqT" = (
@@ -83970,7 +84002,7 @@ eXf
 eXf
 eXf
 eXf
-xLh
+lVZ
 gnx
 biE
 mJj
@@ -95704,7 +95736,7 @@ lVV
 lVV
 lVV
 qoi
-bzs
+pkK
 fpy
 emH
 pkK
@@ -96601,7 +96633,7 @@ pqJ
 oeE
 dqU
 bka
-bAm
+kJR
 mDZ
 agj
 qEC
@@ -114467,7 +114499,7 @@ qAU
 tET
 drW
 cSb
-cGn
+emZ
 eJm
 gCj
 bMn
@@ -122979,7 +123011,7 @@ uik
 wvO
 tYk
 eWf
-fRv
+scG
 aUK
 eiC
 vKL
