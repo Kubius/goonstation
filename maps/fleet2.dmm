@@ -1180,6 +1180,10 @@
 	dir = 4
 	},
 /area/station/science/teleporter)
+"aCB" = (
+/obj/machinery/drainage,
+/turf/simulated/floor/specialroom/freezer,
+/area/station/crew_quarters/kitchen)
 "aCF" = (
 /obj/machinery/computer/ordercomp{
 	dir = 4
@@ -1792,7 +1796,7 @@
 /turf/simulated/floor/blueblack{
 	dir = 10
 	},
-/area/station/medical/medbay/reception{
+/area/station/medical/medbay/psychiatrist{
 	name = "Subacute Care"
 	})
 "aRn" = (
@@ -2514,7 +2518,7 @@
 "bgO" = (
 /obj/decal/cleanable/dirt,
 /turf/simulated/floor/carpet/grime,
-/area/station/construction)
+/area/station/security/detectives_office)
 "bgU" = (
 /turf/simulated/floor/white/side{
 	dir = 1
@@ -3530,7 +3534,7 @@
 /obj/mapping_helper/firedoor_spawn,
 /obj/mapping_helper/access/forensics,
 /turf/simulated/floor/carpet/grime,
-/area/station/construction)
+/area/station/security/detectives_office)
 "bDN" = (
 /obj/table/reinforced/auto,
 /obj/item/paper/book/from_file/nuclear_engineering{
@@ -4008,7 +4012,7 @@
 	pixel_x = 3
 	},
 /turf/simulated/floor/carpet/grime,
-/area/station/construction)
+/area/station/security/detectives_office)
 "bOB" = (
 /obj/cable{
 	icon_state = "2-4"
@@ -4618,7 +4622,7 @@
 	},
 /obj/machinery/light/small,
 /turf/simulated/floor/blueblack,
-/area/station/medical/medbay/reception{
+/area/station/medical/medbay/psychiatrist{
 	name = "Subacute Care"
 	})
 "cbg" = (
@@ -4884,7 +4888,7 @@
 /turf/simulated/floor/blueblack{
 	dir = 1
 	},
-/area/station/medical/medbay/reception{
+/area/station/medical/medbay/psychiatrist{
 	name = "Subacute Care"
 	})
 "cgm" = (
@@ -5888,7 +5892,7 @@
 /turf/simulated/floor/blueblack{
 	dir = 8
 	},
-/area/station/medical/medbay/reception{
+/area/station/medical/medbay/psychiatrist{
 	name = "Subacute Care"
 	})
 "cBB" = (
@@ -5923,7 +5927,7 @@
 /turf/simulated/floor/blueblack{
 	dir = 10
 	},
-/area/station/medical/medbay/reception{
+/area/station/medical/medbay/psychiatrist{
 	name = "Subacute Care"
 	})
 "cBL" = (
@@ -5945,7 +5949,7 @@
 /obj/mapping_helper/access/medical,
 /obj/mapping_helper/firedoor_spawn,
 /turf/simulated/floor/blue,
-/area/station/medical/medbay/reception{
+/area/station/medical/medbay/psychiatrist{
 	name = "Subacute Care"
 	})
 "cBX" = (
@@ -6243,7 +6247,7 @@
 /turf/simulated/floor/blueblack{
 	dir = 1
 	},
-/area/station/medical/medbay/reception{
+/area/station/medical/medbay/psychiatrist{
 	name = "Subacute Care"
 	})
 "cHo" = (
@@ -6533,7 +6537,7 @@
 	icon_state = "2-5"
 	},
 /turf/simulated/floor/carpet/grime,
-/area/station/construction)
+/area/station/security/detectives_office)
 "cOr" = (
 /obj/machinery/light,
 /obj/table/reinforced/auto,
@@ -6743,7 +6747,7 @@
 "cTj" = (
 /obj/machinery/light/small,
 /turf/simulated/floor/carpet/blue/fancy/edge/sw,
-/area/station/medical/medbay/reception{
+/area/station/medical/medbay/psychiatrist{
 	name = "Subacute Care"
 	})
 "cTk" = (
@@ -7447,7 +7451,7 @@
 	pixel_x = 12
 	},
 /turf/simulated/floor/carpet/blue/fancy/edge/ne,
-/area/station/medical/medbay/reception{
+/area/station/medical/medbay/psychiatrist{
 	name = "Subacute Care"
 	})
 "dhN" = (
@@ -7565,7 +7569,7 @@
 /turf/simulated/floor/blueblack{
 	dir = 10
 	},
-/area/station/medical/medbay/reception{
+/area/station/medical/medbay/psychiatrist{
 	name = "Subacute Care"
 	})
 "djW" = (
@@ -8024,7 +8028,7 @@
 "duQ" = (
 /obj/disposalpipe/segment/bent/west,
 /turf/simulated/floor/carpet/grime,
-/area/station/construction)
+/area/station/security/detectives_office)
 "duX" = (
 /obj/machinery/light/small{
 	dir = 4;
@@ -8362,7 +8366,7 @@
 "dBg" = (
 /obj/mapping_helper/wingrille_spawn/auto/reinforced,
 /turf/simulated/floor/plating,
-/area/station/medical/medbay/reception{
+/area/station/medical/medbay/psychiatrist{
 	name = "Subacute Care"
 	})
 "dBs" = (
@@ -8694,7 +8698,7 @@
 /obj/item/paper_bin,
 /obj/item/pen,
 /turf/simulated/floor/carpet/grime,
-/area/station/construction)
+/area/station/security/detectives_office)
 "dLu" = (
 /obj/cable/brown{
 	icon_state = "1-2"
@@ -8922,10 +8926,7 @@
 	},
 /area/station/hangar/dionysus)
 "dOQ" = (
-/obj/machinery/computer/announcement{
-	name = "QM Announcement Computer";
-	req_access_txt = "31"
-	},
+/obj/machinery/computer/announcement/station/cargo,
 /obj/machinery/power/data_terminal,
 /obj/cable{
 	icon_state = "0-2"
@@ -10543,7 +10544,7 @@
 /turf/simulated/floor/blueblack{
 	dir = 1
 	},
-/area/station/medical/medbay/reception{
+/area/station/medical/medbay/psychiatrist{
 	name = "Subacute Care"
 	})
 "ezh" = (
@@ -10901,9 +10902,6 @@
 	},
 /turf/simulated/floor/grey/checker,
 /area/station/mailroom/tenebrae)
-"eFP" = (
-/turf/simulated/wall/auto/reinforced/jen/dark2,
-/area/station/construction)
 "eFY" = (
 /obj/machinery/atmospherics/binary/pump/active{
 	dir = 1;
@@ -12006,11 +12004,8 @@
 /turf/simulated/floor/grey/side,
 /area/station/crew_quarters/meridian)
 "fdH" = (
-/obj/machinery/computer/announcement{
-	dir = 8;
-	name = "AI Announcement Computer";
-	req_access_txt = "16";
-	req_access = list(16)
+/obj/machinery/computer/announcement/station/ai{
+	dir = 8
 	},
 /obj/cable{
 	icon_state = "0-8"
@@ -12169,7 +12164,7 @@
 	icon_state = "0-2"
 	},
 /turf/simulated/floor/plating,
-/area/station/construction)
+/area/station/security/detectives_office)
 "fhl" = (
 /obj/mapping_helper/wingrille_spawn/auto/reinforced/crystal,
 /obj/cable,
@@ -12559,7 +12554,7 @@
 /turf/simulated/floor/blueblack/corner{
 	dir = 8
 	},
-/area/station/medical/medbay/reception{
+/area/station/medical/medbay/psychiatrist{
 	name = "Subacute Care"
 	})
 "frf" = (
@@ -15023,7 +15018,7 @@
 /turf/simulated/floor/blueblack{
 	dir = 5
 	},
-/area/station/medical/medbay/reception{
+/area/station/medical/medbay/psychiatrist{
 	name = "Subacute Care"
 	})
 "gmp" = (
@@ -16237,7 +16232,7 @@
 /area/station/crew_quarters/asclepius)
 "gNQ" = (
 /turf/simulated/floor/black,
-/area/station/medical/medbay/reception{
+/area/station/medical/medbay/psychiatrist{
 	name = "Subacute Care"
 	})
 "gNR" = (
@@ -16428,7 +16423,7 @@
 /turf/simulated/floor/blueblack{
 	dir = 1
 	},
-/area/station/medical/medbay/reception{
+/area/station/medical/medbay/psychiatrist{
 	name = "Subacute Care"
 	})
 "gSY" = (
@@ -16597,7 +16592,7 @@
 /obj/mapping_helper/access/forensics,
 /obj/disposalpipe/segment/horizontal,
 /turf/simulated/floor/carpet/grime,
-/area/station/construction)
+/area/station/security/detectives_office)
 "gXH" = (
 /obj/machinery/light,
 /turf/simulated/floor/escape,
@@ -16703,7 +16698,7 @@
 	icon_state = "0-2"
 	},
 /turf/simulated/floor/carpet/grime,
-/area/station/construction)
+/area/station/security/detectives_office)
 "haA" = (
 /obj/table/reinforced/auto,
 /obj/item/reagent_containers/patch/mini/synthflesh,
@@ -17122,7 +17117,7 @@
 /area/station/crew_quarters/fitness)
 "hjq" = (
 /turf/simulated/floor/carpet/grime,
-/area/station/construction)
+/area/station/security/detectives_office)
 "hjs" = (
 /obj/table/reinforced/auto,
 /obj/item/reagent_containers/emergency_injector/epinephrine{
@@ -17181,7 +17176,7 @@
 	},
 /obj/machinery/camera/directional/east,
 /turf/simulated/floor/carpet/grime,
-/area/station/construction)
+/area/station/security/detectives_office)
 "hku" = (
 /obj/machinery/light/small{
 	dir = 1;
@@ -17942,7 +17937,7 @@
 /obj/cable,
 /obj/machinery/power/data_terminal,
 /turf/simulated/floor/carpet/blue/fancy/edge/north,
-/area/station/medical/medbay/reception{
+/area/station/medical/medbay/psychiatrist{
 	name = "Subacute Care"
 	})
 "hzr" = (
@@ -18398,7 +18393,7 @@
 	},
 /obj/machinery/camera/directional/south,
 /turf/simulated/floor/carpet/blue/fancy/edge/sw,
-/area/station/medical/medbay/reception{
+/area/station/medical/medbay/psychiatrist{
 	name = "Subacute Care"
 	})
 "hKt" = (
@@ -18646,7 +18641,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/carpet/blue/fancy/edge/se,
-/area/station/medical/medbay/reception{
+/area/station/medical/medbay/psychiatrist{
 	name = "Subacute Care"
 	})
 "hPX" = (
@@ -18800,7 +18795,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/carpet/grime,
-/area/station/construction)
+/area/station/security/detectives_office)
 "hSo" = (
 /obj/rack,
 /obj/machinery/door_control/bolter/new_walls/north,
@@ -18945,7 +18940,7 @@
 /obj/machinery/light/small,
 /obj/disposalpipe/segment/horizontal,
 /turf/simulated/floor/carpet/grime,
-/area/station/construction)
+/area/station/security/detectives_office)
 "hVa" = (
 /obj/storage/crate,
 /obj/item/raw_material/cotton,
@@ -19114,7 +19109,7 @@
 /obj/decal/cleanable/dirt,
 /obj/machinery/camera/directional/north,
 /turf/simulated/floor/carpet/grime,
-/area/station/construction)
+/area/station/security/detectives_office)
 "hYX" = (
 /obj/cable{
 	icon_state = "1-2"
@@ -19189,7 +19184,7 @@
 	icon_state = "2-8"
 	},
 /turf/simulated/floor/carpet/grime,
-/area/station/construction)
+/area/station/security/detectives_office)
 "iaT" = (
 /obj/rack,
 /obj/item/tank/air,
@@ -20476,7 +20471,7 @@
 /obj/machinery/disposal,
 /obj/disposalpipe/trunk/south,
 /turf/simulated/floor/carpet/grime,
-/area/station/construction)
+/area/station/security/detectives_office)
 "iDm" = (
 /turf/simulated/wall/auto/reinforced/jen/purple,
 /area/station/engine/substation/tenebrae)
@@ -20556,7 +20551,7 @@
 	pixel_y = -1
 	},
 /turf/simulated/floor/black,
-/area/station/medical/medbay/reception{
+/area/station/medical/medbay/psychiatrist{
 	name = "Subacute Care"
 	})
 "iEL" = (
@@ -21884,7 +21879,7 @@
 	dir = 6
 	},
 /turf/simulated/floor/carpet/grime,
-/area/station/construction)
+/area/station/security/detectives_office)
 "jhS" = (
 /obj/disposalpipe/segment/mail/vertical,
 /turf/simulated/floor/blue/corner,
@@ -22088,7 +22083,7 @@
 	pixel_y = 21
 	},
 /turf/simulated/floor/carpet/grime,
-/area/station/construction)
+/area/station/security/detectives_office)
 "jnh" = (
 /obj/machinery/door/airlock/pyro/glass{
 	name = "Plasma Containment";
@@ -22482,7 +22477,7 @@
 /obj/table/wood/auto,
 /obj/machinery/phone,
 /turf/simulated/floor/carpet/grime,
-/area/station/construction)
+/area/station/security/detectives_office)
 "jwK" = (
 /obj/machinery/light/small/floor,
 /obj/cable{
@@ -23453,7 +23448,7 @@
 	pixel_y = 21
 	},
 /turf/simulated/floor/carpet/grime,
-/area/station/construction)
+/area/station/security/detectives_office)
 "jUI" = (
 /obj/machinery/bathtub{
 	anchored = 1;
@@ -24596,7 +24591,7 @@
 "ksE" = (
 /obj/disposalpipe/segment/horizontal,
 /turf/simulated/floor/carpet/grime,
-/area/station/construction)
+/area/station/security/detectives_office)
 "ksP" = (
 /obj/stool/chair/red{
 	dir = 8
@@ -25870,7 +25865,7 @@
 	pixel_x = -6
 	},
 /turf/simulated/floor/carpet/blue/fancy/edge/nw,
-/area/station/medical/medbay/reception{
+/area/station/medical/medbay/psychiatrist{
 	name = "Subacute Care"
 	})
 "kVF" = (
@@ -26002,7 +25997,7 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/carpet/grime,
-/area/station/construction)
+/area/station/security/detectives_office)
 "kYB" = (
 /obj/machinery/computer/power_monitor{
 	dir = 4;
@@ -27298,7 +27293,7 @@
 	},
 /obj/cable,
 /turf/simulated/floor/plating,
-/area/station/construction)
+/area/station/security/detectives_office)
 "lEJ" = (
 /turf/simulated/floor/circuit/red,
 /area/ghostdrone_factory)
@@ -27660,7 +27655,7 @@
 	icon_state = "1-4"
 	},
 /turf/simulated/floor/carpet/grime,
-/area/station/construction)
+/area/station/security/detectives_office)
 "lNN" = (
 /obj/machinery/portable_atmospherics/canister/air/large,
 /turf/simulated/floor/plating,
@@ -27907,7 +27902,7 @@
 /turf/simulated/floor/blueblack{
 	dir = 5
 	},
-/area/station/medical/medbay/reception{
+/area/station/medical/medbay/psychiatrist{
 	name = "Subacute Care"
 	})
 "lUj" = (
@@ -28264,7 +28259,7 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/wall/auto/reinforced/jen/dark2,
-/area/station/construction)
+/area/station/security/detectives_office)
 "maS" = (
 /obj/machinery/portable_atmospherics/canister/toxins,
 /turf/simulated/floor/engine/caution/corner,
@@ -28369,7 +28364,7 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/black,
-/area/station/medical/medbay/reception{
+/area/station/medical/medbay/psychiatrist{
 	name = "Subacute Care"
 	})
 "mex" = (
@@ -29141,7 +29136,7 @@
 	icon_state = "1-8"
 	},
 /turf/simulated/floor/black,
-/area/station/medical/medbay/reception{
+/area/station/medical/medbay/psychiatrist{
 	name = "Subacute Care"
 	})
 "muq" = (
@@ -31651,7 +31646,7 @@
 	},
 /obj/decal/cleanable/dirt,
 /turf/simulated/floor/carpet/grime,
-/area/station/construction)
+/area/station/security/detectives_office)
 "nDI" = (
 /obj/stool/chair/pool,
 /obj/landmark/start/job/assistant,
@@ -33657,7 +33652,7 @@
 /turf/simulated/floor/blueblack{
 	dir = 4
 	},
-/area/station/medical/medbay/reception{
+/area/station/medical/medbay/psychiatrist{
 	name = "Subacute Care"
 	})
 "oxE" = (
@@ -33678,7 +33673,7 @@
 /obj/machinery/atmospherics/pipe/simple,
 /obj/landmark/start/job/detective,
 /turf/simulated/floor/carpet/grime,
-/area/station/construction)
+/area/station/security/detectives_office)
 "oxM" = (
 /obj/table/reinforced/auto,
 /obj/item/storage/belt/utility,
@@ -33980,7 +33975,7 @@
 	pixel_x = -12
 	},
 /turf/simulated/floor/carpet/grime,
-/area/station/construction)
+/area/station/security/detectives_office)
 "oEy" = (
 /obj/machinery/disposal/mail/transit{
 	mail_tag = "meridian|escape";
@@ -34041,7 +34036,7 @@
 	},
 /obj/machinery/light/small,
 /turf/simulated/floor/blueblack,
-/area/station/medical/medbay/reception{
+/area/station/medical/medbay/psychiatrist{
 	name = "Subacute Care"
 	})
 "oFM" = (
@@ -34501,7 +34496,7 @@
 	icon_state = "0-8"
 	},
 /turf/simulated/floor/carpet/grime,
-/area/station/construction)
+/area/station/security/detectives_office)
 "oTk" = (
 /obj/disposalpipe/segment/mail,
 /turf/simulated/wall/auto/jen/dark2,
@@ -34570,7 +34565,7 @@
 /turf/simulated/floor/blueblack{
 	dir = 4
 	},
-/area/station/medical/medbay/reception{
+/area/station/medical/medbay/psychiatrist{
 	name = "Subacute Care"
 	})
 "oUy" = (
@@ -35023,7 +35018,7 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/black,
-/area/station/medical/medbay/reception{
+/area/station/medical/medbay/psychiatrist{
 	name = "Subacute Care"
 	})
 "pdb" = (
@@ -35500,7 +35495,7 @@
 	pixel_x = 12
 	},
 /turf/simulated/floor/carpet/grime,
-/area/station/construction)
+/area/station/security/detectives_office)
 "pmI" = (
 /obj/machinery/door/airlock/pyro/maintenance{
 	dir = 4
@@ -35690,7 +35685,7 @@
 "pqQ" = (
 /obj/machinery/computer/secure_data/detective_computer,
 /turf/simulated/floor/carpet/grime,
-/area/station/construction)
+/area/station/security/detectives_office)
 "pqR" = (
 /obj/stool/chair/comfy/wheelchair{
 	dir = 8
@@ -37907,7 +37902,7 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/carpet/grime,
-/area/station/construction)
+/area/station/security/detectives_office)
 "qqT" = (
 /obj/machinery/computer/card{
 	dir = 4
@@ -38695,7 +38690,7 @@
 	icon_state = "0-4"
 	},
 /turf/simulated/floor/plating,
-/area/station/construction)
+/area/station/security/detectives_office)
 "qIz" = (
 /obj/cable{
 	icon_state = "1-4"
@@ -39097,7 +39092,7 @@
 /turf/simulated/floor/blueblack{
 	dir = 9
 	},
-/area/station/medical/medbay/reception{
+/area/station/medical/medbay/psychiatrist{
 	name = "Subacute Care"
 	})
 "qRX" = (
@@ -39687,7 +39682,7 @@
 /turf/simulated/floor/blueblack{
 	dir = 8
 	},
-/area/station/medical/medbay/reception{
+/area/station/medical/medbay/psychiatrist{
 	name = "Subacute Care"
 	})
 "rjg" = (
@@ -40022,7 +40017,7 @@
 	},
 /obj/mapping_helper/button/area,
 /turf/simulated/floor/carpet/grime,
-/area/station/construction)
+/area/station/security/detectives_office)
 "roM" = (
 /obj/machinery/door/airlock/pyro/maintenance{
 	dir = 4
@@ -42582,7 +42577,7 @@
 "ssv" = (
 /obj/machinery/atmospherics/pipe/simple,
 /turf/simulated/wall/auto/reinforced/jen/dark2,
-/area/station/engine/substation/meridian)
+/area/station/security/detectives_office)
 "ssA" = (
 /turf/simulated/floor/engine/caution/northsouth,
 /area/station/hangar/maru)
@@ -43101,7 +43096,7 @@
 "sCr" = (
 /obj/blind_switch/area/east,
 /turf/simulated/floor/carpet/blue/fancy/edge/east,
-/area/station/medical/medbay/reception{
+/area/station/medical/medbay/psychiatrist{
 	name = "Subacute Care"
 	})
 "sCE" = (
@@ -43267,7 +43262,7 @@
 	pixel_y = 21
 	},
 /turf/simulated/floor/carpet/grime,
-/area/station/construction)
+/area/station/security/detectives_office)
 "sFZ" = (
 /obj/cable{
 	icon_state = "4-8"
@@ -43734,7 +43729,7 @@
 	dir = 4
 	},
 /turf/simulated/wall/auto/reinforced/jen/dark2,
-/area/station/construction)
+/area/station/security/detectives_office)
 "sRB" = (
 /obj/machinery/power/apc/autoname_north,
 /obj/storage/crate/furnacefuel,
@@ -44610,7 +44605,7 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/carpet/grime,
-/area/station/construction)
+/area/station/security/detectives_office)
 "thH" = (
 /obj/machinery/camera/directional/east,
 /turf/simulated/floor/engine,
@@ -45081,7 +45076,7 @@
 /obj/mapping_helper/wingrille_spawn/auto/reinforced,
 /obj/window_blinds/cog2/left,
 /turf/simulated/floor/plating,
-/area/station/medical/medbay/reception{
+/area/station/medical/medbay/psychiatrist{
 	name = "Subacute Care"
 	})
 "trC" = (
@@ -45482,7 +45477,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/plating,
-/area/station/medical/medbay/reception{
+/area/station/medical/medbay/psychiatrist{
 	name = "Subacute Care"
 	})
 "tyN" = (
@@ -45918,7 +45913,7 @@
 /turf/simulated/floor/blueblack{
 	dir = 1
 	},
-/area/station/medical/medbay/reception{
+/area/station/medical/medbay/psychiatrist{
 	name = "Subacute Care"
 	})
 "tJz" = (
@@ -46681,7 +46676,7 @@
 	icon_state = "0-8"
 	},
 /turf/simulated/floor/carpet/grime,
-/area/station/construction)
+/area/station/security/detectives_office)
 "tYk" = (
 /obj/stool/bed,
 /obj/machinery/light/small{
@@ -47885,7 +47880,7 @@
 /obj/mapping_helper/wingrille_spawn/auto/reinforced,
 /obj/window_blinds/cog2/right,
 /turf/simulated/floor/plating,
-/area/station/medical/medbay/reception{
+/area/station/medical/medbay/psychiatrist{
 	name = "Subacute Care"
 	})
 "uxE" = (
@@ -48180,6 +48175,9 @@
 /obj/machinery/shieldgenerator/meteorshield,
 /turf/simulated/floor/plating,
 /area/station/engine/substation/meridian)
+"uCJ" = (
+/turf/simulated/wall/auto/reinforced/jen/dark2,
+/area/station/security/detectives_office)
 "uCO" = (
 /obj/machinery/manufacturer/uniform,
 /obj/machinery/light{
@@ -48565,7 +48563,7 @@
 /obj/mapping_helper/wingrille_spawn/auto/reinforced,
 /obj/window_blinds/cog2,
 /turf/simulated/floor/plating,
-/area/station/medical/medbay/reception{
+/area/station/medical/medbay/psychiatrist{
 	name = "Subacute Care"
 	})
 "uLa" = (
@@ -48753,7 +48751,7 @@
 	pixel_x = -7
 	},
 /turf/simulated/floor/carpet/grime,
-/area/station/construction)
+/area/station/security/detectives_office)
 "uQa" = (
 /obj/machinery/door/airlock/pyro/glass{
 	dir = 4
@@ -49365,7 +49363,7 @@
 	},
 /obj/landmark/start/job/medical_doctor,
 /turf/simulated/floor/black,
-/area/station/medical/medbay/reception{
+/area/station/medical/medbay/psychiatrist{
 	name = "Subacute Care"
 	})
 "vbV" = (
@@ -50252,6 +50250,11 @@
 	dir = 1
 	},
 /area/station/storage/emergency/hammer)
+"vvo" = (
+/turf/simulated/wall/auto/reinforced/jen/blue,
+/area/station/medical/medbay/psychiatrist{
+	name = "Subacute Care"
+	})
 "vvv" = (
 /obj/kitchenspike,
 /turf/simulated/floor/specialroom/freezer,
@@ -50816,6 +50819,10 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/southeast/meridian)
+"vHU" = (
+/obj/decoration/ceilingfan,
+/turf/simulated/floor/carpet/grime,
+/area/station/security/detectives_office)
 "vIf" = (
 /obj/table/reinforced/auto,
 /obj/machinery/door/airlock/pyro/glass/windoor{
@@ -52091,7 +52098,7 @@
 /obj/machinery/light/small,
 /obj/disposalpipe/segment/bent/north,
 /turf/simulated/floor/carpet/grime,
-/area/station/construction)
+/area/station/security/detectives_office)
 "wpm" = (
 /obj/mopbucket,
 /turf/simulated/floor/darkblue,
@@ -52749,7 +52756,7 @@
 	},
 /obj/mapping_helper/access/kitchen,
 /obj/submachine/ice_cream_dispenser,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/specialroom/cafeteria,
 /area/station/crew_quarters/kitchen)
 "wBX" = (
 /obj/table/wood/auto,
@@ -52859,6 +52866,13 @@
 /obj/mapping_helper/wingrille_spawn/auto/reinforced,
 /turf/simulated/floor/plating,
 /area/station/science/teleporter)
+"wEe" = (
+/obj/machinery/sink/slim{
+	pixel_y = 16
+	},
+/obj/machinery/drainage,
+/turf/simulated/floor/specialroom/cafeteria,
+/area/station/crew_quarters/kitchen)
 "wEl" = (
 /obj/machinery/atmospherics/pipe/simple/insulated/cold,
 /obj/machinery/light{
@@ -53060,7 +53074,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/carpet/grime,
-/area/station/construction)
+/area/station/security/detectives_office)
 "wJV" = (
 /obj/stool/chair,
 /obj/landmark/start/job/assistant,
@@ -53341,7 +53355,7 @@
 /obj/decal/cleanable/dirt,
 /obj/noticeboard/persistent/detectives_office/directional/north,
 /turf/simulated/floor/carpet/grime,
-/area/station/construction)
+/area/station/security/detectives_office)
 "wPO" = (
 /obj/cable{
 	icon_state = "4-8"
@@ -53711,7 +53725,7 @@
 /turf/simulated/floor/blueblack/corner{
 	dir = 4
 	},
-/area/station/medical/medbay/reception{
+/area/station/medical/medbay/psychiatrist{
 	name = "Subacute Care"
 	})
 "wWC" = (
@@ -53825,7 +53839,7 @@
 	icon_state = "2-8"
 	},
 /turf/simulated/floor/carpet/grime,
-/area/station/construction)
+/area/station/security/detectives_office)
 "wYM" = (
 /obj/cable{
 	icon_state = "5-6"
@@ -54177,7 +54191,7 @@
 	icon_state = "2-4"
 	},
 /turf/simulated/wall/auto/jen/dark2,
-/area/station/construction)
+/area/station/security/detectives_office)
 "xjy" = (
 /obj/cable{
 	icon_state = "2-8"
@@ -54222,7 +54236,7 @@
 "xkW" = (
 /obj/storage/secure/closet/security/forensics,
 /turf/simulated/floor/carpet/grime,
-/area/station/construction)
+/area/station/security/detectives_office)
 "xkZ" = (
 /obj/cable{
 	icon_state = "1-8"
@@ -54851,7 +54865,7 @@
 	},
 /obj/landmark/start/job/medical_doctor,
 /turf/simulated/floor/carpet/blue/fancy/innercorner/sw,
-/area/station/medical/medbay/reception{
+/area/station/medical/medbay/psychiatrist{
 	name = "Subacute Care"
 	})
 "xye" = (
@@ -55346,7 +55360,7 @@
 /area/station/crew_quarters/toilets/maru)
 "xHC" = (
 /turf/simulated/wall/auto/jen/dark2,
-/area/station/construction)
+/area/station/security/detectives_office)
 "xHK" = (
 /obj/disposalpipe/segment/mail/bent/south{
 	dir = 4
@@ -55473,7 +55487,7 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/carpet/grime,
-/area/station/construction)
+/area/station/security/detectives_office)
 "xKU" = (
 /obj/cable/brown{
 	icon_state = "1-2"
@@ -55740,7 +55754,7 @@
 	},
 /obj/mapping_helper/access/forensics,
 /turf/simulated/floor/carpet/grime,
-/area/station/engine/substation/meridian)
+/area/station/security/detectives_office)
 "xRJ" = (
 /obj/table/auto,
 /obj/item/peripheral/network/radio/locked{
@@ -56150,7 +56164,7 @@
 /obj/decal/cleanable/dirt,
 /obj/disposalpipe/segment/horizontal,
 /turf/simulated/floor/carpet/grime,
-/area/station/construction)
+/area/station/security/detectives_office)
 "ybx" = (
 /obj/cable{
 	icon_state = "1-2"
@@ -56181,7 +56195,7 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/carpet/grime,
-/area/station/construction)
+/area/station/security/detectives_office)
 "ybS" = (
 /obj/machinery/computer3/terminal/zeta{
 	dir = 4;
@@ -83672,7 +83686,7 @@ ibV
 sNK
 hYO
 hjq
-hjq
+vHU
 hUN
 xHC
 qxW
@@ -84279,7 +84293,7 @@ jwD
 qIx
 bDM
 maH
-pYP
+uCJ
 ggC
 iZM
 iZM
@@ -84581,7 +84595,7 @@ hjq
 qqS
 bgO
 ybJ
-pYP
+uCJ
 xjy
 mIv
 rXR
@@ -84883,7 +84897,7 @@ nDt
 iaI
 lNI
 kYw
-pYP
+uCJ
 qxW
 pYP
 pYP
@@ -85481,9 +85495,9 @@ ibV
 ibV
 ibV
 ibV
-eFP
-eFP
-eFP
+uCJ
+uCJ
+uCJ
 hal
 jhA
 oxH
@@ -85785,11 +85799,11 @@ kCd
 kCd
 kCd
 yal
-eFP
+uCJ
 pmF
 hkj
 xKH
-pYP
+uCJ
 qxW
 pYP
 qaC
@@ -86087,11 +86101,11 @@ kCd
 kCd
 kCd
 kCd
-eFP
-eFP
+uCJ
+uCJ
 sRu
 maH
-pYP
+uCJ
 qxW
 pYP
 sLK
@@ -112939,7 +112953,7 @@ rnH
 nmo
 tXi
 tXi
-cGY
+wEe
 cGY
 gsW
 duv
@@ -113540,7 +113554,7 @@ jKI
 bJZ
 tXi
 idC
-thi
+aCB
 thi
 qjY
 cGY
@@ -115624,8 +115638,8 @@ meu
 mup
 gNQ
 caY
-bGK
-bGK
+vvo
+vvo
 pto
 pto
 pto
@@ -116531,7 +116545,7 @@ tJe
 gNQ
 kVn
 hKr
-bGK
+vvo
 bGK
 pto
 pto

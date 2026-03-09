@@ -3203,7 +3203,7 @@ TYPEINFO(/area/station/engine/substation)
 		name = "Maru Telehub (ENG)"
 
 	meridian
-		name = "Meridian Telehub (ESCAPE)"
+		name = "Meridian Telehub (CMD/ESCAPE)"
 
 	tenebrae
 		name = "Tenebrae Telehub (SCI)"
