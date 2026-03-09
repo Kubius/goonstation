@@ -2407,6 +2407,7 @@
 /obj/cable/brown{
 	icon_state = "4-10"
 	},
+/obj/disposalpipe/segment/vertical,
 /turf/simulated/floor/wood,
 /area/station/hallway/primary/central/dionysus)
 "beQ" = (
@@ -5942,9 +5943,7 @@
 	})
 "cBX" = (
 /obj/machinery/chem_heater,
-/obj/machinery/phone/wall{
-	pixel_y = 32
-	},
+/obj/machinery/camera/directional/north,
 /turf/simulated/floor/black,
 /area/station/crew_quarters/cafeteria)
 "cCa" = (
@@ -7026,6 +7025,11 @@
 /obj/machinery/networked/telepad,
 /turf/simulated/floor/engine,
 /area/station/science/teleporter)
+"cXN" = (
+/obj/machinery/disposal/small/south,
+/obj/disposalpipe/trunk/west,
+/turf/simulated/floor/wood/two,
+/area/station/crew_quarters/cafeteria)
 "cXO" = (
 /obj/machinery/conveyor/SE{
 	id = "disposal-dionysus"
@@ -9553,6 +9557,11 @@
 /obj/cable{
 	icon_state = "0-4"
 	},
+/obj/item/device/radio/intercom/catering{
+	dir = 4;
+	pixel_y = 17;
+	pixel_x = -20
+	},
 /turf/simulated/floor/green/side{
 	dir = 9
 	},
@@ -10466,8 +10475,8 @@
 	icon_state = "chair_couch-blue";
 	name = "ratty blue couch"
 	},
-/obj/item/device/radio/intercom/catering,
 /obj/landmark/start/job/botanist,
+/obj/noticeboard/persistent/botany/directional/north,
 /turf/simulated/floor/green/side{
 	dir = 1
 	},
@@ -10576,10 +10585,10 @@
 /turf/simulated/wall/auto/jen/blue,
 /area/station/crew_quarters/asclepius)
 "ezV" = (
+/obj/disposalpipe/trunk/east,
 /obj/machinery/disposal/small/west{
 	pixel_x = -32
 	},
-/obj/disposalpipe/trunk/east,
 /turf/simulated/floor/black,
 /area/station/crew_quarters/cafeteria)
 "ezY" = (
@@ -10674,8 +10683,10 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/disposal/dionysus)
 "eBB" = (
-/obj/machinery/vending/jobclothing/catering,
-/obj/machinery/light_switch/north,
+/obj/machinery/firealarm/directional/north{
+	pixel_y = 23
+	},
+/obj/submachine/chem_extractor,
 /turf/simulated/floor/black,
 /area/station/crew_quarters/cafeteria)
 "eBC" = (
@@ -26022,26 +26033,11 @@
 /turf/simulated/floor/sanitary/white,
 /area/station/crew_quarters/toilets/tenebrae)
 "kYw" = (
-/obj/item/storage/box/evidence,
-/obj/item/storage/box/evidence,
-/obj/item/storage/box/evidence,
-/obj/item/storage/box/evidence,
-/obj/item/storage/box/evidence,
-/obj/item/hand_labeler,
-/obj/item/clothing/gloves/latex,
-/obj/item/clothing/mask/surgical,
-/obj/item/device/audio_log,
-/obj/item/device/detective_scanner,
-/obj/item/body_bag,
-/obj/item/body_bag,
-/obj/item/body_bag,
-/obj/storage/cart/forensic{
-	req_access_txt = "4"
-	},
 /obj/machinery/light/small,
 /obj/cable/brown{
 	icon_state = "4-8"
 	},
+/obj/storage/cart/forensic/detective,
 /turf/simulated/floor/carpet/grime,
 /area/station/security/detectives_office)
 "kYB" = (
@@ -29890,11 +29886,10 @@
 	layer = 9.1;
 	pixel_x = -10
 	},
-/obj/table/reinforced/auto,
-/obj/drink_rack/cup{
+/obj/item/storage/wall/bar{
 	pixel_y = 32
 	},
-/obj/machinery/espresso_machine,
+/obj/machinery/vending/jobclothing/catering,
 /turf/simulated/floor/black,
 /area/station/crew_quarters/cafeteria)
 "mNR" = (
@@ -29985,6 +29980,10 @@
 /obj/mapping_helper/access/heads,
 /turf/simulated/floor/wood/seven,
 /area/station/bridge/dionysus)
+"mPU" = (
+/obj/disposalpipe/junction/right/east,
+/turf/simulated/floor/wood,
+/area/station/hallway/primary/central/dionysus)
 "mQp" = (
 /obj/machinery/computer/magnet{
 	dir = 8
@@ -32976,14 +32975,14 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/southeast/meridian)
 "ofm" = (
-/obj/item/storage/wall/bar{
-	pixel_y = 32
-	},
 /obj/machinery/computer/announcement/station/catering,
 /obj/cable{
 	icon_state = "0-4"
 	},
 /obj/machinery/power/data_terminal,
+/obj/machinery/phone/wall{
+	pixel_y = 32
+	},
 /turf/simulated/floor/black,
 /area/station/crew_quarters/cafeteria)
 "ofs" = (
@@ -35483,11 +35482,6 @@
 /obj/blind_switch/area/north,
 /turf/simulated/floor/black,
 /area/station/medical/robotics)
-"plr" = (
-/obj/machinery/plantpot,
-/obj/noticeboard/persistent/botany/directional/east,
-/turf/simulated/floor/grass,
-/area/station/hydroponics/bay)
 "plH" = (
 /obj/machinery/light/emergency,
 /turf/simulated/floor/black/side{
@@ -35886,12 +35880,13 @@
 /obj/table/reinforced/chemistry/auto{
 	name = "prep counter"
 	},
-/obj/item/device/reagentscanner{
+/obj/machinery/glass_recycler/bar{
 	pixel_y = 9;
-	pixel_x = -5
+	pixel_x = -10
 	},
-/obj/machinery/firealarm/directional/north{
-	pixel_y = 23
+/obj/item/device/reagentscanner{
+	pixel_y = 1;
+	pixel_x = 8
 	},
 /turf/simulated/floor/black,
 /area/station/crew_quarters/cafeteria)
@@ -49140,13 +49135,15 @@
 /turf/space,
 /area/space)
 "uVI" = (
-/obj/machinery/camera/directional/north,
 /obj/table/reinforced/chemistry/auto{
 	name = "prep counter"
 	},
-/obj/machinery/glass_recycler/bar{
-	pixel_y = 9;
+/obj/machinery/espresso_machine{
+	pixel_y = 5;
 	pixel_x = -2
+	},
+/obj/drink_rack/cup{
+	pixel_y = 32
 	},
 /turf/simulated/floor/black,
 /area/station/crew_quarters/cafeteria)
@@ -50228,6 +50225,7 @@
 	layer = 9.1;
 	pixel_y = 21
 	},
+/obj/machinery/light_switch/north,
 /turf/simulated/floor/black,
 /area/station/crew_quarters/cafeteria)
 "vsw" = (
@@ -50995,6 +50993,10 @@
 	},
 /turf/simulated/floor/circuit/red,
 /area/ghostdrone_factory)
+"vLR" = (
+/obj/disposalpipe/segment/bent/east,
+/turf/simulated/floor/wood/two,
+/area/station/crew_quarters/cafeteria)
 "vLY" = (
 /obj/landmark/halloween,
 /turf/simulated/floor/grey/side{
@@ -54037,6 +54039,7 @@
 	},
 /obj/machinery/door/airlock/pyro/glass,
 /obj/mapping_helper/firedoor_spawn,
+/obj/disposalpipe/segment/vertical,
 /turf/simulated/floor/wood/two,
 /area/station/crew_quarters/cafeteria)
 "xcW" = (
@@ -109412,10 +109415,10 @@ szE
 vhY
 xNJ
 szE
-xbl
+vLR
 xcy
 beP
-uLj
+mPU
 oVd
 ksl
 qOC
@@ -109714,7 +109717,7 @@ nhV
 szE
 nhV
 szE
-xbl
+cXN
 jzD
 vEW
 uLj
@@ -111234,7 +111237,7 @@ sGg
 xCR
 blK
 jpf
-plr
+gAT
 gAT
 nnu
 gAT
