@@ -229,6 +229,8 @@
 		src.light.enable()
 		src.transport_ring.alpha = 215
 		animate(src.transport_ring, pixel_y = -32, transform = matrix(), time = 6 SECONDS, easing = SINE_EASING)
+		src.transporting_to.transport_ring.alpha = 215
+		animate(src.transporting_to.transport_ring, pixel_y = -32, transform = matrix(), time = 6 SECONDS, easing = SINE_EASING)
 		src.AddOverlays(transport_glow, "transport_glow")
 		src.teleport_underway = TRUE
 
@@ -248,6 +250,9 @@
 			playsound(src.loc, 'sound/machines/interdictor_deactivate.ogg', 15, 0, 0, 1)
 		if(src.transporting_to)
 			src.transporting_to.inbound_in_progress = FALSE
+			src.transporting_to.transport_ring.Scale(0,0)
+			src.transporting_to.transport_ring.pixel_y = -24
+			animate(src.transporting_to.transport_ring, alpha = 0, time = 1)
 		src.mobs_being_sent = list()
 
 	proc/teleport_some_nerds(target_transporter)
