@@ -2,12 +2,15 @@
 #define TELE_INJURY_POWEROFF 2
 #define TELE_INJURY_TELEFRAG 3
 
-//percentage of cell charge required to
+///Percentage of cell charge required to initiate a transport, to (usually) avoid running out of charge before the transport completes.
 #define CHARGE_SAFETY_THRESHOLD 85
-//consumes this amount for 3 machine ticks during transport, regardless of how many things are on the pad
+///Consumes this amount for 3 machine ticks during transport, regardless of how many things are on the pad.
 #define CYCLICAL_POWER_USAGE 180000
-//consumes this amount on the successful transport tick for each large object or mob we moved
+///Consumes this amount on the successful transport tick for each large object or mob we moved.
 #define PER_TRANSPORTED_USAGE 90000
+
+//Intent is for the safety threshold to barely allow reliable safe transport of 2-3 people when outside power to a default cell is entirely severed.
+//Power usage should be as high as possible within this bound.
 
 /obj/machinery/computer/mass_transport
 	name = "mass transporter console"
