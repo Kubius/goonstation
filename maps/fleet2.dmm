@@ -6596,6 +6596,13 @@
 	},
 /turf/simulated/floor/carpet/grime,
 /area/station/security/detectives_office)
+"cNU" = (
+/obj/cable/brown{
+	icon_state = "4-8"
+	},
+/obj/machinery/light_switch/north,
+/turf/simulated/floor/wood,
+/area/station/hallway/primary/central/dionysus)
 "cOr" = (
 /obj/machinery/light,
 /obj/table/reinforced/auto,
@@ -7073,7 +7080,6 @@
 /area/station/hallway/primary/central/meridian)
 "cXA" = (
 /obj/machinery/vending/cigarette,
-/obj/machinery/light_switch/east,
 /obj/machinery/camera/directional/east,
 /turf/simulated/floor/bluewhite{
 	dir = 4
@@ -8748,6 +8754,7 @@
 /obj/cable/brown{
 	icon_state = "6-8"
 	},
+/obj/machinery/light_switch/north,
 /turf/simulated/floor/industrial,
 /area/station/hallway/primary/central/hammer)
 "dLm" = (
@@ -20917,7 +20924,6 @@
 /area/station/hangar/tenebrae)
 "iHM" = (
 /obj/machinery/vending/cigarette,
-/obj/machinery/light_switch/east,
 /obj/machinery/camera/directional/east,
 /turf/simulated/floor/industrial,
 /area/station/hallway/primary/central/hammer)
@@ -30500,6 +30506,13 @@
 	dir = 1
 	},
 /area/station/turret_protected/Zeta)
+"mWe" = (
+/obj/cable/brown{
+	icon_state = "4-8"
+	},
+/obj/machinery/light_switch/north,
+/turf/simulated/floor/white/side,
+/area/station/hallway/primary/central/tenebrae)
 "mWr" = (
 /obj/table/reinforced/auto,
 /obj/item/device/prisoner_scanner{
@@ -46208,6 +46221,7 @@
 /obj/cable/brown{
 	icon_state = "4-8"
 	},
+/obj/machinery/light_switch/north,
 /turf/simulated/floor/white,
 /area/station/hallway/primary/central/asclepius)
 "tGg" = (
@@ -49955,7 +49969,6 @@
 /area/station/medical/medbay)
 "vfa" = (
 /obj/machinery/vending/cigarette,
-/obj/machinery/light_switch/east,
 /obj/machinery/camera/directional/east,
 /turf/simulated/floor/purplewhite{
 	dir = 6
@@ -52248,7 +52261,6 @@
 /area/station/hallway/primary/central/meridian)
 "whj" = (
 /obj/machinery/vending/cigarette,
-/obj/machinery/light_switch/east,
 /obj/machinery/camera/directional/east,
 /turf/simulated/floor/escape,
 /area/station/hallway/primary/central/meridian)
@@ -54035,7 +54047,6 @@
 /area/station/teleporter/asclepius)
 "wSt" = (
 /obj/machinery/vending/cigarette,
-/obj/machinery/light_switch/east,
 /obj/machinery/camera/directional/east,
 /turf/simulated/floor/wood,
 /area/station/hallway/primary/central/dionysus)
@@ -106559,7 +106570,7 @@ oyT
 oyT
 gFq
 oyT
-vEW
+cNU
 uLj
 oVd
 awx
@@ -115373,7 +115384,7 @@ xZF
 cgH
 syF
 cgH
-tci
+mWe
 kGD
 kbJ
 jmP
