@@ -11055,7 +11055,7 @@
 /obj/machinery/atmospherics/pipe/simple/overfloor{
 	dir = 10
 	},
-/obj/item/wrench,
+/obj/reagent_dispensers/still,
 /turf/simulated/floor/plating,
 /area/station/maintenance/southeast/dionysus)
 "eJt" = (
@@ -18872,6 +18872,11 @@
 	dir = 4;
 	name = "Sauna Air Supply"
 	},
+/obj/item/paper{
+	info = "warm good";
+	pixel_x = 12;
+	pixel_y = -4
+	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/southeast/dionysus)
 "hTt" = (
@@ -19164,6 +19169,16 @@
 	},
 /turf/unsimulated/floor/shuttle/yellow,
 /area/shuttle/research/outpost)
+"hZR" = (
+/obj/machinery/atmospherics/pipe/simple{
+	dir = 4
+	},
+/obj/item/storage/box/mousetraps{
+	pixel_y = -5;
+	pixel_x = 5
+	},
+/turf/simulated/floor/plating,
+/area/station/maintenance/southeast/meridian)
 "hZZ" = (
 /obj/table/reinforced/auto,
 /obj/machinery/computer/television/small,
@@ -21008,8 +21023,7 @@
 /obj/machinery/atmospherics/pipe/simple{
 	dir = 9
 	},
-/obj/table/auto,
-/obj/item/storage/box/mousetraps,
+/obj/reagent_dispensers/still,
 /turf/simulated/floor/plating,
 /area/station/maintenance/southeast/meridian)
 "iMS" = (
@@ -39499,6 +39513,7 @@
 /obj/cable{
 	icon_state = "1-4"
 	},
+/obj/item/wrench,
 /turf/simulated/floor/plating,
 /area/station/maintenance/southeast/dionysus)
 "rcE" = (
@@ -53172,6 +53187,12 @@
 	dir = 1
 	},
 /area/station/hangar/meridian)
+"wLh" = (
+/obj/machinery/macrofab/emergency_pod{
+	dir = 4
+	},
+/turf/space,
+/area/space)
 "wLi" = (
 /obj/cable/brown{
 	icon_state = "1-2"
@@ -87366,7 +87387,7 @@ wPR
 vQY
 vQY
 swV
-snK
+hZR
 pBm
 siu
 pto
@@ -100659,7 +100680,7 @@ pto
 pto
 aPc
 pto
-pto
+wLh
 sky
 aPc
 pto
