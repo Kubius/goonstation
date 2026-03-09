@@ -60,6 +60,24 @@
 	playsound(src.loc, 'sound/machines/keypress.ogg', 50, 1, -15)
 	return
 
+/obj/effects/transport_field
+	name = "mass transporter field"
+	desc = "You shouldn't stand in this except in the cases that you should."
+	density = 0
+	opacity = 0
+	anchored = ANCHORED
+	pixel_x = -32
+	pixel_y = -24
+	icon = 'icons/effects/96x96.dmi'
+	icon_state = "mass_tp_ring"
+	plane = PLANE_ABOVE_LIGHTING
+	blend_mode = BLEND_ADD
+	appearance_flags = PIXEL_SCALE | TILE_BOUND | RESET_ALPHA | RESET_COLOR
+
+	New()
+		..()
+		src.alpha = 0
+		src.Scale(0,0)
 
 /obj/machinery/mass_transporter
 	icon = 'icons/obj/stationobjs.dmi'
@@ -70,6 +88,7 @@
 	anchored = ANCHORED
 	var/image/screen_image
 	var/image/transport_glow
+	var/obj/transport_ring
 	var/datum/light/light
 
 	///A nearby computer providing targeting data. Must be present for the mass transporter to operate.
@@ -106,12 +125,16 @@
 		transport_glow.plane = PLANE_OVERLAY_EFFECTS
 		transport_glow.blend_mode = BLEND_ADD
 
+		src.transport_ring = new /obj/effects/transport_field(get_turf(src))
+
 	disposing()
 		STOP_TRACKING
 		if(src.transporting_to)
 			src.transporting_to.inbound_in_progress = FALSE
 		src.transporting_to = null
 		src.linked_computer = null
+		if(src.transport_ring) qdel(src.transport_ring)
+		src.transport_ring = null
 		src.mobs_being_sent = null
 		..()
 
@@ -204,11 +227,17 @@
 
 	proc/initialize_teleport()
 		src.light.enable()
+		src.transport_ring.alpha = 215
+		animate(src.transport_ring, pixel_y = -32, transform = matrix(), time = 6 SECONDS, easing = SINE_EASING)
 		src.AddOverlays(transport_glow, "transport_glow")
 		src.teleport_underway = TRUE
 
 	proc/conclude_teleport(completed)
 		src.light.disable()
+		src.transport_ring.Scale(0,0)
+		src.transport_ring.pixel_y = -24
+		animate(src.transport_ring, alpha = 0, time = 1)
+		//use animate to interrupt earlier animate in case of early cancellation
 		src.ClearSpecificOverlays("transport_glow")
 		src.teleport_underway = FALSE
 		src.teleport_progress = 0
