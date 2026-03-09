@@ -102,7 +102,7 @@
 	var/teleport_underway = FALSE
 	///Progress to successful teleportation. Three power cycles must successfully complete before transportation.
 	var/teleport_progress = 0
-	///As a safety measure, the mass transporter requires 90% of local cell capacity to be filled.
+	///As a safety measure, the mass transporter requires 80% of local cell capacity to be filled.
 	var/charge_safety = TRUE
 
 	///Once a teleport begins, the selection of target transporter is loaded in from the mass transport control computer.
@@ -191,8 +191,8 @@
 			return
 		if (src.charge_safety)
 			var/obj/item/cell/apc_cell = local_apc.cell
-			if (!apc_cell || apc_cell.charge < (0.9 * apc_cell.maxcharge))
-				src.visible_message(SPAN_ALERT("<b>[src]</b> intones, \"System error. Area power controller must exceed 90% charge for initialization.\""))
+			if (!apc_cell || apc_cell.charge < (0.8 * apc_cell.maxcharge))
+				src.visible_message(SPAN_ALERT("<b>[src]</b> intones, \"System error. Area power controller must exceed 80% charge for initialization.\""))
 				return
 
 		if (!linked_computer.locked_target)
