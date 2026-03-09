@@ -1,3 +1,7 @@
+#define TELE_INJURY_MOTION 1
+#define TELE_INJURY_POWEROFF 2
+#define TELE_INJURY_TELEFRAG 3
+
 /obj/machinery/computer/mass_transport
 	name = "mass transporter console"
 	icon_state = "teleport"
@@ -98,6 +102,8 @@
 	var/teleport_underway = FALSE
 	///Progress to successful teleportation. Three power cycles must successfully complete before transportation.
 	var/teleport_progress = 0
+	///As a safety measure, the mass transporter requires 90% of local cell capacity to be filled.
+	var/charge_safety = TRUE
 
 	///Once a teleport begins, the selection of target transporter is loaded in from the mass transport control computer.
 	var/obj/machinery/mass_transporter/transporting_to = null
@@ -156,6 +162,17 @@
 			else
 				src.try_activate()
 
+	emag_act(var/mob/user)
+		if (src.charge_safety)
+			if (user)
+				user.show_text("You short out the APC charge safety mechanism.", "blue")
+			src.charge_safety = FALSE
+			return 1
+		else
+			if (user)
+				user.show_text("This has already been tampered with.", "red")
+			return 0
+
 	proc/try_activate()
 		if(status & (BROKEN|NOPOWER))
 			return
@@ -172,10 +189,11 @@
 		if (!local_apc)
 			src.visible_message(SPAN_ALERT("<b>[src]</b> intones, \"System error. No compatible local energy source.\""))
 			return
-		var/obj/item/cell/apc_cell = local_apc.cell
-		if (!apc_cell || apc_cell.charge < (0.9 * apc_cell.maxcharge))
-			src.visible_message(SPAN_ALERT("<b>[src]</b> intones, \"System error. Area power controller must exceed 90% charge for initialization.\""))
-			return
+		if (src.charge_safety)
+			var/obj/item/cell/apc_cell = local_apc.cell
+			if (!apc_cell || apc_cell.charge < (0.9 * apc_cell.maxcharge))
+				src.visible_message(SPAN_ALERT("<b>[src]</b> intones, \"System error. Area power controller must exceed 90% charge for initialization.\""))
+				return
 
 		if (!linked_computer.locked_target)
 			src.visible_message("<b>[src]</b> intones, \"Unable to initalize transportation - no destination has been set.\"")
@@ -198,8 +216,8 @@
 	process()
 		if (src.teleport_underway)
 			if(status & (BROKEN|NOPOWER) || !src.transporting_to)
-				src.conclude_teleport(FALSE)
-			power_usage = 100000
+				src.conclude_teleport(FALSE,TRUE)
+			power_usage = 200000
 			src.teleport_progress++
 			if (teleport_progress >= 3)
 				src.conclude_teleport(TRUE)
@@ -220,7 +238,7 @@
 		..()
 		if(status & (BROKEN|NOPOWER))
 			if(teleport_underway)
-				src.conclude_teleport(FALSE)
+				src.conclude_teleport(FALSE,TRUE)
 			src.ClearSpecificOverlays("screen_image")
 		else
 			src.AddOverlays(screen_image, "screen_image")
@@ -239,7 +257,8 @@
 		src.AddOverlays(transport_glow, "transport_glow")
 		src.teleport_underway = TRUE
 
-	proc/conclude_teleport(completed)
+	///Completed denotes a successful transport. Hard interrupt indicates it did not shut down gracefully (inflict damage).
+	proc/conclude_teleport(completed,hard_interrupt)
 		src.light.disable()
 		//use animate to interrupt earlier animate in case of early cancellation
 		src.ClearSpecificOverlays("transport_glow")
@@ -252,11 +271,16 @@
 			animate(src.transport_ring, alpha = 0, pixel_y = -24, time = 6, easing = BACK_EASING | EASE_IN)
 			animate(src.transporting_to.transport_ring, alpha = 0, pixel_y = -24, time = 6, easing = BACK_EASING | EASE_IN)
 		else
-			playsound(src.loc, 'sound/machines/interdictor_deactivate.ogg', 15, 0, 0, 1)
-
 			src.transport_ring.Scale(0,0)
 			src.transport_ring.pixel_y = -24
 			animate(src.transport_ring, alpha = 0, time = 1)
+
+			if(hard_interrupt)
+				src.visible_message("<b>[src] suddenly shuts down!</b>")
+				playsound(src.loc, 'sound/effects/shielddown2.ogg', 30, 0, 0, 1)
+				src.do_failure_injuries()
+			else
+				playsound(src.loc, 'sound/machines/interdictor_deactivate.ogg', 15, 0, 0, 1)
 
 			if(src.transporting_to)
 				src.transporting_to.transport_ring.Scale(0,0)
@@ -285,19 +309,24 @@
 					morb.changeStatus("stunned", 2 SECONDS)
 					var/mobpos = "[morb.x]-[morb.y]"
 					if (!mobs_being_sent[morb.name] || mobs_being_sent[morb.name] != mobpos)
-						src.teleouch(morb)
-				use_power(50000)
+						src.teleouch(morb,TELE_INJURY_MOTION)
+				use_power(400000)
 				SPAWN(6 DECI SECONDS)
 					do_teleport(AM,offset_target,FALSE,sparks=FALSE)
 			if (this_turf_teleporting)
 				SPAWN(4 DECI SECONDS) //offset a little so you don't run into Yourself
 					var/hit_someone = FALSE
 					for (var/mob/M in offset_target)
-						src.teleouch(M,TRUE)
+						src.teleouch(M,TELE_INJURY_TELEFRAG)
 						hit_someone = TRUE
 					if (hit_someone)
 						playsound(offset_target.loc, 'sound/impact_sounds/taser_hit.ogg', 20)
 
+	proc/do_failure_injuries()
+		for(var/turf/T in orange(1, src))
+			for(var/mob/M in T)
+				M.changeStatus("stunned", 2 SECONDS)
+				src.teleouch(M,TELE_INJURY_POWEROFF)
 
 	proc/find_link()
 		if(linked_computer)
@@ -311,31 +340,37 @@
 			break
 		return found
 
-	///Inflict damage upon people using the mass transporter improperly (possible when moving on transmission pad, guaranteed if hit by incoming transport).
-	proc/teleouch(var/mob/M,var/telefrag)
+	///Inflict damage upon people using the mass transporter improperly (variable if you move or lose power, guaranteed if you're impeding an incoming transport)
+	proc/teleouch(var/mob/M,var/injury_event)
+		///Dictates injury level: 0 is no damage, 1 is minor damage, 2 is severe damage and probable limb loss
 		var/ouch_level = 0
-		if(telefrag)
+		if(injury_event == TELE_INJURY_TELEFRAG)
 			ouch_level = 2
-		else if(prob(60))
+		else if(injury_event == TELE_INJURY_POWEROFF || prob(60))
 			ouch_level = 1
-			if(prob(30))
+			var/severe_injury_odds = 30
+			if(injury_event == TELE_INJURY_POWEROFF) severe_injury_odds = 55
+			if(prob(severe_injury_odds))
 				ouch_level = 2
 
 		switch (ouch_level)
 			if (0)
 				boutput(M,SPAN_ALERT("You feel a little [prob(50) ? "nauseous" : "woozy"]. Probably ought to stay still on the pad."))
 			if (1)
-				boutput(M,SPAN_ALERT("The teleporter failed to completely compensate for your movement - something hurts..."))
+				if(injury_event == TELE_INJURY_POWEROFF)
+					boutput(M,SPAN_ALERT("[prob(50) ? "An awful wrenching pain" : "A horrible twisting feeling"] reverberates through you. Something hurts..."))
+				else
+					boutput(M,SPAN_ALERT("The teleporter failed to completely compensate for your movement - something hurts..."))
 				M.nauseate(3)
 				M.change_misstep_chance(15)
 				SPAWN(rand(1,4))
 					playsound(M.loc, 'sound/impact_sounds/Flesh_Break_1.ogg', 10)
 					random_brute_damage(M, 6)
 			if (2)
-				if(telefrag)
-					boutput(M,SPAN_ALERT("<B>The incoming teleport collides with you - you're badly hurt!</B>"))
-				else
-					boutput(M,SPAN_ALERT("<B>The teleporter failed to compensate for your movement - you're badly hurt!</B>"))
+				switch(injury_event)
+					if(TELE_INJURY_TELEFRAG) boutput(M,SPAN_ALERT("<B>The incoming teleport collides with you - you're badly hurt!</B>"))
+					if(TELE_INJURY_POWEROFF) boutput(M,SPAN_ALERT("<B>You're [prob(60) ? "violently torqued" : "sheared in space-time"] by the interruption to the teleport stream!</B>"))
+					if(TELE_INJURY_MOTION) boutput(M,SPAN_ALERT("<B>The teleporter failed to compensate for your movement - you're badly hurt!</B>"))
 				M.nauseate(8)
 				M.take_radiation_dose(0.5 SIEVERTS)
 				M.change_misstep_chance(30)
@@ -344,7 +379,7 @@
 					random_brute_damage(M, rand(6,12))
 					random_burn_damage(M, rand(6,12))
 
-		if (ouch_level == 2 && istype(M,/mob/living/carbon/human) && prob(50)) // about 9% overall chance to hit this
+		if (ouch_level == 2 && istype(M,/mob/living/carbon/human) && prob(50)) // about 9% overall chance to hit this from lowest severity case
 			var/mob/living/carbon/human/human = M
 			var/dethflavor = pick("suddenly vanishes","tears off in the teleport stream","disappears in a flash","violently disintegrates")
 			var/limb_ripped = FALSE
@@ -375,3 +410,7 @@
 				human.emote("scream")
 				human.changeStatus("stunned", 5 SECONDS)
 				human.changeStatus("knockdown", 5 SECONDS)
+
+#undef TELE_INJURY_MOTION
+#undef TELE_INJURY_POWEROFF
+#undef TELE_INJURY_TELEFRAG
