@@ -2,6 +2,13 @@
 #define TELE_INJURY_POWEROFF 2
 #define TELE_INJURY_TELEFRAG 3
 
+//percentage of cell charge required to
+#define CHARGE_SAFETY_THRESHOLD 85
+//consumes this amount for 3 machine ticks during transport, regardless of how many things are on the pad
+#define CYCLICAL_POWER_USAGE 180000
+//consumes this amount on the successful transport tick for each large object or mob we moved
+#define PER_TRANSPORTED_USAGE 90000
+
 /obj/machinery/computer/mass_transport
 	name = "mass transporter console"
 	icon_state = "teleport"
@@ -102,7 +109,7 @@
 	var/teleport_underway = FALSE
 	///Progress to successful teleportation. Three power cycles must successfully complete before transportation.
 	var/teleport_progress = 0
-	///As a safety measure, the mass transporter requires 80% of local cell capacity to be filled.
+	///As a safety measure, the mass transporter requires a certain percentage of local cell capacity (defined above) to be filled.
 	var/charge_safety = TRUE
 
 	///Once a teleport begins, the selection of target transporter is loaded in from the mass transport control computer.
@@ -191,8 +198,8 @@
 			return
 		if (src.charge_safety)
 			var/obj/item/cell/apc_cell = local_apc.cell
-			if (!apc_cell || apc_cell.charge < (0.8 * apc_cell.maxcharge))
-				src.visible_message(SPAN_ALERT("<b>[src]</b> intones, \"System error. Area power controller must exceed 80% charge for initialization.\""))
+			if (!apc_cell || apc_cell.charge < ((0.01 * CHARGE_SAFETY_THRESHOLD) * apc_cell.maxcharge))
+				src.visible_message(SPAN_ALERT("<b>[src]</b> intones, \"System error. Area power controller must exceed [CHARGE_SAFETY_THRESHOLD]% charge for initialization.\""))
 				return
 
 		if (!linked_computer.locked_target)
@@ -217,7 +224,7 @@
 		if (src.teleport_underway)
 			if(status & (BROKEN|NOPOWER) || !src.transporting_to)
 				src.conclude_teleport(FALSE,TRUE)
-			power_usage = 200000
+			power_usage = CYCLICAL_POWER_USAGE
 			src.teleport_progress++
 			if (teleport_progress >= 3)
 				src.conclude_teleport(TRUE)
@@ -310,7 +317,7 @@
 					var/mobpos = "[morb.x]-[morb.y]"
 					if (!mobs_being_sent[morb.name] || mobs_being_sent[morb.name] != mobpos)
 						src.teleouch(morb,TELE_INJURY_MOTION)
-				use_power(100000)
+				use_power(PER_TRANSPORTED_USAGE)
 				SPAWN(6 DECI SECONDS)
 					do_teleport(AM,offset_target,FALSE,sparks=FALSE)
 			if (this_turf_teleporting)
@@ -414,3 +421,7 @@
 #undef TELE_INJURY_MOTION
 #undef TELE_INJURY_POWEROFF
 #undef TELE_INJURY_TELEFRAG
+
+#undef CHARGE_SAFETY_THRESHOLD
+#undef CYCLICAL_POWER_USAGE
+#undef PER_TRANSPORTED_USAGE
