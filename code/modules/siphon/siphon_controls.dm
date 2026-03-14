@@ -426,6 +426,12 @@
 	by achieving total intensity equal to 20 times the<br>
 	required EEU of the target resource.<br>
 	<br>
+	Keep in mind that while increases in intensity<br>
+	have a linear effect on extraction rate, their effect<br>
+	on power consumption is <strong>exponential</strong>; cumulative<br>
+	consumption is approximately 800 watts multiplied<br>
+	by total intensity raised to the power of 1.5.<br>
+	<br>
 	<strong>Warning: High rates of production which are</strong><br>
 	<strong>mismatched to the size of the internal reservoir</strong><br>
 	<strong>may cause significant damage to resonators;</strong><br>

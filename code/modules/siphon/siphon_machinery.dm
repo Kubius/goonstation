@@ -280,9 +280,9 @@ ABSTRACT_TYPE(/obj/machinery/siphon)
 				mineral.hm_cycle.last_shifted = TIME
 
 		if(src.mode == "low" && doing_dilation) //a continual draw is necessary to maintain field dilation
-			total_draw += min(800,0.2 * src.field_dilation) * src.resofactor
+			total_draw += min(800,0.2 * src.field_dilation) * src.get_drawmod()
 		if(src.mode == "active")
-			total_draw += 800 * src.resofactor
+			total_draw += 800 * src.get_drawmod()
 			src.extract_ticks += src.resofactor
 
 			///If no extraction occurs, high shear values can result in hazardous effects
@@ -328,36 +328,8 @@ ABSTRACT_TYPE(/obj/machinery/siphon)
 					break
 
 			if(!extract_progressed)
-				switch(src.shear)
-					if(64 to 127)
-						var/chancefactor = round(shear/6)
-						if(prob(chancefactor))
-							var/obj/machinery/siphon/resonator/RSO = pick(src.resonators)
-							RSO.shear_overload()
-					if(128 to 256)
-						var/chancefactor = min(round(shear/8),33)
-						if(prob(chancefactor))
-							var/obj/uh_oh = new /obj/vortex(src.loc)
-							uh_oh.x += rand(-3,3)
-							uh_oh.y += rand(-3,3)
-						if(prob(chancefactor*3))
-							var/obj/machinery/siphon/resonator/RSO = pick(src.resonators)
-							if(prob(chancefactor))
-								RSO.shear_overload(TRUE)
-							else
-								RSO.shear_overload()
-					if(257 to INFINITY)
-						var/chancefactor = min(round(shear/5),100)
-						for(var/i = 0, i < 3, i++)
-							if(prob(chancefactor))
-								var/obj/uh_oh = new /obj/vortex(src.loc)
-								uh_oh.x += rand(-4,4)
-								uh_oh.y += rand(-4,4)
-						var/obj/machinery/siphon/resonator/RSO = pick(src.resonators)
-						if(prob(chancefactor))
-							RSO.shear_overload(TRUE)
-						else
-							RSO.shear_overload()
+				src.do_overload()
+
 			else
 				SPAWN(0.1 SECONDS)
 					FLICK("drill-extract",src.drawlight)
@@ -372,9 +344,43 @@ ABSTRACT_TYPE(/obj/machinery/siphon)
 		power_usage = total_draw
 		..()
 
-	proc/eats_spicy_goodness_dies_instantly(var/catastrophic = FALSE) //DEBUG DEBUG DEBUG
+	proc/eats_spicy_goodness_dies_instantly(var/catastrophic = FALSE) //debug proc to test overload response
 		for (var/obj/machinery/siphon/resonator/res in src.resonators)
 			res.shear_overload(catastrophic)
+
+	///If power is lost in the middle of an extraction cycle, or parameters are improperly met, any stress on the field will express violently
+	proc/do_overload()
+		var/field_volatility = src.shear + src.field_dilation
+		switch(field_volatility)
+			if(64 to 127)
+				var/chancefactor = round(field_volatility/6)
+				if(prob(chancefactor))
+					var/obj/machinery/siphon/resonator/RSO = pick(src.resonators)
+					RSO.shear_overload()
+			if(128 to 256)
+				var/chancefactor = min(round(field_volatility/8),33)
+				if(prob(chancefactor))
+					var/obj/uh_oh = new /obj/vortex(src.loc)
+					uh_oh.x += rand(-3,3)
+					uh_oh.y += rand(-3,3)
+				if(prob(chancefactor*3))
+					var/obj/machinery/siphon/resonator/RSO = pick(src.resonators)
+					if(prob(chancefactor))
+						RSO.shear_overload(TRUE)
+					else
+						RSO.shear_overload()
+			if(257 to INFINITY)
+				var/chancefactor = min(round(field_volatility/5),100)
+				for(var/i = 0, i < 3, i++)
+					if(prob(chancefactor))
+						var/obj/uh_oh = new /obj/vortex(src.loc)
+						uh_oh.x += rand(-4,4)
+						uh_oh.y += rand(-4,4)
+				var/obj/machinery/siphon/resonator/RSO = pick(src.resonators)
+				if(prob(chancefactor))
+					RSO.shear_overload(TRUE)
+				else
+					RSO.shear_overload()
 
 	power_change()
 		if(powered())
@@ -382,6 +388,7 @@ ABSTRACT_TYPE(/obj/machinery/siphon)
 		else
 			status |= NOPOWER
 			if(src.mode == "active")
+				src.do_overload()
 				src.toggling = TRUE
 				src.changemode("low")
 				if(src.paired_lever != null) paired_lever.vis_setpanel(0)
@@ -615,8 +622,15 @@ ABSTRACT_TYPE(/obj/machinery/siphon)
 
 	build_readouts()
 		src.calibrate_resonance()
+
+		var/pre_draw_estimate = ceil(src.get_drawmod() * 8)
+		var/end_digit = pre_draw_estimate % 10
+		var/main_digits = pre_draw_estimate - end_digit
+		var/draw_estimate = "[main_digits].[end_digit] kW"
+
 		var/list/devdat = list()
 		devdat["Total Intensity"] = src.resofactor
+		devdat["Estimated Draw"] = draw_estimate
 		devdat["Lateral Resonance"] = src.x_torque
 		devdat["Vertical Resonance"] = src.y_torque
 		devdat["Shear Value"] = src.shear
@@ -625,6 +639,9 @@ ABSTRACT_TYPE(/obj/machinery/siphon)
 			var/round_readout_B = src.field_dilation % 10
 			devdat["Field Dilation"] = "[round_readout].[round_readout_B]%"
 		return devdat
+
+	proc/get_drawmod()
+		return max(1,src.resofactor ** 1.5 - src.resofactor)
 
 	proc/clear_siphon_console()
 		var/datum/signal/reply = new
