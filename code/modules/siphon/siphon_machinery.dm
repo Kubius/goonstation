@@ -350,7 +350,7 @@ ABSTRACT_TYPE(/obj/machinery/siphon)
 
 	///If power is lost in the middle of an extraction cycle, or parameters are improperly met, any stress on the field will express violently
 	proc/do_overload()
-		var/field_volatility = src.shear + src.field_dilation
+		var/field_volatility = src.shear
 		switch(field_volatility)
 			if(64 to 127)
 				var/chancefactor = round(field_volatility/6)
