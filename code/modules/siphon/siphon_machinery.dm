@@ -625,7 +625,7 @@ ABSTRACT_TYPE(/obj/machinery/siphon)
 
 		var/pre_draw_estimate = ceil(src.get_drawmod() * 8)
 		var/end_digit = pre_draw_estimate % 10
-		var/main_digits = (pre_draw_estimate - end_digit) / 10
+		var/main_digits = ceil((pre_draw_estimate - end_digit) / 10)
 		var/draw_estimate = "[main_digits].[end_digit] kW"
 
 		var/list/devdat = list()
