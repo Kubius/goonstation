@@ -428,10 +428,11 @@
 	<br>
 	Keep in mind that while increases in intensity<br>
 	have a linear effect on extraction rate, their effect<br>
-	on power consumption is <strong>exponential</strong>; cumulative<br>
-	consumption is approximately 800 watts times the<br>
-	cumulative draw factor, which is the total intensity
-	from all resonators, raised to the power of 1.5.<br>
+	on power consumption is not linear; additional<br>
+	consumption from intensity is equal to 800 watts times<br>
+	the draw factor (intensity to the power of 1.6,
+	minus intensity times two). Lower levels of intensity<br>
+	offer significantly better electrical efficiency.<br>
 	<br>
 	<strong>Warning: High rates of production which are</strong><br>
 	<strong>mismatched to the size of the internal reservoir</strong><br>
@@ -544,7 +545,8 @@
 	<strong>with the resonant field; maintaining dilation</strong><br>
 	<strong>will increase the electrical cost of maintaining</strong><br>
 	<strong>an idle state, and any failure to meet resonance</strong><br>
-	<strong>parameters may cause extreme instability.</strong><br>"}
+	<strong>parameters or the required level of ongoing</strong><br>
+	<strong>electrical input may cause extreme instability.</strong><br>"}
 
 	user.Browse(HTML, "window=siphonControl_\ref[src];title=Resonance Calibration Database;size=420x500;")
 	onclose(user, "siphonControl_\ref[src]")

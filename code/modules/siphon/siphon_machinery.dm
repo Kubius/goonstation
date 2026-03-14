@@ -196,6 +196,9 @@ ABSTRACT_TYPE(/obj/machinery/siphon)
 	var/y_torque = 0
 	var/shear = 0
 
+	///keep track of how much field stress was present in the last machine tick (used for power outage shortout)
+	var/last_cycle_stress = 0
+
 	///field dilation factor - for cyclical siphon targets. extends the "lifespan" before they cycle
 	var/field_dilation = 0
 
@@ -255,6 +258,9 @@ ABSTRACT_TYPE(/obj/machinery/siphon)
 		if (status & NOPOWER)
 			return
 		total_draw = 200
+
+		src.last_cycle_stress = src.shear + (src.field_dilation / 2)
+
 		var/doing_dilation = FALSE
 		//Handle any cyclical targets we've got, reharmonizing them if it's time to do so
 		for(var/datum/siphon_mineral/mineral in src.cyclical_targets)
@@ -328,7 +334,7 @@ ABSTRACT_TYPE(/obj/machinery/siphon)
 					break
 
 			if(!extract_progressed)
-				src.do_overload()
+				src.do_overload(src.shear)
 
 			else
 				SPAWN(0.1 SECONDS)
@@ -348,17 +354,16 @@ ABSTRACT_TYPE(/obj/machinery/siphon)
 		for (var/obj/machinery/siphon/resonator/res in src.resonators)
 			res.shear_overload(catastrophic)
 
-	///If power is lost in the middle of an extraction cycle, or parameters are improperly met, any stress on the field will express violently
-	proc/do_overload()
-		var/field_volatility = src.shear
-		switch(field_volatility)
+	///If parameters are improperly met, any stress on the field will express violently
+	proc/do_overload(var/overload_strength)
+		switch(overload_strength)
 			if(64 to 127)
-				var/chancefactor = round(field_volatility/6)
+				var/chancefactor = round(overload_strength/6)
 				if(prob(chancefactor))
 					var/obj/machinery/siphon/resonator/RSO = pick(src.resonators)
 					RSO.shear_overload()
 			if(128 to 256)
-				var/chancefactor = min(round(field_volatility/8),33)
+				var/chancefactor = min(round(overload_strength/8),33)
 				if(prob(chancefactor))
 					var/obj/uh_oh = new /obj/vortex(src.loc)
 					uh_oh.x += rand(-3,3)
@@ -370,7 +375,7 @@ ABSTRACT_TYPE(/obj/machinery/siphon)
 					else
 						RSO.shear_overload()
 			if(257 to INFINITY)
-				var/chancefactor = min(round(field_volatility/5),100)
+				var/chancefactor = min(round(overload_strength/5),100)
 				for(var/i = 0, i < 3, i++)
 					if(prob(chancefactor))
 						var/obj/uh_oh = new /obj/vortex(src.loc)
@@ -388,7 +393,6 @@ ABSTRACT_TYPE(/obj/machinery/siphon)
 		else
 			status |= NOPOWER
 			if(src.mode == "active")
-				src.do_overload()
 				src.toggling = TRUE
 				src.changemode("low")
 				if(src.paired_lever != null) paired_lever.vis_setpanel(0)
@@ -641,7 +645,7 @@ ABSTRACT_TYPE(/obj/machinery/siphon)
 		return devdat
 
 	proc/get_drawmod()
-		return max(1,src.resofactor ** 1.5 - src.resofactor)
+		return max(1,src.resofactor ** 1.6 - (2 * src.resofactor))
 
 	proc/clear_siphon_console()
 		var/datum/signal/reply = new
@@ -793,10 +797,16 @@ ABSTRACT_TYPE(/obj/machinery/siphon)
 			status |= NOPOWER
 			if(src.maglocked)
 				if(paired_core)
-					paired_core.resonators -= src
-					paired_core.calibrate_resonance()
-					src.paired_core = null
-				src.disengage_lock(rand(1,5))
+					var/host_instability = paired_core.last_cycle_stress
+					if(host_instability > 63 && prob(host_instability/4)) //less-than-gracefully disengage
+						src.shear_overload(prob(host_instability/8))
+					else //gracefully disengage
+						paired_core.resonators -= src
+						paired_core.calibrate_resonance()
+						src.paired_core = null
+						src.disengage_lock(rand(1,5))
+				else
+					src.disengage_lock(rand(1,5))
 
 	proc/shear_overload(var/catastrophic = FALSE)
 		status |= BROKEN
