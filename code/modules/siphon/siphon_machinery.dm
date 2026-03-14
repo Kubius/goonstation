@@ -645,7 +645,7 @@ ABSTRACT_TYPE(/obj/machinery/siphon)
 		return devdat
 
 	proc/get_drawmod()
-		return max(1,src.resofactor ** 1.6 - (2 * src.resofactor))
+		return max(1,src.resofactor ** 1.55 - (2 * src.resofactor))
 
 	proc/clear_siphon_console()
 		var/datum/signal/reply = new

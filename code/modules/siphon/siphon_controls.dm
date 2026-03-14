@@ -430,7 +430,7 @@
 	have a linear effect on extraction rate, their effect<br>
 	on power consumption is not linear; additional<br>
 	consumption from intensity is equal to 800 watts times<br>
-	the draw factor (intensity to the power of 1.6,
+	the draw factor (intensity to the power of 1.55,
 	minus intensity times two). Lower levels of intensity<br>
 	offer significantly better electrical efficiency.<br>
 	<br>
