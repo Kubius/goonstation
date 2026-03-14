@@ -798,7 +798,7 @@ ABSTRACT_TYPE(/obj/machinery/siphon)
 			if(src.maglocked)
 				if(paired_core)
 					var/host_instability = paired_core.last_cycle_stress
-					if(host_instability > 63 && prob(host_instability/4)) //less-than-gracefully disengage
+					if(host_instability > 63 && prob(host_instability/8)) //less-than-gracefully disengage
 						src.shear_overload(prob(host_instability/8))
 					else //gracefully disengage
 						paired_core.resonators -= src
