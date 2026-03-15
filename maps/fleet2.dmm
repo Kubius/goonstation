@@ -115,6 +115,9 @@
 	})
 "adq" = (
 /obj/disposalpipe/switch_junction/left/south,
+/obj/cable{
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/purple,
 /area/station/mailroom/tenebrae)
 "adx" = (
@@ -604,6 +607,9 @@
 	icon_state = "2-8"
 	},
 /obj/disposalpipe/segment/vertical,
+/obj/cable{
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/southeast/hammer)
 "aph" = (
@@ -615,15 +621,6 @@
 /area/station/engine/substation/dionysus)
 "apk" = (
 /obj/disposalpipe/segment/mail/horizontal,
-/turf/simulated/floor/plating,
-/area/station/maintenance/southeast/asclepius)
-"apF" = (
-/obj/cable{
-	icon_state = "1-2"
-	},
-/obj/cable{
-	icon_state = "2-8"
-	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/southeast/asclepius)
 "apH" = (
@@ -1057,6 +1054,9 @@
 /area/station/bridge/maru)
 "azB" = (
 /obj/disposalpipe/junction/right/east,
+/obj/cable{
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/red,
 /area/station/mailroom/hammer)
 "azV" = (
@@ -2189,6 +2189,9 @@
 /area/station/crew_quarters/toilets/asclepius)
 "aYt" = (
 /obj/disposalpipe/junction/right/east,
+/obj/cable{
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/blue,
 /area/station/mailroom/asclepius)
 "aYB" = (
@@ -2300,6 +2303,9 @@
 	},
 /obj/cable{
 	icon_state = "1-8"
+	},
+/obj/cable{
+	icon_state = "1-2"
 	},
 /turf/simulated/floor/grey/side{
 	dir = 1
@@ -3364,6 +3370,12 @@
 	dir = 8
 	},
 /area/station/hallway/primary/north/meridian)
+"bzS" = (
+/obj/cable{
+	icon_state = "6-9"
+	},
+/turf/simulated/floor/plating,
+/area/station/maintenance/southeast/maru)
 "bzV" = (
 /obj/machinery/power/apc/autoname_north,
 /obj/cable{
@@ -4943,6 +4955,9 @@
 	})
 "cgm" = (
 /obj/disposalpipe/segment/bent/east,
+/obj/cable{
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/grey/side,
 /area/station/mailroom/tenebrae)
 "cgn" = (
@@ -5221,6 +5236,9 @@
 /area/station/security/brig/genpop)
 "clN" = (
 /obj/disposalpipe/segment/bent/east,
+/obj/cable{
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/grey/side,
 /area/station/mailroom/maru)
 "clP" = (
@@ -8322,6 +8340,9 @@
 /obj/cable{
 	icon_state = "1-8"
 	},
+/obj/cable{
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/grey/side{
 	dir = 1
 	},
@@ -9699,6 +9720,9 @@
 /area/station/ai_monitored/armory)
 "efF" = (
 /obj/disposalpipe/segment/bent/east,
+/obj/cable{
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/grey/side,
 /area/station/mailroom/hammer)
 "efN" = (
@@ -9788,6 +9812,9 @@
 	icon_state = "4-8"
 	},
 /obj/machinery/camera/directional/south,
+/obj/cable{
+	icon_state = "1-4"
+	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/southeast/tenebrae)
 "ehz" = (
@@ -9856,6 +9883,9 @@
 /obj/disposalpipe/junction/right/east,
 /obj/cable{
 	icon_state = "4-8"
+	},
+/obj/cable{
+	icon_state = "1-8"
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/southeast/dionysus)
@@ -10018,6 +10048,9 @@
 /area/station/storage/hydroponics)
 "emF" = (
 /obj/disposalpipe/switch_junction/left/south,
+/obj/cable{
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/yellow,
 /area/station/mailroom/maru)
 "emH" = (
@@ -12037,9 +12070,6 @@
 /area/station/security/brig/genpop)
 "fcx" = (
 /obj/machinery/door/airlock/pyro/maintenance,
-/obj/cable{
-	icon_state = "1-2"
-	},
 /obj/mapping_helper/access/maint,
 /turf/simulated/floor/industrial,
 /area/station/hallway/primary/north/hammer)
@@ -12312,9 +12342,6 @@
 /obj/cable{
 	icon_state = "4-8"
 	},
-/obj/cable{
-	icon_state = "2-4"
-	},
 /obj/landmark/halloween,
 /turf/simulated/floor/black,
 /area/station/hallway/primary/north/maru)
@@ -12523,6 +12550,9 @@
 /obj/disposalpipe/segment/vertical,
 /obj/machinery/door/airlock/pyro/maintenance,
 /obj/mapping_helper/access/maint,
+/obj/cable{
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/grey,
 /area/station/mailroom/maru)
 "fnG" = (
@@ -12956,14 +12986,14 @@
 /obj/machinery/door/airlock/gannets/maintenance{
 	dir = 4
 	},
-/obj/cable{
-	icon_state = "4-8"
-	},
 /obj/mapping_helper/firedoor_spawn,
 /obj/mapping_helper/access/maint,
 /obj/machinery/secscanner{
 	dir = 4;
 	pixel_x = -20
+	},
+/obj/cable{
+	icon_state = "6-8"
 	},
 /turf/simulated/floor/black/corner{
 	dir = 4
@@ -13190,6 +13220,9 @@
 /area/station/maintenance/northwest/hammer)
 "fBA" = (
 /obj/disposalpipe/switch_junction/left/south,
+/obj/cable{
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/red,
 /area/station/mailroom/hammer)
 "fBC" = (
@@ -13374,15 +13407,6 @@
 	dir = 8
 	},
 /area/station/hangar/meridian)
-"fEk" = (
-/obj/cable{
-	icon_state = "1-2"
-	},
-/obj/cable{
-	icon_state = "2-8"
-	},
-/turf/simulated/floor/plating,
-/area/station/maintenance/southeast/dionysus)
 "fEo" = (
 /obj/machinery/power/furnace,
 /obj/cable/brown{
@@ -13915,9 +13939,6 @@
 /area/station/teleporter/hammer)
 "fPv" = (
 /obj/machinery/door/airlock/pyro/maintenance,
-/obj/cable{
-	icon_state = "1-2"
-	},
 /obj/mapping_helper/access/maint,
 /turf/simulated/floor,
 /area/station/hallway/primary/north/meridian)
@@ -14457,15 +14478,6 @@
 	dir = 4
 	},
 /area/station/security/evidence)
-"fYa" = (
-/obj/cable{
-	icon_state = "1-2"
-	},
-/obj/cable{
-	icon_state = "2-8"
-	},
-/turf/simulated/floor/plating,
-/area/station/maintenance/southeast/maru)
 "fYn" = (
 /obj/cable{
 	icon_state = "5-6"
@@ -16892,6 +16904,9 @@
 	icon_state = "2-8"
 	},
 /obj/disposalpipe/segment/vertical,
+/obj/cable{
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/southeast/maru)
 "hbA" = (
@@ -17087,6 +17102,9 @@
 /obj/disposalpipe/segment/vertical,
 /obj/machinery/door/airlock/pyro/maintenance,
 /obj/mapping_helper/access/maint,
+/obj/cable{
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/grey,
 /area/station/mailroom/meridian)
 "hfx" = (
@@ -18052,14 +18070,14 @@
 /obj/machinery/door/airlock/gannets/maintenance{
 	dir = 4
 	},
-/obj/cable{
-	icon_state = "4-8"
-	},
 /obj/mapping_helper/firedoor_spawn,
 /obj/mapping_helper/access/maint,
 /obj/machinery/secscanner{
 	dir = 4;
 	pixel_x = -20
+	},
+/obj/cable{
+	icon_state = "6-8"
 	},
 /turf/simulated/floor/black/corner{
 	dir = 4
@@ -18146,9 +18164,6 @@
 /area/station/maintenance/southeast/maru)
 "hAf" = (
 /obj/machinery/door/airlock/pyro/maintenance,
-/obj/cable{
-	icon_state = "1-2"
-	},
 /obj/mapping_helper/access/maint,
 /turf/simulated/floor,
 /area/station/hallway/primary/north/tenebrae)
@@ -18432,9 +18447,6 @@
 /area/station/hangar/hammer)
 "hIc" = (
 /obj/machinery/door/airlock/pyro/maintenance,
-/obj/cable{
-	icon_state = "1-2"
-	},
 /obj/mapping_helper/access/maint,
 /turf/simulated/floor,
 /area/station/hallway/primary/north/maru)
@@ -18710,6 +18722,9 @@
 /obj/disposalpipe/segment/vertical,
 /obj/machinery/door/airlock/pyro/maintenance,
 /obj/mapping_helper/access/maint,
+/obj/cable{
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/grey,
 /area/station/mailroom/hammer)
 "hOv" = (
@@ -20335,6 +20350,12 @@
 /area/station/routing/depot{
 	name = "Routing Buoy"
 	})
+"itN" = (
+/obj/cable{
+	icon_state = "2-9"
+	},
+/turf/simulated/floor/plating,
+/area/station/maintenance/southeast/asclepius)
 "itP" = (
 /obj/lattice{
 	dir = 4;
@@ -21393,6 +21414,9 @@
 	},
 /obj/cable{
 	icon_state = "1-8"
+	},
+/obj/cable{
+	icon_state = "1-2"
 	},
 /turf/simulated/floor/grey/side{
 	dir = 1
@@ -22680,6 +22704,9 @@
 /obj/disposalpipe/segment/vertical,
 /obj/machinery/door/airlock/pyro/maintenance,
 /obj/mapping_helper/access/maint,
+/obj/cable{
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/grey,
 /area/station/mailroom/tenebrae)
 "jvK" = (
@@ -24554,6 +24581,9 @@
 /obj/cable{
 	icon_state = "1-8"
 	},
+/obj/cable{
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/grey/side{
 	dir = 1
 	},
@@ -24903,6 +24933,9 @@
 	icon_state = "2-8"
 	},
 /obj/disposalpipe/segment/vertical,
+/obj/cable{
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/southeast/meridian)
 "ktl" = (
@@ -25976,14 +26009,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/engine/substation/meridian)
-"kSr" = (
-/obj/cable{
-	icon_state = "4-8"
-	},
-/turf/simulated/floor/stairs/dark{
-	dir = 8
-	},
-/area/station/maintenance/southeast/asclepius)
 "kSt" = (
 /obj/cable{
 	icon_state = "1-2"
@@ -26054,6 +26079,12 @@
 /obj/railing/boxing,
 /turf/simulated/floor/specialroom/gym,
 /area/station/crew_quarters/fitness)
+"kTv" = (
+/obj/cable{
+	icon_state = "6-9"
+	},
+/turf/simulated/floor/plating,
+/area/station/maintenance/southeast/dionysus)
 "kTx" = (
 /obj/cable{
 	icon_state = "4-8"
@@ -27072,6 +27103,9 @@
 	mail_tag = "tenebrae|sci";
 	name = "mail junction (tenebrae)"
 	},
+/obj/cable{
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/purple,
 /area/station/mailroom/tenebrae)
 "lpE" = (
@@ -27302,9 +27336,6 @@
 /obj/cable{
 	icon_state = "4-8"
 	},
-/obj/cable{
-	icon_state = "2-4"
-	},
 /obj/landmark/halloween,
 /turf/simulated/floor/wood,
 /area/station/hallway/primary/north/dionysus)
@@ -27410,9 +27441,6 @@
 /area/station/maintenance/disposal/tenebrae)
 "lzP" = (
 /obj/machinery/door/airlock/pyro/maintenance,
-/obj/cable{
-	icon_state = "1-2"
-	},
 /obj/mapping_helper/access/maint,
 /turf/simulated/floor,
 /area/station/hallway/primary/north/asclepius)
@@ -27580,6 +27608,9 @@
 /obj/disposalpipe/switch_junction/left/south{
 	mail_tag = "hammer|sec";
 	name = "mail junction (hammer)"
+	},
+/obj/cable{
+	icon_state = "1-2"
 	},
 /turf/simulated/floor/red,
 /area/station/mailroom/hammer)
@@ -28640,16 +28671,6 @@
 "mdr" = (
 /turf/simulated/floor/yellowblack,
 /area/station/teleporter/maru)
-"mdK" = (
-/obj/cable{
-	icon_state = "1-2"
-	},
-/obj/disposalpipe/segment/horizontal,
-/obj/cable/brown{
-	icon_state = "4-8"
-	},
-/turf/simulated/floor/industrial,
-/area/station/hallway/primary/north/hammer)
 "mdL" = (
 /obj/shrub{
 	dir = 4;
@@ -29694,6 +29715,9 @@
 /area/station/maintenance/disposal/hammer)
 "mAu" = (
 /obj/disposalpipe/switch_junction/left/south,
+/obj/cable{
+	icon_state = "1-2"
+	},
 /turf/simulated/floor,
 /area/station/mailroom/meridian)
 "mAI" = (
@@ -29912,14 +29936,14 @@
 /obj/machinery/door/airlock/gannets/maintenance{
 	dir = 4
 	},
-/obj/cable{
-	icon_state = "4-8"
-	},
 /obj/mapping_helper/firedoor_spawn,
 /obj/mapping_helper/access/maint,
 /obj/machinery/secscanner{
 	dir = 4;
 	pixel_x = -20
+	},
+/obj/cable{
+	icon_state = "6-8"
 	},
 /turf/simulated/floor/black/corner{
 	dir = 4
@@ -29938,6 +29962,9 @@
 /area/station/hangar/meridian)
 "mIK" = (
 /obj/disposalpipe/segment/bent/east,
+/obj/cable{
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/grey/side,
 /area/station/mailroom/dionysus)
 "mIQ" = (
@@ -30070,14 +30097,6 @@
 	},
 /turf/simulated/floor/carpet/red/fancy/edge/sw,
 /area/station/crew_quarters/courtroom)
-"mLO" = (
-/obj/cable{
-	icon_state = "4-8"
-	},
-/turf/simulated/floor/stairs/dark{
-	dir = 8
-	},
-/area/station/maintenance/southeast/dionysus)
 "mMu" = (
 /obj/cable{
 	icon_state = "1-8"
@@ -30780,9 +30799,6 @@
 "ncP" = (
 /obj/cable{
 	icon_state = "4-8"
-	},
-/obj/cable{
-	icon_state = "2-4"
 	},
 /obj/landmark/halloween,
 /turf/simulated/floor/industrial,
@@ -31543,9 +31559,6 @@
 "nvs" = (
 /obj/cable{
 	icon_state = "4-8"
-	},
-/obj/cable{
-	icon_state = "2-4"
 	},
 /obj/landmark/halloween,
 /turf/simulated/floor,
@@ -32323,6 +32336,9 @@
 /area/station/hallway/primary/north/hammer)
 "nMx" = (
 /obj/disposalpipe/switch_junction/left/south,
+/obj/cable{
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/green,
 /area/station/mailroom/dionysus)
 "nMB" = (
@@ -33650,9 +33666,6 @@
 /area/station/crew_quarters/hammer)
 "ooA" = (
 /obj/cable{
-	icon_state = "1-2"
-	},
-/obj/cable{
 	icon_state = "2-8"
 	},
 /turf/simulated/floor/plating,
@@ -34414,6 +34427,9 @@
 /area/station/hangar/meridian)
 "oGy" = (
 /obj/disposalpipe/switch_junction/left/south,
+/obj/cable{
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/blue,
 /area/station/mailroom/asclepius)
 "oGz" = (
@@ -34524,16 +34540,6 @@
 "oJg" = (
 /turf/simulated/wall/auto/reinforced/jen/purple,
 /area/station/maintenance/disposal/tenebrae)
-"oJi" = (
-/obj/cable{
-	icon_state = "4-8"
-	},
-/obj/cable{
-	icon_state = "2-4"
-	},
-/obj/landmark/halloween,
-/turf/simulated/floor/white,
-/area/station/hallway/primary/north/asclepius)
 "oJr" = (
 /obj/disposalpipe/segment/vertical,
 /turf/simulated/floor/red/side{
@@ -35936,9 +35942,6 @@
 /turf/simulated/floor/circuit,
 /area/station/turret_protected/ai)
 "ppi" = (
-/obj/cable{
-	icon_state = "4-8"
-	},
 /turf/simulated/floor/stairs/dark{
 	dir = 8
 	},
@@ -36894,15 +36897,6 @@
 /obj/mapping_helper/firedoor_spawn,
 /turf/simulated/floor,
 /area/station/hangar/meridian)
-"pKC" = (
-/obj/cable{
-	icon_state = "1-2"
-	},
-/obj/cable{
-	icon_state = "2-8"
-	},
-/turf/simulated/floor/plating,
-/area/station/maintenance/southeast/hammer)
 "pLk" = (
 /obj/table/auto,
 /obj/item/paper_bin{
@@ -37836,12 +37830,12 @@
 /area/station/ranch)
 "qgc" = (
 /obj/cable{
-	icon_state = "1-2"
-	},
-/obj/cable{
 	icon_state = "1-4"
 	},
 /obj/disposalpipe/segment/bent/east,
+/obj/cable{
+	icon_state = "2-4"
+	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/southeast/tenebrae)
 "qhw" = (
@@ -37880,6 +37874,9 @@
 /area/station/engine/substation/asclepius)
 "qij" = (
 /obj/disposalpipe/segment/bent/east,
+/obj/cable{
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/grey/side,
 /area/station/mailroom/asclepius)
 "qik" = (
@@ -38700,6 +38697,12 @@
 	dir = 1
 	},
 /area/station/hangar/asclepius)
+"qAq" = (
+/obj/cable{
+	icon_state = "6-9"
+	},
+/turf/simulated/floor/plating,
+/area/station/maintenance/southeast/hammer)
 "qAr" = (
 /obj/cable/brown{
 	icon_state = "1-2"
@@ -38906,14 +38909,14 @@
 /obj/machinery/door/airlock/gannets/maintenance{
 	dir = 4
 	},
-/obj/cable{
-	icon_state = "4-8"
-	},
 /obj/mapping_helper/firedoor_spawn,
 /obj/mapping_helper/access/maint,
 /obj/machinery/secscanner{
 	dir = 4;
 	pixel_x = -20
+	},
+/obj/cable{
+	icon_state = "6-8"
 	},
 /turf/simulated/floor/black/corner{
 	dir = 4
@@ -40266,6 +40269,12 @@
 /obj/machinery/portable_atmospherics/canister/empty,
 /turf/simulated/floor/plating,
 /area/station/science/storage)
+"rnl" = (
+/obj/cable{
+	icon_state = "2-9"
+	},
+/turf/simulated/floor/plating,
+/area/station/maintenance/southeast/dionysus)
 "rnH" = (
 /obj/table/reinforced/auto,
 /obj/item/kitchen/utensil/knife{
@@ -40751,6 +40760,9 @@
 /area/station/maintenance/disposal/maru)
 "rxI" = (
 /obj/disposalpipe/segment/bent/east,
+/obj/cable{
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/grey/side,
 /area/station/mailroom/meridian)
 "rxW" = (
@@ -40878,6 +40890,9 @@
 /obj/cable{
 	icon_state = "1-8"
 	},
+/obj/cable{
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/grey/side{
 	dir = 1
 	},
@@ -40935,13 +40950,6 @@
 	},
 /turf/simulated/floor/carpet/blue/fancy/edge/south,
 /area/station/bridge/asclepius)
-"rAz" = (
-/obj/cable{
-	icon_state = "1-2"
-	},
-/obj/disposalpipe/segment/horizontal,
-/turf/simulated/floor/black/side,
-/area/station/hallway/primary/north/maru)
 "rAE" = (
 /obj/machinery/disposal,
 /obj/disposalpipe/trunk/south,
@@ -41466,6 +41474,9 @@
 /obj/cable{
 	icon_state = "1-8"
 	},
+/obj/cable{
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/grey/side{
 	dir = 1
 	},
@@ -41550,6 +41561,9 @@
 /area/shuttle/research/outpost)
 "rOC" = (
 /obj/disposalpipe/junction/right/east,
+/obj/cable{
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/green,
 /area/station/mailroom/dionysus)
 "rOH" = (
@@ -45083,6 +45097,9 @@
 /area/station/crew_quarters/lounge)
 "tjr" = (
 /obj/disposalpipe/junction/right/east,
+/obj/cable{
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/yellow,
 /area/station/mailroom/maru)
 "tjJ" = (
@@ -45351,6 +45368,9 @@
 	mail_tag = "dionysus|civ";
 	name = "mail junction (dionysus)"
 	},
+/obj/cable{
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/green,
 /area/station/mailroom/dionysus)
 "tqm" = (
@@ -45586,9 +45606,6 @@
 /obj/cable{
 	icon_state = "4-8"
 	},
-/obj/cable{
-	icon_state = "2-4"
-	},
 /obj/landmark/halloween,
 /turf/simulated/floor/white,
 /area/station/hallway/primary/north/tenebrae)
@@ -45765,9 +45782,6 @@
 /area/station/maintenance/disposal/meridian)
 "txi" = (
 /obj/machinery/door/airlock/pyro/maintenance,
-/obj/cable{
-	icon_state = "1-2"
-	},
 /obj/mapping_helper/access/maint,
 /turf/simulated/floor/wood,
 /area/station/hallway/primary/north/dionysus)
@@ -46124,6 +46138,9 @@
 	icon_state = "2-8"
 	},
 /obj/disposalpipe/segment/vertical,
+/obj/cable{
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/southeast/asclepius)
 "tDE" = (
@@ -47337,6 +47354,9 @@
 	mail_tag = "asclepius|med";
 	name = "mail junction (asclepius)"
 	},
+/obj/cable{
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/blue,
 /area/station/mailroom/asclepius)
 "ueP" = (
@@ -47475,6 +47495,12 @@
 	},
 /turf/simulated/wall/auto/reinforced/jen/yellow,
 /area/station/engine/storage)
+"uhv" = (
+/obj/cable{
+	icon_state = "6-9"
+	},
+/turf/simulated/floor/plating,
+/area/station/maintenance/southeast/tenebrae)
 "uhB" = (
 /obj/shrub{
 	dir = 5
@@ -48539,6 +48565,9 @@
 /area/station/crew_quarters/fitness)
 "uCp" = (
 /obj/disposalpipe/junction/right/east,
+/obj/cable{
+	icon_state = "1-2"
+	},
 /turf/simulated/floor,
 /area/station/mailroom/meridian)
 "uCs" = (
@@ -48879,14 +48908,14 @@
 /obj/machinery/door/airlock/gannets/maintenance{
 	dir = 4
 	},
-/obj/cable{
-	icon_state = "4-8"
-	},
 /obj/mapping_helper/firedoor_spawn,
 /obj/mapping_helper/access/maint,
 /obj/machinery/secscanner{
 	dir = 4;
 	pixel_x = -20
+	},
+/obj/cable{
+	icon_state = "6-8"
 	},
 /turf/simulated/floor/black/corner{
 	dir = 4
@@ -48955,6 +48984,9 @@
 /area/station/crew_quarters/tenebrae)
 "uKv" = (
 /obj/disposalpipe/junction/right/east,
+/obj/cable{
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/purple,
 /area/station/mailroom/tenebrae)
 "uKA" = (
@@ -49545,6 +49577,9 @@
 /area/station/maintenance/disposal/tenebrae)
 "uVY" = (
 /obj/disposalpipe/segment/vertical,
+/obj/cable{
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/southeast/tenebrae)
 "uWp" = (
@@ -49869,6 +49904,9 @@
 /obj/disposalpipe/switch_junction/left/south{
 	mail_tag = "meridian|escape";
 	name = "mail junction (meridian)"
+	},
+/obj/cable{
+	icon_state = "1-2"
 	},
 /turf/simulated/floor,
 /area/station/mailroom/meridian)
@@ -51485,10 +51523,10 @@
 /obj/cable{
 	icon_state = "2-4"
 	},
-/obj/cable{
-	icon_state = "1-2"
-	},
 /obj/disposalpipe/segment/bent/north,
+/obj/cable{
+	icon_state = "1-4"
+	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/southeast/maru)
 "vNQ" = (
@@ -52024,6 +52062,9 @@
 /obj/disposalpipe/segment/vertical,
 /obj/machinery/door/airlock/pyro/maintenance,
 /obj/mapping_helper/access/maint,
+/obj/cable{
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/grey,
 /area/station/mailroom/asclepius)
 "vZW" = (
@@ -53115,6 +53156,12 @@
 	},
 /turf/simulated/floor/plating/random,
 /area/station/maintenance/disposal/tenebrae)
+"wzT" = (
+/obj/cable{
+	icon_state = "2-9"
+	},
+/turf/simulated/floor/plating,
+/area/station/maintenance/southeast/maru)
 "wzV" = (
 /obj/cable/brown{
 	icon_state = "1-8"
@@ -53688,6 +53735,9 @@
 /obj/disposalpipe/segment/vertical,
 /obj/machinery/door/airlock/pyro/maintenance,
 /obj/mapping_helper/access/maint,
+/obj/cable{
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/grey,
 /area/station/mailroom/dionysus)
 "wNa" = (
@@ -54408,6 +54458,9 @@
 	mail_tag = "maru|eng";
 	name = "mail junction (maru)"
 	},
+/obj/cable{
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/yellow,
 /area/station/mailroom/maru)
 "xbb" = (
@@ -54534,15 +54587,6 @@
 	},
 /turf/simulated/floor/black,
 /area/station/science/testchamber)
-"xeU" = (
-/obj/cable{
-	icon_state = "1-2"
-	},
-/obj/cable{
-	icon_state = "2-8"
-	},
-/turf/simulated/floor/plating,
-/area/station/maintenance/southeast/tenebrae)
 "xfc" = (
 /obj/stool/chair{
 	dir = 4
@@ -55131,14 +55175,6 @@
 /obj/mapping_helper/firedoor_spawn,
 /turf/simulated/floor/grey,
 /area/station/mailroom/meridian)
-"xtR" = (
-/obj/cable{
-	icon_state = "4-8"
-	},
-/turf/simulated/floor/stairs/dark{
-	dir = 8
-	},
-/area/station/maintenance/southeast/hammer)
 "xtV" = (
 /obj/machinery/light/emergency{
 	dir = 1;
@@ -56324,14 +56360,6 @@
 	},
 /turf/simulated/floor/carpet/red/fancy/edge/north,
 /area/station/crew_quarters/jazz)
-"xTm" = (
-/obj/cable{
-	icon_state = "4-8"
-	},
-/turf/simulated/floor/stairs/dark{
-	dir = 8
-	},
-/area/station/maintenance/southeast/tenebrae)
 "xTo" = (
 /obj/stool/chair{
 	dir = 8
@@ -86012,7 +86040,7 @@ sAH
 cXV
 xLh
 nvs
-sCf
+biE
 fPv
 ooA
 lBq
@@ -92111,7 +92139,7 @@ lMA
 puI
 eGR
 ppi
-jAs
+bzS
 jAs
 jAs
 oQt
@@ -92410,11 +92438,11 @@ hON
 kJS
 gIm
 fhu
-rAz
+cVm
 hIc
-fYa
-mpw
-mpw
+jAs
+jAs
+wzT
 mpw
 kBy
 jAs
@@ -98041,8 +98069,8 @@ dxD
 mDZ
 qMz
 qaz
-xtR
-ylF
+vhs
+qAq
 ylF
 ylF
 vhs
@@ -98341,12 +98369,12 @@ fHl
 hJl
 dxD
 ncP
-mdK
+kFn
 fcx
-pKC
-pVM
-pVM
-qDZ
+ylF
+ylF
+qAq
+ylF
 ylF
 uvp
 uvp
@@ -98648,8 +98676,8 @@ qaz
 xfL
 spG
 fHi
-ylF
 ncj
+pVM
 qDZ
 ylF
 uvp
@@ -115907,8 +115935,8 @@ fAy
 eJm
 dEc
 nmk
-mLO
-hjU
+nhW
+kTv
 hjU
 hjU
 nhW
@@ -116207,11 +116235,11 @@ jCQ
 nGo
 fAy
 lvP
-jrZ
+jXl
 txi
-fEk
-wTw
-wTw
+hjU
+hjU
+rnl
 wTw
 fzf
 hjU
@@ -124419,8 +124447,8 @@ fLX
 aUK
 qpG
 phC
-xTm
-jEa
+jUy
+uhv
 jEa
 jEa
 jUy
@@ -124719,11 +124747,11 @@ ijk
 bgo
 fLX
 ttk
-mfl
+xYF
 hAf
-xeU
-puK
-puK
+jEa
+jEa
+nHB
 puK
 lDJ
 jEa
@@ -126424,8 +126452,8 @@ tVb
 gzj
 rse
 gVv
-kSr
-rXo
+nOs
+tnp
 rXo
 rXo
 nOs
@@ -126723,12 +126751,12 @@ fXC
 xFG
 eSu
 tVb
-oJi
-hZk
+iRn
+xlM
 lzP
-apF
-yjd
-yjd
+rXo
+rXo
+itN
 yjd
 wZi
 rXo
