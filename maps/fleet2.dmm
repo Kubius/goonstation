@@ -3441,9 +3441,6 @@
 /obj/cable{
 	icon_state = "1-2"
 	},
-/obj/cable{
-	icon_state = "1-4"
-	},
 /obj/disposalpipe/segment/vertical,
 /turf/simulated/floor/blue,
 /area/station/medical/medbay)
@@ -5253,7 +5250,7 @@
 /turf/simulated/floor/redblack,
 /area/station/security/interrogation)
 "cma" = (
-/obj/stool/chair{
+/obj/stool/chair/blue{
 	dir = 4
 	},
 /turf/simulated/floor/bluewhite,
@@ -5930,6 +5927,9 @@
 	dir = 8;
 	layer = 9.1;
 	pixel_x = -10
+	},
+/obj/stool/chair/blue{
+	dir = 4
 	},
 /turf/simulated/floor/blue,
 /area/station/hallway/primary/north/asclepius)
@@ -12303,7 +12303,7 @@
 	dir = 4;
 	pixel_x = 10
 	},
-/obj/stool/chair/comfy/wheelchair{
+/obj/machinery/sleeper/compact{
 	dir = 8
 	},
 /turf/simulated/floor/white,
@@ -30684,6 +30684,9 @@
 /obj/cable{
 	icon_state = "0-2"
 	},
+/obj/stool/chair/comfy/wheelchair{
+	dir = 4
+	},
 /turf/simulated/floor/white,
 /area/station/hallway/primary/central/asclepius)
 "mZE" = (
@@ -32314,6 +32317,10 @@
 /obj/item/camera,
 /obj/item/device/radio/headset/multifreq,
 /obj/disposalpipe/segment/mail/horizontal,
+/obj/item/storage/wall/emergency{
+	dir = 1;
+	pixel_y = 32
+	},
 /turf/simulated/floor/purplewhite{
 	dir = 9
 	},
@@ -48654,7 +48661,6 @@
 	},
 /area/station/crew_quarters/tenebrae)
 "uCZ" = (
-/obj/storage/closet/emergency,
 /obj/cable{
 	icon_state = "0-8"
 	},
@@ -48662,6 +48668,7 @@
 	icon_state = "0-2"
 	},
 /obj/machinery/power/apc/autoname_north,
+/obj/storage/closet/port_a_sci,
 /turf/simulated/floor/purplewhite{
 	dir = 1
 	},
@@ -49725,6 +49732,12 @@
 	},
 /turf/simulated/floor/wood/five,
 /area/station/crew_quarters/dionysus)
+"uYN" = (
+/obj/machinery/sleeper/port_a_medbay{
+	dir = 8
+	},
+/turf/simulated/floor/white,
+/area/station/medical/medbay)
 "uYQ" = (
 /obj/machinery/atmospherics/binary/pump/active{
 	dir = 8;
@@ -119506,7 +119519,7 @@ scY
 qnN
 bUh
 beJ
-beJ
+uYN
 cHM
 bUh
 hvA
