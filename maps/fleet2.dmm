@@ -5655,6 +5655,11 @@
 /obj/cable/brown{
 	icon_state = "1-2"
 	},
+/obj/machinery/light{
+	dir = 1;
+	layer = 9.1;
+	pixel_y = 21
+	},
 /turf/simulated/floor,
 /area/station/hallway/secondary/exit)
 "cvr" = (
@@ -19819,7 +19824,6 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/camera/directional/east,
-/obj/machinery/light_switch/east,
 /turf/simulated/floor/escape{
 	dir = 4
 	},
@@ -31319,17 +31323,6 @@
 /area/station/security/main{
 	name = "Security Office"
 	})
-"npA" = (
-/obj/machinery/light{
-	dir = 1;
-	layer = 9.1;
-	pixel_y = 21
-	},
-/obj/machinery/atmospherics/pipe/simple,
-/turf/simulated/floor/escape{
-	dir = 8
-	},
-/area/station/hallway/secondary/exit)
 "npK" = (
 /obj/disposalpipe/segment/mail/horizontal,
 /obj/cable{
@@ -36006,19 +35999,7 @@
 /turf/simulated/floor/carpet/red/fancy/edge/nw,
 /area/station/crew_quarters/hammer)
 "pqM" = (
-/obj/item/storage/firstaid/toxin,
-/obj/item/storage/firstaid/fire{
-	pixel_y = -4
-	},
-/obj/item/storage/firstaid/regular,
-/obj/item/bandage,
-/obj/item/bandage,
-/obj/item/bandage,
-/obj/item/robodefibrillator,
-/obj/item/body_bag,
-/obj/item/body_bag,
-/obj/item/body_bag,
-/obj/storage/cart/medcart,
+/obj/storage/cart/medcart/crash,
 /turf/simulated/floor/bluewhite{
 	dir = 6
 	},
@@ -39594,24 +39575,12 @@
 /turf/simulated/wall/auto/jen/yellow,
 /area/station/mailroom/maru)
 "qWw" = (
-/obj/item/storage/firstaid/toxin,
-/obj/item/storage/firstaid/fire{
-	pixel_y = -4
-	},
-/obj/item/storage/firstaid/regular,
-/obj/item/bandage,
-/obj/item/bandage,
-/obj/item/bandage,
-/obj/item/robodefibrillator,
-/obj/item/body_bag,
-/obj/item/body_bag,
-/obj/item/body_bag,
-/obj/storage/cart/medcart,
 /obj/machinery/light{
 	dir = 4;
 	layer = 9.1;
 	pixel_x = 10
 	},
+/obj/storage/cart/medcart/crash,
 /turf/simulated/floor/bluewhite{
 	dir = 4
 	},
@@ -50723,6 +50692,13 @@
 /obj/kitchenspike,
 /turf/simulated/floor/specialroom/freezer,
 /area/station/crew_quarters/kitchen)
+"vvM" = (
+/obj/stool/bench/blue/auto,
+/obj/machinery/light_switch/east,
+/turf/simulated/floor/escape{
+	dir = 4
+	},
+/area/station/hallway/secondary/exit)
 "vvY" = (
 /obj/strip_door{
 	dir = 4
@@ -81825,7 +81801,7 @@ avv
 jiu
 uFt
 ndT
-npA
+bno
 qrC
 wBF
 bno
@@ -82433,7 +82409,7 @@ ijX
 sVN
 pwq
 oDK
-vyy
+vvM
 vyy
 gIg
 kFV
