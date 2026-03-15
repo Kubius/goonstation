@@ -29537,7 +29537,7 @@
 	},
 /area/station/medical/medbay/pharmacy)
 "mwl" = (
-/obj/machinery/conveyor/WE{
+/obj/machinery/conveyor/EW{
 	id = "qmsend"
 	},
 /turf/simulated/floor/caution/north,
