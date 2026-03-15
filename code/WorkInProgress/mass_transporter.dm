@@ -209,6 +209,9 @@
 			src.visible_message("<b>[src]</b> intones, \"Unable to initalize transportation - no destination has been set.\"")
 			return
 		src.transporting_to = linked_computer.locked_target
+		if (!istype(src.transporting_to.loc,/turf))
+			src.visible_message(SPAN_ALERT("<b>[src]</b> intones, \"Unable to initalize transportation - destination no longer exists.\""))
+			return
 		src.visible_message("<b>[src]</b> intones, \"Teleportation process beginning. Please stow personal effects and remain stationary until teleport completes.\"")
 		src.add_fingerprint(usr)
 		src.initialize_teleport()
