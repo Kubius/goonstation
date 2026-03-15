@@ -8643,16 +8643,13 @@
 /turf/simulated/floor/black/grime,
 /area/station/security/brig/genpop)
 "dHV" = (
-/obj/table/reinforced/auto,
 /obj/machinery/light{
 	dir = 4;
 	layer = 9.1;
 	pixel_x = 10
 	},
 /obj/item_dispenser/idcarddispenser,
-/obj/machinery/shredder{
-	pixel_y = 7
-	},
+/obj/machinery/manufacturer/hop_and_uniform,
 /turf/simulated/floor/wood/seven,
 /area/station/bridge/dionysus)
 "dIa" = (
@@ -26296,6 +26293,10 @@
 /area/station/turret_protected/ai)
 "kYl" = (
 /obj/machinery/light_switch/west,
+/obj/table/reinforced/auto,
+/obj/machinery/shredder{
+	pixel_y = 7
+	},
 /turf/simulated/floor/carpet/green/fancy/edge/sw,
 /area/station/bridge/dionysus)
 "kYr" = (
@@ -52386,9 +52387,6 @@
 "wjl" = (
 /obj/machinery/light,
 /obj/table/wood/auto,
-/obj/machinery/recharger{
-	pixel_y = 3
-	},
 /turf/simulated/floor/wood/seven,
 /area/station/bridge/customs{
 	name = "Dionysus Command Center"
