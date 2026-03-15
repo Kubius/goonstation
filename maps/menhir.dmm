@@ -206,6 +206,11 @@
 	},
 /turf/simulated/floor/engine/vacuum,
 /area/space)
+"gG" = (
+/turf/simulated/floor/stairs/wide/other{
+	dir = 8
+	},
+/area/space)
 "gJ" = (
 /obj/table/reinforced/auto,
 /obj/item/paper/book/from_file/guardbot_guide{
@@ -266,6 +271,9 @@
 /area/space)
 "io" = (
 /turf/simulated/floor/yellow,
+/area/space)
+"iS" = (
+/turf/simulated/floor/red/side,
 /area/space)
 "iT" = (
 /turf/simulated/floor/black/corner,
@@ -401,11 +409,24 @@
 "nU" = (
 /turf/simulated/floor/caution/north,
 /area/space)
+"oa" = (
+/obj/machinery/computer/transit_shuttle/mining{
+	dir = 8
+	},
+/turf/simulated/floor/grey/side{
+	dir = 4
+	},
+/area/space)
 "oh" = (
 /obj/machinery/door/airlock/pyro/glass/engineering{
 	dir = 4
 	},
 /turf/simulated/floor/black/grime,
+/area/space)
+"on" = (
+/turf/simulated/floor/red/corner{
+	dir = 1
+	},
 /area/space)
 "ow" = (
 /turf/simulated/floor/plating,
@@ -448,6 +469,9 @@
 "qa" = (
 /obj/machinery/recharge_station,
 /turf/simulated/floor/plating,
+/area/space)
+"qk" = (
+/turf/simulated/floor/red/corner,
 /area/space)
 "qH" = (
 /obj/rack,
@@ -551,6 +575,11 @@
 /obj/machinery/door/airlock/pyro/maintenance,
 /turf/simulated/floor/plating,
 /area/space)
+"ts" = (
+/turf/simulated/floor/red/side{
+	dir = 6
+	},
+/area/space)
 "tw" = (
 /obj/landmark/random_room/size5x3,
 /turf/simulated/floor/plating,
@@ -558,6 +587,11 @@
 "tz" = (
 /turf/unsimulated/floor/setpieces/bluefloor{
 	dir = 8
+	},
+/area/space)
+"tA" = (
+/turf/simulated/floor/red/side{
+	dir = 4
 	},
 /area/space)
 "tB" = (
@@ -613,13 +647,6 @@
 /obj/machinery/portable_atmospherics/canister/oxygen,
 /turf/simulated/floor/black/grime,
 /area/space)
-"uo" = (
-/obj/table/auto,
-/obj/item/storage/box/stma_kit{
-	pixel_y = 6
-	},
-/turf/simulated/floor,
-/area/space)
 "uu" = (
 /obj/stool/chair/blue{
 	dir = 8
@@ -664,6 +691,11 @@
 	},
 /turf/simulated/floor/caution/corner/misc{
 	dir = 5
+	},
+/area/space)
+"vx" = (
+/turf/simulated/floor/redblack{
+	dir = 1
 	},
 /area/space)
 "vF" = (
@@ -723,6 +755,11 @@
 	dir = 1
 	},
 /area/space)
+"wt" = (
+/turf/simulated/floor/red/side{
+	dir = 1
+	},
+/area/space)
 "wv" = (
 /obj/mapping_helper/wingrille_spawn/auto/reinforced/crystal,
 /turf/simulated/floor/shuttlebay{
@@ -763,6 +800,11 @@
 /area/space)
 "wR" = (
 /turf/simulated/floor/sanitary/white,
+/area/space)
+"wU" = (
+/turf/simulated/floor/red/side{
+	dir = 8
+	},
 /area/space)
 "xo" = (
 /turf/simulated/floor/blackwhite/side,
@@ -886,6 +928,11 @@
 	dir = 8
 	},
 /area/space)
+"BQ" = (
+/turf/simulated/floor/stairs/wide/middle{
+	dir = 8
+	},
+/area/space)
 "BR" = (
 /obj/stool/chair/blue{
 	dir = 4
@@ -961,13 +1008,6 @@
 /turf/simulated/floor/shuttlebay{
 	icon_state = "engine_caution_corners"
 	},
-/area/space)
-"CP" = (
-/obj/stool/chair/comfy/blue{
-	dir = 4;
-	tag = "icon-chair_comfy-blue (EAST)"
-	},
-/turf/unsimulated/floor/setpieces/bluefloor,
 /area/space)
 "CV" = (
 /obj/machinery/atmospherics/binary/pump/active{
@@ -1082,6 +1122,9 @@
 /obj/machinery/portable_atmospherics/canister/nitrogen,
 /turf/simulated/floor/sanitary/blue,
 /area/space)
+"Fp" = (
+/turf/space,
+/area/shuttle/mining/station)
 "FA" = (
 /turf/simulated/wall/auto/reinforced/supernorn{
 	explosion_resistance = 15;
@@ -1331,6 +1374,11 @@
 /obj/machinery/atmospherics/pipe/simple/insulated/cold,
 /turf/simulated/floor/plating,
 /area/space)
+"Nn" = (
+/turf/simulated/floor/stairs/wide{
+	dir = 8
+	},
+/area/space)
 "NF" = (
 /turf/simulated/floor/grey,
 /area/space)
@@ -1504,11 +1552,10 @@
 	dir = 4
 	},
 /area/space)
-"SF" = (
-/obj/machinery/sleeper/compact{
-	dir = 4
+"Sz" = (
+/turf/simulated/floor/red/side{
+	dir = 5
 	},
-/turf/simulated/floor,
 /area/space)
 "SG" = (
 /turf/simulated/floor/redblack,
@@ -1541,6 +1588,10 @@
 /turf/simulated/floor/bluewhite/corner{
 	dir = 8
 	},
+/area/space)
+"Ts" = (
+/obj/machinery/door/airlock/pyro/external,
+/turf/simulated/floor,
 /area/space)
 "Tz" = (
 /turf/simulated/floor/shuttlebay{
@@ -1593,6 +1644,10 @@
 /obj/machinery/conveyor/NS,
 /obj/strip_door,
 /turf/simulated/floor/caution/westeast,
+/area/space)
+"VY" = (
+/obj/lattice,
+/turf/space,
 /area/space)
 "Wl" = (
 /turf/simulated/wall/auto/reinforced/supernorn,
@@ -1675,6 +1730,11 @@
 "Za" = (
 /turf/simulated/floor/stairs{
 	dir = 1
+	},
+/area/space)
+"Zf" = (
+/turf/simulated/floor/redblack{
+	dir = 8
 	},
 /area/space)
 "Zw" = (
@@ -38381,7 +38441,7 @@ Ot
 NF
 NF
 NF
-ow
+Ot
 ow
 ow
 ow
@@ -43510,7 +43570,7 @@ TV
 TV
 Dc
 ZX
-SF
+ZX
 Hm
 Hm
 Hm
@@ -43813,7 +43873,7 @@ TV
 Dc
 ZX
 ZX
-CP
+as
 as
 as
 as
@@ -45320,7 +45380,7 @@ ZX
 ZX
 ZX
 ZX
-uo
+ZX
 Hm
 Hm
 Hm
@@ -54089,13 +54149,13 @@ as
 ZX
 ZX
 ZX
-SW
-SW
-SW
-SW
-SW
-SW
-SW
+Dc
+Eb
+Eb
+Dc
+Wl
+Dc
+Dc
 as
 Hm
 as
@@ -54390,12 +54450,12 @@ as
 as
 ZX
 ZX
-SW
-SW
+Dc
+Dc
 Eb
+wU
 Eb
-Eb
-Eb
+Wl
 Eb
 Eb
 Eb
@@ -54692,12 +54752,12 @@ as
 as
 ZX
 ZX
-SW
+Wl
 Eb
-Eb
-Eb
-Eb
-Eb
+on
+ZX
+iS
+Wl
 Eb
 Eb
 Eb
@@ -54994,12 +55054,12 @@ Hm
 Hm
 ZX
 ZX
-SW
 Eb
+wt
+ZX
+qk
 Eb
-Eb
-Eb
-Eb
+Wl
 Eb
 Eb
 Eb
@@ -55296,12 +55356,12 @@ as
 Hm
 Hm
 ZX
-SW
-Eb
-Eb
-Eb
-Eb
-Eb
+Dc
+wt
+ZX
+iS
+Wl
+Wl
 Eb
 Eb
 Eb
@@ -55598,11 +55658,11 @@ as
 as
 Hm
 ZX
-SW
-Eb
-Eb
-Eb
-Eb
+Dc
+wt
+ZX
+iS
+Wl
 Eb
 Eb
 Eb
@@ -55900,10 +55960,10 @@ as
 as
 Hm
 ZX
-SW
-Eb
-Eb
-Eb
+Dc
+wt
+ZX
+iS
 Eb
 Eb
 Eb
@@ -56202,11 +56262,11 @@ as
 as
 Hm
 ZX
-SW
-Eb
-Eb
-Eb
-Eb
+Wl
+Sz
+tA
+ts
+Wl
 Eb
 Eb
 Eb
@@ -56504,11 +56564,11 @@ as
 Hm
 Hm
 ZX
-SW
-SW
-SW
-SW
-SW
+Wl
+Wl
+Wl
+Wl
+Wl
 SW
 SW
 SW
@@ -58305,19 +58365,19 @@ YE
 YE
 YE
 YE
-YE
-YE
-YE
-YE
-YE
 ZX
 ZX
 ZX
-YE
-YE
-YE
-YE
-YE
+ZX
+SW
+ZX
+ZX
+ZX
+SW
+ZX
+ZX
+ZX
+ZX
 YE
 YE
 YE
@@ -58607,19 +58667,19 @@ YE
 YE
 YE
 YE
-YE
-YE
-YE
-YE
-YE
 ZX
 ZX
 ZX
-YE
-YE
-YE
-YE
-YE
+ZX
+SW
+ZX
+ZX
+ZX
+SW
+ZX
+ZX
+ZX
+ZX
 YE
 YE
 YE
@@ -58909,19 +58969,19 @@ YE
 YE
 YE
 YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
+ZX
+ZX
+ZX
+ZX
+SW
+ZX
+ZX
+ZX
+SW
+ZX
+ZX
+ZX
+ZX
 YE
 YE
 YE
@@ -59211,20 +59271,20 @@ YE
 YE
 YE
 YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
+ZX
+ZX
+ZX
+ZX
+SW
+ZX
+ZX
+ZX
+SW
+ZX
+ZX
+ZX
+ZX
+SW
 YE
 YE
 YE
@@ -59513,31 +59573,31 @@ YE
 YE
 YE
 YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
+ZX
+ZX
+ZX
+ZX
+SW
+Dk
+Dc
+Dk
+SW
+ZX
+ZX
+ZX
+ZX
+SW
+ow
+ow
+ow
+ow
+ow
+ow
+ow
+ow
+ow
+ow
+ow
 YE
 YE
 YE
@@ -59814,32 +59874,32 @@ YE
 YE
 YE
 YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
+SW
+SW
+SW
+SW
+SW
+SW
+gG
+BQ
+Nn
+SW
+SW
+SW
+SW
+SW
+SW
+ow
+ow
+ow
+ow
+ow
+ow
+ow
+ow
+ow
+ow
+ow
 YE
 YE
 YE
@@ -60121,26 +60181,26 @@ YE
 YE
 YE
 YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
+Ot
+NF
+NF
+NF
+Ot
+ow
+ow
+ow
+ow
+ow
+ow
+ow
+ow
+Wl
+Wl
+Wl
+Wl
+Wl
+Wl
+Wl
 YE
 YE
 YE
@@ -60423,6 +60483,26 @@ YE
 YE
 YE
 YE
+SW
+NF
+NF
+NF
+SW
+ow
+ow
+ow
+ow
+ow
+ow
+ow
+Wl
+Wl
+Zf
+Zf
+Zf
+Zf
+Zf
+Wl
 YE
 YE
 YE
@@ -60432,27 +60512,7 @@ YE
 YE
 YE
 YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
+SW
 YE
 YE
 YE
@@ -60720,6 +60780,31 @@ YE
 YE
 YE
 YE
+SW
+SW
+SW
+SW
+SW
+SW
+Dk
+Dc
+Dk
+SW
+SW
+SW
+SW
+SW
+Wl
+Wl
+Wl
+Wl
+jQ
+jQ
+jQ
+jQ
+jQ
+jQ
+Wl
 YE
 YE
 YE
@@ -60728,33 +60813,8 @@ YE
 YE
 YE
 YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
+SW
+SW
 YE
 YE
 YE
@@ -61022,6 +61082,31 @@ YE
 YE
 YE
 YE
+Dc
+nF
+nF
+nF
+SW
+nF
+nF
+nF
+nF
+nF
+SW
+nF
+nF
+nF
+Dc
+VY
+Lu
+vx
+jQ
+jQ
+jQ
+jQ
+jQ
+jQ
+Wl
 YE
 YE
 YE
@@ -61029,33 +61114,8 @@ YE
 YE
 YE
 YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
+SW
+SW
 YE
 YE
 YE
@@ -61324,39 +61384,39 @@ YE
 YE
 YE
 YE
+Dc
+ZX
+ZX
+ZX
+ZX
+ZX
+ZX
+ZX
+ZX
+ZX
+ZX
+ZX
+ZX
+ZX
+Dc
+VY
+Lu
+vx
+Xr
+vO
+vO
+vO
+vO
+Oz
+Wl
 YE
 YE
 YE
 YE
 YE
 YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
+SW
+SW
 YE
 YE
 YE
@@ -61626,38 +61686,38 @@ YE
 YE
 YE
 YE
+Ts
+ZX
+ZX
+ZX
+ZX
+ZX
+ZX
+ZX
+ZX
+ZX
+ZX
+ZX
+ZX
+ZX
+Dc
+VY
+Lu
+vx
+MT
+uR
+uR
+uR
+uR
+KY
+Wl
 YE
 YE
 YE
 YE
 YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
+SW
+SW
 YE
 YE
 YE
@@ -61928,37 +61988,37 @@ YE
 YE
 YE
 YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
+Wl
+Iv
+Iv
+oa
+Wl
+Iv
+Iv
+Iv
+Iv
+Iv
+Wl
+Iv
+Iv
+Iv
+Dc
+VY
+Lu
+vx
+MT
+uR
+uR
+uR
+uR
+KY
+Wl
+SW
+SW
+SW
+SW
+SW
+SW
 YE
 YE
 YE
@@ -62230,31 +62290,31 @@ YE
 YE
 YE
 YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
+Wl
+Yy
+Yy
+Wl
+Wl
+Dc
+Dc
+Dc
+Dc
+Dc
+Wl
+Wl
+Yy
+Yy
+Wl
+Dr
+Wl
+Wl
+MT
+uR
+uR
+uR
+uR
+KY
+Wl
 YE
 YE
 YE
@@ -62532,6 +62592,10 @@ YE
 YE
 YE
 YE
+Wl
+NF
+NF
+Dc
 YE
 YE
 YE
@@ -62539,24 +62603,20 @@ YE
 YE
 YE
 YE
+Dc
+NF
+NF
+Dc
 YE
 YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
+Wl
+QD
+HR
+HR
+HR
+HR
+xq
+Wl
 YE
 YE
 YE
@@ -62834,6 +62894,10 @@ YE
 YE
 YE
 YE
+Wl
+Yy
+Yy
+Wl
 YE
 YE
 YE
@@ -62841,14 +62905,10 @@ YE
 YE
 YE
 YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
+Wl
+Yy
+Yy
+Wl
 YE
 YE
 YE
@@ -63135,12 +63195,12 @@ YE
 YE
 YE
 YE
-YE
-YE
-YE
-YE
-YE
-YE
+Fp
+Fp
+Fp
+Fp
+Fp
+Fp
 YE
 YE
 YE
@@ -63437,13 +63497,13 @@ YE
 YE
 YE
 YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
+Fp
+Fp
+Fp
+Fp
+Fp
+Fp
+Fp
 YE
 YE
 YE
@@ -63739,14 +63799,14 @@ YE
 YE
 YE
 YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
+Fp
+Fp
+Fp
+Fp
+Fp
+Fp
+Fp
+Fp
 YE
 YE
 YE
@@ -64041,14 +64101,14 @@ YE
 YE
 YE
 YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
+Fp
+Fp
+Fp
+Fp
+Fp
+Fp
+Fp
+Fp
 YE
 YE
 YE
@@ -64343,14 +64403,14 @@ YE
 YE
 YE
 YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
+Fp
+Fp
+Fp
+Fp
+Fp
+Fp
+Fp
+Fp
 YE
 YE
 YE
@@ -64645,13 +64705,13 @@ YE
 YE
 YE
 YE
-YE
-YE
-YE
-YE
-YE
-YE
-YE
+Fp
+Fp
+Fp
+Fp
+Fp
+Fp
+Fp
 YE
 YE
 YE
@@ -64947,12 +65007,12 @@ YE
 YE
 YE
 YE
-YE
-YE
-YE
-YE
-YE
-YE
+Fp
+Fp
+Fp
+Fp
+Fp
+Fp
 YE
 YE
 YE
