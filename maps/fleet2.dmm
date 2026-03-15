@@ -8644,13 +8644,15 @@
 /area/station/security/brig/genpop)
 "dHV" = (
 /obj/table/reinforced/auto,
-/obj/machinery/recharger,
 /obj/machinery/light{
 	dir = 4;
 	layer = 9.1;
 	pixel_x = 10
 	},
 /obj/item_dispenser/idcarddispenser,
+/obj/machinery/shredder{
+	pixel_y = 7
+	},
 /turf/simulated/floor/wood/seven,
 /area/station/bridge/dionysus)
 "dIa" = (
@@ -41222,17 +41224,39 @@
 /area/station/hallway/primary/central/maru)
 "rHh" = (
 /obj/table/wood/auto,
+/obj/item/coin{
+	desc = "One side is adorned with a strange-looking ship, and the other with the words 'Una Salus Victus' surrounded by a wreath.";
+	name = "thick coin";
+	pixel_x = -7;
+	pixel_y = 11
+	},
+/obj/item/coin{
+	desc = "Upon close inspection, you're pretty sure this thing is an arcade token.";
+	name = "tarnished coin";
+	pixel_x = -2;
+	pixel_y = 8
+	},
+/obj/item/coin{
+	desc = "Its face is engraved with a strange hexagon-based fractal. The other side is polished to a mirror sheen.";
+	name = "strange coin";
+	pixel_x = 4;
+	pixel_y = 11
+	},
 /obj/item/paper_bin{
-	pixel_x = -9;
-	pixel_y = 4
+	pixel_y = -5;
+	pixel_x = 5
 	},
 /obj/item/pen/fancy{
-	pixel_y = 3;
-	pixel_x = -14
+	pixel_y = -2;
+	pixel_x = -6
 	},
-/obj/item/chem_grenade/metalfoam{
-	pixel_y = 2;
-	pixel_x = 4
+/obj/item/stamp/hop{
+	pixel_y = -9;
+	pixel_x = -9
+	},
+/obj/item/pen/crayon/golden{
+	pixel_y = -6;
+	pixel_x = 2
 	},
 /turf/simulated/floor/wood/seven,
 /area/station/bridge/customs{
@@ -52362,28 +52386,7 @@
 "wjl" = (
 /obj/machinery/light,
 /obj/table/wood/auto,
-/obj/item/pen/crayon/golden{
-	pixel_y = 18
-	},
-/obj/item/stamp/hop{
-	pixel_y = 13;
-	pixel_x = -4
-	},
-/obj/item/coin{
-	desc = "One side is adorned with a strange-looking ship, and the other with the words 'Una Salus Victus' surrounded by a wreath.";
-	name = "thick coin";
-	pixel_x = -4;
-	pixel_y = 1
-	},
-/obj/item/coin{
-	desc = "Upon close inspection, you're pretty sure this thing is an arcade token.";
-	name = "tarnished coin";
-	pixel_x = 5
-	},
-/obj/item/coin{
-	desc = "Its face is engraved with a strange hexagon-based fractal. The other side is polished to a mirror sheen.";
-	name = "strange coin";
-	pixel_x = 9;
+/obj/machinery/recharger{
 	pixel_y = 3
 	},
 /turf/simulated/floor/wood/seven,
