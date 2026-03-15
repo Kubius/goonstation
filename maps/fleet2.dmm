@@ -9042,7 +9042,7 @@
 "dQc" = (
 /obj/machinery/mass_driver{
 	desc = "A device that launches objects, like ANCIENT BOMBS, for example, on it at great velocity when activated.";
-	drive_range = 100;
+	drive_range = 150;
 	id = "artlabgun"
 	},
 /obj/machinery/light/small{
@@ -49836,7 +49836,7 @@
 "vaS" = (
 /obj/machinery/mass_driver{
 	desc = "A device that launches objects, like ANCIENT BOMBS, for example, on it at great velocity when activated.";
-	drive_range = 100;
+	drive_range = 150;
 	id = "artlabgun"
 	},
 /turf/simulated/floor/caution/westeast,
