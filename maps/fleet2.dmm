@@ -34247,6 +34247,7 @@
 /turf/simulated/wall/auto/reinforced/jen/dark2,
 /area/station/hallway/primary/central/meridian)
 "oBp" = (
+/obj/floorpillstatue,
 /turf/simulated/floor/plating,
 /area/station/engine/substation/asclepius)
 "oBx" = (
