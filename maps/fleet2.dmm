@@ -1406,7 +1406,6 @@
 "aGK" = (
 /obj/table/reinforced/auto,
 /obj/machinery/cell_charger,
-/obj/item/cell/charged,
 /obj/machinery/light{
 	dir = 1;
 	layer = 9.1;
@@ -4521,6 +4520,10 @@
 	},
 /turf/simulated/floor/sanitary,
 /area/station/science/chemistry)
+"bYQ" = (
+/obj/disposalpipe/switch_junction/biofilter/right/west,
+/turf/simulated/floor/plating,
+/area/ghostdrone_factory)
 "bYZ" = (
 /obj/cable{
 	icon_state = "1-4"
@@ -8419,7 +8422,6 @@
 "dzy" = (
 /obj/table/reinforced/auto,
 /obj/machinery/cell_charger,
-/obj/item/cell/charged,
 /obj/machinery/light{
 	dir = 1;
 	layer = 9.1;
@@ -19908,6 +19910,11 @@
 	},
 /turf/simulated/floor/circuit/off,
 /area/station/teleporter/asclepius)
+"ilt" = (
+/obj/disposalpipe/trunk/north,
+/obj/disposaloutlet/east,
+/turf/simulated/floor/plating,
+/area/ghostdrone_factory)
 "imr" = (
 /obj/machinery/conveyor/WE{
 	id = "disposal-hammer"
@@ -22256,7 +22263,6 @@
 "jlp" = (
 /obj/table/reinforced/auto,
 /obj/machinery/cell_charger,
-/obj/item/cell/charged,
 /obj/machinery/light{
 	dir = 1;
 	layer = 9.1;
@@ -38434,7 +38440,6 @@
 "quD" = (
 /obj/table/reinforced/auto,
 /obj/machinery/cell_charger,
-/obj/item/cell/charged,
 /obj/machinery/light{
 	dir = 1;
 	layer = 9.1;
@@ -39471,7 +39476,6 @@
 "qSq" = (
 /obj/table/reinforced/auto,
 /obj/machinery/cell_charger,
-/obj/item/cell/charged,
 /obj/machinery/light{
 	dir = 1;
 	layer = 9.1;
@@ -49143,7 +49147,6 @@
 "uOC" = (
 /obj/table/reinforced/auto,
 /obj/machinery/cell_charger,
-/obj/item/cell/charged,
 /obj/machinery/light{
 	dir = 1;
 	layer = 9.1;
@@ -108776,8 +108779,8 @@ hhV
 gHg
 jVM
 sGq
-xxq
-sGq
+bYQ
+ilt
 lEJ
 ktp
 eia
