@@ -31881,7 +31881,8 @@
 /obj/machinery/mass_driver{
 	dir = 1;
 	id = "ghostboye";
-	name = "drone dispersal cannon"
+	name = "drone dispersal cannon";
+	drive_range = 300
 	},
 /obj/machinery/light/small{
 	dir = 4;
@@ -34129,7 +34130,8 @@
 /obj/machinery/mass_driver{
 	dir = 1;
 	id = "ghostboye";
-	name = "drone dispersal cannon"
+	name = "drone dispersal cannon";
+	drive_range = 300
 	},
 /obj/machinery/door/poddoor/blast/single{
 	id = "ghostboye"
