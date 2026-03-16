@@ -1869,10 +1869,15 @@
 /obj/stool/chair/comfy/wheelchair{
 	dir = 4
 	},
-/obj/disposalpipe/segment/mail/horizontal,
 /turf/simulated/floor/blueblack{
 	dir = 10
 	},
+/area/station/medical/medbay/psychiatrist{
+	name = "Subacute Care"
+	})
+"aRC" = (
+/obj/disposalpipe/segment/mail/horizontal,
+/turf/simulated/wall/auto/reinforced/jen/blue,
 /area/station/medical/medbay/psychiatrist{
 	name = "Subacute Care"
 	})
@@ -4751,7 +4756,6 @@
 	dir = 4
 	},
 /obj/machinery/light/small,
-/obj/disposalpipe/segment/mail/bent/west,
 /turf/simulated/floor/blueblack,
 /area/station/medical/medbay/psychiatrist{
 	name = "Subacute Care"
@@ -5023,7 +5027,6 @@
 /obj/cable{
 	icon_state = "1-2"
 	},
-/obj/disposalpipe/segment/mail/vertical,
 /turf/simulated/floor/blueblack{
 	dir = 1
 	},
@@ -6123,7 +6126,6 @@
 	},
 /obj/mapping_helper/access/medical,
 /obj/mapping_helper/firedoor_spawn,
-/obj/disposalpipe/segment/mail/vertical,
 /turf/simulated/floor/blue,
 /area/station/medical/medbay/psychiatrist{
 	name = "Subacute Care"
@@ -6617,7 +6619,6 @@
 /turf/simulated/wall/auto/jen/green,
 /area/station/storage/hydroponics)
 "cLx" = (
-/obj/disposalpipe/segment/mail/horizontal,
 /turf/simulated/floor/engine/caution/south,
 /area/station/hangar/hammer)
 "cLB" = (
@@ -6916,6 +6917,7 @@
 /area/station/storage/eva)
 "cTj" = (
 /obj/machinery/light/small,
+/obj/disposalpipe/segment/mail/vertical,
 /turf/simulated/floor/carpet/blue/fancy/edge/sw,
 /area/station/medical/medbay/psychiatrist{
 	name = "Subacute Care"
@@ -8872,6 +8874,11 @@
 /obj/machinery/hydro_growlamp,
 /turf/simulated/floor/grass,
 /area/station/hydroponics/bay)
+"dIY" = (
+/obj/mapping_helper/wingrille_spawn/auto/reinforced,
+/obj/disposalpipe/segment/mail/vertical,
+/turf/simulated/floor/plating,
+/area/station/hangar/hammer)
 "dJh" = (
 /obj/cable/orange{
 	icon_state = "5-10"
@@ -8981,7 +8988,6 @@
 /obj/cable{
 	icon_state = "1-4"
 	},
-/obj/disposalpipe/segment/mail/horizontal,
 /turf/simulated/floor/bluewhite/corner,
 /area/station/hallway/primary/central/asclepius)
 "dLE" = (
@@ -9247,6 +9253,10 @@
 	},
 /turf/simulated/floor/carpet/blue/fancy/edge/se,
 /area/station/bridge/asclepius)
+"dQR" = (
+/obj/disposalpipe/segment/mail/bent/north,
+/turf/simulated/floor/orangeblack,
+/area/station/hangar/hammer)
 "dRc" = (
 /obj/cable{
 	icon_state = "0-4"
@@ -10872,6 +10882,7 @@
 /obj/cable{
 	icon_state = "2-8"
 	},
+/obj/disposalpipe/segment/mail/vertical,
 /turf/simulated/floor/blueblack{
 	dir = 1
 	},
@@ -12952,6 +12963,14 @@
 /area/station/routing/depot{
 	name = "Routing Buoy"
 	})
+"frD" = (
+/obj/lattice{
+	dir = 9;
+	icon_state = "lattice-dir-b"
+	},
+/obj/disposalpipe/segment/mail/horizontal,
+/turf/space,
+/area/space)
 "frH" = (
 /obj/cable/brown{
 	icon_state = "1-2"
@@ -15105,7 +15124,6 @@
 /area/station/hangar/maru)
 "gge" = (
 /obj/machinery/camera/directional/south,
-/obj/disposalpipe/segment/mail/horizontal,
 /turf/simulated/floor/engine/caution/south,
 /area/station/hangar/hammer)
 "ggq" = (
@@ -18431,6 +18449,7 @@
 	},
 /obj/cable,
 /obj/machinery/power/data_terminal,
+/obj/disposalpipe/segment/mail/vertical,
 /turf/simulated/floor/carpet/blue/fancy/edge/north,
 /area/station/medical/medbay/psychiatrist{
 	name = "Subacute Care"
@@ -18439,6 +18458,7 @@
 /obj/cable{
 	icon_state = "2-8"
 	},
+/obj/disposalpipe/segment/mail/vertical,
 /turf/simulated/floor/specialroom/medbay,
 /area/station/medical/medbay/treatment1)
 "hzs" = (
@@ -19677,7 +19697,6 @@
 /obj/cable{
 	icon_state = "2-4"
 	},
-/obj/disposalpipe/segment/mail/bent/east,
 /turf/simulated/floor/white,
 /area/station/hallway/primary/central/asclepius)
 "iaw" = (
@@ -19882,6 +19901,7 @@
 	layer = 9.1;
 	pixel_y = 21
 	},
+/obj/disposalpipe/segment/mail/vertical,
 /turf/simulated/floor/specialroom/medbay,
 /area/station/medical/medbay/treatment1)
 "ieF" = (
@@ -26596,7 +26616,6 @@
 /obj/cable{
 	icon_state = "1-2"
 	},
-/obj/disposalpipe/segment/mail/vertical,
 /turf/simulated/floor/bluewhite,
 /area/station/hallway/primary/central/asclepius)
 "kUI" = (
@@ -27257,7 +27276,6 @@
 /obj/machinery/vehicle/pod_smooth/light{
 	dir = 4
 	},
-/obj/disposalpipe/segment/mail/horizontal,
 /turf/simulated/floor/engine/caution/corner,
 /area/station/hangar/hammer)
 "ljb" = (
@@ -27925,6 +27943,7 @@
 /turf/simulated/floor/darkblue,
 /area/station/turret_protected/ai)
 "lAw" = (
+/obj/disposalpipe/segment/mail/vertical,
 /turf/simulated/floor/stairs{
 	dir = 8
 	},
@@ -29136,7 +29155,6 @@
 /obj/cable{
 	icon_state = "1-2"
 	},
-/obj/disposalpipe/segment/mail/vertical,
 /obj/landmark/gps_waypoint,
 /turf/simulated/floor/black,
 /area/station/medical/medbay/psychiatrist{
@@ -29220,6 +29238,7 @@
 /obj/cable{
 	icon_state = "1-2"
 	},
+/obj/disposalpipe/segment/mail/vertical,
 /turf/simulated/floor/black,
 /area/station/medical/medbay/psychiatrist{
 	name = "Subacute Care"
@@ -30021,7 +30040,6 @@
 /obj/cable{
 	icon_state = "1-8"
 	},
-/obj/disposalpipe/segment/mail/vertical,
 /turf/simulated/floor/black,
 /area/station/medical/medbay/psychiatrist{
 	name = "Subacute Care"
@@ -30921,6 +30939,7 @@
 	},
 /obj/mapping_helper/access/medical,
 /obj/mapping_helper/firedoor_spawn,
+/obj/disposalpipe/segment/mail/vertical,
 /turf/simulated/floor/specialroom/medbay,
 /area/station/medical/medbay/treatment1)
 "mSw" = (
@@ -32172,13 +32191,6 @@
 /obj/machinery/atmospherics/unary/cold_sink/freezer/emergency,
 /turf/simulated/floor/engine,
 /area/station/engine/core/nuclear)
-"nwo" = (
-/obj/mapping_helper/wingrille_spawn/auto/reinforced,
-/obj/disposalpipe/segment/mail/horizontal,
-/turf/simulated/floor/plating,
-/area/station/medical/medbay/psychiatrist{
-	name = "Subacute Care"
-	})
 "nwq" = (
 /obj/mapping_helper/wingrille_spawn/auto/reinforced,
 /obj/disposalpipe/segment/mail/horizontal,
@@ -35655,6 +35667,13 @@
 	dir = 4
 	},
 /area/station/hangar/maru)
+"oWn" = (
+/obj/mapping_helper/wingrille_spawn/auto/reinforced,
+/obj/disposalpipe/segment/mail/bent/west,
+/turf/simulated/floor/plating,
+/area/station/medical/medbay/psychiatrist{
+	name = "Subacute Care"
+	})
 "oWo" = (
 /obj/mesh/catwalk,
 /obj/cable{
@@ -37264,6 +37283,10 @@
 	dir = 8
 	},
 /area/station/hallway/primary/north/meridian)
+"pDV" = (
+/obj/disposalpipe/segment/mail/horizontal,
+/turf/simulated/floor/orangeblack,
+/area/station/hangar/hammer)
 "pEh" = (
 /obj/cable/brown{
 	icon_state = "1-2"
@@ -38486,18 +38509,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/southeast/tenebrae)
-"qgu" = (
-/obj/forcefield/energyshield/perma/doorlink{
-	dir = 8
-	},
-/obj/machinery/door/poddoor/blast/pyro/podbay_autoclose{
-	name = "Hammer pod bay door";
-	id = "hammerprimaryhangar";
-	dir = 4
-	},
-/obj/disposalpipe/segment/mail/horizontal,
-/turf/simulated/floor/engine/caution/westeast,
-/area/station/hangar/hammer)
 "qhw" = (
 /obj/reagent_dispensers/watertank/fountain,
 /obj/machinery/light{
@@ -39652,6 +39663,7 @@
 "qGa" = (
 /obj/mapping_helper/wingrille_spawn/auto/reinforced,
 /obj/window_blinds/cog2/middle,
+/obj/disposalpipe/segment/mail/vertical,
 /turf/simulated/floor/plating,
 /area/station/medical/medbay/treatment1)
 "qGs" = (
@@ -40018,12 +40030,6 @@
 "qPv" = (
 /turf/simulated/wall/auto/jen/yellow,
 /area/station/quartermaster/office)
-"qPE" = (
-/obj/disposalpipe/segment/mail/vertical,
-/turf/simulated/floor/black,
-/area/station/medical/medbay/psychiatrist{
-	name = "Subacute Care"
-	})
 "qPL" = (
 /obj/cable{
 	icon_state = "1-2"
@@ -47099,7 +47105,6 @@
 /obj/cable{
 	icon_state = "1-2"
 	},
-/obj/disposalpipe/segment/mail/vertical,
 /turf/simulated/floor/white,
 /area/station/hallway/primary/central/asclepius)
 "tGo" = (
@@ -49772,14 +49777,6 @@
 /obj/mapping_helper/access/head_of_personnel,
 /turf/simulated/floor/carpet/red/fancy/edge/se,
 /area/station/crew_quarters/courtroom)
-"uHp" = (
-/obj/lattice{
-	dir = 9;
-	icon_state = "lattice-dir"
-	},
-/obj/disposalpipe/segment/mail/horizontal,
-/turf/space,
-/area/space)
 "uHy" = (
 /obj/stool/chair{
 	dir = 8
@@ -52931,6 +52928,13 @@
 /obj/disposalpipe/segment/bent/west,
 /turf/simulated/floor,
 /area/station/hangar/meridian)
+"vWz" = (
+/obj/cable{
+	icon_state = "4-8"
+	},
+/obj/disposalpipe/segment/mail/bent/east,
+/turf/simulated/floor/bluewhite,
+/area/station/hallway/primary/central/asclepius)
 "vWH" = (
 /obj/cable{
 	icon_state = "1-2"
@@ -53283,7 +53287,7 @@
 	pixel_x = -24
 	},
 /obj/mapping_helper/button/area,
-/obj/disposalpipe/segment/mail/bent/north,
+/obj/disposalpipe/segment/mail/vertical,
 /turf/simulated/floor/grey/side{
 	dir = 8
 	},
@@ -55683,6 +55687,7 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/light/small/floor,
+/obj/disposalpipe/segment/mail/vertical,
 /turf/simulated/floor/specialroom/medbay,
 /area/station/medical/medbay/treatment1)
 "xgm" = (
@@ -56466,6 +56471,7 @@
 	dir = 8
 	},
 /obj/landmark/start/job/medical_doctor,
+/obj/disposalpipe/segment/mail/vertical,
 /turf/simulated/floor/carpet/blue/fancy/innercorner/sw,
 /area/station/medical/medbay/psychiatrist{
 	name = "Subacute Care"
@@ -104956,8 +104962,8 @@ tCe
 jDr
 weQ
 lAw
-kYL
-xlq
+dIY
+dQR
 gNC
 irW
 pto
@@ -105259,7 +105265,7 @@ mcS
 liW
 hHY
 kYL
-xlq
+pDV
 kYL
 miw
 bUD
@@ -105561,7 +105567,7 @@ wzt
 cLx
 qsn
 yfx
-kYL
+gHC
 yfx
 irW
 pto
@@ -105863,7 +105869,7 @@ wzt
 cLx
 qsn
 kYL
-miw
+fXj
 oZx
 irW
 pto
@@ -106165,7 +106171,7 @@ wzt
 cLx
 qsn
 kYL
-eDb
+rvL
 pto
 cLo
 pto
@@ -106467,7 +106473,7 @@ wzt
 cLx
 viU
 kYL
-eDb
+rvL
 pto
 pto
 pto
@@ -106769,7 +106775,7 @@ wzt
 gge
 yfx
 yfx
-miw
+fXj
 bUD
 bUD
 bUD
@@ -107068,10 +107074,10 @@ gfm
 gfm
 gfm
 gfm
-qgu
+gfm
 yfx
 oZx
-irW
+rrE
 pto
 pto
 pto
@@ -107370,10 +107376,10 @@ pto
 pto
 pto
 pto
-sky
+pto
 eDb
 pto
-cLo
+xVS
 pto
 pto
 pto
@@ -107672,10 +107678,10 @@ pto
 pto
 pto
 pto
-sky
+pto
 cLo
 pto
-pto
+sky
 pto
 pto
 pto
@@ -107974,10 +107980,10 @@ pto
 pto
 pto
 pto
+pto
+pto
+pto
 sky
-pto
-pto
-pto
 pto
 pto
 pto
@@ -108276,10 +108282,10 @@ pto
 pto
 pto
 pto
+pto
+pto
+pto
 sky
-pto
-pto
-pto
 pto
 pto
 pto
@@ -108578,10 +108584,10 @@ pto
 pto
 pto
 pto
+pto
+pto
+pto
 sky
-pto
-pto
-pto
 pto
 pto
 pto
@@ -108880,10 +108886,10 @@ pto
 pto
 pto
 pto
+pto
+pto
+pto
 sky
-pto
-pto
-pto
 pto
 pto
 pto
@@ -109182,10 +109188,10 @@ pto
 pto
 pto
 pto
+pto
+pto
+pto
 sky
-pto
-pto
-pto
 pto
 pto
 pto
@@ -109484,10 +109490,10 @@ pto
 pto
 pto
 pto
+pto
+pto
+pto
 sky
-pto
-pto
-pto
 pto
 pto
 pto
@@ -109786,10 +109792,10 @@ pto
 pto
 pto
 pto
+pto
+pto
+pto
 sky
-pto
-pto
-pto
 pto
 pto
 pto
@@ -110088,10 +110094,10 @@ pto
 pto
 pto
 pto
+pto
+pto
+pto
 sky
-pto
-pto
-pto
 pto
 pto
 pto
@@ -110390,10 +110396,10 @@ pto
 pto
 pto
 pto
+pto
+pto
+pto
 sky
-pto
-pto
-pto
 pto
 pto
 pto
@@ -110692,10 +110698,10 @@ pto
 pto
 pto
 pto
+pto
+pto
+pto
 sky
-pto
-pto
-pto
 pto
 pto
 pto
@@ -110994,10 +111000,10 @@ pto
 pto
 pto
 pto
+pto
+pto
+pto
 sky
-pto
-pto
-pto
 pto
 pto
 pto
@@ -111296,10 +111302,10 @@ pto
 pto
 pto
 pto
+pto
+pto
+pto
 sky
-pto
-pto
-pto
 pto
 pto
 pto
@@ -111598,10 +111604,10 @@ pto
 pto
 pto
 pto
+pto
+pto
+pto
 sky
-pto
-pto
-pto
 pto
 pto
 pto
@@ -111900,10 +111906,10 @@ pto
 pto
 pto
 pto
+pto
+pto
+pto
 sky
-pto
-pto
-pto
 pto
 pto
 pto
@@ -112202,10 +112208,10 @@ pto
 pto
 pto
 pto
+pto
+pto
+pto
 sky
-pto
-pto
-pto
 pto
 pto
 pto
@@ -112504,10 +112510,10 @@ pto
 pto
 pto
 pto
+pto
+pto
+pto
 sky
-pto
-pto
-pto
 pto
 pto
 pto
@@ -112806,10 +112812,10 @@ pto
 pto
 pto
 pto
+pto
+pto
+pto
 sky
-pto
-pto
-pto
 pto
 pto
 pto
@@ -113108,10 +113114,10 @@ pto
 pto
 pto
 pto
+pto
+pto
+pto
 sky
-pto
-pto
-pto
 pto
 pto
 pto
@@ -113410,10 +113416,10 @@ pto
 pto
 pto
 pto
+pto
+pto
+pto
 sky
-pto
-pto
-pto
 pto
 pto
 pto
@@ -113712,10 +113718,10 @@ pto
 dlW
 pto
 pto
+pto
+pto
+pto
 sky
-pto
-pto
-pto
 pto
 pto
 pto
@@ -114014,10 +114020,10 @@ nOu
 irW
 pto
 pto
+pto
+pto
+pto
 sky
-pto
-pto
-pto
 pto
 pto
 pto
@@ -114316,10 +114322,10 @@ pto
 eDb
 dlW
 pto
+pto
+pto
+pto
 sky
-pto
-pto
-pto
 pto
 pto
 pto
@@ -114618,10 +114624,10 @@ wGf
 miw
 cds
 fVY
+pto
+pto
+pto
 sky
-pto
-pto
-pto
 pto
 pto
 pto
@@ -114920,10 +114926,10 @@ fAQ
 dsP
 vHm
 pto
-uHp
+dlW
 pto
 pto
-pto
+sky
 pto
 pto
 pto
@@ -115222,10 +115228,10 @@ uxZ
 aeO
 iin
 oWq
-rrE
+irW
 pto
 pto
-pto
+sky
 pto
 pto
 pto
@@ -115524,10 +115530,10 @@ tir
 fci
 hgf
 fMf
-rvL
+eDb
 pto
 pto
-pto
+sky
 pto
 pto
 pto
@@ -115826,10 +115832,10 @@ cLB
 gbo
 lHy
 jVu
-rvL
+eDb
 pto
 pto
-pto
+sky
 pto
 pto
 pto
@@ -116128,10 +116134,10 @@ kJp
 wjY
 kgb
 edU
-rvL
+eDb
 pto
 pto
-pto
+sky
 pto
 pto
 pto
@@ -116430,10 +116436,10 @@ edU
 edU
 edU
 edU
-nwo
+dBg
 mlE
 pto
-pto
+sky
 pto
 pto
 pto
@@ -116732,10 +116738,10 @@ qRQ
 cBm
 riN
 cBK
-nwo
+dBg
 dBg
 pto
-pto
+sky
 pto
 pto
 pto
@@ -117037,7 +117043,7 @@ wWi
 aRa
 dBg
 mlE
-pto
+sky
 pto
 pto
 pto
@@ -117335,11 +117341,11 @@ cBV
 cgl
 mcA
 mup
-qPE
+gNQ
 caY
 vvo
 vvo
-pto
+sky
 pto
 pto
 pto
@@ -117641,7 +117647,7 @@ gNQ
 wWi
 djT
 dBg
-pto
+sky
 pto
 pto
 pto
@@ -117932,7 +117938,7 @@ aYr
 juu
 bkg
 dYz
-sBN
+qWJ
 stR
 stR
 stR
@@ -117943,7 +117949,7 @@ gNQ
 vbx
 oFL
 dBg
-mlE
+frD
 pto
 pto
 pto
@@ -118234,7 +118240,7 @@ lri
 juu
 rvb
 tkp
-sBN
+qWJ
 akT
 hRH
 mex
@@ -118245,7 +118251,7 @@ gNQ
 kVn
 hKr
 vvo
-vvo
+aRC
 pto
 pto
 pto
@@ -118536,7 +118542,7 @@ fZQ
 juu
 tFF
 cpX
-sBN
+vWz
 qGa
 ieb
 hzr
@@ -118547,7 +118553,7 @@ meu
 hzo
 xyb
 cTj
-dBg
+oWn
 pto
 pto
 pto
