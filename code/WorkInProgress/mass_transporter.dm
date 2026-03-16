@@ -2,12 +2,14 @@
 #define TELE_INJURY_POWEROFF 2
 #define TELE_INJURY_TELEFRAG 3
 
-///Percentage of cell charge required to initiate a transport, to (usually) avoid running out of charge before the transport completes.
-#define CHARGE_SAFETY_THRESHOLD 85
-///Consumes this amount for 3 machine ticks during transport, regardless of how many things are on the pad.
+///Percentage of cell charge below which low-power mode is used (consumes much less energy, but takes twice as many cycles to transport)
+#define LP_MODE_THRESHOLD 85
+///Percentage of cell charge required to initiate
+#define CHARGE_SAFETY_THRESHOLD 50
+///At full speed, consumes this amount each machine tick during transport, regardless of how many things are on the pad.
 #define CYCLICAL_POWER_USAGE 180000
 ///Consumes this amount on the successful transport tick for each large object or mob we moved.
-#define PER_TRANSPORTED_USAGE 90000
+#define PER_TRANSPORTED_USAGE 40000
 
 //Intent is for the safety threshold to barely allow reliable safe transport of 2-3 people when outside power to a default cell is entirely severed.
 //Power usage should be as high as possible within this bound.
@@ -109,14 +111,16 @@
 	///A nearby computer providing targeting data. Must be present for the mass transporter to operate.
 	var/obj/machinery/computer/mass_transport/linked_computer = null
 
-	///Whether an outbound teleport is currently being attempted.
-	var/teleport_underway = FALSE
-	///Progress to successful teleportation. Three power cycles must successfully complete before transportation.
-	var/teleport_progress = 0
-	///As a safety measure, the mass transporter requires a certain percentage of local cell capacity (defined above) to be filled.
+	///Whether an outbound transport is currently being attempted.
+	var/transport_underway = FALSE
+	///Low power mode can be set for a given transport attempt, which doubles the necessary cycles but drastically reduces electrical load.
+	var/low_power_mode = FALSE
+	///Progress to successful teleportation. Several cycles must successfully complete before transport (three ordinarily, six in low power mode).
+	var/transport_progress = 0
+	///When deactivated, all safety features are entirely disregarded and the transporter will always operate in high power mode.
 	var/charge_safety = TRUE
 
-	///Once a teleport begins, the selection of target transporter is loaded in from the mass transport control computer.
+	///Once a transport begins, the selection of target transporter is loaded in from the mass transport control computer.
 	var/obj/machinery/mass_transporter/transporting_to = null
 	///If another mass transporter is attempting to reach this transporter, it cannot initiate an outbound connection.
 	var/inbound_in_progress = FALSE
@@ -172,7 +176,7 @@
 
 	attack_hand()
 		if (!ON_COOLDOWN(src, "interaction_ratelimit", 1 SECOND))
-			if (src.teleport_underway)
+			if (src.transport_underway)
 				src.abort_teleport()
 			else
 				src.try_activate()
@@ -204,11 +208,15 @@
 		if (!local_apc)
 			src.visible_message(SPAN_ALERT("<b>[src]</b> intones, \"System error. No compatible local energy source.\""))
 			return
+
+		var/slowmode = FALSE
 		if (src.charge_safety)
 			var/obj/item/cell/apc_cell = local_apc.cell
 			if (!apc_cell || apc_cell.charge < ((0.01 * CHARGE_SAFETY_THRESHOLD) * apc_cell.maxcharge))
 				src.visible_message(SPAN_ALERT("<b>[src]</b> intones, \"System error. Area power controller must exceed [CHARGE_SAFETY_THRESHOLD]% charge for initialization.\""))
 				return
+			else if (apc_cell.charge < ((0.01 * LP_MODE_THRESHOLD) * apc_cell.maxcharge))
+				slowmode = TRUE
 
 		if (!linked_computer.locked_target)
 			src.visible_message("<b>[src]</b> intones, \"Unable to initalize transportation - no destination has been set.\"")
@@ -217,35 +225,47 @@
 		if (!istype(src.transporting_to.loc,/turf))
 			src.visible_message(SPAN_ALERT("<b>[src]</b> intones, \"Unable to initalize transportation - destination no longer exists.\""))
 			return
-		src.visible_message("<b>[src]</b> intones, \"Teleportation process beginning. Please stow personal effects and remain stationary until teleport completes.\"")
+		if(slowmode)
+			src.visible_message("<b>[src]</b> intones, \"Local APC power below [LP_MODE_THRESHOLD]%; beginning low-power transport. Please remain stationary until process completes.\"")
+		else
+			src.visible_message("<b>[src]</b> intones, \"Transport process beginning. Please stow personal effects and remain stationary until process completes.\"")
 		src.add_fingerprint(usr)
-		src.initialize_teleport()
+		src.initialize_teleport(slowmode)
 		return
 
 	proc/abort_teleport()
 		if(status & (BROKEN|NOPOWER))
 			return
-		src.visible_message("<b>[src]</b> intones, \"Teleportation process aborted.\"")
+		src.visible_message("<b>[src]</b> intones, \"Transport process aborted.\"")
 		playsound(src.loc, 'sound/machines/keypress.ogg', 50, 1, -15)
 		src.add_fingerprint(usr)
 		src.conclude_teleport(FALSE)
 		return
 
 	process()
-		if (src.teleport_underway)
+		if (src.transport_underway)
+			var/target_cycles = 3
+			if(src.low_power_mode) target_cycles = 6
+
 			if(status & (BROKEN|NOPOWER) || !src.transporting_to)
 				src.conclude_teleport(FALSE,TRUE)
-			power_usage = CYCLICAL_POWER_USAGE
-			src.teleport_progress++
-			if (teleport_progress >= 3)
+
+			if(src.low_power_mode)
+				power_usage = CYCLICAL_POWER_USAGE * 0.1 //this discount is half as effective as it looks, because you're doing 2x the cycles
+			else
+				power_usage = CYCLICAL_POWER_USAGE
+
+			src.transport_progress++
+			if (transport_progress >= target_cycles)
 				src.conclude_teleport(TRUE)
 			else
 				playsound(src.loc, 'sound/machines/interdictor_operate.ogg', 15, 0, 0, 0.5)
 				if (!(src.transporting_to.status & (BROKEN|NOPOWER)))
-					playsound(src.transporting_to.loc, 'sound/effects/ship_alert_minor.ogg', 50, 0)
-					if (src.teleport_progress == 2)
+					if (src.transport_progress > target_cycles - 3)
+						playsound(src.transporting_to.loc, 'sound/effects/ship_alert_minor.ogg', 50, 0)
+					if (src.transport_progress == target_cycles - 1)
 						src.transporting_to.visible_message(SPAN_ALERT("<b>[src] loudly intones, \"CLEAR PAD - TRANSPORT INBOUND.\"</b>"))
-				if (src.teleport_progress == 2)
+				if (src.transport_progress == target_cycles - 1)
 					for (var/mob/M in orange(1,src))
 						src.mobs_being_sent[M.name] = "[M.x]-[M.y]"
 		else
@@ -255,13 +275,13 @@
 	power_change()
 		..()
 		if(status & (BROKEN|NOPOWER))
-			if(teleport_underway)
+			if(transport_underway)
 				src.conclude_teleport(FALSE,TRUE)
 			src.ClearSpecificOverlays("screen_image")
 		else
 			src.AddOverlays(screen_image, "screen_image")
 
-	proc/initialize_teleport()
+	proc/initialize_teleport(var/we_slow)
 		src.light.enable()
 
 		src.transport_ring.Scale(0,0)
@@ -275,15 +295,20 @@
 		src.AddOverlays(transport_glow, "transport_glow")
 		src.transporting_to.AddOverlays(inbound_warning, "inbound_warning")
 
-		src.teleport_underway = TRUE
+
+		if(we_slow)
+			src.low_power_mode = TRUE
+		else
+			src.low_power_mode = FALSE
+		src.transport_underway = TRUE
 
 	///Completed denotes a successful transport. Hard interrupt indicates it did not shut down gracefully (inflict damage).
 	proc/conclude_teleport(completed,hard_interrupt)
 		src.light.disable()
 		//use animate to interrupt earlier animate in case of early cancellation
 		src.ClearSpecificOverlays("transport_glow")
-		src.teleport_underway = FALSE
-		src.teleport_progress = 0
+		src.transport_underway = FALSE
+		src.transport_progress = 0
 		if(completed && src.transporting_to)
 			playsound(src.loc, 'sound/effects/teleport.ogg', 35, 0, 0, 0.7)
 			src.teleport_some_nerds(src.transporting_to)
@@ -332,7 +357,10 @@
 					var/mobpos = "[morb.x]-[morb.y]"
 					if (!mobs_being_sent[morb.name] || mobs_being_sent[morb.name] != mobpos)
 						src.teleouch(morb,TELE_INJURY_MOTION)
-				use_power(PER_TRANSPORTED_USAGE)
+				if(src.low_power_mode)
+					use_power(PER_TRANSPORTED_USAGE * 0.5)
+				else
+					use_power(PER_TRANSPORTED_USAGE)
 				SPAWN(6 DECI SECONDS)
 					do_teleport(AM,offset_target,FALSE,sparks=FALSE)
 			if (this_turf_teleporting)
@@ -382,7 +410,7 @@
 				if(injury_event == TELE_INJURY_POWEROFF)
 					boutput(M,SPAN_ALERT("[prob(50) ? "An awful wrenching pain" : "A horrible twisting feeling"] reverberates through you. Something hurts..."))
 				else
-					boutput(M,SPAN_ALERT("The teleporter failed to completely compensate for your movement - something hurts..."))
+					boutput(M,SPAN_ALERT("The transporter failed to completely compensate for your movement - something hurts..."))
 				M.nauseate(3)
 				M.change_misstep_chance(15)
 				SPAWN(rand(1,4))
@@ -392,7 +420,7 @@
 				switch(injury_event)
 					if(TELE_INJURY_TELEFRAG) boutput(M,SPAN_ALERT("<B>The incoming teleport collides with you - you're badly hurt!</B>"))
 					if(TELE_INJURY_POWEROFF) boutput(M,SPAN_ALERT("<B>You're [prob(60) ? "violently torqued" : "sheared in space-time"] by the interruption to the teleport stream!</B>"))
-					if(TELE_INJURY_MOTION) boutput(M,SPAN_ALERT("<B>The teleporter failed to compensate for your movement - you're badly hurt!</B>"))
+					if(TELE_INJURY_MOTION) boutput(M,SPAN_ALERT("<B>The transporter failed to compensate for your movement - you're badly hurt!</B>"))
 				M.nauseate(8)
 				M.take_radiation_dose(0.5 SIEVERTS)
 				M.change_misstep_chance(30)
