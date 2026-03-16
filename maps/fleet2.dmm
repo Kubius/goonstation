@@ -11079,9 +11079,6 @@
 /area/station/security/evidence)
 "eCi" = (
 /obj/machinery/light,
-/obj/cable{
-	icon_state = "4-9"
-	},
 /turf/simulated/floor/orangeblack,
 /area/station/hangar/meridian)
 "eCr" = (
@@ -11163,9 +11160,6 @@
 /area/station/turret_protected/Zeta)
 "eDT" = (
 /obj/landmark/halloween,
-/obj/cable{
-	icon_state = "6-9"
-	},
 /turf/simulated/floor/grey/side,
 /area/station/hangar/meridian)
 "eDU" = (
@@ -30069,12 +30063,6 @@
 /obj/disposalpipe/segment/vertical,
 /turf/simulated/floor/plating,
 /area/station/maintenance/disposal/tenebrae)
-"mvd" = (
-/obj/cable{
-	icon_state = "6-8"
-	},
-/turf/space,
-/area/space)
 "mvl" = (
 /obj/machinery/shuttle/engine/heater{
 	dir = 4;
@@ -44888,6 +44876,13 @@
 	dir = 1
 	},
 /area/station/hangar/asclepius)
+"sOQ" = (
+/obj/machinery/door/airlock/pyro/external{
+	dir = 4
+	},
+/obj/mapping_helper/firedoor_spawn,
+/turf/simulated/floor/engine/caution/westeast,
+/area/station/hangar/meridian)
 "sPk" = (
 /obj/cable{
 	icon_state = "1-2"
@@ -57756,9 +57751,6 @@
 "xZm" = (
 /obj/cable{
 	icon_state = "1-8"
-	},
-/obj/cable{
-	icon_state = "6-8"
 	},
 /obj/disposalpipe/segment/mail/horizontal,
 /turf/simulated/floor,
@@ -92332,7 +92324,7 @@ toy
 fjI
 xHe
 fjI
-pYB
+sOQ
 xRn
 irW
 pto
@@ -92634,7 +92626,7 @@ xjz
 pqO
 rwJ
 toy
-lJB
+jGx
 fks
 irW
 pto
@@ -92936,7 +92928,7 @@ mbi
 xZA
 oZD
 toy
-lJB
+jGx
 toy
 miw
 bUD
@@ -93238,7 +93230,7 @@ xAO
 fJT
 jQL
 fjI
-iho
+toy
 fjI
 irW
 pto
@@ -93540,7 +93532,7 @@ xAO
 fJT
 jQL
 toy
-fHR
+miw
 oZx
 irW
 pto
@@ -93842,7 +93834,7 @@ xAO
 fJT
 jQL
 toy
-swE
+eDb
 pto
 cLo
 pto
@@ -94144,7 +94136,7 @@ xAO
 fJT
 mRP
 toy
-swE
+eDb
 pto
 pto
 pto
@@ -94446,7 +94438,7 @@ xAO
 pgB
 fjI
 fjI
-fHR
+miw
 bUD
 bUD
 bUD
@@ -94748,7 +94740,7 @@ cFe
 cFe
 fjI
 oZx
-wvE
+irW
 pto
 pto
 pto
@@ -95050,7 +95042,7 @@ pto
 pto
 eDb
 pto
-dWK
+cLo
 pto
 pto
 pto
@@ -95352,7 +95344,7 @@ pto
 pto
 cLo
 pto
-phm
+pto
 pto
 pto
 pto
@@ -95654,7 +95646,7 @@ pto
 pto
 pto
 pto
-phm
+pto
 pto
 pto
 pto
@@ -95956,7 +95948,7 @@ pto
 pto
 pto
 pto
-phm
+pto
 pto
 pto
 pto
@@ -96258,7 +96250,7 @@ pto
 pto
 pto
 pto
-phm
+pto
 pto
 pto
 pto
@@ -96560,7 +96552,7 @@ pto
 pto
 pto
 pto
-mvd
+pto
 pto
 pto
 pto
@@ -96863,7 +96855,7 @@ pto
 pto
 pto
 pto
-eSR
+pto
 pto
 pto
 pto
@@ -97166,7 +97158,7 @@ pto
 pto
 pto
 pto
-eSR
+pto
 pto
 pto
 pto
@@ -97469,7 +97461,7 @@ pto
 pto
 pto
 pto
-eSR
+pto
 pto
 pto
 pto
@@ -97772,7 +97764,7 @@ pto
 pto
 pto
 pto
-eSR
+pto
 pto
 pto
 pto
