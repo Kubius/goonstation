@@ -1015,6 +1015,67 @@
 			else
 				return mask & (~setbit)
 
+
+/obj/disposalpipe/switch_junction/right/fleet2
+	//main-ship entries should have all main ships besides themselves PLUS "buoy" and "limoncello", for a total of seven destinations
+	//buoy, as it has two indivudal offshoots (itself and limoncello), will have six
+	//mail tags are listed in order of the destinations they'll hit in the given spin, for ease of routing verification
+	asclepius
+		clockwise
+			name = "mail junction (CW asclepius)"
+			mail_tag = list("dionysus|civ","tenebrae|sci","buoy","limoncello")
+		ccw
+			name = "mail junction (CCW asclepius)"
+			mail_tag = list("hammer|sec","meridian|escape","maru|eng")
+
+	buoy
+		clockwise
+			name = "mail junction (CW buoy)"
+			mail_tag = list("maru|eng","meridian|escape","hammer|sec")
+		ccw
+			name = "mail junction (CCW buoy)"
+			mail_tag = list("tenebrae|sci","dionysus|civ","asclepius|med")
+
+	dionysus
+		clockwise
+			name = "mail junction (CW dionysus)"
+			mail_tag = list("tenebrae|sci","buoy","limoncello","maru|eng")
+		ccw
+			name = "mail junction (CCW dionysus)"
+			mail_tag = list("asclepius|med","hammer|sec","meridian|escape")
+
+	hammer
+		clockwise
+			name = "mail junction (CW hammer)"
+			mail_tag = list("asclepius|med","dionysus|civ","tenebrae|sci")
+		ccw
+			name = "mail junction (CCW hammer)"
+			mail_tag = list("meridian|escape","maru|eng","buoy","limoncello")
+
+	maru
+		clockwise
+			name = "mail junction (CW maru)"
+			mail_tag = list("meridian|escape","hammer|sec","asclepius|med")
+		ccw
+			name = "mail junction (CCW maru)"
+			mail_tag = list("buoy","limoncello","tenebrae|sci","dionysus|civ")
+
+	meridian
+		clockwise
+			name = "mail junction (CW meridian)"
+			mail_tag = list("hammer|sec","asclepius|med","dionysus|civ")
+		ccw
+			name = "mail junction (CCW meridian)"
+			mail_tag = list("maru|eng","buoy","limoncello","tenebrae|sci")
+
+	tenebrae
+		clockwise
+			name = "mail junction (CW tenebrae)"
+			mail_tag = list("buoy","limoncello","maru|eng","meridian|escape")
+		ccw
+			name = "mail junction (CCW tenebrae)"
+			mail_tag = list("dionysus|civ","asclepius|med","hammer|sec")
+
 /obj/disposalpipe/switch_junction/biofilter
 	name = "biofilter pipe"
 	desc = "A pipe junction designed to redirect living organic tissue."
