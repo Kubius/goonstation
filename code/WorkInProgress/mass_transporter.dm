@@ -101,6 +101,7 @@
 	density = 1
 	anchored = ANCHORED
 	var/image/screen_image
+	var/image/inbound_warning
 	var/image/transport_glow
 	var/obj/transport_ring
 	var/datum/light/light
@@ -136,6 +137,10 @@
 		screen_image.plane = PLANE_OVERLAY_EFFECTS
 		screen_image.blend_mode = BLEND_ADD
 		src.AddOverlays(screen_image, "screen_image")
+
+		src.inbound_warning = image('icons/obj/stationobjs.dmi', "mass_transporter_warn")
+		inbound_warning.plane = PLANE_OVERLAY_EFFECTS
+		inbound_warning.blend_mode = BLEND_ADD
 
 		src.transport_glow = image('icons/obj/stationobjs.dmi', "mass_transporter_glow")
 		transport_glow.plane = PLANE_OVERLAY_EFFECTS
@@ -268,6 +273,8 @@
 		animate(src.transporting_to.transport_ring, pixel_y = -32, transform = matrix(), time = 6 SECONDS, easing = SINE_EASING)
 
 		src.AddOverlays(transport_glow, "transport_glow")
+		src.transporting_to.AddOverlays(inbound_warning, "inbound_warning")
+
 		src.teleport_underway = TRUE
 
 	///Completed denotes a successful transport. Hard interrupt indicates it did not shut down gracefully (inflict damage).
@@ -300,7 +307,9 @@
 				src.transporting_to.transport_ring.pixel_y = -24
 				animate(src.transporting_to.transport_ring, alpha = 0, time = 1)
 
-		if(src.transporting_to) src.transporting_to.inbound_in_progress = FALSE
+		if(src.transporting_to)
+			src.transporting_to.inbound_in_progress = FALSE
+			src.transporting_to.ClearSpecificOverlays("inbound_warning")
 		src.mobs_being_sent = list()
 
 	proc/teleport_some_nerds(target_transporter)
