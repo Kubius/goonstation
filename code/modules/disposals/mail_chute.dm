@@ -149,7 +149,7 @@
 	icon_state = "people_mailchute"
 	repressure_speed = 0.3
 	icon_style = "people_mail"
-	light_style = "qm_mailchute"
+	light_style = "people_mailchute"
 	mail_only = 0
 
 /obj/machinery/disposal/mail/autoname
