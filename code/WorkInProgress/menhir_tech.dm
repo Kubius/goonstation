@@ -6,9 +6,10 @@
 #ifdef IN_MAP_EDITOR
 	icon_state = "editor"
 #else
-	icon_state = "0"
+	icon_state = "255"
 #endif
 
+/*
 	New()
 		..()
 		if (current_state > GAME_STATE_WORLD_NEW)
@@ -30,7 +31,7 @@
 	proc/update_neighbors()
 		for (var/obj/effects/menhir_fog/mfog in orange(1,src))
 			mfog.UpdateIcon()
-
+*/
 
 /client/proc/cmd_admin_vislayer()
 	SET_ADMIN_CAT(ADMIN_CAT_SELF)
