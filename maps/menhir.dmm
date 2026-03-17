@@ -2049,9 +2049,6 @@
 /area/station/hallway/secondary/east{
 	name = "East Shuttle Concourse"
 	})
-"io" = (
-/turf/simulated/floor/yellow,
-/area/space)
 "ir" = (
 /obj/item/peripheral/videocard,
 /obj/item/wrench,
@@ -54715,7 +54712,7 @@ DK
 DK
 oC
 QA
-io
+Ef
 uh
 mX
 mX
