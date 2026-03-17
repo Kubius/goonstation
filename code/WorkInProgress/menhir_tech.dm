@@ -1,12 +1,26 @@
 /obj/effects/menhir_fog
 	name = "fog of war"
+	icon = 'icons/effects/fogofwar.dmi'
 	layer = 3.1
 	invisibility = INVIS_AI_EYE
 #ifdef IN_MAP_EDITOR
-	icon_state = "fpart"
+	icon_state = "editor"
 #else
-	icon_state = "dark"
+	icon_state = "0"
 #endif
+
+	New()
+		..()
+		SPAWN(0)
+			src.UpdateIcon()
+
+	//updated propagation when fog of war is cleared will probably occur
+
+	update_icon()
+		var/connectdir = get_connected_directions_bitflag(list(/obj/effects/menhir_fog), list(), TRUE, TRUE)
+		var/the_state = "[connectdir]"
+		icon_state = the_state
+
 
 /client/proc/cmd_admin_vislayer()
 	SET_ADMIN_CAT(ADMIN_CAT_SELF)
@@ -21,7 +35,7 @@
 
 	var/activated = FALSE
 	if(usr.see_invisible == 7)
-		usr.see_invisible = INVIS_SPOOKY //this should revert to the pre-change state eventually
+		usr.see_invisible = INVIS_SPOOKY //this should revert to a saved pre-change state eventually
 	else
 		usr.see_invisible = 7
 		activated = TRUE
