@@ -631,6 +631,55 @@ var/global/list/mapNames = list(
 		/datum/job/civilian/rancher = 2,
 	)
 
+/datum/map_settings/menhir
+	name = "MENHIR"
+	goonhub_map = "/maps/kondaru"
+	walls = /turf/simulated/wall/auto/supernorn
+	rwalls = /turf/simulated/wall/auto/reinforced/supernorn
+
+	Z_LEVEL_PARALLAX_RENDER_SOURCES(1) = list(
+		/atom/movable/screen/parallax_render_source/space_1,
+		/atom/movable/screen/parallax_render_source/space_2,
+		/atom/movable/screen/parallax_render_source/typhon/kondaru,
+		/atom/movable/screen/parallax_render_source/planet/magus,
+		/atom/movable/screen/parallax_render_source/asteroids_far/kondaru,
+		)
+
+	arrivals_type = MAP_SPAWN_CRYO
+
+	windows = /obj/window/auto
+	windows_thin = /obj/window/pyro
+	rwindows = /obj/window/auto/reinforced
+	rwindows_thin = /obj/window/reinforced/pyro
+	windows_crystal = /obj/window/auto/crystal
+	windows_rcrystal = /obj/window/auto/crystal/reinforced
+	window_layer_full = COG2_WINDOW_LAYER
+	window_layer_north = GRILLE_LAYER+0.1
+	window_layer_south = FLY_LAYER+1
+	auto_windows = TRUE
+
+	listening_post_prefab = /datum/mapPrefab/listening_post/kondaru
+
+	escape_dir = SOUTH
+
+	merchant_left_centcom = /area/shuttle/merchant_shuttle/left_centcom/cogmap2
+	merchant_left_station = /area/shuttle/merchant_shuttle/left_station/cogmap2
+	merchant_right_centcom = /area/shuttle/merchant_shuttle/right_centcom/cogmap2
+	merchant_right_station = /area/shuttle/merchant_shuttle/right_station/cogmap2
+
+	valid_nuke_targets = list("the main security hall" = list(/area/station/security/secwing),
+		"the quartermaster's front office" = list(/area/station/quartermaster/office),
+		"the courtroom" = list(/area/station/crew_quarters/courtroom),
+		"the thermo-electric generator room" = list(/area/station/engine/core),
+		"the refinery (arc smelter)" = list(/area/station/mining/refinery),
+		"the medbay" = list(/area/station/medical/medbay, /area/station/medical/medbay/surgery),
+		"the station's cafeteria" = list(/area/station/crew_quarters/cafeteria),
+		"the artifact lab" = list(/area/station/science/artifact),
+		"the janitor's office" = list(/area/station/janitor/office),
+		"the telescience lab" = list(/area/station/science/teleporter),
+		"the chapel" = list(/area/station/chapel/sanctuary),
+		"the fitness room" = list(/area/station/crew_quarters/fitness))
+
 /datum/map_settings/atlas
 	name = "ATLAS"
 	display_name = "NCS Atlas"
