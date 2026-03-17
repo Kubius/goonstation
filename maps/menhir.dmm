@@ -158,7 +158,7 @@
 /obj/item/storage/firstaid/regular,
 /obj/item/crowbar,
 /turf/unsimulated/floor/sanitary,
-/area/space)
+/area/station/crewquarters/cryotron)
 "aQ" = (
 /turf/simulated/floor/stairs/dark{
 	dir = 1
@@ -577,6 +577,9 @@
 "dd" = (
 /turf/simulated/floor/black,
 /area/station/turret_protected/Zeta)
+"dg" = (
+/turf/simulated/floor/grey,
+/area/station/crewquarters/cryotron)
 "dk" = (
 /obj/machinery/door/airlock/pyro/glass/command{
 	dir = 4
@@ -1095,8 +1098,8 @@
 /obj/forcefield/energyshield/perma{
 	dir = 4
 	},
-/turf/simulated/floor/plating,
-/area/station/crew_quarters/quartersC)
+/turf/unsimulated/floor/circuit/vintage,
+/area/station/crewquarters/cryotron)
 "gr" = (
 /turf/simulated/floor/purpleblack/corner{
 	dir = 1
@@ -1581,9 +1584,6 @@
 	name = "solar paneling"
 	},
 /area/space)
-"iK" = (
-/turf/unsimulated/wall/auto/reinforced/supernorn,
-/area/station/crew_quarters/quartersA)
 "iP" = (
 /obj/table/wood/round/auto,
 /obj/item/reagent_containers/food/drinks/tea{
@@ -1858,8 +1858,8 @@
 /obj/forcefield/energyshield/perma/doorlink{
 	dir = 8
 	},
-/turf/simulated/floor,
-/area/station/crew_quarters/quartersC)
+/turf/unsimulated/floor/circuit/vintage,
+/area/station/crewquarters/cryotron)
 "kD" = (
 /obj/machinery/sink{
 	dir = 4
@@ -2334,7 +2334,7 @@
 	dir = 4
 	},
 /turf/unsimulated/floor/sanitary,
-/area/space)
+/area/station/crewquarters/cryotron)
 "nz" = (
 /obj/machinery/door/airlock/pyro/glass,
 /turf/simulated/floor/grey,
@@ -2969,7 +2969,7 @@
 "rN" = (
 /obj/cryotron,
 /turf/unsimulated/floor/sanitary,
-/area/space)
+/area/station/crewquarters/cryotron)
 "rO" = (
 /obj/machinery/conveyor/NS{
 	id = "disposals";
@@ -3152,9 +3152,6 @@
 /obj/storage/crate/radio,
 /turf/simulated/floor/blueblack,
 /area/space)
-"sW" = (
-/turf/unsimulated/wall/auto/reinforced/supernorn,
-/area/station/crew_quarters/quartersC)
 "sX" = (
 /obj/machinery/computer/television,
 /turf/simulated/floor/darkblue,
@@ -4424,8 +4421,8 @@
 /obj/forcefield/energyshield/perma/doorlink{
 	dir = 8
 	},
-/turf/space,
-/area/space)
+/turf/unsimulated/floor/circuit/vintage,
+/area/station/crewquarters/cryotron)
 "AO" = (
 /turf/simulated/shuttle/wall/cockpit/window{
 	icon_state = "wall_trans";
@@ -4900,7 +4897,7 @@
 /area/space)
 "DI" = (
 /turf/unsimulated/floor/sanitary,
-/area/space)
+/area/station/crewquarters/cryotron)
 "DJ" = (
 /obj/table/reinforced/bar/auto,
 /turf/simulated/floor/specialroom/bar/edge{
@@ -5779,7 +5776,7 @@
 "IP" = (
 /obj/storage/closet/emergency,
 /turf/unsimulated/floor/sanitary,
-/area/space)
+/area/station/crewquarters/cryotron)
 "IQ" = (
 /obj/machinery/sink/slim{
 	dir = 4;
@@ -6964,7 +6961,7 @@
 	pixel_y = 22
 	},
 /turf/unsimulated/floor/sanitary,
-/area/space)
+/area/station/crewquarters/cryotron)
 "QD" = (
 /turf/simulated/floor/shuttlebay{
 	icon_state = "engine_caution_corners";
@@ -7211,7 +7208,7 @@
 /area/space)
 "Sg" = (
 /turf/unsimulated/wall/auto/reinforced/supernorn,
-/area/space)
+/area/station/crewquarters/cryotron)
 "Si" = (
 /obj/stool/bed,
 /obj/item/clothing/suit/bedsheet{
@@ -7435,9 +7432,6 @@
 	},
 /turf/simulated/floor/grime,
 /area/space)
-"Tq" = (
-/turf/unsimulated/wall/auto/reinforced/supernorn,
-/area/station/crew_quarters/bathroom)
 "Tu" = (
 /obj/stool/chair/comfy{
 	dir = 8
@@ -7674,7 +7668,7 @@
 "Va" = (
 /obj/storage/secure/closet/personal,
 /turf/unsimulated/floor/sanitary,
-/area/space)
+/area/station/crewquarters/cryotron)
 "Vc" = (
 /obj/table/reinforced/auto,
 /obj/item/remote/porter/port_a_medbay{
@@ -49932,7 +49926,7 @@ Sc
 fe
 Dc
 Kw
-NF
+dg
 hE
 Sg
 aP
@@ -50241,7 +50235,7 @@ rN
 DI
 DI
 Va
-Tq
+Sg
 No
 No
 No
@@ -50543,7 +50537,7 @@ QC
 DI
 DI
 IP
-Tq
+Sg
 KK
 cb
 No
@@ -50845,7 +50839,7 @@ DI
 DI
 DI
 IP
-Tq
+Sg
 Pu
 pc
 No
@@ -51142,12 +51136,12 @@ GZ
 GZ
 GZ
 GZ
-iK
+Sg
 gj
 gj
 kB
-sW
-Tq
+Sg
+Sg
 No
 PE
 No
