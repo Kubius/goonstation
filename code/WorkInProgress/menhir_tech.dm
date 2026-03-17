@@ -11,15 +11,19 @@
 
 	New()
 		..()
-		SPAWN(0)
+		SPAWN(1)
 			src.UpdateIcon()
-
-	//updated propagation when fog of war is cleared will probably occur
+			if(istype(src))
+				src.update_neighbors()
 
 	update_icon()
-		var/connectdir = get_connected_directions_bitflag(list(/obj/effects/menhir_fog), list(), TRUE, TRUE)
+		var/connectdir = get_connected_directions_bitflag(list(/obj/effects/menhir_fog), cross_areas = TRUE, connect_diagonal = 1, turf_only = FALSE)
 		var/the_state = "[connectdir]"
-		icon_state = the_state
+		src.icon_state = the_state
+
+	proc/update_neighbors()
+		for (var/obj/effects/menhir_fog/mfog in orange(1,src))
+			mfog.UpdateIcon()
 
 
 /client/proc/cmd_admin_vislayer()
