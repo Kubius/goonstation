@@ -1004,7 +1004,8 @@
 	},
 /obj/effects/menhir_fog,
 /turf/unsimulated/wall/auto/adventure/icemooninterior,
-/area/spacehabitat{
+/area/station/wreckage{
+	teleport_blocked = 1;
 	name = "The Crown"
 	})
 "eb" = (
@@ -1025,7 +1026,8 @@
 /turf/unsimulated/floor/setpieces/bluefloor{
 	dir = 8
 	},
-/area/spacehabitat{
+/area/station/wreckage{
+	teleport_blocked = 1;
 	name = "The Crown"
 	})
 "ef" = (
@@ -4381,7 +4383,8 @@
 /turf/unsimulated/floor/setpieces/bluefloor{
 	dir = 1
 	},
-/area/spacehabitat{
+/area/station/wreckage{
+	teleport_blocked = 1;
 	name = "The Crown"
 	})
 "sN" = (
@@ -4543,7 +4546,8 @@
 /turf/unsimulated/floor/setpieces/bluefloor{
 	dir = 8
 	},
-/area/spacehabitat{
+/area/station/wreckage{
+	teleport_blocked = 1;
 	name = "The Crown"
 	})
 "tA" = (
@@ -5677,7 +5681,8 @@
 "yv" = (
 /obj/effects/menhir_fog,
 /turf/unsimulated/floor/setpieces/bluefloor,
-/area/spacehabitat{
+/area/station/wreckage{
+	teleport_blocked = 1;
 	name = "The Crown"
 	})
 "yw" = (
@@ -7156,7 +7161,8 @@
 /turf/unsimulated/floor/setpieces/bluefloor{
 	dir = 4
 	},
-/area/spacehabitat{
+/area/station/wreckage{
+	teleport_blocked = 1;
 	name = "The Crown"
 	})
 "ET" = (
@@ -7696,7 +7702,8 @@
 /turf/unsimulated/floor/setpieces/bluefloor{
 	dir = 1
 	},
-/area/spacehabitat{
+/area/station/wreckage{
+	teleport_blocked = 1;
 	name = "The Crown"
 	})
 "Hd" = (
@@ -7847,7 +7854,8 @@
 "HN" = (
 /obj/effects/menhir_fog,
 /turf/unsimulated/wall/auto/adventure/icemooninterior,
-/area/spacehabitat{
+/area/station/wreckage{
+	teleport_blocked = 1;
 	name = "The Crown"
 	})
 "HO" = (
@@ -8460,7 +8468,8 @@
 /obj/map/light/cyan,
 /obj/effects/menhir_fog,
 /turf/unsimulated/floor/setpieces/bluefloor,
-/area/spacehabitat{
+/area/station/wreckage{
+	teleport_blocked = 1;
 	name = "The Crown"
 	})
 "Ku" = (
@@ -8951,7 +8960,8 @@
 /turf/unsimulated/floor/setpieces/bluefloor{
 	dir = 8
 	},
-/area/spacehabitat{
+/area/station/wreckage{
+	teleport_blocked = 1;
 	name = "The Crown"
 	})
 "MC" = (
@@ -9055,7 +9065,8 @@
 /turf/unsimulated/floor/setpieces/bluefloor{
 	dir = 4
 	},
-/area/spacehabitat{
+/area/station/wreckage{
+	teleport_blocked = 1;
 	name = "The Crown"
 	})
 "Na" = (
@@ -10038,7 +10049,8 @@
 /turf/unsimulated/floor/setpieces/bluefloor{
 	dir = 4
 	},
-/area/spacehabitat{
+/area/station/wreckage{
+	teleport_blocked = 1;
 	name = "The Crown"
 	})
 "Rz" = (
