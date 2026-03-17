@@ -21,7 +21,7 @@
 
 	var/activated = FALSE
 	if(usr.see_invisible == 7)
-		usr.see_invisible = initial(usr.see_invisible)
+		usr.see_invisible = INVIS_SPOOKY //this should revert to the pre-change state eventually
 	else
 		usr.see_invisible = 7
 		activated = TRUE
