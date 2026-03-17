@@ -11,13 +11,19 @@
 
 	New()
 		..()
-		SPAWN(1)
-			src.UpdateIcon()
-			if(istype(src))
-				src.update_neighbors()
+		if (current_state > GAME_STATE_WORLD_NEW)
+			SPAWN(0)
+				src.UpdateIcon()
+				if(istype(src))
+					src.update_neighbors()
+		else
+			worldgenCandidates += src
+
+	proc/generate_worldgen()
+		src.UpdateIcon()
 
 	update_icon()
-		var/connectdir = get_connected_directions_bitflag(list(/obj/effects/menhir_fog), cross_areas = TRUE, connect_diagonal = 1, turf_only = FALSE)
+		var/connectdir = get_connected_directions_bitflag(list(/obj/effects/menhir_fog), connect_diagonal = 1)
 		var/the_state = "[connectdir]"
 		src.icon_state = the_state
 
