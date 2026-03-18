@@ -7,7 +7,9 @@ TYPEINFO_NEW(/obj/effects/menhir_fog)
 	name = "fog of war"
 	icon = 'icons/effects/fogofwar.dmi'
 	layer = 3.1
+	mouse_opacity = 1
 	anchored = ANCHORED
+	plane = PLANE_ABOVE_LIGHTING
 	invisibility = INVIS_AI_EYE
 #ifdef IN_MAP_EDITOR
 	icon_state = "editor"
