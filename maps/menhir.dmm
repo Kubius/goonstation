@@ -299,6 +299,12 @@
 /obj/decal/tile_edge/stripe/extra_big,
 /turf/simulated/floor/black,
 /area/station/science/lab)
+"aT" = (
+/obj/machinery/shieldgenerator/meteorshield,
+/turf/simulated/floor/auto/glassblock/indigo,
+/area/station/hallway/secondary/exit{
+	name = "Primary Docking Wing"
+	})
 "aU" = (
 /obj/table/auto,
 /obj/item/boardgame/chess{
@@ -3390,6 +3396,12 @@
 	dir = 9
 	},
 /area/station/mining/refinery)
+"ji" = (
+/obj/machinery/light,
+/turf/simulated/floor,
+/area/station/hallway/secondary/exit{
+	name = "Primary Docking Wing"
+	})
 "jj" = (
 /obj/machinery/light{
 	pixel_x = -3;
@@ -5428,18 +5440,6 @@
 /obj/mapping_helper/wingrille_spawn/auto/reinforced,
 /turf/simulated/floor/plating,
 /area/station/chapel/sanctuary)
-"oM" = (
-/obj/mesh/catwalk,
-/obj/machinery/light{
-	dir = 4;
-	layer = 9.1;
-	pixel_x = 10
-	},
-/turf/simulated/floor/black,
-/area/station/hallway/secondary/entry{
-	name = "Arrivals Auxiliary Arm";
-	do_not_irradiate = 1
-	})
 "oN" = (
 /turf/simulated/wall/auto/reinforced/supernorn,
 /area/station/engine/monitoring)
@@ -5458,7 +5458,6 @@
 	name = "Logistics Dock"
 	})
 "oQ" = (
-/obj/machinery/shieldgenerator/meteorshield,
 /obj/machinery/light/small{
 	dir = 4;
 	pixel_x = 12
@@ -5673,7 +5672,6 @@
 	},
 /area/station/engine/elect)
 "pw" = (
-/obj/machinery/shieldgenerator/meteorshield,
 /obj/machinery/light/small{
 	dir = 8;
 	pixel_x = -12
@@ -6239,6 +6237,14 @@
 	dir = 9
 	},
 /area/station/crew_quarters/lounge)
+"qM" = (
+/obj/mesh/catwalk,
+/obj/machinery/light/small/floor,
+/turf/simulated/floor/black,
+/area/station/hallway/secondary/entry{
+	name = "Arrivals Auxiliary Arm";
+	do_not_irradiate = 1
+	})
 "qN" = (
 /turf/simulated/floor/grey/corner,
 /area/station/hallway/secondary/west{
@@ -6557,18 +6563,6 @@
 /obj/item/chem_grenade/cleaner,
 /turf/simulated/floor/darkblue,
 /area/station/janitor/office)
-"rD" = (
-/obj/mesh/catwalk,
-/obj/machinery/light{
-	dir = 8;
-	layer = 9.1;
-	pixel_x = -10
-	},
-/turf/simulated/floor/black,
-/area/station/hallway/secondary/entry{
-	name = "Arrivals Auxiliary Arm";
-	do_not_irradiate = 1
-	})
 "rE" = (
 /obj/storage/closet/emergency,
 /turf/unsimulated/floor/shuttle/white,
@@ -6901,17 +6895,6 @@
 "sx" = (
 /turf/simulated/floor/black/grime,
 /area/station/engine/monitoring)
-"sy" = (
-/obj/mesh/catwalk,
-/obj/machinery/light{
-	dir = 4;
-	layer = 9.1;
-	pixel_x = 10
-	},
-/turf/simulated/floor/black,
-/area/station/maintenance/outer/east{
-	name = "Escape Auxiliary Arm"
-	})
 "sz" = (
 /turf/simulated/floor/caution/east,
 /area/station/hangar/main)
@@ -8832,17 +8815,6 @@
 	},
 /turf/unsimulated/floor/shuttle,
 /area/shuttle/arrival/station)
-"yf" = (
-/obj/mesh/catwalk,
-/obj/machinery/light{
-	dir = 8;
-	layer = 9.1;
-	pixel_x = -10
-	},
-/turf/simulated/floor/black,
-/area/station/maintenance/outer/east{
-	name = "Escape Auxiliary Arm"
-	})
 "yg" = (
 /obj/storage/crate/freezer,
 /obj/item/raw_material/ice,
@@ -8928,7 +8900,6 @@
 /area/station/crew_quarters/courtroom)
 "yr" = (
 /obj/machinery/vending/medical_public,
-/obj/machinery/light,
 /turf/simulated/floor/red/checker,
 /area/station/hallway/secondary/exit{
 	name = "Primary Docking Wing"
@@ -9540,6 +9511,10 @@
 "Aa" = (
 /turf/simulated/wall/auto/supernorn,
 /area/station/medical/robotics)
+"Ab" = (
+/obj/machinery/light/small/floor,
+/turf/simulated/floor,
+/area/station/security/checkpoint/arrivals)
 "Ac" = (
 /obj/machinery/vending/snack,
 /obj/mesh/catwalk,
@@ -9667,6 +9642,10 @@
 /area/station/turret_protected/ai)
 "Ay" = (
 /obj/machinery/vending/air_vendor,
+/obj/machinery/light/small{
+	dir = 8;
+	pixel_x = -12
+	},
 /turf/simulated/floor/red/checker,
 /area/station/hallway/secondary/exit{
 	name = "Primary Docking Wing"
@@ -11698,6 +11677,10 @@
 /area/station/quartermaster/office)
 "FW" = (
 /obj/stool/chair,
+/obj/machinery/light/small{
+	dir = 1;
+	pixel_y = 21
+	},
 /turf/simulated/floor/wood/two,
 /area/station/hallway/secondary/exit{
 	name = "Primary Docking Wing"
@@ -12295,16 +12278,6 @@
 "Hw" = (
 /turf/simulated/wall/auto/reinforced/supernorn,
 /area/station/science/bot_storage)
-"Hx" = (
-/obj/mesh/catwalk,
-/obj/machinery/light/small{
-	dir = 8;
-	pixel_x = -12
-	},
-/turf/simulated/floor/black,
-/area/station/maintenance/outer/east{
-	name = "Escape Auxiliary Arm"
-	})
 "Hy" = (
 /turf/simulated/floor/shuttlebay,
 /area/station/mining/staff_room)
@@ -14874,6 +14847,13 @@
 /obj/machinery/space_heater,
 /turf/simulated/floor/plating,
 /area/station/maintenance/northwest)
+"OD" = (
+/obj/mesh/catwalk,
+/obj/machinery/light/small/floor,
+/turf/simulated/floor/black,
+/area/station/maintenance/outer/east{
+	name = "Escape Auxiliary Arm"
+	})
 "OE" = (
 /turf/simulated/floor{
 	icon_state = "L7"
@@ -16947,6 +16927,10 @@
 /area/station/crew_quarters/cafeteria)
 "Un" = (
 /obj/machinery/vending/cola/red,
+/obj/machinery/light/small{
+	dir = 4;
+	pixel_x = 12
+	},
 /turf/simulated/floor/red/checker,
 /area/station/hallway/secondary/exit{
 	name = "Primary Docking Wing"
@@ -18776,17 +18760,6 @@
 	dir = 4
 	},
 /area/station/medical/research)
-"Zx" = (
-/obj/mesh/catwalk,
-/obj/machinery/light/small{
-	dir = 4;
-	pixel_x = 12
-	},
-/turf/simulated/floor/black,
-/area/station/hallway/secondary/entry{
-	name = "Arrivals Auxiliary Arm";
-	do_not_irradiate = 1
-	})
 "Zy" = (
 /obj/machinery/camera/television{
 	c_tag = "boxing";
@@ -59826,7 +59799,7 @@ oB
 KI
 Zg
 Zg
-rD
+Zg
 Zg
 JO
 JO
@@ -60127,9 +60100,9 @@ CB
 CB
 JO
 Zg
+qM
 Zg
-Zg
-Zg
+qM
 pI
 Zg
 RZ
@@ -60430,20 +60403,20 @@ Jk
 KI
 Zg
 Zg
-oM
+Zg
 Zg
 pI
 Zg
-Zx
 Zg
 Zg
-Zx
+Zg
+Zg
 Zg
 Zg
 Zg
 Zq
-Zg
-Zg
+qM
+qM
 fe
 pm
 Kw
@@ -64976,9 +64949,9 @@ Yn
 XH
 XH
 XH
-BZ
 XH
 XH
+ji
 yC
 VE
 VE
@@ -65557,14 +65530,14 @@ YE
 YE
 YE
 YE
-YE
+Fb
 Fb
 Fb
 Fb
 Fb
 JW
-HU
 Xw
+HU
 JW
 Fb
 Fb
@@ -65858,9 +65831,9 @@ YE
 YE
 YE
 YE
-YE
 Fb
 Fb
+aT
 pw
 JA
 wO
@@ -65871,8 +65844,8 @@ iK
 wO
 Ob
 bl
-bl
 xF
+bl
 WD
 WD
 NV
@@ -66160,8 +66133,8 @@ YE
 YE
 YE
 YE
-YE
 Fb
+QG
 CP
 QG
 HU
@@ -66170,7 +66143,7 @@ XH
 XH
 XH
 XH
-XH
+BZ
 XH
 XH
 XH
@@ -66462,8 +66435,8 @@ YE
 YE
 YE
 YE
-YE
 Fb
+QG
 CP
 QG
 HU
@@ -66471,14 +66444,14 @@ uB
 XH
 BZ
 XH
-BZ
-XH
-BZ
 XH
 XH
 XH
 XH
 XH
+XH
+XH
+ji
 Fb
 qc
 Fb
@@ -66487,7 +66460,7 @@ Oj
 zl
 LA
 EE
-EE
+Ab
 Ze
 Nz
 PM
@@ -66764,8 +66737,8 @@ YE
 YE
 YE
 YE
-YE
 Fb
+QG
 CP
 QG
 HU
@@ -66774,7 +66747,7 @@ XH
 XH
 XH
 XH
-XH
+BZ
 XH
 XH
 XH
@@ -67066,9 +67039,9 @@ YE
 YE
 YE
 YE
-YE
 Fb
 Fb
+aT
 oQ
 it
 wO
@@ -67079,8 +67052,8 @@ iK
 wO
 RO
 mP
-mP
 Dl
+mP
 Gy
 Gy
 mV
@@ -67369,14 +67342,14 @@ YE
 YE
 YE
 YE
-YE
+Fb
 Fb
 Fb
 Fb
 Fb
 JW
-HU
 Fl
+HU
 JW
 Fb
 Fb
@@ -67719,7 +67692,7 @@ YO
 eh
 GY
 sT
-RV
+sT
 sT
 dT
 jC
@@ -67996,9 +67969,9 @@ xV
 XH
 XH
 XH
-BZ
 XH
 XH
+ji
 yC
 VE
 VE
@@ -68021,7 +67994,7 @@ Qe
 YO
 GY
 sT
-sT
+RV
 sT
 dT
 jC
@@ -72510,20 +72483,20 @@ jT
 Fh
 TO
 TO
-yf
+TO
 TO
 pf
 TO
-Hx
 TO
 TO
-Hx
+TO
+TO
 TO
 TO
 TO
 jY
-TO
-TO
+OD
+OD
 zD
 TA
 vm
@@ -72811,9 +72784,9 @@ XW
 XW
 TA
 TO
+OD
 TO
-TO
-TO
+OD
 pf
 TO
 Il
@@ -73114,7 +73087,7 @@ PB
 Fh
 TO
 TO
-sy
+TO
 TO
 TA
 TA
