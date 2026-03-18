@@ -1141,6 +1141,18 @@
 /obj/disposalpipe/segment/bent/south,
 /turf/simulated/wall/auto/reinforced/supernorn,
 /area/ghostdrone_factory)
+"bnk" = (
+/obj/mapping_helper/wingrille_spawn/auto/reinforced/crystal,
+/obj/cable{
+	icon_state = "0-8"
+	},
+/obj/machinery/door/poddoor/pyro/shutters{
+	id = "incursion_zone";
+	name = "Staging Area Shutters";
+	dir = 6
+	},
+/turf/simulated/floor/plating,
+/area/station/turret_protected/incursion)
 "bnu" = (
 /obj/storage/closet/welding_supply,
 /turf/simulated/floor/grey/side,
@@ -1201,7 +1213,7 @@
 /area/station/security/brig/genpop)
 "bqt" = (
 /turf/simulated/floor/darkpurpleblack,
-/area/station/science/hall)
+/area/station/turret_protected/incursion)
 "bqv" = (
 /obj/lattice{
 	dir = 10;
@@ -1252,7 +1264,8 @@
 	})
 "brV" = (
 /obj/machinery/turret{
-	dir = 8
+	dir = 8;
+	enabled = 0
 	},
 /turf/simulated/floor/redblack{
 	dir = 4
@@ -2595,6 +2608,21 @@
 /area/station/maintenance/outer/sw{
 	name = "Arrivals Auxiliary Arm"
 	})
+"cQv" = (
+/obj/mapping_helper/wingrille_spawn/auto/reinforced/crystal,
+/obj/cable{
+	icon_state = "0-2"
+	},
+/obj/cable{
+	icon_state = "0-8"
+	},
+/obj/machinery/door/poddoor/pyro/shutters{
+	id = "incursion_zone";
+	name = "Staging Area Shutters";
+	dir = 5
+	},
+/turf/simulated/floor/plating,
+/area/station/turret_protected/incursion)
 "cQI" = (
 /obj/table/reinforced/auto,
 /obj/item/storage/box/cablesbox{
@@ -3050,6 +3078,18 @@
 /obj/cable,
 /turf/simulated/floor/engine,
 /area/space)
+"dxV" = (
+/obj/mapping_helper/wingrille_spawn/auto/reinforced/crystal,
+/obj/cable{
+	icon_state = "0-4"
+	},
+/obj/machinery/door/poddoor/pyro/shutters{
+	id = "incursion_zone";
+	name = "Staging Area Shutters";
+	dir = 10
+	},
+/turf/simulated/floor/plating,
+/area/station/turret_protected/incursion)
 "dym" = (
 /obj/machinery/computer/announcement/station/catering{
 	dir = 8
@@ -4098,6 +4138,22 @@
 /obj/machinery/firealarm/directional/north,
 /turf/simulated/floor/carpet/grime,
 /area/station/crew_quarters/baroffice)
+"eDL" = (
+/obj/mapping_helper/wingrille_spawn/auto/reinforced/crystal,
+/obj/cable{
+	icon_state = "0-6"
+	},
+/obj/cable,
+/obj/cable{
+	icon_state = "0-8"
+	},
+/obj/machinery/door/poddoor/pyro/shutters{
+	id = "incursion_zone";
+	name = "Staging Area Shutters";
+	dir = 6
+	},
+/turf/simulated/floor/plating,
+/area/station/turret_protected/incursion)
 "eFa" = (
 /obj/machinery/manufacturer/mechanic,
 /turf/simulated/floor/yellowblack,
@@ -4478,15 +4534,11 @@
 /obj/item/extinguisher{
 	pixel_x = 9
 	},
-/obj/machinery/light{
-	dir = 1;
-	layer = 9.1;
-	pixel_y = 21
-	},
+/obj/machinery/light/small/floor,
 /turf/simulated/floor/darkpurpleblack{
 	dir = 6
 	},
-/area/station/science/hall)
+/area/station/turret_protected/incursion)
 "fen" = (
 /obj/machinery/nanofab/mining,
 /turf/simulated/floor,
@@ -5116,8 +5168,9 @@
 /area/station/crew_quarters/kitchen)
 "fLO" = (
 /obj/storage/closet/radiation,
+/obj/machinery/light_switch/north,
 /turf/simulated/floor/darkpurpleblack,
-/area/station/science/hall)
+/area/station/turret_protected/incursion)
 "fMy" = (
 /turf/simulated/floor/redblack{
 	dir = 1
@@ -7016,9 +7069,7 @@
 /turf/simulated/floor/minitiles/black,
 /area/station/bridge/captain)
 "hQx" = (
-/obj/item/device/light/floodlight/starts_on{
-	dir = 5
-	},
+/obj/machinery/bot/firebot,
 /turf/simulated/floor/darkpurpleblack{
 	dir = 10
 	},
@@ -7195,6 +7246,17 @@
 	},
 /turf/simulated/floor/purpleblack,
 /area/station/hallway/primary/southwest)
+"hXY" = (
+/obj/mapping_helper/wingrille_spawn/auto/reinforced/crystal,
+/obj/cable{
+	icon_state = "0-4"
+	},
+/obj/machinery/door/poddoor/pyro/shutters{
+	id = "incursion_zone";
+	name = "Staging Area Shutters"
+	},
+/turf/simulated/floor/plating,
+/area/station/turret_protected/incursion)
 "hYH" = (
 /obj/machinery/door/airlock/pyro{
 	dir = 4
@@ -7813,6 +7875,11 @@
 	dir = 4
 	},
 /obj/landmark/start/job/scientist,
+/obj/machinery/door_control{
+	pixel_y = 28;
+	name = "Staging Area Shutters";
+	id = "incursion_zone"
+	},
 /turf/simulated/floor/purplewhite{
 	dir = 1
 	},
@@ -8027,6 +8094,9 @@
 	dir = 1
 	},
 /obj/landmark/start/job/scientist,
+/obj/cable{
+	icon_state = "0-5"
+	},
 /turf/simulated/floor/purplewhite/corner{
 	dir = 8
 	},
@@ -9308,6 +9378,10 @@
 /obj/machinery/photocopier,
 /turf/simulated/floor/minitiles/black,
 /area/station/bridge)
+"kxW" = (
+/obj/machinery/manufacturer/science,
+/turf/simulated/floor/purple,
+/area/station/science/hall)
 "kxX" = (
 /turf/simulated/floor/blue/corner{
 	dir = 4
@@ -9322,18 +9396,21 @@
 	pixel_y = 6;
 	pixel_x = 1
 	},
-/obj/item/crowbar{
-	pixel_y = 7;
-	pixel_x = -4
+/obj/item/device/light/glowstick/white{
+	pixel_x = 1;
+	rand_pos = 0
+	},
+/obj/item/wrench{
+	pixel_y = 8;
+	pixel_x = -3
 	},
 /obj/item/device/light/glowstick/white{
-	pixel_x = 1
+	pixel_x = 5;
+	rand_pos = 0
 	},
 /obj/item/device/light/glowstick/white{
-	pixel_x = 4
-	},
-/obj/item/device/light/glowstick/white{
-	pixel_x = 7
+	pixel_x = 9;
+	rand_pos = 0
 	},
 /turf/simulated/floor/darkpurpleblack{
 	dir = 8
@@ -9694,12 +9771,6 @@
 	dir = 1
 	},
 /area/station/medical/research)
-"kVi" = (
-/obj/machinery/bot/medbot,
-/turf/simulated/floor/darkpurpleblack{
-	dir = 4
-	},
-/area/station/turret_protected/incursion)
 "kVL" = (
 /obj/table/reinforced/auto,
 /obj/item/aiModule/makeCaptain{
@@ -10214,6 +10285,7 @@
 /area/station/crew_quarters/catering)
 "lrI" = (
 /obj/machinery/light,
+/obj/machinery/light_switch/east,
 /turf/simulated/floor/purplewhite{
 	dir = 4
 	},
@@ -10808,6 +10880,7 @@
 	pixel_y = 9
 	},
 /obj/effects/menhir_fog,
+/obj/map/light/cyan,
 /turf/unsimulated/floor/setpieces/bluefloor{
 	dir = 4
 	},
@@ -11168,6 +11241,17 @@
 	},
 /turf/simulated/floor/grey/blackgrime/other,
 /area/station/storage/tech)
+"mHn" = (
+/obj/mapping_helper/wingrille_spawn/auto/reinforced/crystal,
+/obj/cable{
+	icon_state = "0-8"
+	},
+/obj/machinery/door/poddoor/pyro/shutters{
+	id = "incursion_zone";
+	name = "Staging Area Shutters"
+	},
+/turf/simulated/floor/plating,
+/area/station/turret_protected/incursion)
 "mHo" = (
 /obj/table/auto,
 /obj/linen_bin/towel,
@@ -15010,7 +15094,8 @@
 /area/station/engine/monitoring)
 "qrZ" = (
 /obj/machinery/turret{
-	dir = 4
+	dir = 4;
+	enabled = 0
 	},
 /turf/simulated/floor/redblack{
 	dir = 8
@@ -15026,6 +15111,12 @@
 	},
 /turf/simulated/floor/black,
 /area/station/bridge)
+"qtt" = (
+/obj/machinery/light/small/floor,
+/turf/simulated/floor/darkpurpleblack{
+	dir = 6
+	},
+/area/station/turret_protected/incursion)
 "qui" = (
 /turf/simulated/floor/shuttlebay{
 	icon_state = "engine_caution_east"
@@ -16504,6 +16595,9 @@
 	dir = 1
 	},
 /obj/landmark/start/job/scientist,
+/obj/cable{
+	icon_state = "0-9"
+	},
 /turf/simulated/floor/purplewhite/corner{
 	dir = 1
 	},
@@ -17440,12 +17534,6 @@
 	dir = 1
 	},
 /area/space)
-"taA" = (
-/obj/machinery/bot/firebot,
-/turf/simulated/floor/darkpurpleblack{
-	dir = 8
-	},
-/area/station/turret_protected/incursion)
 "taU" = (
 /obj/machinery/door/airlock/pyro/maintenance,
 /obj/cable{
@@ -18756,6 +18844,21 @@
 /area/station/maintenance/outer/sw{
 	name = "Arrivals Auxiliary Arm"
 	})
+"uwh" = (
+/obj/mapping_helper/wingrille_spawn/auto/reinforced/crystal,
+/obj/cable{
+	icon_state = "0-2"
+	},
+/obj/cable{
+	icon_state = "0-4"
+	},
+/obj/machinery/door/poddoor/pyro/shutters{
+	id = "incursion_zone";
+	name = "Staging Area Shutters";
+	dir = 9
+	},
+/turf/simulated/floor/plating,
+/area/station/turret_protected/incursion)
 "uwn" = (
 /obj/mesh/catwalk,
 /turf/simulated/floor/black/side{
@@ -19034,7 +19137,19 @@
 /turf/simulated/floor/grass/leafy,
 /area/station/garden/owlery)
 "uNJ" = (
-/obj/mapping_helper/wingrille_spawn/auto/reinforced,
+/obj/mapping_helper/wingrille_spawn/auto/reinforced/crystal,
+/obj/cable{
+	icon_state = "0-10"
+	},
+/obj/cable,
+/obj/cable{
+	icon_state = "0-4"
+	},
+/obj/machinery/door/poddoor/pyro/shutters{
+	id = "incursion_zone";
+	name = "Staging Area Shutters";
+	dir = 10
+	},
 /turf/simulated/floor/plating,
 /area/station/turret_protected/incursion)
 "uPt" = (
@@ -19111,6 +19226,12 @@
 	dir = 5
 	},
 /area/space)
+"uQq" = (
+/obj/item/device/light/floodlight/with_cell{
+	dir = 1
+	},
+/turf/simulated/floor/black,
+/area/station/turret_protected/incursion)
 "uQC" = (
 /obj/rack,
 /obj/item/clothing/suit/hazard/fire,
@@ -19407,15 +19528,11 @@
 /area/station/maintenance/west)
 "viU" = (
 /obj/storage/closet/radiation,
-/obj/machinery/light{
-	dir = 1;
-	layer = 9.1;
-	pixel_y = 21
-	},
+/obj/machinery/light/small/floor,
 /turf/simulated/floor/darkpurpleblack{
 	dir = 10
 	},
-/area/station/science/hall)
+/area/station/turret_protected/incursion)
 "vjm" = (
 /obj/tree,
 /turf/simulated/floor/grass/leafy,
@@ -19861,10 +19978,13 @@
 /turf/simulated/floor/darkblue/checker,
 /area/station/science/artifact)
 "vHN" = (
-/obj/machinery/manufacturer/science,
 /obj/decal/tile_edge/line/purple{
 	dir = 4;
 	icon_state = "line1"
+	},
+/obj/machinery/computer3/terminal/zeta{
+	dir = 8;
+	setup_os_string = "ZETA_MAINFRAME"
 	},
 /turf/simulated/floor/purplewhite{
 	dir = 1
@@ -20457,6 +20577,12 @@
 /area/station/crew_quarters/lounge/port{
 	name = "Book Nook"
 	})
+"wkc" = (
+/obj/machinery/light_switch/west,
+/turf/simulated/floor/purplewhite{
+	dir = 8
+	},
+/area/station/science/hall)
 "wko" = (
 /turf/simulated/floor/blueblack{
 	dir = 1
@@ -20906,9 +21032,7 @@
 	name = "Escape Auxiliary Arm"
 	})
 "wFU" = (
-/obj/item/device/light/floodlight/starts_on{
-	dir = 9
-	},
+/obj/machinery/bot/medbot,
 /turf/simulated/floor/darkpurpleblack{
 	dir = 6
 	},
@@ -21709,6 +21833,12 @@
 /obj/window_blinds/cog2,
 /turf/simulated/floor/plating,
 /area/station/medical/research)
+"xwV" = (
+/obj/machinery/light/small/floor,
+/turf/simulated/floor/darkpurpleblack{
+	dir = 10
+	},
+/area/station/turret_protected/incursion)
 "xwW" = (
 /obj/mesh/catwalk,
 /turf/simulated/floor/black/side{
@@ -67891,7 +68021,7 @@ pQK
 hXW
 eDk
 nhI
-lMd
+wkc
 lMd
 cAC
 jAy
@@ -68796,7 +68926,7 @@ ryH
 ryH
 ryH
 qFl
-uNJ
+dxV
 bhk
 iTZ
 iKe
@@ -69094,11 +69224,11 @@ aGr
 lhN
 aGr
 lhN
-gEt
+xwV
+wee
 bqK
-taA
 hQx
-uNJ
+cQv
 uNJ
 vHN
 dOc
@@ -69401,7 +69531,7 @@ jRX
 sro
 dGu
 kyk
-uNJ
+mHn
 viU
 mEk
 iKe
@@ -69693,7 +69823,7 @@ lhN
 lhN
 lhN
 lhN
-swe
+osZ
 osZ
 lhN
 lhN
@@ -70003,7 +70133,7 @@ gSG
 sro
 wVT
 hXT
-sro
+uQq
 mzQ
 pHF
 bqt
@@ -70297,7 +70427,7 @@ lhN
 lhN
 lhN
 lhN
-swe
+osZ
 osZ
 lhN
 lhN
@@ -70312,7 +70442,7 @@ jbT
 mEk
 iKe
 acI
-oDV
+kxW
 nEX
 vWQ
 guI
@@ -70609,7 +70739,7 @@ joz
 sro
 gEt
 bit
-uNJ
+hXY
 fdx
 mEk
 iKe
@@ -70906,12 +71036,12 @@ aGr
 lhN
 aGr
 lhN
-dGu
+qtt
+lKH
 iir
-kVi
 wFU
-uNJ
-uNJ
+uwh
+eDL
 oWq
 oPI
 iKe
@@ -71212,7 +71342,7 @@ fDd
 fDd
 fDd
 qFl
-uNJ
+bnk
 xDe
 rYf
 iKe
