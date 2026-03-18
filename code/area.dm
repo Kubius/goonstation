@@ -4057,6 +4057,11 @@ TYPEINFO(/area/station/turret_protected/AIbaseoutside)
 	sound_environment = 12
 	icon_state = "ai_foyer"
 
+/area/station/turret_protected/incursion
+	name = "Incursion Staging Area"
+	icon_state = "purple"
+	sound_environment = 12
+
 /area/station/turret_protected/armory_outside
 	name = "Armory Outer Perimeter"
 	icon_state = "secext"
