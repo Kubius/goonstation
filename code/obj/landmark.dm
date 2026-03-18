@@ -512,6 +512,16 @@ var/global/list/job_start_locations = list()
 	icon_state = "artifact_10"
 	spawnchance = 10
 
+/obj/landmark/spawner/artifact/more_precursor
+	name = "Artifact Spawn (More Often Precursor)"
+
+	spawn_the_thing()
+		if(prob(40))
+			Artifact_Spawn(get_turf(src),"precursor")
+		else
+			Artifact_Spawn(get_turf(src))
+		qdel(src)
+
 /* ===== LRT Landmarks ===== */
 
 // consider refactoring to be associative the other way around later
