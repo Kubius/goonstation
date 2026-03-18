@@ -9,7 +9,6 @@ TYPEINFO_NEW(/obj/effects/menhir_fog)
 	layer = 3.1
 	mouse_opacity = 1
 	anchored = ANCHORED
-	plane = PLANE_SELFILLUM
 	invisibility = INVIS_AI_EYE
 #ifdef IN_MAP_EDITOR
 	icon_state = "editor"
