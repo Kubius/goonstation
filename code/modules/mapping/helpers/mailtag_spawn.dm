@@ -13,7 +13,7 @@
 	name = "mailtag spawn"
 	desc = "Configures a mail junction with its mail tag, then destroys itself."
 	icon = 'icons/effects/mapeditor.dmi'
-	icon_state = "access_spawn"
+	icon_state = "mail_tag"
 	var/mail_tag = null
 
 	setup()
