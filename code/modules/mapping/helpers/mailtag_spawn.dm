@@ -121,7 +121,6 @@
 
 	checkpoint
 		name = "Don't spawn me"
-		mailgroup = MGD_SECURITY
 		color = SECURITY
 
 		arrivals
