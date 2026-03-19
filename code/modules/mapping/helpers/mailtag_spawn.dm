@@ -19,7 +19,7 @@
 	setup()
 		for (var/obj/disposalpipe/switch_junction/sj in src.loc)
 			if(src.mail_tag)
-				sj.mail_tag = src.mail_tag
+				sj.mail_tag += src.mail_tag
 				break
 
 	janitor
