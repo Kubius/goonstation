@@ -1,4 +1,3 @@
-#define SPECIAL "#ffa135"
 #define MEDICAL "#3daff7"
 #define SECURITY "#f73d3d"
 #define MORGUE_BLACK "#002135"
