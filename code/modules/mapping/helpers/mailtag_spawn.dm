@@ -19,6 +19,7 @@
 	setup()
 		for (var/obj/disposalpipe/switch_junction/sj in src.loc)
 			if(src.mail_tag)
+				if(!sj.mail_tag) sj.mail_tag = list()
 				sj.mail_tag += src.mail_tag
 				break
 
