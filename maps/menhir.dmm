@@ -6695,6 +6695,7 @@
 /area/station/solar/east)
 "enO" = (
 /obj/machinery/power/tracker,
+/obj/cable/yellow,
 /turf/simulated/floor/airless{
 	icon_state = "solarbase";
 	name = "solar paneling"
@@ -10417,6 +10418,14 @@
 /area/station/hallway/secondary/exit{
 	name = "Primary Docking Wing"
 	})
+"gOC" = (
+/obj/stool/chair,
+/obj/machinery/light/small{
+	dir = 4;
+	pixel_x = 12
+	},
+/turf/simulated/floor/black/grime,
+/area/station/maintenance/northeast)
 "gOL" = (
 /obj/machinery/door/airlock/pyro/command,
 /obj/disposalpipe/segment/mail,
@@ -15471,15 +15480,15 @@
 /turf/simulated/floor/plating,
 /area/station/ranch)
 "kkz" = (
-/obj/machinery/door/poddoor/pyro{
-	id = "kondaru_funeral";
-	name = "Funerary Driver Door";
-	dir = 4
-	},
 /obj/machinery/mass_driver{
 	dir = 4;
 	id = "menhir_funeral";
 	name = "funerary driver"
+	},
+/obj/machinery/door/poddoor/pyro{
+	id = "menhir_funeral";
+	name = "Funerary Driver Door";
+	dir = 4
 	},
 /turf/simulated/floor/black,
 /area/station/maintenance/northeast)
@@ -19047,8 +19056,8 @@
 /area/station/medical/medbay)
 "mHy" = (
 /obj/machinery/power/smes{
-	chargelevel = 40000;
-	output = 25000
+	chargelevel = 60000;
+	output = 40000
 	},
 /obj/cable{
 	icon_state = "0-4"
@@ -26725,8 +26734,8 @@
 	})
 "rDc" = (
 /obj/machinery/power/smes{
-	chargelevel = 40000;
-	output = 25000
+	chargelevel = 60000;
+	output = 40000
 	},
 /obj/machinery/light/small{
 	dir = 4;
@@ -30124,6 +30133,14 @@
 	},
 /turf/simulated/floor/green/side,
 /area/station/hydroponics)
+"tJA" = (
+/obj/storage/closet/coffin/wood,
+/obj/machinery/light/small{
+	dir = 8;
+	pixel_x = -12
+	},
+/turf/simulated/floor/black/grime,
+/area/station/maintenance/northeast)
 "tJX" = (
 /obj/machinery/teleport/portal_ring,
 /obj/machinery/light/small{
@@ -30214,6 +30231,10 @@
 /area/station/engine/core)
 "tMw" = (
 /obj/item/instrument/large/organ,
+/obj/machinery/light/small{
+	dir = 8;
+	pixel_x = -12
+	},
 /turf/simulated/floor/black/grime,
 /area/station/maintenance/northeast)
 "tMN" = (
@@ -35560,6 +35581,10 @@
 /area/station/turret_protected/incursion)
 "wVU" = (
 /obj/disposalpipe/segment/vertical,
+/obj/machinery/light/small{
+	dir = 4;
+	pixel_x = 12
+	},
 /turf/simulated/floor/black/grime,
 /area/station/maintenance/northeast)
 "wWu" = (
@@ -90772,7 +90797,7 @@ tMw
 mEr
 mVl
 oJi
-iTc
+tJA
 iTc
 dtA
 dtA
@@ -91674,7 +91699,7 @@ nAT
 lOu
 dNF
 wEf
-wEf
+gOC
 hZo
 ldT
 nOm
