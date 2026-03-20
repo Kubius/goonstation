@@ -66,9 +66,9 @@ var/list/admin_verbs = list(
 		/client/proc/enableDrunkMode,
 		/client/proc/forceDrunkMode,
 
-		//this should be an ifdef eventually
+#ifdef MAP_OVERRIDE_MENHIR
 		/client/proc/cmd_admin_vislayer,
-
+#endif
 		/client/proc/cmd_unshame_cube,
 		/client/proc/cmd_shame_cube,
 		/client/proc/removeSelf,
