@@ -460,6 +460,7 @@
 /turf/simulated/floor,
 /area/station/hallway/primary/west)
 "arb" = (
+/obj/decal/stripe_delivery,
 /turf/simulated/floor/green/side{
 	dir = 4
 	},
@@ -716,7 +717,7 @@
 "aAC" = (
 /turf/unsimulated/wall/auto/adventure/icemooninterior,
 /area/station/wreckage{
-	teleport_blocked = 1;
+	teleport_blocked = 2;
 	name = "The Crown"
 	})
 "aBd" = (
@@ -879,7 +880,7 @@
 /obj/effects/menhir_fog,
 /turf/unsimulated/floor/setpieces/bluefloor,
 /area/station/wreckage{
-	teleport_blocked = 1;
+	teleport_blocked = 2;
 	name = "The Crown"
 	})
 "aGB" = (
@@ -1789,7 +1790,7 @@
 	dir = 4
 	},
 /area/station/wreckage{
-	teleport_blocked = 1;
+	teleport_blocked = 2;
 	name = "The Crown"
 	})
 "bhM" = (
@@ -2611,6 +2612,13 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/northwest)
+"bEK" = (
+/obj/machinery/navbeacon/mule/hydroponics_north/south,
+/obj/decal/stripe_caution,
+/turf/simulated/floor/green/side{
+	dir = 4
+	},
+/area/station/hydroponics)
 "bEQ" = (
 /obj/cable{
 	icon_state = "4-8"
@@ -6255,9 +6263,13 @@
 /obj/effects/menhir_fog,
 /turf/unsimulated/floor/setpieces/bluefloor,
 /area/station/wreckage{
-	teleport_blocked = 1;
+	teleport_blocked = 2;
 	name = "The Crown"
 	})
+"dZm" = (
+/obj/disposalpipe/segment/transport,
+/turf/simulated/floor/white,
+/area/station/medical/medbay)
 "dZu" = (
 /obj/disposalpipe/switch_junction/left/north,
 /obj/mapping_helper/mailtag/medbay/robotics,
@@ -8409,7 +8421,7 @@
 	},
 /turf/unsimulated/floor/setpieces/bluefloor,
 /area/station/wreckage{
-	teleport_blocked = 1;
+	teleport_blocked = 2;
 	name = "The Crown"
 	})
 "fyc" = (
@@ -9506,7 +9518,7 @@
 /obj/effects/menhir_fog,
 /turf/unsimulated/wall/auto/adventure/icemooninterior,
 /area/station/wreckage{
-	teleport_blocked = 1;
+	teleport_blocked = 2;
 	name = "The Crown"
 	})
 "gfO" = (
@@ -10423,7 +10435,7 @@
 /obj/machinery/conveyor/WE{
 	id = "qmin"
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/airless,
 /area/space)
 "gHh" = (
 /turf/simulated/floor/redblack,
@@ -10708,7 +10720,7 @@
 	dir = 8
 	},
 /area/station/wreckage{
-	teleport_blocked = 1;
+	teleport_blocked = 2;
 	name = "The Crown"
 	})
 "gSN" = (
@@ -11675,6 +11687,11 @@
 /area/station/hallway/secondary/exit{
 	name = "Primary Docking Wing"
 	})
+"hBe" = (
+/obj/machinery/navbeacon/mule/market_north/east,
+/obj/decal/stripe_caution,
+/turf/simulated/floor/black,
+/area/station/hallway/primary/central)
 "hBn" = (
 /obj/disposalpipe/segment/transport{
 	dir = 4
@@ -13352,7 +13369,9 @@
 	name = "Door-linked Atmospheric Forcefield";
 	powerlevel = 1
 	},
-/turf/simulated/floor/caution/northsouth,
+/turf/simulated/floor/caution/misc{
+	dir = 8
+	},
 /area/station/quartermaster/cargobay{
 	name = "Cargo Import Export"
 	})
@@ -17204,7 +17223,7 @@
 /obj/effects/menhir_fog,
 /turf/unsimulated/wall/auto/adventure/icemooninterior,
 /area/station/wreckage{
-	teleport_blocked = 1;
+	teleport_blocked = 2;
 	name = "The Crown"
 	})
 "lie" = (
@@ -18631,7 +18650,7 @@
 	dir = 4
 	},
 /area/station/wreckage{
-	teleport_blocked = 1;
+	teleport_blocked = 2;
 	name = "The Crown"
 	})
 "mhu" = (
@@ -19137,6 +19156,7 @@
 /obj/item/sheet/steel{
 	amount = 50
 	},
+/obj/machinery/light_switch/east,
 /turf/simulated/floor/blueblack{
 	dir = 4
 	},
@@ -19881,7 +19901,7 @@
 	dir = 8
 	},
 /area/station/wreckage{
-	teleport_blocked = 1;
+	teleport_blocked = 2;
 	name = "The Crown"
 	})
 "mWH" = (
@@ -20028,7 +20048,7 @@
 	dir = 4
 	},
 /area/station/wreckage{
-	teleport_blocked = 1;
+	teleport_blocked = 2;
 	name = "The Crown"
 	})
 "nbp" = (
@@ -20222,6 +20242,13 @@
 /obj/machinery/light/small,
 /turf/simulated/floor/purpleblack,
 /area/station/teleporter)
+"njx" = (
+/obj/machinery/conveyor/WE{
+	id = "qmin"
+	},
+/obj/landmark/supply_delivery,
+/turf/simulated/floor/plating/airless,
+/area/space)
 "njQ" = (
 /obj/disposalpipe/segment/bent/north,
 /turf/simulated/floor,
@@ -20343,6 +20370,7 @@
 	dir = 8;
 	icon_state = "pipe-c"
 	},
+/obj/item/device/radio/beacon,
 /turf/simulated/floor/white,
 /area/station/medical/medbay)
 "nnN" = (
@@ -22331,7 +22359,7 @@
 	dir = 1
 	},
 /area/station/wreckage{
-	teleport_blocked = 1;
+	teleport_blocked = 2;
 	name = "The Crown"
 	})
 "otn" = (
@@ -23911,6 +23939,11 @@
 /obj/machinery/light/traffic_light/trader_right/delay3,
 /turf/space,
 /area/space)
+"pvo" = (
+/obj/machinery/navbeacon/mule/medbay_north/west,
+/obj/decal/stripe_caution,
+/turf/simulated/floor/white,
+/area/station/medical/medbay)
 "pwH" = (
 /obj/table/reinforced/bar/auto{
 	name = "wooden table"
@@ -24304,7 +24337,9 @@
 /area/station/medical/research)
 "pLV" = (
 /obj/machinery/light/small/floor,
-/obj/disposalpipe/segment/transport,
+/obj/disposalpipe/segment/transport{
+	icon_state = "pipe-c"
+	},
 /turf/simulated/floor/white,
 /area/station/medical/medbay)
 "pMR" = (
@@ -25425,6 +25460,10 @@
 	},
 /turf/simulated/floor/black,
 /area/station/bridge)
+"qsU" = (
+/obj/decal/stripe_delivery,
+/turf/simulated/floor/black,
+/area/station/hallway/primary/central)
 "qtk" = (
 /obj/disposalpipe/segment/transport{
 	dir = 4
@@ -25666,7 +25705,7 @@
 	dir = 4
 	},
 /area/station/wreckage{
-	teleport_blocked = 1;
+	teleport_blocked = 2;
 	name = "The Crown"
 	})
 "qBD" = (
@@ -28640,7 +28679,7 @@
 	dir = 1
 	},
 /area/station/wreckage{
-	teleport_blocked = 1;
+	teleport_blocked = 2;
 	name = "The Crown"
 	})
 "sww" = (
@@ -29696,6 +29735,7 @@
 	})
 "teH" = (
 /obj/storage/closet/fire,
+/obj/machinery/light_switch/north,
 /turf/simulated/floor/yellowblack{
 	dir = 1
 	},
@@ -30848,6 +30888,7 @@
 	})
 "tNU" = (
 /obj/storage/closet/emergency,
+/obj/machinery/light_switch/north,
 /turf/simulated/floor/yellowblack{
 	dir = 8
 	},
@@ -32080,6 +32121,7 @@
 /area/station/engine/gravity)
 "uyj" = (
 /obj/fitness/speedbag/clown,
+/obj/machinery/light_switch/north,
 /turf/simulated/floor/wood/two,
 /area/station/crew_quarters/fitness)
 "uyl" = (
@@ -33914,6 +33956,8 @@
 	name = "East Shuttle Concourse"
 	})
 "vFQ" = (
+/obj/machinery/navbeacon/mule/chapel_north/east,
+/obj/decal/stripe_caution,
 /turf/simulated/floor/grey/corner,
 /area/station/hallway/primary/north)
 "vFW" = (
@@ -35056,6 +35100,10 @@
 /area/station/hallway/secondary/exit{
 	name = "Primary Docking Wing"
 	})
+"wld" = (
+/obj/decal/stripe_delivery,
+/turf/simulated/floor/grey,
+/area/station/hallway/primary/north)
 "wle" = (
 /obj/stool/chair/yellow{
 	dir = 4
@@ -35214,10 +35262,7 @@
 	name = "Primary Docking Wing"
 	})
 "wov" = (
-/obj/disposalpipe/segment/transport{
-	icon_state = "pipe-c"
-	},
-/obj/item/device/radio/beacon,
+/obj/decal/stripe_delivery,
 /turf/simulated/floor/bluewhite{
 	dir = 1
 	},
@@ -72850,7 +72895,7 @@ gkZ
 gkZ
 jXl
 ygE
-gGJ
+njx
 xqm
 htJ
 qHc
@@ -77655,8 +77700,8 @@ dPt
 nno
 xgM
 xLO
+dZm
 anS
-nvx
 ngP
 nsi
 tAe
@@ -78259,7 +78304,7 @@ ewT
 pIH
 xgM
 tzz
-nvx
+pvo
 nvx
 eLb
 xJR
@@ -86377,7 +86422,7 @@ kqt
 reV
 mIZ
 hou
-hRJ
+wld
 cCY
 cCY
 aFJ
@@ -87007,7 +87052,7 @@ xII
 ahX
 tyj
 xXb
-qUt
+hBe
 hRH
 mUj
 dZA
@@ -87294,7 +87339,7 @@ qiK
 pWr
 tdg
 wIb
-arb
+bEK
 arb
 wIb
 wjh
@@ -87309,7 +87354,7 @@ lXf
 ahX
 dBa
 dqe
-qUt
+qsU
 fOw
 vHt
 dZA
