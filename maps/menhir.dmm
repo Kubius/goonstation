@@ -4371,6 +4371,11 @@
 	dir = 5
 	},
 /area/station/medical/research)
+"cPo" = (
+/obj/lattice,
+/obj/warp_beacon/research,
+/turf/space,
+/area/space)
 "cPI" = (
 /obj/machinery/camera/television{
 	c_tag = "test chamber";
@@ -7009,6 +7014,11 @@
 /obj/machinery/r_door_control/podbay/research,
 /turf/simulated/wall/auto/reinforced/supernorn,
 /area/station/hangar/science)
+"eAw" = (
+/obj/lattice,
+/obj/warp_beacon/medbay,
+/turf/space,
+/area/space)
 "eAF" = (
 /obj/machinery/conveyor/NW{
 	id = "disposals";
@@ -8786,6 +8796,14 @@
 	},
 /turf/simulated/floor/blue,
 /area/station/science/lab)
+"fLG" = (
+/obj/lattice{
+	dir = 9;
+	icon_state = "lattice-dir"
+	},
+/obj/machinery/light/runway_light/delay3,
+/turf/space,
+/area/space)
 "fLL" = (
 /obj/mapping_helper/wingrille_spawn/auto/reinforced,
 /obj/disposalpipe/segment/brig{
@@ -9405,6 +9423,14 @@
 	dir = 4
 	},
 /area/station/storage/eva)
+"ggz" = (
+/obj/lattice{
+	dir = 5;
+	icon_state = "lattice-dir"
+	},
+/obj/machinery/light/runway_light/delay4,
+/turf/space,
+/area/space)
 "ggP" = (
 /obj/cable{
 	icon_state = "1-2"
@@ -13029,10 +13055,7 @@
 /area/station/hangar/sec)
 "iBp" = (
 /obj/machinery/light/traffic_light/trader_right,
-/obj/lattice{
-	dir = 10;
-	icon_state = "lattice-dir"
-	},
+/obj/lattice,
 /turf/space,
 /area/space)
 "iBt" = (
@@ -14917,6 +14940,14 @@
 	},
 /turf/simulated/floor/caution/corner/sw,
 /area/station/turret_protected/incursion)
+"jSY" = (
+/obj/lattice{
+	dir = 5;
+	icon_state = "lattice-dir"
+	},
+/obj/machinery/light/runway_light/delay5,
+/turf/space,
+/area/space)
 "jTh" = (
 /obj/lattice{
 	dir = 10;
@@ -22850,6 +22881,14 @@
 	dir = 1
 	},
 /area/station/science/hall)
+"oWt" = (
+/obj/lattice{
+	dir = 9;
+	icon_state = "lattice-dir"
+	},
+/obj/machinery/light/runway_light/delay5,
+/turf/space,
+/area/space)
 "oXh" = (
 /obj/cable{
 	icon_state = "1-2"
@@ -25168,10 +25207,7 @@
 	},
 /area/station/hangar/science)
 "qBi" = (
-/obj/lattice{
-	dir = 8;
-	icon_state = "lattice-dir"
-	},
+/obj/lattice,
 /obj/machinery/light/traffic_light/trader_left,
 /turf/space,
 /area/space)
@@ -25898,6 +25934,14 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/east)
+"rdT" = (
+/obj/lattice{
+	dir = 9;
+	icon_state = "lattice-dir"
+	},
+/obj/machinery/light/runway_light/delay4,
+/turf/space,
+/area/space)
 "ren" = (
 /obj/machinery/portable_atmospherics/canister/oxygen,
 /turf/simulated/floor/blueblack{
@@ -31027,6 +31071,14 @@
 /area/station/maintenance/inner/sw{
 	name = "Southwest Auxiliary Conduit"
 	})
+"ukf" = (
+/obj/lattice{
+	dir = 1;
+	icon_state = "lattice-dir-b"
+	},
+/obj/machinery/light/runway_light/delay4,
+/turf/space,
+/area/space)
 "uks" = (
 /turf/simulated/floor/stairs/dark{
 	dir = 5
@@ -31933,6 +31985,13 @@
 	},
 /turf/simulated/floor,
 /area/station/hallway/primary/west)
+"uPq" = (
+/obj/lattice{
+	icon_state = "lattice-dir-b"
+	},
+/obj/machinery/light/runway_light/delay5,
+/turf/space,
+/area/space)
 "uPt" = (
 /obj/table/auto,
 /obj/item/decoration/ashtray{
@@ -31961,6 +32020,14 @@
 	dir = 4
 	},
 /area/station/medical/research)
+"uPF" = (
+/obj/lattice{
+	dir = 5;
+	icon_state = "lattice-dir"
+	},
+/obj/machinery/light/runway_light/delay3,
+/turf/space,
+/area/space)
 "uPH" = (
 /obj/machinery/vending/air_vendor,
 /obj/machinery/light{
@@ -33165,6 +33232,14 @@
 /obj/disposalpipe/segment/bent/west,
 /turf/simulated/floor/plating,
 /area/station/maintenance/east)
+"vCz" = (
+/obj/lattice{
+	dir = 4;
+	icon_state = "lattice-dir"
+	},
+/obj/machinery/light/runway_light,
+/turf/space,
+/area/space)
 "vCJ" = (
 /obj/machinery/disposal,
 /obj/disposalpipe/trunk/south,
@@ -33735,6 +33810,13 @@
 	},
 /turf/simulated/floor/wood/seven,
 /area/station/ranch)
+"vTx" = (
+/obj/lattice,
+/obj/warp_beacon/mining{
+	name = "logistics hangar beacon"
+	},
+/turf/space,
+/area/space)
 "vUi" = (
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
 	dir = 4
@@ -35208,6 +35290,11 @@
 	},
 /turf/simulated/floor/black/grime,
 /area/station/engine/coldloop)
+"wKk" = (
+/obj/lattice,
+/obj/warp_beacon/engineering,
+/turf/space,
+/area/space)
 "wKS" = (
 /obj/machinery/mass_driver{
 	dir = 8;
@@ -69080,7 +69167,7 @@ sEf
 sEf
 sEf
 sEf
-sEf
+rdT
 sEf
 sEf
 gxh
@@ -69105,7 +69192,7 @@ gxh
 sEf
 sEf
 sEf
-sEf
+fLG
 sEf
 sEf
 sEf
@@ -69381,10 +69468,10 @@ sEf
 sEf
 sEf
 sEf
-sEf
-sEf
-sEf
-sEf
+uPq
+eAw
+uan
+uan
 qBi
 uan
 lou
@@ -69404,11 +69491,11 @@ kPv
 lou
 uan
 iBp
-sEf
-sEf
-sEf
-sEf
-sEf
+uan
+uan
+uan
+vTx
+ukf
 sEf
 sEf
 sEf
@@ -69684,7 +69771,7 @@ sEf
 sEf
 sEf
 sEf
-sEf
+tvx
 sEf
 sEf
 gxh
@@ -69709,7 +69796,7 @@ gxh
 sEf
 sEf
 sEf
-sEf
+jSY
 sEf
 sEf
 sEf
@@ -73964,7 +74051,7 @@ sEf
 sEf
 sEf
 sEf
-sEf
+rdT
 sEf
 sEf
 sEf
@@ -74265,9 +74352,9 @@ sEf
 sEf
 sEf
 sEf
-sEf
-sEf
-sEf
+uPq
+wKk
+vVB
 sEf
 sEf
 sEf
@@ -74568,7 +74655,7 @@ sEf
 sEf
 sEf
 sEf
-sEf
+vCz
 sEf
 sEf
 sEf
@@ -74870,7 +74957,7 @@ sEf
 sEf
 sEf
 sEf
-sEf
+jWo
 sEf
 sEf
 sEf
@@ -75172,7 +75259,7 @@ sEf
 sEf
 sEf
 sEf
-kHv
+jtY
 sEf
 sEf
 sEf
@@ -75474,7 +75561,7 @@ sEf
 sEf
 sEf
 sEf
-jWo
+gxh
 sEf
 sEf
 sEf
@@ -75776,7 +75863,7 @@ iwG
 iwG
 nPv
 mCZ
-yem
+gxh
 sEf
 sEf
 sEf
@@ -94500,7 +94587,7 @@ emv
 emv
 cCX
 eAn
-yem
+xqm
 sEf
 sEf
 sEf
@@ -94802,7 +94889,7 @@ sEf
 sEf
 sEf
 sEf
-jWo
+gxh
 sEf
 sEf
 sEf
@@ -95104,7 +95191,7 @@ sEf
 sEf
 sEf
 sEf
-czs
+jtY
 sEf
 sEf
 sEf
@@ -95406,7 +95493,7 @@ sEf
 sEf
 sEf
 sEf
-sEf
+jWo
 sEf
 sEf
 sEf
@@ -95708,7 +95795,7 @@ sEf
 sEf
 sEf
 sEf
-sEf
+vCz
 sEf
 sEf
 sEf
@@ -96009,9 +96096,9 @@ sEf
 sEf
 sEf
 sEf
-sEf
-sEf
-sEf
+uPq
+cPo
+vVB
 sEf
 sEf
 sEf
@@ -96312,7 +96399,7 @@ sEf
 sEf
 sEf
 sEf
-sEf
+ggz
 sEf
 sEf
 sEf
@@ -99001,14 +99088,14 @@ cms
 dQW
 dQW
 sbV
-xqm
+yem
 sEf
 sEf
 sEf
 sEf
 sEf
 sEf
-gxh
+jtY
 sEf
 sEf
 sEf
@@ -99301,16 +99388,16 @@ dQW
 dQW
 dQW
 dQW
-bXb
+xqm
 sEf
-gxh
-sEf
-sEf
+jWo
 sEf
 sEf
 sEf
 sEf
-gxh
+sEf
+sEf
+jWo
 sEf
 sEf
 sEf
@@ -99602,17 +99689,17 @@ fXn
 otw
 lie
 hQY
-xqm
 sEf
+gxh
 sEf
-tvx
-sEf
-sEf
-sEf
+czs
 sEf
 sEf
 sEf
-tvx
+sEf
+sEf
+sEf
+czs
 sEf
 sEf
 sEf
@@ -99904,8 +99991,8 @@ dNa
 dNa
 dNa
 hQY
+uan
 xqm
-sEf
 sEf
 sEf
 sEf
@@ -100188,7 +100275,7 @@ sEf
 sEf
 sEf
 sEf
-czs
+vCz
 sEf
 lzH
 hQY
@@ -100206,8 +100293,8 @@ iXW
 iXW
 iXW
 hQY
-xqm
 sEf
+gxh
 sEf
 sEf
 sEf
@@ -100490,7 +100577,7 @@ sEf
 sEf
 sEf
 sEf
-sEf
+gxh
 sEf
 lzH
 hQY
@@ -100508,12 +100595,12 @@ sSl
 oXw
 oXw
 hQY
-xqm
+sEf
+gxh
 sEf
 sEf
 sEf
-sEf
-sEf
+oWt
 sEf
 sEf
 sEf
@@ -100789,10 +100876,10 @@ sEf
 sEf
 sEf
 sEf
+oWt
 sEf
 sEf
-sEf
-sEf
+gxh
 sEf
 lzH
 nQi
@@ -100810,13 +100897,13 @@ nQi
 iqP
 iqP
 nQi
-xqm
-sEf
-sEf
-sEf
-sEf
-sEf
-sEf
+uan
+qHc
+uan
+uan
+uan
+vTx
+ukf
 sEf
 sEf
 sEf
@@ -101090,13 +101177,13 @@ sEf
 sEf
 sEf
 sEf
-sEf
-sEf
-sEf
-sEf
-sEf
-sEf
-lzH
+uPq
+eAw
+uan
+uan
+sbV
+uan
+qHc
 nQi
 jDM
 gvX
@@ -101112,12 +101199,12 @@ hQY
 gvX
 vFJ
 hQY
-xqm
+sEf
+tvx
 sEf
 sEf
 sEf
-sEf
-sEf
+uPF
 sEf
 sEf
 sEf
@@ -101393,7 +101480,7 @@ sEf
 sEf
 sEf
 sEf
-sEf
+uPF
 sEf
 sEf
 sEf
@@ -101414,7 +101501,7 @@ nQi
 iqP
 iqP
 nQi
-bXb
+sEf
 sEf
 sEf
 sEf
