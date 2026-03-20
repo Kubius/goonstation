@@ -640,10 +640,8 @@ var/global/list/mapNames = list(
 
 	Z_LEVEL_PARALLAX_RENDER_SOURCES(1) = list(
 		/atom/movable/screen/parallax_render_source/space_1,
-		/atom/movable/screen/parallax_render_source/space_2,
-		/atom/movable/screen/parallax_render_source/typhon/kondaru,
-		/atom/movable/screen/parallax_render_source/planet/magus,
-		/atom/movable/screen/parallax_render_source/asteroids_far/kondaru,
+		/atom/movable/screen/parallax_render_source/space_2/menhir,
+		/atom/movable/screen/parallax_render_source/typhon/menhir,
 		)
 
 	arrivals_type = MAP_SPAWN_CRYO
