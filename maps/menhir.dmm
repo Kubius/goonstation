@@ -8139,9 +8139,7 @@
 /turf/simulated/floor/orangeblack/side,
 /area/station/hallway/primary/west)
 "fsz" = (
-/obj/machinery/r_door_control/podbay/medbay{
-	pixel_y = -8
-	},
+/obj/machinery/r_door_control/podbay/medbay,
 /turf/simulated/wall/auto/reinforced/supernorn,
 /area/station/hangar/medical)
 "fsB" = (
@@ -15165,6 +15163,10 @@
 "jZF" = (
 /turf/simulated/wall/auto/supernorn,
 /area/station/maintenance/southeast)
+"jZY" = (
+/obj/machinery/r_door_control/podbay/mainpod1,
+/turf/simulated/wall/auto/reinforced/supernorn,
+/area/station/hangar/main)
 "jZZ" = (
 /obj/machinery/sleeper/compact,
 /turf/unsimulated/floor/shuttle/white,
@@ -77864,13 +77866,13 @@ sEf
 sEf
 sEf
 sEf
+lYo
 sEf
 sEf
+lYo
 sEf
 sEf
-sEf
-sEf
-sEf
+lYo
 sEf
 sEf
 sEf
@@ -92360,13 +92362,13 @@ sEf
 sEf
 sEf
 sEf
+tvx
 sEf
 sEf
+tvx
 sEf
 sEf
-sEf
-sEf
-sEf
+tvx
 sEf
 sEf
 sEf
@@ -99360,7 +99362,7 @@ sEf
 sEf
 sEf
 fMD
-bxP
+jZY
 wfD
 wfD
 wfD
