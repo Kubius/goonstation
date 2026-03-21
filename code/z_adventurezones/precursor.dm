@@ -308,7 +308,7 @@
 	spawn_the_thing()
 		SPAWN(20)
 			var/obj/item/chilly_orb/our_target = pick(by_type[/obj/item/chilly_orb/menhir])
-			our_target.id = "THEN"
+			our_target.id = "NOW"
 
 /obj/precursor_puzzle/orb_stand
 	name = "cold device"

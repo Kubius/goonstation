@@ -6,6 +6,7 @@
 	opacity = 1
 	density = 1
 	hardened = 1
+	hitsound = 'sound/impact_sounds/Metal_Hit_Lowfi_1.ogg'
 	var/friendly_object = null
 	var/friend_obj_is_precursor = TRUE
 
@@ -17,13 +18,17 @@
 	attackby(obj/item/W, mob/user)
 		..()
 		if(src.locked && src.friendly_object)
-			if(istype(W,/obj/item/artifact) && friend_obj_is_precursor)
-				if(!W.artifact.artitype.name == "precursor")
+			if(!istype(W,src.friendly_object))
+				if (!ON_COOLDOWN(src, "smacksounde", 1 SECOND))
 					user.visible_message(SPAN_ALERT("[src] sounds oddly hollow as it's struck."))
-					return
-			else if(!istype(W,src.friendly_object))
-				user.visible_message(SPAN_ALERT("[src] sounds oddly hollow as it's struck."))
+					playsound(src.loc, src.hitsound, 15, 0, pitch = 0.7)
 				return
+			else if(istype(W,/obj/item/artifact) && friend_obj_is_precursor)
+				if(!W.artifact.artitype.name == "precursor")
+					if (!ON_COOLDOWN(src, "smacksounde", 1 SECOND))
+						user.visible_message(SPAN_ALERT("[src] sounds oddly hollow as it's struck."))
+						playsound(src.loc, src.hitsound, 15, 0, pitch = 0.7)
+					return
 			user.visible_message(SPAN_NOTICE("<B>[src] [pick("rings", "dings", "chimes","vibrates","oscillates")] [pick("faintly", "softly", "loudly", "weirdly", "scarily", "eerily")].</B>"))
 			var/door_note = 'sound/musical_instruments/WeirdChime_0.ogg'
 			playsound(src.loc, door_note, 60, 0)
@@ -31,6 +36,8 @@
 
 
 /obj/machinery/door/unpowered/blue/open()
+	if (src.locked)
+		return
 	. = ..()
 	playsound(src.loc, 'sound/impact_sounds/Stone_Scrape_1.ogg', 50, 1)
 
