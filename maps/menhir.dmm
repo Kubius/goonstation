@@ -1482,6 +1482,12 @@
 "aYX" = (
 /turf/simulated/floor/black/side,
 /area/station/hallway/primary/east)
+"aZo" = (
+/obj/landmark/halloween,
+/turf/simulated/floor,
+/area/station/hallway/secondary/east{
+	name = "East Shuttle Concourse"
+	})
 "aZr" = (
 /obj/disposalpipe/segment/mail{
 	dir = 4
@@ -2759,6 +2765,7 @@
 	pixel_y = 10;
 	pixel_x = 9
 	},
+/obj/landmark/pest,
 /turf/simulated/floor/plating,
 /area/station/maintenance/inner/se{
 	name = "Southeast Auxiliary Conduit"
@@ -4705,6 +4712,7 @@
 "cUp" = (
 /obj/disposalpipe/switch_junction/left/north,
 /obj/mapping_helper/mailtag/mechanics,
+/obj/landmark/halloween,
 /turf/simulated/floor,
 /area/station/hallway/primary/west)
 "cUq" = (
@@ -10159,6 +10167,10 @@
 	},
 /turf/simulated/floor/caution/northsouth,
 /area/station/science/artifact)
+"guB" = (
+/obj/landmark/halloween,
+/turf/simulated/floor,
+/area/station/hallway/primary/west)
 "guI" = (
 /obj/machinery/door/airlock/pyro/command{
 	dir = 4
@@ -10943,6 +10955,7 @@
 /obj/disposalpipe/trunk/produce{
 	dir = 4
 	},
+/obj/landmark/pest,
 /turf/simulated/floor/specialroom/freezer,
 /area/station/crew_quarters/catering)
 "gUz" = (
@@ -12376,6 +12389,7 @@
 	},
 /obj/machinery/disposal,
 /obj/disposalpipe/trunk/south,
+/obj/landmark/pest,
 /turf/simulated/floor/grime,
 /area/station/maintenance/disposal)
 "hQr" = (
@@ -13707,6 +13721,14 @@
 "iIk" = (
 /turf/simulated/wall/auto/reinforced/supernorn,
 /area/station/science/artifact)
+"iIB" = (
+/obj/disposalpipe/segment/transport{
+	dir = 8;
+	icon_state = "pipe-c"
+	},
+/obj/landmark/halloween,
+/turf/simulated/floor,
+/area/station/hallway/primary/west)
 "iIP" = (
 /obj/stool/bed,
 /obj/item/clothing/suit/bedsheet,
@@ -14363,6 +14385,12 @@
 	},
 /turf/simulated/wall/auto/supernorn,
 /area/station/ranch)
+"jfx" = (
+/obj/landmark/halloween,
+/turf/simulated/floor,
+/area/station/hallway/secondary/west{
+	name = "West Shuttle Concourse"
+	})
 "jfD" = (
 /obj/machinery/door/airlock/pyro/security,
 /obj/mapping_helper/firedoor_spawn,
@@ -14947,6 +14975,7 @@
 	dir = 4;
 	icon_state = "pipe-c"
 	},
+/obj/landmark/halloween,
 /turf/simulated/floor,
 /area/station/hallway/primary/north)
 "jAy" = (
@@ -16953,6 +16982,15 @@
 	},
 /turf/simulated/wall/auto/reinforced/supernorn,
 /area/station/engine/hotloop)
+"kQL" = (
+/obj/cable{
+	icon_state = "4-8"
+	},
+/obj/landmark/halloween,
+/turf/simulated/floor,
+/area/station/hallway/secondary/exit{
+	name = "Primary Docking Wing"
+	})
 "kRn" = (
 /obj/machinery/disposal,
 /obj/disposalpipe/trunk/east,
@@ -19961,6 +19999,7 @@
 /obj/disposalpipe/trunk/south,
 /obj/machinery/disposal,
 /obj/machinery/camera/directional/north,
+/obj/landmark/pest,
 /turf/simulated/floor/sanitary/white,
 /area/station/medical/morgue)
 "mJW" = (
@@ -20807,6 +20846,12 @@
 /obj/landmark/start/job/roboticist,
 /turf/simulated/floor/black,
 /area/station/medical/robotics)
+"noI" = (
+/obj/landmark/halloween,
+/turf/simulated/floor,
+/area/station/hallway/secondary/exit{
+	name = "Primary Docking Wing"
+	})
 "noN" = (
 /obj/machinery/light_switch/east,
 /turf/simulated/floor/black/grime,
@@ -21784,6 +21829,10 @@
 	},
 /turf/simulated/floor/grime,
 /area/station/medical/robotics)
+"nRO" = (
+/obj/landmark/halloween,
+/turf/unsimulated/floor/setpieces/bluefloor,
+/area/station/hallway/primary/southwest)
 "nRS" = (
 /obj/cable{
 	icon_state = "1-2"
@@ -24550,6 +24599,10 @@
 	},
 /turf/simulated/floor/carpet/red/fancy/edge/east,
 /area/station/security/hos)
+"pBB" = (
+/obj/landmark/halloween,
+/turf/unsimulated/floor/setpieces/bluefloor,
+/area/station/hallway/primary/southeast)
 "pBE" = (
 /obj/disposalpipe/segment/brig{
 	dir = 4
@@ -25779,6 +25832,7 @@
 	icon_state = "2-4"
 	},
 /obj/disposalpipe/segment/mail,
+/obj/landmark/halloween,
 /turf/simulated/floor,
 /area/station/hallway/primary/north)
 "qnX" = (
@@ -26999,6 +27053,7 @@
 "reV" = (
 /obj/shrub,
 /obj/disposalpipe/segment/mail,
+/obj/landmark/pest,
 /turf/simulated/floor/grey/side{
 	dir = 1
 	},
@@ -27469,6 +27524,7 @@
 /obj/disposalpipe/segment/brig{
 	dir = 4
 	},
+/obj/landmark/halloween,
 /turf/simulated/floor,
 /area/station/hallway/primary/north)
 "rsd" = (
@@ -29184,6 +29240,10 @@
 	},
 /turf/simulated/floor/black,
 /area/station/chapel/sanctuary)
+"svH" = (
+/obj/landmark/halloween,
+/turf/simulated/floor,
+/area/station/hallway/primary/central)
 "svO" = (
 /obj/storage/crate/radio,
 /turf/simulated/floor/blueblack,
@@ -29332,6 +29392,7 @@
 	pixel_y = 7;
 	pixel_x = -6
 	},
+/obj/landmark/pest,
 /turf/simulated/floor/yellowblack{
 	dir = 8
 	},
@@ -29529,6 +29590,7 @@
 /obj/cable{
 	icon_state = "4-8"
 	},
+/obj/landmark/halloween,
 /turf/simulated/floor,
 /area/station/hallway/primary/east)
 "sGu" = (
@@ -30519,6 +30581,10 @@
 /obj/disposalpipe/segment/horizontal,
 /turf/simulated/floor/carpet/blue,
 /area/station/maintenance/northeast)
+"tiy" = (
+/obj/landmark/halloween,
+/turf/unsimulated/floor/setpieces/bluefloor,
+/area/station/hallway/primary/central)
 "tiA" = (
 /obj/decal/stage_edge/alt,
 /obj/machinery/clonegrinder,
@@ -31872,6 +31938,15 @@
 /obj/machinery/firealarm/directional/west,
 /turf/simulated/floor/black,
 /area/station/crew_quarters/md)
+"tYp" = (
+/obj/cable{
+	icon_state = "4-8"
+	},
+/obj/landmark/halloween,
+/turf/simulated/floor,
+/area/station/hallway/secondary/entry{
+	name = "Arrival Concourse"
+	})
 "tYs" = (
 /obj/machinery/door/airlock/pyro/security,
 /obj/mapping_helper/access/security,
@@ -36428,6 +36503,13 @@
 	},
 /turf/simulated/floor/black,
 /area/station/science/storage)
+"wGg" = (
+/obj/disposalpipe/segment/brig{
+	dir = 1
+	},
+/obj/landmark/halloween,
+/turf/simulated/floor,
+/area/station/hallway/primary/east)
 "wGz" = (
 /obj/mesh/catwalk,
 /obj/machinery/light/small/floor,
@@ -36833,6 +36915,7 @@
 	dir = 1;
 	pixel_y = 21
 	},
+/obj/landmark/pest,
 /turf/simulated/floor/sanitary,
 /area/station/hallway/primary/east)
 "wTx" = (
@@ -37274,6 +37357,7 @@
 /area/station/hallway/primary/west)
 "xjC" = (
 /obj/reagent_dispensers/watertank/big,
+/obj/landmark/pest,
 /turf/simulated/floor/plating,
 /area/station/maintenance/east)
 "xjD" = (
@@ -71409,7 +71493,7 @@ gxh
 sEf
 deF
 aQr
-aQr
+jfx
 aQr
 aQr
 eEC
@@ -71419,7 +71503,7 @@ aQr
 aQr
 aQr
 aQr
-aQr
+jfx
 aQr
 deF
 sEf
@@ -75944,7 +76028,7 @@ iww
 gLT
 gLT
 ogk
-vna
+guB
 fJc
 nMd
 nMd
@@ -78658,7 +78742,7 @@ pLV
 qzL
 thc
 fPZ
-tsu
+iIB
 vna
 cBC
 vna
@@ -82575,7 +82659,7 @@ qUt
 blY
 blY
 blY
-blY
+tiy
 blY
 blY
 blY
@@ -82601,7 +82685,7 @@ qra
 wMB
 wMB
 xFh
-xFh
+nRO
 xFh
 xFh
 xFh
@@ -84647,7 +84731,7 @@ htJ
 rny
 rny
 qIF
-sCn
+tYp
 ubd
 ubd
 ubd
@@ -86451,7 +86535,7 @@ sPA
 sPA
 gOB
 sPA
-sPA
+noI
 sPA
 hnG
 hnM
@@ -86499,7 +86583,7 @@ jAB
 opl
 opl
 opl
-opl
+svH
 wHq
 lhN
 aGr
@@ -88271,7 +88355,7 @@ fMD
 plw
 plw
 bvr
-gOB
+kQL
 qdU
 pcS
 tcu
@@ -90427,7 +90511,7 @@ qUt
 blY
 blY
 blY
-blY
+tiy
 blY
 blY
 blY
@@ -90453,7 +90537,7 @@ ffH
 aSL
 aSL
 aSL
-aSL
+pBB
 aSL
 aSL
 aSL
@@ -94370,7 +94454,7 @@ aKk
 roy
 aKk
 xqg
-aKk
+wGg
 umr
 jms
 jtk
@@ -101609,7 +101693,7 @@ sEf
 lzH
 hQY
 iXW
-iXW
+aZo
 iXW
 iXW
 iFW
@@ -101619,7 +101703,7 @@ iXW
 iXW
 iXW
 iXW
-iXW
+aZo
 iXW
 hQY
 sEf
