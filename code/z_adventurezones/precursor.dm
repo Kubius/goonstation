@@ -355,7 +355,7 @@
 		else
 			user.visible_message(SPAN_NOTICE("[src] [pick("projects","imposes","directs","shines")] an image into your mind..."))
 			user.visible_message(SPAN_ALERT("<i>[src.vision_description]</i>"))
-			user.playsound_local_not_inworld('sound/musical_instruments/Vuvuzela_1.ogg', 12, 0, pitch = 0.3)
+			user.playsound_local_not_inworld('sound/musical_instruments/Vuvuzela_1.ogg', 12, 0, pitch = 0.2)
 
 /obj/precursor_puzzle/orb_stand
 	name = "cold device"

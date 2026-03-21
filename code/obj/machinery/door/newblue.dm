@@ -22,7 +22,7 @@
 			animate(src, alpha = 255, time = 15, easing = SINE_EASING | EASE_OUT)
 			SPAWN(18)
 				var/turf/under_us = get_turf(src)
-				under_us.ReplaceWith(/turf/unsimulated/floor/setpieces/bluefloor)
+				under_us.ReplaceWith(/turf/unsimulated/floor/setpieces/bluefloor, force = 1)
 
 	attackby(obj/item/W, mob/user)
 		..()

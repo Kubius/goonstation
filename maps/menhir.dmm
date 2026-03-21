@@ -24457,6 +24457,7 @@
 /area/station/crew_quarters/ce)
 "pxp" = (
 /obj/landmark/start/job/technical_trainee,
+/obj/machinery/light,
 /turf/simulated/floor/yellow/side,
 /area/station/engine/storage)
 "pxt" = (
@@ -26595,7 +26596,6 @@
 /turf/simulated/floor/caution/northsouth,
 /area/station/science/artifact)
 "qSm" = (
-/obj/machinery/light,
 /turf/simulated/floor/yellow/side{
 	dir = 6
 	},
