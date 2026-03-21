@@ -579,7 +579,7 @@
 /turf/simulated/floor/engine,
 /area/station/engine/core/nuclear)
 "aol" = (
-/obj/machinery/weapon_stand/phaser_rack,
+/obj/random_item_spawner/armory_phasers,
 /turf/simulated/floor/engine,
 /area/station/ai_monitored/armory)
 "aot" = (
@@ -3280,6 +3280,10 @@
 /obj/disposalpipe/segment/horizontal,
 /turf/simulated/floor/plating,
 /area/station/maintenance/southeast/tenebrae)
+"bvq" = (
+/obj/submachine/cargopad/hydroponic,
+/turf/simulated/floor/green/side,
+/area/station/hydroponics/bay)
 "bvA" = (
 /obj/cable{
 	icon_state = "4-8"
@@ -8670,10 +8674,10 @@
 /turf/simulated/floor/white,
 /area/station/hallway/primary/central/tenebrae)
 "dCb" = (
-/obj/disposalpipe/junction/right/north,
 /obj/cable{
 	icon_state = "1-2"
 	},
+/obj/disposalpipe/segment/vertical,
 /turf/simulated/floor/specialroom/arcade,
 /area/station/science/chemistry)
 "dCe" = (
@@ -12912,7 +12916,9 @@
 /obj/machinery/phone/wall{
 	pixel_y = 32
 	},
-/obj/machinery/light_switch/west,
+/obj/item/device/radio/intercom/science{
+	dir = 4
+	},
 /turf/simulated/floor/purpleblack/corner,
 /area/station/science/chemistry)
 "fqF" = (
@@ -15235,36 +15241,12 @@
 /turf/simulated/floor/specialroom/chapel,
 /area/station/chapel/sanctuary)
 "ghO" = (
-/obj/rack,
-/obj/item/clothing/mask/gas{
-	pixel_x = 8;
-	pixel_y = 5
-	},
-/obj/item/clothing/mask/gas{
-	pixel_x = -7;
-	pixel_y = 5
-	},
-/obj/item/clothing/suit/armor/heavy{
-	pixel_x = -8;
-	pixel_y = -5
-	},
-/obj/item/clothing/suit/armor/heavy{
-	pixel_x = 8;
-	pixel_y = -5
-	},
-/obj/item/clothing/head/helmet/riot{
-	pixel_x = -7;
-	pixel_y = 11
-	},
-/obj/item/clothing/head/helmet/riot{
-	pixel_x = 9;
-	pixel_y = 11
-	},
 /obj/machinery/light{
 	dir = 4;
 	layer = 9.1;
 	pixel_x = 10
 	},
+/obj/random_item_spawner/armory_armor_supplies,
 /turf/simulated/floor/engine{
 	allows_vehicles = 0
 	},
@@ -16884,10 +16866,6 @@
 /area/station/medical/medbay/psychiatrist{
 	name = "Subacute Care"
 	})
-"gSY" = (
-/obj/disposalpipe/segment/horizontal,
-/turf/simulated/floor/specialroom/arcade,
-/area/station/science/chemistry)
 "gTt" = (
 /obj/machinery/camera/directional/south,
 /turf/simulated/floor/plating/random,
@@ -18243,11 +18221,8 @@
 	layer = 9.1;
 	pixel_x = 10
 	},
-/obj/table/reinforced/chemistry/auto,
-/obj/item/device/radio/intercom/science{
-	pixel_y = -2;
-	pixel_x = 3
-	},
+/obj/table/reinforced/chemistry/auto/firstaid,
+/obj/item/storage/toolbox/mechanical,
 /turf/simulated/floor/purpleblack/corner{
 	dir = 1
 	},
@@ -23093,6 +23068,7 @@
 /area/station/crew_quarters/maru)
 "jth" = (
 /obj/machinery/camera/directional/north,
+/obj/submachine/cargopad/robotics,
 /turf/simulated/floor/black,
 /area/station/medical/robotics)
 "jtj" = (
@@ -31019,8 +30995,7 @@
 /turf/simulated/floor/darkblue,
 /area/station/storage/eva)
 "mTO" = (
-/obj/machinery/disposal,
-/obj/disposalpipe/trunk/east,
+/obj/machinery/chemicompiler_stationary,
 /turf/simulated/floor/purpleblack{
 	dir = 4
 	},
@@ -35700,6 +35675,10 @@
 /area/station/engine/elect)
 "oVB" = (
 /obj/machinery/vending/security_ammo,
+/obj/machinery/recharger/wall/sticky{
+	dir = 1;
+	pixel_y = 26
+	},
 /turf/simulated/floor/engine,
 /area/station/ai_monitored/armory)
 "oWe" = (
@@ -36155,44 +36134,12 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/disposal/maru)
 "peS" = (
-/obj/rack,
-/obj/item/clothing/glasses/nightvision{
-	pixel_x = -5;
-	pixel_y = 3
-	},
-/obj/item/clothing/glasses/nightvision{
-	pixel_x = -2
-	},
-/obj/item/clothing/glasses/nightvision{
-	pixel_x = 1;
-	pixel_y = -3
-	},
-/obj/item/clothing/glasses/nightvision{
-	pixel_x = 4;
-	pixel_y = -6
-	},
-/obj/item/clothing/glasses/thermal{
-	pixel_x = -4;
-	pixel_y = 5
-	},
-/obj/item/clothing/glasses/thermal{
-	pixel_x = -1;
-	pixel_y = 2
-	},
-/obj/item/clothing/glasses/thermal{
-	pixel_x = 2;
-	pixel_y = -1
-	},
-/obj/item/clothing/glasses/thermal{
-	pixel_x = 5;
-	pixel_y = -4
-	},
-/obj/rack,
 /obj/machinery/light{
 	dir = 8;
 	layer = 9.1;
 	pixel_x = -10
 	},
+/obj/random_item_spawner/armory_goggle_supplies,
 /turf/simulated/floor/engine,
 /area/station/ai_monitored/armory)
 "pfd" = (
@@ -44937,6 +44884,10 @@
 	pixel_x = -15;
 	pixel_y = 2
 	},
+/obj/machinery/recharger/wall/sticky{
+	dir = 1;
+	pixel_y = 26
+	},
 /turf/simulated/floor/engine{
 	allows_vehicles = 0
 	},
@@ -45407,6 +45358,7 @@
 /area/station/maintenance/disposal/tenebrae)
 "sXx" = (
 /obj/item/device/radio/beacon,
+/obj/submachine/cargopad/qm,
 /turf/simulated/floor,
 /area/station/quartermaster/office)
 "sXF" = (
@@ -49452,8 +49404,8 @@
 /turf/simulated/floor/plating,
 /area/station/storage/tech)
 "uAe" = (
-/obj/table/reinforced/chemistry/auto/firstaid,
-/obj/item/storage/toolbox/mechanical,
+/obj/machinery/disposal,
+/obj/disposalpipe/trunk/west,
 /turf/simulated/floor/purpleblack{
 	dir = 9
 	},
@@ -51223,6 +51175,13 @@
 	},
 /turf/simulated/floor/carpet/red/fancy/edge/ne,
 /area/station/crew_quarters/cafeteria)
+"vii" = (
+/obj/disposalpipe/junction/left/north,
+/obj/cable{
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/specialroom/arcade,
+/area/station/science/chemistry)
 "vil" = (
 /obj/cable/brown{
 	icon_state = "1-2"
@@ -111131,7 +111090,7 @@ ksl
 qOC
 hUo
 ume
-dJR
+bvq
 pmJ
 pmJ
 lYt
@@ -120535,7 +120494,7 @@ tOw
 ivU
 bBq
 bBq
-gSY
+bBq
 ryx
 bBq
 miI
@@ -120841,7 +120800,7 @@ dCb
 alk
 tzz
 rlz
-tzz
+vii
 soe
 uvQ
 aCj
