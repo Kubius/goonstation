@@ -9588,7 +9588,7 @@
 /obj/machinery/door/unpowered/blue{
 	dir = 4
 	},
-/turf/unsimulated/wall/auto/adventure/icemooninterior,
+/turf/unsimulated/floor/setpieces/bluefloor,
 /area/precursor/menhir)
 "aRW" = (
 /obj/stool/bed,
@@ -58842,6 +58842,12 @@
 /obj/item/extinguisher,
 /turf/unsimulated/floor/damaged1,
 /area/watchful_eye_sensor)
+"hpW" = (
+/mob/living/critter/shade,
+/turf/unsimulated/floor/setpieces/bluefloor{
+	dir = 8
+	},
+/area/precursor/menhir)
 "hqg" = (
 /obj/fakeobject/dreambeach/mercury,
 /turf/unsimulated/floor/dream/beach,
@@ -153950,7 +153956,7 @@ nNE
 ryH
 jNM
 nNE
-xBy
+nNE
 nZK
 nNE
 nZK
@@ -156348,7 +156354,7 @@ jky
 sGZ
 mrC
 lkr
-eli
+hpW
 lkr
 lkr
 lkr
@@ -156959,7 +156965,7 @@ sGZ
 sGZ
 sGZ
 sGZ
-xpu
+hyO
 sGZ
 hyO
 hyO

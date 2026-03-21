@@ -296,6 +296,20 @@
 	interesting = "Scans detect: COBRYL | IRIDIUM | BOSE-EINSTEIN CONDENSATE | RHYDBERG MATTER"
 	var/id = "ENTRY" // default
 
+/obj/item/chilly_orb/menhir
+	id = "SIDEREAL"
+
+	New()
+		..()
+		START_TRACKING
+
+//this may be a really terrible way to do this
+/obj/landmark/spawner/menhir
+	spawn_the_thing()
+		SPAWN(20)
+			var/obj/item/chilly_orb/our_target = pick(by_type[/obj/item/chilly_orb/menhir])
+			our_target.id = "THEN"
+
 /obj/precursor_puzzle/orb_stand
 	name = "cold device"
 	icon = 'icons/obj/artifacts/puzzles.dmi'

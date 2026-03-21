@@ -5729,6 +5729,9 @@
 "dFy" = (
 /obj/effects/menhir_fog,
 /obj/rack/precursor,
+/obj/item/chilly_orb/menhir{
+	pixel_y = 9
+	},
 /turf/unsimulated/floor/setpieces/bluefloor,
 /area/station/wreckage{
 	teleport_blocked = 2;
@@ -18956,10 +18959,6 @@
 /obj/rack/precursor,
 /obj/effects/menhir_fog,
 /obj/map/light/cyan,
-/obj/item/chilly_orb{
-	pixel_y = 9;
-	id = "NOW"
-	},
 /turf/unsimulated/floor/setpieces/bluefloor{
 	dir = 4
 	},
@@ -23004,6 +23003,19 @@
 /obj/landmark/start/job/assistant,
 /turf/simulated/floor/wood,
 /area/station/crew_quarters/cafeteria)
+"oCb" = (
+/obj/machinery/door/unpowered/blue{
+	friendly_object = /obj/item/artifact
+	},
+/obj/map/light/cyan,
+/obj/effects/menhir_fog,
+/turf/unsimulated/floor/setpieces/bluefloor{
+	dir = 8
+	},
+/area/station/wreckage{
+	teleport_blocked = 2;
+	name = "The Crown"
+	})
 "oCg" = (
 /obj/cable{
 	icon_state = "4-8"
@@ -23342,6 +23354,18 @@
 	},
 /turf/simulated/floor/black,
 /area/station/maintenance/northeast)
+"oLH" = (
+/obj/effects/menhir_fog,
+/obj/machinery/door/unpowered/blue{
+	friendly_object = /obj/item/chilly_orb/menhir
+	},
+/turf/unsimulated/floor/setpieces/bluefloor{
+	dir = 1
+	},
+/area/station/wreckage{
+	teleport_blocked = 2;
+	name = "The Crown"
+	})
 "oMj" = (
 /obj/machinery/door/airlock/pyro/medical,
 /obj/mapping_helper/firedoor_spawn,
@@ -26078,6 +26102,16 @@
 	},
 /turf/simulated/floor,
 /area/station/science/storage)
+"qyk" = (
+/obj/effects/menhir_fog,
+/obj/landmark/spawner/menhir,
+/turf/unsimulated/floor/setpieces/bluefloor{
+	dir = 4
+	},
+/area/station/wreckage{
+	teleport_blocked = 2;
+	name = "The Crown"
+	})
 "qyO" = (
 /obj/cable{
 	icon_state = "1-4"
@@ -84036,7 +84070,7 @@ osZ
 osZ
 osZ
 swe
-tPb
+oLH
 osZ
 tPb
 osZ
@@ -86455,7 +86489,7 @@ osZ
 osZ
 qBA
 bqi
-qBA
+qyk
 osZ
 osZ
 lhN
@@ -86465,7 +86499,7 @@ gfo
 mhb
 aGr
 aGr
-gSG
+oCb
 aGr
 gSG
 sro
@@ -88868,7 +88902,7 @@ osZ
 osZ
 osZ
 swe
-tPb
+oLH
 osZ
 tPb
 osZ
