@@ -1,3 +1,4 @@
+#ifdef MAP_OVERRIDE_MENHIR
 /datum/random_event/minor/menhir
 	name = "A Gift from the Crown"
 
@@ -58,3 +59,4 @@
 
 		logTheThing(LOG_STATION, null, "Menhir gift event at [the_tag] arm -  [log_loc(nodelandmark)]")
 		message_admins("Menhir gift event triggered at [the_tag] arm - [log_loc(nodelandmark)]")
+#endif

@@ -1932,6 +1932,7 @@
 /area/station/hallway/primary/central)
 "bjs" = (
 /obj/machinery/abcu,
+/obj/machinery/camera/directional/east,
 /turf/simulated/floor/blueblack{
 	dir = 4
 	},
@@ -4829,7 +4830,6 @@
 /area/ghostdrone_factory)
 "cWD" = (
 /obj/machinery/abcu,
-/obj/machinery/camera/directional/north,
 /turf/simulated/floor/blueblack{
 	dir = 8
 	},
@@ -10502,6 +10502,9 @@
 "gBJ" = (
 /obj/machinery/light/small/floor,
 /obj/disposalpipe/segment/mail,
+/obj/landmark/gps_waypoint{
+	name = "ABC-U"
+	},
 /turf/simulated/floor/black,
 /area/station/maintenance/east)
 "gBU" = (
@@ -14166,6 +14169,7 @@
 /obj/cable{
 	icon_state = "2-8"
 	},
+/obj/landmark/gps_waypoint,
 /turf/simulated/floor/carpet/arcade,
 /area/station/crew_quarters/clown{
 	name = "Honkington's Abode"
