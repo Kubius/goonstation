@@ -2868,6 +2868,7 @@
 #include "code\obj\machinery\door\door_timer.dm"
 #include "code\obj\machinery\door\feather.dm"
 #include "code\obj\machinery\door\firedoor.dm"
+#include "code\obj\machinery\door\newblue.dm"
 #include "code\obj\machinery\door\poddoor.dm"
 #include "code\obj\machinery\door\supernorn.dm"
 #include "code\obj\machinery\door\window.dm"
