@@ -1594,8 +1594,8 @@
 	icon_state = "1-2"
 	},
 /obj/disposalpipe/switch_junction/right/north{
-	mail_tag = "maru|eng";
-	name = "mail junction (maru)"
+	mail_tag = "meridian|escape";
+	name = "mail junction (meridian)"
 	},
 /turf/simulated/floor,
 /area/station/hangar/meridian)
