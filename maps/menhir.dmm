@@ -2144,6 +2144,17 @@
 /obj/mapping_helper/access/security,
 /turf/simulated/floor/red,
 /area/station/security/secwing)
+"bqi" = (
+/obj/effects/menhir_fog,
+/obj/precursor_puzzle/orb_stand{
+	id = "NOW";
+	target_id = "THEN"
+	},
+/turf/unsimulated/floor/setpieces/bluefloor,
+/area/station/wreckage{
+	teleport_blocked = 2;
+	name = "The Crown"
+	})
 "bqq" = (
 /obj/machinery/drainage,
 /turf/simulated/floor/grey/blackgrime,
@@ -5715,6 +5726,14 @@
 /obj/machinery/phone,
 /turf/simulated/floor/black,
 /area/station/bridge)
+"dFy" = (
+/obj/effects/menhir_fog,
+/obj/rack/precursor,
+/turf/unsimulated/floor/setpieces/bluefloor,
+/area/station/wreckage{
+	teleport_blocked = 2;
+	name = "The Crown"
+	})
 "dFz" = (
 /obj/table/auto,
 /obj/item/storage/firstaid/regular,
@@ -18935,11 +18954,12 @@
 /area/station/hallway/primary/east)
 "mhb" = (
 /obj/rack/precursor,
-/obj/item/organ/eye/beady{
-	pixel_y = 9
-	},
 /obj/effects/menhir_fog,
 /obj/map/light/cyan,
+/obj/item/chilly_orb{
+	pixel_y = 9;
+	id = "NOW"
+	},
 /turf/unsimulated/floor/setpieces/bluefloor{
 	dir = 4
 	},
@@ -22774,6 +22794,16 @@
 	dir = 8
 	},
 /area/station/security/secwing)
+"ouG" = (
+/obj/effects/menhir_fog,
+/obj/machinery/door/unpowered/blue,
+/turf/unsimulated/floor/setpieces/bluefloor{
+	dir = 8
+	},
+/area/station/wreckage{
+	teleport_blocked = 2;
+	name = "The Crown"
+	})
 "ouO" = (
 /obj/machinery/vending/pizza,
 /obj/machinery/camera/directional/south,
@@ -23633,6 +23663,16 @@
 "oVd" = (
 /turf/simulated/wall/auto/supernorn,
 /area/station/chapel/office)
+"oVg" = (
+/obj/effects/menhir_fog,
+/obj/machinery/door/unpowered/blue{
+	dir = 4
+	},
+/turf/unsimulated/floor/setpieces/bluefloor,
+/area/station/wreckage{
+	teleport_blocked = 2;
+	name = "The Crown"
+	})
 "oVi" = (
 /obj/machinery/light{
 	dir = 8;
@@ -31124,6 +31164,14 @@
 /obj/landmark/start/job/technical_trainee,
 /turf/simulated/floor,
 /area/station/engine/storage)
+"tFa" = (
+/obj/effects/menhir_fog,
+/obj/machinery/door/unpowered/blue,
+/turf/unsimulated/floor/setpieces/bluefloor,
+/area/station/wreckage{
+	teleport_blocked = 2;
+	name = "The Crown"
+	})
 "tFf" = (
 /obj/disposalpipe/segment/horizontal,
 /turf/simulated/floor/blackwhite{
@@ -31386,6 +31434,16 @@
 	dir = 4
 	},
 /area/station/crew_quarters/courtroom)
+"tPb" = (
+/obj/effects/menhir_fog,
+/obj/machinery/door/unpowered/blue,
+/turf/unsimulated/floor/setpieces/bluefloor{
+	dir = 1
+	},
+/area/station/wreckage{
+	teleport_blocked = 2;
+	name = "The Crown"
+	})
 "tPe" = (
 /obj/machinery/door/airlock/pyro{
 	dir = 4
@@ -83673,9 +83731,9 @@ aGr
 qBA
 aGr
 lhN
-aGr
+dFy
 lhN
-aGr
+dFy
 lhN
 aGr
 lhN
@@ -83978,9 +84036,9 @@ osZ
 osZ
 osZ
 swe
+tPb
 osZ
-osZ
-osZ
+tPb
 osZ
 swe
 osZ
@@ -84277,18 +84335,18 @@ aGr
 qBA
 aGr
 lhN
-aGr
+dFy
+lhN
+dFy
 lhN
 aGr
 lhN
 aGr
-lhN
 aGr
 aGr
+tFa
 aGr
-lhN
-aGr
-lhN
+tFa
 aGr
 lhN
 lhN
@@ -84589,9 +84647,9 @@ qBA
 qBA
 qBA
 lhN
-aGr
+dFy
 lhN
-aGr
+dFy
 lhN
 aGr
 lhN
@@ -85182,7 +85240,7 @@ aGr
 aGr
 lhN
 osZ
-osZ
+tPb
 osZ
 lhN
 osZ
@@ -85486,7 +85544,7 @@ lhN
 aGr
 lhN
 aGr
-mWl
+ouG
 aGr
 aGr
 aGr
@@ -85494,7 +85552,7 @@ bhE
 aGr
 aGr
 aGr
-mWl
+ouG
 aGr
 aGr
 dYD
@@ -85801,7 +85859,7 @@ osZ
 lhN
 osZ
 lhN
-lhN
+oVg
 lhN
 lhN
 aGr
@@ -86396,7 +86454,7 @@ lhN
 osZ
 osZ
 qBA
-aGr
+bqi
 qBA
 osZ
 osZ
@@ -87009,7 +87067,7 @@ osZ
 lhN
 osZ
 lhN
-lhN
+oVg
 lhN
 lhN
 aGr
@@ -87298,7 +87356,7 @@ lhN
 aGr
 lhN
 aGr
-mWl
+ouG
 aGr
 aGr
 aGr
@@ -87306,7 +87364,7 @@ bhE
 aGr
 aGr
 aGr
-mWl
+ouG
 aGr
 aGr
 dYD
@@ -87598,7 +87656,7 @@ aGr
 aGr
 lhN
 osZ
-osZ
+tPb
 osZ
 lhN
 osZ
@@ -88213,9 +88271,9 @@ qBA
 qBA
 qBA
 lhN
-aGr
+dFy
 lhN
-aGr
+dFy
 lhN
 aGr
 lhN
@@ -88505,18 +88563,18 @@ aGr
 qBA
 aGr
 lhN
-aGr
+dFy
+lhN
+dFy
 lhN
 aGr
 lhN
 aGr
-lhN
 aGr
 aGr
+tFa
 aGr
-lhN
-aGr
-lhN
+tFa
 aGr
 lhN
 lhN
@@ -88810,9 +88868,9 @@ osZ
 osZ
 osZ
 swe
+tPb
 osZ
-osZ
-osZ
+tPb
 osZ
 swe
 osZ
@@ -89109,9 +89167,9 @@ aGr
 qBA
 aGr
 lhN
-aGr
+dFy
 lhN
-aGr
+dFy
 lhN
 aGr
 lhN

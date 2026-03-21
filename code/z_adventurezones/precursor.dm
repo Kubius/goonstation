@@ -145,6 +145,10 @@
 	skip_sims = 1
 	sims_score = 300
 
+/area/precursor/menhir
+	name = "Somewhen"
+	icon_state = "purple"
+
 ////////////////////// cogwerks - HELL
 
 /area/hell
