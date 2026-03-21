@@ -1313,6 +1313,7 @@
 #include "code\modules\events\minor\dead_drops.dm"
 #include "code\modules\events\minor\gimmick_flood.dm"
 #include "code\modules\events\minor\illegal_trinkets.dm"
+#include "code\modules\events\minor\menhir_gift.dm"
 #include "code\modules\events\minor\pests.dm"
 #include "code\modules\events\minor\special_order.dm"
 #include "code\modules\events\minor\trader.dm"

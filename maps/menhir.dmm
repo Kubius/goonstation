@@ -945,8 +945,8 @@
 "aHX" = (
 /obj/effects/menhir_fog,
 /obj/landmark/menhir/doorway{
-	dir = 4;
-	associated_node = "EAST"
+	data = "EAST";
+	dir = 4
 	},
 /turf/unsimulated/wall/auto/adventure/icemooninterior,
 /area/station/crown)
@@ -2678,7 +2678,7 @@
 "bEU" = (
 /obj/effects/menhir_fog,
 /obj/landmark/menhir/node{
-	associated_node = "NORTHWEST"
+	data = "NORTHWEST"
 	},
 /turf/unsimulated/floor/setpieces/bluefloor,
 /area/station/crown)
@@ -3690,8 +3690,8 @@
 "cjL" = (
 /obj/effects/menhir_fog,
 /obj/landmark/menhir/doorway{
-	dir = 4;
-	associated_node = "SOUTHWEST"
+	data = "SOUTHWEST";
+	dir = 4
 	},
 /turf/unsimulated/wall/auto/adventure/icemooninterior,
 /area/station/crown)
@@ -3704,6 +3704,12 @@
 /obj/machinery/camera/directional/north,
 /turf/simulated/floor/carpet/arcade,
 /area/station/bridge/captain)
+"ckH" = (
+/obj/random_item_spawner/junk/one_or_zero,
+/turf/simulated/floor/plating,
+/area/station/maintenance/inner/se{
+	name = "Southeast Auxiliary Conduit"
+	})
 "ckK" = (
 /obj/machinery/portable_atmospherics/canister/air/large,
 /turf/simulated/floor,
@@ -9384,8 +9390,8 @@
 "fWZ" = (
 /obj/effects/menhir_fog,
 /obj/landmark/menhir/doorway{
-	dir = 4;
-	associated_node = "NORTHEAST"
+	data = "NORTHEAST";
+	dir = 4
 	},
 /turf/unsimulated/wall/auto/adventure/icemooninterior,
 /area/station/crown)
@@ -13037,7 +13043,7 @@
 "iiS" = (
 /obj/effects/menhir_fog,
 /obj/landmark/menhir/node{
-	associated_node = "EAST"
+	data = "EAST"
 	},
 /turf/unsimulated/floor/setpieces/bluefloor,
 /area/station/crown)
@@ -14897,7 +14903,7 @@
 "jtX" = (
 /obj/effects/menhir_fog,
 /obj/landmark/menhir/node{
-	associated_node = "SOUTHEAST"
+	data = "SOUTHEAST"
 	},
 /turf/unsimulated/floor/setpieces/bluefloor,
 /area/station/crown)
@@ -15522,8 +15528,8 @@
 "jSS" = (
 /obj/effects/menhir_fog,
 /obj/landmark/menhir/doorway{
-	dir = 4;
-	associated_node = "NORTHWEST"
+	data = "NORTHWEST";
+	dir = 4
 	},
 /turf/unsimulated/wall/auto/adventure/icemooninterior,
 /area/station/crown)
@@ -18682,7 +18688,7 @@
 "lPZ" = (
 /obj/effects/menhir_fog,
 /obj/landmark/menhir/doorway{
-	associated_node = "WEST"
+	data = "WEST"
 	},
 /turf/unsimulated/wall/auto/adventure/icemooninterior,
 /area/station/crown)
@@ -18980,7 +18986,7 @@
 "max" = (
 /obj/effects/menhir_fog,
 /obj/landmark/menhir/node{
-	associated_node = "SOUTHWEST"
+	data = "SOUTHWEST"
 	},
 /turf/unsimulated/floor/setpieces/bluefloor,
 /area/station/crown)
@@ -19075,7 +19081,7 @@
 "meT" = (
 /obj/effects/menhir_fog,
 /obj/landmark/menhir/doorway{
-	associated_node = "NORTHEAST"
+	data = "NORTHEAST"
 	},
 /turf/unsimulated/wall/auto/adventure/icemooninterior,
 /area/station/crown)
@@ -21271,14 +21277,14 @@
 "nBi" = (
 /obj/effects/menhir_fog,
 /obj/landmark/menhir/node{
-	associated_node = "WEST"
+	data = "WEST"
 	},
 /turf/unsimulated/floor/setpieces/bluefloor,
 /area/station/crown)
 "nBz" = (
 /obj/effects/menhir_fog,
 /obj/landmark/menhir/node{
-	associated_node = "NORTHEAST"
+	data = "NORTHEAST"
 	},
 /turf/unsimulated/floor/setpieces/bluefloor,
 /area/station/crown)
@@ -22276,7 +22282,7 @@
 "oau" = (
 /obj/effects/menhir_fog,
 /obj/landmark/menhir/doorway{
-	associated_node = "SOUTHWEST"
+	data = "SOUTHWEST"
 	},
 /turf/unsimulated/wall/auto/adventure/icemooninterior,
 /area/station/crown)
@@ -25890,8 +25896,8 @@
 "qlQ" = (
 /obj/effects/menhir_fog,
 /obj/landmark/menhir/doorway{
-	dir = 4;
-	associated_node = "WEST"
+	data = "WEST";
+	dir = 4
 	},
 /turf/unsimulated/wall/auto/adventure/icemooninterior,
 /area/station/crown)
@@ -26770,8 +26776,8 @@
 "qSQ" = (
 /obj/effects/menhir_fog,
 /obj/landmark/menhir/doorway{
-	dir = 4;
-	associated_node = "SOUTHEAST"
+	data = "SOUTHEAST";
+	dir = 4
 	},
 /turf/unsimulated/wall/auto/adventure/icemooninterior,
 /area/station/crown)
@@ -26880,7 +26886,7 @@
 "qWp" = (
 /obj/effects/menhir_fog,
 /obj/landmark/menhir/doorway{
-	associated_node = "SOUTHEAST"
+	data = "SOUTHEAST"
 	},
 /turf/unsimulated/wall/auto/adventure/icemooninterior,
 /area/station/crown)
@@ -37160,7 +37166,7 @@
 "wWW" = (
 /obj/effects/menhir_fog,
 /obj/landmark/menhir/doorway{
-	associated_node = "NORTHWEST"
+	data = "NORTHWEST"
 	},
 /turf/unsimulated/wall/auto/adventure/icemooninterior,
 /area/station/crown)
@@ -37811,7 +37817,7 @@
 "xtE" = (
 /obj/effects/menhir_fog,
 /obj/landmark/menhir/doorway{
-	associated_node = "EAST"
+	data = "EAST"
 	},
 /turf/unsimulated/wall/auto/adventure/icemooninterior,
 /area/station/crown)
@@ -90686,7 +90692,7 @@ gxF
 ngb
 wZD
 wZD
-wZD
+ckH
 ngb
 wZD
 wZD
