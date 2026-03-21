@@ -27,7 +27,7 @@
 			user.visible_message(SPAN_NOTICE("<B>[src] [pick("rings", "dings", "chimes","vibrates","oscillates")] [pick("faintly", "softly", "loudly", "weirdly", "scarily", "eerily")].</B>"))
 			var/door_note = 'sound/musical_instruments/WeirdChime_0.ogg'
 			playsound(src.loc, door_note, 60, 0)
-			src.locked == FALSE
+			src.locked = FALSE
 
 
 /obj/machinery/door/unpowered/blue/open()
