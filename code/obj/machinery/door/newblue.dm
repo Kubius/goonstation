@@ -5,3 +5,12 @@
 	icon_state = "door1"
 	opacity = 1
 	density = 1
+	hardened = 1
+
+/obj/machinery/door/unpowered/blue/open()
+	. = ..()
+	playsound(src.loc, 'sound/impact_sounds/Stone_Scrape_1.ogg', 50, 1)
+
+/obj/machinery/door/unpowered/blue/close()
+	. = ..()
+	playsound(src.loc, 'sound/impact_sounds/Stone_Scrape_1.ogg', 50, 1)

@@ -1099,6 +1099,13 @@ TYPEINFO_NEW(/turf/unsimulated/wall/auto/adventure/icemoon)
 	icon_state = "ice-0"
 	plane = PLANE_NOSHADOW_BELOW
 
+TYPEINFO(/turf/unsimulated/wall/auto/adventure/icemooninterior)
+TYPEINFO_NEW(/turf/unsimulated/wall/auto/adventure/icemooninterior)
+	. = ..()
+	connects_to = typecacheof(list(
+		/turf/unsimulated/wall/auto/adventure/icemooninterior,
+		/obj/machinery/door/unpowered/blue
+	))
 /turf/unsimulated/wall/auto/adventure/icemooninterior
 	name = "blue wall"
 	icon = 'icons/turf/walls/precursor.dmi'

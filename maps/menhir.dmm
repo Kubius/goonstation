@@ -10871,7 +10871,7 @@
 	},
 /area/station/security/secwing)
 "gSG" = (
-/obj/precursor_puzzle/glowing_door,
+/obj/machinery/door/unpowered/blue,
 /obj/map/light/cyan,
 /obj/effects/menhir_fog,
 /turf/unsimulated/floor/setpieces/bluefloor{
@@ -25728,6 +25728,11 @@
 /obj/disposalpipe/segment/brig{
 	dir = 4
 	},
+/obj/machinery/light{
+	dir = 4;
+	layer = 9.1;
+	pixel_x = 10
+	},
 /turf/simulated/floor/red/side{
 	dir = 4
 	},
@@ -32138,11 +32143,6 @@
 	name = "Arrivals Auxiliary Arm"
 	})
 "ukv" = (
-/obj/machinery/light{
-	dir = 4;
-	layer = 9.1;
-	pixel_x = 10
-	},
 /turf/simulated/floor/red/side{
 	dir = 4
 	},
