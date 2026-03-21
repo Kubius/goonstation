@@ -225,6 +225,9 @@
 		if (transporting_to.inbound_in_progress)
 			src.visible_message("<b>[src]</b> intones, \"Unable to initalize transportation - another transport is already inbound to destination.\"")
 			return
+		if (transporting_to.transport_underway)
+			src.visible_message("<b>[src]</b> intones, \"Unable to initalize transportation - another transport is already outbound from destination.\"")
+			return
 		if (!istype(src.transporting_to.loc,/turf))
 			src.visible_message(SPAN_ALERT("<b>[src]</b> intones, \"Unable to initalize transportation - destination no longer exists.\""))
 			return
