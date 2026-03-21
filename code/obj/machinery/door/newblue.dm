@@ -18,8 +18,7 @@
 		..()
 		if(src.locked && src.friendly_object)
 			if(istype(W,/obj/item/artifact) && friend_obj_is_precursor)
-				var/obj/item/artifact/arti = W
-				if(!arti.associated_datum.artitype.name == "precursor")
+				if(!W.artifact.artitype.name == "precursor")
 					user.visible_message(SPAN_ALERT("[src] sounds oddly hollow as it's struck."))
 					return
 			else if(!istype(W,src.friendly_object))
