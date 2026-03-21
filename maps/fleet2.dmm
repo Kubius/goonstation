@@ -1875,6 +1875,14 @@
 /area/station/medical/medbay/psychiatrist{
 	name = "Subacute Care"
 	})
+"aRB" = (
+/obj/railing/reinforced{
+	dir = 1
+	},
+/turf/simulated/floor/black/side{
+	dir = 1
+	},
+/area/station/teleporter/meridian)
 "aRC" = (
 /obj/disposalpipe/segment/mail/horizontal,
 /turf/simulated/wall/auto/reinforced/jen/blue,
@@ -7964,6 +7972,7 @@
 	icon_state = "0-4"
 	},
 /obj/machinery/power/apc/autoname_north,
+/obj/railing/reinforced,
 /turf/simulated/floor/black/side,
 /area/station/teleporter/hammer)
 "dog" = (
@@ -10115,6 +10124,9 @@
 /area/station/teleporter/asclepius)
 "ejF" = (
 /obj/machinery/firealarm/directional/east,
+/obj/railing/reinforced{
+	dir = 8
+	},
 /turf/simulated/floor/black/side{
 	dir = 8
 	},
@@ -12884,6 +12896,9 @@
 /area/station/crew_quarters/sauna)
 "fpR" = (
 /obj/machinery/light_switch/east,
+/obj/railing/reinforced{
+	dir = 8
+	},
 /turf/simulated/floor/black/side{
 	dir = 8
 	},
@@ -13213,6 +13228,7 @@
 	icon_state = "0-4"
 	},
 /obj/machinery/power/apc/autoname_north,
+/obj/railing/reinforced,
 /turf/simulated/floor/black/side,
 /area/station/teleporter/asclepius)
 "fwM" = (
@@ -13798,6 +13814,7 @@
 	icon_state = "0-4"
 	},
 /obj/machinery/power/apc/autoname_north,
+/obj/railing/reinforced,
 /turf/simulated/floor/black/side,
 /area/station/teleporter/maru)
 "fGz" = (
@@ -14165,6 +14182,14 @@
 	dir = 4
 	},
 /area/station/hangar/tenebrae)
+"fOl" = (
+/obj/railing/reinforced{
+	dir = 1
+	},
+/turf/simulated/floor/black/side{
+	dir = 1
+	},
+/area/station/teleporter/asclepius)
 "fOA" = (
 /obj/machinery/light{
 	dir = 1;
@@ -17446,6 +17471,7 @@
 	icon_state = "0-4"
 	},
 /obj/machinery/power/apc/autoname_north,
+/obj/railing/reinforced,
 /turf/simulated/floor/black/side,
 /area/station/teleporter/tenebrae)
 "hgr" = (
@@ -19356,6 +19382,9 @@
 /area/station/crew_quarters/hammer)
 "hSL" = (
 /obj/machinery/light_switch/east,
+/obj/railing/reinforced{
+	dir = 8
+	},
 /turf/simulated/floor/black/side{
 	dir = 8
 	},
@@ -19443,6 +19472,14 @@
 /obj/disposalpipe/segment/horizontal,
 /turf/simulated/floor/carpet/grime,
 /area/station/security/detectives_office)
+"hUT" = (
+/obj/railing/reinforced{
+	dir = 1
+	},
+/turf/simulated/floor/black/side{
+	dir = 1
+	},
+/area/station/teleporter/hammer)
 "hVa" = (
 /obj/storage/crate,
 /obj/item/raw_material/cotton,
@@ -20178,6 +20215,17 @@
 	dir = 4
 	},
 /area/station/hallway/secondary/exit)
+"ikm" = (
+/obj/cable/brown{
+	icon_state = "4-8"
+	},
+/obj/railing/reinforced{
+	dir = 1
+	},
+/turf/simulated/floor/black/side{
+	dir = 1
+	},
+/area/station/teleporter/maru)
 "ikx" = (
 /obj/rack,
 /obj/item/tank/air,
@@ -25283,6 +25331,9 @@
 /area/station/bridge/dionysus)
 "krG" = (
 /obj/machinery/firealarm/directional/east,
+/obj/railing/reinforced{
+	dir = 8
+	},
 /turf/simulated/floor/black/side{
 	dir = 8
 	},
@@ -26923,6 +26974,9 @@
 /area/station/crew_quarters/toilets/tenebrae)
 "lbv" = (
 /obj/machinery/light_switch/east,
+/obj/railing/reinforced{
+	dir = 8
+	},
 /turf/simulated/floor/black/side{
 	dir = 8
 	},
@@ -31295,6 +31349,9 @@
 /area/station/medical/staff)
 "mZX" = (
 /obj/machinery/firealarm/directional/east,
+/obj/railing/reinforced{
+	dir = 8
+	},
 /turf/simulated/floor/black/side{
 	dir = 8
 	},
@@ -31723,6 +31780,9 @@
 	})
 "nkM" = (
 /obj/machinery/light_switch/east,
+/obj/railing/reinforced{
+	dir = 8
+	},
 /turf/simulated/floor/black/side{
 	dir = 8
 	},
@@ -37914,6 +37974,14 @@
 	dir = 8
 	},
 /area/station/engine/core/nuclear)
+"pSF" = (
+/obj/railing/reinforced{
+	dir = 1
+	},
+/turf/simulated/floor/black/side{
+	dir = 1
+	},
+/area/station/teleporter/dionysus)
 "pSI" = (
 /obj/cable{
 	icon_state = "1-2"
@@ -39691,6 +39759,7 @@
 	icon_state = "0-4"
 	},
 /obj/machinery/power/apc/autoname_north,
+/obj/railing/reinforced,
 /turf/simulated/floor/black/side,
 /area/station/teleporter/dionysus)
 "qHR" = (
@@ -39822,6 +39891,14 @@
 /area/station/hallway/secondary/central{
 	name = "Limoncello Primary Zone"
 	})
+"qLK" = (
+/obj/railing/reinforced{
+	dir = 1
+	},
+/turf/simulated/floor/black/side{
+	dir = 1
+	},
+/area/station/teleporter/tenebrae)
 "qLT" = (
 /obj/cable{
 	icon_state = "1-2"
@@ -44132,6 +44209,9 @@
 /area/station/crew_quarters/toilets/tenebrae)
 "syJ" = (
 /obj/machinery/firealarm/directional/east,
+/obj/railing/reinforced{
+	dir = 8
+	},
 /turf/simulated/floor/black/side{
 	dir = 8
 	},
@@ -44286,6 +44366,9 @@
 /area/station/hallway/primary/north/dionysus)
 "sBv" = (
 /obj/machinery/light_switch/east,
+/obj/railing/reinforced{
+	dir = 8
+	},
 /turf/simulated/floor/black/side{
 	dir = 8
 	},
@@ -46098,6 +46181,9 @@
 /area/station/hallway/primary/central/maru)
 "tmR" = (
 /obj/machinery/light_switch/east,
+/obj/railing/reinforced{
+	dir = 8
+	},
 /turf/simulated/floor/black/side{
 	dir = 8
 	},
@@ -46893,6 +46979,9 @@
 /area/station/mining/staff_room)
 "tAF" = (
 /obj/machinery/firealarm/directional/east,
+/obj/railing/reinforced{
+	dir = 8
+	},
 /turf/simulated/floor/black/side{
 	dir = 8
 	},
@@ -47911,10 +48000,6 @@
 /obj/mapping_helper/access/maint,
 /turf/simulated/floor/grey,
 /area/station/engine/substation/tenebrae)
-"tXd" = (
-/obj/disposalpipe/segment/mail/bent/north,
-/turf/simulated/floor/wood/seven,
-/area/station/crew_quarters/fitness)
 "tXi" = (
 /turf/simulated/wall/auto/jen/green,
 /area/station/crew_quarters/kitchen)
@@ -56049,6 +56134,9 @@
 /area/station/hallway/primary/central/meridian)
 "xoF" = (
 /obj/machinery/firealarm/directional/east,
+/obj/railing/reinforced{
+	dir = 8
+	},
 /turf/simulated/floor/black/side{
 	dir = 8
 	},
@@ -57833,6 +57921,7 @@
 /obj/cable{
 	icon_state = "0-2"
 	},
+/obj/railing/reinforced,
 /turf/simulated/floor/black/side,
 /area/station/teleporter/meridian)
 "yaZ" = (
@@ -85977,7 +86066,7 @@ yaW
 fFR
 rmA
 aDi
-lfR
+aRB
 fNZ
 ibV
 lqf
@@ -92375,7 +92464,7 @@ fGw
 pMb
 qVd
 vfm
-geP
+ikm
 rea
 qMh
 vkp
@@ -98306,7 +98395,7 @@ dob
 str
 odW
 ueQ
-qoi
+hUT
 enA
 ihU
 kcV
@@ -114673,7 +114762,7 @@ tcT
 nBv
 jae
 hdV
-tXd
+hdV
 acm
 tSX
 xDP
@@ -116172,7 +116261,7 @@ qHP
 rPI
 kEm
 hJC
-aDe
+pSF
 bMn
 ubs
 rlg
@@ -124684,7 +124773,7 @@ hgp
 wXR
 aAo
 nBw
-wVG
+qLK
 vKL
 qQN
 kXn
@@ -126689,7 +126778,7 @@ fww
 nem
 iwd
 ikU
-bfi
+fOl
 tDU
 tDU
 tDU
