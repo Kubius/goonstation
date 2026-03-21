@@ -360,6 +360,15 @@ var/global/list/job_start_locations = list()
 /obj/landmark/shuttle_transit
 	name = LANDMARK_SHUTTLE_TRANSIT
 
+/obj/landmark/menhir
+	var/associated_node = null
+
+/obj/landmark/menhir/doorway
+	name = LANDMARK_MENHIR_DOOR
+
+/obj/landmark/menhir/node
+	name = LANDMARK_MENHIR_NODE
+
 ///emergency shuttle launch sound origin
 /obj/landmark/shuttle_subwoofer
 	name = LANDMARK_SHUTTLE_SOUND

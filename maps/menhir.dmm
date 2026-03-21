@@ -942,6 +942,14 @@
 /obj/disposalpipe/segment/bent/west,
 /turf/simulated/floor/plating,
 /area/station/maintenance/west)
+"aHX" = (
+/obj/effects/menhir_fog,
+/obj/landmark/menhir/doorway{
+	dir = 4;
+	associated_node = "EAST"
+	},
+/turf/unsimulated/wall/auto/adventure/icemooninterior,
+/area/station/crown)
 "aIp" = (
 /obj/disposalpipe/segment/mail{
 	dir = 8;
@@ -2667,6 +2675,13 @@
 	},
 /turf/simulated/floor/engine,
 /area/station/ai_monitored/armory)
+"bEU" = (
+/obj/effects/menhir_fog,
+/obj/landmark/menhir/node{
+	associated_node = "NORTHWEST"
+	},
+/turf/unsimulated/floor/setpieces/bluefloor,
+/area/station/crown)
 "bEW" = (
 /obj/machinery/vending/cola/red,
 /obj/mesh/catwalk,
@@ -3672,6 +3687,14 @@
 /area/station/maintenance/outer/sw{
 	name = "Arrivals Auxiliary Arm"
 	})
+"cjL" = (
+/obj/effects/menhir_fog,
+/obj/landmark/menhir/doorway{
+	dir = 4;
+	associated_node = "SOUTHWEST"
+	},
+/turf/unsimulated/wall/auto/adventure/icemooninterior,
+/area/station/crown)
 "ckh" = (
 /obj/machinery/firealarm/directional/north,
 /turf/unsimulated/floor/setpieces/bluefloor,
@@ -9358,6 +9381,14 @@
 "fWz" = (
 /turf/simulated/wall/auto/supernorn,
 /area/station/garden/owlery)
+"fWZ" = (
+/obj/effects/menhir_fog,
+/obj/landmark/menhir/doorway{
+	dir = 4;
+	associated_node = "NORTHEAST"
+	},
+/turf/unsimulated/wall/auto/adventure/icemooninterior,
+/area/station/crown)
 "fXn" = (
 /obj/machinery/portable_atmospherics/scrubber,
 /turf/simulated/floor/black,
@@ -13003,6 +13034,13 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/engine/power)
+"iiS" = (
+/obj/effects/menhir_fog,
+/obj/landmark/menhir/node{
+	associated_node = "EAST"
+	},
+/turf/unsimulated/floor/setpieces/bluefloor,
+/area/station/crown)
 "ijn" = (
 /obj/stool/chair{
 	dir = 1
@@ -14856,6 +14894,13 @@
 /obj/mapping_helper/wingrille_spawn/auto/reinforced,
 /turf/simulated/floor/plating,
 /area/station/engine/ptl)
+"jtX" = (
+/obj/effects/menhir_fog,
+/obj/landmark/menhir/node{
+	associated_node = "SOUTHEAST"
+	},
+/turf/unsimulated/floor/setpieces/bluefloor,
+/area/station/crown)
 "jtY" = (
 /obj/lattice{
 	dir = 4;
@@ -15474,6 +15519,14 @@
 	},
 /turf/simulated/floor/caution/corner/sw,
 /area/station/turret_protected/incursion)
+"jSS" = (
+/obj/effects/menhir_fog,
+/obj/landmark/menhir/doorway{
+	dir = 4;
+	associated_node = "NORTHWEST"
+	},
+/turf/unsimulated/wall/auto/adventure/icemooninterior,
+/area/station/crown)
 "jSY" = (
 /obj/lattice{
 	dir = 5;
@@ -18626,6 +18679,13 @@
 /obj/mapping_helper/wingrille_spawn/auto/reinforced,
 /turf/simulated/floor/plating,
 /area/station/medical/dome)
+"lPZ" = (
+/obj/effects/menhir_fog,
+/obj/landmark/menhir/doorway{
+	associated_node = "WEST"
+	},
+/turf/unsimulated/wall/auto/adventure/icemooninterior,
+/area/station/crown)
 "lQz" = (
 /obj/machinery/door/airlock/pyro/glass/sci,
 /obj/cable{
@@ -18917,6 +18977,13 @@
 	dir = 6
 	},
 /area/station/hallway/primary/southeast)
+"max" = (
+/obj/effects/menhir_fog,
+/obj/landmark/menhir/node{
+	associated_node = "SOUTHWEST"
+	},
+/turf/unsimulated/floor/setpieces/bluefloor,
+/area/station/crown)
 "maD" = (
 /turf/simulated/wall/auto/reinforced/supernorn,
 /area/station/storage/emergency)
@@ -19005,6 +19072,13 @@
 	dir = 9
 	},
 /area/station/storage/eva)
+"meT" = (
+/obj/effects/menhir_fog,
+/obj/landmark/menhir/doorway{
+	associated_node = "NORTHEAST"
+	},
+/turf/unsimulated/wall/auto/adventure/icemooninterior,
+/area/station/crown)
 "meW" = (
 /obj/disposalpipe/segment/mail/horizontal,
 /turf/simulated/floor,
@@ -21194,6 +21268,20 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/northeast)
+"nBi" = (
+/obj/effects/menhir_fog,
+/obj/landmark/menhir/node{
+	associated_node = "WEST"
+	},
+/turf/unsimulated/floor/setpieces/bluefloor,
+/area/station/crown)
+"nBz" = (
+/obj/effects/menhir_fog,
+/obj/landmark/menhir/node{
+	associated_node = "NORTHEAST"
+	},
+/turf/unsimulated/floor/setpieces/bluefloor,
+/area/station/crown)
 "nBF" = (
 /obj/stool/chair/comfy{
 	dir = 8
@@ -22185,6 +22273,13 @@
 /obj/machinery/camera/directional/south,
 /turf/simulated/floor/orangeblack/side,
 /area/station/mining/staff_room)
+"oau" = (
+/obj/effects/menhir_fog,
+/obj/landmark/menhir/doorway{
+	associated_node = "SOUTHWEST"
+	},
+/turf/unsimulated/wall/auto/adventure/icemooninterior,
+/area/station/crown)
 "oaA" = (
 /obj/cable{
 	icon_state = "1-2"
@@ -25792,6 +25887,14 @@
 	dir = 1
 	},
 /area/station/science/chemistry)
+"qlQ" = (
+/obj/effects/menhir_fog,
+/obj/landmark/menhir/doorway{
+	dir = 4;
+	associated_node = "WEST"
+	},
+/turf/unsimulated/wall/auto/adventure/icemooninterior,
+/area/station/crown)
 "qlX" = (
 /obj/stool/chair/office/red,
 /obj/landmark/start/job/security_officer,
@@ -26664,6 +26767,14 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/west)
+"qSQ" = (
+/obj/effects/menhir_fog,
+/obj/landmark/menhir/doorway{
+	dir = 4;
+	associated_node = "SOUTHEAST"
+	},
+/turf/unsimulated/wall/auto/adventure/icemooninterior,
+/area/station/crown)
 "qTe" = (
 /obj/table/reinforced/chemistry/auto,
 /obj/machinery/glass_recycler{
@@ -26766,6 +26877,13 @@
 	},
 /turf/simulated/floor/black,
 /area/station/science/testchamber)
+"qWp" = (
+/obj/effects/menhir_fog,
+/obj/landmark/menhir/doorway{
+	associated_node = "SOUTHEAST"
+	},
+/turf/unsimulated/wall/auto/adventure/icemooninterior,
+/area/station/crown)
 "qWv" = (
 /obj/table/reinforced/auto,
 /obj/machinery/phone,
@@ -37039,6 +37157,13 @@
 /obj/storage/secure/closet/medical/chemical,
 /turf/simulated/floor/specialroom/medbay,
 /area/station/medical/staff)
+"wWW" = (
+/obj/effects/menhir_fog,
+/obj/landmark/menhir/doorway{
+	associated_node = "NORTHWEST"
+	},
+/turf/unsimulated/wall/auto/adventure/icemooninterior,
+/area/station/crown)
 "wXu" = (
 /turf/simulated/wall/auto/reinforced/supernorn,
 /area/station/security/brig/solitary2)
@@ -37683,6 +37808,13 @@
 "xtA" = (
 /turf/simulated/wall/auto/supernorn,
 /area/station/storage/tech)
+"xtE" = (
+/obj/effects/menhir_fog,
+/obj/landmark/menhir/doorway{
+	associated_node = "EAST"
+	},
+/turf/unsimulated/wall/auto/adventure/icemooninterior,
+/area/station/crown)
 "xtF" = (
 /obj/table/reinforced/auto,
 /obj/item/sheet/steel{
@@ -79048,7 +79180,7 @@ vna
 vna
 lhN
 lhN
-lhN
+qlQ
 lhN
 lhN
 gpo
@@ -79951,13 +80083,13 @@ tip
 dRN
 dRN
 rBz
-lhN
+lPZ
 qBA
 aGr
-aGr
+nBi
 aGr
 qBA
-lhN
+lPZ
 dta
 per
 erl
@@ -80541,7 +80673,7 @@ ozV
 jpt
 lhN
 lhN
-lhN
+jSS
 lhN
 lhN
 rrp
@@ -80575,7 +80707,7 @@ sRQ
 aLp
 lhN
 lhN
-lhN
+cjL
 lhN
 lhN
 ukc
@@ -80860,7 +80992,7 @@ pTu
 dzk
 lhN
 lhN
-lhN
+qlQ
 lhN
 lhN
 xiF
@@ -81444,13 +81576,13 @@ jsf
 qSG
 aHO
 edb
-lhN
+wWW
 qBA
 aGr
-aGr
+bEU
 aGr
 qBA
-lhN
+wWW
 vsr
 cPe
 cfS
@@ -81478,13 +81610,13 @@ wzm
 spV
 dUt
 qSm
-lhN
+oau
 qBA
 aGr
-aGr
+max
 aGr
 qBA
-lhN
+oau
 nFk
 gzh
 ttg
@@ -82353,7 +82485,7 @@ twa
 pZV
 lhN
 lhN
-lhN
+jSS
 lhN
 lhN
 dfb
@@ -82387,7 +82519,7 @@ xFh
 jVK
 lhN
 lhN
-lhN
+cjL
 lhN
 lhN
 dBE
@@ -90809,7 +90941,7 @@ lRn
 vCx
 lhN
 lhN
-lhN
+fWZ
 lhN
 lhN
 dfb
@@ -90843,7 +90975,7 @@ aSL
 ksl
 lhN
 lhN
-lhN
+qSQ
 lhN
 lhN
 wZD
@@ -91712,13 +91844,13 @@ orU
 lxu
 lxu
 bym
-lhN
+meT
 qBA
 aGr
-aGr
+nBz
 aGr
 qBA
-lhN
+meT
 kOt
 rZe
 eIi
@@ -91746,13 +91878,13 @@ rDb
 oSI
 nHy
 tTh
-lhN
+qWp
 qBA
 aGr
-aGr
+jtX
 aGr
 qBA
-lhN
+qWp
 wZD
 qLK
 qLK
@@ -92336,7 +92468,7 @@ jqG
 cCb
 lhN
 lhN
-lhN
+aHX
 lhN
 lhN
 cCb
@@ -92621,7 +92753,7 @@ lLY
 cUk
 lhN
 lhN
-lhN
+fWZ
 lhN
 lhN
 iea
@@ -92655,7 +92787,7 @@ afO
 hzB
 lhN
 lhN
-lhN
+qSQ
 lhN
 lhN
 xYE
@@ -93239,13 +93371,13 @@ lTH
 jgn
 mGy
 lsC
-lhN
+xtE
 qBA
 aGr
-aGr
+iiS
 aGr
 qBA
-lhN
+xtE
 txT
 jXH
 pPs
@@ -94148,7 +94280,7 @@ mnQ
 mON
 lhN
 lhN
-lhN
+aHX
 lhN
 lhN
 pkX

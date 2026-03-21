@@ -60,6 +60,8 @@
 
 // misc and unused
 #define LANDMARK_CHARACTER_PREVIEW_SPAWN "character preview"
+#define LANDMARK_MENHIR_DOOR "menhir_door"
+#define LANDMARK_MENHIR_NODE "menhir_node"
 
 /// Twitch Plays Shitty Bill respawn points
 #define LANDMARK_TWITCHY_BILL_RESPAWN "shitty_bill_respawn"
