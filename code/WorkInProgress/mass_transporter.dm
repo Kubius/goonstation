@@ -222,6 +222,9 @@
 			src.visible_message("<b>[src]</b> intones, \"Unable to initalize transportation - no destination has been set.\"")
 			return
 		src.transporting_to = linked_computer.locked_target
+		if (transporting_to.inbound_in_progress)
+			src.visible_message("<b>[src]</b> intones, \"Unable to initalize transportation - another transport is already inbound to destination.\"")
+			return
 		if (!istype(src.transporting_to.loc,/turf))
 			src.visible_message(SPAN_ALERT("<b>[src]</b> intones, \"Unable to initalize transportation - destination no longer exists.\""))
 			return
