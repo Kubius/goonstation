@@ -16613,6 +16613,7 @@
 "kCe" = (
 /obj/stool/bed,
 /obj/item/clothing/suit/bedsheet/captain,
+/obj/landmark/start/job/captain,
 /turf/simulated/floor/carpet/arcade,
 /area/station/bridge/captain)
 "kCo" = (
@@ -32402,6 +32403,7 @@
 	bcolor = "yellow";
 	icon_state = "bedsheet-yellow"
 	},
+/obj/landmark/start/job/chief_engineer,
 /turf/simulated/floor/yellowblack,
 /area/station/crew_quarters/ce)
 "uja" = (
