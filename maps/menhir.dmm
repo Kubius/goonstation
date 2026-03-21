@@ -728,10 +728,7 @@
 /area/station/engine/elect)
 "aAC" = (
 /turf/unsimulated/wall/auto/adventure/icemooninterior,
-/area/station/wreckage{
-	teleport_blocked = 2;
-	name = "The Crown"
-	})
+/area/station/crown)
 "aBd" = (
 /obj/table/reinforced/chemistry/auto/basicsup{
 	drawer_contents = null;
@@ -895,10 +892,7 @@
 "aGr" = (
 /obj/effects/menhir_fog,
 /turf/unsimulated/floor/setpieces/bluefloor,
-/area/station/wreckage{
-	teleport_blocked = 2;
-	name = "The Crown"
-	})
+/area/station/crown)
 "aGB" = (
 /turf/simulated/floor/shuttlebay{
 	name = "test chamber plating"
@@ -1825,10 +1819,7 @@
 /turf/unsimulated/floor/setpieces/bluefloor{
 	dir = 4
 	},
-/area/station/wreckage{
-	teleport_blocked = 2;
-	name = "The Crown"
-	})
+/area/station/crown)
 "bhM" = (
 /obj/decal/tile_edge/line/black{
 	dir = 1;
@@ -2151,10 +2142,7 @@
 	target_id = "THEN"
 	},
 /turf/unsimulated/floor/setpieces/bluefloor,
-/area/station/wreckage{
-	teleport_blocked = 2;
-	name = "The Crown"
-	})
+/area/station/crown)
 "bqq" = (
 /obj/machinery/drainage,
 /turf/simulated/floor/grey/blackgrime,
@@ -5733,10 +5721,7 @@
 	pixel_y = 9
 	},
 /turf/unsimulated/floor/setpieces/bluefloor,
-/area/station/wreckage{
-	teleport_blocked = 2;
-	name = "The Crown"
-	})
+/area/station/crown)
 "dFz" = (
 /obj/table/auto,
 /obj/item/storage/firstaid/regular,
@@ -6395,10 +6380,7 @@
 	},
 /obj/effects/menhir_fog,
 /turf/unsimulated/floor/setpieces/bluefloor,
-/area/station/wreckage{
-	teleport_blocked = 2;
-	name = "The Crown"
-	})
+/area/station/crown)
 "dZm" = (
 /obj/disposalpipe/segment/transport,
 /turf/simulated/floor/white,
@@ -7221,10 +7203,7 @@
 /turf/unsimulated/floor/setpieces/bluefloor{
 	dir = 1
 	},
-/area/station/wreckage{
-	teleport_blocked = 2;
-	name = "The Crown"
-	})
+/area/station/crown)
 "eyp" = (
 /obj/disposalpipe/segment/mail{
 	dir = 8;
@@ -8575,10 +8554,7 @@
 	brightness = 7
 	},
 /turf/unsimulated/floor/setpieces/bluefloor,
-/area/station/wreckage{
-	teleport_blocked = 2;
-	name = "The Crown"
-	})
+/area/station/crown)
 "fyc" = (
 /obj/machinery/printing_press,
 /obj/machinery/light_switch/north,
@@ -8673,10 +8649,7 @@
 /turf/unsimulated/floor/setpieces/bluefloor{
 	dir = 4
 	},
-/area/station/wreckage{
-	teleport_blocked = 2;
-	name = "The Crown"
-	})
+/area/station/crown)
 "fAG" = (
 /obj/machinery/atmospherics/pipe/manifold/overfloor{
 	dir = 4
@@ -9513,10 +9486,7 @@
 	dir = 4
 	},
 /turf/unsimulated/floor/setpieces/bluefloor,
-/area/station/wreckage{
-	teleport_blocked = 2;
-	name = "The Crown"
-	})
+/area/station/crown)
 "gaZ" = (
 /obj/machinery/light{
 	dir = 8;
@@ -9634,10 +9604,7 @@
 /turf/unsimulated/floor/setpieces/bluefloor{
 	dir = 1
 	},
-/area/station/wreckage{
-	teleport_blocked = 2;
-	name = "The Crown"
-	})
+/area/station/crown)
 "gdL" = (
 /obj/machinery/conveyor/WE{
 	id = "qmin"
@@ -9708,10 +9675,7 @@
 	},
 /obj/effects/menhir_fog,
 /turf/unsimulated/wall/auto/adventure/icemooninterior,
-/area/station/wreckage{
-	teleport_blocked = 2;
-	name = "The Crown"
-	})
+/area/station/crown)
 "gfO" = (
 /obj/machinery/light/small{
 	dir = 1;
@@ -10948,10 +10912,7 @@
 /turf/unsimulated/floor/setpieces/bluefloor{
 	dir = 8
 	},
-/area/station/wreckage{
-	teleport_blocked = 2;
-	name = "The Crown"
-	})
+/area/station/crown)
 "gSN" = (
 /obj/table/auto,
 /obj/machinery/cashreg,
@@ -11312,10 +11273,7 @@
 	friendly_object = /obj/item/skull
 	},
 /turf/unsimulated/floor/setpieces/bluefloor,
-/area/station/wreckage{
-	teleport_blocked = 2;
-	name = "The Crown"
-	})
+/area/station/crown)
 "hhf" = (
 /obj/machinery/light/small{
 	dir = 4;
@@ -15987,10 +15945,7 @@
 	vision_description = "A vine of obsidian leaves sheds a glistening piece of itself in tribute."
 	},
 /turf/unsimulated/floor/setpieces/bluefloor,
-/area/station/wreckage{
-	teleport_blocked = 2;
-	name = "The Crown"
-	})
+/area/station/crown)
 "kiJ" = (
 /obj/disposalpipe/segment/mail{
 	dir = 2;
@@ -17522,10 +17477,7 @@
 	vision_description = "A sphere of silver, bright and cold as the moon of your ancestors' home."
 	},
 /turf/unsimulated/floor/setpieces/bluefloor,
-/area/station/wreckage{
-	teleport_blocked = 2;
-	name = "The Crown"
-	})
+/area/station/crown)
 "lha" = (
 /obj/submachine/ATM{
 	pixel_y = 32
@@ -17560,10 +17512,7 @@
 "lhN" = (
 /obj/effects/menhir_fog,
 /turf/unsimulated/wall/auto/adventure/icemooninterior,
-/area/station/wreckage{
-	teleport_blocked = 2;
-	name = "The Crown"
-	})
+/area/station/crown)
 "lie" = (
 /obj/machinery/light{
 	dir = 8;
@@ -17782,10 +17731,7 @@
 /turf/unsimulated/floor/setpieces/bluefloor{
 	dir = 8
 	},
-/area/station/wreckage{
-	teleport_blocked = 2;
-	name = "The Crown"
-	})
+/area/station/crown)
 "lpA" = (
 /obj/disposalpipe/segment/vertical,
 /turf/simulated/floor/red/side,
@@ -18733,10 +18679,7 @@
 /turf/unsimulated/floor/setpieces/bluefloor{
 	dir = 4
 	},
-/area/station/wreckage{
-	teleport_blocked = 2;
-	name = "The Crown"
-	})
+/area/station/crown)
 "lSK" = (
 /obj/decal/tile_edge/stripe/big,
 /obj/machinery/portable_atmospherics/scrubber,
@@ -19066,10 +19009,7 @@
 /turf/unsimulated/floor/setpieces/bluefloor{
 	dir = 4
 	},
-/area/station/wreckage{
-	teleport_blocked = 2;
-	name = "The Crown"
-	})
+/area/station/crown)
 "mhu" = (
 /obj/machinery/door/airlock/pyro/command,
 /obj/disposalpipe/segment/brig{
@@ -20349,10 +20289,7 @@
 /turf/unsimulated/floor/setpieces/bluefloor{
 	dir = 8
 	},
-/area/station/wreckage{
-	teleport_blocked = 2;
-	name = "The Crown"
-	})
+/area/station/crown)
 "mWH" = (
 /obj/mapping_helper/wingrille_spawn/auto/reinforced,
 /obj/disposalpipe/segment/transport{
@@ -20496,10 +20433,7 @@
 /turf/unsimulated/floor/setpieces/bluefloor{
 	dir = 4
 	},
-/area/station/wreckage{
-	teleport_blocked = 2;
-	name = "The Crown"
-	})
+/area/station/crown)
 "nbp" = (
 /obj/mesh/catwalk,
 /obj/cable{
@@ -22032,10 +21966,7 @@
 /turf/unsimulated/floor/setpieces/bluefloor{
 	dir = 1
 	},
-/area/station/wreckage{
-	teleport_blocked = 2;
-	name = "The Crown"
-	})
+/area/station/crown)
 "nWC" = (
 /turf/simulated/floor/black/grime,
 /area/station/science/lab)
@@ -22867,10 +22798,7 @@
 /turf/unsimulated/floor/setpieces/bluefloor{
 	dir = 1
 	},
-/area/station/wreckage{
-	teleport_blocked = 2;
-	name = "The Crown"
-	})
+/area/station/crown)
 "otn" = (
 /obj/landmark/gps_waypoint,
 /turf/simulated/floor/plating,
@@ -22918,10 +22846,7 @@
 /turf/unsimulated/floor/setpieces/bluefloor{
 	dir = 8
 	},
-/area/station/wreckage{
-	teleport_blocked = 2;
-	name = "The Crown"
-	})
+/area/station/crown)
 "ouO" = (
 /obj/machinery/vending/pizza,
 /obj/machinery/camera/directional/south,
@@ -23468,10 +23393,7 @@
 /turf/unsimulated/floor/setpieces/bluefloor{
 	dir = 1
 	},
-/area/station/wreckage{
-	teleport_blocked = 2;
-	name = "The Crown"
-	})
+/area/station/crown)
 "oMj" = (
 /obj/machinery/door/airlock/pyro/medical,
 /obj/mapping_helper/firedoor_spawn,
@@ -23800,10 +23722,7 @@
 	dir = 4
 	},
 /turf/unsimulated/floor/setpieces/bluefloor,
-/area/station/wreckage{
-	teleport_blocked = 2;
-	name = "The Crown"
-	})
+/area/station/crown)
 "oVi" = (
 /obj/machinery/light{
 	dir = 8;
@@ -26216,10 +26135,7 @@
 /turf/unsimulated/floor/setpieces/bluefloor{
 	dir = 4
 	},
-/area/station/wreckage{
-	teleport_blocked = 2;
-	name = "The Crown"
-	})
+/area/station/crown)
 "qyO" = (
 /obj/cable{
 	icon_state = "1-4"
@@ -26322,10 +26238,7 @@
 /turf/unsimulated/floor/setpieces/bluefloor{
 	dir = 4
 	},
-/area/station/wreckage{
-	teleport_blocked = 2;
-	name = "The Crown"
-	})
+/area/station/crown)
 "qBD" = (
 /obj/storage/closet/wardrobe/pride,
 /turf/simulated/floor/darkblue,
@@ -29304,10 +29217,7 @@
 /turf/unsimulated/floor/setpieces/bluefloor{
 	dir = 1
 	},
-/area/station/wreckage{
-	teleport_blocked = 2;
-	name = "The Crown"
-	})
+/area/station/crown)
 "sww" = (
 /obj/machinery/power/smes{
 	charge = 1e+006;
@@ -29502,10 +29412,7 @@
 	friendly_object = /obj/item/rddiploma
 	},
 /turf/unsimulated/floor/setpieces/bluefloor,
-/area/station/wreckage{
-	teleport_blocked = 2;
-	name = "The Crown"
-	})
+/area/station/crown)
 "sEj" = (
 /obj/table/reinforced/auto,
 /obj/item/aiModule/notHuman{
@@ -31320,10 +31227,7 @@
 /obj/effects/menhir_fog,
 /obj/machinery/door/unpowered/blue,
 /turf/unsimulated/floor/setpieces/bluefloor,
-/area/station/wreckage{
-	teleport_blocked = 2;
-	name = "The Crown"
-	})
+/area/station/crown)
 "tFf" = (
 /obj/disposalpipe/segment/horizontal,
 /turf/simulated/floor/blackwhite{
@@ -31592,10 +31496,7 @@
 /turf/unsimulated/floor/setpieces/bluefloor{
 	dir = 1
 	},
-/area/station/wreckage{
-	teleport_blocked = 2;
-	name = "The Crown"
-	})
+/area/station/crown)
 "tPe" = (
 /obj/machinery/door/airlock/pyro{
 	dir = 4
@@ -34843,10 +34744,7 @@
 	vision_description = "Brilliant facets in a sea whose edge is beyond sight or thought, glimmering in myriad hues."
 	},
 /turf/unsimulated/floor/setpieces/bluefloor,
-/area/station/wreckage{
-	teleport_blocked = 2;
-	name = "The Crown"
-	})
+/area/station/crown)
 "vLb" = (
 /obj/cable{
 	icon_state = "1-6"
