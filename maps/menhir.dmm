@@ -7213,6 +7213,18 @@
 	},
 /turf/simulated/floor/black,
 /area/station/science/storage)
+"exO" = (
+/obj/effects/menhir_fog,
+/obj/precursor_puzzle/innervator{
+	vision_description = "A silvern trinket, cold and unforgiving as the ground beneath your feet."
+	},
+/turf/unsimulated/floor/setpieces/bluefloor{
+	dir = 1
+	},
+/area/station/wreckage{
+	teleport_blocked = 2;
+	name = "The Crown"
+	})
 "eyp" = (
 /obj/disposalpipe/segment/mail{
 	dir = 8;
@@ -8651,6 +8663,20 @@
 /area/station/maintenance/inner/sw{
 	name = "Southwest Auxiliary Conduit"
 	})
+"fAu" = (
+/obj/effects/menhir_fog,
+/obj/precursor_puzzle/innervator{
+	vision_description = "A face that is not a face, lost beyond a gossamer veil.";
+	pixel_y = -3;
+	pixel_x = 22
+	},
+/turf/unsimulated/floor/setpieces/bluefloor{
+	dir = 4
+	},
+/area/station/wreckage{
+	teleport_blocked = 2;
+	name = "The Crown"
+	})
 "fAG" = (
 /obj/machinery/atmospherics/pipe/manifold/overfloor{
 	dir = 4
@@ -9480,6 +9506,17 @@
 /obj/disposalpipe/segment/bent/north,
 /turf/simulated/floor/plating,
 /area/station/maintenance/east)
+"gae" = (
+/obj/effects/menhir_fog,
+/obj/machinery/door/unpowered/blue{
+	friendly_object = /obj/item/chilly_orb;
+	dir = 4
+	},
+/turf/unsimulated/floor/setpieces/bluefloor,
+/area/station/wreckage{
+	teleport_blocked = 2;
+	name = "The Crown"
+	})
 "gaZ" = (
 /obj/machinery/light{
 	dir = 8;
@@ -9589,6 +9626,18 @@
 /obj/disposalpipe/segment/vertical,
 /turf/simulated/floor/black,
 /area/station/security/secwing)
+"gdz" = (
+/obj/effects/menhir_fog,
+/obj/precursor_puzzle/innervator{
+	vision_description = "A sphere of silver, bright and cold as the moon of your ancestors' home."
+	},
+/turf/unsimulated/floor/setpieces/bluefloor{
+	dir = 1
+	},
+/area/station/wreckage{
+	teleport_blocked = 2;
+	name = "The Crown"
+	})
 "gdL" = (
 /obj/machinery/conveyor/WE{
 	id = "qmin"
@@ -11257,6 +11306,16 @@
 	icon_state = "engine_caution_north"
 	},
 /area/station/hangar/science)
+"hgP" = (
+/obj/effects/menhir_fog,
+/obj/machinery/door/unpowered/blue{
+	friendly_object = /obj/item/skull
+	},
+/turf/unsimulated/floor/setpieces/bluefloor,
+/area/station/wreckage{
+	teleport_blocked = 2;
+	name = "The Crown"
+	})
 "hhf" = (
 /obj/machinery/light/small{
 	dir = 4;
@@ -15922,6 +15981,16 @@
 "kir" = (
 /turf/simulated/floor/carpet/blue/fancy/edge/west,
 /area/station/crew_quarters/md)
+"kiC" = (
+/obj/effects/menhir_fog,
+/obj/precursor_puzzle/innervator{
+	vision_description = "A vine of obsidian leaves sheds a glistening piece of itself in tribute."
+	},
+/turf/unsimulated/floor/setpieces/bluefloor,
+/area/station/wreckage{
+	teleport_blocked = 2;
+	name = "The Crown"
+	})
 "kiJ" = (
 /obj/disposalpipe/segment/mail{
 	dir = 2;
@@ -17444,6 +17513,19 @@
 /obj/machinery/recharge_station,
 /turf/simulated/floor/plating,
 /area/station/maintenance/southeast)
+"lgY" = (
+/obj/effects/menhir_fog,
+/obj/map/light/cyan{
+	brightness = 7
+	},
+/obj/precursor_puzzle/innervator{
+	vision_description = "A sphere of silver, bright and cold as the moon of your ancestors' home."
+	},
+/turf/unsimulated/floor/setpieces/bluefloor,
+/area/station/wreckage{
+	teleport_blocked = 2;
+	name = "The Crown"
+	})
 "lha" = (
 /obj/submachine/ATM{
 	pixel_y = 32
@@ -17692,6 +17774,18 @@
 /mob/living/carbon/human/npc/monkey/krimpus,
 /turf/simulated/floor/grass,
 /area/station/hydroponics)
+"lpq" = (
+/obj/effects/menhir_fog,
+/obj/machinery/door/unpowered/blue{
+	friendly_object = /obj/item/chilly_orb
+	},
+/turf/unsimulated/floor/setpieces/bluefloor{
+	dir = 8
+	},
+/area/station/wreckage{
+	teleport_blocked = 2;
+	name = "The Crown"
+	})
 "lpA" = (
 /obj/disposalpipe/segment/vertical,
 /turf/simulated/floor/red/side,
@@ -17787,10 +17881,6 @@
 	},
 /turf/simulated/floor/specialroom/freezer,
 /area/station/crew_quarters/catering)
-"lrh" = (
-/obj/machinery/light_switch/west,
-/turf/unsimulated/floor/setpieces/bluefloor,
-/area/station/hallway/primary/central)
 "lrI" = (
 /obj/machinery/light{
 	dir = 4;
@@ -18633,6 +18723,20 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/southeast)
+"lSI" = (
+/obj/effects/menhir_fog,
+/obj/precursor_puzzle/innervator{
+	vision_description = "A scroll of scholastic acclaim, locked away in the nest of the guardian.";
+	pixel_y = -3;
+	pixel_x = -22
+	},
+/turf/unsimulated/floor/setpieces/bluefloor{
+	dir = 4
+	},
+/area/station/wreckage{
+	teleport_blocked = 2;
+	name = "The Crown"
+	})
 "lSK" = (
 /obj/decal/tile_edge/stripe/big,
 /obj/machinery/portable_atmospherics/scrubber,
@@ -21175,6 +21279,9 @@
 	name = "Staging Area Shutters";
 	id = "incursion_zone"
 	},
+/obj/item/clothing/glasses/toggleable/meson{
+	pixel_y = 5
+	},
 /turf/simulated/floor/purple,
 /area/station/science/hall)
 "nCI" = (
@@ -21917,6 +22024,18 @@
 	},
 /turf/simulated/floor/orangeblack/side,
 /area/station/quartermaster/office)
+"nWx" = (
+/obj/effects/menhir_fog,
+/obj/machinery/door/unpowered/blue{
+	friendly_object = /obj/item/reagent_containers/food/snacks/plant
+	},
+/turf/unsimulated/floor/setpieces/bluefloor{
+	dir = 1
+	},
+/area/station/wreckage{
+	teleport_blocked = 2;
+	name = "The Crown"
+	})
 "nWC" = (
 /turf/simulated/floor/black/grime,
 /area/station/science/lab)
@@ -23003,19 +23122,6 @@
 /obj/landmark/start/job/assistant,
 /turf/simulated/floor/wood,
 /area/station/crew_quarters/cafeteria)
-"oCb" = (
-/obj/machinery/door/unpowered/blue{
-	friendly_object = /obj/item/artifact
-	},
-/obj/map/light/cyan,
-/obj/effects/menhir_fog,
-/turf/unsimulated/floor/setpieces/bluefloor{
-	dir = 8
-	},
-/area/station/wreckage{
-	teleport_blocked = 2;
-	name = "The Crown"
-	})
 "oCg" = (
 /obj/cable{
 	icon_state = "4-8"
@@ -23357,7 +23463,7 @@
 "oLH" = (
 /obj/effects/menhir_fog,
 /obj/machinery/door/unpowered/blue{
-	friendly_object = /obj/item/chilly_orb/menhir
+	friendly_object = /obj/item/raw_material/gemstone
 	},
 /turf/unsimulated/floor/setpieces/bluefloor{
 	dir = 1
@@ -23690,6 +23796,7 @@
 "oVg" = (
 /obj/effects/menhir_fog,
 /obj/machinery/door/unpowered/blue{
+	friendly_object = /obj/item/artifact;
 	dir = 4
 	},
 /turf/unsimulated/floor/setpieces/bluefloor,
@@ -24723,6 +24830,7 @@
 /obj/cable{
 	icon_state = "2-9"
 	},
+/obj/mapping_helper/access/research,
 /turf/simulated/floor/black,
 /area/station/turret_protected/incursion)
 "pHG" = (
@@ -29388,6 +29496,16 @@
 "sEf" = (
 /turf/space,
 /area/space)
+"sEg" = (
+/obj/effects/menhir_fog,
+/obj/machinery/door/unpowered/blue{
+	friendly_object = /obj/item/rddiploma
+	},
+/turf/unsimulated/floor/setpieces/bluefloor,
+/area/station/wreckage{
+	teleport_blocked = 2;
+	name = "The Crown"
+	})
 "sEj" = (
 /obj/table/reinforced/auto,
 /obj/item/aiModule/notHuman{
@@ -34719,6 +34837,16 @@
 /obj/mapping_helper/firedoor_spawn,
 /turf/simulated/floor/wood/two,
 /area/station/crew_quarters/fitness)
+"vKW" = (
+/obj/effects/menhir_fog,
+/obj/precursor_puzzle/innervator{
+	vision_description = "Brilliant facets in a sea whose edge is beyond sight or thought, glimmering in myriad hues."
+	},
+/turf/unsimulated/floor/setpieces/bluefloor,
+/area/station/wreckage{
+	teleport_blocked = 2;
+	name = "The Crown"
+	})
 "vLb" = (
 /obj/cable{
 	icon_state = "1-6"
@@ -79239,9 +79367,9 @@ hoJ
 vna
 lhN
 lhN
-aGr
-aGr
-aGr
+osZ
+osZ
+osZ
 lhN
 lhN
 aer
@@ -79540,11 +79668,11 @@ xrA
 syh
 kxX
 lhN
-aGr
+qBA
 aGr
 fxO
 aGr
-aGr
+qBA
 lhN
 tiN
 rjT
@@ -79842,11 +79970,11 @@ dRN
 dRN
 rBz
 lhN
+qBA
 aGr
 aGr
 aGr
-aGr
-aGr
+qBA
 lhN
 dta
 per
@@ -80144,11 +80272,11 @@ pAv
 dRN
 req
 lhN
-aGr
+qBA
 aGr
 fxO
 aGr
-aGr
+qBA
 lhN
 qjX
 rjT
@@ -80447,9 +80575,9 @@ xwU
 blC
 lhN
 lhN
-aGr
-aGr
-aGr
+osZ
+osZ
+osZ
 lhN
 lhN
 qjX
@@ -80732,9 +80860,9 @@ obK
 ozV
 lhN
 lhN
-aGr
-aGr
-aGr
+osZ
+osZ
+osZ
 lhN
 lhN
 iHJ
@@ -80766,9 +80894,9 @@ sBC
 byJ
 lhN
 lhN
-aGr
-aGr
-aGr
+osZ
+osZ
+osZ
 lhN
 lhN
 nIE
@@ -81033,11 +81161,11 @@ wls
 dHY
 dKh
 lhN
-aGr
+qBA
 fxO
 aGr
 aGr
-aGr
+qBA
 lhN
 xJe
 wtn
@@ -81067,11 +81195,11 @@ kgF
 sBC
 pxp
 lhN
-aGr
+qBA
 aGr
 aGr
 fxO
-aGr
+qBA
 lhN
 nFk
 gzh
@@ -81335,11 +81463,11 @@ qSG
 aHO
 edb
 lhN
+qBA
 aGr
 aGr
 aGr
-aGr
-aGr
+qBA
 lhN
 vsr
 cPe
@@ -81369,11 +81497,11 @@ spV
 dUt
 qSm
 lhN
+qBA
 aGr
 aGr
 aGr
-aGr
-aGr
+qBA
 lhN
 nFk
 gzh
@@ -81637,11 +81765,11 @@ xLM
 hcJ
 gyi
 lhN
-aGr
+qBA
 aGr
 aGr
 fxO
-aGr
+qBA
 lhN
 eOe
 xZM
@@ -81671,11 +81799,11 @@ wyQ
 jWE
 vtM
 lhN
-aGr
+qBA
 fxO
 aGr
 aGr
-aGr
+qBA
 lhN
 nFk
 gzh
@@ -81940,9 +82068,9 @@ hcJ
 gPI
 lhN
 lhN
-aGr
-aGr
-aGr
+osZ
+osZ
+osZ
 lhN
 lhN
 blY
@@ -81974,9 +82102,9 @@ xFh
 xFh
 lhN
 lhN
-aGr
-aGr
-aGr
+osZ
+osZ
+osZ
 lhN
 lhN
 nFk
@@ -82248,8 +82376,8 @@ lhN
 lhN
 dfb
 blY
-lrh
-lrh
+blY
+blY
 wTQ
 wTQ
 mPk
@@ -82550,8 +82678,8 @@ blY
 blY
 blY
 blY
-lrh
-lrh
+blY
+blY
 blY
 lZH
 wTQ
@@ -82852,8 +82980,8 @@ iIW
 ckh
 blY
 blY
-lrh
-lrh
+blY
+blY
 blY
 blY
 blY
@@ -84373,12 +84501,12 @@ dFy
 lhN
 dFy
 lhN
-aGr
+vKW
 lhN
 aGr
 aGr
 aGr
-tFa
+hgP
 aGr
 tFa
 aGr
@@ -84679,7 +84807,7 @@ qBA
 lhN
 qBA
 qBA
-qBA
+fAu
 lhN
 dFy
 lhN
@@ -85578,7 +85706,7 @@ lhN
 aGr
 lhN
 aGr
-ouG
+lpq
 aGr
 aGr
 aGr
@@ -85881,7 +86009,7 @@ osZ
 lhN
 osZ
 lhN
-fxO
+lgY
 aGr
 aGr
 qBA
@@ -86195,7 +86323,7 @@ lhN
 lhN
 lhN
 lhN
-osZ
+gdz
 osZ
 lhN
 lhN
@@ -86499,7 +86627,7 @@ gfo
 mhb
 aGr
 aGr
-oCb
+gSG
 aGr
 gSG
 sro
@@ -86799,7 +86927,7 @@ lhN
 lhN
 lhN
 lhN
-osZ
+exO
 osZ
 lhN
 lhN
@@ -87089,7 +87217,7 @@ osZ
 lhN
 osZ
 lhN
-fxO
+lgY
 aGr
 aGr
 qBA
@@ -87101,7 +87229,7 @@ osZ
 lhN
 osZ
 lhN
-oVg
+gae
 lhN
 lhN
 aGr
@@ -87390,7 +87518,7 @@ lhN
 aGr
 lhN
 aGr
-ouG
+lpq
 aGr
 aGr
 aGr
@@ -88303,7 +88431,7 @@ qBA
 lhN
 qBA
 qBA
-qBA
+lSI
 lhN
 dFy
 lhN
@@ -88601,12 +88729,12 @@ dFy
 lhN
 dFy
 lhN
-aGr
+kiC
 lhN
 aGr
 aGr
 aGr
-tFa
+sEg
 aGr
 tFa
 aGr
@@ -88902,7 +89030,7 @@ osZ
 osZ
 osZ
 swe
-oLH
+nWx
 osZ
 tPb
 osZ
@@ -91000,9 +91128,9 @@ lxu
 bym
 lhN
 lhN
-aGr
-aGr
-aGr
+osZ
+osZ
+osZ
 lhN
 lhN
 blY
@@ -91034,9 +91162,9 @@ aSL
 aSL
 lhN
 lhN
-aGr
-aGr
-aGr
+osZ
+osZ
+osZ
 lhN
 lhN
 wZD
@@ -91301,11 +91429,11 @@ qBW
 lxu
 bym
 lhN
-aGr
+qBA
 aGr
 aGr
 fxO
-aGr
+qBA
 lhN
 ieZ
 vXV
@@ -91335,11 +91463,11 @@ oSI
 wgx
 eTD
 lhN
-aGr
+qBA
 fxO
 aGr
 aGr
-aGr
+qBA
 lhN
 wZD
 qLK
@@ -91603,11 +91731,11 @@ lxu
 lxu
 bym
 lhN
+qBA
 aGr
 aGr
 aGr
-aGr
-aGr
+qBA
 lhN
 kOt
 rZe
@@ -91637,11 +91765,11 @@ oSI
 nHy
 tTh
 lhN
+qBA
 aGr
 aGr
 aGr
-aGr
-aGr
+qBA
 lhN
 wZD
 qLK
@@ -91905,11 +92033,11 @@ vkI
 hdC
 gnD
 lhN
-aGr
+qBA
 fxO
 aGr
 aGr
-aGr
+qBA
 lhN
 tOR
 pkc
@@ -91939,11 +92067,11 @@ eHy
 ncs
 gLn
 lhN
-aGr
+qBA
 aGr
 aGr
 fxO
-aGr
+qBA
 lhN
 wZD
 qLK
@@ -92208,9 +92336,9 @@ mmv
 mmv
 lhN
 lhN
-aGr
-aGr
-aGr
+osZ
+osZ
+osZ
 lhN
 lhN
 vXV
@@ -92242,9 +92370,9 @@ gFy
 gLn
 lhN
 lhN
-aGr
-aGr
-aGr
+osZ
+osZ
+osZ
 lhN
 lhN
 pPo
@@ -92527,9 +92655,9 @@ wcW
 rhh
 aAC
 lhN
-aGr
-aGr
-aGr
+osZ
+osZ
+osZ
 lhN
 lhN
 off
@@ -92828,11 +92956,11 @@ umS
 vXV
 xrV
 lhN
-aGr
+qBA
 aGr
 fxO
 aGr
-aGr
+qBA
 lhN
 txT
 oSI
@@ -93130,11 +93258,11 @@ jgn
 mGy
 lsC
 lhN
+qBA
 aGr
 aGr
 aGr
-aGr
-aGr
+qBA
 lhN
 txT
 jXH
@@ -93432,11 +93560,11 @@ xHS
 eIi
 mha
 lhN
-aGr
+qBA
 aGr
 fxO
 aGr
-aGr
+qBA
 lhN
 mil
 oSI
@@ -93735,9 +93863,9 @@ syc
 kMw
 lhN
 lhN
-aGr
-aGr
-aGr
+osZ
+osZ
+osZ
 lhN
 lhN
 ieS

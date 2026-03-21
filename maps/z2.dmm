@@ -55967,6 +55967,14 @@
 /obj/structure/woodwall,
 /turf/unsimulated/floor/plating,
 /area/retentioncenter)
+"fep" = (
+/obj/item/chilly_orb{
+	id = "DECEIT"
+	},
+/turf/unsimulated/floor/setpieces/bluefloor{
+	dir = 8
+	},
+/area/precursor/menhir)
 "feE" = (
 /obj/machinery/door/airlock/pyro/command{
 	name = "Research Director's Office";
@@ -56867,6 +56875,12 @@
 "fQk" = (
 /turf/unsimulated/floor/black/corner,
 /area/iomoon/base)
+"fQM" = (
+/obj/precursor_puzzle/innervator{
+	vision_description = "The storms of deepest blue, aching for the return of the estranged."
+	},
+/turf/unsimulated/floor/setpieces/bluefloor,
+/area/precursor/menhir)
 "fRh" = (
 /obj/map/light/graveyard,
 /obj/tree{
@@ -65840,6 +65854,12 @@
 /obj/decal/stripe_delivery,
 /turf/unsimulated/floor/plating,
 /area/crater/biodome/research)
+"mFs" = (
+/obj/precursor_puzzle/innervator{
+	vision_description = "A procession of grievers shrouded in silver, singing the names of the places."
+	},
+/turf/unsimulated/floor/setpieces/bluefloor,
+/area/precursor/menhir)
 "mFv" = (
 /obj/decal/cleanable/dirt/dirt5,
 /obj/stool/bench/blue/auto,
@@ -71806,6 +71826,9 @@
 	icon_state = "floor2"
 	},
 /area/shuttle/merchant_shuttle/right_centcom/donut2)
+"rbu" = (
+/turf/unsimulated/floor/arctic/snow/ice,
+/area/precursor/menhir)
 "rcQ" = (
 /turf/unsimulated/floor/wood/two,
 /area/centcom/offices/efrem)
@@ -72246,6 +72269,10 @@
 	},
 /turf/space,
 /area/syndicate_station_space)
+"rui" = (
+/obj/map/light/cyan,
+/turf/unsimulated/wall/auto/adventure/icemoon,
+/area/precursor/menhir)
 "ruI" = (
 /obj/tree{
 	dir = 4
@@ -77643,6 +77670,15 @@
 	},
 /turf/unsimulated/floor/grime,
 /area/marsoutpost)
+"vGI" = (
+/obj/precursor_puzzle/sphere,
+/obj/map/light/cyan{
+	brightness = 8
+	},
+/turf/unsimulated/floor/setpieces/bluefloor{
+	dir = 1
+	},
+/area/precursor/menhir)
 "vGO" = (
 /mob/living/critter/crunched,
 /turf/unsimulated/floor/plating,
@@ -80177,6 +80213,10 @@
 	},
 /turf/unsimulated/floor/engine/caution/east,
 /area/hospital/samostrel)
+"xsy" = (
+/obj/item/raw_material/cobryl,
+/turf/unsimulated/floor/setpieces/bluefloor,
+/area/precursor/menhir)
 "xsG" = (
 /obj/lattice{
 	dir = 6;
@@ -81131,6 +81171,10 @@
 	},
 /turf/simulated/floor/grime,
 /area/observatory)
+"xVi" = (
+/obj/item/raw_material/starstone,
+/turf/unsimulated/floor/setpieces/bluefloor,
+/area/precursor/menhir)
 "xVP" = (
 /obj/machinery/light,
 /turf/unsimulated/floor/wood/eight,
@@ -149734,7 +149778,7 @@ aaa
 aaa
 aaa
 aaa
-cnw
+aaa
 cnw
 cnw
 cnw
@@ -150035,8 +150079,8 @@ jky
 jky
 jky
 jky
+jky
 aaa
-cnw
 cnw
 cnw
 cnw
@@ -150337,8 +150381,8 @@ jky
 jky
 jky
 jky
+jky
 aaa
-cnw
 cnw
 cnw
 cnw
@@ -150639,8 +150683,8 @@ jky
 jky
 jky
 jky
+jky
 aaa
-cnw
 cnw
 cnw
 cnw
@@ -150941,8 +150985,8 @@ jky
 jky
 jky
 jky
+jky
 aaa
-cnw
 cnw
 cnw
 cnw
@@ -151219,9 +151263,9 @@ jky
 jky
 sGZ
 sGZ
-nNE
+xsy
 hyO
-nNE
+xsy
 sGZ
 dPy
 sGZ
@@ -151240,11 +151284,11 @@ nNE
 nNE
 sGZ
 sGZ
+jky
 jky
 jky
 jky
 aaa
-cnw
 cnw
 cnw
 cnw
@@ -151522,7 +151566,7 @@ jky
 sGZ
 mrC
 lkr
-eli
+fep
 lkr
 lkr
 lkr
@@ -151545,8 +151589,8 @@ sGZ
 jky
 jky
 jky
+jky
 aaa
-cnw
 cnw
 cnw
 cnw
@@ -151823,15 +151867,15 @@ jky
 sGZ
 sGZ
 sGZ
-nNE
+xsy
 hyO
-nNE
+xsy
 sGZ
 dPy
 sGZ
 dPy
 sGZ
-nNE
+mFs
 sGZ
 nNE
 nNE
@@ -151845,10 +151889,10 @@ sGZ
 sGZ
 sGZ
 sGZ
+jky
 jky
 jky
 aaa
-cnw
 cnw
 cnw
 cnw
@@ -152149,8 +152193,8 @@ nNE
 sGZ
 jky
 jky
+jky
 aaa
-cnw
 cnw
 cnw
 cnw
@@ -152451,8 +152495,8 @@ nNE
 sGZ
 jky
 jky
+jky
 aaa
-cnw
 cnw
 cnw
 cnw
@@ -152735,13 +152779,13 @@ lkr
 xmo
 orr
 sGZ
-lkr
+mrC
 sGZ
 lkr
 sGZ
 lkr
 sGZ
-lkr
+mrC
 sGZ
 lkr
 sGZ
@@ -152753,8 +152797,8 @@ sGZ
 sGZ
 sGZ
 jky
+jky
 aaa
-cnw
 cnw
 cnw
 cnw
@@ -153055,8 +153099,8 @@ sGZ
 nNE
 sGZ
 fmf
+jky
 aaa
-cnw
 cnw
 cnw
 cnw
@@ -153339,13 +153383,13 @@ lkr
 sGZ
 lkr
 sGZ
-lmA
+nNE
 nNE
 nNE
 hyO
 nNE
 nNE
-lmA
+nNE
 sGZ
 lkr
 sGZ
@@ -153356,9 +153400,9 @@ sGZ
 sGZ
 nNE
 sGZ
+rui
 fmf
 aaa
-cnw
 cnw
 cnw
 cnw
@@ -153658,9 +153702,9 @@ lkr
 sGZ
 sGZ
 sGZ
+rbu
 fmf
 aaa
-cnw
 cnw
 cnw
 cnw
@@ -153943,13 +153987,13 @@ sGZ
 nNE
 nNE
 sGZ
-lkr
+vGI
 lkr
 hyO
 gJf
 hyO
 lkr
-lkr
+vGI
 sGZ
 nNE
 nNE
@@ -153960,9 +154004,9 @@ nNE
 nZK
 nNE
 nZK
+rbu
 fmf
 aaa
-cnw
 cnw
 cnw
 cnw
@@ -154262,9 +154306,9 @@ lkr
 sGZ
 sGZ
 sGZ
+rbu
 fmf
 aaa
-cnw
 cnw
 cnw
 cnw
@@ -154547,13 +154591,13 @@ lkr
 sGZ
 lkr
 sGZ
-lmA
+nNE
 nNE
 nNE
 hyO
 nNE
 nNE
-lmA
+nNE
 sGZ
 lkr
 sGZ
@@ -154564,9 +154608,9 @@ sGZ
 sGZ
 nNE
 sGZ
+rui
 fmf
 aaa
-cnw
 cnw
 cnw
 cnw
@@ -154867,8 +154911,8 @@ sGZ
 nNE
 sGZ
 fmf
+jky
 aaa
-cnw
 cnw
 cnw
 cnw
@@ -155151,13 +155195,13 @@ lkr
 xmo
 lkr
 sGZ
-lkr
+mrC
 sGZ
 lkr
 sGZ
 lkr
 sGZ
-lkr
+mrC
 sGZ
 lkr
 sGZ
@@ -155169,8 +155213,8 @@ sGZ
 sGZ
 sGZ
 jky
+jky
 aaa
-cnw
 cnw
 cnw
 cnw
@@ -155471,8 +155515,8 @@ nNE
 sGZ
 jky
 jky
+jky
 aaa
-cnw
 cnw
 cnw
 cnw
@@ -155773,8 +155817,8 @@ nNE
 sGZ
 jky
 jky
+jky
 aaa
-cnw
 cnw
 cnw
 cnw
@@ -156051,15 +156095,15 @@ jky
 sGZ
 sGZ
 sGZ
-nNE
+xVi
 hyO
-nNE
+xVi
 sGZ
 dPy
 sGZ
 dPy
 sGZ
-nNE
+fQM
 sGZ
 nNE
 nNE
@@ -156075,8 +156119,8 @@ sGZ
 sGZ
 jky
 jky
+jky
 aaa
-cnw
 cnw
 cnw
 cnw
@@ -156377,8 +156421,8 @@ sGZ
 jky
 jky
 jky
+jky
 aaa
-cnw
 cnw
 cnw
 cnw
@@ -156655,9 +156699,9 @@ jky
 jky
 sGZ
 sGZ
-nNE
+xVi
 hyO
-nNE
+xVi
 sGZ
 dPy
 sGZ
@@ -156676,11 +156720,11 @@ nNE
 nNE
 sGZ
 sGZ
+jky
 jky
 jky
 jky
 aaa
-cnw
 cnw
 cnw
 cnw
@@ -156981,8 +157025,8 @@ jky
 jky
 jky
 jky
+jky
 aaa
-cnw
 cnw
 cnw
 cnw
@@ -157283,8 +157327,8 @@ jky
 jky
 jky
 jky
+jky
 aaa
-cnw
 cnw
 cnw
 cnw
@@ -157585,8 +157629,8 @@ jky
 jky
 jky
 jky
+jky
 aaa
-cnw
 cnw
 cnw
 cnw
@@ -157887,8 +157931,8 @@ jky
 jky
 jky
 jky
+jky
 aaa
-cnw
 cnw
 cnw
 cnw
@@ -158190,7 +158234,7 @@ aaa
 aaa
 aaa
 aaa
-cnw
+aaa
 cnw
 cnw
 cnw

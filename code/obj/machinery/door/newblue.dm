@@ -6,6 +6,7 @@
 	opacity = 1
 	density = 1
 	hardened = 1
+	alpha = 0
 	hitsound = 'sound/impact_sounds/Metal_Hit_Lowfi_1.ogg'
 	var/friendly_object = null
 	var/friend_obj_is_precursor = TRUE
@@ -14,6 +15,14 @@
 		. = ..()
 		if(src.friendly_object)
 			src.locked = TRUE
+
+		if(global.current_state < GAME_STATE_PREGAME)
+			src.alpha = 255
+		else
+			animate(src, alpha = 255, time = 15, easing = SINE_EASING | EASE_OUT)
+			SPAWN(18)
+				var/turf/under_us = get_turf(src)
+				under_us.ReplaceWith(/turf/unsimulated/floor/setpieces/bluefloor)
 
 	attackby(obj/item/W, mob/user)
 		..()
@@ -33,6 +42,9 @@
 			var/door_note = 'sound/musical_instruments/WeirdChime_0.ogg'
 			playsound(src.loc, door_note, 60, 0)
 			src.locked = FALSE
+
+	vertical
+		dir = 4
 
 
 /obj/machinery/door/unpowered/blue/open()

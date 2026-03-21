@@ -149,6 +149,31 @@
 	name = "Somewhen"
 	icon_state = "purple"
 
+/area/station/crown // stole this code from the void definition
+	name = "The Crown"
+	icon_state = "purple"
+	filler_turf = "/turf/unsimulated/floor/setpieces/bluefloor"
+	sound_environment = 5
+	sound_loop = 'sound/ambience/industrial/Precursor_Drone1.ogg'
+
+/area/station/crown/New()
+	. = ..()
+	START_TRACKING_CAT(TR_CAT_AREA_PROCESS)
+
+/area/station/crown/disposing()
+	STOP_TRACKING_CAT(TR_CAT_AREA_PROCESS)
+	. = ..()
+
+/area/station/crown/area_process()
+	if(prob(20))
+		var/weirdnoise = pick('sound/ambience/industrial/Precursor_Drone2.ogg',\
+			'sound/ambience/industrial/Precursor_Choir.ogg',\
+			'sound/ambience/industrial/Precursor_Drone3.ogg',\
+			'sound/ambience/industrial/Precursor_Bells.ogg')
+
+		var/turf/noisy_turf = pick(get_area_turfs(/area/station/crown))
+		playsound(noisy_turf, weirdnoise, 70, 1)
+
 ////////////////////// cogwerks - HELL
 
 /area/hell
@@ -309,6 +334,28 @@
 		SPAWN(20)
 			var/obj/item/chilly_orb/our_target = pick(by_type[/obj/item/chilly_orb/menhir])
 			our_target.id = "NOW"
+
+/obj/precursor_puzzle/innervator
+	name = "peculiar panel"
+	desc = "You can't explain why, but it feels like it's watching you."
+	icon = 'icons/obj/artifacts/puzzles.dmi'
+	icon_state = "controller_on"
+	anchored = ANCHORED
+	var/vision_description = null
+	pixel_y = 24
+
+	New()
+		..()
+		src.name = "[pick("little","odd","shiny","quirky","gazing","peculiar")] [pick("interface","facet","panel","trinket","fixture","whatsit")]"
+
+	attack_hand(mob/user)
+		. = ..()
+		if (ON_COOLDOWN(src, "limited_see", 3 SECONDS) || !src.vision_description)
+			user.visible_message(SPAN_ALERT("[src] doesn't respond to your touch."))
+		else
+			user.visible_message(SPAN_NOTICE("[src] [pick("projects","imposes","directs","shines")] an image into your mind..."))
+			user.visible_message(SPAN_ALERT("<i>[src.vision_description]</i>"))
+			user.playsound_local_not_inworld('sound/musical_instruments/Vuvuzela_1.ogg', 12, 0, pitch = 0.3)
 
 /obj/precursor_puzzle/orb_stand
 	name = "cold device"
