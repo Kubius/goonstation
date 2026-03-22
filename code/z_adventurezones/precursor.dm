@@ -406,8 +406,7 @@ ABSTRACT_TYPE(/datum/menhir_puzzle)
 /datum/menhir_puzzle/lens
 	target_path = /obj/item/lens
 	desc_strings = list(
-		"A dim light flickers in the distance. As you raise your keepsake in front of you, the light is seen as fire.",
-		"A figure with a sun for a head asks you for a disc through which your hand may be seen. As you hold it up, an intense pain flashes in your eye."
+		"A figure with a sun for a head seeks a frameless disc through which your hand may be seen. As you hold it up, an intense pain flashes in your eye."
 	)
 
 /obj/precursor_puzzle/innervator

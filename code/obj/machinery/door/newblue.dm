@@ -29,8 +29,18 @@ ADMIN_INTERACT_PROCS(/obj/machinery/door/unpowered/blue, proc/revoke_door)
 		if(src.locked)
 			if(src.friendly_object)
 				boutput(user,SPAN_ALERT("[src] makes a strange humming sound in response to your touch..."))
-			else if(src.needs_precursor)
+			else if(src.needs_precursor && !ON_COOLDOWN(src, "smacksounde", 1 SECOND))
 				boutput(user,SPAN_ALERT("[src] hums strangely in response to your touch. It feels like it's palpating the area..."))
+				var/found_large = FALSE
+				for (var/obj/O in orange(1,src))
+					if(O.artifact && O.artifact.artitype.name == "precursor")
+						found_large = TRUE
+						break
+				if(found_large)
+					user.visible_message(SPAN_NOTICE("<B>[src] [pick("rings", "dings", "chimes","vibrates","oscillates")] [pick("faintly", "softly", "loudly", "weirdly", "scarily", "eerily")].</B>"))
+					var/door_note = 'sound/musical_instruments/WeirdChime_0.ogg'
+					playsound(src.loc, door_note, 60, 0)
+					src.locked = FALSE
 			else
 				boutput(user,SPAN_ALERT("[src] doesn't respond to your touch."))
 			return
@@ -47,13 +57,14 @@ ADMIN_INTERACT_PROCS(/obj/machinery/door/unpowered/blue, proc/revoke_door)
 			else if(src.needs_precursor)
 				if(!W.artifact || !W.artifact.artitype.name == "precursor")
 					var/found_large = FALSE
-					for (var/obj/artifact/A in orange(1,src))
-						if(A.artifact.artitype.name == "precursor")
+					for (var/obj/O in orange(1,src))
+						if(O.artifact && O.artifact.artitype.name == "precursor")
 							found_large = TRUE
 							break
-					if (!found_large && !ON_COOLDOWN(src, "smacksounde", 1 SECOND))
-						user.visible_message(SPAN_ALERT("[src] sounds oddly hollow as it's struck."))
-						playsound(src.loc, src.hitsound, 15, 0, pitch = 0.7)
+					if (!found_large)
+						if(!ON_COOLDOWN(src, "smacksounde", 1 SECOND))
+							user.visible_message(SPAN_ALERT("[src] sounds oddly hollow as it's struck."))
+							playsound(src.loc, src.hitsound, 15, 0, pitch = 0.7)
 						return
 			user.visible_message(SPAN_NOTICE("<B>[src] [pick("rings", "dings", "chimes","vibrates","oscillates")] [pick("faintly", "softly", "loudly", "weirdly", "scarily", "eerily")].</B>"))
 			var/door_note = 'sound/musical_instruments/WeirdChime_0.ogg'
