@@ -710,10 +710,13 @@
 /area/station/security/interrogation)
 "ayw" = (
 /obj/mesh/catwalk,
+/obj/cable{
+	icon_state = "1-8"
+	},
 /turf/simulated/floor/airless/plating/catwalk{
 	dir = 10
 	},
-/area/station/maintenance/east)
+/area/station/com_dish/comdish)
 "ayP" = (
 /obj/mesh/catwalk,
 /obj/cable{
@@ -1809,6 +1812,12 @@
 /area/station/maintenance/outer/sw{
 	name = "Arrivals Auxiliary Arm"
 	})
+"bez" = (
+/obj/mesh/catwalk,
+/turf/simulated/floor/airless/plating/catwalk{
+	dir = 5
+	},
+/area/station/com_dish/comdish)
 "beI" = (
 /obj/machinery/door/airlock/pyro/engineering,
 /obj/mapping_helper/access/engineering_engine,
@@ -3859,6 +3868,13 @@
 /obj/landmark/gps_waypoint,
 /turf/simulated/floor/engine,
 /area/station/engine/core)
+"clb" = (
+/obj/lattice{
+	dir = 10;
+	icon_state = "lattice-dir"
+	},
+/turf/space,
+/area/station/com_dish/comdish)
 "cln" = (
 /obj/rack,
 /obj/item/clothing/suit/space/emerg,
@@ -4691,6 +4707,12 @@
 	},
 /turf/simulated/floor/carpet/arcade,
 /area/station/bridge/captain)
+"cNh" = (
+/obj/cable{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plating,
+/area/station/maintenance/east)
 "cOs" = (
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
 	dir = 5
@@ -8550,6 +8572,9 @@
 /obj/mapping_helper/wingrille_spawn/auto/reinforced,
 /turf/simulated/floor/plating,
 /area/station/maintenance/solar/west)
+"foF" = (
+/turf/space,
+/area/station/com_dish/comdish)
 "foK" = (
 /obj/stool/bed,
 /obj/machinery/light/small{
@@ -8721,6 +8746,9 @@
 	},
 /obj/mapping_helper/airlock/cycler/auto/queen{
 	dir = 4
+	},
+/obj/cable{
+	icon_state = "4-8"
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/east)
@@ -11223,6 +11251,10 @@
 	dir = 8
 	},
 /area/station/crown)
+"gSJ" = (
+/obj/lattice,
+/turf/space,
+/area/station/com_dish/comdish)
 "gSN" = (
 /obj/table/reinforced/auto,
 /obj/machinery/cashreg,
@@ -17305,6 +17337,10 @@
 	},
 /turf/simulated/floor/white,
 /area/station/science/lab)
+"kKi" = (
+/obj/mesh/grille/steel,
+/turf/space,
+/area/station/com_dish/comdish)
 "kKQ" = (
 /obj/machinery/atmospherics/pipe/simple{
 	dir = 4
@@ -20891,6 +20927,9 @@
 /obj/cable{
 	icon_state = "2-8"
 	},
+/obj/cable{
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/east)
 "mTY" = (
@@ -22573,6 +22612,12 @@
 	dir = 8
 	},
 /area/station/crew_quarters/cafeteria)
+"nTB" = (
+/obj/mesh/catwalk,
+/turf/simulated/floor/airless/plating/catwalk{
+	dir = 4
+	},
+/area/station/com_dish/comdish)
 "nTL" = (
 /obj/cable{
 	icon_state = "5-8"
@@ -23308,6 +23353,13 @@
 /obj/disposalpipe/segment/vertical,
 /turf/simulated/floor/grey,
 /area/station/crew_quarters/quartersC)
+"onP" = (
+/obj/lattice{
+	dir = 8;
+	icon_state = "lattice-dir"
+	},
+/turf/space,
+/area/station/com_dish/comdish)
 "onR" = (
 /obj/table/reinforced/auto,
 /obj/item/paper_bin,
@@ -27257,6 +27309,15 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/west)
+"qGT" = (
+/obj/cable{
+	icon_state = "4-8"
+	},
+/obj/mesh/catwalk,
+/turf/simulated/floor/airless/plating/catwalk{
+	dir = 4
+	},
+/area/station/com_dish/comdish)
 "qGV" = (
 /obj/machinery/navbeacon/guardbotsecbot_circularpatrol/beacon15,
 /turf/simulated/floor,
@@ -28630,6 +28691,19 @@
 /obj/mapping_helper/access/maint,
 /turf/simulated/floor/black/grime,
 /area/station/maintenance/east)
+"rAu" = (
+/obj/cable{
+	icon_state = "0-8"
+	},
+/obj/machinery/communications_dish{
+	tag = "MAIN_DISH_SS13"
+	},
+/obj/machinery/power/data_terminal,
+/obj/mesh/catwalk,
+/turf/simulated/floor/airless/plating/catwalk{
+	dir = 4
+	},
+/area/station/com_dish/comdish)
 "rAC" = (
 /obj/cable{
 	icon_state = "4-9"
@@ -28702,6 +28776,13 @@
 	dir = 4
 	},
 /area/station/hangar/engine)
+"rCK" = (
+/obj/disposalpipe/segment/mail,
+/obj/cable{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plating,
+/area/station/maintenance/east)
 "rDb" = (
 /obj/table/reinforced/auto,
 /obj/machinery/networked/printer{
@@ -37504,6 +37585,9 @@
 /obj/machinery/door/airlock/pyro/external{
 	dir = 4
 	},
+/obj/cable{
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/east)
 "wFU" = (
@@ -38302,6 +38386,13 @@
 /obj/reagent_dispensers/compostbin,
 /turf/simulated/floor/grass,
 /area/station/hydroponics)
+"xfL" = (
+/obj/mesh/catwalk,
+/obj/cable{
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/airless/plating/catwalk,
+/area/station/com_dish/comdish)
 "xfU" = (
 /obj/storage/crate,
 /obj/item/reagent_containers/food/snacks/ingredient/flour,
@@ -38982,6 +39073,16 @@
 	dir = 4
 	},
 /area/station/medical/medbay/surgery)
+"xAW" = (
+/obj/mesh/catwalk,
+/obj/cable{
+	icon_state = "2-4"
+	},
+/turf/simulated/floor/airless/plating/catwalk{
+	dir = 1;
+	icon_state = "catwalk_cross"
+	},
+/area/station/com_dish/comdish)
 "xBo" = (
 /turf/simulated/wall/auto/reinforced/supernorn,
 /area/station/maintenance/east)
@@ -99783,13 +99884,13 @@ aat
 sEf
 sEf
 sEf
-fMD
+onP
 nej
 nej
 hPY
 qEa
 pCF
-qcg
+rCK
 cwK
 qVW
 ien
@@ -100085,8 +100186,8 @@ bTV
 sEf
 sEf
 sEf
-sEf
-fMD
+onP
+nTB
 nej
 nej
 qEa
@@ -100387,13 +100488,13 @@ xFD
 sEf
 sEf
 sEf
-sEf
-sEf
-fMD
-ayw
+onP
+nTB
+gSJ
+gSJ
 nej
 kjQ
-okL
+cNh
 bxP
 mWN
 mWN
@@ -100689,10 +100790,10 @@ sEf
 sEf
 sEf
 sEf
-sEf
-sEf
-sEf
-fMD
+onP
+nTB
+clb
+foF
 qEa
 nej
 wER
@@ -100991,12 +101092,12 @@ aat
 sEf
 sEf
 sEf
-sEf
-sEf
-sEf
-sEf
-lzH
-ayw
+onP
+xAW
+xfL
+xfL
+xfL
+xfL
 ayw
 pvh
 sHn
@@ -101293,13 +101394,13 @@ bTV
 sEf
 sEf
 sEf
-sEf
-sEf
-sEf
+onP
+qGT
+clb
 sEf
 gxh
 sEf
-ayw
+bez
 pvh
 kYv
 mWN
@@ -101595,11 +101696,11 @@ xFD
 sEf
 sEf
 sEf
-sEf
-sEf
-sEf
-sEf
-fMD
+onP
+qGT
+gSJ
+uan
+sbV
 uan
 qHc
 pvh
@@ -101897,9 +101998,9 @@ sEf
 sEf
 sEf
 sEf
-sEf
-sEf
-sEf
+onP
+qGT
+clb
 sEf
 sEf
 sEf
@@ -102198,11 +102299,11 @@ aat
 aat
 sEf
 sEf
-sEf
-sEf
-sEf
-sEf
-sEf
+kKi
+onP
+qGT
+clb
+kKi
 sEf
 sEf
 sEf
@@ -102499,13 +102600,13 @@ vhU
 vhU
 bTV
 sEf
-sEf
-sEf
-sEf
-sEf
-sEf
-sEf
-sEf
+vtP
+kKi
+gSJ
+rAu
+gSJ
+kKi
+vVB
 sEf
 sEf
 jWo
@@ -102802,11 +102903,11 @@ xFD
 xFD
 sEf
 sEf
-sEf
-sEf
-sEf
-sEf
-sEf
+kKi
+gSJ
+gSJ
+gSJ
+kKi
 sEf
 sEf
 sEf
@@ -103104,11 +103205,11 @@ sEf
 sEf
 sEf
 sEf
-sEf
-sEf
-sEf
-sEf
-sEf
+kKi
+kKi
+kKi
+kKi
+kKi
 sEf
 sEf
 sEf
