@@ -9,7 +9,6 @@
 	alpha = 0
 	hitsound = 'sound/impact_sounds/Metal_Hit_Lowfi_1.ogg'
 	var/friendly_object = null
-	var/friend_obj_is_precursor = TRUE
 
 	New()
 		. = ..()
@@ -32,7 +31,7 @@
 					user.visible_message(SPAN_ALERT("[src] sounds oddly hollow as it's struck."))
 					playsound(src.loc, src.hitsound, 15, 0, pitch = 0.7)
 				return
-			else if(istype(W,/obj/item/artifact) && friend_obj_is_precursor)
+			else if(istype(W,/obj/item/artifact))
 				if(!W.artifact.artitype.name == "precursor")
 					if (!ON_COOLDOWN(src, "smacksounde", 1 SECOND))
 						user.visible_message(SPAN_ALERT("[src] sounds oddly hollow as it's struck."))
@@ -46,10 +45,25 @@
 	vertical
 		dir = 4
 
+	autopuzzle
+		locked = TRUE
+		New()
+			. = ..()
+			START_TRACKING
+
+		disposing()
+			. = ..()
+			STOP_TRACKING
+
+/obj/machinery/door/unpowered/blue/bumpopen(atom/movable/AM)
+	if (ismob(AM) && !AM:mind)
+		return
+	. = ..()
 
 /obj/machinery/door/unpowered/blue/open()
 	if (src.locked)
 		return
+
 	. = ..()
 	playsound(src.loc, 'sound/impact_sounds/Stone_Scrape_1.ogg', 50, 1)
 

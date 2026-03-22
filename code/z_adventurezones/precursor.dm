@@ -336,6 +336,73 @@
 			var/obj/item/chilly_orb/our_target = pick(by_type[/obj/item/chilly_orb/menhir])
 			our_target.id = "NOW"
 
+			var/list/puzzle_options = list()
+			for (var/puzl in concrete_typesof(/datum/menhir_puzzle))
+				puzzle_options += new puzl
+
+			for_by_tcl(door, /obj/machinery/door/unpowered/blue/autopuzzle)
+				var/datum/menhir_puzzle/config = pick(puzzle_options)
+				door:friendly_object = config.target_path
+				var/obj/precursor_puzzle/innervator/buddy = locate(/obj/precursor_puzzle/innervator) in range(1,door)
+				buddy.vision_description = pick(config.desc_strings)
+				puzzle_options.Remove(config)
+
+ABSTRACT_TYPE(/datum/menhir_puzzle)
+/datum/menhir_puzzle
+	var/target_path = /obj/item/card/id/engineering/tutorial
+	var/desc_strings = list(
+		"A youshouldn'tseeme."
+	)
+
+/datum/menhir_puzzle/skull
+	target_path = /obj/item/skull
+	desc_strings = list(
+		"A face that is no longer a face, lost beyond a gossamer veil.",
+		"A cavern of bone, where once a soul held court."
+	)
+
+/datum/menhir_puzzle/gem
+	target_path = /obj/item/raw_material/gemstone
+	desc_strings = list(
+		"Facets amidst stone, each of their own hue, glimmer under the cast of starlight.",
+		"Your hands are covered in dust, and ache from the work. The crystal you hold is great consolation."
+	)
+
+/datum/menhir_puzzle/plant_food
+	target_path = /obj/item/reagent_containers/food/snacks/plant
+	desc_strings = list(
+		"The bounty of the land lies before you. If you could grasp just one piece...",
+		"Your hand wraps around a stem, snapping it off in one quick motion."
+	)
+
+/datum/menhir_puzzle/rddiploma
+	target_path = /obj/item/rddiploma
+	desc_strings = list(
+		"A scroll of scholastic acclaim, locked away in the nest of the guardian."
+	)
+
+/datum/menhir_puzzle/cobryl
+	target_path = /obj/item/raw_material/cobryl
+	desc_strings = list(
+		"Your hand touches bright, cold metal, its texture raw and forbidding. You can't explain why, but it feels deeply familiar.",
+		"A strange tingling traces the bounds of a silvery vein through the earth, as though it were your limb."
+	)
+
+/datum/menhir_puzzle/coin
+	target_path = /obj/item/coin
+	desc_strings = list(
+		"Again and again, the metal disc turns over in your hand. You can't seem to find the side you're looking for.",
+		"A stranger with face framed in moonlight passes you a glimmering token. A disquiet passes over you."
+	)
+
+
+/datum/menhir_puzzle/lens
+	target_path = /obj/item/lens
+	desc_strings = list(
+		"A dim light flickers in the distance. As you raise your keepsake in front of you, the light is seen as fire.",
+		"A figure with a sun for a head asks you for a disc. As you hold it up, an intense pain flashes in your eye."
+	)
+
 /obj/precursor_puzzle/innervator
 	name = "peculiar panel"
 	desc = "You can't explain why, but it feels like it's watching you."
@@ -347,7 +414,7 @@
 
 	New()
 		..()
-		src.name = "[pick("little","odd","shiny","quirky","gazing","peculiar")] [pick("interface","facet","panel","trinket","fixture","whatsit")]"
+		src.name = "[pick("curious","little","odd","shiny","quirky","gazing","peculiar")] [pick("interface","facet","panel","trinket","fixture","whatsit")]"
 
 	attack_hand(mob/user)
 		. = ..()
@@ -370,6 +437,9 @@
 	var/target_id = 1
 	var/assembled = 0
 	var/ready = 0
+
+	ex_act(severity)
+		return
 
 	New()
 		..()
@@ -1412,6 +1482,28 @@ var/global/list/scarysounds = list('sound/machines/engine_alert3.ogg',
 			Obj.pixel_y = initial(Obj.pixel_y)
 
 		return ..()
+
+/obj/transposition_trigger
+	icon = 'icons/misc/mark.dmi'
+	icon_state = "ydn"
+	invisibility = INVIS_ALWAYS
+	anchored = ANCHORED
+	density = 0
+	var/go_to = null
+
+	Crossed(atom/movable/AM as mob|obj)
+		..()
+		if(!go_to) return
+		if(ismob(AM))
+			if(AM:client)
+				if(!ON_COOLDOWN(src,"transpose",3 SECONDS) && prob(40))
+					var/do_move = TRUE
+					for(var/mob/O in oviewers())
+						do_move = FALSE
+						break
+					if(do_move)
+						var/obj/transposition_trigger/other = locate("[go_to]")
+						AM.set_loc(other.loc)
 
 #define MAX_BONES 10 //Max Bones, skeleton P.I.
 /obj/critter/bone_king

@@ -54646,6 +54646,12 @@
 	},
 /turf/unsimulated/floor/engine,
 /area/hospital/samostrel)
+"edf" = (
+/obj/effects/menhir_fog,
+/turf/unsimulated/floor/setpieces/bluefloor{
+	dir = 1
+	},
+/area/precursor/menhir)
 "edm" = (
 /obj/cable{
 	icon_state = "4-8"
@@ -55234,6 +55240,15 @@
 "eyM" = (
 /turf/unsimulated/wall/auto/lead/gray,
 /area/crypt/sigma/morgue)
+"ezE" = (
+/obj/effects/menhir_fog,
+/obj/precursor_puzzle/innervator{
+	vision_description = "There is no exit ts"
+	},
+/turf/unsimulated/floor/setpieces/bluefloor{
+	dir = 1
+	},
+/area/precursor/menhir)
 "ezH" = (
 /obj/table/glass/auto,
 /obj/item/reagent_containers/food/snacks/mushroom/amanita{
@@ -55875,6 +55890,10 @@
 /obj/decal/cleanable/oil,
 /turf/space,
 /area/watchful_eye_sensor)
+"eYt" = (
+/obj/effects/menhir_fog,
+/turf/unsimulated/wall/auto/adventure/icemooninterior,
+/area/precursor/menhir)
 "eYK" = (
 /obj/decal/poster/wallsign/fire,
 /turf/unsimulated/wall/auto/lead/gray,
@@ -56181,6 +56200,13 @@
 /obj/decal/stripe_delivery,
 /turf/unsimulated/floor/plating,
 /area/shuttle/biodome_elevator/upper)
+"fkH" = (
+/obj/effects/menhir_fog,
+/obj/map/light/cyan{
+	brightness = 7
+	},
+/turf/unsimulated/floor/setpieces/bluefloor,
+/area/precursor/menhir)
 "fle" = (
 /obj/fakeobject/pipe{
 	color = "b4b4b4";
@@ -56518,6 +56544,16 @@
 	},
 /turf/unsimulated/floor/plating,
 /area/hospital)
+"fAw" = (
+/obj/effects/menhir_fog,
+/obj/machinery/door/unpowered/blue{
+	friendly_object = /obj/item/reagent_containers/food/snacks/plant
+	},
+/obj/machinery/door/unpowered/blue,
+/turf/unsimulated/floor/setpieces/bluefloor{
+	dir = 1
+	},
+/area/precursor/menhir)
 "fBq" = (
 /obj/machinery/door/airlock/pyro{
 	dir = 4
@@ -57217,6 +57253,10 @@
 	dir = 6
 	},
 /area/crypt/graveyard)
+"gci" = (
+/obj/effects/menhir_fog,
+/turf/unsimulated/floor/setpieces/bluefloor,
+/area/precursor/menhir)
 "gcn" = (
 /turf/unsimulated/wall/auto/lead/blue,
 /area/centcom)
@@ -60436,6 +60476,9 @@
 /obj/decal/stripe_delivery,
 /turf/unsimulated/floor/plating,
 /area/moon/museum)
+"iCK" = (
+/turf/space,
+/area/precursor/menhir)
 "iCR" = (
 /obj/shrub{
 	dir = 5
@@ -60677,6 +60720,13 @@
 /obj/decoration/bullethole,
 /turf/unsimulated/floor/blackwhite/whitegrime/other,
 /area/observatory)
+"iMh" = (
+/obj/effects/menhir_fog,
+/obj/landmark/spawner/menhir,
+/turf/unsimulated/floor/setpieces/bluefloor{
+	dir = 4
+	},
+/area/precursor/menhir)
 "iMC" = (
 /obj/lattice,
 /obj/submachine/chef_oven,
@@ -61349,6 +61399,11 @@
 /obj/stool/chair/comfy/yellow,
 /turf/unsimulated/floor/wood/six,
 /area/centcom/offices/janantilles)
+"jih" = (
+/obj/effects/menhir_fog,
+/obj/map/light/cyan,
+/turf/unsimulated/wall/auto/adventure/icemooninterior,
+/area/precursor/menhir)
 "jir" = (
 /obj/fakeobject/airlock_broken/firelock{
 	icon = 'icons/obj/doors/SL_doors.dmi';
@@ -61430,6 +61485,14 @@
 /obj/machinery/door/window/westright,
 /turf/unsimulated/floor,
 /area/centcom/lounge)
+"jkW" = (
+/obj/effects/menhir_fog,
+/obj/precursor_puzzle/orb_stand{
+	id = "FORGOTTEN";
+	target_id = "FORLORN"
+	},
+/turf/unsimulated/floor/setpieces/bluefloor,
+/area/precursor/menhir)
 "jla" = (
 /obj/fakeobject{
 	anchored = 1;
@@ -62483,6 +62546,15 @@
 /obj/lattice,
 /turf/space,
 /area/syndicate_station_space)
+"kbh" = (
+/obj/effects/menhir_fog,
+/obj/precursor_puzzle/innervator{
+	vision_description = "There is no returning to what was never left."
+	},
+/turf/unsimulated/floor/setpieces/bluefloor{
+	dir = 1
+	},
+/area/precursor/menhir)
 "kbq" = (
 /turf/unsimulated/floor/marble/border_wb{
 	dir = 9
@@ -63373,6 +63445,13 @@
 	icon_state = "shore-22"
 	},
 /area/titlescreen)
+"kDu" = (
+/obj/effects/menhir_fog,
+/obj/map/light/cyan,
+/turf/unsimulated/floor/setpieces/bluefloor{
+	dir = 4
+	},
+/area/precursor/menhir)
 "kDP" = (
 /obj/disposalpipe/segment{
 	dir = 4
@@ -63666,6 +63745,13 @@
 /area/centcom/offices{
 	icon_state = "blue"
 	})
+"kPE" = (
+/obj/effects/menhir_fog,
+/obj/machinery/door/unpowered/blue,
+/turf/unsimulated/floor/setpieces/bluefloor{
+	dir = 1
+	},
+/area/precursor/menhir)
 "kPQ" = (
 /obj/iomoon_puzzle/button{
 	id = "iomoon_burntpuzzleD;iomoon_burntroomE"
@@ -65974,6 +66060,11 @@
 	dir = 8
 	},
 /area/centcom/offices/walpvrgis)
+"mJu" = (
+/obj/effects/menhir_fog,
+/obj/machinery/door/unpowered/blue,
+/turf/unsimulated/floor/setpieces/bluefloor,
+/area/precursor/menhir)
 "mJy" = (
 /obj/cable/green{
 	icon_state = "4-8"
@@ -66403,6 +66494,13 @@
 	},
 /turf/space,
 /area/syndicate_station_space)
+"ncH" = (
+/obj/effects/menhir_fog,
+/obj/machinery/door/unpowered/blue,
+/turf/unsimulated/floor/setpieces/bluefloor{
+	dir = 8
+	},
+/area/precursor/menhir)
 "ndE" = (
 /obj/lattice{
 	dir = 6;
@@ -66567,6 +66665,12 @@
 	name = "strange surface"
 	},
 /area/crater/cave/lower)
+"nkT" = (
+/obj/effects/menhir_fog,
+/turf/unsimulated/floor/setpieces/bluefloor{
+	dir = 8
+	},
+/area/precursor/menhir)
 "nlC" = (
 /turf/unsimulated/floor/black/corner{
 	dir = 1
@@ -67494,6 +67598,13 @@
 /obj/table/wood/auto/desk/lily,
 /turf/unsimulated/floor/carpet/purple/fancy/narrow/se,
 /area/centcom/offices/rodney)
+"nRL" = (
+/obj/effects/menhir_fog,
+/obj/machinery/door/unpowered/blue{
+	dir = 4
+	},
+/turf/unsimulated/floor/setpieces/bluefloor,
+/area/precursor/menhir)
 "nRR" = (
 /obj/fakeobject/pipe{
 	color = "b4b4b4";
@@ -67930,6 +68041,9 @@
 	},
 /turf/unsimulated/floor/plating,
 /area/hospital)
+"odS" = (
+/turf/simulated/wall/auto/reinforced/supernorn,
+/area/precursor/menhir)
 "oeb" = (
 /turf/unsimulated/wall/generic{
 	desc = "It's sealed shut.";
@@ -69121,6 +69235,11 @@
 /obj/item/motherboard,
 /turf/unsimulated/floor,
 /area/iomoon/base)
+"pfc" = (
+/obj/effects/menhir_fog,
+/obj/rack/precursor,
+/turf/unsimulated/floor/setpieces/bluefloor,
+/area/precursor/menhir)
 "pfp" = (
 /mob/living/critter/robotic/gunbot{
 	dir = 8
@@ -72146,6 +72265,16 @@
 	icon_state = "rootfloor_2"
 	},
 /area/centcom/offices/marknstein)
+"rqk" = (
+/obj/fakeobject{
+	dir = 1;
+	icon = 'icons/turf/walls/precursor.dmi';
+	icon_state = "details";
+	name = "symbols"
+	},
+/obj/effects/menhir_fog,
+/turf/unsimulated/wall/auto/adventure/icemooninterior,
+/area/precursor/menhir)
 "rqo" = (
 /obj/mesh/catwalk{
 	dir = 9
@@ -73532,6 +73661,13 @@
 	},
 /turf/unsimulated/floor/red,
 /area/owlery/gangzone)
+"skH" = (
+/obj/effects/menhir_fog,
+/obj/precursor_puzzle/innervator{
+	vision_description = "You have never been here."
+	},
+/turf/unsimulated/floor/setpieces/bluefloor,
+/area/precursor/menhir)
 "skS" = (
 /obj/fakeobject/pipe{
 	density = 1;
@@ -74862,6 +74998,15 @@
 /obj/map/light/yellow,
 /turf/unsimulated/iomoon/ancient_floor,
 /area/iomoon/robot_ruins)
+"tts" = (
+/obj/map/light/cyan{
+	brightness = 7
+	},
+/obj/effects/menhir_fog,
+/turf/unsimulated/floor/setpieces/bluefloor{
+	dir = 1
+	},
+/area/precursor/menhir)
 "tuc" = (
 /turf/unsimulated/wall/auto/lead/white,
 /area/watchful_eye_sensor)
@@ -74904,6 +75049,12 @@
 	dir = 8
 	},
 /area/iomoon/base)
+"twD" = (
+/obj/effects/menhir_fog,
+/turf/unsimulated/floor/setpieces/bluefloor{
+	dir = 4
+	},
+/area/precursor/menhir)
 "twK" = (
 /obj/mesh/grille/steel,
 /obj/cable{
@@ -76136,12 +76287,32 @@
 	},
 /turf/unsimulated/floor/plating,
 /area/watchful_eye_sensor)
+"uBC" = (
+/obj/map/light/cyan{
+	brightness = 7
+	},
+/obj/effects/menhir_fog,
+/turf/unsimulated/floor/setpieces/bluefloor{
+	dir = 4
+	},
+/area/precursor/menhir)
 "uBH" = (
 /obj/fakeobject/pipe{
 	color = "b4b4b4"
 	},
 /turf/unsimulated/floor/plating,
 /area/hospital)
+"uBL" = (
+/obj/effects/menhir_fog,
+/obj/precursor_puzzle/innervator{
+	pixel_y = -3;
+	pixel_x = 22;
+	vision_description = "The song is not for you."
+	},
+/turf/unsimulated/floor/setpieces/bluefloor{
+	dir = 4
+	},
+/area/precursor/menhir)
 "uCa" = (
 /mob/living/critter/zombie/scientist,
 /turf/unsimulated/floor/white/grime,
@@ -76406,6 +76577,15 @@
 /obj/mesh/grille/steel,
 /turf/space,
 /area/watchful_eye_sensor)
+"uLm" = (
+/obj/effects/menhir_fog,
+/obj/map/light/cyan{
+	brightness = 7
+	},
+/turf/unsimulated/floor/setpieces/bluefloor{
+	dir = 4
+	},
+/area/precursor/menhir)
 "uLU" = (
 /obj/mesh/catwalk{
 	dir = 4
@@ -77318,6 +77498,17 @@
 	dir = 1
 	},
 /area/iomoon/base)
+"vrr" = (
+/obj/effects/menhir_fog,
+/obj/precursor_puzzle/innervator{
+	pixel_y = -3;
+	pixel_x = -22;
+	vision_description = "You will never be here."
+	},
+/turf/unsimulated/floor/setpieces/bluefloor{
+	dir = 4
+	},
+/area/precursor/menhir)
 "vrH" = (
 /obj/machinery/computer/television/public,
 /obj/map/light/screen,
@@ -77545,6 +77736,13 @@
 	},
 /turf/unsimulated/floor/wood/two,
 /area/centcom/offices/cogwerks)
+"vBf" = (
+/obj/effects/menhir_fog,
+/obj/precursor_puzzle/innervator{
+	vision_description = "You are not here."
+	},
+/turf/unsimulated/floor/setpieces/bluefloor,
+/area/precursor/menhir)
 "vBq" = (
 /turf/unsimulated/wall/auto/adventure/shuttle/dark,
 /area/shuttle/merchant_shuttle/diner_centcom)
@@ -78033,6 +78231,13 @@
 /obj/machinery/door/airlock/pyro/maintenance,
 /turf/unsimulated/floor/plating,
 /area/iomoon/base)
+"vRZ" = (
+/obj/map/light/cyan{
+	brightness = 7
+	},
+/obj/effects/menhir_fog,
+/turf/unsimulated/floor/setpieces/bluefloor,
+/area/precursor/menhir)
 "vSm" = (
 /mob/living/critter/small_animal/cat{
 	desc = "This is Eloisa. She looks old, but sweet.";
@@ -78764,6 +78969,16 @@
 /obj/item/clothing/gloves/sailormoon,
 /turf/unsimulated/floor/wood/two,
 /area/centcom/offices/katzen)
+"wsr" = (
+/obj/effects/menhir_fog,
+/obj/map/light/cyan{
+	brightness = 7
+	},
+/obj/precursor_puzzle/innervator{
+	vision_description = "They sing, they sing, they sing."
+	},
+/turf/unsimulated/floor/setpieces/bluefloor,
+/area/precursor/menhir)
 "wsB" = (
 /obj/map/light/graveyard,
 /mob/living/critter/zombie/scientist,
@@ -79642,6 +79857,23 @@
 	},
 /turf/unsimulated/outdoors/grass,
 /area/shuttle/merchant_shuttle/right_centcom/cogmap)
+"wYt" = (
+/obj/effects/menhir_fog,
+/obj/machinery/door/unpowered/blue{
+	friendly_object = /obj/item/chilly_orb
+	},
+/turf/unsimulated/floor/setpieces/bluefloor{
+	dir = 8
+	},
+/area/precursor/menhir)
+"wYu" = (
+/obj/machinery/door/unpowered/blue,
+/obj/map/light/cyan,
+/obj/effects/menhir_fog,
+/turf/unsimulated/floor/setpieces/bluefloor{
+	dir = 8
+	},
+/area/precursor/menhir)
 "wZe" = (
 /obj/machinery/door/airlock/pyro/security{
 	dir = 4;
@@ -158507,34 +158739,34 @@ aES
 aES
 dFc
 aaa
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
+jky
+jky
+jky
+jky
+jky
+jky
+jky
+jky
+jky
+eYt
+eYt
+eYt
+eYt
+eYt
+eYt
+eYt
+eYt
+eYt
+jky
+jky
+jky
+jky
+jky
+jky
+jky
+jky
+jky
+aaa
 cnw
 cnw
 cnw
@@ -158809,34 +159041,34 @@ aES
 aES
 dFc
 aaa
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
+jky
+jky
+jky
+jky
+jky
+jky
+eYt
+eYt
+eYt
+eYt
+vRZ
+gci
+gci
+gci
+gci
+gci
+vRZ
+eYt
+eYt
+eYt
+eYt
+jky
+jky
+jky
+jky
+jky
+jky
+aaa
 cnw
 cnw
 cnw
@@ -159111,34 +159343,34 @@ aES
 aES
 dFc
 aaa
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
+jky
+jky
+jky
+jky
+eYt
+eYt
+eYt
+gci
+gci
+eYt
+gci
+eYt
+eYt
+eYt
+eYt
+eYt
+eYt
+eYt
+gci
+gci
+eYt
+eYt
+eYt
+jky
+jky
+jky
+jky
+aaa
 cnw
 cnw
 cnw
@@ -159413,34 +159645,34 @@ aES
 aES
 dFc
 aaa
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
+jky
+jky
+jky
+eYt
+eYt
+uBC
+eYt
+eYt
+eYt
+eYt
+eYt
+eYt
+twD
+eYt
+twD
+twD
+twD
+eYt
+gci
+eYt
+eYt
+vRZ
+eYt
+eYt
+jky
+jky
+jky
+aaa
 cnw
 cnw
 cnw
@@ -159715,34 +159947,34 @@ aES
 aES
 dFc
 aaa
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
+jky
+jky
+eYt
+eYt
+gci
+twD
+gci
+eYt
+pfc
+eYt
+pfc
+eYt
+gci
+eYt
+gci
+gci
+gci
+eYt
+gci
+gci
+eYt
+gci
+gci
+eYt
+eYt
+jky
+jky
+aaa
 cnw
 cnw
 cnw
@@ -160017,34 +160249,34 @@ aES
 aES
 dFc
 aaa
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
+jky
+jky
+eYt
+tts
+edf
+nkT
+edf
+edf
+edf
+edf
+tts
+kPE
+edf
+kPE
+edf
+tts
+edf
+eYt
+eYt
+eYt
+eYt
+eYt
+gci
+vRZ
+eYt
+jky
+jky
+aaa
 cnw
 cnw
 cnw
@@ -160319,34 +160551,34 @@ gmA
 aES
 dFc
 aaa
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
+jky
+eYt
+eYt
+eYt
+gci
+twD
+gci
+eYt
+pfc
+eYt
+pfc
+eYt
+vBf
+eYt
+gci
+gci
+gci
+mJu
+gci
+mJu
+gci
+eYt
+eYt
+eYt
+eYt
+eYt
+jky
+aaa
 cnw
 cnw
 cnw
@@ -160621,34 +160853,34 @@ aES
 aES
 dFc
 aaa
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
+jky
+eYt
+gci
+eYt
+eYt
+uBC
+eYt
+eYt
+eYt
+eYt
+eYt
+eYt
+twD
+eYt
+twD
+twD
+uBL
+eYt
+pfc
+eYt
+pfc
+eYt
+gci
+eYt
+gci
+eYt
+odS
+aaa
 cnw
 cnw
 cnw
@@ -160923,34 +161155,34 @@ aES
 aES
 dFc
 aaa
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
+jky
+eYt
+gci
+gci
+eYt
+eYt
+eYt
+eYt
+eYt
+eYt
+eYt
+eYt
+gci
+eYt
+eYt
+eYt
+eYt
+eYt
+eYt
+eYt
+eYt
+eYt
+gci
+eYt
+gci
+eYt
+odS
+aaa
 cnw
 cnw
 cnw
@@ -161225,34 +161457,34 @@ gmA
 aES
 dFc
 aaa
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
+eYt
+eYt
+eYt
+gci
+gci
+eYt
+edf
+kPE
+edf
+eYt
+edf
+eYt
+edf
+eYt
+edf
+eYt
+edf
+eYt
+edf
+eYt
+edf
+eYt
+eYt
+eYt
+eYt
+eYt
+eYt
+aaa
 cnw
 cnw
 cnw
@@ -161527,34 +161759,34 @@ aES
 aES
 dFc
 aaa
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
+eYt
+vRZ
+eYt
+gci
+eYt
+eYt
+gci
+eYt
+gci
+wYt
+gci
+gci
+gci
+uLm
+gci
+gci
+gci
+ncH
+gci
+gci
+vRZ
+nkT
+gci
+gci
+eYt
+gci
+eYt
+aaa
 cnw
 cnw
 cnw
@@ -161829,34 +162061,34 @@ aES
 aES
 dFc
 aaa
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
+eYt
+gci
+eYt
+eYt
+eYt
+edf
+edf
+eYt
+edf
+eYt
+wsr
+gci
+gci
+twD
+gci
+gci
+fkH
+eYt
+edf
+eYt
+edf
+eYt
+nRL
+eYt
+eYt
+gci
+eYt
+aaa
 cnw
 cnw
 cnw
@@ -162131,34 +162363,34 @@ aES
 aES
 dFc
 aaa
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
+eYt
+gci
+eYt
+twD
+gci
+gci
+eYt
+eYt
+eYt
+eYt
+eYt
+gci
+nkT
+edf
+nkT
+gci
+eYt
+eYt
+eYt
+eYt
+eYt
+eYt
+ezE
+edf
+eYt
+eYt
+eYt
+aaa
 cnw
 cnw
 cnw
@@ -162433,34 +162665,34 @@ aES
 aES
 dFc
 aaa
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
+eYt
+gci
+eYt
+nkT
+eYt
+eYt
+eYt
+gci
+gci
+eYt
+edf
+edf
+twD
+jkW
+iMh
+edf
+edf
+eYt
+gci
+gci
+rqk
+kDu
+gci
+gci
+wYu
+gci
+jih
+aaa
 cnw
 cnw
 cnw
@@ -162735,34 +162967,34 @@ aES
 aES
 dFc
 aaa
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
+eYt
+gci
+eYt
+twD
+gci
+gci
+eYt
+eYt
+eYt
+eYt
+eYt
+gci
+nkT
+edf
+nkT
+gci
+eYt
+eYt
+eYt
+eYt
+eYt
+eYt
+kbh
+edf
+eYt
+eYt
+eYt
+aaa
 cnw
 cnw
 cnw
@@ -163037,34 +163269,34 @@ gmA
 aES
 dFc
 aaa
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
+eYt
+gci
+eYt
+eYt
+eYt
+edf
+edf
+eYt
+edf
+eYt
+wsr
+gci
+gci
+twD
+gci
+gci
+fkH
+eYt
+edf
+eYt
+edf
+eYt
+nRL
+eYt
+eYt
+gci
+eYt
+aaa
 cnw
 cnw
 cnw
@@ -163339,34 +163571,34 @@ aES
 aES
 dFc
 aaa
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
+eYt
+vRZ
+eYt
+gci
+eYt
+eYt
+gci
+eYt
+gci
+wYt
+gci
+gci
+gci
+uLm
+gci
+gci
+gci
+ncH
+gci
+gci
+vRZ
+nkT
+gci
+gci
+eYt
+gci
+eYt
+aaa
 cnw
 cnw
 cnw
@@ -163641,34 +163873,34 @@ aES
 aES
 dFc
 aaa
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
+eYt
+eYt
+eYt
+gci
+gci
+eYt
+edf
+kPE
+edf
+eYt
+edf
+eYt
+edf
+eYt
+edf
+eYt
+edf
+eYt
+edf
+eYt
+edf
+eYt
+eYt
+eYt
+eYt
+eYt
+eYt
+aaa
 cnw
 cnw
 cnw
@@ -163943,34 +164175,34 @@ aES
 aES
 dFc
 aaa
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
+jky
+eYt
+gci
+gci
+eYt
+eYt
+eYt
+eYt
+eYt
+eYt
+eYt
+eYt
+gci
+eYt
+eYt
+eYt
+eYt
+eYt
+eYt
+eYt
+eYt
+eYt
+gci
+eYt
+gci
+eYt
+jky
+aaa
 cnw
 cnw
 cnw
@@ -164245,34 +164477,34 @@ aES
 aES
 dFc
 aaa
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
+jky
+eYt
+gci
+eYt
+eYt
+uBC
+eYt
+eYt
+eYt
+eYt
+eYt
+eYt
+twD
+eYt
+twD
+twD
+vrr
+eYt
+pfc
+eYt
+pfc
+eYt
+gci
+eYt
+gci
+eYt
+jky
+aaa
 cnw
 cnw
 cnw
@@ -164547,34 +164779,34 @@ dFc
 dFc
 dFc
 aaa
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
+jky
+eYt
+eYt
+eYt
+gci
+twD
+gci
+eYt
+pfc
+eYt
+pfc
+eYt
+skH
+eYt
+gci
+gci
+gci
+mJu
+gci
+mJu
+gci
+eYt
+eYt
+eYt
+eYt
+eYt
+jky
+aaa
 cnw
 cnw
 cnw
@@ -164849,34 +165081,34 @@ aaa
 aaa
 aaa
 aaa
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
+jky
+jky
+eYt
+tts
+edf
+nkT
+edf
+edf
+edf
+edf
+tts
+fAw
+edf
+kPE
+edf
+tts
+edf
+eYt
+eYt
+eYt
+eYt
+eYt
+gci
+vRZ
+eYt
+jky
+jky
+aaa
 cnw
 cnw
 cnw
@@ -165150,35 +165382,35 @@ cnw
 cnw
 cnw
 cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
+aaa
+jky
+jky
+eYt
+eYt
+gci
+twD
+gci
+eYt
+pfc
+eYt
+pfc
+eYt
+gci
+eYt
+gci
+gci
+gci
+eYt
+gci
+gci
+eYt
+gci
+gci
+eYt
+eYt
+jky
+jky
+aaa
 cnw
 cnw
 cnw
@@ -165452,35 +165684,35 @@ cnw
 cnw
 cnw
 cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
+aaa
+jky
+jky
+jky
+eYt
+eYt
+uBC
+eYt
+eYt
+eYt
+eYt
+eYt
+eYt
+twD
+eYt
+twD
+twD
+twD
+eYt
+gci
+eYt
+eYt
+vRZ
+eYt
+eYt
+jky
+jky
+jky
+aaa
 cnw
 cnw
 cnw
@@ -165754,35 +165986,35 @@ cnw
 cnw
 cnw
 cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
+aaa
+jky
+jky
+jky
+jky
+eYt
+eYt
+eYt
+gci
+gci
+eYt
+gci
+eYt
+eYt
+eYt
+eYt
+eYt
+eYt
+eYt
+gci
+gci
+eYt
+eYt
+eYt
+jky
+jky
+jky
+jky
+aaa
 cnw
 cnw
 cnw
@@ -166056,35 +166288,35 @@ cnw
 cnw
 cnw
 cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
+aaa
+jky
+jky
+jky
+jky
+jky
+jky
+eYt
+eYt
+eYt
+eYt
+vRZ
+gci
+gci
+gci
+gci
+gci
+vRZ
+eYt
+eYt
+eYt
+eYt
+jky
+jky
+jky
+jky
+jky
+jky
+aaa
 cnw
 cnw
 cnw
@@ -166358,35 +166590,35 @@ cnw
 cnw
 cnw
 cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
+aaa
+jky
+jky
+jky
+jky
+jky
+jky
+jky
+jky
+jky
+eYt
+eYt
+eYt
+eYt
+eYt
+eYt
+eYt
+eYt
+eYt
+iCK
+iCK
+iCK
+jky
+jky
+jky
+jky
+jky
+jky
+aaa
 cnw
 cnw
 cnw
@@ -166660,35 +166892,35 @@ cnw
 cnw
 cnw
 cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
-cnw
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
 cnw
 cnw
 cnw
