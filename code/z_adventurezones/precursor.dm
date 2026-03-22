@@ -334,8 +334,15 @@
 /obj/landmark/spawner/menhir
 	spawn_the_thing()
 		SPAWN(20)
-			var/obj/item/chilly_orb/our_target = pick(by_type[/obj/item/chilly_orb/menhir])
-			our_target.id = "NOW"
+			var/list/orbtemp = by_type[/obj/item/chilly_orb/menhir]
+			var/obj/item/chilly_orb/orb1 = pick(orbtemp)
+			orb1.id = "NOW"
+			orb1.interesting = "Scans detect: COBRYL | IRIDIUM | UNKNOWN HIGHLY-STRUCTURED ANOMALOUS MATTER"
+			orbtemp -= orb1
+			var/obj/item/chilly_orb/orb2 = pick(orbtemp)
+			orb2.id = "FORGOTTEN"
+			orb2.interesting = "Scans detect: COBRYL | IRIDIUM | UNKNOWN HIGHLY-STRUCTURED ANOMALOUS MATTER"
+			orbtemp -= orb2
 
 			var/list/puzzle_options = list()
 			for (var/puzl in concrete_typesof(/datum/menhir_puzzle))
@@ -1535,17 +1542,17 @@ var/global/list/scarysounds = list('sound/machines/engine_alert3.ogg',
 	equipped(var/mob/user, var/slot)
 		. = ..()
 		is_emitting = TRUE
-		user.bioHolder?.AddEffect("unnatural_vitality")
+		//user.bioHolder?.AddEffect("unnatural_vitality") //makes you stutterwalk for reasons entirely beyond my comprehension
 		processing_items.Add(src)
 
 	unequipped(var/mob/user)
 		. = ..()
 		is_emitting = FALSE
-		user.bioHolder?.RemoveEffect("unnatural_vitality")
+		//user.bioHolder?.RemoveEffect("unnatural_vitality")
 		processing_items.Remove(src)
 
 	process()
-		..()
+		. = ..()
 		var/turf/da_turf = get_turf(src)
 		if(da_turf.z != Z_LEVEL_STATION || istype(da_turf,/turf/unsimulated)) //don't tick up or expend ticks while we're somewhere unusual
 			return
@@ -1612,7 +1619,7 @@ var/global/list/scarysounds = list('sound/machines/engine_alert3.ogg',
 	stability_loss = 0
 	msgGain = "A strange comfort washes over you, like every cell in your body is singing together."
 	msgLose = "The chorus recedes from your body."
-	heal_per_tick = 1.2
+	heal_per_tick = 2
 	regrow_prob = 0
 	acceptable_in_mutini = 0
 

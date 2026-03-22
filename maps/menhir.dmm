@@ -9302,10 +9302,19 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/east)
 "fLO" = (
-/obj/storage/closet/radiation,
 /obj/machinery/power/apc/autoname_north,
 /obj/cable{
 	icon_state = "0-4"
+	},
+/obj/table/reinforced/industrial/auto,
+/obj/item/device/t_scanner{
+	pixel_x = -4
+	},
+/obj/item/device/t_scanner{
+	pixel_x = 6
+	},
+/obj/item/clothing/glasses/toggleable/meson{
+	pixel_y = 9
 	},
 /turf/simulated/floor/darkpurpleblack,
 /area/station/turret_protected/incursion)
@@ -21792,9 +21801,6 @@
 	pixel_y = 24;
 	name = "Staging Area Shutters";
 	id = "incursion_zone"
-	},
-/obj/item/clothing/glasses/toggleable/meson{
-	pixel_y = 5
 	},
 /turf/simulated/floor/purple,
 /area/station/science/hall)

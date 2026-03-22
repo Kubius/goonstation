@@ -55490,6 +55490,16 @@
 /area/centcom/offices{
 	icon_state = "blue"
 	})
+"eLE" = (
+/obj/precursor_puzzle/innervator{
+	pixel_y = -3;
+	pixel_x = -22;
+	vision_description = "An arc of blued silver, whispering the names of places."
+	},
+/turf/unsimulated/floor/setpieces/bluefloor{
+	dir = 1
+	},
+/area/precursor/menhir)
 "eMD" = (
 /obj/table/auto,
 /obj/machinery/light/small{
@@ -58816,17 +58826,6 @@
 "hnB" = (
 /turf/unsimulated/floor/wood/two,
 /area/centcom/offices/sovexe)
-"hnM" = (
-/obj/rack/precursor,
-/obj/item/clothing/gloves/ring/ominous{
-	pixel_y = 11
-	},
-/obj/precursor_puzzle/innervator{
-	vision_description = "A trinket of silver sheen floats solitary in a mirror-black sea whose edges are beyond sight or thought.";
-	pixel_y = -11
-	},
-/turf/unsimulated/floor/setpieces/bluefloor,
-/area/precursor/menhir)
 "hnO" = (
 /turf/unsimulated/floor/wood/two,
 /area/centcom/offices/mrfishstick)
@@ -66825,6 +66824,18 @@
 	},
 /turf/unsimulated/floor/plating,
 /area/moon/museum)
+"nuu" = (
+/obj/rack/precursor,
+/obj/item/clothing/gloves/ring/ominous{
+	pixel_y = 11;
+	rand_pos = 0
+	},
+/obj/precursor_puzzle/innervator{
+	vision_description = "A trinket of silver sheen floats solitary in a mirror-black sea whose edges are beyond sight or thought.";
+	pixel_y = -11
+	},
+/turf/unsimulated/floor/setpieces/bluefloor,
+/area/precursor/menhir)
 "nuO" = (
 /obj/fakeobject/pipe{
 	color = "b4b4b4";
@@ -72432,6 +72443,13 @@
 	},
 /turf/unsimulated/floor/plating,
 /area/hospital)
+"rwz" = (
+/obj/precursor_puzzle/orb_stand{
+	id = "FORLORN";
+	target_id = "FORBIDDEN"
+	},
+/turf/unsimulated/floor/setpieces/bluefloor,
+/area/precursor/menhir)
 "rwD" = (
 /obj/machinery/door/airlock/pyro/classic{
 	dir = 4
@@ -76940,6 +76958,14 @@
 	dir = 8
 	},
 /area/owlery/gangzone)
+"vfG" = (
+/obj/machinery/door/unpowered/blue{
+	friendly_object = /obj/item/clothing/gloves/ring/ominous
+	},
+/turf/unsimulated/floor/setpieces/bluefloor{
+	dir = 1
+	},
+/area/precursor/menhir)
 "vfY" = (
 /obj/fitness/speedbag/captain,
 /turf/unsimulated/floor/wood/eight{
@@ -161037,13 +161063,13 @@ sGZ
 sGZ
 sGZ
 sGZ
-hyO
-lkr
-lkr
-lkr
-lkr
-lkr
-lkr
+nNE
+nNE
+eYt
+nNE
+nNE
+nNE
+eYt
 sGZ
 jky
 aaa
@@ -161338,13 +161364,13 @@ sGZ
 lkr
 sGZ
 lkr
-sGZ
-hyO
+xmo
+lkr
 sGZ
 lkr
-hyO
-nNE
-hyO
+lkr
+lkr
+lkr
 lkr
 sGZ
 sGZ
@@ -161640,15 +161666,15 @@ uLm
 nNE
 nNE
 nNE
-knA
-hyO
 sGZ
-nNE
-lkr
-hyO
-lkr
-nNE
-hyO
+sGZ
+sGZ
+eMP
+eMP
+eMP
+eMP
+eMP
+eMP
 sGZ
 aaa
 cnw
@@ -161943,14 +161969,14 @@ nNE
 nNE
 eYt
 sGZ
-hyO
+nNE
 sGZ
-eYt
-nNE
-hyO
-nNE
-eYt
-hyO
+eMP
+eMP
+eMP
+eMP
+eMP
+eMP
 sGZ
 aaa
 cnw
@@ -162245,14 +162271,14 @@ eli
 nNE
 sGZ
 sGZ
-sGZ
-sGZ
-nNE
 eli
-lkr
+vRZ
 eli
-nNE
-sGZ
+eMP
+eMP
+eli
+vRZ
+eli
 sGZ
 aaa
 cnw
@@ -162545,16 +162571,16 @@ hyO
 jkW
 hyO
 lkr
-lkr
-sGZ
-sGZ
-lkr
-lkr
+eLE
+vfG
 hyO
-hnM
+nuu
 hyO
 lkr
 lkr
+hyO
+rwz
+hyO
 sGZ
 aaa
 cnw
@@ -162849,14 +162875,14 @@ eli
 nNE
 sGZ
 sGZ
-sGZ
-sGZ
-nNE
 eli
-lkr
+vRZ
 eli
-nNE
-sGZ
+eMP
+eMP
+eli
+vRZ
+eli
 sGZ
 aaa
 cnw
@@ -163151,14 +163177,14 @@ nNE
 nNE
 eYt
 sGZ
-hyO
+nNE
 sGZ
-eYt
-nNE
-hyO
-nNE
-eYt
-hyO
+eMP
+eMP
+eMP
+eMP
+eMP
+eMP
 sGZ
 aaa
 cnw
@@ -163452,15 +163478,15 @@ uLm
 nNE
 nNE
 nNE
-knA
-hyO
 sGZ
-nNE
-lkr
-hyO
-lkr
-nNE
-hyO
+sGZ
+sGZ
+eMP
+eMP
+eMP
+eMP
+eMP
+eMP
 sGZ
 aaa
 cnw
@@ -163754,13 +163780,13 @@ sGZ
 lkr
 sGZ
 lkr
-sGZ
-hyO
+xmo
+lkr
 sGZ
 lkr
-hyO
-nNE
-hyO
+lkr
+lkr
+lkr
 lkr
 sGZ
 sGZ
@@ -164057,13 +164083,13 @@ sGZ
 sGZ
 sGZ
 sGZ
-hyO
-lkr
-lkr
-lkr
-lkr
-lkr
-lkr
+nNE
+nNE
+eYt
+nNE
+nNE
+nNE
+eYt
 sGZ
 jky
 aaa
