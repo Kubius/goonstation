@@ -28,7 +28,7 @@ ADMIN_INTERACT_PROCS(/obj/machinery/door/unpowered/blue, proc/revoke_door)
 	attack_hand(mob/user)
 		if(src.locked)
 			if(src.friendly_object)
-				boutput(user,SPAN_ALERT("[src] makes a strange humming sound in response to your touch..."))
+				boutput(user,SPAN_ALERT("[src] makes an odd hum. It seems like it's expecting contact from something else..."))
 			else if(src.needs_precursor && !ON_COOLDOWN(src, "smacksounde", 1 SECOND))
 				boutput(user,SPAN_ALERT("[src] hums strangely in response to your touch. It feels like it's palpating the area..."))
 				var/found_large = FALSE
