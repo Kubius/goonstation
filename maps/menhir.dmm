@@ -38547,6 +38547,13 @@
 /mob/living/silicon/hivebot/eyebot,
 /turf/simulated/floor/engine/glow/blue,
 /area/station/turret_protected/ai)
+"xPs" = (
+/obj/effects/menhir_fog,
+/obj/precursor_puzzle/innervator{
+	vision_description = "A sojourner treads on to a sun that never sets, his sandals wearing thin as paper."
+	},
+/turf/unsimulated/floor/setpieces/bluefloor,
+/area/station/crown)
 "xPD" = (
 /obj/machinery/door/airlock/pyro/glass/windoor{
 	dir = 1
@@ -85827,7 +85834,7 @@ lhN
 lhN
 aGr
 lhN
-aGr
+xPs
 lpq
 aGr
 aGr
@@ -87639,7 +87646,7 @@ lhN
 lhN
 aGr
 lhN
-aGr
+xPs
 lpq
 aGr
 aGr

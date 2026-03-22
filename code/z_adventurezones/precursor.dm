@@ -410,6 +410,7 @@ ABSTRACT_TYPE(/datum/menhir_puzzle)
 	icon_state = "controller_on"
 	anchored = ANCHORED
 	var/vision_description = null
+	var/vision_type = "an image"
 	pixel_y = 24
 
 	New()
@@ -421,7 +422,7 @@ ABSTRACT_TYPE(/datum/menhir_puzzle)
 		if (ON_COOLDOWN(src, "limited_see", 3 SECONDS) || !src.vision_description)
 			boutput(user,SPAN_ALERT("[src] doesn't respond to your touch."))
 		else
-			user.visible_message(SPAN_NOTICE("[src] [pick("projects","imposes","directs","shines")] an image into your mind..."))
+			user.visible_message(SPAN_NOTICE("[src] [pick("projects","imposes","directs","shines")] [vision_type] into your mind..."))
 			user.visible_message(SPAN_ALERT("<i>[src.vision_description]</i>"))
 			user.playsound_local_not_inworld('sound/musical_instruments/Vuvuzela_1.ogg', 12, 0, pitch = 0.2)
 
@@ -1496,7 +1497,7 @@ var/global/list/scarysounds = list('sound/machines/engine_alert3.ogg',
 		if(!go_to) return
 		if(ismob(AM))
 			if(AM:client)
-				if(!ON_COOLDOWN(src,"transpose",3 SECONDS) && prob(40))
+				if(!ON_COOLDOWN(src,"transpose",2.2 SECONDS) && prob(40))
 					var/do_move = TRUE
 					for(var/mob/O in oviewers(AM))
 						do_move = FALSE
@@ -1519,6 +1520,7 @@ var/global/list/scarysounds = list('sound/machines/engine_alert3.ogg',
 
 	disposing()
 		is_emitting = FALSE
+		processing_items.Remove(src)
 		. = ..()
 
 	equipped(var/mob/user, var/slot)
@@ -1532,45 +1534,57 @@ var/global/list/scarysounds = list('sound/machines/engine_alert3.ogg',
 		cumulation = 0
 		processing_items.Remove(src)
 
-	proc/process()
-		if (prob(src.cumulation + 6))
+	process()
+		..()
+		if (cumulation >= 8 && prob(src.cumulation))
 			cumulation = 0
+			var/turf/da_turf = get_turf(src)
+			if(da_turf.z != Z_LEVEL_STATION)
+				return
 			var/weirdnoise = pick('sound/ambience/industrial/Precursor_Drone2.ogg',\
 			'sound/ambience/industrial/Precursor_Choir.ogg',\
 			'sound/ambience/industrial/Precursor_Drone3.ogg',\
 			'sound/ambience/industrial/Precursor_Bells.ogg')
 
-			var/da_turf = get_turf(src)
-			playsound(da_turf, weirdnoise, 50, 1)
-			if(prob(70))
-				src.its_goin_down(our_spot)
+			playsound(da_turf, weirdnoise, 40, 1)
+			if(prob(55))
+				src.its_goin_down()
 		else
 			cumulation++
+			boutput(world,"doin [cumulation]") //DEBUG DEBUG DEBUG
 
-	proc/its_goin_down(var/turf/our_spot) //do the thing
-		switch(rand(1,7))
-			if(1 to 3)
-				var/area/tarea = get_area(our_spot)
-				if(tarea.area_apc)
-					tarea.area_apc.overload_lighting()
-			if(4 to 6)
-				var/mob/our_mob = null
-				if(ismob(src.loc))
-					var/mob/our_mob = src.loc
-					boutput(our_mob,SPAN_ALERT("[src] vibrates violently!"))
-					our_mob.audible_message(SPAN_ALERT("<B>[our_mob]</B> emits a piercing [pick("dirge","shriek","screech")]!"))
-				playsound(W.loc, 'sound/effects/screech_tone.ogg', 80, 1)
-				for (var/mob/living/M in hearers(our_spot, null))
-					if (our_mob && M == our_mob)
-						continue
-					M.apply_sonic_stun(0, 3, 0, 0, 0, 8)
-				sonic_attack_environmental_effect(our_spot, 7, list("light", "window", "r_window"))
-			if(7)
-				var/turf/spook_spot = pick(landmarks[LANDMARK_HALLOWEEN_SPAWN])
-				new /mob/living/critter/shade(spook_spot)
-				if(ismob(src.loc))
-					var/mob/our_mob = src.loc
-					boutput(our_mob,SPAN_ALERT("<i>šìr, šìr, šìr...</i>"))
+	proc/its_goin_down() //do the thing
+		var/our_spot = get_turf(src)
+		var/mob/our_mob = null
+		if(ismob(src.loc))
+			our_mob = src.loc
+		SPAWN(rand(24,48))
+			if(ismob(src.loc)) //different because of a demand for physical tie
+				boutput(our_mob,SPAN_ALERT("[src] vibrates violently!"))
+				our_mob.playsound_local_not_inworld('sound/effects/brrp.ogg', 40, 1, pitch = 0.5)
+			switch(rand(1,7))
+				if(1 to 3)
+					var/area/target_area = get_area(our_spot)
+					if(target_area.area_apc)
+						target_area.area_apc.cell.charge = target_area.area_apc.cell.maxcharge
+						target_area.area_apc.zapStuff()
+				if(4 to 6)
+					if(our_mob) our_mob.audible_message(SPAN_ALERT("<B>[our_mob]</B> emits a piercing [pick("dirge","shriek","screech")]!"))
+					else src.audible_message(SPAN_ALERT("<B>[src]</B> emits a piercing [pick("dirge","shriek","screech")]!"))
+					playsound(our_spot, 'sound/effects/screech_tone.ogg', 80, 1)
+					for (var/mob/living/M in hearers(our_spot, null))
+						if (our_mob && M == our_mob)
+							continue
+						M.apply_sonic_stun(0, 3, 0, 0, 0, 8)
+					sonic_attack_environmental_effect(our_spot, 7, list("light", "window", "r_window"))
+				if(7)
+					var/turf/spook_spot = pick(landmarks[LANDMARK_HALLOWEEN_SPAWN])
+					var/area/target_area = get_area(spook_spot)
+					if(target_area.area_apc)
+						target_area.area_apc.overload_lighting()
+					new /mob/living/critter/shade(spook_spot)
+					if(our_mob)
+						boutput(our_mob,SPAN_ALERT("<i>šìr, šìr, šìr...</i>"))
 
 #define MAX_BONES 10 //Max Bones, skeleton P.I.
 /obj/critter/bone_king
