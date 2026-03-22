@@ -54646,12 +54646,6 @@
 	},
 /turf/unsimulated/floor/engine,
 /area/hospital/samostrel)
-"edf" = (
-/obj/effects/menhir_fog,
-/turf/unsimulated/floor/setpieces/bluefloor{
-	dir = 1
-	},
-/area/precursor/menhir)
 "edm" = (
 /obj/cable{
 	icon_state = "4-8"
@@ -55240,15 +55234,6 @@
 "eyM" = (
 /turf/unsimulated/wall/auto/lead/gray,
 /area/crypt/sigma/morgue)
-"ezE" = (
-/obj/effects/menhir_fog,
-/obj/precursor_puzzle/innervator{
-	vision_description = "There is no exit ts"
-	},
-/turf/unsimulated/floor/setpieces/bluefloor{
-	dir = 1
-	},
-/area/precursor/menhir)
 "ezH" = (
 /obj/table/glass/auto,
 /obj/item/reagent_containers/food/snacks/mushroom/amanita{
@@ -55891,8 +55876,10 @@
 /turf/space,
 /area/watchful_eye_sensor)
 "eYt" = (
-/obj/effects/menhir_fog,
-/turf/unsimulated/wall/auto/adventure/icemooninterior,
+/obj/map/light/cyan{
+	brightness = 7
+	},
+/turf/unsimulated/floor/setpieces/bluefloor,
 /area/precursor/menhir)
 "eYK" = (
 /obj/decal/poster/wallsign/fire,
@@ -56200,13 +56187,6 @@
 /obj/decal/stripe_delivery,
 /turf/unsimulated/floor/plating,
 /area/shuttle/biodome_elevator/upper)
-"fkH" = (
-/obj/effects/menhir_fog,
-/obj/map/light/cyan{
-	brightness = 7
-	},
-/turf/unsimulated/floor/setpieces/bluefloor,
-/area/precursor/menhir)
 "fle" = (
 /obj/fakeobject/pipe{
 	color = "b4b4b4";
@@ -56545,7 +56525,6 @@
 /turf/unsimulated/floor/plating,
 /area/hospital)
 "fAw" = (
-/obj/effects/menhir_fog,
 /obj/machinery/door/unpowered/blue{
 	friendly_object = /obj/item/reagent_containers/food/snacks/plant
 	},
@@ -57254,8 +57233,12 @@
 	},
 /area/crypt/graveyard)
 "gci" = (
-/obj/effects/menhir_fog,
-/turf/unsimulated/floor/setpieces/bluefloor,
+/obj/machinery/door/unpowered/blue{
+	dir = 4
+	},
+/turf/unsimulated/floor/setpieces/bluefloor{
+	dir = 4
+	},
 /area/precursor/menhir)
 "gcn" = (
 /turf/unsimulated/wall/auto/lead/blue,
@@ -57632,6 +57615,12 @@
 /obj/decal/cleanable/dirt/dirt5,
 /turf/unsimulated/floor/plating,
 /area/sim/gunsim/lobby)
+"gtp" = (
+/obj/map/light/cyan{
+	brightness = 7
+	},
+/turf/unsimulated/wall/auto/adventure/icemooninterior,
+/area/precursor/menhir)
 "gtA" = (
 /obj/fakeobject/pipe{
 	color = "b4b4b4";
@@ -60476,9 +60465,6 @@
 /obj/decal/stripe_delivery,
 /turf/unsimulated/floor/plating,
 /area/moon/museum)
-"iCK" = (
-/turf/space,
-/area/precursor/menhir)
 "iCR" = (
 /obj/shrub{
 	dir = 5
@@ -60721,7 +60707,6 @@
 /turf/unsimulated/floor/blackwhite/whitegrime/other,
 /area/observatory)
 "iMh" = (
-/obj/effects/menhir_fog,
 /obj/landmark/spawner/menhir,
 /turf/unsimulated/floor/setpieces/bluefloor{
 	dir = 4
@@ -61399,11 +61384,6 @@
 /obj/stool/chair/comfy/yellow,
 /turf/unsimulated/floor/wood/six,
 /area/centcom/offices/janantilles)
-"jih" = (
-/obj/effects/menhir_fog,
-/obj/map/light/cyan,
-/turf/unsimulated/wall/auto/adventure/icemooninterior,
-/area/precursor/menhir)
 "jir" = (
 /obj/fakeobject/airlock_broken/firelock{
 	icon = 'icons/obj/doors/SL_doors.dmi';
@@ -61486,7 +61466,6 @@
 /turf/unsimulated/floor,
 /area/centcom/lounge)
 "jkW" = (
-/obj/effects/menhir_fog,
 /obj/precursor_puzzle/orb_stand{
 	id = "FORGOTTEN";
 	target_id = "FORLORN"
@@ -62546,15 +62525,6 @@
 /obj/lattice,
 /turf/space,
 /area/syndicate_station_space)
-"kbh" = (
-/obj/effects/menhir_fog,
-/obj/precursor_puzzle/innervator{
-	vision_description = "There is no returning to what was never left."
-	},
-/turf/unsimulated/floor/setpieces/bluefloor{
-	dir = 1
-	},
-/area/precursor/menhir)
 "kbq" = (
 /turf/unsimulated/floor/marble/border_wb{
 	dir = 9
@@ -63445,13 +63415,6 @@
 	icon_state = "shore-22"
 	},
 /area/titlescreen)
-"kDu" = (
-/obj/effects/menhir_fog,
-/obj/map/light/cyan,
-/turf/unsimulated/floor/setpieces/bluefloor{
-	dir = 4
-	},
-/area/precursor/menhir)
 "kDP" = (
 /obj/disposalpipe/segment{
 	dir = 4
@@ -63745,13 +63708,6 @@
 /area/centcom/offices{
 	icon_state = "blue"
 	})
-"kPE" = (
-/obj/effects/menhir_fog,
-/obj/machinery/door/unpowered/blue,
-/turf/unsimulated/floor/setpieces/bluefloor{
-	dir = 1
-	},
-/area/precursor/menhir)
 "kPQ" = (
 /obj/iomoon_puzzle/button{
 	id = "iomoon_burntpuzzleD;iomoon_burntroomE"
@@ -66060,11 +66016,6 @@
 	dir = 8
 	},
 /area/centcom/offices/walpvrgis)
-"mJu" = (
-/obj/effects/menhir_fog,
-/obj/machinery/door/unpowered/blue,
-/turf/unsimulated/floor/setpieces/bluefloor,
-/area/precursor/menhir)
 "mJy" = (
 /obj/cable/green{
 	icon_state = "4-8"
@@ -66494,13 +66445,6 @@
 	},
 /turf/space,
 /area/syndicate_station_space)
-"ncH" = (
-/obj/effects/menhir_fog,
-/obj/machinery/door/unpowered/blue,
-/turf/unsimulated/floor/setpieces/bluefloor{
-	dir = 8
-	},
-/area/precursor/menhir)
 "ndE" = (
 /obj/lattice{
 	dir = 6;
@@ -66666,7 +66610,10 @@
 	},
 /area/crater/cave/lower)
 "nkT" = (
-/obj/effects/menhir_fog,
+/obj/transposition_trigger{
+	go_to = "a_crown_of_silver";
+	tag = "a_quiet_repose"
+	},
 /turf/unsimulated/floor/setpieces/bluefloor{
 	dir = 8
 	},
@@ -67598,13 +67545,6 @@
 /obj/table/wood/auto/desk/lily,
 /turf/unsimulated/floor/carpet/purple/fancy/narrow/se,
 /area/centcom/offices/rodney)
-"nRL" = (
-/obj/effects/menhir_fog,
-/obj/machinery/door/unpowered/blue{
-	dir = 4
-	},
-/turf/unsimulated/floor/setpieces/bluefloor,
-/area/precursor/menhir)
 "nRR" = (
 /obj/fakeobject/pipe{
 	color = "b4b4b4";
@@ -68041,9 +67981,6 @@
 	},
 /turf/unsimulated/floor/plating,
 /area/hospital)
-"odS" = (
-/turf/simulated/wall/auto/reinforced/supernorn,
-/area/precursor/menhir)
 "oeb" = (
 /turf/unsimulated/wall/generic{
 	desc = "It's sealed shut.";
@@ -69235,11 +69172,6 @@
 /obj/item/motherboard,
 /turf/unsimulated/floor,
 /area/iomoon/base)
-"pfc" = (
-/obj/effects/menhir_fog,
-/obj/rack/precursor,
-/turf/unsimulated/floor/setpieces/bluefloor,
-/area/precursor/menhir)
 "pfp" = (
 /mob/living/critter/robotic/gunbot{
 	dir = 8
@@ -72265,16 +72197,6 @@
 	icon_state = "rootfloor_2"
 	},
 /area/centcom/offices/marknstein)
-"rqk" = (
-/obj/fakeobject{
-	dir = 1;
-	icon = 'icons/turf/walls/precursor.dmi';
-	icon_state = "details";
-	name = "symbols"
-	},
-/obj/effects/menhir_fog,
-/turf/unsimulated/wall/auto/adventure/icemooninterior,
-/area/precursor/menhir)
 "rqo" = (
 /obj/mesh/catwalk{
 	dir = 9
@@ -73662,7 +73584,6 @@
 /turf/unsimulated/floor/red,
 /area/owlery/gangzone)
 "skH" = (
-/obj/effects/menhir_fog,
 /obj/precursor_puzzle/innervator{
 	vision_description = "You have never been here."
 	},
@@ -74998,15 +74919,6 @@
 /obj/map/light/yellow,
 /turf/unsimulated/iomoon/ancient_floor,
 /area/iomoon/robot_ruins)
-"tts" = (
-/obj/map/light/cyan{
-	brightness = 7
-	},
-/obj/effects/menhir_fog,
-/turf/unsimulated/floor/setpieces/bluefloor{
-	dir = 1
-	},
-/area/precursor/menhir)
 "tuc" = (
 /turf/unsimulated/wall/auto/lead/white,
 /area/watchful_eye_sensor)
@@ -75049,12 +74961,6 @@
 	dir = 8
 	},
 /area/iomoon/base)
-"twD" = (
-/obj/effects/menhir_fog,
-/turf/unsimulated/floor/setpieces/bluefloor{
-	dir = 4
-	},
-/area/precursor/menhir)
 "twK" = (
 /obj/mesh/grille/steel,
 /obj/cable{
@@ -76287,15 +76193,6 @@
 	},
 /turf/unsimulated/floor/plating,
 /area/watchful_eye_sensor)
-"uBC" = (
-/obj/map/light/cyan{
-	brightness = 7
-	},
-/obj/effects/menhir_fog,
-/turf/unsimulated/floor/setpieces/bluefloor{
-	dir = 4
-	},
-/area/precursor/menhir)
 "uBH" = (
 /obj/fakeobject/pipe{
 	color = "b4b4b4"
@@ -76303,15 +76200,12 @@
 /turf/unsimulated/floor/plating,
 /area/hospital)
 "uBL" = (
-/obj/effects/menhir_fog,
 /obj/precursor_puzzle/innervator{
 	pixel_y = -3;
 	pixel_x = 22;
 	vision_description = "The song is not for you."
 	},
-/turf/unsimulated/floor/setpieces/bluefloor{
-	dir = 4
-	},
+/turf/unsimulated/wall/auto/adventure/icemooninterior,
 /area/precursor/menhir)
 "uCa" = (
 /mob/living/critter/zombie/scientist,
@@ -76578,7 +76472,6 @@
 /turf/space,
 /area/watchful_eye_sensor)
 "uLm" = (
-/obj/effects/menhir_fog,
 /obj/map/light/cyan{
 	brightness = 7
 	},
@@ -77499,15 +77392,12 @@
 	},
 /area/iomoon/base)
 "vrr" = (
-/obj/effects/menhir_fog,
 /obj/precursor_puzzle/innervator{
 	pixel_y = -3;
 	pixel_x = -22;
 	vision_description = "You will never be here."
 	},
-/turf/unsimulated/floor/setpieces/bluefloor{
-	dir = 4
-	},
+/turf/unsimulated/wall/auto/adventure/icemooninterior,
 /area/precursor/menhir)
 "vrH" = (
 /obj/machinery/computer/television/public,
@@ -77737,7 +77627,6 @@
 /turf/unsimulated/floor/wood/two,
 /area/centcom/offices/cogwerks)
 "vBf" = (
-/obj/effects/menhir_fog,
 /obj/precursor_puzzle/innervator{
 	vision_description = "You are not here."
 	},
@@ -78235,8 +78124,9 @@
 /obj/map/light/cyan{
 	brightness = 7
 	},
-/obj/effects/menhir_fog,
-/turf/unsimulated/floor/setpieces/bluefloor,
+/turf/unsimulated/floor/setpieces/bluefloor{
+	dir = 1
+	},
 /area/precursor/menhir)
 "vSm" = (
 /mob/living/critter/small_animal/cat{
@@ -78970,7 +78860,6 @@
 /turf/unsimulated/floor/wood/two,
 /area/centcom/offices/katzen)
 "wsr" = (
-/obj/effects/menhir_fog,
 /obj/map/light/cyan{
 	brightness = 7
 	},
@@ -79857,23 +79746,6 @@
 	},
 /turf/unsimulated/outdoors/grass,
 /area/shuttle/merchant_shuttle/right_centcom/cogmap)
-"wYt" = (
-/obj/effects/menhir_fog,
-/obj/machinery/door/unpowered/blue{
-	friendly_object = /obj/item/chilly_orb
-	},
-/turf/unsimulated/floor/setpieces/bluefloor{
-	dir = 8
-	},
-/area/precursor/menhir)
-"wYu" = (
-/obj/machinery/door/unpowered/blue,
-/obj/map/light/cyan,
-/obj/effects/menhir_fog,
-/turf/unsimulated/floor/setpieces/bluefloor{
-	dir = 8
-	},
-/area/precursor/menhir)
 "wZe" = (
 /obj/machinery/door/airlock/pyro/security{
 	dir = 4;
@@ -158748,15 +158620,15 @@ jky
 jky
 jky
 jky
-eYt
-eYt
-eYt
-eYt
-eYt
-eYt
-eYt
-eYt
-eYt
+sGZ
+sGZ
+sGZ
+sGZ
+sGZ
+sGZ
+sGZ
+sGZ
+sGZ
 jky
 jky
 jky
@@ -159047,21 +158919,21 @@ jky
 jky
 jky
 jky
+sGZ
+sGZ
+sGZ
+sGZ
+uLm
+sGZ
+nNE
+sGZ
+nNE
+hyO
 eYt
-eYt
-eYt
-eYt
-vRZ
-gci
-gci
-gci
-gci
-gci
-vRZ
-eYt
-eYt
-eYt
-eYt
+sGZ
+sGZ
+sGZ
+sGZ
 jky
 jky
 jky
@@ -159347,25 +159219,25 @@ jky
 jky
 jky
 jky
-eYt
-eYt
-eYt
-gci
-gci
-eYt
-gci
-eYt
-eYt
-eYt
-eYt
-eYt
-eYt
-eYt
-gci
-gci
-eYt
-eYt
-eYt
+sGZ
+sGZ
+sGZ
+nNE
+hyO
+sGZ
+hyO
+sGZ
+sGZ
+sGZ
+nNE
+hyO
+nNE
+sGZ
+nNE
+nNE
+sGZ
+sGZ
+sGZ
 jky
 jky
 jky
@@ -159648,27 +159520,27 @@ aaa
 jky
 jky
 jky
+sGZ
+sGZ
 eYt
-eYt
-uBC
-eYt
-eYt
-eYt
-eYt
-eYt
-eYt
-twD
-eYt
-twD
-twD
-twD
-eYt
-gci
-eYt
-eYt
-vRZ
-eYt
-eYt
+hyO
+nNE
+hyO
+sGZ
+hyO
+sGZ
+hyO
+sGZ
+sGZ
+sGZ
+aRU
+sGZ
+sGZ
+sGZ
+sGZ
+gtp
+sGZ
+sGZ
 jky
 jky
 jky
@@ -159949,29 +159821,29 @@ dFc
 aaa
 jky
 jky
-eYt
-eYt
-gci
-twD
-gci
-eYt
-pfc
-eYt
-pfc
-eYt
-gci
-eYt
-gci
-gci
-gci
-eYt
-gci
-gci
-eYt
-gci
-gci
-eYt
-eYt
+sGZ
+sGZ
+hyO
+nNE
+eli
+lkr
+eli
+sGZ
+hyO
+sGZ
+nNE
+sGZ
+nNE
+sGZ
+nNE
+sGZ
+nNE
+sGZ
+nNE
+sGZ
+nNE
+sGZ
+sGZ
 jky
 jky
 aaa
@@ -160251,29 +160123,29 @@ dFc
 aaa
 jky
 jky
-eYt
-tts
-edf
-nkT
-edf
-edf
-edf
-edf
-tts
-kPE
-edf
-kPE
-edf
-tts
-edf
-eYt
-eYt
-eYt
-eYt
-eYt
-gci
+sGZ
 vRZ
-eYt
+eli
+nNE
+hyO
+nNE
+hyO
+sGZ
+uLm
+xmo
+lkr
+xmo
+lkr
+vRZ
+lkr
+lkr
+lkr
+lkr
+lkr
+lkr
+lkr
+vRZ
+sGZ
 jky
 jky
 aaa
@@ -160552,31 +160424,31 @@ aES
 dFc
 aaa
 jky
-eYt
-eYt
-eYt
+sGZ
+sGZ
+sGZ
+sGZ
+sGZ
 gci
-twD
-gci
-eYt
-pfc
-eYt
-pfc
-eYt
+sGZ
+sGZ
+sGZ
+hyO
+sGZ
 vBf
-eYt
-gci
-gci
-gci
-mJu
-gci
-mJu
-gci
-eYt
-eYt
-eYt
-eYt
-eYt
+sGZ
+nNE
+sGZ
+nNE
+sGZ
+nNE
+sGZ
+nNE
+sGZ
+nNE
+sGZ
+sGZ
+sGZ
 jky
 aaa
 cnw
@@ -160854,32 +160726,32 @@ aES
 dFc
 aaa
 jky
-eYt
-gci
-eYt
-eYt
-uBC
-eYt
-eYt
-eYt
-eYt
-eYt
-eYt
-twD
-eYt
-twD
-twD
+sGZ
+lkr
+lkr
+lkr
+vRZ
+lkr
+lkr
+lkr
+lkr
+eli
+sGZ
+hyO
+sGZ
+sGZ
+sGZ
 uBL
-eYt
-pfc
-eYt
-pfc
-eYt
-gci
-eYt
-gci
-eYt
-odS
+sGZ
+sGZ
+sGZ
+sGZ
+sGZ
+sGZ
+sGZ
+sGZ
+sGZ
+jky
 aaa
 cnw
 cnw
@@ -161156,32 +161028,32 @@ aES
 dFc
 aaa
 jky
-eYt
-gci
-gci
-eYt
-eYt
-eYt
-eYt
-eYt
-eYt
-eYt
-eYt
-gci
-eYt
-eYt
-eYt
-eYt
-eYt
-eYt
-eYt
-eYt
-eYt
-gci
-eYt
-gci
-eYt
-odS
+sGZ
+sGZ
+sGZ
+sGZ
+sGZ
+sGZ
+sGZ
+sGZ
+sGZ
+sGZ
+sGZ
+nNE
+sGZ
+sGZ
+sGZ
+sGZ
+sGZ
+hyO
+lkr
+lkr
+lkr
+lkr
+lkr
+lkr
+sGZ
+jky
 aaa
 cnw
 cnw
@@ -161457,33 +161329,33 @@ gmA
 aES
 dFc
 aaa
-eYt
-eYt
-eYt
-gci
-gci
-eYt
-edf
-kPE
-edf
-eYt
-edf
-eYt
-edf
-eYt
-edf
-eYt
-edf
-eYt
-edf
-eYt
-edf
-eYt
-eYt
-eYt
-eYt
-eYt
-eYt
+sGZ
+sGZ
+sGZ
+nNE
+nNE
+sGZ
+lkr
+xmo
+lkr
+sGZ
+lkr
+sGZ
+lkr
+sGZ
+lkr
+sGZ
+lkr
+sGZ
+hyO
+sGZ
+nNE
+nNE
+nNE
+nNE
+nNE
+sGZ
+sGZ
 aaa
 cnw
 cnw
@@ -161759,33 +161631,33 @@ aES
 aES
 dFc
 aaa
+sGZ
 eYt
-vRZ
-eYt
-gci
-eYt
-eYt
-gci
-eYt
-gci
-wYt
-gci
-gci
-gci
+sGZ
+nNE
+sGZ
+sGZ
+nNE
+sGZ
+nNE
+knA
+nNE
+nNE
+nNE
 uLm
-gci
-gci
-gci
-ncH
-gci
-gci
-vRZ
-nkT
-gci
-gci
-eYt
-gci
-eYt
+nNE
+nNE
+nNE
+knA
+hyO
+sGZ
+nNE
+nNE
+nNE
+nNE
+nNE
+nNE
+sGZ
 aaa
 cnw
 cnw
@@ -162061,33 +161933,33 @@ aES
 aES
 dFc
 aaa
-eYt
-gci
-eYt
-eYt
-eYt
-edf
-edf
-eYt
-edf
-eYt
+sGZ
+nNE
+sGZ
+sGZ
+sGZ
+lkr
+lkr
+sGZ
+lkr
+sGZ
 wsr
-gci
-gci
-twD
-gci
-gci
-fkH
+nNE
+nNE
+hyO
+nNE
+nNE
 eYt
-edf
+sGZ
+hyO
+sGZ
 eYt
-edf
+nNE
+nNE
+nNE
 eYt
-nRL
-eYt
-eYt
-gci
-eYt
+nNE
+sGZ
 aaa
 cnw
 cnw
@@ -162363,33 +162235,33 @@ aES
 aES
 dFc
 aaa
-eYt
-gci
-eYt
-twD
-gci
-gci
-eYt
-eYt
-eYt
-eYt
-eYt
-gci
-nkT
-edf
-nkT
-gci
-eYt
-eYt
-eYt
-eYt
-eYt
-eYt
-ezE
-edf
-eYt
-eYt
-eYt
+sGZ
+nNE
+sGZ
+hyO
+nNE
+nNE
+sGZ
+sGZ
+sGZ
+sGZ
+sGZ
+nNE
+eli
+lkr
+eli
+nNE
+sGZ
+sGZ
+sGZ
+sGZ
+nNE
+nNE
+nNE
+nNE
+nNE
+nNE
+sGZ
 aaa
 cnw
 cnw
@@ -162665,33 +162537,33 @@ aES
 aES
 dFc
 aaa
-eYt
-gci
-eYt
+sGZ
+nNE
+sGZ
 nkT
-eYt
-eYt
-eYt
-gci
-gci
-eYt
-edf
-edf
-twD
+sGZ
+sGZ
+sGZ
+nNE
+nNE
+sGZ
+lkr
+lkr
+hyO
 jkW
 iMh
-edf
-edf
-eYt
-gci
-gci
-rqk
-kDu
-gci
-gci
-wYu
-gci
-jih
+lkr
+lkr
+sGZ
+nNE
+sGZ
+nNE
+nNE
+dPy
+nNE
+nNE
+nNE
+sGZ
 aaa
 cnw
 cnw
@@ -162967,33 +162839,33 @@ aES
 aES
 dFc
 aaa
-eYt
-gci
-eYt
-twD
-gci
-gci
-eYt
-eYt
-eYt
-eYt
-eYt
-gci
-nkT
-edf
-nkT
-gci
-eYt
-eYt
-eYt
-eYt
-eYt
-eYt
-kbh
-edf
-eYt
-eYt
-eYt
+sGZ
+nNE
+sGZ
+hyO
+nNE
+nNE
+sGZ
+sGZ
+sGZ
+sGZ
+sGZ
+nNE
+eli
+lkr
+eli
+nNE
+sGZ
+sGZ
+sGZ
+sGZ
+nNE
+nNE
+nNE
+nNE
+nNE
+nNE
+sGZ
 aaa
 cnw
 cnw
@@ -163269,33 +163141,33 @@ gmA
 aES
 dFc
 aaa
-eYt
-gci
-eYt
-eYt
-eYt
-edf
-edf
-eYt
-edf
-eYt
+sGZ
+nNE
+sGZ
+sGZ
+sGZ
+lkr
+lkr
+sGZ
+lkr
+sGZ
 wsr
-gci
-gci
-twD
-gci
-gci
-fkH
+nNE
+nNE
+hyO
+nNE
+nNE
 eYt
-edf
+sGZ
+hyO
+sGZ
 eYt
-edf
+nNE
+nNE
+nNE
 eYt
-nRL
-eYt
-eYt
-gci
-eYt
+nNE
+sGZ
 aaa
 cnw
 cnw
@@ -163571,33 +163443,33 @@ aES
 aES
 dFc
 aaa
+sGZ
 eYt
-vRZ
-eYt
-gci
-eYt
-eYt
-gci
-eYt
-gci
-wYt
-gci
-gci
-gci
+sGZ
+nNE
+sGZ
+sGZ
+nNE
+sGZ
+nNE
+knA
+nNE
+nNE
+nNE
 uLm
-gci
-gci
-gci
-ncH
-gci
-gci
-vRZ
-nkT
-gci
-gci
-eYt
-gci
-eYt
+nNE
+nNE
+nNE
+knA
+hyO
+sGZ
+nNE
+nNE
+nNE
+nNE
+nNE
+nNE
+sGZ
 aaa
 cnw
 cnw
@@ -163873,33 +163745,33 @@ aES
 aES
 dFc
 aaa
-eYt
-eYt
-eYt
-gci
-gci
-eYt
-edf
-kPE
-edf
-eYt
-edf
-eYt
-edf
-eYt
-edf
-eYt
-edf
-eYt
-edf
-eYt
-edf
-eYt
-eYt
-eYt
-eYt
-eYt
-eYt
+sGZ
+sGZ
+sGZ
+nNE
+nNE
+sGZ
+lkr
+xmo
+lkr
+sGZ
+lkr
+sGZ
+lkr
+sGZ
+lkr
+sGZ
+lkr
+sGZ
+hyO
+sGZ
+nNE
+nNE
+nNE
+nNE
+nNE
+sGZ
+sGZ
 aaa
 cnw
 cnw
@@ -164176,31 +164048,31 @@ aES
 dFc
 aaa
 jky
-eYt
-gci
-gci
-eYt
-eYt
-eYt
-eYt
-eYt
-eYt
-eYt
-eYt
-gci
-eYt
-eYt
-eYt
-eYt
-eYt
-eYt
-eYt
-eYt
-eYt
-gci
-eYt
-gci
-eYt
+sGZ
+sGZ
+sGZ
+sGZ
+sGZ
+sGZ
+sGZ
+sGZ
+sGZ
+sGZ
+sGZ
+nNE
+sGZ
+sGZ
+sGZ
+sGZ
+sGZ
+hyO
+lkr
+lkr
+lkr
+lkr
+lkr
+lkr
+sGZ
 jky
 aaa
 cnw
@@ -164478,31 +164350,31 @@ aES
 dFc
 aaa
 jky
-eYt
-gci
-eYt
-eYt
-uBC
-eYt
-eYt
-eYt
-eYt
-eYt
-eYt
-twD
-eYt
-twD
-twD
+sGZ
+lkr
+lkr
+lkr
+vRZ
+lkr
+lkr
+lkr
+lkr
+eli
+sGZ
+hyO
+sGZ
+sGZ
+sGZ
 vrr
-eYt
-pfc
-eYt
-pfc
-eYt
-gci
-eYt
-gci
-eYt
+sGZ
+sGZ
+sGZ
+sGZ
+sGZ
+sGZ
+sGZ
+sGZ
+sGZ
 jky
 aaa
 cnw
@@ -164780,31 +164652,31 @@ dFc
 dFc
 aaa
 jky
-eYt
-eYt
-eYt
+sGZ
+sGZ
+sGZ
+sGZ
+sGZ
 gci
-twD
-gci
-eYt
-pfc
-eYt
-pfc
-eYt
+sGZ
+sGZ
+sGZ
+hyO
+sGZ
 skH
-eYt
-gci
-gci
-gci
-mJu
-gci
-mJu
-gci
-eYt
-eYt
-eYt
-eYt
-eYt
+sGZ
+nNE
+sGZ
+nNE
+sGZ
+nNE
+sGZ
+nNE
+sGZ
+nNE
+sGZ
+sGZ
+sGZ
 jky
 aaa
 cnw
@@ -165083,29 +164955,29 @@ aaa
 aaa
 jky
 jky
-eYt
-tts
-edf
-nkT
-edf
-edf
-edf
-edf
-tts
-fAw
-edf
-kPE
-edf
-tts
-edf
-eYt
-eYt
-eYt
-eYt
-eYt
-gci
+sGZ
 vRZ
-eYt
+eli
+nNE
+hyO
+nNE
+hyO
+sGZ
+uLm
+fAw
+lkr
+xmo
+lkr
+vRZ
+lkr
+lkr
+lkr
+lkr
+lkr
+lkr
+lkr
+vRZ
+sGZ
 jky
 jky
 aaa
@@ -165385,29 +165257,29 @@ cnw
 aaa
 jky
 jky
-eYt
-eYt
-gci
-twD
-gci
-eYt
-pfc
-eYt
-pfc
-eYt
-gci
-eYt
-gci
-gci
-gci
-eYt
-gci
-gci
-eYt
-gci
-gci
-eYt
-eYt
+sGZ
+sGZ
+hyO
+nNE
+eli
+lkr
+eli
+sGZ
+hyO
+sGZ
+nNE
+sGZ
+nNE
+sGZ
+nNE
+sGZ
+nNE
+sGZ
+nNE
+sGZ
+nNE
+sGZ
+sGZ
 jky
 jky
 aaa
@@ -165688,27 +165560,27 @@ aaa
 jky
 jky
 jky
+sGZ
+sGZ
 eYt
-eYt
-uBC
-eYt
-eYt
-eYt
-eYt
-eYt
-eYt
-twD
-eYt
-twD
-twD
-twD
-eYt
-gci
-eYt
-eYt
-vRZ
-eYt
-eYt
+hyO
+nNE
+hyO
+sGZ
+hyO
+sGZ
+hyO
+sGZ
+sGZ
+sGZ
+aRU
+sGZ
+sGZ
+sGZ
+sGZ
+gtp
+sGZ
+sGZ
 jky
 jky
 jky
@@ -165991,25 +165863,25 @@ jky
 jky
 jky
 jky
-eYt
-eYt
-eYt
-gci
-gci
-eYt
-gci
-eYt
-eYt
-eYt
-eYt
-eYt
-eYt
-eYt
-gci
-gci
-eYt
-eYt
-eYt
+sGZ
+sGZ
+sGZ
+nNE
+hyO
+sGZ
+hyO
+sGZ
+sGZ
+sGZ
+nNE
+hyO
+nNE
+sGZ
+nNE
+nNE
+sGZ
+sGZ
+sGZ
 jky
 jky
 jky
@@ -166295,21 +166167,21 @@ jky
 jky
 jky
 jky
+sGZ
+sGZ
+sGZ
+sGZ
+uLm
+sGZ
+nNE
+sGZ
+nNE
+hyO
 eYt
-eYt
-eYt
-eYt
-vRZ
-gci
-gci
-gci
-gci
-gci
-vRZ
-eYt
-eYt
-eYt
-eYt
+sGZ
+sGZ
+sGZ
+sGZ
 jky
 jky
 jky
@@ -166600,18 +166472,18 @@ jky
 jky
 jky
 jky
-eYt
-eYt
-eYt
-eYt
-eYt
-eYt
-eYt
-eYt
-eYt
-iCK
-iCK
-iCK
+sGZ
+sGZ
+sGZ
+sGZ
+sGZ
+sGZ
+sGZ
+sGZ
+sGZ
+jky
+jky
+jky
 jky
 jky
 jky

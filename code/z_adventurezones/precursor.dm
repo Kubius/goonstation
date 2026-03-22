@@ -1498,12 +1498,12 @@ var/global/list/scarysounds = list('sound/machines/engine_alert3.ogg',
 			if(AM:client)
 				if(!ON_COOLDOWN(src,"transpose",3 SECONDS) && prob(40))
 					var/do_move = TRUE
-					for(var/mob/O in oviewers())
+					for(var/mob/O in oviewers(AM))
 						do_move = FALSE
 						break
 					if(do_move)
-						var/obj/transposition_trigger/other = locate("[go_to]")
-						AM.set_loc(other.loc)
+						var/obj/transposition_trigger/other = locate(go_to)
+						if(other) AM.set_loc(other.loc)
 
 #define MAX_BONES 10 //Max Bones, skeleton P.I.
 /obj/critter/bone_king
