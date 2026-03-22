@@ -58810,6 +58810,17 @@
 "hnB" = (
 /turf/unsimulated/floor/wood/two,
 /area/centcom/offices/sovexe)
+"hnM" = (
+/obj/rack/precursor,
+/obj/item/clothing/gloves/ring/ominous{
+	pixel_y = 11
+	},
+/obj/precursor_puzzle/innervator{
+	vision_description = "A trinket of silver sheen floats solitary in a mirror-black sea whose edges are beyond sight or thought.";
+	pixel_y = -11
+	},
+/turf/unsimulated/floor/setpieces/bluefloor,
+/area/precursor/menhir)
 "hnO" = (
 /turf/unsimulated/floor/wood/two,
 /area/centcom/offices/mrfishstick)
@@ -60706,12 +60717,6 @@
 /obj/decoration/bullethole,
 /turf/unsimulated/floor/blackwhite/whitegrime/other,
 /area/observatory)
-"iMh" = (
-/obj/landmark/spawner/menhir,
-/turf/unsimulated/floor/setpieces/bluefloor{
-	dir = 4
-	},
-/area/precursor/menhir)
 "iMC" = (
 /obj/lattice,
 /obj/submachine/chef_oven,
@@ -73583,12 +73588,6 @@
 	},
 /turf/unsimulated/floor/red,
 /area/owlery/gangzone)
-"skH" = (
-/obj/precursor_puzzle/innervator{
-	vision_description = "You have never been here."
-	},
-/turf/unsimulated/floor/setpieces/bluefloor,
-/area/precursor/menhir)
 "skS" = (
 /obj/fakeobject/pipe{
 	density = 1;
@@ -76199,14 +76198,6 @@
 	},
 /turf/unsimulated/floor/plating,
 /area/hospital)
-"uBL" = (
-/obj/precursor_puzzle/innervator{
-	pixel_y = -3;
-	pixel_x = 22;
-	vision_description = "The song is not for you."
-	},
-/turf/unsimulated/wall/auto/adventure/icemooninterior,
-/area/precursor/menhir)
 "uCa" = (
 /mob/living/critter/zombie/scientist,
 /turf/unsimulated/floor/white/grime,
@@ -76525,6 +76516,15 @@
 /obj/fakeobject/synthomatic,
 /turf/unsimulated/floor/white,
 /area/owlery/lab)
+"uNL" = (
+/obj/map/light/cyan{
+	brightness = 7
+	},
+/obj/precursor_puzzle/innervator{
+	vision_description = "éd, èd, lú-kúr-ra..."
+	},
+/turf/unsimulated/floor/setpieces/bluefloor,
+/area/precursor/menhir)
 "uNO" = (
 /obj/item/sticker/gold_star{
 	anchored = 1;
@@ -77391,14 +77391,6 @@
 	dir = 1
 	},
 /area/iomoon/base)
-"vrr" = (
-/obj/precursor_puzzle/innervator{
-	pixel_y = -3;
-	pixel_x = -22;
-	vision_description = "You will never be here."
-	},
-/turf/unsimulated/wall/auto/adventure/icemooninterior,
-/area/precursor/menhir)
 "vrH" = (
 /obj/machinery/computer/television/public,
 /obj/map/light/screen,
@@ -77626,12 +77618,6 @@
 	},
 /turf/unsimulated/floor/wood/two,
 /area/centcom/offices/cogwerks)
-"vBf" = (
-/obj/precursor_puzzle/innervator{
-	vision_description = "You are not here."
-	},
-/turf/unsimulated/floor/setpieces/bluefloor,
-/area/precursor/menhir)
 "vBq" = (
 /turf/unsimulated/wall/auto/adventure/shuttle/dark,
 /area/shuttle/merchant_shuttle/diner_centcom)
@@ -78864,7 +78850,7 @@
 	brightness = 7
 	},
 /obj/precursor_puzzle/innervator{
-	vision_description = "They sing, they sing, they sing."
+	vision_description = "e-zé ina gú-ri-ta..."
 	},
 /turf/unsimulated/floor/setpieces/bluefloor,
 /area/precursor/menhir)
@@ -160435,7 +160421,7 @@ sGZ
 sGZ
 hyO
 sGZ
-vBf
+nNE
 sGZ
 nNE
 sGZ
@@ -160741,7 +160727,7 @@ hyO
 sGZ
 sGZ
 sGZ
-uBL
+sGZ
 sGZ
 sGZ
 sGZ
@@ -161349,11 +161335,11 @@ lkr
 sGZ
 hyO
 sGZ
+lkr
+hyO
 nNE
-nNE
-nNE
-nNE
-nNE
+hyO
+lkr
 sGZ
 sGZ
 aaa
@@ -161652,11 +161638,11 @@ knA
 hyO
 sGZ
 nNE
+lkr
+hyO
+lkr
 nNE
-nNE
-nNE
-nNE
-nNE
+hyO
 sGZ
 aaa
 cnw
@@ -161955,10 +161941,10 @@ hyO
 sGZ
 eYt
 nNE
-nNE
+hyO
 nNE
 eYt
-nNE
+hyO
 sGZ
 aaa
 cnw
@@ -162256,11 +162242,11 @@ sGZ
 sGZ
 sGZ
 nNE
+eli
+lkr
+eli
 nNE
-nNE
-nNE
-nNE
-nNE
+sGZ
 sGZ
 aaa
 cnw
@@ -162551,18 +162537,18 @@ lkr
 lkr
 hyO
 jkW
-iMh
+hyO
 lkr
 lkr
 sGZ
-nNE
 sGZ
-nNE
-nNE
-dPy
-nNE
-nNE
-nNE
+lkr
+lkr
+hyO
+hnM
+hyO
+lkr
+lkr
 sGZ
 aaa
 cnw
@@ -162860,11 +162846,11 @@ sGZ
 sGZ
 sGZ
 nNE
+eli
+lkr
+eli
 nNE
-nNE
-nNE
-nNE
-nNE
+sGZ
 sGZ
 aaa
 cnw
@@ -163151,7 +163137,7 @@ lkr
 sGZ
 lkr
 sGZ
-wsr
+uNL
 nNE
 nNE
 hyO
@@ -163163,10 +163149,10 @@ hyO
 sGZ
 eYt
 nNE
-nNE
+hyO
 nNE
 eYt
-nNE
+hyO
 sGZ
 aaa
 cnw
@@ -163464,11 +163450,11 @@ knA
 hyO
 sGZ
 nNE
+lkr
+hyO
+lkr
 nNE
-nNE
-nNE
-nNE
-nNE
+hyO
 sGZ
 aaa
 cnw
@@ -163765,11 +163751,11 @@ lkr
 sGZ
 hyO
 sGZ
+lkr
+hyO
 nNE
-nNE
-nNE
-nNE
-nNE
+hyO
+lkr
 sGZ
 sGZ
 aaa
@@ -164365,7 +164351,7 @@ hyO
 sGZ
 sGZ
 sGZ
-vrr
+sGZ
 sGZ
 sGZ
 sGZ
@@ -164663,7 +164649,7 @@ sGZ
 sGZ
 hyO
 sGZ
-skH
+nNE
 sGZ
 nNE
 sGZ

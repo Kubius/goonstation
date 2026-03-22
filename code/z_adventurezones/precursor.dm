@@ -1505,6 +1505,73 @@ var/global/list/scarysounds = list('sound/machines/engine_alert3.ogg',
 						var/obj/transposition_trigger/other = locate(go_to)
 						if(other) AM.set_loc(other.loc)
 
+/obj/item/clothing/gloves/ring/ominous
+	name = "unnerving arc"
+	desc = "Your ears start ringing when you look at it for too long."
+	icon = 'icons/obj/clothing/item_wizard_rings.dmi'
+	icon_state = "forbidden"
+	var/is_emitting = FALSE
+	var/cumulation = 0
+
+	New()
+		. = ..()
+		src.name = "[pick("resonating","unnerving","peculiar","metallic")] [pick("arc","ring","band","clasp")]"
+
+	disposing()
+		is_emitting = FALSE
+		. = ..()
+
+	equipped(var/mob/user, var/slot)
+		. = ..()
+		is_emitting = TRUE
+		processing_items.Add(src)
+
+	unequipped(var/mob/user)
+		. = ..()
+		is_emitting = FALSE
+		cumulation = 0
+		processing_items.Remove(src)
+
+	proc/process()
+		if (prob(src.cumulation + 6))
+			cumulation = 0
+			var/weirdnoise = pick('sound/ambience/industrial/Precursor_Drone2.ogg',\
+			'sound/ambience/industrial/Precursor_Choir.ogg',\
+			'sound/ambience/industrial/Precursor_Drone3.ogg',\
+			'sound/ambience/industrial/Precursor_Bells.ogg')
+
+			var/our_spot = get_turf(src)
+			playsound(our_spot, weirdnoise, 50, 1)
+			if(prob(70))
+				src.its_goin_down()
+		else
+			cumulation++
+
+	proc/its_goin_down() //do the thing
+		switch(rand(1,7))
+			if(1 to 3)
+				var/area/tarea = get_area(our_spot)
+				if(tarea.area_apc)
+					tarea.area_apc.overload_lighting()
+			if(4 to 6)
+				var/mob/our_mob = null
+				if(ismob(src.loc))
+					var/mob/our_mob = src.loc
+					boutput(our_mob,SPAN_ALERT("[src] vibrates violently!"))
+					our_mob.audible_message(SPAN_ALERT("<B>[our_mob]</B> emits a piercing [pick("dirge","shriek","screech")]!"))
+				playsound(W.loc, 'sound/effects/screech_tone.ogg', 80, 1)
+				for (var/mob/living/M in hearers(W, null))
+					if (our_mob && M == our_mob)
+						continue
+					M.apply_sonic_stun(0, 3, 0, 0, 0, 8)
+				sonic_attack_environmental_effect(W, 7, list("light", "window", "r_window"))
+			if(7)
+				var/turf/spook_spot = pick(landmarks[LANDMARK_HALLOWEEN_SPAWN])
+				new /mob/living/critter/shade(spook_spot)
+				if(ismob(src.loc))
+					var/mob/our_mob = src.loc
+					boutput(our_mob,SPAN_ALERT("<i>šìr, šìr, šìr...</i>"))
+
 #define MAX_BONES 10 //Max Bones, skeleton P.I.
 /obj/critter/bone_king
 	name = "Bone King"
