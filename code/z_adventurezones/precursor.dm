@@ -1540,14 +1540,14 @@ var/global/list/scarysounds = list('sound/machines/engine_alert3.ogg',
 			'sound/ambience/industrial/Precursor_Drone3.ogg',\
 			'sound/ambience/industrial/Precursor_Bells.ogg')
 
-			var/our_spot = get_turf(src)
-			playsound(our_spot, weirdnoise, 50, 1)
+			var/da_turf = get_turf(src)
+			playsound(da_turf, weirdnoise, 50, 1)
 			if(prob(70))
-				src.its_goin_down()
+				src.its_goin_down(our_spot)
 		else
 			cumulation++
 
-	proc/its_goin_down() //do the thing
+	proc/its_goin_down(var/turf/our_spot) //do the thing
 		switch(rand(1,7))
 			if(1 to 3)
 				var/area/tarea = get_area(our_spot)
@@ -1560,11 +1560,11 @@ var/global/list/scarysounds = list('sound/machines/engine_alert3.ogg',
 					boutput(our_mob,SPAN_ALERT("[src] vibrates violently!"))
 					our_mob.audible_message(SPAN_ALERT("<B>[our_mob]</B> emits a piercing [pick("dirge","shriek","screech")]!"))
 				playsound(W.loc, 'sound/effects/screech_tone.ogg', 80, 1)
-				for (var/mob/living/M in hearers(W, null))
+				for (var/mob/living/M in hearers(our_spot, null))
 					if (our_mob && M == our_mob)
 						continue
 					M.apply_sonic_stun(0, 3, 0, 0, 0, 8)
-				sonic_attack_environmental_effect(W, 7, list("light", "window", "r_window"))
+				sonic_attack_environmental_effect(our_spot, 7, list("light", "window", "r_window"))
 			if(7)
 				var/turf/spook_spot = pick(landmarks[LANDMARK_HALLOWEEN_SPAWN])
 				new /mob/living/critter/shade(spook_spot)
