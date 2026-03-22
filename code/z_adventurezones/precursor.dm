@@ -155,6 +155,7 @@
 	filler_turf = "/turf/unsimulated/floor/setpieces/bluefloor"
 	sound_environment = 5
 	sound_loop = 'sound/ambience/industrial/Precursor_Drone1.ogg'
+	teleport_blocked = 2
 
 /area/station/crown/New()
 	. = ..()
@@ -351,7 +352,7 @@
 	attack_hand(mob/user)
 		. = ..()
 		if (ON_COOLDOWN(src, "limited_see", 3 SECONDS) || !src.vision_description)
-			user.visible_message(SPAN_ALERT("[src] doesn't respond to your touch."))
+			boutput(user,SPAN_ALERT("[src] doesn't respond to your touch."))
 		else
 			user.visible_message(SPAN_NOTICE("[src] [pick("projects","imposes","directs","shines")] an image into your mind..."))
 			user.visible_message(SPAN_ALERT("<i>[src.vision_description]</i>"))

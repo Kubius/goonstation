@@ -31,7 +31,7 @@
 	scroll_angle = 270
 
 /atom/movable/screen/parallax_render_source/space_2/menhir
-	parallax_value = 0.03
+	parallax_value = 0.02
 
 // Ocean Caustics
 /atom/movable/screen/parallax_render_source/foreground/caustics

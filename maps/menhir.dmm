@@ -1932,7 +1932,6 @@
 /area/station/hallway/primary/central)
 "bjs" = (
 /obj/machinery/abcu,
-/obj/machinery/camera/directional/east,
 /turf/simulated/floor/blueblack{
 	dir = 4
 	},
@@ -3997,6 +3996,7 @@
 /obj/cable{
 	icon_state = "2-9"
 	},
+/obj/machinery/drainage,
 /turf/simulated/floor/white,
 /area/station/medical/medbay/surgery)
 "cvo" = (
@@ -7235,7 +7235,7 @@
 "exO" = (
 /obj/effects/menhir_fog,
 /obj/precursor_puzzle/innervator{
-	vision_description = "A silvern trinket, cold and unforgiving as the ground beneath your feet."
+	vision_description = "A silvern trinket of power, cold and unforgiving as the ground beneath your feet."
 	},
 /turf/unsimulated/floor/setpieces/bluefloor{
 	dir = 1
@@ -7811,14 +7811,6 @@
 /area/station/hallway/secondary/exit{
 	name = "Primary Docking Wing"
 	})
-"eVK" = (
-/obj/machinery/sleeper/compact{
-	dir = 4
-	},
-/turf/simulated/floor/blue/side{
-	dir = 8
-	},
-/area/station/hallway/primary/west)
 "eVO" = (
 /obj/machinery/door/airlock/pyro/command,
 /obj/mapping_helper/firedoor_spawn,
@@ -8679,7 +8671,7 @@
 "fAu" = (
 /obj/effects/menhir_fog,
 /obj/precursor_puzzle/innervator{
-	vision_description = "A face that is not a face, lost beyond a gossamer veil.";
+	vision_description = "A face that is no longer a face, lost beyond a gossamer veil.";
 	pixel_y = -3;
 	pixel_x = 22
 	},
@@ -9644,7 +9636,7 @@
 "gdz" = (
 /obj/effects/menhir_fog,
 /obj/precursor_puzzle/innervator{
-	vision_description = "A sphere of silver, bright and cold as the moon of your ancestors' home."
+	vision_description = "A sphere of pale cold, like the moon of your ancestors' home."
 	},
 /turf/unsimulated/floor/setpieces/bluefloor{
 	dir = 1
@@ -10215,6 +10207,7 @@
 /obj/cable{
 	icon_state = "4-8"
 	},
+/obj/mapping_helper/access/research_director,
 /turf/simulated/floor/black,
 /area/station/science/research_director)
 "guL" = (
@@ -13980,13 +13973,14 @@
 	},
 /area/shuttle/arrival/station)
 "iPI" = (
-/obj/machinery/disposal/cart_port,
-/obj/storage/cart/trash,
 /obj/machinery/light/small{
 	dir = 8;
 	pixel_x = -12
 	},
-/obj/disposalpipe/trunk/east,
+/obj/machinery/sink/slim{
+	dir = 1
+	},
+/obj/machinery/drainage,
 /turf/simulated/floor/specialroom/arcade,
 /area/station/janitor/office)
 "iPX" = (
@@ -14538,11 +14532,6 @@
 	},
 /turf/simulated/floor/carpet/arcade,
 /area/station/bridge/captain)
-"jjs" = (
-/obj/stool/bed/moveable,
-/obj/item/clothing/suit/bedsheet,
-/turf/simulated/floor/white,
-/area/station/medical/medbay)
 "jjK" = (
 /obj/storage/closet/wardrobe/yellow,
 /turf/simulated/floor/yellowblack{
@@ -15382,10 +15371,6 @@
 	pixel_x = 12;
 	pixel_y = 2
 	},
-/obj/machinery/light/lamp/green{
-	pixel_y = 18;
-	pixel_x = -3
-	},
 /obj/item/pen{
 	pixel_x = 12;
 	pixel_y = 7
@@ -15397,6 +15382,13 @@
 /obj/item/rocko{
 	pixel_x = -6;
 	pixel_y = -2
+	},
+/obj/item/storage/secure/ssafe{
+	pixel_y = 28
+	},
+/obj/machinery/light/lamp/green{
+	pixel_y = 18;
+	pixel_x = -3
 	},
 /turf/simulated/floor/yellowblack{
 	dir = 1
@@ -16748,9 +16740,6 @@
 /obj/item/stamp/cap{
 	pixel_x = 3
 	},
-/obj/item/storage/secure/ssafe{
-	pixel_y = 28
-	},
 /turf/simulated/floor/carpet/arcade,
 /area/station/bridge/captain)
 "kIV" = (
@@ -17502,7 +17491,6 @@
 /area/station/hallway/primary/east)
 "ldT" = (
 /obj/disposalpipe/segment/bent/south,
-/obj/machinery/camera/directional/east,
 /turf/simulated/floor/carpet/blue,
 /area/station/maintenance/northeast)
 "lei" = (
@@ -17566,7 +17554,6 @@
 /turf/simulated/floor/engine/caution/south,
 /area/station/engine/core)
 "lgV" = (
-/obj/machinery/camera/directional/north,
 /obj/machinery/recharge_station,
 /turf/simulated/floor/plating,
 /area/station/maintenance/southeast)
@@ -17576,7 +17563,7 @@
 	brightness = 7
 	},
 /obj/precursor_puzzle/innervator{
-	vision_description = "A sphere of silver, bright and cold as the moon of your ancestors' home."
+	vision_description = "A sphere of pale cold, like the moon of your ancestors' home."
 	},
 /turf/unsimulated/floor/setpieces/bluefloor,
 /area/station/crown)
@@ -19126,7 +19113,6 @@
 	},
 /area/station/hallway/primary/east)
 "mhb" = (
-/obj/rack/precursor,
 /obj/effects/menhir_fog,
 /obj/map/light/cyan,
 /turf/unsimulated/floor/setpieces/bluefloor{
@@ -19926,12 +19912,6 @@
 	},
 /turf/simulated/floor/sanitary/white,
 /area/station/crew_quarters/bathroom)
-"mHp" = (
-/obj/stool/chair/comfy/wheelchair{
-	dir = 8
-	},
-/turf/simulated/floor/white,
-/area/station/medical/medbay)
 "mHy" = (
 /obj/machinery/power/smes{
 	chargelevel = 60000;
@@ -20438,7 +20418,7 @@
 /turf/simulated/floor/shuttlebay,
 /area/station/hangar/main)
 "mXb" = (
-/obj/stool/chair/blue{
+/obj/stool/chair/comfy/wheelchair{
 	dir = 4
 	},
 /turf/simulated/floor/blue/side{
@@ -22388,7 +22368,6 @@
 	dir = 4;
 	pixel_x = 12
 	},
-/obj/machinery/camera/directional/south,
 /turf/simulated/floor/yellowblack{
 	dir = 6
 	},
@@ -23350,6 +23329,7 @@
 /obj/item/sheet/glass{
 	amount = 50
 	},
+/obj/machinery/camera/directional/east,
 /turf/simulated/floor/blueblack{
 	dir = 4
 	},
@@ -23622,7 +23602,7 @@
 /turf/simulated/floor/specialroom/cafeteria,
 /area/station/crew_quarters/kitchen)
 "oPi" = (
-/obj/disposalpipe/junction/right/north,
+/obj/disposalpipe/segment/vertical,
 /turf/simulated/floor/specialroom/arcade,
 /area/station/janitor/office)
 "oPI" = (
@@ -27330,6 +27310,11 @@
 /area/station/hangar/qm{
 	name = "Logistics Dock"
 	})
+"rjA" = (
+/obj/stool/bed/moveable,
+/obj/item/clothing/suit/bedsheet,
+/turf/simulated/floor,
+/area/station/hallway/primary/west)
 "rjF" = (
 /obj/mapping_helper/wingrille_spawn/auto/reinforced/crystal,
 /obj/window_blinds/cog2/middle,
@@ -29722,13 +29707,6 @@
 /obj/landmark/halloween,
 /turf/simulated/floor,
 /area/station/hallway/primary/east)
-"sGu" = (
-/obj/cable{
-	icon_state = "1-2"
-	},
-/obj/machinery/camera/directional/west,
-/turf/simulated/floor/plating,
-/area/station/maintenance/southeast)
 "sGJ" = (
 /obj/table/reinforced/auto,
 /obj/machinery/door/airlock/pyro/glass/windoor,
@@ -29925,16 +29903,6 @@
 /obj/machinery/light_switch/east,
 /turf/simulated/floor/black,
 /area/station/hallway/primary/central)
-"sLU" = (
-/obj/mesh/catwalk,
-/obj/disposalpipe/segment/mail,
-/obj/machinery/camera/directional/east{
-	pixel_y = 10
-	},
-/turf/simulated/floor/black/grime,
-/area/station/maintenance/inner/sw{
-	name = "Southwest Auxiliary Conduit"
-	})
 "sMk" = (
 /obj/decal/stripe_caution,
 /obj/storage/secure/crate/gear/armory/grenades,
@@ -30821,6 +30789,7 @@
 /obj/machinery/optable{
 	id = "OR2"
 	},
+/obj/machinery/drainage,
 /turf/simulated/floor/white,
 /area/station/medical/medbay/surgery)
 "tkJ" = (
@@ -34643,6 +34612,12 @@
 /obj/disposalpipe/segment/vertical,
 /turf/simulated/floor/darkblue,
 /area/station/medical/medbay/pharmacy)
+"vCq" = (
+/obj/machinery/disposal/cart_port,
+/obj/storage/cart/trash,
+/obj/disposalpipe/trunk/east,
+/turf/simulated/floor/plating,
+/area/station/maintenance/south)
 "vCu" = (
 /obj/rack,
 /obj/item/clothing/mask/breath,
@@ -34946,7 +34921,7 @@
 "vKW" = (
 /obj/effects/menhir_fog,
 /obj/precursor_puzzle/innervator{
-	vision_description = "Brilliant facets in a sea whose edge is beyond sight or thought, glimmering in myriad hues."
+	vision_description = "Brilliant facets, glimmering in myriad hues."
 	},
 /turf/unsimulated/floor/setpieces/bluefloor,
 /area/station/crown)
@@ -35464,7 +35439,6 @@
 /obj/cable{
 	icon_state = "1-2"
 	},
-/obj/machinery/camera/directional/east,
 /turf/simulated/floor/white/grime,
 /area/station/maintenance/west)
 "vZK" = (
@@ -35857,10 +35831,6 @@
 /area/station/science/hall)
 "wko" = (
 /obj/table/reinforced/chemistry/auto,
-/obj/machinery/light/lamp/green{
-	pixel_y = 18;
-	pixel_x = -3
-	},
 /obj/item/stamp/md{
 	pixel_x = 6;
 	pixel_y = 2
@@ -35872,6 +35842,13 @@
 /obj/item/pen{
 	pixel_y = -2;
 	pixel_x = -2
+	},
+/obj/item/storage/secure/ssafe{
+	pixel_y = 28
+	},
+/obj/machinery/light/lamp/green{
+	pixel_y = 18;
+	pixel_x = -3
 	},
 /turf/simulated/floor/blueblack{
 	dir = 1
@@ -37993,13 +37970,6 @@
 	dir = 1
 	},
 /area/station/science/hall)
-"xAb" = (
-/obj/cable{
-	icon_state = "4-8"
-	},
-/obj/machinery/camera/directional/north,
-/turf/simulated/floor/plating,
-/area/station/maintenance/southwest)
 "xAf" = (
 /obj/table/auto,
 /obj/item/device/light/lava_lamp{
@@ -77106,7 +77076,7 @@ oaU
 iaS
 oiW
 pMR
-xAb
+mxH
 rMn
 tVJ
 tVJ
@@ -78283,7 +78253,7 @@ npL
 xrA
 put
 qRx
-eVK
+mXb
 mXb
 wTe
 vna
@@ -79189,7 +79159,7 @@ eLb
 xJR
 rBz
 vna
-vna
+rjA
 lhN
 lhN
 qlQ
@@ -79484,9 +79454,9 @@ qxn
 lcs
 oQO
 kPi
-jjs
-mHp
-mHp
+nvx
+nvx
+nvx
 mXD
 xrA
 hoJ
@@ -80427,7 +80397,7 @@ fYT
 lkq
 nfP
 kgH
-sLU
+kgH
 kgH
 kgH
 qfs
@@ -82542,7 +82512,7 @@ lxW
 ccu
 lxW
 gzh
-ect
+vCq
 ect
 jom
 oHk
@@ -82844,7 +82814,7 @@ rUg
 uTG
 rUg
 rUg
-rUg
+uTG
 dto
 qtk
 ect
@@ -97033,7 +97003,7 @@ ktv
 ktv
 ktv
 ifm
-sGu
+ktv
 ktv
 euq
 ojm
