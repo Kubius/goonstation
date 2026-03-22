@@ -56540,15 +56540,6 @@
 	},
 /turf/unsimulated/floor/plating,
 /area/hospital)
-"fAw" = (
-/obj/machinery/door/unpowered/blue{
-	friendly_object = /obj/item/reagent_containers/food/snacks/plant
-	},
-/obj/machinery/door/unpowered/blue,
-/turf/unsimulated/floor/setpieces/bluefloor{
-	dir = 1
-	},
-/area/precursor/menhir)
 "fBq" = (
 /obj/machinery/door/airlock/pyro{
 	dir = 4
@@ -164982,7 +164973,7 @@ eMP
 eMP
 sGZ
 uLm
-fAw
+xmo
 lkr
 xmo
 lkr
