@@ -9,10 +9,11 @@
 	alpha = 0
 	hitsound = 'sound/impact_sounds/Metal_Hit_Lowfi_1.ogg'
 	var/friendly_object = null
+	var/needs_precursor = FALSE
 
 	New()
 		. = ..()
-		if(src.friendly_object)
+		if(src.friendly_object || src.needs_precursor)
 			src.locked = TRUE
 
 		if(global.current_state < GAME_STATE_PREGAME)
@@ -25,14 +26,14 @@
 
 	attackby(obj/item/W, mob/user)
 		..()
-		if(src.locked && src.friendly_object)
-			if(!istype(W,src.friendly_object))
+		if(src.locked && (src.friendly_object || src.needs_precursor))
+			if(src.friendly_object && !istype(W,src.friendly_object))
 				if (!ON_COOLDOWN(src, "smacksounde", 1 SECOND))
 					user.visible_message(SPAN_ALERT("[src] sounds oddly hollow as it's struck."))
 					playsound(src.loc, src.hitsound, 15, 0, pitch = 0.7)
 				return
-			else if(istype(W,/obj/item/artifact))
-				if(!W.artifact.artitype.name == "precursor")
+			else if(src.needs_precursor)
+				if(!W.artifact || !W.artifact.artitype.name == "precursor")
 					if (!ON_COOLDOWN(src, "smacksounde", 1 SECOND))
 						user.visible_message(SPAN_ALERT("[src] sounds oddly hollow as it's struck."))
 						playsound(src.loc, src.hitsound, 15, 0, pitch = 0.7)

@@ -49,6 +49,10 @@
 /turf/simulated/floor/purple,
 /area/station/science/hall)
 "acI" = (
+/obj/disposalpipe/segment/transport{
+	dir = 1;
+	icon_state = "pipe-c"
+	},
 /turf/simulated/floor/purplewhite/corner{
 	dir = 4
 	},
@@ -435,8 +439,7 @@
 	icon_state = "4-10"
 	},
 /obj/disposalpipe/segment/transport{
-	dir = 8;
-	icon_state = "pipe-c"
+	dir = 4
 	},
 /turf/simulated/floor/carpet/purple/fancy/edge/sw,
 /area/station/science/research_director)
@@ -841,6 +844,7 @@
 	icon_state = "8-10"
 	},
 /obj/disposalpipe/segment/horizontal,
+/obj/disposalpipe/segment/transport,
 /turf/simulated/floor/white,
 /area/station/science/hall)
 "aFu" = (
@@ -1091,6 +1095,10 @@
 /obj/machinery/light/small{
 	dir = 4;
 	pixel_x = 12
+	},
+/obj/disposalpipe/segment/transport{
+	dir = 8;
+	icon_state = "pipe-c"
 	},
 /turf/simulated/floor/carpet/purple/fancy/edge/se,
 /area/station/science/research_director)
@@ -1855,6 +1863,9 @@
 /turf/simulated/floor/black,
 /area/station/crew_quarters/cafeteria)
 "bhO" = (
+/obj/disposalpipe/segment/transport{
+	dir = 4
+	},
 /turf/simulated/floor/purpleblack{
 	dir = 10
 	},
@@ -3520,7 +3531,6 @@
 /obj/cable{
 	icon_state = "1-2"
 	},
-/obj/disposalpipe/segment/transport,
 /turf/simulated/floor/carpet/purple/fancy/edge/west,
 /area/station/science/research_director)
 "cfj" = (
@@ -4051,6 +4061,14 @@
 /obj/mapping_helper/access/maint,
 /turf/simulated/floor/wood,
 /area/station/maintenance/southwest)
+"cxe" = (
+/obj/mapping_helper/wingrille_spawn/auto/reinforced,
+/obj/disposalpipe/segment/transport{
+	dir = 8;
+	icon_state = "pipe-c"
+	},
+/turf/simulated/floor/plating,
+/area/station/science/chemistry)
 "cxs" = (
 /obj/cable{
 	icon_state = "1-2"
@@ -5092,6 +5110,9 @@
 /turf/simulated/floor/redblack,
 /area/station/hangar/sec)
 "dhr" = (
+/obj/disposalpipe/segment/transport{
+	dir = 4
+	},
 /turf/simulated/floor/purpleblack,
 /area/station/hallway/primary/southeast)
 "diq" = (
@@ -5363,6 +5384,9 @@
 	icon_state = "4-8"
 	},
 /obj/disposalpipe/segment/mail,
+/obj/disposalpipe/segment/transport{
+	dir = 4
+	},
 /turf/simulated/floor/purplewhite{
 	dir = 8
 	},
@@ -5697,6 +5721,9 @@
 /obj/cable{
 	icon_state = "4-8"
 	},
+/obj/disposalpipe/segment/transport{
+	dir = 4
+	},
 /turf/simulated/floor/carpet/purple/fancy/edge/south,
 /area/station/science/research_director)
 "dDj" = (
@@ -5719,6 +5746,9 @@
 /area/station/turret_protected/Zeta)
 "dDw" = (
 /obj/machinery/chem_master{
+	dir = 4
+	},
+/obj/disposalpipe/segment/transport{
 	dir = 4
 	},
 /turf/simulated/floor/purpleblack{
@@ -6050,8 +6080,7 @@
 	icon_state = "1-2"
 	},
 /obj/disposalpipe/segment/transport{
-	dir = 4;
-	icon_state = "pipe-c"
+	dir = 4
 	},
 /turf/simulated/floor/white,
 /area/station/science/hall)
@@ -7384,6 +7413,7 @@
 /obj/machinery/door/airlock/pyro/medical,
 /obj/mapping_helper/firedoor_spawn,
 /obj/mapping_helper/access/research,
+/obj/disposalpipe/segment/transport,
 /turf/simulated/floor/purple,
 /area/station/science/hall)
 "eDn" = (
@@ -8267,6 +8297,12 @@
 /obj/mapping_helper/access/medical,
 /turf/simulated/floor/red,
 /area/station/medical/medbay/surgery)
+"fnb" = (
+/obj/disposalpipe/segment/transport{
+	dir = 4
+	},
+/turf/simulated/floor/purple,
+/area/station/hallway/primary/southeast)
 "fnl" = (
 /obj/machinery/door/airlock/pyro/maintenance,
 /obj/cable{
@@ -8319,14 +8355,6 @@
 	dir = 4
 	},
 /area/station/maintenance/southeast)
-"fnW" = (
-/obj/mapping_helper/wingrille_spawn/auto/reinforced,
-/obj/disposalpipe/segment/transport{
-	dir = 1;
-	icon_state = "pipe-c"
-	},
-/turf/simulated/floor/plating,
-/area/station/science/chemistry)
 "fon" = (
 /obj/disposalpipe/segment/brig{
 	dir = 4;
@@ -8630,6 +8658,10 @@
 	dir = 4;
 	layer = 9.1;
 	pixel_x = 10
+	},
+/obj/disposalpipe/segment/transport{
+	dir = 8;
+	icon_state = "pipe-c"
 	},
 /turf/simulated/floor/purplewhite{
 	dir = 4
@@ -9070,6 +9102,9 @@
 "fKI" = (
 /obj/cable{
 	icon_state = "5-8"
+	},
+/obj/disposalpipe/segment/transport{
+	dir = 4
 	},
 /turf/simulated/floor/carpet/purple/fancy/edge/south,
 /area/station/science/research_director)
@@ -10221,6 +10256,9 @@
 	icon_state = "4-8"
 	},
 /obj/mapping_helper/access/research_director,
+/obj/disposalpipe/segment/transport{
+	dir = 4
+	},
 /turf/simulated/floor/black,
 /area/station/science/research_director)
 "guL" = (
@@ -11183,6 +11221,7 @@
 	})
 "hbJ" = (
 /obj/disposalpipe/segment/transport{
+	dir = 8;
 	icon_state = "pipe-c"
 	},
 /turf/simulated/floor/purplewhite/corner,
@@ -11216,6 +11255,7 @@
 	},
 /area/station/crew_quarters/quartersC)
 "hcd" = (
+/obj/disposalpipe/segment/transport,
 /turf/simulated/floor/purplewhite{
 	dir = 5
 	},
@@ -11549,6 +11589,9 @@
 	icon_state = "2-8"
 	},
 /obj/disposalpipe/segment/vertical,
+/obj/disposalpipe/segment/transport{
+	dir = 4
+	},
 /turf/simulated/floor/white,
 /area/station/science/hall)
 "hos" = (
@@ -12224,6 +12267,9 @@
 /turf/simulated/floor,
 /area/station/crew_quarters/lounge)
 "hJh" = (
+/obj/disposalpipe/segment/transport{
+	dir = 4
+	},
 /turf/simulated/floor/purpleblack,
 /area/station/hallway/primary/southwest)
 "hJj" = (
@@ -12654,6 +12700,9 @@
 /obj/cable{
 	icon_state = "1-2"
 	},
+/obj/disposalpipe/segment/transport{
+	dir = 4
+	},
 /turf/simulated/floor/white,
 /area/station/science/hall)
 "hVn" = (
@@ -12734,6 +12783,9 @@
 	dir = 4;
 	layer = 9.1;
 	pixel_x = 10
+	},
+/obj/disposalpipe/segment/transport{
+	icon_state = "pipe-c"
 	},
 /turf/simulated/floor/purpleblack,
 /area/station/hallway/primary/southwest)
@@ -13853,6 +13905,7 @@
 	name = "Arrival Concourse"
 	})
 "iKe" = (
+/obj/disposalpipe/segment/transport,
 /turf/simulated/floor/white,
 /area/station/science/hall)
 "iKh" = (
@@ -15899,6 +15952,10 @@
 /obj/cable{
 	icon_state = "4-10"
 	},
+/obj/disposalpipe/segment/transport{
+	dir = 4;
+	icon_state = "pipe-c"
+	},
 /turf/simulated/floor/carpet/purple/fancy/edge/east,
 /area/station/science/research_director)
 "kbx" = (
@@ -16256,7 +16313,6 @@
 /obj/cable{
 	icon_state = "2-9"
 	},
-/obj/disposalpipe/segment/transport,
 /turf/simulated/floor/carpet/purple/fancy/edge/nw,
 /area/station/science/research_director)
 "kqe" = (
@@ -16559,7 +16615,6 @@
 	icon_state = "2-8"
 	},
 /obj/disposalpipe/segment/horizontal,
-/obj/disposalpipe/segment/transport,
 /turf/simulated/floor/white,
 /area/station/science/hall)
 "kyV" = (
@@ -16611,6 +16666,10 @@
 /turf/simulated/floor/black,
 /area/station/hallway/primary/southwest)
 "kAG" = (
+/obj/disposalpipe/segment/transport{
+	dir = 8;
+	icon_state = "pipe-c"
+	},
 /turf/simulated/floor/purplewhite{
 	dir = 4
 	},
@@ -16698,6 +16757,10 @@
 	dir = 8
 	},
 /obj/landmark/start/job/scientist,
+/obj/disposalpipe/segment/transport{
+	dir = 4;
+	icon_state = "pipe-c"
+	},
 /turf/simulated/floor/white,
 /area/station/science/hall)
 "kEK" = (
@@ -18120,7 +18183,6 @@
 	icon_state = "0-2"
 	},
 /obj/machinery/power/data_terminal,
-/obj/disposalpipe/segment/transport,
 /turf/simulated/floor/black,
 /area/station/science/research_director)
 "lwP" = (
@@ -19279,6 +19341,9 @@
 "mmj" = (
 /obj/mesh/catwalk,
 /obj/machinery/light,
+/obj/disposalpipe/segment/transport{
+	dir = 4
+	},
 /turf/simulated/floor/black,
 /area/station/hallway/primary/southwest)
 "mmv" = (
@@ -20428,13 +20493,6 @@
 	dir = 8
 	},
 /area/station/crown)
-"mWH" = (
-/obj/mapping_helper/wingrille_spawn/auto/reinforced,
-/obj/disposalpipe/segment/transport{
-	dir = 4
-	},
-/turf/simulated/floor/plating,
-/area/station/science/chemistry)
 "mWJ" = (
 /obj/table/auto,
 /obj/item/peripheral/network/radio/locked{
@@ -20756,6 +20814,7 @@
 /area/station/hangar/main)
 "nhI" = (
 /obj/machinery/light_switch/west,
+/obj/disposalpipe/segment/transport,
 /turf/simulated/floor/purplewhite{
 	dir = 9
 	},
@@ -21616,6 +21675,13 @@
 /area/station/security/checkpoint/sec_foyer{
 	name = "Secure Release Foyer"
 	})
+"nHL" = (
+/obj/disposalpipe/segment/transport{
+	dir = 8;
+	icon_state = "pipe-c"
+	},
+/turf/simulated/floor/specialroom/arcade,
+/area/station/science/chemistry)
 "nIf" = (
 /obj/machinery/networked/storage/tape_drive{
 	bank_id = "Artlab";
@@ -21817,7 +21883,6 @@
 	icon = 'icons/obj/stationobjs.dmi';
 	icon_state = "plant"
 	},
-/obj/disposalpipe/segment/transport,
 /turf/simulated/floor/purple,
 /area/station/science/hall)
 "nOx" = (
@@ -23883,8 +23948,8 @@
 "oVg" = (
 /obj/effects/menhir_fog,
 /obj/machinery/door/unpowered/blue{
-	friendly_object = /obj/item/artifact;
-	dir = 4
+	dir = 4;
+	needs_precursor = 1
 	},
 /turf/unsimulated/floor/setpieces/bluefloor,
 /area/station/crown)
@@ -24497,7 +24562,6 @@
 	},
 /obj/machinery/power/data_terminal,
 /obj/cable,
-/obj/disposalpipe/segment/transport,
 /turf/simulated/floor/purplewhite,
 /area/station/science/hall)
 "pth" = (
@@ -24632,6 +24696,10 @@
 /obj/machinery/drainage,
 /turf/simulated/floor/black/grime,
 /area/station/security/brig/solitary2)
+"pxE" = (
+/obj/disposalpipe/segment/transport,
+/turf/simulated/floor/specialroom/arcade,
+/area/station/science/chemistry)
 "pxX" = (
 /obj/machinery/atmospherics/pipe/simple/insulated{
 	dir = 9
@@ -25814,12 +25882,6 @@
 	},
 /turf/simulated/floor/grass,
 /area/station/hydroponics)
-"qkg" = (
-/obj/mapping_helper/wingrille_spawn/auto/reinforced,
-/obj/window_blinds/cog2/left,
-/obj/disposalpipe/segment/transport,
-/turf/simulated/floor/plating,
-/area/station/science/research_director)
 "qkB" = (
 /obj/cable{
 	icon_state = "4-8"
@@ -30899,6 +30961,14 @@
 /obj/disposalpipe/segment/vertical,
 /turf/simulated/floor/darkblue,
 /area/station/medical/medbay/pharmacy)
+"tmV" = (
+/obj/mapping_helper/wingrille_spawn/auto/reinforced,
+/obj/disposalpipe/segment/transport{
+	dir = 4;
+	icon_state = "pipe-c"
+	},
+/turf/simulated/floor/plating,
+/area/station/science/chemistry)
 "tnn" = (
 /obj/machinery/light,
 /turf/simulated/floor/shuttlebay{
@@ -31203,6 +31273,12 @@
 "txs" = (
 /obj/mesh/catwalk,
 /obj/machinery/camera/directional/south,
+/obj/disposalpipe/trunk/transport{
+	dir = 8
+	},
+/obj/machinery/disposal/transport{
+	name = "primary hallway shunt unit"
+	},
 /turf/simulated/floor/black,
 /area/station/hallway/primary/southeast)
 "txJ" = (
@@ -31961,6 +32037,12 @@
 "tVJ" = (
 /turf/simulated/floor/plating,
 /area/station/maintenance/southwest)
+"tVM" = (
+/obj/disposalpipe/segment/transport{
+	dir = 4
+	},
+/turf/simulated/floor/purple,
+/area/station/hallway/primary/southwest)
 "tWc" = (
 /obj/table/auto,
 /obj/decal/cleanable/dirt,
@@ -32699,6 +32781,9 @@
 "urd" = (
 /obj/machinery/light,
 /obj/mesh/catwalk,
+/obj/disposalpipe/segment/transport{
+	dir = 4
+	},
 /turf/simulated/floor/black,
 /area/station/hallway/primary/southeast)
 "urr" = (
@@ -32730,6 +32815,9 @@
 	dir = 8
 	},
 /obj/machinery/drainage,
+/obj/disposalpipe/segment/transport{
+	dir = 4
+	},
 /turf/simulated/floor/specialroom/arcade,
 /area/station/science/chemistry)
 "urA" = (
@@ -34107,6 +34195,10 @@
 	layer = 9.1;
 	pixel_x = -10
 	},
+/obj/disposalpipe/segment/transport{
+	dir = 4;
+	icon_state = "pipe-c"
+	},
 /turf/simulated/floor/purpleblack,
 /area/station/hallway/primary/southeast)
 "vkp" = (
@@ -34321,6 +34413,12 @@
 "vsn" = (
 /obj/mesh/catwalk,
 /obj/machinery/camera/directional/south,
+/obj/disposalpipe/trunk/transport{
+	dir = 4
+	},
+/obj/machinery/disposal/transport{
+	name = "primary hallway shunt unit"
+	},
 /turf/simulated/floor/black,
 /area/station/hallway/primary/southwest)
 "vsr" = (
@@ -35394,6 +35492,9 @@
 	dir = 4
 	},
 /obj/landmark/start/job/scientist,
+/obj/disposalpipe/segment/transport{
+	icon_state = "pipe-c"
+	},
 /turf/simulated/floor/white,
 /area/station/science/hall)
 "vXV" = (
@@ -35765,6 +35866,9 @@
 /turf/simulated/floor/black,
 /area/station/science/testchamber)
 "whB" = (
+/obj/disposalpipe/segment/transport{
+	dir = 4
+	},
 /turf/simulated/floor/purpleblack{
 	dir = 6
 	},
@@ -35843,6 +35947,10 @@
 	})
 "wkc" = (
 /obj/machinery/camera/directional/west,
+/obj/disposalpipe/segment/transport{
+	dir = 1;
+	icon_state = "pipe-c"
+	},
 /turf/simulated/floor/purplewhite{
 	dir = 8
 	},
@@ -37249,6 +37357,10 @@
 /area/station/crew_quarters/md)
 "xaL" = (
 /obj/storage/closet/biohazard,
+/obj/disposalpipe/segment/transport{
+	dir = 4;
+	icon_state = "pipe-c"
+	},
 /turf/simulated/floor/purplewhite{
 	dir = 4
 	},
@@ -38879,9 +38991,7 @@
 /area/station/engine/hotloop)
 "xYs" = (
 /obj/machinery/disposal/chemlink,
-/obj/disposalpipe/trunk/transport{
-	dir = 8
-	},
+/obj/disposalpipe/trunk/transport,
 /turf/simulated/floor/specialroom/arcade,
 /area/station/science/chemistry)
 "xYE" = (
@@ -83744,7 +83854,7 @@ xFh
 xFh
 bOZ
 bOZ
-aBi
+tVM
 vgp
 ocK
 tSO
@@ -85259,7 +85369,7 @@ qFl
 nCx
 hhu
 xEH
-iKe
+dwV
 rzv
 ydE
 nEX
@@ -85866,7 +85976,7 @@ vHN
 dOc
 kyv
 ptb
-qkg
+vWQ
 lwA
 kpA
 ceI
@@ -88283,8 +88393,8 @@ dtr
 rMS
 meH
 meH
-vqy
-vqy
+tmV
+cxe
 iIk
 iIk
 gbJ
@@ -88583,7 +88693,7 @@ kEv
 aFd
 hbJ
 nOo
-fnW
+vqy
 vxG
 dDw
 jkF
@@ -88885,7 +88995,7 @@ kAG
 hSO
 dVn
 vqy
-mWH
+vqy
 jVS
 urw
 iSY
@@ -89188,8 +89298,8 @@ lGW
 meH
 meH
 xYs
-jVS
-jVS
+pxE
+nHL
 gBW
 iIk
 qjB
@@ -89784,7 +89894,7 @@ lDg
 osw
 cCb
 cCb
-nFd
+fnb
 xPD
 mxb
 ntD
