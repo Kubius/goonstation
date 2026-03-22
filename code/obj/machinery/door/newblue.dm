@@ -1,3 +1,4 @@
+ADMIN_INTERACT_PROCS(/obj/machinery/door/unpowered/blue, proc/revoke_door)
 /obj/machinery/door/unpowered/blue
 	icon = 'icons/obj/doors/newblue.dmi';
 	name = "glowing edifice"
@@ -24,6 +25,17 @@
 				var/turf/under_us = get_turf(src)
 				under_us.ReplaceWith(/turf/unsimulated/floor/setpieces/bluefloor, force = 1)
 
+	attack_hand(mob/user)
+		if(src.locked)
+			if(src.friendly_object)
+				boutput(user,SPAN_ALERT("[src] makes a strange humming sound in response to your touch..."))
+			else if(src.needs_precursor)
+				boutput(user,SPAN_ALERT("[src] hums strangely in response to your touch. It feels like it's palpating the area..."))
+			else
+				boutput(user,SPAN_ALERT("[src] doesn't respond to your touch."))
+			return
+		..()
+
 	attackby(obj/item/W, mob/user)
 		..()
 		if(src.locked && (src.friendly_object || src.needs_precursor))
@@ -34,10 +46,15 @@
 				return
 			else if(src.needs_precursor)
 				if(!W.artifact || !W.artifact.artitype.name == "precursor")
-					if (!ON_COOLDOWN(src, "smacksounde", 1 SECOND))
+					var/found_large = FALSE
+					for (var/obj/artifact/A in orange(1,src))
+						if(A.artifact.artitype.name == "precursor")
+							found_large = TRUE
+							break
+					if (!found_large && !ON_COOLDOWN(src, "smacksounde", 1 SECOND))
 						user.visible_message(SPAN_ALERT("[src] sounds oddly hollow as it's struck."))
 						playsound(src.loc, src.hitsound, 15, 0, pitch = 0.7)
-					return
+						return
 			user.visible_message(SPAN_NOTICE("<B>[src] [pick("rings", "dings", "chimes","vibrates","oscillates")] [pick("faintly", "softly", "loudly", "weirdly", "scarily", "eerily")].</B>"))
 			var/door_note = 'sound/musical_instruments/WeirdChime_0.ogg'
 			playsound(src.loc, door_note, 60, 0)
@@ -55,6 +72,15 @@
 		disposing()
 			. = ..()
 			STOP_TRACKING
+
+	proc/revoke_door()
+		locked = TRUE
+		mouse_opacity = 0
+		var/turf/under_us = get_turf(src)
+		under_us.ReplaceWith(/turf/unsimulated/wall/auto/adventure/icemooninterior, force = 1)
+		animate(src, alpha = 0, time = 15, easing = SINE_EASING | EASE_IN)
+		SPAWN(20)
+			qdel(src)
 
 /obj/machinery/door/unpowered/blue/bumpopen(atom/movable/AM)
 	if (ismob(AM) && !AM:mind)

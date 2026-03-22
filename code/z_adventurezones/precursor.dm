@@ -156,6 +156,7 @@
 	sound_environment = 5
 	sound_loop = 'sound/ambience/industrial/Precursor_Drone1.ogg'
 	teleport_blocked = 2
+	do_not_irradiate = 1
 
 /area/station/crown/New()
 	. = ..()
@@ -395,12 +396,11 @@ ABSTRACT_TYPE(/datum/menhir_puzzle)
 		"A stranger with face framed in moonlight passes you a glimmering token. A disquiet passes over you."
 	)
 
-
 /datum/menhir_puzzle/lens
 	target_path = /obj/item/lens
 	desc_strings = list(
 		"A dim light flickers in the distance. As you raise your keepsake in front of you, the light is seen as fire.",
-		"A figure with a sun for a head asks you for a disc. As you hold it up, an intense pain flashes in your eye."
+		"A figure with a sun for a head asks you for a disc through which your hand may be seen. As you hold it up, an intense pain flashes in your eye."
 	)
 
 /obj/precursor_puzzle/innervator
@@ -1515,33 +1515,43 @@ var/global/list/scarysounds = list('sound/machines/engine_alert3.ogg',
 	var/is_emitting = FALSE
 	var/cumulation = 0
 
+	examine(mob/user)
+		. = ..()
+		if(ishuman(user))
+			. += " Nevertheless, you feel a strange urge to slide it onto your finger."
+
 	New()
 		. = ..()
 		src.name = "[pick("resonating","unnerving","peculiar","metallic")] [pick("arc","ring","band","clasp")]"
 
 	disposing()
 		is_emitting = FALSE
+		if(ismob(src.loc))
+			var/mob/M = src.loc
+			M.bioHolder?.RemoveEffect("unnatural_vitality")
 		processing_items.Remove(src)
 		. = ..()
 
 	equipped(var/mob/user, var/slot)
 		. = ..()
 		is_emitting = TRUE
+		user.bioHolder?.AddEffect("unnatural_vitality")
 		processing_items.Add(src)
 
 	unequipped(var/mob/user)
 		. = ..()
 		is_emitting = FALSE
-		cumulation = 0
+		user.bioHolder?.RemoveEffect("unnatural_vitality")
 		processing_items.Remove(src)
 
 	process()
 		..()
+		var/turf/da_turf = get_turf(src)
+		if(da_turf.z != Z_LEVEL_STATION || istype(da_turf,/turf/unsimulated)) //don't tick up or expend ticks while we're somewhere unusual
+			return
 		if (cumulation >= 8 && prob(src.cumulation))
 			cumulation = 0
-			var/turf/da_turf = get_turf(src)
-			if(da_turf.z != Z_LEVEL_STATION)
-				return
+
 			var/weirdnoise = pick('sound/ambience/industrial/Precursor_Drone2.ogg',\
 			'sound/ambience/industrial/Precursor_Choir.ogg',\
 			'sound/ambience/industrial/Precursor_Drone3.ogg',\
@@ -1551,7 +1561,7 @@ var/global/list/scarysounds = list('sound/machines/engine_alert3.ogg',
 			if(prob(55))
 				src.its_goin_down()
 		else
-			cumulation++
+			if(prob(60)) cumulation++
 
 	proc/its_goin_down() //do the thing
 		var/our_spot = get_turf(src)
@@ -1585,6 +1595,26 @@ var/global/list/scarysounds = list('sound/machines/engine_alert3.ogg',
 					new /mob/living/critter/shade(spook_spot)
 					if(our_mob)
 						boutput(our_mob,SPAN_ALERT("<i>šìr, šìr, šìr...</i>"))
+
+/datum/bioEffect/regenerator/unnatural
+	name = "Unnatural Vitality"
+	desc = "Subject's cells are resonating synchronously, which appears to be having beneficial effects on overall vitality."
+	id = "unnatural_vitality"
+	occur_in_genepools = 0
+	probability = 0
+	scanner_visibility = 0
+	can_research = 0
+	can_make_injector = 0
+	can_copy = 0
+	can_reclaim = 0
+	can_scramble = 0
+	curable_by_mutadone = 0
+	stability_loss = 0
+	msgGain = "A strange comfort washes over you, like every cell in your body is singing together."
+	msgLose = "The chorus recedes from your body."
+	heal_per_tick = 1.2
+	regrow_prob = 0
+	acceptable_in_mutini = 0
 
 #define MAX_BONES 10 //Max Bones, skeleton P.I.
 /obj/critter/bone_king
