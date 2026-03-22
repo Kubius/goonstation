@@ -6378,7 +6378,7 @@
 /turf/simulated/floor/black,
 /area/station/crew_quarters/ce)
 "dTq" = (
-/obj/machinery/computer/solar_control/east,
+/obj/machinery/computer/solar_control,
 /obj/cable/yellow{
 	icon_state = "0-8"
 	},
@@ -16268,7 +16268,7 @@
 /turf/simulated/floor/black,
 /area/station/security/secwing)
 "kaw" = (
-/obj/machinery/computer/solar_control/east,
+/obj/machinery/computer/solar_control,
 /obj/cable/yellow{
 	icon_state = "0-4"
 	},
