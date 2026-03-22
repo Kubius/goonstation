@@ -22698,16 +22698,6 @@
 	},
 /turf/simulated/floor/orangeblack/side,
 /area/station/quartermaster/office)
-"nWx" = (
-/obj/effects/menhir_fog,
-/obj/machinery/door/unpowered/blue{
-	friendly_object = /obj/item/reagent_containers/food/snacks/plant
-	},
-/obj/machinery/door/unpowered/blue/autopuzzle,
-/turf/unsimulated/floor/setpieces/bluefloor{
-	dir = 1
-	},
-/area/station/crown)
 "nWC" = (
 /turf/simulated/floor/black/grime,
 /area/station/science/lab)
@@ -90244,7 +90234,7 @@ osZ
 osZ
 osZ
 swe
-nWx
+oLH
 osZ
 tPb
 osZ

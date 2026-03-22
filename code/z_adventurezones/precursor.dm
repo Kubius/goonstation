@@ -1503,10 +1503,10 @@ var/global/list/scarysounds = list('sound/machines/engine_alert3.ogg',
 		if(!go_to) return
 		if(ismob(AM))
 			if(AM:client)
-				if(!ON_COOLDOWN(src,"transpose",2.2 SECONDS) && prob(70))
+				if(!ON_COOLDOWN(src,"transpose",1.2 SECONDS) && prob(70))
 					var/do_move = TRUE
 					for(var/mob/O in oviewers(AM))
-						if(!isintangible(AM) && !istype(AM,/mob/dead/observer))
+						if(!isintangible(AM) || !istype(AM,/mob/dead/observer))
 							do_move = FALSE
 							break
 					if(do_move)
