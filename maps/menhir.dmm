@@ -38553,7 +38553,7 @@
 "xPs" = (
 /obj/effects/menhir_fog,
 /obj/precursor_puzzle/innervator{
-	vision_description = "A sojourner treads toward a dawn that will never come, his sandals wearing thin as paper."
+	vision_description = "A lone sojourner treads toward a dawn that will never come, his sandals wearing thin as paper."
 	},
 /turf/unsimulated/floor/setpieces/bluefloor,
 /area/station/crown)

@@ -1552,7 +1552,6 @@ var/global/list/scarysounds = list('sound/machines/engine_alert3.ogg',
 				src.its_goin_down()
 		else
 			cumulation++
-			boutput(world,"doin [cumulation]") //DEBUG DEBUG DEBUG
 
 	proc/its_goin_down() //do the thing
 		var/our_spot = get_turf(src)
