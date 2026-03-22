@@ -2820,6 +2820,7 @@
 /obj/cable{
 	icon_state = "0-10"
 	},
+/obj/machinery/power/data_terminal,
 /turf/simulated/floor/purplewhite{
 	dir = 5
 	},
@@ -21625,6 +21626,7 @@
 /obj/cable{
 	icon_state = "0-2"
 	},
+/obj/machinery/power/data_terminal,
 /turf/simulated/floor/purpleblack,
 /area/station/science/artifact)
 "nIE" = (
@@ -34285,6 +34287,7 @@
 /obj/cable{
 	icon_state = "0-8"
 	},
+/obj/machinery/power/data_terminal,
 /turf/simulated/floor/purplewhite{
 	dir = 4
 	},
@@ -38550,7 +38553,7 @@
 "xPs" = (
 /obj/effects/menhir_fog,
 /obj/precursor_puzzle/innervator{
-	vision_description = "A sojourner treads on to a sun that never sets, his sandals wearing thin as paper."
+	vision_description = "A sojourner treads toward a dawn that will never come, his sandals wearing thin as paper."
 	},
 /turf/unsimulated/floor/setpieces/bluefloor,
 /area/station/crown)

@@ -51,11 +51,11 @@
 
 		var/save_dir = doorlandmark.icon_state
 
+		playsound(doorlandmark, 'sound/musical_instruments/Vuvuzela_1.ogg', 40, 0, pitch = 0.2)
 		var/obj/newdoor = new /obj/machinery/door/unpowered/blue(doorlandmark)
 		if (save_dir == "interior-3") //vertical wall detection
 			newdoor.dir = 4
 		Artifact_Spawn(nodelandmark,"precursor")
-
 
 		logTheThing(LOG_STATION, null, "Menhir gift event at [the_tag] arm -  [log_loc(nodelandmark)]")
 		message_admins("Menhir gift event triggered at [the_tag] arm - [log_loc(nodelandmark)]")

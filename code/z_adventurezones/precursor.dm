@@ -1500,8 +1500,9 @@ var/global/list/scarysounds = list('sound/machines/engine_alert3.ogg',
 				if(!ON_COOLDOWN(src,"transpose",2.2 SECONDS) && prob(70))
 					var/do_move = TRUE
 					for(var/mob/O in oviewers(AM))
-						do_move = FALSE
-						break
+						if(!isintangible(AM))
+							do_move = FALSE
+							break
 					if(do_move)
 						var/obj/transposition_trigger/other = locate(go_to)
 						if(other) AM.set_loc(other.loc)
