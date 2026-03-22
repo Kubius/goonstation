@@ -55504,9 +55504,9 @@
 	},
 /area/iomoon/base)
 "eMP" = (
-/obj/landmark/fall/ice,
 /turf/unsimulated/floor/setpieces/ancient_pit{
-	name = "nothing"
+	name = "nothing";
+	falltarget = "deepfall"
 	},
 /area/precursor/menhir)
 "eNc" = (
@@ -79358,11 +79358,6 @@
 	},
 /turf/unsimulated/floor/wood/two,
 /area/centcom/offices/studenterhue)
-"wIp" = (
-/turf/unsimulated/floor/setpieces/ancient_pit{
-	name = "nothing"
-	},
-/area/precursor/menhir)
 "wIE" = (
 /obj/mesh/catwalk,
 /obj/cable/green{
@@ -158924,7 +158919,7 @@ uLm
 sGZ
 nNE
 sGZ
-wIp
+eMP
 eMP
 eMP
 sGZ
@@ -159219,14 +159214,14 @@ jky
 sGZ
 sGZ
 sGZ
-wIp
-wIp
+eMP
+eMP
 sGZ
 hyO
 sGZ
 sGZ
 sGZ
-wIp
+eMP
 eMP
 eMP
 sGZ
@@ -159519,10 +159514,10 @@ jky
 jky
 sGZ
 sGZ
-wIp
-wIp
-wIp
-wIp
+eMP
+eMP
+eMP
+eMP
 sGZ
 hyO
 sGZ
@@ -159820,11 +159815,11 @@ jky
 jky
 sGZ
 sGZ
-wIp
 eMP
 eMP
 eMP
-wIp
+eMP
+eMP
 sGZ
 hyO
 sGZ
@@ -160121,12 +160116,12 @@ aaa
 jky
 jky
 sGZ
-wIp
-wIp
 eMP
 eMP
 eMP
-wIp
+eMP
+eMP
+eMP
 sGZ
 uLm
 xmo
@@ -164953,12 +164948,12 @@ aaa
 jky
 jky
 sGZ
-wIp
-wIp
 eMP
 eMP
 eMP
-wIp
+eMP
+eMP
+eMP
 sGZ
 uLm
 fAw
@@ -165256,11 +165251,11 @@ jky
 jky
 sGZ
 sGZ
-wIp
 eMP
 eMP
 eMP
-wIp
+eMP
+eMP
 sGZ
 hyO
 sGZ
@@ -165559,10 +165554,10 @@ jky
 jky
 sGZ
 sGZ
-wIp
-wIp
-wIp
-wIp
+eMP
+eMP
+eMP
+eMP
 sGZ
 hyO
 sGZ
@@ -165863,14 +165858,14 @@ jky
 sGZ
 sGZ
 sGZ
-wIp
-wIp
+eMP
+eMP
 sGZ
 hyO
 sGZ
 sGZ
 sGZ
-wIp
+eMP
 eMP
 eMP
 sGZ
@@ -166172,7 +166167,7 @@ uLm
 sGZ
 nNE
 sGZ
-wIp
+eMP
 eMP
 eMP
 sGZ

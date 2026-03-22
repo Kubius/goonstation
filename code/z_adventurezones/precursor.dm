@@ -372,7 +372,7 @@ ABSTRACT_TYPE(/datum/menhir_puzzle)
 	target_path = /obj/item/reagent_containers/food/snacks/plant
 	desc_strings = list(
 		"The bounty of the land lies before you. If you could grasp just one piece...",
-		"Your hand wraps around a stem, snapping it off in one quick motion."
+		"Your hand wraps around a stem holding a succulent morsel, snapping it off in one quick motion."
 	)
 
 /datum/menhir_puzzle/rddiploma
@@ -385,7 +385,7 @@ ABSTRACT_TYPE(/datum/menhir_puzzle)
 	target_path = /obj/item/raw_material/cobryl
 	desc_strings = list(
 		"Your hand touches bright, cold metal, its texture raw and forbidding. You can't explain why, but it feels deeply familiar.",
-		"A strange tingling traces the bounds of a silvery vein through the earth, as though it were your limb."
+		"A strange tingling traces the bounds of a silvery vein through cold stone, as though it were your limb."
 	)
 
 /datum/menhir_puzzle/coin
