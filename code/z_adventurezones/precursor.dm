@@ -486,7 +486,7 @@ ABSTRACT_TYPE(/datum/menhir_puzzle)
 			if(src.safeish && prob(95)) // menhir cowardice
 				user.visible_message("<b>[user] is whisked away somewhere by [src]!</b>")
 				var/otherside = get_turf(other)
-				do_teleport(AM,otherside,FALSE,FALSE)
+				do_teleport(user,otherside,FALSE,FALSE)
 			else
 				user.visible_message(SPAN_ALERT("<b>[user] is blasted away somewhere by [src]! Holy shit!</b>"))
 				var/otherside = get_turf(other)
