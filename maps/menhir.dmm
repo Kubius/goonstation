@@ -1837,6 +1837,7 @@
 /obj/stool/chair{
 	dir = 1
 	},
+/mob/living/carbon/human/npc/monkey/mrs_muggles,
 /turf/simulated/floor/grey/side{
 	dir = 4
 	},
@@ -6298,6 +6299,14 @@
 	},
 /turf/simulated/floor/minitiles/black,
 /area/station/bridge)
+"dQn" = (
+/obj/stool/bar,
+/obj/disposalpipe/segment/horizontal,
+/mob/living/carbon/human/npc/monkey/mr_muggles,
+/turf/simulated/floor/carpet{
+	icon_state = "fred2"
+	},
+/area/station/crew_quarters/cafeteria)
 "dQW" = (
 /turf/simulated/wall/auto/reinforced/supernorn,
 /area/station/garden/owlery)
@@ -12444,6 +12453,10 @@
 	},
 /turf/simulated/floor/plating,
 /area/ghostdrone_factory)
+"hEK" = (
+/mob/living/carbon/human/npc/monkey/stirstir,
+/turf/simulated/floor/black/grime,
+/area/station/security/brig/genpop)
 "hEW" = (
 /obj/decal/tile_edge/line/blue{
 	dir = 4;
@@ -22210,6 +22223,7 @@
 	dir = 4
 	},
 /obj/disposalpipe/segment/horizontal,
+/obj/mapping_helper/access/maint,
 /turf/simulated/floor/yellowblack{
 	dir = 8
 	},
@@ -34179,6 +34193,12 @@
 /obj/item/device/radio/beacon,
 /turf/simulated/floor/specialroom/chapel,
 /area/station/chapel/sanctuary)
+"uKI" = (
+/obj/machinery/light/small/floor,
+/turf/simulated/floor/shuttle,
+/area/station/hallway/secondary/entry{
+	name = "Arrival Concourse"
+	})
 "uLh" = (
 /turf/simulated/floor/black/grime,
 /area/station/engine/monitoring)
@@ -38977,6 +38997,12 @@
 	dir = 8
 	},
 /area/station/chapel/sanctuary)
+"xxz" = (
+/obj/machinery/light/small/floor,
+/turf/simulated/floor/shuttle,
+/area/station/maintenance/outer/sw{
+	name = "Arrivals Auxiliary Arm"
+	})
 "xyg" = (
 /obj/machinery/vehicle/escape_pod{
 	dir = 1
@@ -39836,6 +39862,7 @@
 /obj/cable{
 	icon_state = "1-2"
 	},
+/obj/mapping_helper/access/maint,
 /turf/simulated/floor/black,
 /area/station/maintenance/south)
 "xVZ" = (
@@ -82616,10 +82643,10 @@ sEf
 sEf
 sEf
 qib
+xxz
 boa
 boa
-boa
-boa
+xxz
 qib
 sEf
 sEf
@@ -85081,7 +85108,7 @@ eaM
 elK
 sCA
 nTz
-lhk
+dQn
 iec
 muM
 xwd
@@ -85636,10 +85663,10 @@ sEf
 sEf
 sEf
 edW
+uKI
 rPI
 rPI
-rPI
-rPI
+uKI
 edW
 sEf
 sEf
@@ -97489,7 +97516,7 @@ wpW
 wpL
 lNh
 pBE
-iua
+hEK
 iua
 iua
 vSm
