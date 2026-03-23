@@ -5613,15 +5613,6 @@
 /area/station/medical/crematorium)
 "dtB" = (
 /obj/table/auto,
-/obj/item/staple_gun{
-	pixel_x = -4;
-	pixel_y = -11
-	},
-/obj/machinery/phone,
-/obj/item/spraybottle/cleaner{
-	pixel_y = -13;
-	pixel_x = 5
-	},
 /obj/machinery/light_switch/west,
 /obj/machinery/camera/directional/west{
 	pixel_y = 10
@@ -10075,6 +10066,9 @@
 /obj/machinery/sink{
 	dir = 4
 	},
+/obj/item/device/radio/intercom/medical{
+	dir = 4
+	},
 /turf/simulated/floor/redwhite{
 	dir = 8
 	},
@@ -14284,6 +14278,8 @@
 	layer = 9.1;
 	pixel_x = -10
 	},
+/obj/cable,
+/obj/machinery/power/data_terminal,
 /turf/simulated/floor/red,
 /area/station/medical/medbay/surgery)
 "iLZ" = (
@@ -17846,7 +17842,9 @@
 	},
 /obj/item/suture,
 /obj/item/suture,
-/obj/item/device/radio/intercom/medical,
+/obj/machinery/phone/wall{
+	pixel_y = 32
+	},
 /turf/simulated/floor/redwhite{
 	dir = 1
 	},
@@ -29270,6 +29268,10 @@
 /obj/blind_switch/area/east{
 	pixel_y = 18
 	},
+/obj/item/spraybottle/cleaner{
+	pixel_y = -11;
+	pixel_x = -9
+	},
 /turf/simulated/floor/red,
 /area/station/medical/medbay/surgery)
 "rRZ" = (
@@ -31171,6 +31173,9 @@
 	},
 /obj/disposalpipe/segment/morgue{
 	dir = 4
+	},
+/obj/cable{
+	icon_state = "2-8"
 	},
 /turf/simulated/floor/redwhite{
 	dir = 8
