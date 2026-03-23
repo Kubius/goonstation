@@ -55494,7 +55494,7 @@
 /obj/precursor_puzzle/innervator{
 	pixel_y = -3;
 	pixel_x = -22;
-	vision_description = "An arc of blued silver, whispering the names of places."
+	vision_description = "An arc of blued silver, whispering the names of places. It calls from the south."
 	},
 /turf/unsimulated/floor/setpieces/bluefloor{
 	dir = 1
@@ -158955,7 +158955,7 @@ nNE
 sGZ
 eMP
 eMP
-eMP
+hyO
 sGZ
 sGZ
 sGZ
@@ -159257,7 +159257,7 @@ sGZ
 sGZ
 eMP
 eMP
-ffn
+uLm
 sGZ
 nNE
 nNE
@@ -159549,7 +159549,7 @@ jky
 sGZ
 sGZ
 eMP
-eMP
+hyO
 eMP
 eMP
 sGZ
@@ -159559,7 +159559,7 @@ hyO
 sGZ
 sGZ
 sGZ
-aRU
+gci
 sGZ
 sGZ
 sGZ
@@ -159851,7 +159851,7 @@ sGZ
 sGZ
 eMP
 eMP
-eMP
+hyO
 eMP
 eMP
 sGZ
@@ -159861,7 +159861,7 @@ nNE
 sGZ
 nNE
 sGZ
-nNE
+hyO
 sGZ
 nNE
 sGZ
@@ -160153,7 +160153,7 @@ sGZ
 eMP
 eMP
 eMP
-eMP
+hyO
 ffn
 eMP
 sGZ
@@ -160163,7 +160163,7 @@ lkr
 xmo
 lkr
 vRZ
-lkr
+eli
 lkr
 lkr
 lkr
@@ -160465,7 +160465,7 @@ nNE
 sGZ
 nNE
 sGZ
-nNE
+hyO
 sGZ
 nNE
 sGZ
@@ -160757,7 +160757,7 @@ lkr
 kDb
 lkr
 vRZ
-lkr
+eli
 lkr
 lkr
 lkr
@@ -164381,7 +164381,7 @@ lkr
 kDb
 lkr
 vRZ
-lkr
+eli
 lkr
 lkr
 lkr
@@ -164693,7 +164693,7 @@ nNE
 sGZ
 nNE
 sGZ
-nNE
+hyO
 sGZ
 nNE
 sGZ
@@ -164985,7 +164985,7 @@ sGZ
 eMP
 eMP
 eMP
-eMP
+hyO
 ffn
 eMP
 sGZ
@@ -164995,7 +164995,7 @@ lkr
 xmo
 lkr
 vRZ
-lkr
+eli
 lkr
 lkr
 lkr
@@ -165287,7 +165287,7 @@ sGZ
 sGZ
 eMP
 eMP
-eMP
+hyO
 eMP
 eMP
 sGZ
@@ -165297,7 +165297,7 @@ nNE
 sGZ
 nNE
 sGZ
-nNE
+hyO
 sGZ
 nNE
 sGZ
@@ -165589,7 +165589,7 @@ jky
 sGZ
 sGZ
 eMP
-eMP
+hyO
 eMP
 eMP
 sGZ
@@ -165599,7 +165599,7 @@ hyO
 sGZ
 sGZ
 sGZ
-aRU
+gci
 sGZ
 sGZ
 sGZ
@@ -165901,7 +165901,7 @@ sGZ
 sGZ
 eMP
 eMP
-ffn
+uLm
 sGZ
 nNE
 nNE
@@ -166203,7 +166203,7 @@ nNE
 sGZ
 eMP
 eMP
-eMP
+hyO
 sGZ
 sGZ
 sGZ
