@@ -56646,6 +56646,17 @@
 	},
 /turf/unsimulated/wall/auto/adventure/icemooninterior,
 /area/precursor)
+"fEd" = (
+/obj/machinery/door/unpowered/blue{
+	friendly_object = /obj/item/raw_material/cobryl;
+	color = "#f7e0e0";
+	name = "thrumming edifice";
+	desc = "The fissures and seams run red. That can't be good."
+	},
+/turf/unsimulated/floor/setpieces/bluefloor{
+	dir = 1
+	},
+/area/precursor/menhir)
 "fEh" = (
 /obj/decal/poster/wallsign/framed_award/mdlicense{
 	desc = "This is Sirka Greenest's Head Surgeon medical licence. Worth nothing these days.";
@@ -56913,7 +56924,7 @@
 /area/iomoon/base)
 "fQM" = (
 /obj/precursor_puzzle/innervator{
-	vision_description = "The storms of deepest blue, aching for the return of the estranged."
+	vision_description = "A cold, silver stone lifts itself before your eyes. A voice cries out in warning. A chorus' shriek suspended in the air."
 	},
 /turf/unsimulated/floor/setpieces/bluefloor,
 /area/precursor/menhir)
@@ -58172,7 +58183,8 @@
 "gJf" = (
 /obj/precursor_puzzle/orb_stand{
 	id = "THEN";
-	target_id = "NOW"
+	target_id = "NOW";
+	safeish = 1
 	},
 /turf/unsimulated/floor/setpieces/bluefloor,
 /area/precursor/menhir)
@@ -58907,7 +58919,7 @@
 /turf/unsimulated/floor/damaged1,
 /area/watchful_eye_sensor)
 "hpW" = (
-/mob/living/critter/shade,
+/mob/living/critter/shade/lordly,
 /turf/unsimulated/floor/setpieces/bluefloor{
 	dir = 8
 	},
@@ -61483,7 +61495,8 @@
 "jkW" = (
 /obj/precursor_puzzle/orb_stand{
 	id = "FORGOTTEN";
-	target_id = "FORLORN"
+	target_id = "FORLORN";
+	safeish = 1
 	},
 /turf/unsimulated/floor/setpieces/bluefloor,
 /area/precursor/menhir)
@@ -62246,6 +62259,9 @@
 /obj/rack/precursor,
 /obj/map/light/dimred,
 /obj/random_item_spawner/menhir/one,
+/obj/precursor_puzzle/innervator{
+	vision_description = "The storms of deepest blue, aching for the return of the estranged."
+	},
 /turf/unsimulated/floor/setpieces/bluefloor{
 	dir = 4
 	},
@@ -64795,6 +64811,11 @@
 "lGN" = (
 /turf/unsimulated/floor/void/channel,
 /area/adventure/channel)
+"lGO" = (
+/obj/rack/precursor,
+/obj/item/raw_material/cobryl,
+/turf/unsimulated/floor/setpieces/bluefloor,
+/area/precursor/menhir)
 "lGP" = (
 /turf/unsimulated/floor/logo_xg{
 	icon_state = "logo_xg14"
@@ -72458,7 +72479,8 @@
 "rwz" = (
 /obj/precursor_puzzle/orb_stand{
 	id = "FORLORN";
-	target_id = "FORBIDDEN"
+	target_id = "FORBIDDEN";
+	safeish = 1
 	},
 /turf/unsimulated/floor/setpieces/bluefloor,
 /area/precursor/menhir)
@@ -72513,15 +72535,6 @@
 	},
 /turf/space,
 /area/watchful_eye_sensor)
-"ryH" = (
-/obj/fakeobject{
-	dir = 1;
-	icon = 'icons/turf/walls/precursor.dmi';
-	icon_state = "details";
-	name = "symbols"
-	},
-/turf/unsimulated/wall/auto/adventure/icemooninterior,
-/area/precursor/menhir)
 "ryU" = (
 /obj/fakeobject{
 	anchored = 1;
@@ -80651,6 +80664,12 @@
 	},
 /turf/unsimulated/floor/feather,
 /area/centcom/offices/leah)
+"xza" = (
+/obj/random_item_spawner/menhir/one,
+/turf/unsimulated/floor/setpieces/bluefloor{
+	dir = 4
+	},
+/area/precursor/menhir)
 "xzj" = (
 /mob/living/critter/shade,
 /turf/unsimulated/floor/void{
@@ -152022,7 +152041,7 @@ nNE
 sGZ
 dPy
 sGZ
-vzY
+lGO
 sGZ
 mFs
 sGZ
@@ -154146,7 +154165,7 @@ vGI
 sGZ
 nNE
 nNE
-ryH
+sGZ
 jNM
 nNE
 nNE
@@ -156245,7 +156264,7 @@ sGZ
 sGZ
 sGZ
 xVi
-hyO
+xza
 xVi
 sGZ
 vzY
@@ -156546,14 +156565,14 @@ jky
 jky
 sGZ
 mrC
-lkr
+kDb
 hpW
 lkr
 lkr
 lkr
 lkr
 mrC
-xmo
+fEd
 lkr
 xmo
 lkr
@@ -156849,7 +156868,7 @@ jky
 sGZ
 sGZ
 xVi
-hyO
+xza
 xVi
 sGZ
 vzY

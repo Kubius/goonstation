@@ -2062,6 +2062,10 @@
 /obj/cable{
 	icon_state = "1-8"
 	},
+/obj/decal/tile_edge/floorguide/mining{
+	dir = 8
+	},
+/obj/decal/tile_edge/floorguide/arrow_s,
 /turf/simulated/floor/orangeblack/side{
 	dir = 8
 	},
@@ -2268,7 +2272,8 @@
 /obj/effects/menhir_fog,
 /obj/precursor_puzzle/orb_stand{
 	id = "NOW";
-	target_id = "THEN"
+	target_id = "THEN";
+	safeish = 1
 	},
 /turf/unsimulated/floor/setpieces/bluefloor,
 /area/station/crown)
@@ -16569,7 +16574,7 @@
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
 	dir = 6
 	},
-/obj/kitchenspike,
+/obj/machinery/vending/monkey/genetics,
 /turf/simulated/floor/specialroom/freezer,
 /area/station/crew_quarters/catering)
 "kjX" = (
@@ -21404,7 +21409,7 @@
 /turf/simulated/floor/plating,
 /area/ghostdrone_factory)
 "nln" = (
-/obj/machinery/manufacturer/personnel,
+/obj/machinery/manufacturer/uniform,
 /obj/machinery/recharger/wall/sticky{
 	dir = 8
 	},
@@ -25185,7 +25190,13 @@
 	icon_state = "1-8"
 	},
 /obj/disposalpipe/segment/vertical,
-/turf/simulated/floor/plating,
+/obj/decal/tile_edge/floorguide/mining{
+	dir = 1
+	},
+/obj/decal/tile_edge/floorguide/arrow_s{
+	dir = 4
+	},
+/turf/simulated/floor/orangeblack,
 /area/station/maintenance/southwest)
 "pqF" = (
 /obj/lattice{
@@ -28116,8 +28127,9 @@
 	name = "Logistics Dock"
 	})
 "rjA" = (
-/obj/stool/bed/moveable,
-/obj/item/clothing/suit/bedsheet,
+/obj/machinery/sleeper/compact{
+	dir = 8
+	},
 /turf/simulated/floor,
 /area/station/hallway/primary/west)
 "rjF" = (
@@ -31177,6 +31189,10 @@
 /obj/cable{
 	icon_state = "2-8"
 	},
+/obj/decal/tile_edge/floorguide/medbay{
+	dir = 8
+	},
+/obj/decal/tile_edge/floorguide/arrow_w,
 /turf/simulated/floor/redwhite{
 	dir = 8
 	},
@@ -34244,6 +34260,10 @@
 	},
 /obj/cable{
 	icon_state = "2-4"
+	},
+/obj/decal/tile_edge/floorguide/mining,
+/obj/decal/tile_edge/floorguide/arrow_s{
+	dir = 4
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/southwest)
@@ -38681,6 +38701,12 @@
 	},
 /obj/cable{
 	icon_state = "4-8"
+	},
+/obj/decal/tile_edge/floorguide/arrow_w{
+	dir = 8
+	},
+/obj/decal/tile_edge/floorguide/mining{
+	dir = 1
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/southwest)

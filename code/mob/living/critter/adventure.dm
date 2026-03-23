@@ -204,6 +204,14 @@ TYPEINFO(/mob/living/critter/shade)
 			src.say(pick("siskur, siskur ina na sukkal...","ára ina gíg, úš ina ur zal...","lú-érim! lú-érim!","áš á-zi-ga...bal, na, e-zé ha-lam ina é si-ga..."))
 			// sacrifice, sacrifice the human envoy! // praise the night, kill the servant of light // enemy! enemy! // cursed with violence, human, you ruin the quiet house
 
+/mob/living/critter/shade/lordly
+	name = "voice of shadow"
+	desc = "They sing, they sing, they sing."
+	base_move_delay = 3
+	base_walk_delay = 4
+	health_brute = 708
+	health_burn = 708
+
 /mob/living/critter/shade/crew
 	name = "faded scientist"
 	desc = "Something is terribly wrong with them."

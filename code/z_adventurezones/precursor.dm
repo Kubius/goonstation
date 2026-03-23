@@ -444,6 +444,7 @@ ABSTRACT_TYPE(/datum/menhir_puzzle)
 	var/target_id = 1
 	var/assembled = 0
 	var/ready = 0
+	var/safeish = 0
 
 	ex_act(severity)
 		return
@@ -482,15 +483,20 @@ ABSTRACT_TYPE(/datum/menhir_puzzle)
 
 		SPAWN(1 DECI SECOND)
 			src.ready = 0 // disable momentarily to prevent spamming
-			user.visible_message(SPAN_ALERT("<b>[user] is blasted away somewhere by [src]! Holy shit!</b>"))
-			var/otherside = get_turf(other)
-			user.set_loc(otherside)
-			explosion(src,src.loc,-1,-1,1,2)
-			playsound(src.loc, "explosion", 60, 1)
-			explosion(src,otherside,-1,-1,1,2)
-			if(ishuman(user))
-				var/mob/living/carbon/human/H = user
-				H:update_burning(5) // this isn't a safe way to travel at all!!!
+			if(src.safeish && prob(95)) // menhir cowardice
+				user.visible_message("<b>[user] is whisked away somewhere by [src]!</b>")
+				var/otherside = get_turf(other)
+				do_teleport(AM,otherside,FALSE,FALSE)
+			else
+				user.visible_message(SPAN_ALERT("<b>[user] is blasted away somewhere by [src]! Holy shit!</b>"))
+				var/otherside = get_turf(other)
+				user.set_loc(otherside)
+				explosion(src,src.loc,-1,-1,1,2)
+				playsound(src.loc, "explosion", 60, 1)
+				explosion(src,otherside,-1,-1,1,2)
+				if(ishuman(user))
+					var/mob/living/carbon/human/H = user
+					H:update_burning(5) // this isn't a safe way to travel at all!!!
 			sleep(5 SECONDS)
 			src.ready = 1
 
