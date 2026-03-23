@@ -50,7 +50,7 @@
 			if (save_dir == "interior-3") //vertical wall detection
 				newdoor.dir = 4
 
-		var/atom/movable/thing = locate(/atom/movable in nodelandmark)
+		var/atom/movable/thing = locate(/atom/movable) in nodelandmark
 		if(thing && thing.density)
 			var/turf/alternate_spawn = get_step_truly_rand(nodelandmark)
 			Artifact_Spawn(alternate_spawn,"precursor")
