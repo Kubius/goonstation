@@ -56015,6 +56015,15 @@
 	temperature = 313.15
 	},
 /area/iomoon/caves)
+"ffn" = (
+/obj/map/light/cyan{
+	brightness = 7
+	},
+/turf/unsimulated/floor/setpieces/ancient_pit{
+	name = "nothing";
+	falltarget = "deepfall"
+	},
+/area/precursor/menhir)
 "ffI" = (
 /obj/item/caution{
 	desc = "Caution! Construction Zone!";
@@ -159248,7 +159257,7 @@ sGZ
 sGZ
 eMP
 eMP
-eMP
+ffn
 sGZ
 nNE
 nNE
@@ -160145,7 +160154,7 @@ eMP
 eMP
 eMP
 eMP
-eMP
+ffn
 eMP
 sGZ
 uLm
@@ -164977,7 +164986,7 @@ eMP
 eMP
 eMP
 eMP
-eMP
+ffn
 eMP
 sGZ
 uLm
@@ -165892,7 +165901,7 @@ sGZ
 sGZ
 eMP
 eMP
-eMP
+ffn
 sGZ
 nNE
 nNE

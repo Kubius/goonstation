@@ -1501,6 +1501,7 @@ var/global/list/scarysounds = list('sound/machines/engine_alert3.ogg',
 	Crossed(atom/movable/AM as mob|obj)
 		..()
 		if(!go_to) return
+		var/obj/transposition_trigger/other = locate(go_to)
 		if(ismob(AM))
 			if(AM:client)
 				if(isintangible(AM) || istype(AM,/mob/dead/observer)) return
@@ -1510,8 +1511,11 @@ var/global/list/scarysounds = list('sound/machines/engine_alert3.ogg',
 						if(!isintangible(AM) && !istype(AM,/mob/dead/observer))
 							do_move = FALSE
 							break
+					for(var/mob/O in viewers(other))
+						if(!isintangible(AM) && !istype(AM,/mob/dead/observer))
+							do_move = FALSE
+							break
 					if(do_move)
-						var/obj/transposition_trigger/other = locate(go_to)
 						if(other) AM.set_loc(other.loc)
 
 /obj/item/clothing/gloves/ring/ominous
