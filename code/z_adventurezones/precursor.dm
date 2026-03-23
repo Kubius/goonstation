@@ -409,6 +409,13 @@ ABSTRACT_TYPE(/datum/menhir_puzzle)
 		"A figure with a sun for a head seeks a frameless disc through which your hand may be seen. As you hold it up, an intense pain flashes in your eye."
 	)
 
+/datum/menhir_puzzle/instrument
+	target_path = /obj/item/instrument
+	desc_strings = list(
+		"A confluence of tones that pierces your mind demands another voice. Your hands begin to move on their own...",
+		"Mourners with no faces play a song that has lain dead for thousands of years. You find yourself playing along."
+	)
+
 /obj/precursor_puzzle/innervator
 	name = "peculiar panel"
 	desc = "You can't explain why, but it feels like it's watching you."
@@ -1549,16 +1556,19 @@ var/global/list/scarysounds = list('sound/machines/engine_alert3.ogg',
 		processing_items.Remove(src)
 		. = ..()
 
-	equipped(var/mob/user, var/slot)
+	equipped(var/mob/user, var/slot) //add an equip noise (whispers, spooky ring noise?) probably also unequip
 		. = ..()
 		is_emitting = TRUE
-		//user.bioHolder?.AddEffect("unnatural_vitality") //makes you stutterwalk for reasons entirely beyond my comprehension
+		var/datum/bioEffect/regenerator/unnatural/our_effect = user.bioHolder?.AddEffect("unnatural_vitality")
+		if(our_effect)
+			our_effect.host_ring = src
+			our_effect.RegisterSignal(user, COMSIG_MOB_ATTACKED_PRE, /datum/bioEffect/regenerator/unnatural/proc/agitate)
 		processing_items.Add(src)
 
 	unequipped(var/mob/user)
 		. = ..()
 		is_emitting = FALSE
-		//user.bioHolder?.RemoveEffect("unnatural_vitality")
+		user.bioHolder?.RemoveEffect("unnatural_vitality")
 		processing_items.Remove(src)
 
 	process()
@@ -1632,6 +1642,15 @@ var/global/list/scarysounds = list('sound/machines/engine_alert3.ogg',
 	heal_per_tick = 2
 	regrow_prob = 0
 	acceptable_in_mutini = 0
+	var/obj/item/clothing/gloves/ring/ominous/host_ring = null
+
+	OnRemove()
+		. = ..()
+		if(owner) src.UnregisterSignal(owner, COMSIG_MOB_ATTACKED_PRE)
+
+	proc/agitate()
+		if(host_ring)
+			host_ring.cumulation++
 
 #define MAX_BONES 10 //Max Bones, skeleton P.I.
 /obj/critter/bone_king

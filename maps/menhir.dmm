@@ -1009,12 +1009,6 @@
 	},
 /turf/unsimulated/wall/auto/adventure/icemooninterior,
 /area/station/crown)
-"aIf" = (
-/obj/stool/chair/comfy{
-	dir = 4
-	},
-/turf/simulated/floor/grey,
-/area/station/hallway/primary/west)
 "aIp" = (
 /obj/disposalpipe/segment/mail{
 	dir = 8;
@@ -76406,7 +76400,7 @@ gLT
 gLT
 pzS
 iBS
-aIf
+jUP
 dJA
 iKA
 lwh
