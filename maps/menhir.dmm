@@ -8324,13 +8324,6 @@
 	dir = 8
 	},
 /area/station/hallway/primary/east)
-"fhl" = (
-/obj/effects/menhir_fog,
-/obj/precursor_puzzle/innervator{
-	vision_description = "A lone sojourner treads stoward a dawn that will never come, his sandals wearing thin as paper."
-	},
-/turf/unsimulated/floor/setpieces/bluefloor,
-/area/station/crown)
 "fhN" = (
 /obj/table/reinforced/auto,
 /obj/item/paper_bin,
@@ -86929,7 +86922,7 @@ lhN
 lhN
 aGr
 lhN
-fhl
+xPs
 lpq
 aGr
 aGr
