@@ -439,6 +439,18 @@ ABSTRACT_TYPE(/datum/menhir_puzzle)
 			user.visible_message(SPAN_ALERT("<i>[src.vision_description]</i>"))
 			user.playsound_local_not_inworld('sound/musical_instruments/Vuvuzela_1.ogg', 12, 0, pitch = 0.2)
 
+	red_west
+		vision_description = "A procession of grievers marches toward an obsidian stairway. They stop and turn to you, their eyes visible for only a moment before a great flame scours the trail."
+
+	red_east
+		vision_description = "A cold, silver stone sits before you. A voice speaks in a tongue you do not recognize, and by your hand, the stone strikes your head, again and again."
+
+	ring_west
+		vision_description = "A choir assembles in a hall of gathering. They sing, they sing, they sing. But no one remains to listen."
+
+	ring_east
+		vision_description = "A choir grieves in the sea of facets. They sing, they sing, they sing. Barely do they remember those for whom they sung."
+
 /obj/precursor_puzzle/orb_stand
 	name = "cold device"
 	icon = 'icons/obj/artifacts/puzzles.dmi'

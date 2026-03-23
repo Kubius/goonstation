@@ -57699,6 +57699,12 @@
 /obj/machinery/navbeacon/lunar/tour6,
 /turf/unsimulated/floor/plating,
 /area/moon/museum)
+"guK" = (
+/obj/precursor_puzzle/innervator{
+	vision_description = "éd, èd, lú-kúr-ra..."
+	},
+/turf/unsimulated/floor/setpieces/bluefloor,
+/area/precursor/menhir)
 "guT" = (
 /obj/mapping_helper/wingrille_spawn/auto,
 /turf/unsimulated/floor/plating,
@@ -60500,6 +60506,12 @@
 "iDk" = (
 /turf/unsimulated/floor/grime,
 /area/sim/gunsim/lobby)
+"iDu" = (
+/obj/precursor_puzzle/innervator{
+	vision_description = "e-zé ina gú-ri-ta..."
+	},
+/turf/unsimulated/floor/setpieces/bluefloor,
+/area/precursor/menhir)
 "iDD" = (
 /obj/landmark/lrt/io,
 /turf/unsimulated/iomoon/plating,
@@ -62252,9 +62264,6 @@
 /obj/rack/precursor,
 /obj/map/light/dimred,
 /obj/random_item_spawner/menhir/one,
-/obj/precursor_puzzle/innervator{
-	vision_description = "The storms of deepest blue, aching for the return of the estranged."
-	},
 /turf/unsimulated/floor/setpieces/bluefloor{
 	dir = 4
 	},
@@ -76565,9 +76574,7 @@
 /obj/map/light/cyan{
 	brightness = 7
 	},
-/obj/precursor_puzzle/innervator{
-	vision_description = "éd, èd, lú-kúr-ra..."
-	},
+/obj/precursor_puzzle/innervator/ring_east,
 /turf/unsimulated/floor/setpieces/bluefloor,
 /area/precursor/menhir)
 "uNO" = (
@@ -78907,9 +78914,7 @@
 /obj/map/light/cyan{
 	brightness = 7
 	},
-/obj/precursor_puzzle/innervator{
-	vision_description = "e-zé ina gú-ri-ta..."
-	},
+/obj/precursor_puzzle/innervator/ring_west,
 /turf/unsimulated/floor/setpieces/bluefloor,
 /area/precursor/menhir)
 "wsB" = (
@@ -153539,7 +153544,7 @@ lkr
 sGZ
 lkr
 sGZ
-nNE
+iDu
 nNE
 nNE
 hyO
@@ -154747,7 +154752,7 @@ lkr
 sGZ
 lkr
 sGZ
-nNE
+guK
 nNE
 nNE
 hyO
