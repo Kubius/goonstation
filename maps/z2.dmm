@@ -55514,9 +55514,11 @@
 	},
 /area/iomoon/base)
 "eMP" = (
-/turf/unsimulated/floor/setpieces/ancient_pit{
-	name = "nothing";
-	falltarget = "deepfall"
+/turf/unsimulated/floor/setpieces/bluefloor{
+	icon_state = "black";
+	density = 1;
+	desc = "The silence is deafening.";
+	name = "nothing"
 	},
 /area/precursor/menhir)
 "eNc" = (
@@ -56015,15 +56017,6 @@
 	temperature = 313.15
 	},
 /area/iomoon/caves)
-"ffn" = (
-/obj/map/light/cyan{
-	brightness = 7
-	},
-/turf/unsimulated/floor/setpieces/ancient_pit{
-	name = "nothing";
-	falltarget = "deepfall"
-	},
-/area/precursor/menhir)
 "ffI" = (
 /obj/item/caution{
 	desc = "Caution! Construction Zone!";
@@ -65939,12 +65932,6 @@
 /obj/decal/stripe_delivery,
 /turf/unsimulated/floor/plating,
 /area/crater/biodome/research)
-"mFs" = (
-/obj/precursor_puzzle/innervator{
-	vision_description = "A procession of grievers shrouded in silver, singing the names of the places."
-	},
-/turf/unsimulated/floor/setpieces/bluefloor,
-/area/precursor/menhir)
 "mFv" = (
 /obj/decal/cleanable/dirt/dirt5,
 /obj/stool/bench/blue/auto,
@@ -72480,7 +72467,8 @@
 /obj/precursor_puzzle/orb_stand{
 	id = "FORLORN";
 	target_id = "FORBIDDEN";
-	safeish = 1
+	safeish = 1;
+	receive_only = 1
 	},
 /turf/unsimulated/floor/setpieces/bluefloor,
 /area/precursor/menhir)
@@ -152043,7 +152031,7 @@ dPy
 sGZ
 lGO
 sGZ
-mFs
+nNE
 sGZ
 nNE
 nNE
@@ -158993,7 +158981,7 @@ nNE
 sGZ
 eMP
 eMP
-hyO
+eMP
 sGZ
 sGZ
 sGZ
@@ -159295,7 +159283,7 @@ sGZ
 sGZ
 eMP
 eMP
-uLm
+eMP
 sGZ
 nNE
 nNE
@@ -159587,7 +159575,7 @@ jky
 sGZ
 sGZ
 eMP
-hyO
+eMP
 eMP
 eMP
 sGZ
@@ -159889,7 +159877,7 @@ sGZ
 sGZ
 eMP
 eMP
-hyO
+eMP
 eMP
 eMP
 sGZ
@@ -160191,8 +160179,8 @@ sGZ
 eMP
 eMP
 eMP
-hyO
-ffn
+eMP
+eMP
 eMP
 sGZ
 uLm
@@ -165023,8 +165011,8 @@ sGZ
 eMP
 eMP
 eMP
-hyO
-ffn
+eMP
+eMP
 eMP
 sGZ
 uLm
@@ -165325,7 +165313,7 @@ sGZ
 sGZ
 eMP
 eMP
-hyO
+eMP
 eMP
 eMP
 sGZ
@@ -165627,7 +165615,7 @@ jky
 sGZ
 sGZ
 eMP
-hyO
+eMP
 eMP
 eMP
 sGZ
@@ -165939,7 +165927,7 @@ sGZ
 sGZ
 eMP
 eMP
-uLm
+eMP
 sGZ
 nNE
 nNE
@@ -166241,7 +166229,7 @@ nNE
 sGZ
 eMP
 eMP
-hyO
+eMP
 sGZ
 sGZ
 sGZ

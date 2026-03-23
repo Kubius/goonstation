@@ -452,6 +452,7 @@ ABSTRACT_TYPE(/datum/menhir_puzzle)
 	var/assembled = 0
 	var/ready = 0
 	var/safeish = 0
+	var/receive_only = 0
 
 	ex_act(severity)
 		return
@@ -462,6 +463,9 @@ ABSTRACT_TYPE(/datum/menhir_puzzle)
 			src.icon_state = "orb_activated"
 			src.desc = "Whatever it is, it seems to be active."
 			src.ready = 1 // just in case, i guess
+		else if(receive_only)
+			src.icon_state = "orb_quiet"
+			src.desc = "It hums softly to itself."
 		else
 			src.icon_state = "orb_holder"
 			src.desc = "It seems to be missing something."
@@ -473,6 +477,10 @@ ABSTRACT_TYPE(/datum/menhir_puzzle)
 		src.tag = "orb_stand_[id]"
 
 	attack_hand(mob/user)
+		if (src.receive_only)
+			boutput(user, SPAN_NOTICE("[src] doesn't respond to your touch.")) //span_notice is deliberate to indicate nothing is amiss here
+			return
+
 		if (user.stat || user.getStatusDuration("knockdown") || BOUNDS_DIST(user, src) > 0)
 			return
 

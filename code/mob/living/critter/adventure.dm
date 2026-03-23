@@ -206,7 +206,7 @@ TYPEINFO(/mob/living/critter/shade)
 
 /mob/living/critter/shade/lordly
 	name = "voice of shadow"
-	desc = "They sing, they sing, they sing."
+	desc = "Why do you defile the heavens?"
 	base_move_delay = 3
 	base_walk_delay = 4
 	health_brute = 708
