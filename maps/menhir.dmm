@@ -1647,9 +1647,7 @@
 /obj/stool/chair{
 	dir = 4
 	},
-/obj/item/device/radio/intercom{
-	pixel_y = -1
-	},
+/obj/item/device/radio/intercom,
 /turf/simulated/floor/grey/side{
 	dir = 4
 	},
@@ -9679,9 +9677,7 @@
 /area/station/crown)
 "fXn" = (
 /obj/machinery/portable_atmospherics/scrubber,
-/obj/item/device/radio/intercom{
-	pixel_y = -1
-	},
+/obj/item/device/radio/intercom,
 /turf/simulated/floor/black,
 /area/station/hallway/secondary/east{
 	name = "East Shuttle Concourse"

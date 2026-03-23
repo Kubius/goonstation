@@ -32,7 +32,7 @@ ADMIN_INTERACT_PROCS(/obj/machinery/door/unpowered/blue, proc/revoke_door)
 			else if(src.needs_precursor && !ON_COOLDOWN(src, "smacksounde", 1 SECOND))
 				boutput(user,SPAN_ALERT("[src] hums strangely in response to your touch. It feels like it's palpating the area..."))
 				var/found_large = FALSE
-				for (var/obj/O in orange(1,src))
+				for (var/obj/O in orange(2,src))
 					if(O.artifact && O.artifact.artitype.name == "precursor")
 						found_large = TRUE
 						break
@@ -57,7 +57,7 @@ ADMIN_INTERACT_PROCS(/obj/machinery/door/unpowered/blue, proc/revoke_door)
 			else if(src.needs_precursor)
 				if(!W.artifact || !W.artifact.artitype.name == "precursor")
 					var/found_large = FALSE
-					for (var/obj/O in orange(1,src))
+					for (var/obj/O in orange(2,src))
 						if(O.artifact && O.artifact.artitype.name == "precursor")
 							found_large = TRUE
 							break

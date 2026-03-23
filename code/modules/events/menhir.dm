@@ -4,7 +4,7 @@
 
 	event_effect()
 		..()
-		var/heard = FALSE // prefer an audience, if we can have one
+		var/found_wall = FALSE //don't put a door where one already exists.
 		var/turf/doorlandmark = pick_landmark(LANDMARK_MENHIR_DOOR)
 		var/turf/nodelandmark = null
 
@@ -13,28 +13,21 @@
 			message_admins("Menhir gift event couldn't find a LANDMARK_MENHIR_DOOR! Aborting event")
 			return
 
-		if (length(hearers(5, doorlandmark)) != 0 && istype(doorlandmark,/turf/unsimulated/wall))
-			for (var/mob/living/C in hearers(7, doorlandmark))
-				if (C.client && !isdead(C) && !isintangible(C)) // we've got an audience
-					heard = TRUE
-					break
+		if (istype(doorlandmark,/turf/unsimulated/wall))
+			found_wall = TRUE
 
-		if (!heard)
+		if (!found_wall)
 			var/firstdoorlandmark = doorlandmark
-			var/heardlandmarks = list(doorlandmark)
-			var/maxtests = 12
+			var/scanned_landmarks = list(doorlandmark)
+			var/maxtests = 16
 
-			while (length(heardlandmarks) < maxtests && heard)
-				doorlandmark = pick_landmark(LANDMARK_MENHIR_DOOR, ignorespecific = heardlandmarks)
-				heardlandmarks += doorlandmark
-				heard = FALSE
-				if (!istype(doorlandmark,/turf/unsimulated/wall))
-					continue
-				for (var/mob/living/C in hearers(7, doorlandmark))
-					if (C.client && !isdead(C) && !isintangible(C))
-						heard = TRUE
+			while (length(scanned_landmarks) < maxtests && !found_wall)
+				doorlandmark = pick_landmark(LANDMARK_MENHIR_DOOR, ignorespecific = scanned_landmarks)
+				scanned_landmarks += doorlandmark
+				if (istype(doorlandmark,/turf/unsimulated/wall))
+					found_wall = TRUE
 
-			if (!heard)
+			if (!found_wall)
 				doorlandmark = firstdoorlandmark // goes back to the first option if none are available
 
 		var/the_tag = landmarks[LANDMARK_MENHIR_DOOR][doorlandmark]
@@ -52,10 +45,17 @@
 		var/save_dir = doorlandmark.icon_state
 
 		playsound(doorlandmark, 'sound/musical_instruments/Vuvuzela_1.ogg', 40, 0, pitch = 0.2)
-		var/obj/newdoor = new /obj/machinery/door/unpowered/blue(doorlandmark)
-		if (save_dir == "interior-3") //vertical wall detection
-			newdoor.dir = 4
-		Artifact_Spawn(nodelandmark,"precursor")
+		if (found_wall)
+			var/obj/newdoor = new /obj/machinery/door/unpowered/blue(doorlandmark)
+			if (save_dir == "interior-3") //vertical wall detection
+				newdoor.dir = 4
+
+		var/atom/movable/thing = locate(/atom/movable in nodelandmark)
+		if(thing && thing.density)
+			var/turf/alternate_spawn = get_step_truly_rand(nodelandmark)
+			Artifact_Spawn(alternate_spawn,"precursor")
+		else
+			Artifact_Spawn(nodelandmark,"precursor")
 
 		logTheThing(LOG_STATION, null, "Menhir gift event at [the_tag] arm -  [log_loc(nodelandmark)]")
 		message_admins("Menhir gift event triggered at [the_tag] arm - [log_loc(nodelandmark)]")
