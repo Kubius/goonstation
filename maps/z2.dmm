@@ -56199,6 +56199,11 @@
 /obj/item/bananapeel,
 /turf/unsimulated/floor/black/side,
 /area/iomoon/base)
+"fkk" = (
+/obj/rack/precursor,
+/obj/random_item_spawner/menhir/a_bunch,
+/turf/unsimulated/floor/setpieces/bluefloor,
+/area/precursor/menhir)
 "fks" = (
 /obj/table/auto,
 /obj/item/paper/businesscard/mabinogi,
@@ -75110,6 +75115,14 @@
 "tGB" = (
 /turf/unsimulated/floor/grey/side,
 /area/centcom/offices/cogwerks)
+"tGP" = (
+/obj/precursor_puzzle/innervator{
+	vision_description = "An arc of blued silver, whispering the names of places. It calls from another time."
+	},
+/turf/unsimulated/floor/setpieces/bluefloor{
+	dir = 4
+	},
+/area/precursor/menhir)
 "tGW" = (
 /obj/machinery/r_door_control/podbay/wizard,
 /turf/unsimulated/wall/auto/supernorn/wood,
@@ -81478,6 +81491,12 @@
 	opacity = 0
 	},
 /area/titlescreen)
+"xZW" = (
+/obj/machinery/door/unpowered/blue{
+	friendly_object = /obj/item/clothing/gloves/ring/ominous
+	},
+/turf/unsimulated/wall/auto/adventure/icemooninterior,
+/area/precursor/menhir)
 "yab" = (
 /obj/decal/poster/wallsign/poster_ptoe,
 /turf/unsimulated/wall/auto/lead/blue,
@@ -152297,7 +152316,7 @@ dFc
 aaa
 jky
 sGZ
-nNE
+fkk
 sGZ
 sGZ
 fwl
@@ -152599,8 +152618,8 @@ dFc
 aaa
 jky
 sGZ
-nNE
-nNE
+lmA
+fkk
 sGZ
 sGZ
 sGZ
@@ -152901,9 +152920,9 @@ dFc
 aaa
 sGZ
 sGZ
-sGZ
 nNE
-nNE
+lmA
+fkk
 sGZ
 lkr
 xmo
@@ -153203,7 +153222,7 @@ dFc
 aaa
 sGZ
 lmA
-sGZ
+nNE
 nNE
 sGZ
 sGZ
@@ -154109,7 +154128,7 @@ dFc
 aaa
 sGZ
 nNE
-sGZ
+xZW
 eli
 sGZ
 sGZ
@@ -154412,7 +154431,7 @@ aaa
 sGZ
 nNE
 sGZ
-hyO
+tGP
 nNE
 nNE
 sGZ
@@ -155015,7 +155034,7 @@ dFc
 aaa
 sGZ
 lmA
-sGZ
+nNE
 nNE
 sGZ
 sGZ
@@ -155317,9 +155336,9 @@ dFc
 aaa
 sGZ
 sGZ
-sGZ
 nNE
-nNE
+lmA
+fkk
 sGZ
 lkr
 xmo
@@ -155619,8 +155638,8 @@ dFc
 aaa
 jky
 sGZ
-nNE
-nNE
+lmA
+fkk
 sGZ
 sGZ
 sGZ
@@ -155921,7 +155940,7 @@ dFc
 aaa
 jky
 sGZ
-nNE
+fkk
 sGZ
 sGZ
 fwl

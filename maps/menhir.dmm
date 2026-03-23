@@ -785,7 +785,7 @@
 /obj/item/hand_labeler{
 	pixel_y = 8
 	},
-/obj/noticeboard/persistent/security/directional/north,
+/obj/machinery/recharger/wall/sticky,
 /turf/simulated/floor/redblack{
 	dir = 1
 	},
@@ -7345,6 +7345,9 @@
 /turf/simulated/floor/redblack,
 /area/station/maintenance/southeast)
 "evm" = (
+/obj/item/device/radio/intercom/security{
+	dir = 4
+	},
 /turf/simulated/floor/stairs/dark/wide,
 /area/station/security/secwing)
 "evv" = (
@@ -7482,6 +7485,9 @@
 "eyy" = (
 /obj/cable{
 	icon_state = "1-10"
+	},
+/obj/machinery/recharger/wall/sticky{
+	dir = 4
 	},
 /turf/simulated/floor/black,
 /area/station/security/secwing)
@@ -9038,6 +9044,10 @@
 	icon_state = "0-9"
 	},
 /obj/machinery/power/data_terminal,
+/obj/item/device/radio/intercom/security{
+	dir = 8;
+	pixel_x = 20
+	},
 /turf/simulated/floor/red,
 /area/station/security/main{
 	name = "Security Office"
@@ -20671,8 +20681,8 @@
 /obj/cable{
 	icon_state = "1-2"
 	},
-/obj/item/device/radio/intercom/security{
-	dir = 8
+/obj/machinery/recharger/wall/sticky{
+	dir = 4
 	},
 /turf/simulated/floor/black,
 /area/station/security/secwing)
@@ -21439,7 +21449,7 @@
 /obj/item/ammo/bullets/smoke,
 /obj/item/gun/kinetic/riot40mm,
 /obj/item/gun/kinetic/riot40mm,
-/obj/item/device/radio/intercom/security,
+/obj/machinery/recharger/wall/sticky,
 /turf/simulated/floor/red,
 /area/station/security/main{
 	name = "Security Office"
@@ -25822,6 +25832,7 @@
 	pixel_x = -10;
 	pixel_y = 5
 	},
+/obj/noticeboard/persistent/security/directional/north,
 /turf/simulated/floor/redblack{
 	dir = 1
 	},

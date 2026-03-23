@@ -1569,10 +1569,10 @@ var/global/list/scarysounds = list('sound/machines/engine_alert3.ogg',
 			'sound/ambience/industrial/Precursor_Bells.ogg')
 
 			playsound(da_turf, weirdnoise, 40, 1)
-			if(prob(55))
+			if(prob(60))
 				src.its_goin_down()
 		else
-			if(prob(60)) cumulation++
+			cumulation++
 
 	proc/its_goin_down() //do the thing
 		var/our_spot = get_turf(src)

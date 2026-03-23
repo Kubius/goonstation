@@ -2557,3 +2557,7 @@
 	one
 		min_amt2spawn = 1
 		max_amt2spawn = 1
+
+	a_bunch
+		min_amt2spawn = 3
+		max_amt2spawn = 4
