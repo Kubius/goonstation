@@ -6544,6 +6544,13 @@
 /area/station/hangar/main)
 "dWl" = (
 /obj/machinery/turret,
+/obj/machinery/door_control{
+	id = "dwaine_core";
+	name = "DWAINE Core Shield";
+	pixel_x = 25;
+	dir = 4;
+	pixel_y = -5
+	},
 /turf/simulated/floor/greenblack{
 	dir = 4
 	},

@@ -62231,6 +62231,7 @@
 "jNM" = (
 /obj/rack/precursor,
 /obj/map/light/dimred,
+/obj/random_item_spawner/menhir/one,
 /turf/unsimulated/floor/setpieces/bluefloor{
 	dir = 4
 	},
@@ -63416,6 +63417,12 @@
 	icon_state = "shore-22"
 	},
 /area/titlescreen)
+"kDb" = (
+/obj/random_item_spawner/menhir/one,
+/turf/unsimulated/floor/setpieces/bluefloor{
+	dir = 1
+	},
+/area/precursor/menhir)
 "kDP" = (
 /obj/disposalpipe/segment{
 	dir = 4
@@ -77627,6 +77634,11 @@
 /obj/machinery/light/runway_light/delay3,
 /turf/space,
 /area/space)
+"vzY" = (
+/obj/rack/precursor,
+/obj/random_item_spawner/menhir/one,
+/turf/unsimulated/floor/setpieces/bluefloor,
+/area/precursor/menhir)
 "vAR" = (
 /obj/storage/closet/syndicate/personal,
 /turf/unsimulated/floor/redblack{
@@ -80326,10 +80338,6 @@
 	},
 /turf/unsimulated/floor/engine/caution/east,
 /area/hospital/samostrel)
-"xsy" = (
-/obj/item/raw_material/cobryl,
-/turf/unsimulated/floor/setpieces/bluefloor,
-/area/precursor/menhir)
 "xsG" = (
 /obj/lattice{
 	dir = 6;
@@ -81285,7 +81293,7 @@
 /turf/simulated/floor/grime,
 /area/observatory)
 "xVi" = (
-/obj/item/raw_material/starstone,
+/obj/random_item_spawner/menhir/one,
 /turf/unsimulated/floor/setpieces/bluefloor,
 /area/precursor/menhir)
 "xVP" = (
@@ -151376,11 +151384,11 @@ jky
 jky
 sGZ
 sGZ
-xsy
+nNE
 hyO
-xsy
+nNE
 sGZ
-dPy
+vzY
 sGZ
 dPy
 sGZ
@@ -151980,13 +151988,13 @@ jky
 sGZ
 sGZ
 sGZ
-xsy
+nNE
 hyO
-xsy
+nNE
 sGZ
 dPy
 sGZ
-dPy
+vzY
 sGZ
 mFs
 sGZ
@@ -155920,9 +155928,9 @@ hyO
 hyO
 hyO
 sGZ
-dPy
+vzY
 sGZ
-dPy
+vzY
 sGZ
 nNE
 sGZ
@@ -156212,9 +156220,9 @@ xVi
 hyO
 xVi
 sGZ
-dPy
+vzY
 sGZ
-dPy
+vzY
 sGZ
 fQM
 sGZ
@@ -156816,9 +156824,9 @@ xVi
 hyO
 xVi
 sGZ
-dPy
+vzY
 sGZ
-dPy
+vzY
 sGZ
 nNE
 sGZ
@@ -160737,7 +160745,7 @@ aaa
 jky
 sGZ
 lkr
-lkr
+kDb
 lkr
 vRZ
 lkr
@@ -164361,7 +164369,7 @@ aaa
 jky
 sGZ
 lkr
-lkr
+kDb
 lkr
 vRZ
 lkr
