@@ -644,8 +644,6 @@ var/global/list/mapNames = list(
 		/atom/movable/screen/parallax_render_source/typhon/menhir,
 		)
 
-	arrivals_type = MAP_SPAWN_CRYO
-
 	windows = /obj/window/auto
 	windows_thin = /obj/window/pyro
 	rwindows = /obj/window/auto/reinforced
