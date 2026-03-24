@@ -337,12 +337,14 @@
 			var/list/orbtemp = by_type[/obj/item/chilly_orb/menhir]
 			var/obj/item/chilly_orb/orb1 = pick(orbtemp)
 			orb1.id = "NOW"
-			orb1.interesting = "Scans detect: COBRYL | IRIDIUM | UNKNOWN HIGHLY-STRUCTURED ANOMALOUS MATTER"
 			orbtemp -= orb1
 			var/obj/item/chilly_orb/orb2 = pick(orbtemp)
 			orb2.id = "FORGOTTEN"
-			orb2.interesting = "Scans detect: COBRYL | IRIDIUM | UNKNOWN HIGHLY-STRUCTURED ANOMALOUS MATTER"
 			orbtemp -= orb2
+
+			//axe the rest, get rid of guesswork without a purpose
+			for (var/obj/O in orbtemp)
+				qdel(O)
 
 			var/list/puzzle_options = list()
 			for (var/puzl in concrete_typesof(/datum/menhir_puzzle))
@@ -511,9 +513,11 @@ ABSTRACT_TYPE(/datum/menhir_puzzle)
 		SPAWN(1 DECI SECOND)
 			src.ready = 0 // disable momentarily to prevent spamming
 			if(src.safeish && prob(95)) // menhir cowardice
-				user.visible_message("<b>[user] is whisked away somewhere by [src]!</b>")
+				user.visible_message("<b>[user] is [pick("whisked away","taken somewhere","sent somewhere")] by [src]!</b>")
 				var/otherside = get_turf(other)
-				do_teleport(user,otherside,FALSE,FALSE)
+				showswirl_out(user)
+				showswirl(otherside)
+				user.set_loc(otherside)
 			else
 				user.visible_message(SPAN_ALERT("<b>[user] is blasted away somewhere by [src]! Holy shit!</b>"))
 				var/otherside = get_turf(other)
@@ -1549,7 +1553,9 @@ var/global/list/scarysounds = list('sound/machines/engine_alert3.ogg',
 							do_move = FALSE
 							break
 					if(do_move)
-						if(other) AM.set_loc(other.loc)
+						if(other)
+							ON_COOLDOWN(other,"transpose",2)
+							AM.set_loc(other.loc)
 
 /obj/item/clothing/gloves/ring/ominous
 	name = "unnerving arc"
@@ -1558,6 +1564,8 @@ var/global/list/scarysounds = list('sound/machines/engine_alert3.ogg',
 	icon_state = "forbidden"
 	var/is_emitting = FALSE
 	var/cumulation = 0
+	var/agitation = 0 //is it going to vent its effects gracefully, or with ire?
+	var/mob/last_agitator = null
 
 	examine(mob/user)
 		. = ..()
@@ -1581,6 +1589,7 @@ var/global/list/scarysounds = list('sound/machines/engine_alert3.ogg',
 		is_emitting = TRUE
 		var/datum/bioEffect/regenerator/unnatural/our_effect = user.bioHolder?.AddEffect("unnatural_vitality")
 		if(our_effect)
+			user.playsound_local_not_inworld('sound/effects/brrp.ogg', 40, 1, pitch = 0.5)
 			our_effect.host_ring = src
 			our_effect.RegisterSignal(user, COMSIG_MOB_ATTACKED_PRE, /datum/bioEffect/regenerator/unnatural/proc/agitate)
 		processing_items.Add(src)
@@ -1598,50 +1607,122 @@ var/global/list/scarysounds = list('sound/machines/engine_alert3.ogg',
 			return
 		if (cumulation >= 8 && prob(src.cumulation))
 			cumulation = 0
+			src.do_a_thing()
+		else
+			if(prob(70)) cumulation++
+			if(agitation > 0) agitation--
 
+	proc/zap_agitator()
+		if(last_agitator)
+			var/area/target_area = get_area(last_agitator)
+			if(target_area.area_apc)
+				target_area.area_apc.cell.charge = target_area.area_apc.cell.maxcharge
+				arcFlash(target_area.area_apc, last_agitator, 500000)
+
+	proc/do_a_thing() //do the thing
+		var/our_spot = get_turf(src)
+		var/mob/our_mob = null
+		var/dangertime = prob(min(src.agitation,100))
+		if(ismob(src.loc))
+			our_mob = src.loc
+			if(!dangertime) //foretelling
+				boutput(our_mob,"<b>[src][pick("... chirps?"," makes a strange noise."," makes an odd chime.")]</b>")
+				var/chirpy = pick('/sound/effects/magic1.ogg','/sound/effects/magic2.ogg')
+				our_mob.playsound_local_not_inworld(chirpy, 30, 1, pitch = 0.4)
+		if(dangertime) //forewarning
 			var/weirdnoise = pick('sound/ambience/industrial/Precursor_Drone2.ogg',\
 			'sound/ambience/industrial/Precursor_Choir.ogg',\
 			'sound/ambience/industrial/Precursor_Drone3.ogg',\
 			'sound/ambience/industrial/Precursor_Bells.ogg')
 
-			playsound(da_turf, weirdnoise, 40, 1)
-			if(prob(60))
-				src.its_goin_down()
-		else
-			cumulation++
-
-	proc/its_goin_down() //do the thing
-		var/our_spot = get_turf(src)
-		var/mob/our_mob = null
-		if(ismob(src.loc))
-			our_mob = src.loc
+			playsound(our_spot, weirdnoise, 50, 1)
 		SPAWN(rand(24,48))
-			if(ismob(src.loc)) //different because of a demand for physical tie
-				boutput(our_mob,SPAN_ALERT("[src] vibrates violently!"))
-				our_mob.playsound_local_not_inworld('sound/effects/brrp.ogg', 40, 1, pitch = 0.5)
-			switch(rand(1,7))
-				if(1 to 3)
-					var/area/target_area = get_area(our_spot)
-					if(target_area.area_apc)
-						target_area.area_apc.cell.charge = target_area.area_apc.cell.maxcharge
-						target_area.area_apc.zapStuff()
-				if(4 to 6)
-					if(our_mob) our_mob.audible_message(SPAN_ALERT("<B>[our_mob]</B> emits a piercing [pick("dirge","shriek","screech")]!"))
-					else src.audible_message(SPAN_ALERT("<B>[src]</B> emits a piercing [pick("dirge","shriek","screech")]!"))
-					playsound(our_spot, 'sound/effects/screech_tone.ogg', 80, 1)
-					for (var/mob/living/M in hearers(our_spot, null))
-						if (our_mob && M == our_mob)
-							continue
-						M.apply_sonic_stun(0, 3, 0, 0, 0, 8)
-					sonic_attack_environmental_effect(our_spot, 7, list("light", "window", "r_window"))
-				if(7)
-					var/turf/spook_spot = pick(landmarks[LANDMARK_HALLOWEEN_SPAWN])
-					var/area/target_area = get_area(spook_spot)
-					if(target_area.area_apc)
-						target_area.area_apc.overload_lighting()
-					new /mob/living/critter/shade(spook_spot)
-					if(our_mob)
-						boutput(our_mob,SPAN_ALERT("<i>šìr, šìr, šìr...</i>"))
+			if(dangertime) //shit's goin down
+				if(ismob(src.loc)) //for vfx, make sure we're still on a mob once this time has elapsed
+					boutput(our_mob,SPAN_ALERT("<b>[src] vibrates violently!</b>"))
+					our_mob.playsound_local_not_inworld('sound/effects/brrp.ogg', 40, 1, pitch = 0.5)
+
+				src.agitation = max(src.agitation - 40, 0)
+
+				var/needs_target_roll_range = 4 //tail end of the roll range is only for effects that want a target
+				if(!last_agitator) needs_target_roll_range = 0
+				switch(rand(1,3+needs_target_roll_range))
+					if(1) //AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA STOP IT
+						if(our_mob) our_mob.audible_message(SPAN_ALERT("<B>[our_mob]</B> emits a piercing [pick("dirge","shriek","screech")]!"))
+						else src.audible_message(SPAN_ALERT("<B>[src]</B> emits a piercing [pick("dirge","shriek","screech")]!"))
+						playsound(our_spot, 'sound/effects/screech_tone.ogg', 80, 1)
+						for (var/mob/living/M in hearers(our_spot, null))
+							if (our_mob && M == our_mob)
+								continue
+							M.apply_sonic_stun(0, 3, 0, 0, 0, 8)
+						sonic_attack_environmental_effect(our_spot, 7, list("light", "window", "r_window"))
+					if(2) //everyone calm down for a minute ok? have some nice tunes
+						playsound(our_spot, 'sound/musical_instruments/artifact/Artifact_Precursor_1.ogg', 60, 0)
+						new /obj/overlay/darkness_field(our_spot, 20 SECONDS, radius = 4)
+					if(3) //safety corner for you - if there is no equipped mob it will do nothing, this is ok as a sometimes
+						if(our_mob)
+							var/turf/safety_corner = pick_landmark(LANDMARK_MENHIR_PENANCE)
+							var/turf/whisked_from = get_turf(our_mob)
+							showswirl_out(whisked_from)
+							showswirl(safety_corner)
+							our_mob.set_loc(safety_corner)
+							SPAWN(rand(6,8))
+								boutput(our_mob,SPAN_NOTICE("A soothing tone suffuses the room around you, for a moment."))
+								if(isalive(our_mob) && iscarbon(our_mob))
+									reagents.add_reagent("omnizine", 25)
+									our_mob.changeStatus("defibbed", 6 SECONDS)
+								playsound(our_spot, 'sound/musical_instruments/artifact/Artifact_Precursor_3.ogg', 60, 0)
+							SPAWN(rand(24,28) * SECONDS)
+								showswirl(whisked_from)
+								showswirl_out(safety_corner)
+								our_mob.set_loc(whisked_from)
+					if(4) //timeout corner for them
+						var/turf/timeout_corner = pick_landmark(LANDMARK_MENHIR_PENANCE)
+						var/turf/whisked_from = get_turf(last_agitator)
+						showswirl_out(whisked_from)
+						showswirl(timeout_corner)
+						last_agitator.set_loc(timeout_corner)
+						SPAWN(rand(24,32) * SECONDS)
+							showswirl(whisked_from)
+							showswirl_out(timeout_corner)
+							last_agitator.set_loc(whisked_from)
+					if(5) //get some shade (or electricity)
+						if(ishuman(last_agitator))
+							var/mob/living/carbon/human/H = last_agitator
+							H.setStatus("art_light_curse", (rand(50,80) * SECONDS))
+						else
+							src.zap_agitator()
+					if(6) //yeet cannon (or electricity)
+						if(isturf(last_agitator.loc) && GET_DIST(our_spot,last_agitator) < 13)
+							var/direction = get_dir(our_spot,last_agitator)
+							var/turf/target = get_edge_target_turf(last_agitator, src.fling_dir)
+							playsound(last_agitator.loc, 'sound/impact_sounds/Generic_Swing_1.ogg', 50, 1, -1)
+							last_agitator.visible_message("<b>[last agitator] [pick("goes flying","is suddenly flung away","is blasted away")]!</b>")
+							last_agitator.throw_at(target, src.range, 1, bonus_throwforce=20, throw_type=THROW_THROUGH_WALL)
+						else
+							src.zap_agitator()
+					if(7) //electricity
+						src.zap_agitator()
+			else //things are fine, occasionally do something nice
+				switch(rand(1,5))
+					if(1) //apc recharge but quieter this time
+						var/area/target_area = get_area(our_spot)
+						if(target_area.area_apc)
+							var/obj/item/cell/apc_cell = target_area.area_apc.cell
+							apc_cell.charge = min(apc_cell.charge + 1000, apc_cell.maxcharge)
+							FLICK("apc-spark", target_area.area_apc)
+							if(our_mob) boutput(our_mob,SPAN_NOTICE("You feel an odd crackling in the air."))
+					if(2) //cool rock
+						var/turf/nearby_spot = null
+						for(var/D in alldirs)
+							var/turf/proxturf = get_step(our_spot,D)
+							if(!is_blocked_turf(proxturf)))
+								nearby_spot = proxturf
+								break
+						showswirl(nearby_spot)
+						SPAWN(2)
+							var/obj/our_gift = new /obj/item/raw_material/cobryl(nearby_spot)
+
 
 /datum/bioEffect/regenerator/unnatural
 	name = "Unnatural Vitality"
@@ -1659,7 +1740,7 @@ var/global/list/scarysounds = list('sound/machines/engine_alert3.ogg',
 	stability_loss = 0
 	msgGain = "A strange comfort washes over you, like every cell in your body is singing together."
 	msgLose = "The chorus recedes from your body."
-	heal_per_tick = 2
+	heal_per_tick = 1.2
 	regrow_prob = 0
 	acceptable_in_mutini = 0
 	var/obj/item/clothing/gloves/ring/ominous/host_ring = null
@@ -1668,9 +1749,13 @@ var/global/list/scarysounds = list('sound/machines/engine_alert3.ogg',
 		. = ..()
 		if(owner) src.UnregisterSignal(owner, COMSIG_MOB_ATTACKED_PRE)
 
-	proc/agitate()
+	proc/agitate(var/the_agitator)
 		if(host_ring)
 			host_ring.cumulation++
+			if(prob(70)) host_ring.cumulation++
+			if(the_agitator && istype(the_agitator,/mob))
+				host_ring.agitation = max(host_ring.agitation + 6, 100)
+				host_ring.last_agitator = the_agitator
 
 #define MAX_BONES 10 //Max Bones, skeleton P.I.
 /obj/critter/bone_king

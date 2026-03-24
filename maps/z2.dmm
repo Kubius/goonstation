@@ -56916,9 +56916,7 @@
 /turf/unsimulated/floor/black/corner,
 /area/iomoon/base)
 "fQM" = (
-/obj/precursor_puzzle/innervator{
-	vision_description = "A cold, silver stone lifts itself before your eyes. A voice cries out in warning. A chorus' shriek suspended in the air."
-	},
+/obj/precursor_puzzle/innervator/red_east,
 /turf/unsimulated/floor/setpieces/bluefloor,
 /area/precursor/menhir)
 "fRh" = (
@@ -67117,6 +67115,10 @@
 "nzY" = (
 /turf/space,
 /area/watchful_eye_sensor)
+"nAc" = (
+/obj/precursor_puzzle/innervator/red_west,
+/turf/unsimulated/floor/setpieces/bluefloor,
+/area/precursor/menhir)
 "nAf" = (
 /turf/unsimulated/floor/dojo/stonestair,
 /area/titlescreen)
@@ -75613,6 +75615,12 @@
 	},
 /turf/unsimulated/floor/carpet/arcade,
 /area/hospital)
+"ubK" = (
+/obj/landmark/menhir/penance,
+/turf/unsimulated/floor/setpieces/bluefloor{
+	dir = 8
+	},
+/area/precursor/menhir)
 "uca" = (
 /obj/fakeobject/pipe{
 	color = "b4b4b4";
@@ -152036,7 +152044,7 @@ dPy
 sGZ
 lGO
 sGZ
-nNE
+nAc
 sGZ
 nNE
 nNE
@@ -159580,7 +159588,7 @@ jky
 sGZ
 sGZ
 eMP
-eMP
+ubK
 eMP
 eMP
 sGZ
@@ -165620,7 +165628,7 @@ jky
 sGZ
 sGZ
 eMP
-eMP
+ubK
 eMP
 eMP
 sGZ

@@ -6520,6 +6520,9 @@
 /obj/cable{
 	icon_state = "5-8"
 	},
+/obj/cable{
+	icon_state = "5-10"
+	},
 /turf/simulated/floor/purplewhite{
 	dir = 8
 	},
@@ -7459,7 +7462,7 @@
 "exO" = (
 /obj/effects/menhir_fog,
 /obj/precursor_puzzle/innervator{
-	vision_description = "The crux of long-dead artifice, cold and unforgiving like the ground beneath your feet."
+	vision_description = "The crux of long-dead artifice, cold and unforgiving, kin to the ground beneath your feet."
 	},
 /turf/unsimulated/floor/setpieces/bluefloor{
 	dir = 1
@@ -8018,6 +8021,7 @@
 	dir = 5
 	},
 /obj/machinery/camera/directional/south,
+/obj/machinery/portable_atmospherics/scrubber,
 /turf/simulated/floor/black,
 /area/station/science/lab)
 "eVq" = (
@@ -8311,10 +8315,6 @@
 /obj/landmark/observer,
 /turf/unsimulated/floor/shuttle,
 /area/shuttle/arrival/station)
-"fgx" = (
-/obj/machinery/fluid_canister,
-/turf/simulated/floor/yellow/side,
-/area/station/hallway/primary/southwest)
 "fgQ" = (
 /obj/machinery/light/small/floor,
 /turf/simulated/floor/shuttlebay,
@@ -10763,6 +10763,12 @@
 /area/station/science/storage)
 "gAA" = (
 /obj/mesh/grille/steel,
+/obj/machinery/door/poddoor/pyro/shutters{
+	id = "tox_mix";
+	layer = 8;
+	name = "Mixing Vent";
+	dir = 4
+	},
 /turf/simulated/floor/engine/vacuum,
 /area/station/science/lab)
 "gAZ" = (
@@ -14209,6 +14215,7 @@
 /obj/cable{
 	icon_state = "0-4"
 	},
+/obj/machinery/power/data_terminal,
 /turf/simulated/floor/purple,
 /area/station/science/lab)
 "iJD" = (
@@ -16661,12 +16668,12 @@
 /area/station/crew_quarters/bathroom)
 "knO" = (
 /obj/machinery/computer/atmosphere/pumpcontrol{
-	dir = 4;
-	frequency = 1229
+	dir = 4
 	},
 /obj/cable{
 	icon_state = "0-4"
 	},
+/obj/machinery/power/data_terminal,
 /turf/simulated/floor/yellowblack{
 	dir = 8
 	},
@@ -19298,8 +19305,15 @@
 /area/station/crown)
 "lSK" = (
 /obj/decal/tile_edge/stripe/big,
-/obj/machinery/portable_atmospherics/scrubber,
 /obj/machinery/alarm/directional/west,
+/obj/machinery/computer/atmosphere/pumpcontrol{
+	dir = 4;
+	frequency = 1229
+	},
+/obj/cable{
+	icon_state = "0-5"
+	},
+/obj/machinery/power/data_terminal,
 /turf/simulated/floor/purple,
 /area/station/science/lab)
 "lTH" = (
@@ -21851,6 +21865,7 @@
 /obj/cable{
 	icon_state = "0-4"
 	},
+/obj/machinery/power/data_terminal,
 /turf/simulated/floor/yellowblack{
 	dir = 8
 	},
@@ -22251,6 +22266,7 @@
 	bank_id = "Mixer"
 	},
 /obj/cable,
+/obj/machinery/power/data_terminal,
 /turf/simulated/floor/purplewhite{
 	dir = 9
 	},
@@ -31691,6 +31707,7 @@
 	icon_state = "0-6"
 	},
 /obj/machinery/camera/directional/north,
+/obj/machinery/power/data_terminal,
 /turf/simulated/floor/yellow,
 /area/station/engine/monitoring)
 "tkG" = (
@@ -31904,6 +31921,7 @@
 /obj/cable{
 	icon_state = "0-5"
 	},
+/obj/machinery/power/data_terminal,
 /turf/simulated/floor/yellow,
 /area/station/engine/monitoring)
 "trd" = (
@@ -37676,6 +37694,10 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/northwest)
+"wHm" = (
+/obj/machinery/fluid_canister,
+/turf/unsimulated/floor/setpieces/bluefloor,
+/area/station/hallway/primary/southwest)
 "wHq" = (
 /turf/simulated/floor/black/side{
 	dir = 1
@@ -83656,7 +83678,7 @@ bOZ
 ncY
 ncY
 ncY
-fgx
+qjX
 bOZ
 bOZ
 xFh
@@ -84261,7 +84283,7 @@ lhN
 lhN
 lhN
 rif
-xFh
+wHm
 rrx
 ybi
 xFh
