@@ -1,5 +1,5 @@
 #ifdef MAP_OVERRIDE_MENHIR
-
+ABSTRACT_TYPE(/datum/random_event/minor/menhir)
 /datum/random_event/minor/menhir
 	centcom_headline = "Artifact Condition Advisory"
 	centcom_message = "A spike in electromagnetic activity from TOREADOR-7I-22408 was recently recorded. Personnel on site are advised to monitor artifact for changes in structure or activity."
