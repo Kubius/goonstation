@@ -5,6 +5,7 @@
 	icon = 'icons/obj/clothing/item_wizard_rings.dmi'
 	icon_state = "arc"
 	var/is_emitting = FALSE
+	///Odds of the ring doing something each process, 0.4% chance per cumulation; builds while equipped at 1/tick
 	var/cumulation = 0
 	var/agitation = 0 //is it going to vent its effects gracefully, or with ire?
 	var/mob/last_agitator = null
@@ -47,11 +48,11 @@
 		var/turf/da_turf = get_turf(src)
 		if(da_turf.z != Z_LEVEL_STATION || istype(da_turf,/turf/unsimulated)) //don't tick up or expend ticks while we're somewhere unusual
 			return
-		if (cumulation >= 8 && prob(src.cumulation))
+		if (cumulation >= 16 && prob(0.4 * src.cumulation))
 			cumulation = 0
 			src.do_a_thing()
 		else
-			if(prob(70)) cumulation++
+			cumulation++
 			if(agitation > 0) agitation--
 
 	proc/zap_agitator()
@@ -66,7 +67,8 @@
 		var/mob/our_mob = null
 		var/dangertime = prob(min(src.agitation,100))
 
-		//manual call can override behaviors. pass values 1-5 for safe rolls and 11-16 for dangerous rolls
+		//manual call can override behaviors. pass values 0-5 for safe rolls and 10-16 for dangerous rolls
+		//0 or 10 don't specify the exact safe/unsafe behavior, no value at all uses the ring's agitation to choose
 		var/roll_override
 		if(manual_call)
 			roll_override = manual_call % 10
@@ -75,17 +77,19 @@
 		if(ismob(src.loc))
 			our_mob = src.loc
 			if(!dangertime) //foretelling
-				boutput(our_mob,"<b>[src] [pick("sings to you.","makes a strange noise.","makes an odd chime.")]</b>")
+				if(!ON_COOLDOWN(our_mob,"ominous_ring_cue",2 MINUTES)) //don't notify in text TOO often
+					boutput(our_mob,SPAN_NOTICE("<i>[src] [pick("sings to you.","makes a strange noise.","makes an odd chime.")]</i>"))
 				var/chirpy = pick('sound/effects/magic1.ogg','sound/effects/magic2.ogg')
 				our_mob.playsound_local_not_inworld(chirpy, 50, 1, pitch = 0.4)
 		if(dangertime) //forewarning
 			flick("arc-grump",src)
-			var/weirdnoise = pick('sound/ambience/industrial/Precursor_Drone2.ogg',\
-			'sound/ambience/industrial/Precursor_Choir.ogg',\
-			'sound/ambience/industrial/Precursor_Drone3.ogg',\
-			'sound/ambience/industrial/Precursor_Bells.ogg')
+			if(!ON_COOLDOWN(src,"spookisound",30 SECONDS))
+				var/weirdnoise = pick('sound/ambience/industrial/Precursor_Drone2.ogg',\
+				'sound/ambience/industrial/Precursor_Choir.ogg',\
+				'sound/ambience/industrial/Precursor_Drone3.ogg',\
+				'sound/ambience/industrial/Precursor_Bells.ogg')
 
-			playsound(our_spot, weirdnoise, 50, 1)
+				playsound(our_spot, weirdnoise, 50, 1)
 		else //other foretelling
 			flick("arc-chirp",src)
 		SPAWN(rand(24,48))
@@ -104,7 +108,7 @@
 
 				src.agitation = max(src.agitation - 40, 0)
 
-				var/needs_target_roll_range = 3 //tail end of the roll range is only for effects that want a target
+				var/needs_target_roll_range = 4 //tail end of the roll range is only for effects that want a target
 				if(!ismob(last_agitator)) needs_target_roll_range = 0
 				var/picker = rand(1,3+needs_target_roll_range)
 				if(roll_override) picker = roll_override
@@ -128,8 +132,9 @@
 							showswirl_out(whisked_from)
 							showswirl(safety_corner)
 							our_mob.set_loc(safety_corner)
-							if(our_mob.client)
-								our_mob.client.stop_all_sounds()
+							SPAWN(2)
+								if(our_mob.client)
+									our_mob.client.stop_all_sounds()
 							SPAWN(rand(6,8))
 								boutput(our_mob,SPAN_NOTICE("A soothing tone suffuses the room around you, for a moment."))
 								///DEBUG DEBUG DEBUG this needs to clear out previous ominous noises to be soothin, it may also want to move you to a regular menhir node landmark
@@ -167,12 +172,12 @@
 					if(7) //get some shade (or electricity)
 						if(ishuman(last_agitator))
 							var/mob/living/carbon/human/H = last_agitator
-							H.setStatus("art_light_curse", rand(50 SECONDS, 80 SECONDS))
+							H.setStatus("art_light_curse_ring", rand(50 SECONDS, 80 SECONDS))
 						else
 							src.zap_agitator()
 
 			else //things are fine, occasionally do something nice
-				var/picker = rand(1,5)
+				var/picker = rand(1,9)
 				if(roll_override) picker = roll_override
 				switch(picker)
 					if(1) //apc recharge but quieter this time
@@ -191,11 +196,35 @@
 								break
 						showswirl(nearby_spot)
 						SPAWN(2)
-							new /obj/item/raw_material/cobryl(nearby_spot)
-					if(3) //have a pick me up
+							var/path = pick(/obj/item/raw_material/cobryl,/obj/item/raw_material/gemstone,/obj/item/raw_material/miracle)
+							new path(nearby_spot)
+					if(3) //maintain yr ape
 						if(isalive(our_mob) && iscarbon(our_mob))
-							our_mob.reagents.add_reagent("omnizine", 25)
-					if(4 to 5) //nothing atm
+							our_mob.reagents.add_reagent("saline", 2)
+							our_mob.reagents.add_reagent("salicylic_acid", 2)
+							if(our_mob) boutput(our_mob,SPAN_NOTICE("You feel a flushing sensation through your body."))
+					if(4 to 6) //have cube. tasty
+						var/turf/nearby_spot = null
+						for(var/D in alldirs)
+							var/turf/proxturf = get_step(our_spot,D)
+							if(!is_blocked_turf(proxturf))
+								nearby_spot = proxturf
+								break
+						showswirl(nearby_spot)
+						SPAWN(2)
+							new /obj/item/reagent_containers/food/snacks/cube(nearby_spot)
+					if(7) //on rare occasion, a particularly special gift for you
+						if(prob(20))
+							var/turf/nearby_spot = null
+							for(var/D in alldirs)
+								var/turf/proxturf = get_step(our_spot,D)
+								if(!is_blocked_turf(proxturf))
+									nearby_spot = proxturf
+									break
+							showswirl(nearby_spot)
+							SPAWN(2)
+								Artifact_Spawn(nearby_spot,"precursor")
+					if(8 to 9) //all is well, probably.
 						return
 
 
@@ -227,21 +256,31 @@
 	proc/agitate(var/our_host,var/the_agitator)
 		if(the_agitator == our_host) return
 		if(host_ring)
-			host_ring.cumulation++
-			if(prob(70)) host_ring.cumulation++
+			host_ring.cumulation = min(host_ring.cumulation + 3, 250)
 			if(the_agitator && istype(the_agitator,/mob))
 				host_ring.agitation = min(host_ring.agitation + 6, 100)
 				host_ring.last_agitator = the_agitator
 
-/obj/item/reagent_containers/food/snacks/fairybread
-	name = "fairy bread"
-	desc = "A traditional delicacy of Australian origin."
-	icon = 'icons/obj/foodNdrink/food_bread.dmi'
-	icon_state = "fairybread"
+/obj/item/reagent_containers/food/snacks/cube
+	name = "odd cube"
+	desc = "Strangely tacky to the touch, but it smells nice. Might be someone's idea of food?"
+	icon = 'icons/obj/items/materials/materials.dmi'
+	icon_state = "block"
 	bites_left = 2
-	heal_amt = 2
+	heal_amt = 5
 	food_color = "#ffcdfb"
-	initial_volume = 10
-	initial_reagents = list("bread"=5,"sugar"=5)
+	initial_volume = 5
+	initial_reagents = list("sugar"=5)
 	food_effects = list("food_refreshed_big")
-	meal_time_flags = MEAL_TIME_SNACK
+	rand_pos = 0
+	var/huhmessage = "Tastes vaguely sweet."
+
+	New()
+		..()
+		name = "[pick("odd","weird","funky","scented","perplexing")] [pick("cube","block","brick")]"
+		huhmessage = pick("Tastes like... chicken?","It's... edible chalk?","It doesn't taste as nice as it smells.","It's surprisingly palatable.",\
+		"You don't know what taste you expected, but it wasn't whatever that was.","It melts in your mouth like cotton candy.")
+
+	heal(var/mob/M)
+		boutput(M, SPAN_NOTICE("[huhmessage]"))
+		. = ..()
