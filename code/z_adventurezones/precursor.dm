@@ -1627,7 +1627,7 @@ var/global/list/scarysounds = list('sound/machines/engine_alert3.ogg',
 			our_mob = src.loc
 			if(!dangertime) //foretelling
 				boutput(our_mob,"<b>[src][pick("... chirps?"," makes a strange noise."," makes an odd chime.")]</b>")
-				var/chirpy = pick('/sound/effects/magic1.ogg','/sound/effects/magic2.ogg')
+				var/chirpy = pick('sound/effects/magic1.ogg','sound/effects/magic2.ogg')
 				our_mob.playsound_local_not_inworld(chirpy, 30, 1, pitch = 0.4)
 		if(dangertime) //forewarning
 			var/weirdnoise = pick('sound/ambience/industrial/Precursor_Drone2.ogg',\
@@ -1695,10 +1695,10 @@ var/global/list/scarysounds = list('sound/machines/engine_alert3.ogg',
 					if(6) //yeet cannon (or electricity)
 						if(isturf(last_agitator.loc) && GET_DIST(our_spot,last_agitator) < 13)
 							var/direction = get_dir(our_spot,last_agitator)
-							var/turf/target = get_edge_target_turf(last_agitator, src.fling_dir)
+							var/turf/target = get_edge_target_turf(last_agitator, direction)
 							playsound(last_agitator.loc, 'sound/impact_sounds/Generic_Swing_1.ogg', 50, 1, -1)
 							last_agitator.visible_message("<b>[last_agitator] [pick("goes flying","is suddenly flung away","is blasted away")]!</b>")
-							last_agitator.throw_at(target, src.range, 1, bonus_throwforce=20, throw_type=THROW_THROUGH_WALL)
+							last_agitator.throw_at(target, 15, 1, bonus_throwforce=20, throw_type=THROW_THROUGH_WALL)
 						else
 							src.zap_agitator()
 					if(7) //electricity
@@ -1721,7 +1721,9 @@ var/global/list/scarysounds = list('sound/machines/engine_alert3.ogg',
 								break
 						showswirl(nearby_spot)
 						SPAWN(2)
-							var/obj/our_gift = new /obj/item/raw_material/cobryl(nearby_spot)
+							new /obj/item/raw_material/cobryl(nearby_spot)
+					if(3 to 5) //nothing atm
+						return
 
 
 /datum/bioEffect/regenerator/unnatural
