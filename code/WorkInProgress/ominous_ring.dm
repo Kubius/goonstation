@@ -5,9 +5,11 @@
 	icon = 'icons/obj/clothing/item_wizard_rings.dmi'
 	icon_state = "arc"
 	var/is_emitting = FALSE
-	///Odds of the ring doing something each process, 0.4% chance per cumulation; builds while equipped at 1/tick
+	///Odds of the ring doing something each process, 0.4% chance per cumulation; builds while equipped at 1/tick, and +3 when user is struck
 	var/cumulation = 0
-	var/agitation = 0 //is it going to vent its effects gracefully, or with ire?
+	///Odds that, when the ring does a thing, it will be retaliatory. 1% chance per agitation; +5 when user is struck, dissipates at 1/tick
+	var/agitation = 0
+	///Effects are directed at most recent agitator of the ring's current "custodian", aka the last one to beat em up
 	var/mob/last_agitator = null
 
 	examine(mob/user)
