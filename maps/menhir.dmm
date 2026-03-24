@@ -5368,6 +5368,7 @@
 	opacity = 0;
 	panel_open = 1
 	},
+/obj/mapping_helper/access/kitchen,
 /turf/simulated/floor/specialroom/cafeteria,
 /area/station/crew_quarters/kitchen)
 "dmn" = (
@@ -17281,6 +17282,7 @@
 	opacity = 0;
 	panel_open = 1
 	},
+/obj/mapping_helper/access/kitchen,
 /turf/simulated/floor/specialroom/cafeteria,
 /area/station/crew_quarters/kitchen)
 "kJp" = (
@@ -18238,6 +18240,7 @@
 	opacity = 0;
 	panel_open = 1
 	},
+/obj/mapping_helper/access/kitchen,
 /turf/simulated/floor/specialroom/cafeteria,
 /area/station/crew_quarters/kitchen)
 "lkG" = (
@@ -20640,6 +20643,7 @@
 	},
 /obj/machinery/phone,
 /obj/mapping_helper/access/security,
+/obj/mapping_helper/firedoor_spawn,
 /turf/simulated/floor/red,
 /area/station/security/main{
 	name = "Security Office"
@@ -24322,6 +24326,7 @@
 	opacity = 0;
 	panel_open = 1
 	},
+/obj/mapping_helper/access/kitchen,
 /turf/simulated/floor/specialroom/cafeteria,
 /area/station/crew_quarters/kitchen)
 "oPi" = (
@@ -29921,6 +29926,7 @@
 	pixel_y = -4
 	},
 /obj/mapping_helper/access/security,
+/obj/mapping_helper/firedoor_spawn,
 /turf/simulated/floor/red,
 /area/station/security/main{
 	name = "Security Office"
@@ -37429,6 +37435,7 @@
 /obj/disposalpipe/segment/brig{
 	dir = 4
 	},
+/obj/mapping_helper/access/rancher,
 /turf/simulated/floor/wood/seven,
 /area/station/ranch)
 "wAa" = (
@@ -37931,6 +37938,7 @@
 /obj/disposalpipe/segment/produce{
 	dir = 4
 	},
+/obj/mapping_helper/access/kitchen,
 /turf/simulated/floor/specialroom/cafeteria,
 /area/station/crew_quarters/kitchen)
 "wPH" = (
@@ -38200,6 +38208,7 @@
 	dir = 4
 	},
 /obj/mapping_helper/firedoor_spawn,
+/obj/mapping_helper/access/robotics,
 /turf/simulated/floor/black,
 /area/station/medical/robotics)
 "wWD" = (
@@ -38227,6 +38236,7 @@
 /obj/machinery/door/airlock/pyro/glass/windoor{
 	dir = 8
 	},
+/obj/mapping_helper/access/forensics,
 /turf/simulated/floor/carpet/grime,
 /area/station/security/detectives_office)
 "wYb" = (
