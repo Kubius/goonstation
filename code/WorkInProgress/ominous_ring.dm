@@ -178,7 +178,7 @@
 						else
 							src.zap_agitator()
 
-			else //things are fine, occasionally do something nice
+			else //things are fine probably, so do something nice
 				var/picker = rand(1,9)
 				if(roll_override) picker = roll_override
 				switch(picker)

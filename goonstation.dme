@@ -1284,7 +1284,7 @@
 #include "code\modules\events\locker_entanglement.dm"
 #include "code\modules\events\madness.dm"
 #include "code\modules\events\magnetic.dm"
-#include "code\modules\events\menhir.dm"
+#include "code\modules\events\menhir_events.dm"
 #include "code\modules\events\meteor_shower.dm"
 #include "code\modules\events\playable_pests.dm"
 #include "code\modules\events\pretty_space.dm"
