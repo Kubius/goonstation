@@ -1626,7 +1626,7 @@ var/global/list/scarysounds = list('sound/machines/engine_alert3.ogg',
 		if(ismob(src.loc))
 			our_mob = src.loc
 			if(!dangertime) //foretelling
-				boutput(our_mob,"<b>[src][pick("... chirps?"," makes a strange noise."," makes an odd chime.")]</b>")
+				boutput(our_mob,"<b>[src] [pick("sings to you.","makes a strange noise.","makes an odd chime.")]</b>")
 				var/chirpy = pick('sound/effects/magic1.ogg','sound/effects/magic2.ogg')
 				our_mob.playsound_local_not_inworld(chirpy, 30, 1, pitch = 0.4)
 		if(dangertime) //forewarning
@@ -1645,7 +1645,7 @@ var/global/list/scarysounds = list('sound/machines/engine_alert3.ogg',
 				src.agitation = max(src.agitation - 40, 0)
 
 				var/needs_target_roll_range = 4 //tail end of the roll range is only for effects that want a target
-				if(!last_agitator) needs_target_roll_range = 0
+				if(!ismob(last_agitator)) needs_target_roll_range = 0
 				switch(rand(1,3+needs_target_roll_range))
 					if(1) //AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA STOP IT
 						if(our_mob) our_mob.audible_message(SPAN_ALERT("<B>[our_mob]</B> emits a piercing [pick("dirge","shriek","screech")]!"))
@@ -1668,14 +1668,15 @@ var/global/list/scarysounds = list('sound/machines/engine_alert3.ogg',
 							our_mob.set_loc(safety_corner)
 							SPAWN(rand(6,8))
 								boutput(our_mob,SPAN_NOTICE("A soothing tone suffuses the room around you, for a moment."))
+								///DEBUG DEBUG DEBUG this needs to clear out previous ominous noises to be soothin, it may also want to move you to a regular menhir node landmark
 								if(isalive(our_mob) && iscarbon(our_mob))
-									reagents.add_reagent("omnizine", 25)
+									our_mob.reagents.add_reagent("omnizine", 25)
 									our_mob.changeStatus("defibbed", 6 SECONDS)
 								playsound(safety_corner, 'sound/musical_instruments/artifact/Artifact_Precursor_3.ogg', 60, 0)
-							SPAWN(rand(18,20) * SECONDS) //DEBUG DEBUG DEBUG this may not be proccing. check that out
-								showswirl(whisked_from)
+							SPAWN(rand(18,20) * SECONDS)
+								showswirl(our_spot)
 								showswirl_out(safety_corner)
-								our_mob.set_loc(whisked_from)
+								our_mob.set_loc(our_spot)
 					if(4) //timeout corner for them
 						var/turf/timeout_corner = pick_landmark(LANDMARK_MENHIR_PENANCE)
 						var/turf/whisked_from = get_turf(last_agitator)
@@ -1686,13 +1687,7 @@ var/global/list/scarysounds = list('sound/machines/engine_alert3.ogg',
 							showswirl(whisked_from)
 							showswirl_out(timeout_corner)
 							last_agitator.set_loc(whisked_from)
-					if(5) //get some shade (or electricity)
-						if(ishuman(last_agitator))
-							var/mob/living/carbon/human/H = last_agitator
-							H.setStatus("art_light_curse", (rand(50,80) * SECONDS))
-						else
-							src.zap_agitator()
-					if(6) //yeet cannon (or electricity)
+					if(5) //yeet cannon (or electricity)
 						if(isturf(last_agitator.loc) && GET_DIST(our_spot,last_agitator) < 13)
 							var/direction = get_dir(our_spot,last_agitator)
 							var/turf/target = get_edge_target_turf(last_agitator, direction)
@@ -1701,8 +1696,16 @@ var/global/list/scarysounds = list('sound/machines/engine_alert3.ogg',
 							last_agitator.throw_at(target, 15, 1, bonus_throwforce=20, throw_type=THROW_THROUGH_WALL)
 						else
 							src.zap_agitator()
-					if(7) //electricity
+					if(6) //always electricity
 						src.zap_agitator()
+/*
+					if(7) //get some shade (or electricity)
+						if(ishuman(last_agitator))
+							var/mob/living/carbon/human/H = last_agitator
+							H.setStatus("art_light_curse", (rand(50,80) * SECONDS))
+						else
+							src.zap_agitator()
+*/
 			else //things are fine, occasionally do something nice
 				switch(rand(1,5))
 					if(1) //apc recharge but quieter this time
