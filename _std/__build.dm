@@ -157,7 +157,7 @@ o+`        `-` ``..-:yooos-..----------..`
 //#define MAP_OVERRIDE_CRASH        // Stupid Crash Gimmick Map
 //#define MAP_OVERRIDE_MUSHROOM     // Updated Mushroom
 //#define MAP_OVERRIDE_DENSITY2     // Density2 (second smallest map), by Emily
-#define MAP_OVERRIDE_MENHIR       // The one with the big artifact in it
+//#define MAP_OVERRIDE_MENHIR       // The one with the big artifact in it
 
 //#define GENERATE_GOONHUB_MAP // Generate map screenshots for goonhub map viewer (NOT USED NORMALLY). Use with a map override.
 
