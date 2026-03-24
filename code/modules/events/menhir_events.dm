@@ -111,13 +111,13 @@
 				our_guest.playsound_local_not_inworld(response_tester_sound, 60, 0)
 			else //test chemical reaction
 				var/response_tester_reagent = pick("ants","love","colors","transparium","psilocybin","lumen","ethanol")
-				var/quantity = 4
+				var/quantity = 10
 				switch(response_tester_reagent)
 					if("transparium")
 						quantity = 40
 					if("lumen")
 						quantity = 30
-				our_guest.reagents.add_reagent(response_tester_reagent, 4)
+				our_guest.reagents.add_reagent(response_tester_reagent, quantity)
 				our_guest.playsound_local_not_inworld('sound/items/hypo.ogg', 30, 0)
 				boutput(our_guest,SPAN_ALERT("You feel a small poke and see a tiny mechanical arm receding into the floor.[pick(" That can't be good."," What the hell?","")]"))
 		SPAWN(time_of_stay)

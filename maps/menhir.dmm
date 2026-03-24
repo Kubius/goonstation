@@ -9394,13 +9394,13 @@
 	icon_state = "0-4"
 	},
 /obj/table/reinforced/industrial/auto,
-/obj/item/device/t_scanner{
-	pixel_x = -4;
-	rand_pos = 0
+/obj/item/paper/menhir_advisory{
+	pixel_x = -3
 	},
 /obj/item/device/t_scanner{
 	pixel_x = 6;
-	rand_pos = 0
+	rand_pos = 0;
+	pixel_y = 2
 	},
 /obj/item/clothing/glasses/toggleable/meson{
 	pixel_y = 9
