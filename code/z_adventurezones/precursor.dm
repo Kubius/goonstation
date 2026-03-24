@@ -1644,7 +1644,7 @@ var/global/list/scarysounds = list('sound/machines/engine_alert3.ogg',
 
 				src.agitation = max(src.agitation - 40, 0)
 
-				var/needs_target_roll_range = 4 //tail end of the roll range is only for effects that want a target
+				var/needs_target_roll_range = 3 //tail end of the roll range is only for effects that want a target
 				if(!ismob(last_agitator)) needs_target_roll_range = 0
 				switch(rand(1,3+needs_target_roll_range))
 					if(1) //AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA STOP IT
