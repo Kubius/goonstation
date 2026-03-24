@@ -2998,6 +2998,7 @@
 #include "code\WorkInProgress\nadir_antenna.dm"
 #include "code\WorkInProgress\NewVote.dm"
 #include "code\WorkInProgress\ObjectProperties.dm"
+#include "code\WorkInProgress\ominous_ring.dm"
 #include "code\WorkInProgress\Particles.dm"
 #include "code\WorkInProgress\PlanetCrashEvent.dm"
 #include "code\WorkInProgress\previouslyKeelinsStuff.dm"
