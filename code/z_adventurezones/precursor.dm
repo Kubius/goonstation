@@ -1697,7 +1697,7 @@ var/global/list/scarysounds = list('sound/machines/engine_alert3.ogg',
 							var/direction = get_dir(our_spot,last_agitator)
 							var/turf/target = get_edge_target_turf(last_agitator, src.fling_dir)
 							playsound(last_agitator.loc, 'sound/impact_sounds/Generic_Swing_1.ogg', 50, 1, -1)
-							last_agitator.visible_message("<b>[last agitator] [pick("goes flying","is suddenly flung away","is blasted away")]!</b>")
+							last_agitator.visible_message("<b>[last_agitator] [pick("goes flying","is suddenly flung away","is blasted away")]!</b>")
 							last_agitator.throw_at(target, src.range, 1, bonus_throwforce=20, throw_type=THROW_THROUGH_WALL)
 						else
 							src.zap_agitator()
@@ -1716,7 +1716,7 @@ var/global/list/scarysounds = list('sound/machines/engine_alert3.ogg',
 						var/turf/nearby_spot = null
 						for(var/D in alldirs)
 							var/turf/proxturf = get_step(our_spot,D)
-							if(!is_blocked_turf(proxturf)))
+							if(!is_blocked_turf(proxturf))
 								nearby_spot = proxturf
 								break
 						showswirl(nearby_spot)
