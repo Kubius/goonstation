@@ -9395,7 +9395,11 @@
 	},
 /obj/table/reinforced/industrial/auto,
 /obj/item/paper/menhir_advisory{
-	pixel_x = -3
+	pixel_x = -3;
+	pixel_y = -2
+	},
+/obj/item/paper/menhir_advisory{
+	pixel_x = -7
 	},
 /obj/item/device/t_scanner{
 	pixel_x = 6;
@@ -9403,7 +9407,8 @@
 	pixel_y = 2
 	},
 /obj/item/clothing/glasses/toggleable/meson{
-	pixel_y = 9
+	pixel_y = 8;
+	pixel_x = -1
 	},
 /turf/simulated/floor/darkpurpleblack,
 /area/station/turret_protected/incursion)

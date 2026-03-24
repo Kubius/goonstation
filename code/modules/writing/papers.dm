@@ -1821,25 +1821,25 @@ Only trained personnel should operate station systems. Follow all procedures car
 	"}
 
 /obj/item/paper/menhir_advisory
-	name = "site research briefing"
-	icon_state = "paper"
+	name = "TOREADOR-7I-22408 report sheet"
+	icon_state = "artifact_form"
+	desc = "If it had adhesive on the back at one point, it doesn't anymore."
 	info ={"
 	<h1>ARTIFACT ANALYSIS<br>TOREADOR-7I-22408</h1><br>
+	<h2>ORIGIN</h2>
+	Presumed Precursor; terahertz-band scanning has received responses consistent with cobryl and iridium composition, matching other known Precursor artifacts.<br>
 	<br>
-	<h2>ORIGIN</h2><br>
-	Presumed Precursor; terahertz-band scanning has received responses consistent with cobryl and iridium composition, matching other known Precursor artifacts<br>
+	<h2>TYPE</h2>
+	Unable to ascertain thus far; large size and presence of a point of ingress suggest possible use as a station, vessel or repository of some sort.<br>
 	<br>
-	<h2>TYPE</h2><br>
-	Unable to ascertain thus far; large size and presence of a point of ingress suggest possible use as a station, vessel or repository of some sort<br>
+	<h2>TRIGGERS</h2>
+	Majority of casing appears unresponsive to, and unaffected by, all test stimuli; point of ingress contains small protrusions with psychic projection capabilities, whose function in the larger complex is uncertain as of yet.<br>
 	<br>
-	<h2>TRIGGERS</h2><br>
-	Majority of casing appears unresponsive to, and unaffected by, all test stimuli; point of ingress contains small protrusions with psychic projection capabilities, whose function is uncertain as of yet<br>
-	<br>
-	<h2>FAULTS</h2><br>
+	<h2>FAULTS</h2>
 	None detected within gamut of known Precursor artifact faults<br>
 	<br>
 	<h2>ADDITIONAL INFORMATION</h2>
-	NT administration responsible for site have made executive determination that point of ingress is the likely origin of any hazards that may arise if artifact is activated; attempts to activate TOREADOR-7I-22408 at other points of its casing are considered inadvisable and unlikely to produce results.
+	NT administration responsible for site have made the executive determination that the point of ingress is the likely origin of any hazards that may arise if the artifact is activated; attempts to activate TOREADOR-7I-22408 at other points of its casing are considered inadvisable and unlikely to produce results.<br>
 	"}
 
 #undef IMAGE_OFFSET_X
