@@ -1,62 +1,71 @@
 #ifdef MAP_OVERRIDE_MENHIR
-/datum/random_event/minor/menhir
+/datum/random_event/minor/menhir_gift
 	name = "A Gift from the Crown"
+	centcom_headline = "Artifact Condition Advisory"
+	centcom_message = "A spike in electromagnetic activity from TOREADOR-7I-22408 was recently recorded. Personnel on site are advised to monitor artifact for changes in structure or activity."
+	centcom_origin = ALERT_ANOMALY
+	message_delay = 4 MINUTES
 
 	event_effect()
-		..()
-		var/found_wall = FALSE //don't put a door where one already exists.
-		var/turf/doorlandmark = pick_landmark(LANDMARK_MENHIR_DOOR)
-		var/turf/nodelandmark = null
+		var/turf/doorlandmark = null
+		var/turf/nodelandmark = pick_landmark(LANDMARK_MENHIR_NODE)
 
-		if (!doorlandmark)
-			logTheThing(LOG_DEBUG, null, "Menhir gift event couldn't find a LANDMARK_MENHIR_DOOR!")
-			message_admins("Menhir gift event couldn't find a LANDMARK_MENHIR_DOOR! Aborting event")
-			return
+		///Tag for which node the event is occurring in (door and node landmarks have this tag, node landmark has it removed on event completion)
+		var/node_tag = FALSE
 
-		if (istype(doorlandmark,/turf/unsimulated/wall))
-			found_wall = TRUE
-
-		if (!found_wall)
-			var/firstdoorlandmark = doorlandmark
-			var/scanned_landmarks = list(doorlandmark)
-			var/maxtests = 16
-
-			while (length(scanned_landmarks) < maxtests && !found_wall)
-				doorlandmark = pick_landmark(LANDMARK_MENHIR_DOOR, ignorespecific = scanned_landmarks)
-				scanned_landmarks += doorlandmark
-				if (istype(doorlandmark,/turf/unsimulated/wall))
-					found_wall = TRUE
-
-			if (!found_wall)
-				doorlandmark = firstdoorlandmark // goes back to the first option if none are available
-
-		var/the_tag = landmarks[LANDMARK_MENHIR_DOOR][doorlandmark]
-
-		for (var/turf/T in landmarks[LANDMARK_MENHIR_NODE])
-			if (landmarks[LANDMARK_MENHIR_NODE][T] == the_tag)
-				nodelandmark = T
-				break
-
-		if (!nodelandmark)
-			logTheThing(LOG_DEBUG, null, "Menhir gift event couldn't find a node for the selected door!")
-			message_admins("Menhir gift event couldn't find a node for selected door! Aborting event")
-			return
-
-		var/save_dir = doorlandmark.icon_state
-
-		playsound(doorlandmark, 'sound/musical_instruments/Vuvuzela_1.ogg', 40, 0, pitch = 0.2)
-		if (found_wall)
-			var/obj/newdoor = new /obj/machinery/door/unpowered/blue(doorlandmark)
-			if (save_dir == "interior-3") //vertical wall detection
-				newdoor.dir = 4
-
-		var/atom/movable/thing = locate(/atom/movable) in nodelandmark
-		if(thing && thing.density)
-			var/turf/alternate_spawn = get_step_truly_rand(nodelandmark)
-			Artifact_Spawn(alternate_spawn,"precursor")
+		if (landmarks[LANDMARK_MENHIR_NODE][nodelandmark] == null)
+			for (var/turf/T in landmarks[LANDMARK_MENHIR_NODE])
+				if (landmarks[LANDMARK_MENHIR_NODE][T] != null)
+					nodelandmark = T
+					node_tag = landmarks[LANDMARK_MENHIR_NODE][nodelandmark]
+					break
 		else
-			Artifact_Spawn(nodelandmark,"precursor")
+			node_tag = landmarks[LANDMARK_MENHIR_NODE][nodelandmark]
 
-		logTheThing(LOG_STATION, null, "Menhir gift event at [the_tag] arm -  [log_loc(nodelandmark)]")
-		message_admins("Menhir gift event triggered at [the_tag] arm - [log_loc(nodelandmark)]")
+		if (!node_tag)
+			logTheThing(LOG_DEBUG, null, "Menhir gift event couldn't find an unused node; aborting event. This should only happen in long rounds.")
+			message_admins("Menhir gift event couldn't find an unused node; aborting event.")
+			return
+
+		var/list/eligible_walls = list()
+		for (var/turf/T in landmarks[LANDMARK_MENHIR_DOOR])
+			if (landmarks[LANDMARK_MENHIR_DOOR][T] == node_tag)
+				eligible_walls += T
+
+		if (!length(eligible_walls))
+			logTheThing(LOG_DEBUG, null, "Menhir gift event couldn't find a wall for the selected door! This shouldn't happen.")
+			message_admins("Menhir gift event couldn't find a node wall selected door! This shouldn't happen. Aborting event")
+			return
+
+		if(prob(60))
+			playsound(nodelandmark, 'sound/effects/ring_happi.ogg', 55, 0, pitch = 0.45, extrarange = 24)
+		else
+			playsound(nodelandmark, 'sound/musical_instruments/artifact/Artifact_Precursor_2.ogg', 55, 0, extrarange = 24)
+
+		doorlandmark = pick(eligible_walls)
+		var/save_dir = doorlandmark.icon_state
+		var/obj/newdoor = new /obj/machinery/door/unpowered/blue(doorlandmark)
+		if (save_dir == "interior-3") //vertical wall detection
+			newdoor.dir = 4
+
+		landmarks[LANDMARK_MENHIR_NODE][nodelandmark] = null //expend the node so future events won't select it again
+		Artifact_Spawn(nodelandmark,"precursor")
+
+		message_delay = rand(2 MINUTES, 4 MINUTES)
+		..() //don't send out the message until we have confirmed we can do the event
+
+		logTheThing(LOG_STATION, null, "Menhir gift event at [node_tag] arm -  [log_loc(nodelandmark)]")
+		message_admins("Menhir gift event triggered at [node_tag] arm - [log_loc(nodelandmark)]")
+/*
+/datum/random_event/minor/menhir_analysis
+	name = "The Crown Inquires"
+	centcom_headline = "Artifact Condition Advisory"
+	centcom_message = "A spike in electromagnetic activity from TOREADOR-7I-22408 was recently recorded. Personnel on site are advised to monitor artifact for changes in structure or activity."
+	centcom_origin = ALERT_ANOMALY
+	message_delay = 3 MINUTES
+
+	event_effect()
+		message_delay = rand(2 MINUTES, 3 MINUTES)
+		..()
+*/
 #endif
