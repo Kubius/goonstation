@@ -1757,7 +1757,7 @@ var/global/list/scarysounds = list('sound/machines/engine_alert3.ogg',
 			host_ring.cumulation++
 			if(prob(70)) host_ring.cumulation++
 			if(the_agitator && istype(the_agitator,/mob))
-				host_ring.agitation = max(host_ring.agitation + 6, 100)
+				host_ring.agitation = min(host_ring.agitation + 6, 100)
 				host_ring.last_agitator = the_agitator
 
 #define MAX_BONES 10 //Max Bones, skeleton P.I.
