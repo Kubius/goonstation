@@ -1570,7 +1570,7 @@ var/global/list/scarysounds = list('sound/machines/engine_alert3.ogg',
 	examine(mob/user)
 		. = ..()
 		if(ishuman(user))
-			. += " Nevertheless, you feel a strange urge to slide it onto your finger."
+			. += " For some reason, you feel a strange urge to slide it onto your finger."
 
 	New()
 		. = ..()
@@ -1589,7 +1589,7 @@ var/global/list/scarysounds = list('sound/machines/engine_alert3.ogg',
 		is_emitting = TRUE
 		var/datum/bioEffect/regenerator/unnatural/our_effect = user.bioHolder?.AddEffect("unnatural_vitality")
 		if(our_effect)
-			user.playsound_local_not_inworld('sound/effects/brrp.ogg', 40, 1, pitch = 0.5)
+			user.playsound_local_not_inworld('sound/effects/ring_happi.ogg', 40, 0)
 			our_effect.host_ring = src
 			our_effect.RegisterSignal(user, COMSIG_MOB_ATTACKED_PRE, /datum/bioEffect/regenerator/unnatural/proc/agitate)
 		processing_items.Add(src)
@@ -1671,8 +1671,8 @@ var/global/list/scarysounds = list('sound/machines/engine_alert3.ogg',
 								if(isalive(our_mob) && iscarbon(our_mob))
 									reagents.add_reagent("omnizine", 25)
 									our_mob.changeStatus("defibbed", 6 SECONDS)
-								playsound(our_spot, 'sound/musical_instruments/artifact/Artifact_Precursor_3.ogg', 60, 0)
-							SPAWN(rand(24,28) * SECONDS)
+								playsound(safety_corner, 'sound/musical_instruments/artifact/Artifact_Precursor_3.ogg', 60, 0)
+							SPAWN(rand(18,20) * SECONDS) //DEBUG DEBUG DEBUG this may not be proccing. check that out
 								showswirl(whisked_from)
 								showswirl_out(safety_corner)
 								our_mob.set_loc(whisked_from)
@@ -1751,7 +1751,8 @@ var/global/list/scarysounds = list('sound/machines/engine_alert3.ogg',
 		. = ..()
 		if(owner) src.UnregisterSignal(owner, COMSIG_MOB_ATTACKED_PRE)
 
-	proc/agitate(var/the_agitator)
+	proc/agitate(var/caller,var/the_agitator)
+		if(the_agitator == caller) return
 		if(host_ring)
 			host_ring.cumulation++
 			if(prob(70)) host_ring.cumulation++

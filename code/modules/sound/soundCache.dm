@@ -301,6 +301,7 @@ var/global/list/soundCache = list(
  	"sound/effects/radio_sweep4.ogg" = 'sound/effects/radio_sweep4.ogg',\
  	"sound/effects/radio_sweep5.ogg" = 'sound/effects/radio_sweep5.ogg',\
  	"sound/effects/redweedpop.ogg" = 'sound/effects/redweedpop.ogg',\
+	"sound/effects/ring_happi.ogg" = 'sound/effects/ring_happi.ogg',\
  	"sound/effects/ritual.ogg" = 'sound/effects/ritual.ogg',\
  	"sound/effects/sawhit.ogg" = 'sound/effects/sawhit.ogg',\
  	"sound/effects/sbfail1.ogg" = 'sound/effects/sbfail1.ogg',\
