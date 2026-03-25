@@ -20,7 +20,8 @@ var/datum/event_controller/random_events
 
 #ifdef MAP_OVERRIDE_MENHIR
 	var/list/menhir_events = list()
-	var/waiting_for_menhir_event = FALSE //system to guarantee a menhir event in every other round
+	///Menhir events piggyback off the minor event cycle every so often; 1st missed cycle increases the odds, 2nd guarantees an event
+	var/cycles_since_menhir_event = 0
 #endif
 
 	var/list/antag_spawn_events = list()

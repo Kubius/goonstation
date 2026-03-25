@@ -82,12 +82,12 @@ ABSTRACT_TYPE(/datum/storyteller)
 		if (random_events.minor_events_enabled)
 			random_events.do_random_event(random_events.minor_events)
 #ifdef MAP_OVERRIDE_MENHIR
-			if(prob(72) || random_events.waiting_for_menhir_event)
-				random_events.waiting_for_menhir_event = FALSE
+			if(prob(45 + (random_events.cycles_since_menhir_event * 20)) || random_events.cycles_since_menhir_event > 1)
+				random_events.cycles_since_menhir_event = 0
 				SPAWN(rand(1 MINUTE,5 MINUTES))
 					random_events.do_random_event(random_events.menhir_events)
 			else
-				random_events.waiting_for_menhir_event = TRUE
+				random_events.cycles_since_menhir_event++
 #endif
 
 		random_events.minor_event_timer = rand(random_events.time_between_minor_events_lower, random_events.time_between_minor_events_upper)
