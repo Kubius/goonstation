@@ -743,9 +743,6 @@
 	},
 /turf/simulated/floor/airless/damaged2,
 /area/space)
-"aAC" = (
-/turf/unsimulated/wall/auto/adventure/icemooninterior,
-/area/station/crown)
 "aBd" = (
 /obj/table/reinforced/chemistry/auto/basicsup{
 	drawer_contents = null;
@@ -93899,7 +93896,7 @@ gcJ
 xnn
 wcW
 rhh
-aAC
+lhN
 lhN
 osZ
 osZ
