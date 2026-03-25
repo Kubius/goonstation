@@ -277,7 +277,7 @@ ABSTRACT_TYPE(/datum/random_event/menhir)
 /datum/random_event/menhir/road
 	name = "The Crown Holds Court"
 	message_delay = 30 SECONDS
-	weight = 3
+	weight = 2
 
 	is_event_available(ignore_time_lock)
 		. = ..()
@@ -314,7 +314,7 @@ ABSTRACT_TYPE(/datum/random_event/menhir)
 	required_elapsed_round_time = 22 MINUTES
 	centcom_headline = "ARTIFACT CONDITION ALERT"
 	centcom_message = "A massive spike in electromagnetic activity that does not match prior readings has been detected from TOREADOR-7I-22408. All personnel should immediately make ready for hazardous conditions."
-	weight = 2
+	weight = 1
 
 	is_event_available(ignore_time_lock)
 		. = ..()
