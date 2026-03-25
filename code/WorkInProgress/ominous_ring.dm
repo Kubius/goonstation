@@ -216,7 +216,7 @@
 						SPAWN(2)
 							new /obj/item/reagent_containers/food/snacks/cube(nearby_spot)
 					if(7) //on rare occasion, a particularly special gift for you
-						if(prob(20))
+						if(prob(5))
 							var/turf/nearby_spot = null
 							for(var/D in alldirs)
 								var/turf/proxturf = get_step(our_spot,D)
