@@ -186,7 +186,7 @@ ABSTRACT_TYPE(/datum/random_event/menhir)
 			entrance.close()
 		SPAWN(delay+38)
 			entrance.revoke_door()
-		SPAWN(rand(3 MINUTES, 4 MINUTES))
+		SPAWN(rand(2 MINUTES, 3 MINUTES))
 			playsound(eventlandmark, 'sound/effects/ring_happi.ogg', 55, 0, extrarange = 24, pitch = 0.3)
 			new /obj/machinery/door/unpowered/blue(eventlandmark)
 
@@ -320,7 +320,7 @@ ABSTRACT_TYPE(/datum/random_event/menhir)
 		. = ..()
 		if(.)
 			if (!landmarks[LANDMARK_MENHIR_DARK] || length(landmarks[LANDMARK_MENHIR_DARK]) < 1)
-				. = FALSE //the road is already open
+				. = FALSE //they have already made their ingress
 
 	event_effect()
 		if (!landmarks[LANDMARK_MENHIR_DARK] || length(landmarks[LANDMARK_MENHIR_DARK]) < 1) return //manual call safeguard
