@@ -122,8 +122,8 @@ ABSTRACT_TYPE(/datum/random_event/menhir)
 			message_admins("Menhir analysis event couldn't find anyone to take; aborting event.")
 			return
 
-		var/time_of_stay = rand(90 SECONDS,2 MINUTES)
-		var/time_of_spook = time_of_stay * 0.3 + rand(0,150)
+		var/time_of_stay = rand(50 SECONDS,90 SECONDS)
+		var/time_of_spook = time_of_stay * 0.3 + rand(0,15 SECONDS)
 		var/mob/living/carbon/human/our_guest = pick(eligible_examinees)
 		var/turf/whisked_from = get_turf(our_guest)
 		showswirl_out(whisked_from)
@@ -145,6 +145,18 @@ ABSTRACT_TYPE(/datum/random_event/menhir)
 				our_guest.playsound_local_not_inworld('sound/items/hypo.ogg', 30, 0)
 				boutput(our_guest,SPAN_ALERT("You feel a small poke and see a tiny mechanical arm receding into the floor.[pick(" That can't be good."," What the hell?","")]"))
 		SPAWN(time_of_stay)
+			if(prob(1))
+				var/turf/nearby_spot = null
+				for(var/D in alldirs)
+					var/turf/proxturf = get_step(whisked_from,D)
+					if(!is_blocked_turf(proxturf))
+						nearby_spot = proxturf
+						break
+				SPAWN(6)
+					showswirl(nearby_spot)
+				SPAWN(8)
+					var/obj/ourpop = new /obj/item/reagent_containers/food/snacks/candy/lollipop(nearby_spot)
+					ourpop.icon_state = "lpop-5"
 			showswirl(whisked_from)
 			showswirl_out(nodelandmark)
 			our_guest.set_loc(whisked_from)

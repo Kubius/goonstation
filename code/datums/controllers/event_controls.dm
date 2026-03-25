@@ -20,8 +20,16 @@ var/datum/event_controller/random_events
 
 #ifdef MAP_OVERRIDE_MENHIR
 	var/list/menhir_events = list()
-	///Menhir events piggyback off the minor event cycle every so often; 1st missed cycle increases the odds, 2nd guarantees an event
+	var/menhir_events_begin = 8 MINUTES // 8m
+	var/time_between_menhir_events_lower = 7 MINUTES
+	var/time_between_menhir_events_upper = 10 MINUTES
+	var/menhir_events_enabled = TRUE
+	var/menhir_event_cycle_count = 0
+	///Events aren't guaranteed to happen on each of these ticks
 	var/cycles_since_menhir_event = 0
+
+	var/menhir_event_timer = 0
+	var/next_menhir_event = 0
 #endif
 
 	var/list/antag_spawn_events = list()
@@ -77,7 +85,7 @@ var/datum/event_controller/random_events
 #ifdef MAP_OVERRIDE_MENHIR
 		for (var/X in concrete_typesof(/datum/random_event/menhir))
 			var/datum/random_event/RE = new X
-			minor_events += RE
+			menhir_events += RE
 #endif
 
 		for (var/X in concrete_typesof(/datum/random_event/special))
@@ -158,11 +166,17 @@ var/datum/event_controller/random_events
 		else
 			dat += "Next major random event at [round(next_major_event / 600)] minutes into the round.<br>"
 			dat += "Next minor event at [round(next_minor_event / 600)] minutes into the round.<br>"
+#ifdef MAP_OVERRIDE_MENHIR
+			dat += "Next Menhir-specific event at [round(next_menhir_event / 600)] minutes into the round.<br>"
+#endif
 			dat += "Next spawn event at [round(next_spawn_event / 600)] minutes into the round.<br>"
 
 		dat += "<b><a href='byond://?src=\ref[src];EnableEvents=1'>Random Events Enabled:</a></b> [events_enabled ? "Yes" : "No"]<br>"
 		dat += "<b><a href='byond://?src=\ref[src];EnableMajorEvents=1'>Major Events Enabled:</a></b> [major_events_enabled ? "Yes" : "No"]<br>"
 		dat += "<b><a href='byond://?src=\ref[src];EnableMinorEvents=1'>Minor Events Enabled:</a></b> [minor_events_enabled ? "Yes" : "No"]<br>"
+#ifdef MAP_OVERRIDE_MENHIR
+		dat += "<b><a href='byond://?src=\ref[src];EnableMenhirEvents=1'>Menhir Events Enabled:</a></b> [menhir_events_enabled ? "Yes" : "No"]<br>"
+#endif
 		dat += "<b><a href='byond://?src=\ref[src];AnnounceEvents=1'>Announce Events to Station:</a></b> [announce_events ? "Yes" : "No"]<br>"
 		dat += "<b><a href='byond://?src=\ref[src];TimeLocks=1'>Time Locking:</a></b> [time_lock ? "Yes" : "No"]<br>"
 		dat += "<b>Minimum Population for Events: <a href='byond://?src=\ref[src];MinPop=1'>[minimum_population] players</a><br>"
@@ -170,6 +184,10 @@ var/datum/event_controller/random_events
 		dat += " <a href='byond://?src=\ref[src];TimeUpper=1'>[round(time_between_major_events_upper / 600)]m</a><br>"
 		dat += "<b>Time Between Minor Events:</b> <a href='byond://?src=\ref[src];MTimeLower=1'>[round(time_between_minor_events_lower / 600)]m</a> /"
 		dat += " <a href='byond://?src=\ref[src];MTimeUpper=1'>[round(time_between_minor_events_upper / 600)]m</a>"
+#ifdef MAP_OVERRIDE_MENHIR
+		dat += "<br><b>Time Between Menhir Events:</b> <a href='byond://?src=\ref[src];MHTimeLower=1'>[round(time_between_menhir_events_lower / 600)]m</a> /"
+		dat += " <a href='byond://?src=\ref[src];MHTimeUpper=1'>[round(time_between_menhir_events_upper / 600)]m</a>"
+#endif
 		dat += "<HR>"
 
 		dat += "<b><u>Normal Random Events</u></b><BR>"
@@ -194,6 +212,18 @@ var/datum/event_controller/random_events
 			dat += "<br></small>"
 		dat += "<BR>"
 
+#ifdef MAP_OVERRIDE_MENHIR
+		dat += "<b><u>Menhir-Specific Events</u></b><BR>"
+		for(var/datum/random_event/RE in menhir_events)
+			dat += "<a href='byond://?src=\ref[src];TriggerMHEvent=\ref[RE]'><b>[RE.name]</b></a>"
+			dat += " <small><a href='byond://?src=\ref[src];DisableMHEvent=\ref[RE]'>([RE.disabled ? "Disabled" : "Enabled"])</a>"
+			if(!RE.always_custom)
+				dat += " <a href='byond://?src=\ref[src];ScheduleMHEvent=\ref[RE]'><i>Schedule</i></a>"
+			if (RE.is_event_available())
+				dat += " (Active)"
+			dat += "<br></small>"
+		dat += "<BR>"
+#endif
 		dat += "<b><u>Gimmick Events</u></b><BR>"
 		for(var/datum/random_event/RE in special_events)
 			dat += "<a href='byond://?src=\ref[src];TriggerSEvent=\ref[RE]'><b>[RE.name]</b></a>"
@@ -215,12 +245,19 @@ var/datum/event_controller/random_events
 		//So we have not had any validation on the admin random events panel since its inception. Argh. /Spy
 		var/datum/random_event/RE
 		if(usr?.client && !usr.client.holder) {boutput(usr, "<h3 class='admin'>Only administrators may use this command.</span>"); return}
+#ifdef MAP_OVERRIDE_MENHIR
 		if (href_list["TriggerEvent"] || href_list["TriggerMEvent"] || href_list["TriggerSEvent"] || href_list["TriggerStartEvent"])
-
+#else
+		if (href_list["TriggerEvent"] || href_list["TriggerMEvent"] || href_list["TriggerMHEvent"] || href_list["TriggerSEvent"] || href_list["TriggerStartEvent"])
+#endif
 			if(href_list["TriggerEvent"])
 				RE = locate(href_list["TriggerEvent"]) in major_events
 			else if(href_list["TriggerMEvent"])
 				RE = locate(href_list["TriggerMEvent"]) in minor_events
+#ifdef MAP_OVERRIDE_MENHIR
+			else if(href_list["TriggerMHEvent"])
+				RE = locate(href_list["TriggerMHEvent"]) in menhir_events
+#endif
 			else if(href_list["TriggerSEvent"])
 				RE = locate(href_list["TriggerSEvent"]) in special_events
 			else if(href_list["TriggerStartEvent"])
@@ -238,7 +275,11 @@ var/datum/event_controller/random_events
 				else
 					RE.event_effect("Triggered by [key_name(usr)]")
 
+#ifdef MAP_OVERRIDE_MENHIR
+		if (href_list["ScheduleEvent"] || href_list["ScheduleMEvent"] || href_list["ScheduleMHEvent"] || href_list["ScheduleSEvent"] || href_list["ScheduleStartEvent"])
+#else
 		if (href_list["ScheduleEvent"] || href_list["ScheduleMEvent"] || href_list["ScheduleSEvent"] || href_list["ScheduleStartEvent"])
+#endif
 			var/queue_string
 			if(href_list["ScheduleEvent"])
 				RE = locate(href_list["ScheduleEvent"]) in major_events
@@ -246,6 +287,11 @@ var/datum/event_controller/random_events
 			else if(href_list["ScheduleMEvent"])
 				RE = locate(href_list["ScheduleMEvent"]) in minor_events
 				queue_string = "minor"
+#ifdef MAP_OVERRIDE_MENHIR
+			else if(href_list["ScheduleMHEvent"])
+				RE = locate(href_list["ScheduleMHEvent"]) in menhir_events
+				queue_string = "minor"
+#endif
 			else if(href_list["ScheduleSEvent"])
 				RE = locate(href_list["ScheduleSEvent"]) in special_events
 				queue_string = "special_events"
@@ -279,6 +325,17 @@ var/datum/event_controller/random_events
 			message_admins("Admin [key_name(usr)] switched [RE.name] event [RE.disabled ? "Off" : "On"]")
 			logTheThing(LOG_ADMIN, usr, "switched [RE.name] event [RE.disabled ? "Off" : "On"]")
 			logTheThing(LOG_DIARY, usr, "switched [RE.name] event [RE.disabled ? "Off" : "On"]", "admin")
+
+#ifdef MAP_OVERRIDE_MENHIR
+		else if(href_list["DisableMHEvent"])
+			RE = locate(href_list["DisableMHEvent"]) in menhir_events
+			if (!istype(RE,/datum/random_event/))
+				return
+			RE.disabled = !RE.disabled
+			message_admins("Admin [key_name(usr)] switched [RE.name] event [RE.disabled ? "Off" : "On"]")
+			logTheThing(LOG_ADMIN, usr, "switched [RE.name] event [RE.disabled ? "Off" : "On"]")
+			logTheThing(LOG_DIARY, usr, "switched [RE.name] event [RE.disabled ? "Off" : "On"]", "admin")
+#endif
 
 		else if(href_list["MinPop"])
 			var/new_min = input("How many players need to be connected before events will occur?","Random Events",minimum_population) as num
@@ -334,6 +391,14 @@ var/datum/event_controller/random_events
 			message_admins("Admin [key_name(usr)] [minor_events_enabled ? "enabled" : "disabled"] minor events")
 			logTheThing(LOG_ADMIN, usr, "[minor_events_enabled ? "enabled" : "disabled"] minor events")
 			logTheThing(LOG_DIARY, usr, "[minor_events_enabled ? "enabled" : "disabled"] minor events", "admin")
+
+#ifdef MAP_OVERRIDE_MENHIR
+		else if(href_list["EnableMenhirEvents"])
+			menhir_events_enabled = !menhir_events_enabled
+			message_admins("Admin [key_name(usr)] [menhir_events_enabled ? "enabled" : "disabled"] Menhir events")
+			logTheThing(LOG_ADMIN, usr, "[menhir_events_enabled ? "enabled" : "disabled"] Menhir events")
+			logTheThing(LOG_DIARY, usr, "[menhir_events_enabled ? "enabled" : "disabled"] Menhir events", "admin")
+#endif
 
 		else if(href_list["AnnounceEvents"])
 			announce_events = !announce_events
@@ -406,6 +471,37 @@ var/datum/event_controller/random_events
 			message_admins("Admin [key_name(usr)] set minor event upper interval bound to [time_between_minor_events_upper / 600] minutes")
 			logTheThing(LOG_ADMIN, usr, "set minor event upper interval bound to [time_between_minor_events_upper / 600] minutes")
 			logTheThing(LOG_DIARY, usr, "set minor event upper interval bound to [time_between_minor_events_upper / 600] minutes", "admin")
+#ifdef MAP_OVERRIDE_MENHIR
+		else if(href_list["MHTimeLower"])
+			var/time = input("Set the lower bound to how many minutes?","Random Events") as num
+			if (time < 1)
+				boutput(usr, SPAN_ALERT("The fuck is that supposed to mean???? Knock it off!"))
+				return
+
+			time *= 600
+			if (time > time_between_menhir_events_upper)
+				boutput(usr, SPAN_ALERT("You cannot set the lower bound higher than the upper bound."))
+			else
+				time_between_menhir_events_lower = time
+			message_admins("Admin [key_name(usr)] set Menhir event lower interval bound to [time_between_menhir_events_lower / 600] minutes")
+			logTheThing(LOG_ADMIN, usr, "set Menhir event lower interval bound to [time_between_menhir_events_lower / 600] minutes")
+			logTheThing(LOG_DIARY, usr, "set Menhir event lower interval bound to [time_between_menhir_events_lower / 600] minutes", "admin")
+
+		else if(href_list["MHTimeUpper"])
+			var/time = input("Set the upper bound to how many minutes?","Random Events") as num
+			if (time > 100)
+				boutput(usr, SPAN_ALERT("That's a bit much."))
+				return
+
+			time *= 600
+			if (time < time_between_menhir_events_lower)
+				boutput(usr, SPAN_ALERT("You cannot set the upper bound lower than the lower bound."))
+			else
+				time_between_menhir_events_upper = time
+			message_admins("Admin [key_name(usr)] set Menhir event upper interval bound to [time_between_menhir_events_upper / 600] minutes")
+			logTheThing(LOG_ADMIN, usr, "set Menhir event upper interval bound to [time_between_menhir_events_upper / 600] minutes")
+			logTheThing(LOG_DIARY, usr, "set Menhir event upper interval bound to [time_between_menhir_events_upper / 600] minutes", "admin")
+#endif
 
 		src.event_config()
 
@@ -482,7 +578,28 @@ var/datum/event_controller/random_events
 		"nextEvent" = src.next_minor_event,
 		"eventList" = minorEventData
 	))
-
+#ifdef MAP_OVERRIDE_MENHIR
+	var/list/menhirEventData = list()
+	for(RE in src.menhir_events)
+		menhirEventData += list(list(
+			"byondRef" = ref(RE),
+			"name" = RE.name,
+			"description" = "Foo",//RE.description,
+			"customizable" = RE.customization_available,
+			"alwaysCustom" = RE.always_custom,
+			"available" = RE.is_event_available(),
+			"enabled" =  !RE.disabled
+		))
+	.["eventData"] += list(list(
+		"name" = "menhir",
+		"enabled" = src.menhir_events_enabled,
+		"startTime" = src.menhir_events_begin,
+		"delayLow" = src.time_between_menhir_events_lower,
+		"delayHigh" = src.time_between_menhir_events_upper,
+		"nextEvent" = src.next_menhir_event,
+		"eventList" = menhirEventData
+	))
+#endif
 	var/list/specialEventData = list()
 	for(RE in src.special_events)
 		specialEventData += list(list(
@@ -588,6 +705,10 @@ var/datum/event_controller/random_events
 				queue_string = "major"
 			else if(RE in minor_events )
 				queue_string = "minor"
+#ifdef MAP_OVERRIDE_MENHIR
+			else if(RE in menhir_events )
+				queue_string = "menhir"
+#endif
 			else if(RE in special_events )
 				queue_string = "special_events"
 			else if(RE in start_events )
@@ -655,6 +776,23 @@ var/datum/event_controller/random_events
 							src.next_minor_event = params["new_data"]
 						else
 							. = FALSE
+#ifdef MAP_OVERRIDE_MENHIR
+				if("menhir")
+					. = TRUE
+					switch(params["name"])
+						if("toggle_category")
+							src.menhir_events_enabled = !src.menhir_events_enabled
+						if("startTime")
+							src.menhir_events_begin = params["new_data"]
+						if("delayLow")
+							src.time_between_menhir_events_lower = params["new_data"]
+						if("delayHigh")
+							src.time_between_menhir_events_upper = params["new_data"]
+						if("nextEvent")
+							src.next_menhir_event = params["new_data"]
+						else
+							. = FALSE
+#endif
 				else
 					. = FALSE
 

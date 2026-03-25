@@ -12,6 +12,11 @@ ABSTRACT_TYPE(/datum/storyteller)
 	var/minor_event_start = 10 MINUTES
 	var/minor_time_range = list(400 SECONDS, 800 SECONDS)
 
+#ifdef MAP_OVERRIDE_MENHIR
+	var/menhir_event_start = 8 MINUTES
+	var/menhir_time_range = list(7 MINUTES, 10 MINUTES)
+#endif
+
 	var/spawn_event_start = 23 MINUTES
 	var/spawn_time_range = list(8 MINUTES, 12 MINUTES)
 	var/dead_players_threshold = 0.3
@@ -32,6 +37,11 @@ ABSTRACT_TYPE(/datum/storyteller)
 		random_events.time_between_minor_events_lower = src.minor_time_range[1]
 		random_events.time_between_minor_events_upper = src.minor_time_range[2]
 
+#ifdef MAP_OVERRIDE_MENHIR
+		random_events.menhir_events_begin = src.menhir_event_start
+		random_events.time_between_menhir_events_lower = src.menhir_time_range[1]
+		random_events.time_between_menhir_events_upper = src.menhir_time_range[2]
+#endif
 		random_events.spawn_events_begin = src.spawn_event_start
 		random_events.time_between_spawn_events_lower = src.spawn_time_range[1]
 		random_events.time_between_spawn_events_upper = src.spawn_time_range[2]
@@ -54,6 +64,13 @@ ABSTRACT_TYPE(/datum/storyteller)
 		if (ticker.round_elapsed_ticks >= minor_event_start)
 			if (ticker.round_elapsed_ticks >= random_events.next_minor_event)
 				minor_event_cycle()
+
+#ifdef MAP_OVERRIDE_MENHIR
+		if (ticker.round_elapsed_ticks >= menhir_event_start)
+			if (ticker.round_elapsed_ticks >= random_events.next_menhir_event)
+				menhir_event_cycle()
+#endif
+
 
 	proc/check_scheduled()
 		for(var/queue in random_events.queued_events)
@@ -81,17 +98,21 @@ ABSTRACT_TYPE(/datum/storyteller)
 		random_events.minor_event_cycle_count++
 		if (random_events.minor_events_enabled)
 			random_events.do_random_event(random_events.minor_events)
-#ifdef MAP_OVERRIDE_MENHIR
-			if(prob(45 + (random_events.cycles_since_menhir_event * 20)) || random_events.cycles_since_menhir_event > 1)
-				random_events.cycles_since_menhir_event = 0
-				SPAWN(rand(1 MINUTE,5 MINUTES))
-					random_events.do_random_event(random_events.menhir_events)
-			else
-				random_events.cycles_since_menhir_event++
-#endif
 
 		random_events.minor_event_timer = rand(random_events.time_between_minor_events_lower, random_events.time_between_minor_events_upper)
 		random_events.next_minor_event = ticker.round_elapsed_ticks + random_events.minor_event_timer
+
+#ifdef MAP_OVERRIDE_MENHIR
+	proc/menhir_event_cycle()
+		random_events.menhir_event_cycle_count++
+		if(prob(40 + (random_events.cycles_since_menhir_event * 15)) || random_events.cycles_since_menhir_event > 2)
+			random_events.cycles_since_menhir_event = 0
+			SPAWN(rand(1 MINUTE,5 MINUTES))
+				random_events.do_random_event(random_events.menhir_events)
+		else
+			random_events.cycles_since_menhir_event++
+#endif
+
 
 	proc/spawn_event(var/type = "player")
 		var/do_event = 1
