@@ -1001,14 +1001,6 @@
 /obj/disposalpipe/segment/bent/west,
 /turf/simulated/floor/plating,
 /area/station/maintenance/west)
-"aHX" = (
-/obj/effects/menhir_fog,
-/obj/landmark/menhir/doorway{
-	data = "EAST";
-	dir = 4
-	},
-/turf/unsimulated/wall/auto/adventure/icemooninterior,
-/area/station/crown)
 "aIp" = (
 /obj/disposalpipe/segment/mail{
 	dir = 8;
@@ -3814,14 +3806,6 @@
 /area/station/maintenance/outer/sw{
 	name = "Arrivals Auxiliary Arm"
 	})
-"cjL" = (
-/obj/effects/menhir_fog,
-/obj/landmark/menhir/doorway{
-	data = "SOUTHWEST";
-	dir = 4
-	},
-/turf/unsimulated/wall/auto/adventure/icemooninterior,
-/area/station/crown)
 "ckh" = (
 /obj/machinery/firealarm/directional/north,
 /turf/unsimulated/floor/setpieces/bluefloor,
@@ -9669,14 +9653,6 @@
 "fWz" = (
 /turf/simulated/wall/auto/supernorn,
 /area/station/garden/owlery)
-"fWZ" = (
-/obj/effects/menhir_fog,
-/obj/landmark/menhir/doorway{
-	data = "NORTHEAST";
-	dir = 4
-	},
-/turf/unsimulated/wall/auto/adventure/icemooninterior,
-/area/station/crown)
 "fXn" = (
 /obj/machinery/portable_atmospherics/scrubber,
 /obj/item/device/radio/intercom,
@@ -16003,14 +15979,6 @@
 	},
 /turf/simulated/floor/caution/corner/sw,
 /area/station/turret_protected/incursion)
-"jSS" = (
-/obj/effects/menhir_fog,
-/obj/landmark/menhir/doorway{
-	data = "NORTHWEST";
-	dir = 4
-	},
-/turf/unsimulated/wall/auto/adventure/icemooninterior,
-/area/station/crown)
 "jSY" = (
 /obj/lattice{
 	dir = 5;
@@ -26659,14 +26627,6 @@
 	dir = 1
 	},
 /area/station/science/chemistry)
-"qlQ" = (
-/obj/effects/menhir_fog,
-/obj/landmark/menhir/doorway{
-	data = "WEST";
-	dir = 4
-	},
-/turf/unsimulated/wall/auto/adventure/icemooninterior,
-/area/station/crown)
 "qlX" = (
 /obj/stool/chair/office/red,
 /obj/landmark/start/job/security_officer,
@@ -27580,14 +27540,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/west)
-"qSQ" = (
-/obj/effects/menhir_fog,
-/obj/landmark/menhir/doorway{
-	data = "SOUTHEAST";
-	dir = 4
-	},
-/turf/unsimulated/wall/auto/adventure/icemooninterior,
-/area/station/crown)
 "qSY" = (
 /obj/cable{
 	icon_state = "1-8"
@@ -80363,7 +80315,7 @@ vna
 rjA
 lhN
 lhN
-qlQ
+lPZ
 lhN
 lhN
 gpo
@@ -81856,7 +81808,7 @@ ozV
 jpt
 lhN
 lhN
-jSS
+wWW
 lhN
 lhN
 rrp
@@ -81890,7 +81842,7 @@ sRQ
 aLp
 lhN
 lhN
-cjL
+oau
 lhN
 lhN
 ukc
@@ -82175,7 +82127,7 @@ pTu
 dzk
 lhN
 lhN
-qlQ
+lPZ
 lhN
 lhN
 xiF
@@ -83668,7 +83620,7 @@ twa
 pZV
 lhN
 lhN
-jSS
+wWW
 lhN
 lhN
 dfb
@@ -83702,7 +83654,7 @@ xFh
 jVK
 lhN
 lhN
-cjL
+oau
 lhN
 lhN
 ect
@@ -92124,7 +92076,7 @@ lRn
 vCx
 lhN
 lhN
-fWZ
+meT
 lhN
 lhN
 dfb
@@ -92158,7 +92110,7 @@ aSL
 ksl
 lhN
 lhN
-qSQ
+qWp
 lhN
 lhN
 wZD
@@ -93651,7 +93603,7 @@ jqG
 cCb
 lhN
 lhN
-aHX
+xtE
 lhN
 lhN
 cCb
@@ -93936,7 +93888,7 @@ lLY
 cUk
 lhN
 lhN
-fWZ
+meT
 lhN
 lhN
 iea
@@ -93970,7 +93922,7 @@ afO
 hzB
 lhN
 lhN
-qSQ
+qWp
 lhN
 lhN
 xYE
@@ -95463,7 +95415,7 @@ mnQ
 mON
 lhN
 lhN
-aHX
+xtE
 lhN
 lhN
 pkX
