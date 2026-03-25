@@ -149,33 +149,6 @@
 	name = "Somewhen"
 	icon_state = "purple"
 
-/area/station/crown // stole this code from the void definition
-	name = "The Crown"
-	icon_state = "purple"
-	filler_turf = "/turf/unsimulated/floor/setpieces/bluefloor"
-	sound_environment = 5
-	sound_loop = 'sound/ambience/industrial/Precursor_Drone1.ogg'
-	teleport_blocked = 2
-	do_not_irradiate = 1
-
-/area/station/crown/New()
-	. = ..()
-	START_TRACKING_CAT(TR_CAT_AREA_PROCESS)
-
-/area/station/crown/disposing()
-	STOP_TRACKING_CAT(TR_CAT_AREA_PROCESS)
-	. = ..()
-
-/area/station/crown/area_process()
-	if(prob(20))
-		var/weirdnoise = pick('sound/ambience/industrial/Precursor_Drone2.ogg',\
-			'sound/ambience/industrial/Precursor_Choir.ogg',\
-			'sound/ambience/industrial/Precursor_Drone3.ogg',\
-			'sound/ambience/industrial/Precursor_Bells.ogg')
-
-		var/turf/noisy_turf = pick(get_area_turfs(/area/station/crown))
-		playsound(noisy_turf, weirdnoise, 70, 1)
-
 ////////////////////// cogwerks - HELL
 
 /area/hell

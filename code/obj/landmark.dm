@@ -366,6 +366,9 @@ var/global/list/job_start_locations = list()
 /obj/landmark/menhir/node
 	name = LANDMARK_MENHIR_NODE
 
+/obj/landmark/menhir/outreach
+	name = LANDMARK_MENHIR_OUTREACH
+
 /obj/landmark/menhir/penance
 	name = LANDMARK_MENHIR_PENANCE
 

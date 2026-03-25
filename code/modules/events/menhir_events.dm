@@ -5,6 +5,16 @@ ABSTRACT_TYPE(/datum/random_event/menhir)
 	centcom_message = "A spike in electromagnetic activity from TOREADOR-7I-22408 was recently recorded. Personnel on site are advised to monitor artifact for changes in structure or activity."
 	centcom_origin = ALERT_ANOMALY
 
+	///Outreach turfs are locations that start open and are suitable for an event to occur at. Events should pick and check one blindly at first, and fall back to this if necessary.
+	proc/get_open_outreach()
+		. = FALSE
+		var/list/eligible_sites = list()
+		for (var/turf/T in landmarks[LANDMARK_MENHIR_OUTREACH])
+			if(istype(T,/turf/simulated/floor) && !is_blocked_turf(T))
+				eligible_sites += T
+		if(length(eligible_sites))
+			. = pick(eligible_sites)
+
 //pulled one out of cold storage for ya
 /datum/random_event/menhir/gift
 	name = "A Gift from the Crown"
@@ -17,35 +27,50 @@ ABSTRACT_TYPE(/datum/random_event/menhir)
 				. = FALSE
 
 	event_effect()
-		///Center of a node (artifact peripheral ball); gift artifact spawns here, and the node is removed from eligibility
-		var/turf/nodelandmark = pick_landmark(LANDMARK_MENHIR_NODE)
-		///Tag for the node the event is occurring in
-		var/node_tag = landmarks[LANDMARK_MENHIR_NODE][nodelandmark]
+		///Site the gift artifact spawns at; will be a node (external ball) if possible, adding a door to it and disqualifying node from further events
+		var/turf/nodelandmark
+		///Tag for the node the event is occurring in, when a node is selected
+		var/node_tag = null
 		///A door landmark turf is selected to have a door into the node
 		var/turf/doorlandmark = null
-
+		///List of eligible walls in node mode
 		var/list/eligible_walls = list()
-		for (var/turf/T in landmarks[LANDMARK_MENHIR_DOOR])
-			if (landmarks[LANDMARK_MENHIR_DOOR][T] == node_tag)
-				eligible_walls += T
 
-		if (!length(eligible_walls))
-			logTheThing(LOG_DEBUG, null, "Menhir gift event couldn't find a wall for the selected door! This shouldn't happen.")
-			message_admins("Menhir gift event couldn't find a node wall selected door! This shouldn't happen. Aborting event")
-			return
+		if(!landmarks[LANDMARK_MENHIR_NODE] || length(landmarks[LANDMARK_MENHIR_NODE]) < 1) //fallback mode
+			nodelandmark = nodelandmark = pick_landmark(LANDMARK_MENHIR_OUTREACH)
+			if (!istype(nodelandmark,/turf/simulated/floor) || is_blocked_turf(nodelandmark))
+				nodelandmark = get_open_outreach()
+				if(!nodelandmark)
+					logTheThing(LOG_DEBUG, null, "Menhir gift event couldn't find a fallback turf after all nodes expended; aborting event.")
+					message_admins("Menhir analysis event couldn't find a fallback turf after all nodes expended; aborting event.")
+					return
+		else
+			nodelandmark = pick_landmark(LANDMARK_MENHIR_NODE)
+			node_tag = landmarks[LANDMARK_MENHIR_NODE][nodelandmark]
+
+			for (var/turf/T in landmarks[LANDMARK_MENHIR_DOOR])
+				if (landmarks[LANDMARK_MENHIR_DOOR][T] == node_tag)
+					eligible_walls += T
+
+			if (!length(eligible_walls))
+				logTheThing(LOG_DEBUG, null, "Menhir gift event couldn't find a wall for the selected door! This shouldn't happen.")
+				message_admins("Menhir gift event couldn't find a node wall selected door! This shouldn't happen. Aborting event")
+				return
 
 		if(prob(60))
 			playsound(nodelandmark, 'sound/effects/ring_happi.ogg', 55, 0, pitch = 0.45, extrarange = 24)
 		else
 			playsound(nodelandmark, 'sound/musical_instruments/artifact/Artifact_Precursor_2.ogg', 55, 0, extrarange = 24)
 
-		doorlandmark = pick(eligible_walls)
-		var/save_dir = doorlandmark.icon_state
-		var/obj/newdoor = new /obj/machinery/door/unpowered/blue(doorlandmark)
-		if (save_dir == "interior-3") //vertical wall detection
-			newdoor.dir = 4
-
-		landmarks[LANDMARK_MENHIR_NODE].Remove(nodelandmark) //"expend" the node so future events won't select it again
+		if(node_tag)
+			doorlandmark = pick(eligible_walls)
+			var/save_dir = doorlandmark.icon_state
+			var/obj/newdoor = new /obj/machinery/door/unpowered/blue(doorlandmark)
+			if (save_dir == "interior-3") //vertical wall detection
+				newdoor.dir = 4
+			landmarks[LANDMARK_MENHIR_NODE].Remove(nodelandmark) //"expend" the node in node spawns, so future events won't select it again
+		else
+			showswirl(nodelandmark)
 		Artifact_Spawn(nodelandmark,"precursor")
 
 		message_delay = rand(2 MINUTES, 4 MINUTES)
@@ -55,8 +80,12 @@ ABSTRACT_TYPE(/datum/random_event/menhir)
 			SPAWN(message_delay)
 				playsound_global(world, 'sound/misc/announcement_ominous.ogg', 60)
 
-		logTheThing(LOG_STATION, null, "Menhir gift event at [node_tag] arm - [log_loc(nodelandmark)]")
-		message_admins("Menhir gift event triggered at [node_tag] arm - [log_loc(nodelandmark)]")
+		if(node_tag)
+			logTheThing(LOG_STATION, null, "Menhir gift event at [node_tag] arm - [log_loc(nodelandmark)]")
+			message_admins("Menhir gift event triggered at [node_tag] arm - [log_loc(nodelandmark)]")
+		else
+			logTheThing(LOG_STATION, null, "Menhir gift event (fallback mode) at [log_loc(nodelandmark)]")
+			message_admins("Menhir gift event triggered (fallback mode) - [log_loc(nodelandmark)]")
 
 //pick somebody out and see how they respond
 /datum/random_event/menhir/analysis
@@ -132,15 +161,37 @@ ABSTRACT_TYPE(/datum/random_event/menhir)
 		logTheThing(LOG_STATION, null, "Menhir analysis event at [node_tag] arm - [log_loc(nodelandmark)]")
 		message_admins("Menhir analysis event triggered at [node_tag] arm - [log_loc(nodelandmark)]")
 
-/*
-/datum/random_event/menhir/draw_dry
-	name = "Tribute to the Crown"
-	message_delay = 2 MINUTES
+/datum/random_event/menhir/powersink
+	name = "A Spire of Synthesis"
+	message_delay = 1 MINUTE
+	weight = 15
 
 	event_effect()
+		///Location of "outreach".
+		var/turf/eventlandmark = pick_landmark(LANDMARK_MENHIR_OUTREACH)
+		if (!istype(eventlandmark,/turf/simulated/floor) || is_blocked_turf(eventlandmark))
+			eventlandmark = get_open_outreach()
+			if(!eventlandmark)
+				logTheThing(LOG_DEBUG, null, "Menhir powersink event couldn't find a turf to happen at; aborting event.")
+				message_admins("Menhir analysis event couldn't find a turf to happen at; aborting event.")
+				return
 
+		showswirl(eventlandmark)
+		playsound(eventlandmark, 'sound/musical_instruments/artifact/Artifact_Precursor_4.ogg', 55, 0, extrarange = 24, pitch = 0.45)
+		SPAWN(2)
+			var/obj/sinkyboye = new /obj/machinery/artifact/synthesizer(eventlandmark)
+			sinkyboye.anchored = ANCHORED //give it a sec
+			SPAWN(1 SECOND)
+				sinkyboye.ArtifactActivated()
 
-*/
+		message_delay = rand(40 SECONDS,80 SECONDS)
+		..()
+		if (random_events.announce_events)
+			SPAWN(message_delay)
+				playsound_global(world, 'sound/misc/announcement_ominous.ogg', 60)
+
+		logTheThing(LOG_STATION, null, "Menhir powersink event at [log_loc(eventlandmark)]")
+		message_admins("Menhir powersink event triggered at [log_loc(eventlandmark)]")
 
 ////////////////////////////////////////////
 //////BIG SPECIAL EVENTS////////////////////
@@ -150,7 +201,7 @@ ABSTRACT_TYPE(/datum/random_event/menhir)
 /datum/random_event/menhir/road
 	name = "The Crown Holds Court"
 	message_delay = 30 SECONDS
-	weight = 4
+	weight = 3
 
 	is_event_available(ignore_time_lock)
 		. = ..()
@@ -186,7 +237,7 @@ ABSTRACT_TYPE(/datum/random_event/menhir)
 	required_elapsed_round_time = 22 MINUTES
 	centcom_headline = "ARTIFACT CONDITION ALERT"
 	centcom_message = "A massive spike in electromagnetic activity that does not match prior readings has been detected from TOREADOR-7I-22408. All personnel should immediately make ready for hazardous conditions."
-	weight = 4
+	weight = 2
 
 	is_event_available(ignore_time_lock)
 		. = ..()
