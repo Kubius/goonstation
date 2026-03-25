@@ -114,7 +114,7 @@
 		///Determine how close we got to the desired amount of energy; the closer we got, the better materials we get
 		var/completion = drawn_energy / draw_cap
 		///Quantity of materials produced depends on energy gathered
-		var/pool_rolls = max(drawn_energy / 1e7, 1)
+		var/pool_rolls = max(drawn_energy / 2e7, 1)
 
 		var/list/lootpool = list(/obj/item/raw_material/cobryl = 1+completion,\
 			/obj/item/raw_material/syreline = 1.5-completion,\
