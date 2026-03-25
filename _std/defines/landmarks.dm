@@ -60,9 +60,6 @@
 
 // misc and unused
 #define LANDMARK_CHARACTER_PREVIEW_SPAWN "character preview"
-#define LANDMARK_MENHIR_DOOR "menhir_door"
-#define LANDMARK_MENHIR_NODE "menhir_node"
-#define LANDMARK_MENHIR_PENANCE "menhir_penance"
 
 /// Twitch Plays Shitty Bill respawn points
 #define LANDMARK_TWITCHY_BILL_RESPAWN "shitty_bill_respawn"
@@ -174,3 +171,9 @@
 #define LANDMARK_HTR_TEAM "HTR_TEAM"
 #define LANDMARK_HTR_VENDOR "HTR_VENDOR"
 #define LANDMARK_HTR_BOTS "HTR_BOTS"
+
+//Menhir map
+#define LANDMARK_MENHIR_DOOR "menhir_door"
+#define LANDMARK_MENHIR_NODE "menhir_node"
+#define LANDMARK_MENHIR_PENANCE "menhir_penance"
+#define LANDMARK_MENHIR_PASSAGE "menhir_passage"

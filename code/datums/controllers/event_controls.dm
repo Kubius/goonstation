@@ -18,6 +18,11 @@ var/datum/event_controller/random_events
 	var/minor_events_enabled = TRUE
 	var/minor_event_cycle_count = 0
 
+#ifdef MAP_OVERRIDE_MENHIR
+	var/list/menhir_events = list()
+	var/waiting_for_menhir_event = FALSE //system to guarantee a menhir event in every other round
+#endif
+
 	var/list/antag_spawn_events = list()
 #ifdef RP_MODE
 	var/alive_antags_threshold = 0.04
@@ -67,6 +72,12 @@ var/datum/event_controller/random_events
 		for (var/X in concrete_typesof(/datum/random_event/minor))
 			var/datum/random_event/RE = new X
 			minor_events += RE
+
+#ifdef MAP_OVERRIDE_MENHIR
+		for (var/X in concrete_typesof(/datum/random_event/menhir))
+			var/datum/random_event/RE = new X
+			minor_events += RE
+#endif
 
 		for (var/X in concrete_typesof(/datum/random_event/special))
 			var/datum/random_event/RE = new X

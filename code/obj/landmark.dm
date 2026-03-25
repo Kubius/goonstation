@@ -369,6 +369,9 @@ var/global/list/job_start_locations = list()
 /obj/landmark/menhir/penance
 	name = LANDMARK_MENHIR_PENANCE
 
+/obj/landmark/menhir/passage
+	name = LANDMARK_MENHIR_PASSAGE
+
 ///emergency shuttle launch sound origin
 /obj/landmark/shuttle_subwoofer
 	name = LANDMARK_SHUTTLE_SOUND

@@ -9967,13 +9967,8 @@
 /turf/simulated/floor/engine,
 /area/station/engine/core)
 "gfo" = (
-/obj/fakeobject{
-	dir = 1;
-	icon = 'icons/turf/walls/precursor.dmi';
-	icon_state = "details";
-	name = "symbols"
-	},
 /obj/effects/menhir_fog,
+/obj/landmark/menhir/passage,
 /turf/unsimulated/wall/auto/adventure/icemooninterior,
 /area/station/crown)
 "gfO" = (
@@ -13194,6 +13189,11 @@
 	},
 /turf/simulated/floor/carpet/grime,
 /area/station/security/detectives_office)
+"ibe" = (
+/obj/effects/menhir_fog,
+/obj/landmark/menhir/passage,
+/turf/unsimulated/floor/setpieces/bluefloor,
+/area/station/crown)
 "ibL" = (
 /obj/table/reinforced/bar/auto{
 	name = "wooden table"
@@ -83939,7 +83939,7 @@ lhN
 lhN
 lhN
 lhN
-lhN
+gfo
 lhN
 lhN
 lhN
@@ -84537,12 +84537,12 @@ blY
 lhN
 lhN
 lhN
+ibe
 aGr
+gfo
 aGr
 lhN
-aGr
-lhN
-lhN
+gfo
 lhN
 lhN
 lhN
@@ -87869,7 +87869,7 @@ bqi
 qyk
 osZ
 osZ
-lhN
+gfo
 aGr
 aGr
 gfo
@@ -91181,12 +91181,12 @@ blY
 lhN
 lhN
 lhN
+ibe
 aGr
+gfo
 aGr
 lhN
-aGr
-lhN
-lhN
+gfo
 lhN
 lhN
 lhN
@@ -91791,7 +91791,7 @@ lhN
 lhN
 lhN
 lhN
-lhN
+gfo
 lhN
 lhN
 lhN
