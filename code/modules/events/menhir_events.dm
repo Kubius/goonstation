@@ -183,7 +183,7 @@ ABSTRACT_TYPE(/datum/random_event/menhir)
 /datum/random_event/menhir/shadow
 	name = "Of Memory Is Borne Lament"
 	message_delay = 30 SECONDS
-	required_elapsed_round_time = 16 MINUTES
+	required_elapsed_round_time = 22 MINUTES
 	centcom_headline = "ARTIFACT CONDITION ALERT"
 	centcom_message = "A massive spike in electromagnetic activity has been detected from TOREADOR-7I-22408. All personnel should immediately make ready for hazardous conditions."
 	weight = 4
