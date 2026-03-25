@@ -36,7 +36,7 @@ ABSTRACT_TYPE(/datum/random_event/menhir)
 		///List of eligible walls in node mode
 		var/list/eligible_walls = list()
 
-		if(!landmarks[LANDMARK_MENHIR_NODE] || length(landmarks[LANDMARK_MENHIR_NODE]) < 1) //fallback mode
+		if(!landmarks[LANDMARK_MENHIR_NODE] || length(landmarks[LANDMARK_MENHIR_NODE]) < 1) //fallback mode: pick a curated station tile instead
 			nodelandmark = nodelandmark = pick_landmark(LANDMARK_MENHIR_OUTREACH)
 			if (!istype(nodelandmark,/turf/simulated/floor) || is_blocked_turf(nodelandmark))
 				nodelandmark = get_open_outreach()
@@ -161,6 +161,7 @@ ABSTRACT_TYPE(/datum/random_event/menhir)
 		logTheThing(LOG_STATION, null, "Menhir analysis event at [node_tag] arm - [log_loc(nodelandmark)]")
 		message_admins("Menhir analysis event triggered at [node_tag] arm - [log_loc(nodelandmark)]")
 
+//the crown tries out one of its more novel machines
 /datum/random_event/menhir/powersink
 	name = "A Spire of Synthesis"
 	message_delay = 1 MINUTE
