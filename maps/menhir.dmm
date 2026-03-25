@@ -19568,7 +19568,8 @@
 /area/station/science/lab)
 "mcT" = (
 /obj/machinery/door/poddoor/blast/single{
-	id = "ghostboye"
+	id = "ghostboye";
+	dir = 4
 	},
 /turf/simulated/floor/plating,
 /area/ghostdrone_factory)
