@@ -93,7 +93,7 @@ ABSTRACT_TYPE(/datum/random_event/menhir)
 			message_admins("Menhir analysis event couldn't find anyone to take; aborting event.")
 			return
 
-		var/time_of_stay = rand(1.5 MINUTES,2 MINUTES)
+		var/time_of_stay = rand(90 SECONDS,2 MINUTES)
 		var/time_of_spook = time_of_stay * 0.3 + rand(0,150)
 		var/mob/living/carbon/human/our_guest = pick(eligible_examinees)
 		var/turf/whisked_from = get_turf(our_guest)
@@ -131,6 +131,20 @@ ABSTRACT_TYPE(/datum/random_event/menhir)
 
 		logTheThing(LOG_STATION, null, "Menhir analysis event at [node_tag] arm - [log_loc(nodelandmark)]")
 		message_admins("Menhir analysis event triggered at [node_tag] arm - [log_loc(nodelandmark)]")
+
+/*
+/datum/random_event/menhir/draw_dry
+	name = "Tribute to the Crown"
+	message_delay = 2 MINUTES
+
+	event_effect()
+
+
+*/
+
+////////////////////////////////////////////
+//////BIG SPECIAL EVENTS////////////////////
+////////////////////////////////////////////
 
 //sometimes, the door just unlocks itself
 /datum/random_event/menhir/road
@@ -196,7 +210,7 @@ ABSTRACT_TYPE(/datum/random_event/menhir)
 		SPAWN(remusic)
 			playsound_global(world, 'sound/musical_instruments/artifact/Artifact_Void_2.ogg', 70, 0, 0.45)
 
-		SPAWN(rand(1.5 SECONDS, 3 SECONDS))
+		SPAWN(rand(2 SECONDS, 3 SECONDS))
 			playsound_global(world, pick(list('sound/voice/creepywhisper_1.ogg', 'sound/voice/creepywhisper_2.ogg', 'sound/voice/creepywhisper_3.ogg')), 60)
 			for (var/obj/machinery/power/apc/apc in machine_registry[MACHINES_POWER])
 				if (!istype(apc.area,/area/station/hallway/primary))
