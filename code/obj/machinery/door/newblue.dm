@@ -94,7 +94,7 @@ ADMIN_INTERACT_PROCS(/obj/machinery/door/unpowered/blue, proc/revoke_door)
 			qdel(src)
 
 /obj/machinery/door/unpowered/blue/bumpopen(atom/movable/AM)
-	if (ismob(AM) && !AM:mind)
+	if (ismob(AM) && (!AM:mind && !istype(AM,/mob/living/critter/shade/invader)))
 		return
 	. = ..()
 

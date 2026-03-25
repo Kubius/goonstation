@@ -177,3 +177,4 @@
 #define LANDMARK_MENHIR_NODE "menhir_node"
 #define LANDMARK_MENHIR_PENANCE "menhir_penance"
 #define LANDMARK_MENHIR_PASSAGE "menhir_passage"
+#define LANDMARK_MENHIR_DARK "menhir_dark"

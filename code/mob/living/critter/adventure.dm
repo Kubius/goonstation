@@ -206,11 +206,19 @@ TYPEINFO(/mob/living/critter/shade)
 
 /mob/living/critter/shade/lordly
 	name = "voice of shadow"
-	desc = "Why do you defile the heavens?"
+	desc = "They sing for us no longer."
 	base_move_delay = 3
 	base_walk_delay = 4
 	health_brute = 708
 	health_burn = 708
+
+/mob/living/critter/shade/invader
+	name = "voice of shadow"
+	layer = 3.85
+
+	examine()
+		src.desc = pick("Why do you defile the heavens?","This place was not for you.","Woe, that the butchers disturb our grieving sleep.")
+		. = ..()
 
 /mob/living/critter/shade/crew
 	name = "faded scientist"

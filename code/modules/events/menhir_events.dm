@@ -5,6 +5,7 @@ ABSTRACT_TYPE(/datum/random_event/menhir)
 	centcom_message = "A spike in electromagnetic activity from TOREADOR-7I-22408 was recently recorded. Personnel on site are advised to monitor artifact for changes in structure or activity."
 	centcom_origin = ALERT_ANOMALY
 
+//pulled one out of cold storage for ya
 /datum/random_event/menhir/gift
 	name = "A Gift from the Crown"
 	message_delay = 4 MINUTES
@@ -57,6 +58,7 @@ ABSTRACT_TYPE(/datum/random_event/menhir)
 		logTheThing(LOG_STATION, null, "Menhir gift event at [node_tag] arm - [log_loc(nodelandmark)]")
 		message_admins("Menhir gift event triggered at [node_tag] arm - [log_loc(nodelandmark)]")
 
+//pick somebody out and see how they respond
 /datum/random_event/menhir/analysis
 	name = "The Crown Inquires"
 	message_delay = 2 MINUTES
@@ -130,6 +132,7 @@ ABSTRACT_TYPE(/datum/random_event/menhir)
 		logTheThing(LOG_STATION, null, "Menhir analysis event at [node_tag] arm - [log_loc(nodelandmark)]")
 		message_admins("Menhir analysis event triggered at [node_tag] arm - [log_loc(nodelandmark)]")
 
+//sometimes, the door just unlocks itself
 /datum/random_event/menhir/road
 	name = "The Crown Holds Court"
 	message_delay = 30 SECONDS
@@ -161,4 +164,61 @@ ABSTRACT_TYPE(/datum/random_event/menhir)
 
 		logTheThing(LOG_STATION, null, "Menhir road event triggered.")
 		message_admins("Menhir road event triggered.")
+
+//the ancient ones remembered in the deep of the Crown have noticed your presence. and SHIT IS GOIN DOWN
+/datum/random_event/menhir/shadow
+	name = "Of Memory Is Borne Lament"
+	message_delay = 30 SECONDS
+	required_elapsed_round_time = 25 MINUTES
+	centcom_headline = "ARTIFACT CONDITION ALERT"
+	centcom_message = "A massive spike in electromagnetic activity has been detected from TOREADOR-7I-22408. All personnel should immediately make ready for hazardous conditions."
+	weight = 4
+
+	is_event_available(ignore_time_lock)
+		. = ..()
+		if(.)
+			if (!landmarks[LANDMARK_MENHIR_DARK] || length(landmarks[LANDMARK_MENHIR_DARK]) < 1)
+				. = FALSE //the road is already open
+
+	event_effect()
+		for (var/turf/T in landmarks[LANDMARK_MENHIR_DARK])
+			if (istype(T,/turf/unsimulated/wall))
+				var/save_dir = T.icon_state
+				var/obj/newdoor = new /obj/machinery/door/unpowered/blue(T)
+				if (save_dir == "interior-3") //vertical wall detection
+					newdoor.dir = 4
+			else
+				SPAWN(rand(0,200))
+					new /mob/living/critter/shade/invader(T)
+
+		playsound_global(world, 'sound/musical_instruments/artifact/Artifact_Void_2.ogg', 70, 0, 0.45)
+		var/remusic = 115 SECONDS
+		SPAWN(remusic)
+			playsound_global(world, 'sound/musical_instruments/artifact/Artifact_Void_2.ogg', 70, 0, 0.45)
+
+		SPAWN(rand(1.5 SECONDS, 3 SECONDS))
+			playsound_global(world, pick(list('sound/voice/creepywhisper_1.ogg', 'sound/voice/creepywhisper_2.ogg', 'sound/voice/creepywhisper_3.ogg')), 60)
+			for (var/obj/machinery/power/apc/apc in machine_registry[MACHINES_POWER])
+				if (!istype(apc.area,/area/station/hallway/primary))
+					continue
+				apc.overload_lighting()
+
+		for_by_tcl(light,/obj/map/light/cyan/menhir)
+			SPAWN(rand(1,10))
+				light.alterlight(0.42,0.3,0.3)
+
+		message_delay = rand(5 SECONDS, 8 SECONDS)
+		..()
+		if (random_events.announce_events) //this should maybe be baked into events but eh
+			SPAWN(message_delay)
+				playsound_global(world, 'sound/misc/announcement_ominous.ogg', 60, pitch = 1.3)
+			SPAWN(message_delay + 15)
+				playsound_global(world, 'sound/misc/announcement_ominous.ogg', 60, pitch = 1.3)
+			SPAWN(message_delay + 30)
+				playsound_global(world, 'sound/misc/announcement_ominous.ogg', 60, pitch = 1.3)
+				SPAWN(5)
+					playsound_global(world, pick(list('sound/voice/creepywhisper_1.ogg', 'sound/voice/creepywhisper_2.ogg', 'sound/voice/creepywhisper_3.ogg')), 60)
+
+		logTheThing(LOG_STATION, null, "Menhir shadow event triggered.")
+		message_admins("Menhir shadow event triggered.")
 #endif

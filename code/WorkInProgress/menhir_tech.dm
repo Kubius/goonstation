@@ -7,7 +7,7 @@ TYPEINFO_NEW(/obj/effects/menhir_fog)
 	name = "fog of war"
 	desc = "Something has chosen not to be seen."
 	icon = 'icons/effects/fogofwar.dmi'
-	layer = 3.1
+	layer = 3.9
 	mouse_opacity = 1
 	anchored = ANCHORED
 	invisibility = INVIS_AI_EYE

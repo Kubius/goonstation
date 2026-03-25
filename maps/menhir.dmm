@@ -1895,6 +1895,11 @@
 /obj/machinery/light_switch/east,
 /turf/simulated/floor/yellow,
 /area/station/hallway/primary/west)
+"bhf" = (
+/obj/effects/menhir_fog,
+/obj/landmark/menhir/dark,
+/turf/unsimulated/floor/setpieces/bluefloor,
+/area/station/crown)
 "bhk" = (
 /obj/table/reinforced/auto,
 /obj/machinery/phone,
@@ -1910,15 +1915,6 @@
 /obj/mapping_helper/access/engineering_power,
 /turf/simulated/floor/plating,
 /area/station/maintenance/solar/west)
-"bhE" = (
-/obj/effects/menhir_fog,
-/obj/map/light/cyan{
-	brightness = 7
-	},
-/turf/unsimulated/floor/setpieces/bluefloor{
-	dir = 4
-	},
-/area/station/crown)
 "bhM" = (
 /obj/decal/tile_edge/line/black{
 	dir = 1;
@@ -6610,9 +6606,7 @@
 	name = "Arrivals Auxiliary Arm"
 	})
 "dYD" = (
-/obj/map/light/cyan{
-	brightness = 7
-	},
+/obj/map/light/cyan/menhir,
 /obj/effects/menhir_fog,
 /turf/unsimulated/floor/setpieces/bluefloor,
 /area/station/crown)
@@ -8811,9 +8805,7 @@
 /area/station/engine/coldloop)
 "fxO" = (
 /obj/effects/menhir_fog,
-/obj/map/light/cyan{
-	brightness = 7
-	},
+/obj/map/light/cyan/menhir,
 /turf/unsimulated/floor/setpieces/bluefloor,
 /area/station/crown)
 "fyc" = (
@@ -11232,7 +11224,6 @@
 /area/station/security/secwing)
 "gSG" = (
 /obj/machinery/door/unpowered/blue,
-/obj/map/light/cyan,
 /obj/effects/menhir_fog,
 /turf/unsimulated/floor/setpieces/bluefloor{
 	dir = 8
@@ -18052,9 +18043,7 @@
 /area/station/maintenance/southeast)
 "lgY" = (
 /obj/effects/menhir_fog,
-/obj/map/light/cyan{
-	brightness = 7
-	},
+/obj/map/light/cyan/menhir,
 /obj/precursor_puzzle/innervator{
 	vision_description = "A polished sphere of pale cold, graceful as the moon of your ancestors' home."
 	},
@@ -19672,7 +19661,7 @@
 /area/station/hallway/primary/east)
 "mhb" = (
 /obj/effects/menhir_fog,
-/obj/map/light/cyan,
+/obj/map/light/cyan/menhir,
 /turf/unsimulated/floor/setpieces/bluefloor{
 	dir = 4
 	},
@@ -21133,9 +21122,7 @@
 	},
 /area/station/hangar/science)
 "nah" = (
-/obj/map/light/cyan{
-	brightness = 7
-	},
+/obj/map/light/cyan/menhir,
 /obj/effects/menhir_fog,
 /turf/unsimulated/floor/setpieces/bluefloor{
 	dir = 4
@@ -30240,9 +30227,7 @@
 	},
 /area/station/bridge)
 "swe" = (
-/obj/map/light/cyan{
-	brightness = 7
-	},
+/obj/map/light/cyan/menhir,
 /obj/effects/menhir_fog,
 /turf/unsimulated/floor/setpieces/bluefloor{
 	dir = 1
@@ -34131,6 +34116,13 @@
 	},
 /turf/simulated/floor/blue,
 /area/station/engine/coldloop)
+"uId" = (
+/obj/effects/menhir_fog,
+/obj/landmark/menhir/dark,
+/turf/unsimulated/floor/setpieces/bluefloor{
+	dir = 1
+	},
+/area/station/crown)
 "uIr" = (
 /obj/cable{
 	icon_state = "4-9"
@@ -40177,6 +40169,11 @@
 /area/station/hallway/secondary/west{
 	name = "West Shuttle Concourse"
 	})
+"yej" = (
+/obj/effects/menhir_fog,
+/obj/landmark/menhir/dark,
+/turf/unsimulated/wall/auto/adventure/icemooninterior,
+/area/station/crown)
 "yem" = (
 /obj/lattice{
 	dir = 10;
@@ -84246,7 +84243,7 @@ aGr
 aGr
 dYD
 lhN
-lhN
+yej
 lhN
 lhN
 rif
@@ -84549,7 +84546,7 @@ lhN
 lhN
 lhN
 aGr
-aGr
+bhf
 lhN
 lhN
 lhN
@@ -85153,7 +85150,7 @@ aGr
 aGr
 lhN
 aGr
-aGr
+bhf
 lhN
 aGr
 aGr
@@ -86062,7 +86059,7 @@ dFy
 lhN
 dFy
 lhN
-aGr
+bhf
 lhN
 aGr
 lhN
@@ -86364,7 +86361,7 @@ lhN
 lhN
 lhN
 lhN
-aGr
+bhf
 lhN
 aGr
 lhN
@@ -86654,19 +86651,19 @@ osZ
 tPb
 osZ
 lhN
-osZ
+uId
 lhN
 osZ
 lhN
 osZ
 lhN
-osZ
+uId
 lhN
-osZ
+uId
 lhN
-osZ
+uId
 lhN
-lhN
+yej
 lhN
 lhN
 lhN
@@ -86959,7 +86956,7 @@ lpq
 aGr
 aGr
 aGr
-bhE
+mhb
 aGr
 aGr
 aGr
@@ -86969,9 +86966,9 @@ aGr
 dYD
 mWl
 aGr
-aGr
+bhf
 lhN
-aGr
+bhf
 lhN
 xwV
 wee
@@ -87249,14 +87246,14 @@ swZ
 upP
 wHq
 lhN
-aGr
+bhf
 lhN
 lhN
 lhN
 osZ
 osZ
 lhN
-osZ
+uId
 lhN
 lgY
 aGr
@@ -87268,12 +87265,12 @@ fxO
 lhN
 osZ
 lhN
-osZ
+uId
 lhN
 gae
 lhN
 lhN
-aGr
+bhf
 lhN
 koG
 jRX
@@ -87575,7 +87572,7 @@ lhN
 gdz
 osZ
 lhN
-lhN
+yej
 lhN
 sro
 wVT
@@ -87852,7 +87849,7 @@ opl
 opl
 svH
 wHq
-lhN
+yej
 aGr
 lhN
 hZg
@@ -87877,7 +87874,7 @@ mhb
 aGr
 aGr
 gSG
-aGr
+fxO
 gSG
 sro
 wVT
@@ -88179,7 +88176,7 @@ lhN
 exO
 osZ
 lhN
-lhN
+yej
 lhN
 sro
 wVT
@@ -88457,14 +88454,14 @@ nbK
 cVH
 wHq
 lhN
-aGr
+bhf
 lhN
 lhN
 lhN
 osZ
 osZ
 lhN
-osZ
+uId
 lhN
 lgY
 aGr
@@ -88476,12 +88473,12 @@ fxO
 lhN
 osZ
 lhN
-osZ
+uId
 lhN
 oVg
 lhN
 lhN
-aGr
+bhf
 lhN
 raU
 joz
@@ -88771,7 +88768,7 @@ lpq
 aGr
 aGr
 aGr
-bhE
+mhb
 aGr
 aGr
 aGr
@@ -88781,9 +88778,9 @@ aGr
 dYD
 mWl
 aGr
-aGr
+bhf
 lhN
-aGr
+bhf
 lhN
 qtt
 lKH
@@ -89070,19 +89067,19 @@ osZ
 tPb
 osZ
 lhN
-osZ
+uId
 lhN
 osZ
 lhN
 osZ
 lhN
-osZ
+uId
 lhN
-osZ
+uId
 lhN
-osZ
+uId
 lhN
-lhN
+yej
 lhN
 lhN
 lhN
@@ -89384,7 +89381,7 @@ lhN
 lhN
 lhN
 lhN
-aGr
+bhf
 lhN
 aGr
 lhN
@@ -89686,7 +89683,7 @@ dFy
 lhN
 dFy
 lhN
-aGr
+bhf
 lhN
 aGr
 lhN
@@ -90589,7 +90586,7 @@ aGr
 aGr
 lhN
 aGr
-aGr
+bhf
 lhN
 aGr
 aGr
@@ -91193,7 +91190,7 @@ lhN
 lhN
 lhN
 aGr
-aGr
+bhf
 lhN
 lhN
 lhN
@@ -91494,7 +91491,7 @@ aGr
 aGr
 dYD
 lhN
-lhN
+yej
 lhN
 lhN
 pAf
