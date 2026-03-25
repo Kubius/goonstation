@@ -111,7 +111,7 @@ ABSTRACT_TYPE(/datum/random_event/menhir)
 		var/eligible_examinees = list()
 
 		for (var/mob/living/carbon/human/H in mobs)
-			if(!isalive(H) || !istype(get_area(H),/area/station))
+			if(!isalive(H) || !istype(get_area(H),/area/station) || !isturf(H.loc))
 				continue
 
 			if (H.client && !H.mind?.is_antagonist() && !isVRghost(H) && isalive(H))
