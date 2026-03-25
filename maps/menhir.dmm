@@ -5255,6 +5255,15 @@
 	},
 /turf/simulated/floor/purpleblack,
 /area/station/hallway/primary/southeast)
+"dhD" = (
+/obj/machinery/door/unpowered/blue{
+	tag = "menhir_entrance_bluedoor"
+	},
+/obj/effects/menhir_fog,
+/turf/unsimulated/floor/setpieces/bluefloor{
+	dir = 8
+	},
+/area/station/crown)
 "diq" = (
 /obj/machinery/portable_reclaimer,
 /obj/machinery/light{
@@ -87937,7 +87946,7 @@ aGr
 aGr
 gSG
 fxO
-gSG
+dhD
 sro
 wVT
 hXT

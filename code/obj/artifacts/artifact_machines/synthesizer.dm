@@ -67,10 +67,12 @@
 			return
 		var/obj/cable/C = locate() in get_turf(O)
 		if(!C)
+			boutput(world,"no cable") //DEBUG DEBUG DEBUG
 			O.ArtifactDeactivated()
 			return
 		var/datum/powernet/PN = C.get_powernet()
-		if(PN.newavail <= 50000 || PN != src.drawsource)
+		if(PN.newavail <= 50000 || PN.number != drawsource.number)
+			boutput(world,"insufficient pnet") //DEBUG DEBUG DEBUG
 			O.ArtifactDeactivated()
 			return
 		if(!current_draw)
@@ -100,7 +102,7 @@
 						A.cell.charge = post_draw
 						drawn_energy += (pre_draw - post_draw) / CELLRATE
 
-		if(drawn_energy >= draw_cap) //we've drawn as much as we seek to,
+		if(drawn_energy >= draw_cap) //we've drawn as much as we seek to, wrap it up
 			O.ArtifactDeactivated()
 			return
 
@@ -114,7 +116,7 @@
 		///Determine how close we got to the desired amount of energy; the closer we got, the better materials we get
 		var/completion = drawn_energy / draw_cap
 		///Quantity of materials produced depends on energy gathered
-		var/pool_rolls = max(drawn_energy / 2e7, 1)
+		var/pool_rolls = floor(drawn_energy / 1.9e7)
 
 		var/list/lootpool = list(/obj/item/raw_material/cobryl = 1+completion,\
 			/obj/item/raw_material/syreline = 1.5-completion,\
@@ -130,24 +132,25 @@
 
 		SPAWN(rand(5,15))
 			var/turf/home_turf = get_turf(O)
-			var/list/fancy_spawn_spots = list()
-			for(var/D in alldirs)
-				var/turf/proxturf = get_step(home_turf,D)
-				if(!is_blocked_turf(proxturf))
-					fancy_spawn_spots += proxturf
-			if(length(fancy_spawn_spots) > 1)
-				for(var/i = 1 to pool_rolls)
-					var/turf/target_turf = pick(fancy_spawn_spots)
-					var/lootitem = weighted_pick(lootpool)
-					showswirl(target_turf)
-					new lootitem(target_turf)
+			if(pool_rolls)
+				var/list/fancy_spawn_spots = list()
+				for(var/D in alldirs)
+					var/turf/proxturf = get_step(home_turf,D)
+					if(!is_blocked_turf(proxturf))
+						fancy_spawn_spots += proxturf
+				if(length(fancy_spawn_spots) > 1)
+					for(var/i = 1 to pool_rolls)
+						var/turf/target_turf = pick(fancy_spawn_spots)
+						var/lootitem = weighted_pick(lootpool)
+						showswirl(target_turf)
+						new lootitem(target_turf)
+						sleep(2)
+				else
+					showswirl(home_turf)
 					sleep(2)
-			else
-				showswirl(home_turf)
-				sleep(2)
-				for(var/i = 1 to pool_rolls)
-					var/lootitem = weighted_pick(lootpool)
-					new lootitem(home_turf)
+					for(var/i = 1 to pool_rolls)
+						var/lootitem = weighted_pick(lootpool)
+						new lootitem(home_turf)
 
 			O.anchored = UNANCHORED
 			playsound(home_turf, 'sound/machines/click.ogg', 25, 1, pitch = 0.5)

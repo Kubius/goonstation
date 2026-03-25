@@ -18,7 +18,7 @@ ABSTRACT_TYPE(/datum/random_event/menhir)
 //pulled one out of cold storage for ya
 /datum/random_event/menhir/gift
 	name = "A Gift from the Crown"
-	message_delay = 4 MINUTES
+	message_delay = 3 MINUTES
 
 	is_event_available(ignore_time_lock)
 		. = ..()
@@ -73,7 +73,7 @@ ABSTRACT_TYPE(/datum/random_event/menhir)
 			showswirl(nodelandmark)
 		Artifact_Spawn(nodelandmark,"precursor")
 
-		message_delay = rand(2 MINUTES, 4 MINUTES)
+		message_delay = rand(2 MINUTES, 3 MINUTES)
 		..() //don't send out the message until we have confirmed we can do the event
 
 		if (random_events.announce_events)
@@ -161,6 +161,46 @@ ABSTRACT_TYPE(/datum/random_event/menhir)
 		logTheThing(LOG_STATION, null, "Menhir analysis event at [node_tag] arm - [log_loc(nodelandmark)]")
 		message_admins("Menhir analysis event triggered at [node_tag] arm - [log_loc(nodelandmark)]")
 
+//the crown could just use a minute ok
+/datum/random_event/menhir/closure
+	name = "The Crown Reclusive"
+	message_delay = 1 MINUTE
+	weight = 30
+
+	is_event_available(ignore_time_lock)
+		. = ..()
+		if(.)
+			if (!locate("menhir_entrance_bluedoor")) //don't do this more than once a round
+				. = FALSE
+
+	event_effect()
+		var/obj/machinery/door/unpowered/blue/entrance = locate("menhir_entrance_bluedoor")
+		if (!entrance) //in case of manual call
+			logTheThing(LOG_DEBUG, null, "Menhir closure event couldn't find the Crown's entrance door; aborting event.")
+			message_admins("Menhir closure event couldn't find the Crown's entrance door; aborting event.")
+			return
+		var/turf/eventlandmark = get_turf(entrance)
+		entrance.locked = TRUE
+		var/delay = rand(2,12)
+		SPAWN(delay)
+			entrance.close()
+		SPAWN(delay+38)
+			entrance.revoke_door()
+		SPAWN(rand(3 MINUTES, 4 MINUTES))
+			playsound(eventlandmark, 'sound/effects/ring_happi.ogg', 55, 0, extrarange = 24, pitch = 0.3)
+			new /obj/machinery/door/unpowered/blue(eventlandmark)
+
+		playsound(eventlandmark, 'sound/effects/ring_happi.ogg', 45, 0, extrarange = 24, pitch = 0.3)
+
+		message_delay = rand(20 SECONDS,30 SECONDS)
+		..()
+		if (random_events.announce_events)
+			SPAWN(message_delay)
+				playsound_global(world, 'sound/misc/announcement_ominous.ogg', 60)
+
+		logTheThing(LOG_STATION, null, "Menhir closure event at [log_loc(eventlandmark)]")
+		message_admins("Menhir closure event triggered at [log_loc(eventlandmark)]")
+
 //the crown tries out one of its more novel machines
 /datum/random_event/menhir/powersink
 	name = "A Spire of Synthesis"
@@ -174,7 +214,7 @@ ABSTRACT_TYPE(/datum/random_event/menhir)
 			eventlandmark = get_open_outreach()
 			if(!eventlandmark)
 				logTheThing(LOG_DEBUG, null, "Menhir powersink event couldn't find a turf to happen at; aborting event.")
-				message_admins("Menhir analysis event couldn't find a turf to happen at; aborting event.")
+				message_admins("Menhir powersink event couldn't find a turf to happen at; aborting event.")
 				return
 
 		showswirl(eventlandmark)
@@ -211,6 +251,7 @@ ABSTRACT_TYPE(/datum/random_event/menhir)
 				. = FALSE //the road is already open
 
 	event_effect()
+		if (!landmarks[LANDMARK_MENHIR_PASSAGE] || length(landmarks[LANDMARK_MENHIR_PASSAGE]) < 1) return //manual call safeguard
 		for (var/turf/T in landmarks[LANDMARK_MENHIR_PASSAGE])
 			if (istype(T,/turf/unsimulated/wall))
 				var/save_dir = T.icon_state
@@ -247,6 +288,7 @@ ABSTRACT_TYPE(/datum/random_event/menhir)
 				. = FALSE //the road is already open
 
 	event_effect()
+		if (!landmarks[LANDMARK_MENHIR_DARK] || length(landmarks[LANDMARK_MENHIR_DARK]) < 1) return //manual call safeguard
 		for (var/turf/T in landmarks[LANDMARK_MENHIR_DARK])
 			if (istype(T,/turf/unsimulated/wall))
 				var/save_dir = T.icon_state
