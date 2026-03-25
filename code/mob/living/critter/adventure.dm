@@ -205,7 +205,7 @@ TYPEINFO(/mob/living/critter/shade)
 			// sacrifice, sacrifice the human envoy! // praise the night, kill the servant of light // enemy! enemy! // cursed with violence, human, you ruin the quiet house
 
 /mob/living/critter/shade/lordly
-	name = "voice of shadow"
+	name = "voice of grief"
 	desc = "They sing for us no longer."
 	base_move_delay = 3
 	base_walk_delay = 4
