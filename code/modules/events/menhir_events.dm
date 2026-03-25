@@ -51,7 +51,7 @@ ABSTRACT_TYPE(/datum/random_event/menhir)
 		message_delay = rand(2 MINUTES, 4 MINUTES)
 		..() //don't send out the message until we have confirmed we can do the event
 
-		if (random_events.announce_events) //this should maybe be baked into events but eh
+		if (random_events.announce_events)
 			SPAWN(message_delay)
 				playsound_global(world, 'sound/misc/announcement_ominous.ogg', 60)
 
@@ -158,7 +158,7 @@ ABSTRACT_TYPE(/datum/random_event/menhir)
 
 		message_delay = rand(5 SECONDS, 8 SECONDS)
 		..()
-		if (random_events.announce_events) //this should maybe be baked into events but eh
+		if (random_events.announce_events)
 			SPAWN(message_delay)
 				playsound_global(world, 'sound/misc/announcement_ominous.ogg', 60)
 
@@ -209,15 +209,13 @@ ABSTRACT_TYPE(/datum/random_event/menhir)
 
 		message_delay = rand(5 SECONDS, 8 SECONDS)
 		..()
-		if (random_events.announce_events) //this should maybe be baked into events but eh
+		if (random_events.announce_events)
 			SPAWN(message_delay)
 				playsound_global(world, 'sound/misc/announcement_ominous.ogg', 60, pitch = 1.3)
 			SPAWN(message_delay + 15)
 				playsound_global(world, 'sound/misc/announcement_ominous.ogg', 60, pitch = 1.3)
 			SPAWN(message_delay + 30)
 				playsound_global(world, 'sound/misc/announcement_ominous.ogg', 60, pitch = 1.3)
-				SPAWN(5)
-					playsound_global(world, pick(list('sound/voice/creepywhisper_1.ogg', 'sound/voice/creepywhisper_2.ogg', 'sound/voice/creepywhisper_3.ogg')), 60)
 
 		logTheThing(LOG_STATION, null, "Menhir shadow event triggered.")
 		message_admins("Menhir shadow event triggered.")
