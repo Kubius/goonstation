@@ -371,6 +371,7 @@ var/global/list/job_start_locations = list()
 
 /obj/landmark/menhir/passage
 	name = LANDMARK_MENHIR_PASSAGE
+	icon_state = "x3"
 
 /obj/landmark/menhir/dark
 	name = LANDMARK_MENHIR_DARK
