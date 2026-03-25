@@ -577,7 +577,7 @@
 /obj/stool/bed,
 /obj/landmark/start/job/clown,
 /obj/item/paper/book/from_file/the_trial,
-/turf/unsimulated/floor/setpieces/bluefloor,
+/turf/simulated/floor/shuttle/menhir_arm,
 /area/station/hallway/primary/southeast)
 "auu" = (
 /obj/cable{
@@ -635,7 +635,7 @@
 	pixel_y = 6
 	},
 /obj/item/pen/marker/blue,
-/turf/unsimulated/floor/setpieces/bluefloor,
+/turf/simulated/floor/shuttle/menhir_arm,
 /area/station/hallway/primary/southwest)
 "avI" = (
 /turf/simulated/wall/auto/supernorn,
@@ -1055,7 +1055,7 @@
 /obj/item/reagent_containers/food/drinks/tea{
 	pixel_y = 11
 	},
-/turf/unsimulated/floor/setpieces/bluefloor,
+/turf/simulated/floor/shuttle/menhir_arm,
 /area/station/hallway/primary/central)
 "aJj" = (
 /turf/simulated/floor/darkblueblack{
@@ -1067,7 +1067,7 @@
 	dir = 1
 	},
 /obj/landmark/start/job/assistant,
-/turf/unsimulated/floor/setpieces/bluefloor,
+/turf/simulated/floor/shuttle/menhir_arm,
 /area/station/hallway/primary/southwest)
 "aJy" = (
 /turf/simulated/floor/neutral,
@@ -1406,7 +1406,7 @@
 /turf/simulated/floor/black/grime,
 /area/station/maintenance/southeast)
 "aSL" = (
-/turf/unsimulated/floor/setpieces/bluefloor,
+/turf/simulated/floor/shuttle/menhir_arm,
 /area/station/hallway/primary/southeast)
 "aSZ" = (
 /obj/machinery/atmospherics/pipe/manifold/overfloor{
@@ -1484,7 +1484,7 @@
 	pixel_y = 10;
 	pixel_x = 1
 	},
-/turf/unsimulated/floor/setpieces/bluefloor,
+/turf/simulated/floor/shuttle/menhir_arm,
 /area/station/hallway/primary/southwest)
 "aXc" = (
 /obj/machinery/disposal,
@@ -1784,7 +1784,7 @@
 	dir = 8
 	},
 /obj/landmark/start/job/research_trainee,
-/turf/unsimulated/floor/setpieces/bluefloor,
+/turf/simulated/floor/shuttle/menhir_arm,
 /area/station/hallway/primary/southwest)
 "ben" = (
 /obj/cable{
@@ -2107,7 +2107,7 @@
 	},
 /area/station/hallway/primary/southwest)
 "blY" = (
-/turf/unsimulated/floor/setpieces/bluefloor,
+/turf/simulated/floor/shuttle/menhir_arm,
 /area/station/hallway/primary/central)
 "blZ" = (
 /obj/decal/stripe_caution,
@@ -3097,7 +3097,7 @@
 /area/station/hangar/main)
 "bQm" = (
 /obj/machinery/fluid_canister,
-/turf/unsimulated/floor/setpieces/bluefloor,
+/turf/simulated/floor/shuttle/menhir_arm,
 /area/station/hallway/primary/southeast)
 "bQn" = (
 /obj/machinery/atmospherics/pipe/simple/overfloor{
@@ -3804,7 +3804,7 @@
 	})
 "ckh" = (
 /obj/machinery/firealarm/directional/north,
-/turf/unsimulated/floor/setpieces/bluefloor,
+/turf/simulated/floor/shuttle/menhir_arm,
 /area/station/hallway/primary/central)
 "ckF" = (
 /obj/machinery/computer/arcade,
@@ -5183,7 +5183,7 @@
 /area/station/maintenance/east)
 "dfb" = (
 /obj/machinery/light/beacon,
-/turf/unsimulated/floor/setpieces/bluefloor,
+/turf/simulated/floor/shuttle/menhir_arm,
 /area/station/hallway/primary/central)
 "dfz" = (
 /obj/cable{
@@ -5994,7 +5994,7 @@
 	dir = 4
 	},
 /obj/landmark/start/job/research_trainee,
-/turf/unsimulated/floor/setpieces/bluefloor,
+/turf/simulated/floor/shuttle/menhir_arm,
 /area/station/hallway/primary/southeast)
 "dHr" = (
 /obj/machinery/space_heater,
@@ -7821,7 +7821,7 @@
 	},
 /obj/mapping_helper/firedoor_spawn,
 /obj/mapping_helper/access/medlab,
-/turf/unsimulated/floor/setpieces/bluefloor,
+/turf/simulated/floor/shuttle/menhir_arm,
 /area/station/medical/research)
 "eOl" = (
 /turf/simulated/floor/redblack{
@@ -7972,7 +7972,7 @@
 	},
 /obj/mapping_helper/firedoor_spawn,
 /obj/mapping_helper/access/security,
-/turf/unsimulated/floor/setpieces/bluefloor,
+/turf/simulated/floor/shuttle/menhir_arm,
 /area/station/security/checkpoint/sec_foyer{
 	name = "Secure Release Foyer"
 	})
@@ -7987,7 +7987,7 @@
 	pixel_y = 14;
 	pixel_x = -2
 	},
-/turf/unsimulated/floor/setpieces/bluefloor,
+/turf/simulated/floor/shuttle/menhir_arm,
 /area/station/hallway/primary/southwest)
 "eUq" = (
 /obj/decal/tile_edge/stripe/extra_big,
@@ -9421,7 +9421,7 @@
 /obj/railing{
 	dir = 8
 	},
-/turf/unsimulated/floor/setpieces/bluefloor,
+/turf/simulated/floor/shuttle/menhir_arm,
 /area/station/hallway/primary/central)
 "fNy" = (
 /obj/stool/chair{
@@ -11794,7 +11794,7 @@
 /obj/table/reinforced/industrial/auto,
 /obj/item/clothing/suit/cultist/nerd,
 /obj/item/clothing/mask/skull,
-/turf/unsimulated/floor/setpieces/bluefloor,
+/turf/simulated/floor/shuttle/menhir_arm,
 /area/station/hallway/primary/southwest)
 "hnM" = (
 /obj/machinery/light,
@@ -13307,7 +13307,7 @@
 	dir = 4
 	},
 /obj/mapping_helper/access/security,
-/turf/unsimulated/floor/setpieces/bluefloor,
+/turf/simulated/floor/shuttle/menhir_arm,
 /area/station/crew_quarters/courtroom)
 "ifa" = (
 /obj/storage/secure/crate/gear/armory/equipment,
@@ -13728,7 +13728,7 @@
 "isI" = (
 /obj/stool/chair,
 /obj/landmark/start/job/assistant,
-/turf/unsimulated/floor/setpieces/bluefloor,
+/turf/simulated/floor/shuttle/menhir_arm,
 /area/station/hallway/primary/southwest)
 "ita" = (
 /obj/mesh/catwalk,
@@ -15240,7 +15240,7 @@
 	dir = 8
 	},
 /obj/landmark/start/job/research_trainee,
-/turf/unsimulated/floor/setpieces/bluefloor,
+/turf/simulated/floor/shuttle/menhir_arm,
 /area/station/hallway/primary/southeast)
 "jsf" = (
 /obj/cable{
@@ -15314,7 +15314,7 @@
 /obj/item/bballbasket,
 /obj/item/bballbasket,
 /obj/item/bballbasket,
-/turf/unsimulated/floor/setpieces/bluefloor,
+/turf/simulated/floor/shuttle/menhir_arm,
 /area/station/hallway/primary/central)
 "jtp" = (
 /obj/shrub{
@@ -15682,7 +15682,7 @@
 /area/station/hangar/medical)
 "jIM" = (
 /obj/structure/woodwall,
-/turf/unsimulated/floor/setpieces/bluefloor,
+/turf/simulated/floor/shuttle/menhir_arm,
 /area/station/hallway/primary/southeast)
 "jKf" = (
 /obj/mapping_helper/wingrille_spawn/auto/reinforced,
@@ -16045,7 +16045,7 @@
 /area/station/security/brig/genpop)
 "jVK" = (
 /obj/machinery/light/beacon,
-/turf/unsimulated/floor/setpieces/bluefloor,
+/turf/simulated/floor/shuttle/menhir_arm,
 /area/station/hallway/primary/southwest)
 "jVS" = (
 /turf/simulated/floor/specialroom/arcade,
@@ -16771,7 +16771,7 @@
 /area/station/science/teleporter)
 "ksl" = (
 /obj/machinery/light/beacon,
-/turf/unsimulated/floor/setpieces/bluefloor,
+/turf/simulated/floor/shuttle/menhir_arm,
 /area/station/hallway/primary/southeast)
 "ksv" = (
 /obj/mesh/catwalk,
@@ -17519,7 +17519,7 @@
 /obj/stool/chair{
 	dir = 8
 	},
-/turf/unsimulated/floor/setpieces/bluefloor,
+/turf/simulated/floor/shuttle/menhir_arm,
 /area/station/hallway/primary/southwest)
 "kRM" = (
 /obj/machinery/door/airlock/pyro/glass,
@@ -18815,7 +18815,7 @@
 	pixel_y = 8;
 	pixel_x = -8
 	},
-/turf/unsimulated/floor/setpieces/bluefloor,
+/turf/simulated/floor/shuttle/menhir_arm,
 /area/station/hallway/primary/southeast)
 "lDt" = (
 /obj/item/storage/toilet{
@@ -21046,7 +21046,7 @@
 	pixel_y = 5;
 	pixel_x = -3
 	},
-/turf/unsimulated/floor/setpieces/bluefloor,
+/turf/simulated/floor/shuttle/menhir_arm,
 /area/station/hallway/primary/southwest)
 "mXD" = (
 /obj/machinery/disposal/mail/small/autoname/medbay,
@@ -22509,7 +22509,7 @@
 /area/station/medical/robotics)
 "nRO" = (
 /obj/landmark/halloween,
-/turf/unsimulated/floor/setpieces/bluefloor,
+/turf/simulated/floor/shuttle/menhir_arm,
 /area/station/hallway/primary/southwest)
 "nRS" = (
 /obj/cable{
@@ -23542,7 +23542,7 @@
 	dir = 8
 	},
 /obj/landmark/start/job/research_trainee,
-/turf/unsimulated/floor/setpieces/bluefloor,
+/turf/simulated/floor/shuttle/menhir_arm,
 /area/station/hallway/primary/southeast)
 "osY" = (
 /obj/machinery/door/airlock/pyro/glass{
@@ -23833,7 +23833,7 @@
 /area/ghostdrone_factory)
 "oCm" = (
 /obj/machinery/camera/directional/west,
-/turf/unsimulated/floor/setpieces/bluefloor,
+/turf/simulated/floor/shuttle/menhir_arm,
 /area/station/hallway/primary/southwest)
 "oCs" = (
 /obj/disposalpipe/segment/bent/east,
@@ -24024,7 +24024,7 @@
 	pixel_x = -5
 	},
 /obj/machinery/light,
-/turf/unsimulated/floor/setpieces/bluefloor,
+/turf/simulated/floor/shuttle/menhir_arm,
 /area/station/hallway/primary/southeast)
 "oGl" = (
 /obj/table/reinforced/industrial/auto,
@@ -24366,7 +24366,7 @@
 /area/station/hydroponics)
 "oSy" = (
 /obj/machinery/genetics_booth,
-/turf/unsimulated/floor/setpieces/bluefloor,
+/turf/simulated/floor/shuttle/menhir_arm,
 /area/station/hallway/primary/central)
 "oSE" = (
 /obj/mesh/catwalk{
@@ -24492,7 +24492,7 @@
 /area/space)
 "oUo" = (
 /obj/item/bananapeel,
-/turf/unsimulated/floor/setpieces/bluefloor,
+/turf/simulated/floor/shuttle/menhir_arm,
 /area/station/hallway/primary/southeast)
 "oUq" = (
 /obj/machinery/light/small{
@@ -25418,7 +25418,7 @@
 /area/station/security/hos)
 "pBB" = (
 /obj/landmark/halloween,
-/turf/unsimulated/floor/setpieces/bluefloor,
+/turf/simulated/floor/shuttle/menhir_arm,
 /area/station/hallway/primary/southeast)
 "pBE" = (
 /obj/disposalpipe/segment/brig{
@@ -26451,7 +26451,7 @@
 /obj/item/reagent_containers/emergency_injector/salbutamol{
 	pixel_y = -3
 	},
-/turf/unsimulated/floor/setpieces/bluefloor,
+/turf/simulated/floor/shuttle/menhir_arm,
 /area/station/hallway/primary/southeast)
 "qjh" = (
 /obj/machinery/navbeacon/guardbotsecbot_circularpatrol/beacon4,
@@ -26662,7 +26662,7 @@
 	dir = 4
 	},
 /obj/landmark/start/job/research_trainee,
-/turf/unsimulated/floor/setpieces/bluefloor,
+/turf/simulated/floor/shuttle/menhir_arm,
 /area/station/hallway/primary/southwest)
 "qoW" = (
 /obj/machinery/door/airlock/pyro/external,
@@ -27952,7 +27952,7 @@
 /obj/stool/chair/comfy{
 	dir = 4
 	},
-/turf/unsimulated/floor/setpieces/bluefloor,
+/turf/simulated/floor/shuttle/menhir_arm,
 /area/station/hallway/primary/southwest)
 "rfk" = (
 /obj/mesh/catwalk,
@@ -28077,7 +28077,7 @@
 /area/station/engine/storage)
 "rif" = (
 /obj/reagent_dispensers/foamtank,
-/turf/unsimulated/floor/setpieces/bluefloor,
+/turf/simulated/floor/shuttle/menhir_arm,
 /area/station/hallway/primary/southwest)
 "rja" = (
 /obj/machinery/vehicle/pod_smooth,
@@ -28391,14 +28391,14 @@
 	pixel_y = -6;
 	pixel_x = 3
 	},
-/turf/unsimulated/floor/setpieces/bluefloor,
+/turf/simulated/floor/shuttle/menhir_arm,
 /area/station/hallway/primary/southwest)
 "rrD" = (
 /obj/stool/chair{
 	dir = 8
 	},
 /obj/landmark/start/job/assistant,
-/turf/unsimulated/floor/setpieces/bluefloor,
+/turf/simulated/floor/shuttle/menhir_arm,
 /area/station/hallway/primary/southwest)
 "rrI" = (
 /obj/disposalpipe/segment/mail,
@@ -29722,7 +29722,7 @@
 /area/station/turret_protected/ai)
 "shb" = (
 /obj/storage/crate/clown,
-/turf/unsimulated/floor/setpieces/bluefloor,
+/turf/simulated/floor/shuttle/menhir_arm,
 /area/station/hallway/primary/southeast)
 "shK" = (
 /obj/disposalpipe/segment/mail,
@@ -29998,7 +29998,7 @@
 	desc = "Something beautiful overwhelms you when you look at this ball.";
 	name = "barkley's basketball"
 	},
-/turf/unsimulated/floor/setpieces/bluefloor,
+/turf/simulated/floor/shuttle/menhir_arm,
 /area/station/hallway/primary/central)
 "spV" = (
 /obj/stool/chair/office/yellow{
@@ -30185,7 +30185,7 @@
 	pixel_x = 5;
 	pixel_y = 11
 	},
-/turf/unsimulated/floor/setpieces/bluefloor,
+/turf/simulated/floor/shuttle/menhir_arm,
 /area/station/hallway/primary/southwest)
 "sve" = (
 /obj/stool/chair/pew/fancy/left{
@@ -30479,7 +30479,7 @@
 "sFh" = (
 /obj/table/reinforced/industrial/auto,
 /obj/machinery/phone,
-/turf/unsimulated/floor/setpieces/bluefloor,
+/turf/simulated/floor/shuttle/menhir_arm,
 /area/station/hallway/primary/southwest)
 "sFp" = (
 /obj/table/reinforced/auto,
@@ -31105,7 +31105,7 @@
 /area/station/engine/monitoring)
 "sWM" = (
 /obj/mapping_helper/wingrille_spawn/auto,
-/turf/unsimulated/floor/setpieces/bluefloor,
+/turf/simulated/floor/shuttle/menhir_arm,
 /area/station/hallway/primary/southeast)
 "sXx" = (
 /obj/stool/chair/office/purple{
@@ -31547,7 +31547,7 @@
 /area/station/maintenance/northeast)
 "tiy" = (
 /obj/landmark/halloween,
-/turf/unsimulated/floor/setpieces/bluefloor,
+/turf/simulated/floor/shuttle/menhir_arm,
 /area/station/hallway/primary/central)
 "tiA" = (
 /obj/decal/stage_edge/alt,
@@ -34728,7 +34728,7 @@
 /area/station/medical/crematorium)
 "vas" = (
 /obj/machinery/camera/directional/east,
-/turf/unsimulated/floor/setpieces/bluefloor,
+/turf/simulated/floor/shuttle/menhir_arm,
 /area/station/hallway/primary/central)
 "vbi" = (
 /obj/landmark/gps_waypoint,
@@ -35324,7 +35324,7 @@
 	},
 /obj/mapping_helper/firedoor_spawn,
 /obj/mapping_helper/access/engineering_storage,
-/turf/unsimulated/floor/setpieces/bluefloor,
+/turf/simulated/floor/shuttle/menhir_arm,
 /area/station/engine/storage)
 "vtP" = (
 /obj/lattice{
@@ -37652,7 +37652,7 @@
 /area/station/maintenance/northwest)
 "wHm" = (
 /obj/machinery/fluid_canister,
-/turf/unsimulated/floor/setpieces/bluefloor,
+/turf/simulated/floor/shuttle/menhir_arm,
 /area/station/hallway/primary/southwest)
 "wHq" = (
 /turf/simulated/floor/black/side{
@@ -37799,7 +37799,7 @@
 /obj/stool/chair{
 	dir = 4
 	},
-/turf/unsimulated/floor/setpieces/bluefloor,
+/turf/simulated/floor/shuttle/menhir_arm,
 /area/station/hallway/primary/southwest)
 "wMR" = (
 /obj/disposalpipe/segment/mail,
@@ -38801,7 +38801,7 @@
 /obj/table/reinforced/industrial/auto,
 /obj/item/pen,
 /obj/item/coin,
-/turf/unsimulated/floor/setpieces/bluefloor,
+/turf/simulated/floor/shuttle/menhir_arm,
 /area/station/hallway/primary/southwest)
 "xrA" = (
 /obj/mapping_helper/wingrille_spawn/auto/reinforced,
@@ -39272,7 +39272,7 @@
 /turf/space,
 /area/space)
 "xFh" = (
-/turf/unsimulated/floor/setpieces/bluefloor,
+/turf/simulated/floor/shuttle/menhir_arm,
 /area/station/hallway/primary/southwest)
 "xFD" = (
 /obj/machinery/power/solar,
@@ -40067,7 +40067,7 @@
 /obj/item/diceholder/dicebox{
 	pixel_y = 2
 	},
-/turf/unsimulated/floor/setpieces/bluefloor,
+/turf/simulated/floor/shuttle/menhir_arm,
 /area/station/hallway/primary/southwest)
 "ybm" = (
 /obj/disposalpipe/segment/mail,

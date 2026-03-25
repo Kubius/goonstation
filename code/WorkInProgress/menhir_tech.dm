@@ -40,6 +40,17 @@ TYPEINFO_NEW(/obj/effects/menhir_fog)
 		for (var/obj/effects/menhir_fog/mfog in orange(1,src))
 			mfog.UpdateIcon()
 
+//convenient shorthand for don't blow up this floor
+/turf/simulated/floor/shuttle/menhir_arm
+	name = "blue floor"
+	desc = "This floor looks awfully strange."
+	icon = 'icons/misc/worlds.dmi'
+#ifdef IN_MAP_EDITOR
+	icon_state = "old_floor2"
+#else
+	icon_state = "bluefloor"
+#endif
+
 #ifdef MAP_OVERRIDE_MENHIR
 /client/proc/cmd_admin_vislayer()
 	SET_ADMIN_CAT(ADMIN_CAT_SELF)
