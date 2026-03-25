@@ -723,7 +723,6 @@
 	icon_state = "4-8"
 	},
 /obj/disposalpipe/segment/bent/north,
-/obj/landmark/menhir/outreach,
 /turf/simulated/floor/black,
 /area/station/security/secwing)
 "azY" = (
@@ -1185,16 +1184,6 @@
 	},
 /area/station/maintenance/inner/sw{
 	name = "Southwest Auxiliary Conduit"
-	})
-"aLd" = (
-/obj/mesh/catwalk,
-/obj/cable{
-	icon_state = "4-8"
-	},
-/obj/landmark/menhir/outreach,
-/turf/simulated/floor/black/grime,
-/area/station/maintenance/inner/se{
-	name = "Southeast Auxiliary Conduit"
 	})
 "aLh" = (
 /obj/decal/tile_edge/line/blue{
@@ -3842,6 +3831,9 @@
 /obj/machinery/door/airlock/pyro,
 /obj/mapping_helper/firedoor_spawn,
 /obj/mapping_helper/access/bar,
+/obj/cable{
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/carpet/grime,
 /area/station/crew_quarters/baroffice)
 "ckZ" = (
@@ -5110,6 +5102,12 @@
 /obj/disposalpipe/segment/vertical,
 /turf/simulated/floor/black/grime,
 /area/station/maintenance/northeast)
+"dbN" = (
+/obj/cable{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/black,
+/area/station/crew_quarters/cafeteria)
 "dbZ" = (
 /obj/machinery/r_door_control{
 	id = "unlode";
@@ -5622,6 +5620,9 @@
 	dir = 4
 	},
 /obj/landmark/gps_waypoint,
+/obj/cable{
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/carpet/grime,
 /area/station/crew_quarters/baroffice)
 "dud" = (
@@ -5735,6 +5736,9 @@
 "dym" = (
 /obj/machinery/computer/announcement/station/catering{
 	dir = 8
+	},
+/obj/cable{
+	icon_state = "0-8"
 	},
 /turf/simulated/floor/black,
 /area/station/crew_quarters/cafeteria)
@@ -6860,6 +6864,15 @@
 /area/station/hallway/secondary/exit{
 	name = "Primary Docking Wing"
 	})
+"efl" = (
+/obj/cable{
+	icon_state = "4-8"
+	},
+/obj/landmark/menhir/outreach,
+/turf/simulated/floor/black,
+/area/station/security/main{
+	name = "Security Office"
+	})
 "efA" = (
 /obj/disposalpipe/switch_junction/left/north,
 /obj/mapping_helper/mailtag/qm,
@@ -7125,6 +7138,9 @@
 /obj/machinery/drainage,
 /obj/disposalpipe/segment/mail{
 	dir = 4
+	},
+/obj/cable{
+	icon_state = "6-8"
 	},
 /turf/simulated/floor/black,
 /area/station/crew_quarters/cafeteria)
@@ -7961,6 +7977,9 @@
 /obj/disposalpipe/segment/mail{
 	dir = 4;
 	icon_state = "pipe-c"
+	},
+/obj/cable{
+	icon_state = "2-4"
 	},
 /turf/simulated/floor/carpet/grime,
 /area/station/crew_quarters/baroffice)
@@ -11014,10 +11033,10 @@
 	},
 /area/station/bridge)
 "gKm" = (
-/obj/random_item_spawner/tools/one_or_zero,
 /obj/cable{
 	icon_state = "1-2"
 	},
+/obj/landmark/menhir/outreach,
 /turf/simulated/floor/plating,
 /area/station/maintenance/inner/se{
 	name = "Southeast Auxiliary Conduit"
@@ -11949,6 +11968,13 @@
 /area/station/maintenance/inner/sw{
 	name = "Southwest Auxiliary Conduit"
 	})
+"hrR" = (
+/obj/disposalpipe/segment/vertical,
+/obj/cable{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/black,
+/area/station/crew_quarters/cafeteria)
 "hsj" = (
 /obj/decal/stage_edge/alt,
 /obj/machinery/computer/cloning,
@@ -12947,6 +12973,9 @@
 /area/station/science/lab)
 "hTg" = (
 /obj/machinery/light/small/floor,
+/obj/cable{
+	icon_state = "4-9"
+	},
 /turf/simulated/floor/black,
 /area/station/crew_quarters/cafeteria)
 "hTK" = (
@@ -15123,6 +15152,14 @@
 	},
 /turf/simulated/floor/carpet/grime,
 /area/station/security/detectives_office)
+"jnQ" = (
+/obj/disposalpipe/segment/vertical,
+/obj/cable{
+	icon_state = "1-2"
+	},
+/obj/landmark/menhir/outreach,
+/turf/simulated/floor,
+/area/station/hangar/main)
 "jom" = (
 /obj/cable{
 	icon_state = "2-5"
@@ -24131,6 +24168,9 @@
 "oIg" = (
 /obj/disposalpipe/switch_junction/right/east,
 /obj/mapping_helper/mailtag/bar,
+/obj/cable{
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/carpet/grime,
 /area/station/crew_quarters/baroffice)
 "oIn" = (
@@ -31520,6 +31560,15 @@
 	},
 /turf/simulated/floor/engine,
 /area/station/engine/core)
+"thN" = (
+/obj/disposalpipe/segment/mail{
+	dir = 4
+	},
+/obj/cable{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/black,
+/area/station/crew_quarters/cafeteria)
 "thY" = (
 /obj/cable{
 	icon_state = "1-8"
@@ -32055,6 +32104,9 @@
 /obj/disposalpipe/segment/morgue{
 	dir = 2;
 	icon_state = "pipe-c"
+	},
+/obj/cable{
+	icon_state = "1-8"
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/west)
@@ -33099,16 +33151,6 @@
 /obj/machinery/navbeacon/mule/QM2_north/west,
 /turf/simulated/floor,
 /area/station/quartermaster/office)
-"ucE" = (
-/obj/mesh/catwalk,
-/obj/cable{
-	icon_state = "4-8"
-	},
-/obj/landmark/menhir/outreach,
-/turf/simulated/floor/black/grime,
-/area/station/maintenance/inner/sw{
-	name = "Southwest Auxiliary Conduit"
-	})
 "ucH" = (
 /obj/cable{
 	icon_state = "0-4"
@@ -33141,6 +33183,7 @@
 /obj/cable{
 	icon_state = "1-2"
 	},
+/obj/landmark/menhir/outreach,
 /turf/simulated/floor/black/grime,
 /area/station/maintenance/inner/sw{
 	name = "Southwest Auxiliary Conduit"
@@ -33863,6 +33906,13 @@
 	},
 /turf/simulated/floor,
 /area/station/quartermaster/office)
+"uzq" = (
+/obj/machinery/light/small/floor,
+/obj/cable{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/black,
+/area/station/crew_quarters/cafeteria)
 "uzr" = (
 /obj/cable{
 	icon_state = "5-8"
@@ -34665,6 +34715,9 @@
 	},
 /obj/mapping_helper/firedoor_spawn,
 /obj/mapping_helper/access/bar,
+/obj/cable{
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/carpet/grime,
 /area/station/crew_quarters/baroffice)
 "uVW" = (
@@ -35279,6 +35332,9 @@
 	dir = 8;
 	icon_state = "pipe-c"
 	},
+/obj/cable{
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/carpet/grime,
 /area/station/crew_quarters/baroffice)
 "vqX" = (
@@ -35416,6 +35472,13 @@
 /area/station/quartermaster/cargobay{
 	name = "Cargo Import Export"
 	})
+"vvn" = (
+/obj/cable{
+	icon_state = "4-8"
+	},
+/obj/landmark/menhir/outreach,
+/turf/simulated/floor/black,
+/area/station/crew_quarters/cafeteria)
 "vvs" = (
 /obj/disposalpipe/segment/mail,
 /obj/cable{
@@ -37087,6 +37150,14 @@
 /obj/disposalpipe/segment/mail,
 /turf/simulated/floor/specialroom/medbay,
 /area/station/medical/staff)
+"wpc" = (
+/obj/disposalpipe/segment/vertical,
+/obj/cable{
+	icon_state = "1-2"
+	},
+/obj/landmark/menhir/outreach,
+/turf/simulated/floor/black,
+/area/station/bridge)
 "wpA" = (
 /obj/machinery/camera/directional/south,
 /turf/simulated/floor/grey/side,
@@ -38748,6 +38819,16 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/southwest)
+"xnv" = (
+/obj/disposalpipe/segment/horizontal,
+/obj/cable{
+	icon_state = "4-8"
+	},
+/obj/landmark/menhir/outreach,
+/turf/simulated/floor/green/side{
+	dir = 1
+	},
+/area/station/hydroponics)
 "xnG" = (
 /obj/decal/tile_edge/line/blue{
 	icon_state = "line1"
@@ -81613,7 +81694,7 @@ fYT
 rfk
 fyJ
 rYU
-ucE
+fxk
 fYT
 lkq
 nfP
@@ -84889,7 +84970,7 @@ byr
 ouO
 tid
 uPM
-sjn
+thN
 iSU
 xfz
 twi
@@ -85796,7 +85877,7 @@ hRS
 pJY
 jWC
 sjn
-sCA
+vvn
 pYU
 lhk
 gqi
@@ -86098,7 +86179,7 @@ kvw
 oBp
 bjR
 iAN
-bjR
+hrR
 rtV
 nLK
 iec
@@ -86400,7 +86481,7 @@ kSQ
 pJY
 lgc
 sjn
-hTg
+uzq
 wSa
 lhk
 tiI
@@ -86702,7 +86783,7 @@ msS
 kJk
 sCA
 sjn
-sCA
+dbN
 lRR
 lhk
 iec
@@ -91527,7 +91608,7 @@ tXl
 tXl
 tXl
 tXl
-xZR
+xnv
 khH
 iBm
 pWr
@@ -93981,7 +94062,7 @@ off
 oSI
 sFp
 iBY
-jeT
+efl
 pyM
 gjt
 tew
@@ -94011,7 +94092,7 @@ wZD
 jGr
 cvo
 wZD
-aLd
+nxH
 aQT
 pHh
 sEf
@@ -97583,7 +97664,7 @@ gDy
 cGr
 sUx
 nte
-tXx
+wpc
 tXx
 tXx
 nXp
@@ -100003,7 +100084,7 @@ apN
 aww
 apN
 bbM
-nhG
+jnQ
 xmT
 rOz
 dVk

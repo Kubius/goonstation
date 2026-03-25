@@ -201,6 +201,41 @@ ABSTRACT_TYPE(/datum/random_event/menhir)
 		logTheThing(LOG_STATION, null, "Menhir closure event at [log_loc(eventlandmark)]")
 		message_admins("Menhir closure event triggered at [log_loc(eventlandmark)]")
 
+//some peace and quiet
+/datum/random_event/menhir/apc_off
+	name = "The Crown Seeks Silence"
+	message_delay = 1 MINUTE
+	weight = 30
+
+	event_effect()
+		var/list/station_areas = get_accessible_station_areas()
+		var/list/candidate_areas = list()
+		for (var/area_name in station_areas)
+			var/area/A = station_areas[area_name]
+			if(!istype(A,/area/station/hallway) && !istype(A,/area/station/maintenance) && istype(A.area_apc))
+				candidate_areas += A
+
+		var/report_string = ""
+
+		for(var/i in 1 to rand(2,3))
+			var/area/our_target = pick(candidate_areas)
+			candidate_areas -= our_target
+			if(i > 1) report_string += " | "
+			report_string += our_target.name
+			var/obj/machinery/power/apc/to_mess_with = our_target.area_apc
+			to_mess_with.operating = FALSE
+			to_mess_with.update()
+			to_mess_with.UpdateIcon()
+
+		message_delay = rand(18 SECONDS,36 SECONDS)
+		..()
+		if (random_events.announce_events)
+			SPAWN(message_delay)
+				playsound_global(world, 'sound/misc/announcement_ominous.ogg', 60)
+
+		logTheThing(LOG_STATION, null, "Menhir apc_off event triggered for: [report_string]")
+		message_admins("Menhir apc_off event triggered for: [report_string]")
+
 //the crown tries out one of its more novel machines
 /datum/random_event/menhir/powersink
 	name = "A Spire of Synthesis"
