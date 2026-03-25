@@ -185,7 +185,7 @@ ABSTRACT_TYPE(/datum/random_event/menhir)
 	message_delay = 30 SECONDS
 	required_elapsed_round_time = 22 MINUTES
 	centcom_headline = "ARTIFACT CONDITION ALERT"
-	centcom_message = "A massive spike in electromagnetic activity has been detected from TOREADOR-7I-22408. All personnel should immediately make ready for hazardous conditions."
+	centcom_message = "A massive spike in electromagnetic activity that does not match prior readings has been detected from TOREADOR-7I-22408. All personnel should immediately make ready for hazardous conditions."
 	weight = 4
 
 	is_event_available(ignore_time_lock)
