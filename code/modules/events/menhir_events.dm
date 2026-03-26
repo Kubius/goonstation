@@ -23,7 +23,7 @@ ABSTRACT_TYPE(/datum/random_event/menhir)
 	is_event_available(ignore_time_lock)
 		. = ..()
 		if(.)
-			if (!landmarks[LANDMARK_MENHIR_NODE] || length(landmarks[LANDMARK_MENHIR_NODE]) < 1) //if no eligible nods remain, do not trigger event
+			if (!landmarks[LANDMARK_MENHIR_NODE] || length(landmarks[LANDMARK_MENHIR_NODE]) < 1) //if no eligible nodes remain, do not trigger event
 				. = FALSE
 
 	event_effect()

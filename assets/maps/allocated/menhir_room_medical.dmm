@@ -1,0 +1,367 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/turf/unsimulated/floor/void,
+/area/precursor/unspace/medical)
+"b" = (
+/obj/map/light/cyan/menhir,
+/turf/unsimulated/floor/setpieces/bluefloor{
+	dir = 1
+	},
+/area/precursor/unspace/medical)
+"c" = (
+/turf/unsimulated/wall/auto/adventure/icemooninterior,
+/area/precursor/unspace/medical)
+"g" = (
+/turf/unsimulated/floor/setpieces/bluefloor{
+	dir = 4
+	},
+/area/precursor/unspace/medical)
+"n" = (
+/turf/unsimulated/floor/setpieces/bluefloor,
+/area/precursor/unspace/medical)
+"t" = (
+/turf/unsimulated/floor/void/timewarp,
+/area/precursor/unspace/medical)
+"D" = (
+/obj/map/light/cyan/menhir,
+/turf/unsimulated/wall/auto/adventure/icemooninterior,
+/area/precursor/unspace/medical)
+"U" = (
+/obj/map/light/cyan/menhir,
+/turf/unsimulated/floor/setpieces/bluefloor,
+/area/precursor/unspace/medical)
+"Y" = (
+/obj/landmark/menhir/room{
+	tag = "menhir_room_medical"
+	},
+/turf/unsimulated/floor/setpieces/bluefloor,
+/area/precursor/unspace/medical)
+"Z" = (
+/turf/unsimulated/floor/setpieces/bluefloor{
+	dir = 1
+	},
+/area/precursor/unspace/medical)
+
+(1,1,1) = {"
+t
+t
+t
+t
+t
+t
+t
+t
+t
+t
+t
+t
+t
+t
+t
+"}
+(2,1,1) = {"
+t
+t
+t
+t
+t
+t
+t
+t
+t
+t
+t
+t
+t
+t
+t
+"}
+(3,1,1) = {"
+t
+t
+t
+t
+t
+t
+t
+t
+t
+t
+t
+t
+t
+t
+t
+"}
+(4,1,1) = {"
+t
+t
+t
+t
+t
+t
+t
+t
+t
+t
+t
+t
+t
+t
+t
+"}
+(5,1,1) = {"
+a
+t
+t
+t
+t
+t
+t
+t
+t
+t
+t
+t
+t
+t
+a
+"}
+(6,1,1) = {"
+a
+a
+t
+t
+t
+t
+t
+t
+t
+t
+t
+t
+t
+a
+a
+"}
+(7,1,1) = {"
+a
+a
+a
+t
+t
+t
+t
+t
+t
+t
+t
+t
+a
+a
+a
+"}
+(8,1,1) = {"
+a
+a
+a
+a
+t
+t
+t
+t
+t
+t
+t
+a
+a
+a
+a
+"}
+(9,1,1) = {"
+a
+a
+a
+a
+a
+t
+t
+t
+t
+t
+a
+a
+a
+a
+a
+"}
+(10,1,1) = {"
+a
+a
+a
+a
+a
+c
+t
+t
+t
+c
+a
+a
+a
+a
+a
+"}
+(11,1,1) = {"
+a
+a
+a
+a
+a
+c
+c
+Y
+c
+c
+a
+a
+a
+a
+a
+"}
+(12,1,1) = {"
+a
+a
+a
+a
+a
+a
+c
+Z
+c
+a
+a
+a
+a
+a
+a
+"}
+(13,1,1) = {"
+a
+a
+c
+c
+c
+c
+c
+U
+c
+c
+c
+c
+c
+a
+a
+"}
+(14,1,1) = {"
+a
+c
+c
+Z
+b
+Z
+c
+n
+c
+Z
+b
+Z
+c
+c
+a
+"}
+(15,1,1) = {"
+a
+c
+g
+n
+n
+n
+n
+U
+n
+n
+n
+n
+g
+c
+a
+"}
+(16,1,1) = {"
+a
+D
+g
+n
+n
+n
+n
+n
+n
+n
+n
+n
+g
+D
+a
+"}
+(17,1,1) = {"
+a
+c
+g
+n
+n
+n
+n
+n
+n
+n
+n
+n
+g
+c
+a
+"}
+(18,1,1) = {"
+a
+c
+c
+Z
+b
+Z
+c
+Z
+c
+Z
+b
+Z
+c
+c
+a
+"}
+(19,1,1) = {"
+a
+a
+c
+c
+c
+c
+c
+c
+c
+c
+c
+c
+c
+a
+a
+"}

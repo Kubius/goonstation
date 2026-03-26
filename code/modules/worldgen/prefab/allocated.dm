@@ -87,3 +87,27 @@ ABSTRACT_TYPE(/datum/mapPrefab/allocated)
 	prefabSizeX = 31
 	prefabSizeY = 33
 	prefabPath = "assets/maps/allocated/salvager_local.dmm"
+
+/datum/mapPrefab/allocated/menhir_room_medical
+	name = "menhir_room_medical"
+	prefabSizeX = 19
+	prefabSizeY = 15
+	prefabPath = "assets/maps/allocated/menhir_room_medical.dmm"
+
+/datum/mapPrefab/allocated/menhir_room_lounge
+	name = "menhir_room_lounge"
+	prefabSizeX = 18
+	prefabSizeY = 17
+	prefabPath = "assets/maps/allocated/menhir_room_lounge.dmm"
+
+/datum/mapPrefab/allocated/menhir_room_botany
+	name = "menhir_room_botany"
+	prefabSizeX = 20
+	prefabSizeY = 15
+	prefabPath = "assets/maps/allocated/menhir_room_botany.dmm"
+
+/datum/mapPrefab/allocated/menhir_room_cavern
+	name = "menhir_room_cavern"
+	prefabSizeX = 20
+	prefabSizeY = 24
+	prefabPath = "assets/maps/allocated/menhir_room_cavern.dmm"

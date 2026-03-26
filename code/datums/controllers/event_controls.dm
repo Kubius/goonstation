@@ -125,6 +125,9 @@ var/datum/event_controller/random_events
 		var/list/weights = list()
 		for (var/datum/random_event/RE in event_bank)
 			if (RE.is_event_available( ignore_time_lock = (source=="spawn_antag") ))
+#ifdef MAP_OVERRIDE_MENHIR
+				if(istype(RE,/datum/random_event/menhir/room)) RE:update_weight()
+#endif
 				eligible += RE
 				weights += RE.weight
 		if (length(eligible) > 0)
@@ -246,9 +249,9 @@ var/datum/event_controller/random_events
 		var/datum/random_event/RE
 		if(usr?.client && !usr.client.holder) {boutput(usr, "<h3 class='admin'>Only administrators may use this command.</span>"); return}
 #ifdef MAP_OVERRIDE_MENHIR
-		if (href_list["TriggerEvent"] || href_list["TriggerMEvent"] || href_list["TriggerSEvent"] || href_list["TriggerStartEvent"])
-#else
 		if (href_list["TriggerEvent"] || href_list["TriggerMEvent"] || href_list["TriggerMHEvent"] || href_list["TriggerSEvent"] || href_list["TriggerStartEvent"])
+#else
+		if (href_list["TriggerEvent"] || href_list["TriggerMEvent"] || href_list["TriggerSEvent"] || href_list["TriggerStartEvent"])
 #endif
 			if(href_list["TriggerEvent"])
 				RE = locate(href_list["TriggerEvent"]) in major_events

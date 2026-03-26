@@ -380,6 +380,11 @@ var/global/list/job_start_locations = list()
 	name = LANDMARK_MENHIR_DARK
 	icon_state = "x"
 
+/obj/landmark/menhir/room
+	name = "room vismirror landmark (tag me)"
+	deleted_on_start = FALSE
+	add_to_landmarks = FALSE
+
 ///emergency shuttle launch sound origin
 /obj/landmark/shuttle_subwoofer
 	name = LANDMARK_SHUTTLE_SOUND
