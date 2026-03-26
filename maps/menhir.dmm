@@ -13228,11 +13228,6 @@
 	},
 /turf/simulated/floor/carpet/grime,
 /area/station/security/detectives_office)
-"ibe" = (
-/obj/effects/menhir_fog,
-/obj/landmark/menhir/passage,
-/turf/unsimulated/floor/setpieces/bluefloor,
-/area/station/crown)
 "ibL" = (
 /obj/table/reinforced/bar/auto{
 	name = "wooden table"
@@ -84783,9 +84778,9 @@ blY
 lhN
 lhN
 lhN
-ibe
 aGr
-gfo
+aGr
+lhN
 aGr
 lhN
 gfo
@@ -91427,9 +91422,9 @@ blY
 lhN
 lhN
 lhN
-ibe
 aGr
-gfo
+aGr
+lhN
 aGr
 lhN
 gfo

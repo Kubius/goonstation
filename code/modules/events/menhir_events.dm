@@ -287,7 +287,7 @@ ABSTRACT_TYPE(/datum/random_event/menhir)
 
 //sometimes, the door just unlocks itself
 /datum/random_event/menhir/road
-	name = "The Crown Holds Court"
+	name = "For Parted Are The Gates"
 	message_delay = 30 SECONDS
 	weight = 2
 
@@ -306,6 +306,7 @@ ABSTRACT_TYPE(/datum/random_event/menhir)
 				if (save_dir == "interior-3") //vertical wall detection
 					newdoor.dir = 4
 			else
+				showswirl(T)
 				Artifact_Spawn(T,"precursor")
 
 		playsound_global(world, 'sound/musical_instruments/artifact/Artifact_Precursor_5.ogg', 45, 0, 0.45)
