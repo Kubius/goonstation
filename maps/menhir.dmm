@@ -998,6 +998,15 @@
 /obj/disposalpipe/segment/bent/west,
 /turf/simulated/floor/plating,
 /area/station/maintenance/west)
+"aIb" = (
+/obj/cable{
+	icon_state = "4-8"
+	},
+/obj/cable{
+	icon_state = "1-4"
+	},
+/turf/simulated/floor/black/side,
+/area/station/hallway/primary/east)
 "aIp" = (
 /obj/disposalpipe/segment/mail{
 	dir = 8;
@@ -8763,6 +8772,7 @@
 	icon_state = "0-6"
 	},
 /obj/machinery/power/data_terminal,
+/obj/cable,
 /turf/simulated/floor/black,
 /area/station/crew_quarters/hop)
 "fvG" = (
@@ -10865,6 +10875,16 @@
 /area/station/crew_quarters/clown{
 	name = "Honkington's Abode"
 	})
+"gFa" = (
+/obj/mapping_helper/wingrille_spawn/auto/reinforced,
+/obj/cable{
+	icon_state = "0-8"
+	},
+/obj/cable{
+	icon_state = "0-2"
+	},
+/turf/simulated/floor/plating,
+/area/station/bridge/captain)
 "gFe" = (
 /obj/landmark/gps_waypoint,
 /turf/simulated/floor/black,
@@ -16656,6 +16676,13 @@
 /area/station/hallway/secondary/exit{
 	name = "Primary Docking Wing"
 	})
+"klq" = (
+/obj/mapping_helper/wingrille_spawn/auto/reinforced,
+/obj/cable{
+	icon_state = "0-2"
+	},
+/turf/simulated/floor/plating,
+/area/station/bridge/captain)
 "klt" = (
 /obj/machinery/atmospherics/pipe/manifold/overfloor,
 /turf/simulated/floor/engine/caution/north,
@@ -23095,6 +23122,10 @@
 /area/station/hangar/main)
 "oeB" = (
 /obj/mapping_helper/wingrille_spawn/auto/reinforced,
+/obj/cable{
+	icon_state = "0-4"
+	},
+/obj/cable,
 /turf/simulated/floor/plating,
 /area/station/bridge/captain)
 "oeS" = (
@@ -23343,6 +23374,19 @@
 	name = "reinforced plating"
 	},
 /area/station/science/lab)
+"omc" = (
+/obj/mapping_helper/wingrille_spawn/auto/reinforced,
+/obj/cable{
+	icon_state = "0-2"
+	},
+/obj/cable{
+	icon_state = "0-4"
+	},
+/obj/cable{
+	icon_state = "0-8"
+	},
+/turf/simulated/floor/plating,
+/area/station/bridge/captain)
 "omf" = (
 /obj/cable{
 	icon_state = "4-8"
@@ -27334,6 +27378,9 @@
 /obj/disposalpipe/segment/brig{
 	dir = 1
 	},
+/obj/cable{
+	icon_state = "0-8"
+	},
 /turf/simulated/floor/plating,
 /area/station/crew_quarters/hop)
 "qFX" = (
@@ -29617,6 +29664,12 @@
 /area/station/science/testchamber)
 "sbl" = (
 /obj/mapping_helper/wingrille_spawn/auto/reinforced,
+/obj/cable{
+	icon_state = "0-2"
+	},
+/obj/cable{
+	icon_state = "0-4"
+	},
 /turf/simulated/floor/plating,
 /area/station/crew_quarters/hop)
 "sbV" = (
@@ -29931,6 +29984,16 @@
 /area/station/security/main{
 	name = "Security Office"
 	})
+"skY" = (
+/obj/mapping_helper/wingrille_spawn/auto/reinforced,
+/obj/cable{
+	icon_state = "0-4"
+	},
+/obj/cable{
+	icon_state = "0-8"
+	},
+/turf/simulated/floor/plating,
+/area/station/bridge/captain)
 "slG" = (
 /obj/lattice{
 	dir = 10;
@@ -30132,6 +30195,11 @@
 	dir = 1
 	},
 /area/station/hallway/primary/north)
+"srS" = (
+/obj/mapping_helper/wingrille_spawn/auto/reinforced,
+/obj/cable,
+/turf/simulated/floor/plating,
+/area/station/bridge/captain)
 "srX" = (
 /obj/machinery/plantpot,
 /obj/machinery/firealarm/directional/north,
@@ -37815,6 +37883,13 @@
 	dir = 1
 	},
 /area/station/hallway/primary/central)
+"wHv" = (
+/obj/mapping_helper/wingrille_spawn/auto/reinforced,
+/obj/cable{
+	icon_state = "0-8"
+	},
+/turf/simulated/floor/plating,
+/area/station/bridge/captain)
 "wHw" = (
 /turf/simulated/floor/orangeblack/side,
 /area/station/hallway/primary/west)
@@ -96786,8 +96861,8 @@ qfg
 qfg
 qfg
 qfg
-oeB
-oeB
+klq
+srS
 oeB
 nue
 goD
@@ -97090,7 +97165,7 @@ ods
 toc
 qzD
 iEh
-oeB
+gFa
 oeB
 jCF
 gce
@@ -97393,8 +97468,8 @@ cMQ
 jlM
 jlM
 aGE
-oeB
-ldM
+omc
+aIb
 meW
 hEZ
 rjF
@@ -97695,7 +97770,7 @@ cGT
 jjY
 jlM
 aJR
-oeB
+skY
 ldM
 meW
 wpW
@@ -97997,7 +98072,7 @@ kCe
 uBd
 jlM
 jlM
-oeB
+wHv
 ldM
 meW
 wpW
