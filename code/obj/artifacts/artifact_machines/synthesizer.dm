@@ -67,12 +67,10 @@
 			return
 		var/obj/cable/C = locate() in get_turf(O)
 		if(!C)
-			boutput(world,"no cable") //DEBUG DEBUG DEBUG
 			O.ArtifactDeactivated()
 			return
 		var/datum/powernet/PN = C.get_powernet()
 		if(PN.newavail <= 50000 || PN.number != drawsource.number)
-			boutput(world,"insufficient pnet") //DEBUG DEBUG DEBUG
 			O.ArtifactDeactivated()
 			return
 		if(!current_draw)
