@@ -265,29 +265,6 @@
 	ex_act(severity)
 		return
 
-	attackby(obj/item/W, mob/user)
-	/*	if (istype(W,/obj/item/skull)) // placeholder
-			playsound(src.loc, 'sound/machines/ArtifactPre1.ogg', 50, 1)
-			src.visible_message(SPAN_NOTICE("<b>Something activates inside [src]!</b>"))
-
-			if (id)
-				if (istype(id, /list))
-					for (var/sub_id in id)
-						var/obj/precursor_puzzle/glowing_door/target_door = locate(sub_id)
-						if (istype(target_door))
-							target_door.toggle()
-				else
-					var/obj/iomoon_puzzle/ancient_robot_door/target_door = locate(id)
-					if (istype(target_door))
-						target_door.toggle()
-
-			if(!src.overlays.len)
-				src.overlays += icon('icons/obj/artifacts/artifacts.dmi',"precursor-1fx")*/
-		if (isrobot(user)) return
-		user.drop_item()
-		if(W?.loc)	W.set_loc(src.loc)
-		return
-
 /obj/item/chilly_orb // borb
 	name = "chilly orb"
 	desc = "Neat."
