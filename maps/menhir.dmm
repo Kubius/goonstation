@@ -23753,7 +23753,10 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/southwest)
 "oxd" = (
-/turf/simulated/wall/auto/reinforced/supernorn,
+/turf/simulated/wall/false_wall{
+	icon = 'icons/turf/walls/supernorn/smooth.dmi';
+	icon_state = "norn-12"
+	},
 /area/station/security/beepsky)
 "oxf" = (
 /obj/disposalpipe/segment/horizontal,
@@ -99002,10 +99005,10 @@ jZF
 jZF
 bWg
 jZF
-oxd
+ulr
 rcB
-oxd
-oxd
+ulr
+ulr
 hyv
 teO
 iEN
@@ -99304,10 +99307,10 @@ kyh
 kaC
 kaC
 pro
-oxd
+ulr
 eiZ
 vTa
-oxd
+ulr
 ulr
 jZF
 sHI
@@ -99606,7 +99609,7 @@ kyh
 kaC
 kaC
 kaC
-oxd
+ulr
 nsl
 viW
 htf
@@ -100210,7 +100213,7 @@ kyh
 kaC
 kaC
 kaC
-oxd
+ulr
 gGy
 gGy
 gGy
