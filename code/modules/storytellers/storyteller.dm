@@ -105,13 +105,14 @@ ABSTRACT_TYPE(/datum/storyteller)
 #ifdef MAP_OVERRIDE_MENHIR
 	proc/menhir_event_cycle()
 		random_events.menhir_event_cycle_count++
-		if(prob(40 + (random_events.cycles_since_menhir_event * 15)) || random_events.cycles_since_menhir_event > 2)
-			random_events.cycles_since_menhir_event = 0
-			SPAWN(rand(1 MINUTE,5 MINUTES))
-				random_events.do_random_event(random_events.menhir_events)
-		else
-			random_events.cycles_since_menhir_event++
-			message_admins("Menhir event has been skipped for this cycle.")
+		if (random_events.menhir_events_enabled)
+			if(prob(40 + (random_events.cycles_since_menhir_event * 15)) || random_events.cycles_since_menhir_event > 2)
+				random_events.cycles_since_menhir_event = 0
+				SPAWN(rand(1 MINUTE,5 MINUTES))
+					random_events.do_random_event(random_events.menhir_events)
+			else
+				random_events.cycles_since_menhir_event++
+				message_admins("Menhir event has been skipped for this cycle.")
 
 		random_events.menhir_event_timer = rand(random_events.time_between_menhir_events_lower, random_events.time_between_menhir_events_upper)
 		random_events.next_menhir_event = ticker.round_elapsed_ticks + random_events.menhir_event_timer
