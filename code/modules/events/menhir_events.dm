@@ -58,9 +58,9 @@ ABSTRACT_TYPE(/datum/random_event/menhir)
 				return
 
 		if(prob(60))
-			playsound(nodelandmark, 'sound/effects/ring_happi.ogg', 55, 0, pitch = 0.45, extrarange = 24)
+			playsound(nodelandmark, 'sound/effects/ring_happi.ogg', 65, 0, pitch = 0.45, extrarange = 24)
 		else
-			playsound(nodelandmark, 'sound/musical_instruments/artifact/Artifact_Precursor_2.ogg', 55, 0, extrarange = 24)
+			playsound(nodelandmark, 'sound/musical_instruments/artifact/Artifact_Precursor_2.ogg', 65, 0, extrarange = 24)
 
 		if(node_tag)
 			doorlandmark = pick(eligible_walls)
