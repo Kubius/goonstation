@@ -38428,6 +38428,11 @@
 	},
 /turf/simulated/floor/white/grime,
 /area/station/maintenance/west)
+"wYp" = (
+/obj/effects/menhir_fog,
+/obj/landmark/menhir/passage,
+/turf/unsimulated/floor/setpieces/bluefloor,
+/area/station/crown)
 "wYr" = (
 /obj/stool/chair{
 	dir = 1
@@ -84781,7 +84786,7 @@ lhN
 aGr
 aGr
 lhN
-aGr
+wYp
 lhN
 gfo
 lhN
@@ -91425,7 +91430,7 @@ lhN
 aGr
 aGr
 lhN
-aGr
+wYp
 lhN
 gfo
 lhN
