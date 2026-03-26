@@ -112,8 +112,10 @@ ABSTRACT_TYPE(/datum/storyteller)
 		else
 			random_events.cycles_since_menhir_event++
 			message_admins("Menhir event has been skipped for this cycle.")
-#endif
 
+		random_events.menhir_event_timer = rand(random_events.time_between_menhir_events_lower, random_events.time_between_menhir_events_upper)
+		random_events.next_menhir_event = ticker.round_elapsed_ticks + random_events.menhir_event_timer
+#endif
 
 	proc/spawn_event(var/type = "player")
 		var/do_event = 1
