@@ -56195,7 +56195,9 @@
 "fkk" = (
 /obj/rack/precursor,
 /obj/random_item_spawner/menhir/a_bunch,
-/turf/unsimulated/floor/setpieces/bluefloor,
+/turf/unsimulated/floor/setpieces/bluefloor{
+	dir = 1
+	},
 /area/precursor/menhir)
 "fks" = (
 /obj/table/auto,
@@ -58719,6 +58721,12 @@
 	},
 /turf/unsimulated/wall/auto/adventure/iomoon/interior,
 /area/iomoon/robot_ruins)
+"hik" = (
+/obj/map/light/dimred,
+/turf/unsimulated/floor/setpieces/bluefloor{
+	dir = 8
+	},
+/area/precursor/menhir)
 "hir" = (
 /obj/lattice{
 	dir = 1;
@@ -68789,6 +68797,11 @@
 /obj/mapping_helper/wingrille_spawn/auto,
 /turf/unsimulated/floor/plating,
 /area/shuttle/merchant_shuttle/right_centcom/cogmap2)
+"oKb" = (
+/obj/rack/precursor,
+/obj/random_item_spawner/menhir/one_or_zero,
+/turf/unsimulated/floor/setpieces/bluefloor,
+/area/precursor/menhir)
 "oKc" = (
 /obj/decal/poster/wallsign/stencil/right/three,
 /turf/unsimulated/floor/setpieces/gauntlet,
@@ -81334,10 +81347,6 @@
 	},
 /turf/simulated/floor/grime,
 /area/observatory)
-"xVi" = (
-/obj/random_item_spawner/menhir/one,
-/turf/unsimulated/floor/setpieces/bluefloor,
-/area/precursor/menhir)
 "xVP" = (
 /obj/machinery/light,
 /turf/unsimulated/floor/wood/eight,
@@ -81511,12 +81520,6 @@
 	opacity = 0
 	},
 /area/titlescreen)
-"xZW" = (
-/obj/machinery/door/unpowered/blue{
-	friendly_object = /obj/item/clothing/gloves/ring/ominous
-	},
-/turf/unsimulated/wall/auto/adventure/icemooninterior,
-/area/precursor/menhir)
 "yab" = (
 /obj/decal/poster/wallsign/poster_ptoe,
 /turf/unsimulated/wall/auto/lead/blue,
@@ -152336,7 +152339,7 @@ dFc
 aaa
 jky
 sGZ
-fkk
+vzY
 sGZ
 sGZ
 fwl
@@ -152638,7 +152641,7 @@ dFc
 aaa
 jky
 sGZ
-lmA
+mrC
 fkk
 sGZ
 sGZ
@@ -152942,7 +152945,7 @@ sGZ
 sGZ
 nNE
 lmA
-fkk
+vzY
 sGZ
 lkr
 xmo
@@ -153241,9 +153244,9 @@ aES
 dFc
 aaa
 sGZ
-lmA
-nNE
-nNE
+hik
+lkr
+lkr
 sGZ
 sGZ
 nNE
@@ -153543,7 +153546,7 @@ aES
 dFc
 aaa
 sGZ
-nNE
+hyO
 sGZ
 sGZ
 sGZ
@@ -153845,7 +153848,7 @@ aES
 dFc
 aaa
 sGZ
-nNE
+hyO
 sGZ
 hyO
 nNE
@@ -154147,8 +154150,8 @@ aES
 dFc
 aaa
 sGZ
-nNE
-xZW
+eli
+vfG
 eli
 sGZ
 sGZ
@@ -154449,7 +154452,7 @@ aES
 dFc
 aaa
 sGZ
-nNE
+hyO
 sGZ
 tGP
 nNE
@@ -154751,7 +154754,7 @@ aES
 dFc
 aaa
 sGZ
-nNE
+hyO
 sGZ
 sGZ
 sGZ
@@ -155053,9 +155056,9 @@ aES
 dFc
 aaa
 sGZ
-lmA
-nNE
-nNE
+hik
+lkr
+lkr
 sGZ
 sGZ
 nNE
@@ -155358,7 +155361,7 @@ sGZ
 sGZ
 nNE
 lmA
-fkk
+vzY
 sGZ
 lkr
 xmo
@@ -155658,7 +155661,7 @@ dFc
 aaa
 jky
 sGZ
-lmA
+mrC
 fkk
 sGZ
 sGZ
@@ -155960,7 +155963,7 @@ dFc
 aaa
 jky
 sGZ
-fkk
+vzY
 sGZ
 sGZ
 fwl
@@ -156264,13 +156267,13 @@ jky
 sGZ
 sGZ
 sGZ
-xVi
+nNE
 xza
-xVi
+nNE
 sGZ
-vzY
+oKb
 sGZ
-vzY
+oKb
 sGZ
 fQM
 sGZ
@@ -156868,13 +156871,13 @@ jky
 jky
 sGZ
 sGZ
-xVi
+nNE
 xza
-xVi
+nNE
 sGZ
-vzY
+oKb
 sGZ
-vzY
+oKb
 sGZ
 nNE
 sGZ
