@@ -1819,7 +1819,6 @@
 /obj/stool/chair{
 	dir = 1
 	},
-/mob/living/carbon/human/npc/monkey/mrs_muggles,
 /turf/simulated/floor/grey/side{
 	dir = 4
 	},
@@ -14975,6 +14974,12 @@
 /obj/window_blinds/cog2/left{
 	dir = 8
 	},
+/obj/cable{
+	icon_state = "0-2"
+	},
+/obj/cable{
+	icon_state = "0-8"
+	},
 /turf/simulated/floor/plating,
 /area/station/medical/research)
 "jin" = (
@@ -16024,6 +16029,7 @@
 /obj/window_blinds/cog2/right{
 	dir = 8
 	},
+/obj/cable,
 /turf/simulated/floor/plating,
 /area/station/medical/research)
 "jRE" = (
@@ -25778,7 +25784,6 @@
 /turf/simulated/floor,
 /area/station/hallway/primary/west)
 "pLp" = (
-/obj/spawner/clone_rack,
 /obj/machinery/door_control{
 	name = "Exit Door Control";
 	pixel_x = 23;
@@ -25788,6 +25793,7 @@
 /obj/mapping_helper/button/pair{
 	dir = 10
 	},
+/obj/storage/secure/closet/medical/cloning,
 /turf/simulated/floor/blueblack,
 /area/station/medical/research)
 "pLV" = (
@@ -26094,6 +26100,9 @@
 "pVE" = (
 /obj/cable{
 	icon_state = "1-8"
+	},
+/obj/cable{
+	icon_state = "4-8"
 	},
 /turf/simulated/floor/blueblack{
 	dir = 1
@@ -34670,7 +34679,7 @@
 	layer = 9.1;
 	pixel_y = 21
 	},
-/obj/landmark/start/job/assistant,
+/mob/living/carbon/human/npc/monkey/mrs_muggles,
 /turf/simulated/floor/wood/two,
 /area/station/crew_quarters/fitness)
 "uUE" = (
@@ -37959,7 +37968,7 @@
 	},
 /area/station/medical/medbay/pharmacy)
 "wNC" = (
-/obj/storage/secure/closet/medical/cloning,
+/obj/spawner/clone_rack,
 /turf/simulated/floor/black,
 /area/station/medical/research)
 "wNI" = (
