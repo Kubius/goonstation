@@ -111,6 +111,7 @@ ABSTRACT_TYPE(/datum/storyteller)
 				random_events.do_random_event(random_events.menhir_events)
 		else
 			random_events.cycles_since_menhir_event++
+			message_admins("Menhir event has been skipped for this cycle.")
 #endif
 
 
