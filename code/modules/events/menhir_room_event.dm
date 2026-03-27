@@ -460,7 +460,7 @@ ABSTRACT_TYPE(/datum/menhir_room_roll)
 			if(room_data.stole_from && prob(40)) //if prob isn't 40 this is debug
 				SPAWN(message_delay + rand(2 MINUTES, 3 MINUTES))
 					var/who = generate_random_station_name()
-					command_alert(get_admonishment(room_data.stole_from), "Communication from [who]")
+					command_alert(get_admonishment(room_data.stole_from), alert_origin = "Communication from [who]")
 					playsound_global(world, 'sound/misc/announcement_1.ogg', 60)
 
 		logTheThing(LOG_STATION, null, "Menhir room '[room_data.name]' entrance created at [node_tag] arm - [log_loc(nodelandmark)]")
