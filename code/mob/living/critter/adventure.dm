@@ -92,6 +92,10 @@ TYPEINFO(/mob/living/critter/crunched)
 
 ////////// Transposed limb ///////////
 /datum/limb/transposed
+	var/limb_cd = 3 SECONDS
+	var/dmg_sound = 'sound/impact_sounds/burn_sizzle.ogg'
+	var/action = "grab"
+
 	help(mob/target, var/mob/living/user)
 		..()
 		harm(target, user, 0)
@@ -102,13 +106,12 @@ TYPEINFO(/mob/living/critter/crunched)
 
 		var/datum/attackResults/msgs = user.calculate_melee_attack(target, 5, 15, 0, can_punch = FALSE, can_kick = FALSE)
 		user.attack_effects(target, user.zone_sel?.selecting)
-		var/action = "grab"
 		msgs.base_attack_message = SPAN_ALERT("<b>[user] [action]s [target] with [src.holder]!</b>")
-		msgs.played_sound = 'sound/impact_sounds/burn_sizzle.ogg'
+		msgs.played_sound = src.dmg_sound
 		msgs.damage_type = DAMAGE_BURN
 		msgs.flush(SUPPRESS_LOGS)
 		user.lastattacked = get_weakref(target)
-		ON_COOLDOWN(src, "limb_cooldown", 3 SECONDS)
+		ON_COOLDOWN(src, "limb_cooldown", limb_cd)
 
 ////////////// Shades ////////////////
 TYPEINFO(/mob/living/critter/shade)
@@ -204,22 +207,38 @@ TYPEINFO(/mob/living/critter/shade)
 			src.say(pick("siskur, siskur ina na sukkal...","ára ina gíg, úš ina ur zal...","lú-érim! lú-érim!","áš á-zi-ga...bal, na, e-zé ha-lam ina é si-ga..."))
 			// sacrifice, sacrifice the human envoy! // praise the night, kill the servant of light // enemy! enemy! // cursed with violence, human, you ruin the quiet house
 
+//menhir shade: in the realm of remembrance, behind a discolored locked door. entrance is inadvisable.
 /mob/living/critter/shade/lordly
 	name = "voice of grief"
 	desc = "They sing for us no longer."
-	base_move_delay = 3
-	base_walk_delay = 4
 	health_brute = 708
 	health_burn = 708
+	base_move_delay = 1.3
+	base_walk_delay = 2
+	no_stamina_stuns = TRUE
 
 	New()
 		. = ..()
 		APPLY_ATOM_PROPERTY(src, PROP_MOB_DISORIENT_RESIST_BODY, "theysing", 20)
 		APPLY_ATOM_PROPERTY(src, PROP_MOB_DISORIENT_RESIST_BODY_MAX, "theysing", 20)
-		APPLY_ATOM_PROPERTY(src, PROP_MOB_STUN_RESIST, "theysing", 50)
-		APPLY_ATOM_PROPERTY(src, PROP_MOB_STUN_RESIST_MAX, "theysing", 50)
-		APPLY_ATOM_PROPERTY(src, PROP_MOB_STAMINA_REGEN_BONUS, "theysing", 10)
+		APPLY_ATOM_PROPERTY(src, PROP_MOB_STUN_RESIST, "theysing", 90)
+		APPLY_ATOM_PROPERTY(src, PROP_MOB_STUN_RESIST_MAX, "theysing", 90)
+		APPLY_ATOM_PROPERTY(src, PROP_MOB_STAMINA_REGEN_BONUS, "theysing", 20)
 
+	setup_hands() //you will be catching them
+		..()
+		var/datum/handHolder/HH = hands[1]
+		var/datum/limb/transposed/TL = HH.limb
+		TL.limb_cd = COMBAT_CLICK_DELAY
+		TL.dmg_sound = 'sound/impact_sounds/crunchy_sizzle.ogg'
+		TL.action = "strike"
+		HH = hands[2]
+		TL = HH.limb
+		TL.limb_cd = COMBAT_CLICK_DELAY
+		TL.dmg_sound = 'sound/impact_sounds/crunchy_sizzle.ogg'
+		TL.action = "strike"
+
+//menhir shade: appears only in the case of the rare invasion event. very rare
 /mob/living/critter/shade/invader
 	name = "voice of shadow"
 	layer = 3.85
