@@ -337,7 +337,7 @@ ABSTRACT_TYPE(/datum/menhir_room_roll)
 /datum/random_event/menhir/room
 	name = "The Crown Holds Court"
 	message_delay = 1 MINUTE
-	weight = 20
+	weight = 10
 	customization_available = 1
 	///Consumable pool of room data.
 	var/list/room_pool = list()
@@ -352,7 +352,7 @@ ABSTRACT_TYPE(/datum/menhir_room_roll)
 
 	///Menhir room event scales its rate of appearance based on server population
 	proc/update_weight()
-		src.weight = 20 + (total_clients() * 2)
+		src.weight = 10 + (total_clients() * 2)
 
 	///Evaluate the tag of a node to see which public exits it can make available for event
 	proc/nodetagcheck(var/tag_to_check)
