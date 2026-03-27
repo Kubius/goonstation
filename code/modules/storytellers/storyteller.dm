@@ -106,13 +106,37 @@ ABSTRACT_TYPE(/datum/storyteller)
 	proc/menhir_event_cycle()
 		random_events.menhir_event_cycle_count++
 		if (random_events.menhir_events_enabled)
-			if(prob(40 + (random_events.cycles_since_menhir_event * 15)) || random_events.cycles_since_menhir_event > 2)
-				random_events.cycles_since_menhir_event = 0
-				SPAWN(rand(1 MINUTE,5 MINUTES))
-					random_events.do_random_event(random_events.menhir_events)
-			else
-				random_events.cycles_since_menhir_event++
-				message_admins("Menhir event has been skipped for this cycle.")
+			//build the special room list if we need to
+			if(!random_events.special_room_list_built)
+				for(var/datum/menhir_room_roll/RR in random_events.the_room_event.room_pool)
+					if(RR.has_special_condition)
+						random_events.menhir_special_rooms += RR
+				random_events.special_room_list_built = TRUE
+
+			var/did_specific = FALSE
+			if(length(landmarks[LANDMARK_MENHIR_NODE]) && length(random_events.menhir_special_rooms))
+				//gather eligibility data once
+				var/direction_eligibility = 0
+				for (var/turf/T in landmarks[LANDMARK_MENHIR_NODE])
+					var/result = nodetagcheck(landmarks[LANDMARK_MENHIR_NODE][T])
+					if(result) direction_eligibility |= result
+				//and check against special room
+				for(var/datum/menhir_room_roll/RR in random_events.menhir_special_rooms)
+					if(RR.special_eval(direction_eligibility))
+						did_specific = TRUE
+						random_events.cycles_since_menhir_event = 0
+						logTheThing(LOG_STATION, null, "Menhir room '[RR.name]' special condition was triggered; forcing room event.")
+						message_admins(SPAN_INTERNAL("Menhir room '[RR.name]' special condition was triggered; forcing room event."))
+						random_events.the_room_event.event_effect()
+
+			if(!did_specific)
+				if(prob(40 + (random_events.cycles_since_menhir_event * 15)) || random_events.cycles_since_menhir_event > 2)
+					random_events.cycles_since_menhir_event = 0
+					SPAWN(rand(1 MINUTE,5 MINUTES))
+						random_events.do_random_event(random_events.menhir_events)
+				else
+					random_events.cycles_since_menhir_event++
+					message_admins(SPAN_INTERNAL("Menhir event has been skipped for this cycle."))
 
 		random_events.menhir_event_timer = rand(random_events.time_between_menhir_events_lower, random_events.time_between_menhir_events_upper)
 		random_events.next_menhir_event = ticker.round_elapsed_ticks + random_events.menhir_event_timer

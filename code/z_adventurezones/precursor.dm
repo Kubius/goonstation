@@ -291,6 +291,9 @@
 			var/obj/item/chilly_orb/orb2 = pick(orbtemp)
 			orb2.id = "FORGOTTEN"
 			orbtemp -= orb2
+			var/obj/item/chilly_orb/orb3 = pick(orbtemp)
+			orb3.id = "KINSHIP"
+			orbtemp -= orb3
 
 			//axe the rest, get rid of guesswork without a purpose
 			for (var/obj/O in orbtemp)
@@ -459,6 +462,10 @@ ABSTRACT_TYPE(/datum/menhir_puzzle)
 		var/obj/precursor_puzzle/orb_stand/other = locate("orb_stand_[target_id]")
 		if (!istype(other))
 			return
+
+		if(other.invisibility) //more menhir shenanigans
+			other.invisibility = 0
+			other.density = 1
 
 		SPAWN(1 DECI SECOND)
 			src.ready = 0 // disable momentarily to prevent spamming

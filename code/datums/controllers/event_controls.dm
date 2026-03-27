@@ -27,6 +27,10 @@ var/datum/event_controller/random_events
 	var/menhir_event_cycle_count = 0
 	///Events aren't guaranteed to happen on each of these ticks
 	var/cycles_since_menhir_event = 0
+	///Room event has certain possibilities that will guarantee a room's spawn next cycle if an eligible space remains
+	var/list/menhir_special_rooms = list()
+	var/special_room_list_built = FALSE
+	var/datum/random_event/menhir/room/the_room_event = null
 
 	var/menhir_event_timer = 0
 	var/next_menhir_event = 0
@@ -86,6 +90,7 @@ var/datum/event_controller/random_events
 		for (var/X in concrete_typesof(/datum/random_event/menhir))
 			var/datum/random_event/RE = new X
 			menhir_events += RE
+			if(istype(RE,/datum/random_event/menhir/room)) the_room_event = RE
 #endif
 
 		for (var/X in concrete_typesof(/datum/random_event/special))

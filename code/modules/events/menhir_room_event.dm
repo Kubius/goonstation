@@ -1,3 +1,8 @@
+//Each room must have:
+//An area/unspace subtype with name, local facing and seek tag
+//The map file itself (with that area applied to at minimum its entryway); map file must also have a CONFIGURED landmark at the end of the viewcone
+//A configured room roll (entrance side and map path at minimum)
+
 ABSTRACT_TYPE(/area/unspace)
 /area/unspace
 	icon_state = "purple"
@@ -138,11 +143,15 @@ ABSTRACT_TYPE(/area/unspace)
 		icon_state = "blue"
 		sound_loop = null
 
-/turf/space/fluid/cenote/menhir
-	oxygen = MOLES_O2STANDARD
-	nitrogen = MOLES_N2STANDARD
-	temperature = OCEAN_TEMP
-	desc = "A deep flooded sinkhole. Looks surprisingly pleasant, actually."
+/area/unspace/bball
+	name = "Reverberating Arena"
+	local_facing = WEST
+	seek_tag = "menhir_room_ball"
+
+/area/unspace/sepulchre
+	name = "Unworldly Halls"
+	local_facing = EAST
+	seek_tag = "menhir_room_sepulchre"
 
 ABSTRACT_TYPE(/obj/menhir_room_objs)
 /obj/menhir_room_objs
@@ -272,6 +281,15 @@ ABSTRACT_TYPE(/obj/menhir_room_objs/cross_dummy)
 
 #ifdef MAP_OVERRIDE_MENHIR
 
+///General helper: evaluate the tag of a node to see which public exits it can make available for event
+/proc/nodetagcheck(var/tag_to_check)
+	. = 0
+	if(tag_to_check == "WEST" || tag_to_check == "NORTHEAST" || tag_to_check == "SOUTHEAST")
+		. = WEST
+	if(tag_to_check == "EAST" || tag_to_check == "NORTHWEST" || tag_to_check == "SOUTHWEST")
+		. = EAST
+	return
+
 ABSTRACT_TYPE(/datum/menhir_room_roll)
 ///Dataset for a particular room that can be summoned; provides path to prefab as well as context data
 /datum/menhir_room_roll
@@ -289,6 +307,14 @@ ABSTRACT_TYPE(/datum/menhir_room_roll)
 	var/list/area_busy_checks = null
 	///Some of the rooms that match more conventional functions maaaaaaay have had their contents appropriated from somewhere that misses it
 	var/list/stole_from = null
+
+	///If you want a room to always show up when a particular condition is met, set this to TRUE and override special_eval()
+	var/has_special_condition = FALSE
+	///Child proc should call this first (passing a FALSE result back immediately) then define its own success condition to return TRUE for.
+	proc/special_eval(var/direction_eligibility)
+		. = FALSE
+		if(direction_eligibility & src.entrance_side)
+			. = TRUE
 
 	proc/get_weight()
 		. = src.base_weight
@@ -334,6 +360,41 @@ ABSTRACT_TYPE(/datum/menhir_room_roll)
 	entrance_side = WEST
 	map_path = /datum/mapPrefab/allocated/menhir_room_cavern
 
+/datum/menhir_room_roll/bball
+	name = "reverberating arena (bball)"
+	entrance_side = WEST
+	base_weight = 5
+	map_path = /datum/mapPrefab/allocated/menhir_room_bball
+	has_special_condition = TRUE
+	area_busy_checks = list(/area/station/crew_quarters/fitness = 1)
+
+	special_eval(direction_eligibility)
+		. = ..()
+		if (. == FALSE) return
+		. = FALSE
+		var/obj/plinth = locate("menhir_plinth")
+		if(plinth)
+			for (var/obj/O in plinth.loc)
+				if(istype(O,/obj/item/basketball))
+					. = TRUE
+
+/datum/menhir_room_roll/sepulchure
+	name = "unworldly halls (sepulchre)"
+	entrance_side = EAST
+	base_weight = 0
+	map_path = /datum/mapPrefab/allocated/menhir_room_sepulchre
+	has_special_condition = TRUE
+
+	special_eval(direction_eligibility)
+		. = ..()
+		if (. == FALSE) return
+		. = FALSE
+		var/obj/plinth = locate("menhir_plinth")
+		if(plinth)
+			for (var/obj/O in plinth.loc)
+				if(istype(O,/obj/item/chilly_orb))
+					. = TRUE
+
 /datum/random_event/menhir/room
 	name = "The Crown Holds Court"
 	message_delay = 1 MINUTE
@@ -354,15 +415,6 @@ ABSTRACT_TYPE(/datum/menhir_room_roll)
 	/// * 85 weight (slightly below other common events) at 30 pop, 210 weight (double other common events) at 80 pop
 	proc/update_weight()
 		src.weight = 10 + round(total_clients() * 2.5)
-
-	///Evaluate the tag of a node to see which public exits it can make available for event
-	proc/nodetagcheck(var/tag_to_check)
-		. = 0
-		if(tag_to_check == "WEST" || tag_to_check == "NORTHEAST" || tag_to_check == "SOUTHEAST")
-			. = WEST
-		if(tag_to_check == "EAST" || tag_to_check == "NORTHWEST" || tag_to_check == "SOUTHWEST")
-			. = EAST
-		return
 
 	admin_call(var/source)
 		if (..())
@@ -427,10 +479,14 @@ ABSTRACT_TYPE(/datum/menhir_room_roll)
 			var/list/currently_spawnable_rooms = list()
 
 			for(var/datum/menhir_room_roll/RR in src.room_pool)
-				if(direction_eligibility & RR.entrance_side)
-					currently_spawnable_rooms[RR] = RR.get_weight()
+				if(RR.has_special_condition && RR.special_eval(direction_eligibility))
+					room_data = RR
+					break
+				if(direction_eligibility & RR.entrance_side) //deliberately not elseif'd.
+					var/weightdata = RR.get_weight()
+					if(weightdata > 0) currently_spawnable_rooms[RR] = weightdata
 
-			room_data = weighted_pick(currently_spawnable_rooms)
+			if(!room_data) room_data = weighted_pick(currently_spawnable_rooms)
 
 			if(!nodelandmark)
 				var/list/eligible_nodes = list()
@@ -451,6 +507,12 @@ ABSTRACT_TYPE(/datum/menhir_room_roll)
 		src.rooms_made += spawned_room
 		src.initialize_entrance(room_data.entrance_side, nodelandmark, spawned_room)
 		src.room_pool -= room_data
+		if(room_data.has_special_condition) random_events.menhir_special_rooms -= room_data
+
+		if(prob(60))
+			playsound(nodelandmark, 'sound/effects/ring_happi.ogg', 65, 0, pitch = 0.45, extrarange = 24)
+		else
+			playsound(nodelandmark, 'sound/musical_instruments/artifact/Artifact_Precursor_2.ogg', 65, 0, extrarange = 24)
 
 		message_delay = rand(20 SECONDS, 50 SECONDS)
 		..()

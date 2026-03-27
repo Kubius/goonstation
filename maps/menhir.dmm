@@ -4684,6 +4684,12 @@
 	},
 /turf/simulated/floor/carpet/arcade,
 /area/station/bridge/captain)
+"cMT" = (
+/obj/cable{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/wood,
+/area/station/crew_quarters/fitness)
 "cNh" = (
 /obj/cable{
 	icon_state = "4-8"
@@ -4748,6 +4754,12 @@
 	name = "test chamber plating"
 	},
 /area/station/science/testchamber)
+"cPW" = (
+/obj/cable{
+	icon_state = "2-8"
+	},
+/turf/simulated/floor/wood,
+/area/station/crew_quarters/fitness)
 "cQo" = (
 /obj/machinery/door/poddoor/blast/pyro{
 	autoclose = 1;
@@ -11910,6 +11922,12 @@
 	},
 /turf/simulated/floor,
 /area/station/science/storage)
+"hpF" = (
+/obj/cable{
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/wood,
+/area/station/crew_quarters/fitness)
 "hpY" = (
 /obj/machinery/drainage,
 /turf/simulated/floor/wood,
@@ -12559,7 +12577,7 @@
 /area/station/hallway/primary/east)
 "hIM" = (
 /obj/fitness/stacklifter,
-/obj/machinery/light_switch/east,
+/obj/machinery/firealarm/directional/east,
 /turf/simulated/floor/wood/two,
 /area/station/crew_quarters/fitness)
 "hIT" = (
@@ -12900,6 +12918,9 @@
 	icon_state = "1-2"
 	},
 /obj/disposalpipe/junction/right/north,
+/obj/cable{
+	icon_state = "1-8"
+	},
 /turf/simulated/floor/wood,
 /area/station/crew_quarters/fitness)
 "hRx" = (
@@ -26597,6 +26618,7 @@
 /area/station/engine/core)
 "qjO" = (
 /obj/machinery/optable,
+/obj/machinery/drainage,
 /turf/simulated/floor/shuttlebay{
 	name = "test chamber plating"
 	},
@@ -30426,7 +30448,10 @@
 "syE" = (
 /obj/table/reinforced/auto,
 /obj/machinery/cashreg,
-/obj/machinery/firealarm/directional/north,
+/obj/machinery/power/apc/autoname_north,
+/obj/cable{
+	icon_state = "0-2"
+	},
 /turf/simulated/floor/wood/two,
 /area/station/crew_quarters/fitness)
 "syR" = (
@@ -33720,6 +33745,9 @@
 	})
 "uqG" = (
 /obj/disposalpipe/segment/horizontal,
+/obj/cable{
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/wood,
 /area/station/crew_quarters/fitness)
 "urd" = (
@@ -34345,6 +34373,12 @@
 /area/station/hallway/secondary/entry{
 	name = "Arrival Concourse"
 	})
+"uKN" = (
+/obj/cable{
+	icon_state = "1-4"
+	},
+/turf/simulated/floor/wood,
+/area/station/crew_quarters/fitness)
 "uLh" = (
 /turf/simulated/floor/black/grime,
 /area/station/engine/monitoring)
@@ -35223,6 +35257,9 @@
 /area/station/hallway/primary/southeast)
 "vkp" = (
 /obj/disposalpipe/segment/bent/north,
+/obj/cable{
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/wood,
 /area/station/crew_quarters/fitness)
 "vkF" = (
@@ -75128,7 +75165,7 @@ iUc
 wpA
 wQB
 syE
-gBG
+uKN
 bzo
 bRQ
 rou
@@ -75430,7 +75467,7 @@ cWg
 fJc
 iKA
 uUC
-gBG
+cMT
 mTP
 uCi
 qkY
@@ -75732,9 +75769,9 @@ xpK
 fJc
 iKA
 cpC
-gBG
-gBG
-gBG
+cPW
+hpF
+uKN
 oDq
 sRf
 vht

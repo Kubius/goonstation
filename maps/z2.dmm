@@ -59951,6 +59951,17 @@
 	},
 /turf/unsimulated/floor/grass/leafy,
 /area/crypt/graveyard)
+"iip" = (
+/obj/precursor_puzzle/orb_stand{
+	id = "LAMENT";
+	target_id = "KINSHIP";
+	safeish = 1;
+	ready = 1;
+	density = 0;
+	invisibility = 101
+	},
+/turf/unsimulated/floor/setpieces/bluefloor,
+/area/precursor)
 "iiq" = (
 /obj/cable{
 	icon_state = "0-4"
@@ -66860,14 +66871,16 @@
 /turf/unsimulated/floor/plating,
 /area/moon/museum)
 "nuu" = (
-/obj/rack/precursor,
+/obj/rack/precursor{
+	tag = "menhir_plinth"
+	},
 /obj/item/clothing/gloves/ring/ominous{
 	pixel_y = 11;
 	rand_pos = 0
 	},
 /obj/precursor_puzzle/innervator{
-	vision_description = "A trinket of silver sheen floats solitary in a mirror-black sea whose edges are beyond sight or thought.";
-	pixel_y = -11
+	vision_description = "A vast eye of shining silver fixes itself on the pedestal before you. A familiar orb rests upon it.";
+	pixel_y = -15
 	},
 /turf/unsimulated/floor/setpieces/bluefloor,
 /area/precursor/menhir)
@@ -99803,7 +99816,7 @@ bfQ
 bfQ
 bfQ
 bfQ
-bfQ
+iip
 bfQ
 bZH
 bZH
