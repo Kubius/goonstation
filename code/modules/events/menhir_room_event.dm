@@ -146,7 +146,7 @@ ABSTRACT_TYPE(/area/unspace)
 /area/unspace/bball
 	name = "Reverberating Arena"
 	local_facing = WEST
-	seek_tag = "menhir_room_ball"
+	seek_tag = "menhir_room_bball"
 
 /area/unspace/sepulchre
 	name = "Unworldly Halls"
