@@ -446,7 +446,7 @@ ABSTRACT_TYPE(/datum/menhir_room_roll)
 		if(.)
 			if (!landmarks[LANDMARK_MENHIR_NODE] || length(landmarks[LANDMARK_MENHIR_NODE]) < 1) //if no eligible nodes remain, do not trigger event
 				. = FALSE
-			if (length(rooms_made) > 1) //maximum of 2 rooms per round
+			if (length(rooms_made) > 2) //maximum of 3 rooms per round
 				. = FALSE
 
 	event_effect(source, node_override, room_override)
