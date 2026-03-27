@@ -114,7 +114,7 @@ ABSTRACT_TYPE(/datum/storyteller)
 				random_events.special_room_list_built = TRUE
 
 			var/did_specific = FALSE
-			if(length(landmarks[LANDMARK_MENHIR_NODE]) && length(random_events.menhir_special_rooms))
+			if(random_events.the_room_event.is_event_available() && length(random_events.menhir_special_rooms))
 				//gather eligibility data once
 				var/direction_eligibility = 0
 				for (var/turf/T in landmarks[LANDMARK_MENHIR_NODE])
