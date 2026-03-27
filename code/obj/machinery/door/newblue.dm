@@ -11,6 +11,7 @@ ADMIN_INTERACT_PROCS(/obj/machinery/door/unpowered/blue, proc/revoke_door)
 	hitsound = 'sound/impact_sounds/Metal_Hit_Lowfi_1.ogg'
 	var/friendly_object = null
 	var/needs_precursor = FALSE
+	var/locks_on_open = FALSE
 
 	New()
 		. = ..()
@@ -26,7 +27,7 @@ ADMIN_INTERACT_PROCS(/obj/machinery/door/unpowered/blue, proc/revoke_door)
 				under_us.ReplaceWith(/turf/unsimulated/floor/setpieces/bluefloor, force = 1)
 
 	attack_hand(mob/user)
-		if(src.locked)
+		if(src.locked && src.density)
 			if(src.friendly_object)
 				boutput(user,SPAN_ALERT("[src] makes an odd hum. It seems like it's expecting contact from something else..."))
 			else if(src.needs_precursor && !ON_COOLDOWN(src, "smacksounde", 1 SECOND))
@@ -106,5 +107,9 @@ ADMIN_INTERACT_PROCS(/obj/machinery/door/unpowered/blue, proc/revoke_door)
 	playsound(src.loc, 'sound/impact_sounds/Stone_Scrape_1.ogg', 50, 1)
 
 /obj/machinery/door/unpowered/blue/close()
+	if (src.locked)
+		return
+
 	. = ..()
 	playsound(src.loc, 'sound/impact_sounds/Stone_Scrape_1.ogg', 50, 1)
+	if(src.locks_on_open) src.locked = TRUE

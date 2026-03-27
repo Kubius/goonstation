@@ -90,14 +90,14 @@ ABSTRACT_TYPE(/datum/mapPrefab/allocated)
 
 /datum/mapPrefab/allocated/menhir_room_medical
 	name = "menhir_room_medical"
-	prefabSizeX = 19
+	prefabSizeX = 20
 	prefabSizeY = 15
 	prefabPath = "assets/maps/allocated/menhir_room_medical.dmm"
 
 /datum/mapPrefab/allocated/menhir_room_lounge
 	name = "menhir_room_lounge"
-	prefabSizeX = 18
-	prefabSizeY = 17
+	prefabSizeX = 20
+	prefabSizeY = 19
 	prefabPath = "assets/maps/allocated/menhir_room_lounge.dmm"
 
 /datum/mapPrefab/allocated/menhir_room_botany

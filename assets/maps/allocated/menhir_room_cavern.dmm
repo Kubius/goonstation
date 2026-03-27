@@ -2,110 +2,140 @@
 "a" = (
 /obj/decal/cleanable/dirt,
 /turf/unsimulated/floor/cave,
-/area/precursor/unspace/poolroom)
+/area/unspace/poolroom/reservoir)
 "b" = (
-/obj/map/light/cyan/menhir,
 /turf/unsimulated/floor/setpieces/bluefloor,
-/area/precursor/unspace/poolroom)
+/area/unspace/poolroom)
 "c" = (
 /turf/unsimulated/wall/auto/adventure/cave,
-/area/precursor/unspace/poolroom)
-"g" = (
+/area/unspace/poolroom/reservoir)
+"f" = (
+/obj/item/raw_material/cobryl,
 /turf/unsimulated/floor/cave,
-/area/precursor/unspace/poolroom)
+/area/unspace/poolroom/reservoir)
+"g" = (
+/obj/map/light/graveyard{
+	brightness = 5
+	},
+/turf/unsimulated/floor/cave,
+/area/unspace/poolroom/reservoir)
 "h" = (
 /obj/decal/lightshaft,
 /turf/unsimulated/floor/cave,
-/area/precursor/unspace/poolroom)
+/area/unspace/poolroom/reservoir)
 "i" = (
 /obj/decal/cleanable/dirt,
 /obj/decal/mushrooms/type1,
 /turf/unsimulated/floor/cave,
-/area/precursor/unspace/poolroom)
+/area/unspace/poolroom/reservoir)
+"l" = (
+/obj/decal/cliff/shore{
+	dir = 1;
+	density = 1
+	},
+/turf/space/fluid/cenote,
+/area/unspace/poolroom/reservoir)
 "m" = (
 /obj/landmark/menhir/room{
 	tag = "menhir_room_cavern"
 	},
 /turf/unsimulated/floor/setpieces/bluefloor,
-/area/precursor/unspace/poolroom)
+/area/unspace/poolroom)
 "n" = (
 /obj/river{
 	desc = "It's pouring down from somewhere far above.";
 	name = "Waterfall"
 	},
 /turf/unsimulated/wall/auto/adventure/cave,
-/area/precursor/unspace/poolroom)
+/area/unspace/poolroom/reservoir)
+"p" = (
+/obj/map/light/cyan/menhir,
+/turf/unsimulated/wall/auto/adventure/icemooninterior,
+/area/unspace/poolroom)
 "q" = (
 /obj/decal/cliff/shore{
 	dir = 1
 	},
-/obj/channel{
-	required_to_pass = 1e+009
+/obj/decal/cliff/shore{
+	dir = 1;
+	density = 1
 	},
 /turf/space/fluid/cenote,
-/area/precursor/unspace/poolroom)
+/area/unspace/poolroom/reservoir)
 "r" = (
-/turf/unsimulated/floor/setpieces/bluefloor{
-	dir = 1
+/obj/decal/cliff/shore{
+	dir = 8;
+	density = 1
 	},
-/area/precursor/unspace/poolroom)
+/turf/space/fluid/cenote,
+/area/unspace/poolroom/reservoir)
 "t" = (
 /turf/unsimulated/floor/void/timewarp,
-/area/precursor/unspace/poolroom)
+/area/unspace/poolroom)
 "w" = (
 /obj/map/light/graveyard{
-	brightness = 12
+	brightness = 5
 	},
 /turf/space/fluid/cenote,
-/area/precursor/unspace/poolroom)
-"D" = (
-/obj/map/light/graveyard{
-	brightness = 12
-	},
+/area/unspace/poolroom/reservoir)
+"z" = (
+/obj/decal/cleanable/dirt,
+/obj/decal/mushrooms/type4,
 /turf/unsimulated/floor/cave,
-/area/precursor/unspace/poolroom)
-"H" = (
-/obj/machinery/door/unpowered/blue{
+/area/unspace/poolroom/reservoir)
+"B" = (
+/obj/decal/cleanable/dirt,
+/obj/decal/mushrooms/type6,
+/turf/unsimulated/floor/cave,
+/area/unspace/poolroom/reservoir)
+"D" = (
+/obj/map/light/cyan/menhir,
+/turf/unsimulated/floor/cave,
+/area/unspace/poolroom/reservoir)
+"F" = (
+/turf/unsimulated/floor/setpieces/bluefloor{
 	dir = 4
 	},
-/turf/unsimulated/floor/setpieces/bluefloor,
-/area/precursor/unspace/poolroom)
+/area/unspace/poolroom)
+"H" = (
+/turf/unsimulated/floor/cave,
+/area/unspace/poolroom/reservoir)
 "I" = (
 /obj/decal/cleanable/dirt,
 /obj/decal/mushrooms/type2,
 /turf/unsimulated/floor/cave,
-/area/precursor/unspace/poolroom)
+/area/unspace/poolroom/reservoir)
 "J" = (
-/turf/unsimulated/floor/void,
-/area/precursor/unspace/poolroom)
-"N" = (
-/turf/space/fluid/cenote,
-/area/precursor/unspace/poolroom)
-"Q" = (
-/obj/landmark/spawner/artifact/more_precursor,
 /turf/unsimulated/floor/setpieces/bluefloor{
 	dir = 1
 	},
-/area/precursor/unspace/poolroom)
+/area/unspace/poolroom)
+"N" = (
+/turf/space/fluid/cenote,
+/area/unspace/poolroom/reservoir)
+"Q" = (
+/turf/unsimulated/floor/void,
+/area/unspace/poolroom)
 "R" = (
 /mob/living/critter/small_animal/cockroach,
 /turf/unsimulated/floor/cave,
-/area/precursor/unspace/poolroom)
+/area/unspace/poolroom/reservoir)
 "S" = (
 /obj/machinery/door/unpowered/blue,
 /turf/unsimulated/floor/setpieces/bluefloor,
-/area/precursor/unspace/poolroom)
+/area/unspace/poolroom)
 "T" = (
 /obj/decal/cleanable/dirt,
 /obj/decal/mushrooms/type3,
 /turf/unsimulated/floor/cave,
-/area/precursor/unspace/poolroom)
+/area/unspace/poolroom/reservoir)
 "W" = (
+/obj/map/light/cyan/menhir,
 /turf/unsimulated/floor/setpieces/bluefloor,
-/area/precursor/unspace/poolroom)
+/area/unspace/poolroom)
 "X" = (
 /turf/unsimulated/wall/auto/adventure/icemooninterior,
-/area/precursor/unspace/poolroom)
+/area/unspace/poolroom)
 "Y" = (
 /obj/decal/lightshaft,
 /obj/effects/harmless_smoke{
@@ -113,7 +143,10 @@
 	opacity = 0
 	},
 /turf/space/fluid/cenote,
-/area/precursor/unspace/poolroom)
+/area/unspace/poolroom/reservoir)
+"Z" = (
+/turf/unsimulated/floor/void,
+/area/unspace/poolroom/reservoir)
 
 (1,1,1) = {"
 t
@@ -131,15 +164,19 @@ t
 t
 t
 t
-J
+Z
+Z
+Z
+Z
+Z
 c
 c
 c
 c
-J
-J
-J
-J
+c
+c
+c
+c
 "}
 (2,1,1) = {"
 t
@@ -157,15 +194,19 @@ t
 t
 t
 t
+Z
+Z
+Z
+Z
 c
 c
-i
-g
+B
+H
 c
 c
-J
-J
-J
+B
+c
+c
 "}
 (3,1,1) = {"
 t
@@ -183,15 +224,19 @@ t
 t
 t
 t
+Z
+Z
+Z
+Z
 c
-g
-g
-a
-T
+H
+H
+H
+i
 c
-J
-J
-J
+H
+c
+c
 "}
 (4,1,1) = {"
 t
@@ -209,18 +254,22 @@ t
 t
 t
 t
+Z
+Z
+Z
+Z
 c
 a
-g
-g
+H
+H
+H
+H
+H
+f
 c
-c
-J
-J
-J
 "}
 (5,1,1) = {"
-J
+Q
 t
 t
 t
@@ -234,20 +283,24 @@ t
 t
 t
 t
+Z
+Z
+Z
+Z
 c
 c
-g
-g
+H
+H
 c
 c
+r
 c
+T
 c
-J
-J
 "}
 (6,1,1) = {"
-J
-J
+Q
+Q
 t
 t
 t
@@ -262,19 +315,23 @@ t
 c
 c
 c
-g
-g
+Z
+c
+c
+c
+H
+H
 q
 N
 N
 c
 c
-J
+c
 "}
 (7,1,1) = {"
-J
-J
-J
+Q
+Q
+Q
 t
 t
 t
@@ -284,24 +341,28 @@ t
 t
 t
 t
+Z
+c
+z
 c
 c
-I
-g
+c
+a
+H
 h
-D
+g
 q
 N
 N
-c
+N
 c
 c
 "}
 (8,1,1) = {"
-J
-J
-J
-J
+Q
+Q
+Q
+Q
 t
 t
 t
@@ -309,13 +370,17 @@ t
 t
 t
 t
+Z
+Z
 c
-c
+H
+H
+H
 a
-g
-g
-g
-g
+H
+H
+H
+H
 q
 N
 N
@@ -324,24 +389,28 @@ c
 c
 "}
 (9,1,1) = {"
-J
-J
-J
-J
-J
+Q
+Q
+Q
+Q
+Q
 t
 t
 t
 t
 t
-J
+Q
+c
+c
+c
+H
 c
 T
 a
-g
-g
-g
-g
+H
+H
+H
+H
 q
 N
 N
@@ -350,25 +419,29 @@ N
 c
 "}
 (10,1,1) = {"
-J
-J
-J
-J
-J
-X
+Q
+Q
+Q
+Q
+Q
+Q
 t
 t
 t
 X
-J
+Q
+c
+f
+H
+H
 c
 c
-g
-g
-i
+H
+H
+a
 c
 R
-q
+l
 N
 N
 N
@@ -376,21 +449,25 @@ N
 c
 "}
 (11,1,1) = {"
-J
-J
-J
-J
-J
-X
+Q
+Q
+Q
+Q
+Q
+Q
 X
 m
 X
 X
-J
+Q
+c
+I
 c
 c
-g
-g
+c
+c
+H
+H
 c
 c
 c
@@ -402,21 +479,25 @@ N
 c
 "}
 (12,1,1) = {"
-J
-J
-J
-J
-J
-J
-X
-r
+Q
+Q
+Q
+Q
+Q
+Q
 X
 J
-J
+X
+Q
+Q
+c
+c
+c
+c
 c
 c
 a
-g
+H
 c
 c
 n
@@ -428,21 +509,25 @@ N
 c
 "}
 (13,1,1) = {"
-J
-J
-J
-J
-J
-J
+Q
+Q
+Q
+Q
+Q
+Q
 X
-b
-X
-X
+W
 X
 X
 X
-g
-g
+c
+c
+c
+c
+c
+c
+H
+H
 a
 c
 c
@@ -454,23 +539,27 @@ c
 c
 "}
 (14,1,1) = {"
-J
-J
-J
-J
-J
-J
+Q
+Q
+Q
+Q
+Q
+Q
 X
-W
+b
 X
-r
+F
 X
-r
+c
 X
-g
-h
+X
+X
+X
+X
 D
-g
+H
+H
+H
 q
 N
 N
@@ -480,23 +569,27 @@ N
 c
 "}
 (15,1,1) = {"
+Q
+Q
+Q
+Q
+Q
+Q
 X
-X
-X
-H
+W
+b
+F
 X
 X
 X
 b
-W
-W
 W
 b
 S
-g
-g
-g
-g
+H
+H
+H
+H
 q
 N
 N
@@ -506,23 +599,27 @@ N
 c
 "}
 (16,1,1) = {"
+Q
+Q
+Q
+Q
+Q
+Q
 X
-r
 X
-r
 X
-r
+F
+b
+b
+b
+b
 X
-W
 X
-r
 X
-r
-X
-I
-g
-g
-g
+a
+H
+H
+H
 q
 N
 N
@@ -532,22 +629,26 @@ N
 c
 "}
 (17,1,1) = {"
+Q
+Q
+Q
+Q
+Q
+Q
+Q
+Q
 X
-W
-b
-W
-W
-W
-W
-W
+F
 X
-X
+p
 X
 X
 X
 c
+c
+c
 a
-g
+H
 c
 c
 N
@@ -558,18 +659,22 @@ c
 c
 "}
 (18,1,1) = {"
-X
+Q
+Q
+Q
+Q
+Q
+Q
+Q
 Q
 X
-r
-X
-r
 X
 X
-X
-J
-J
-J
+c
+c
+c
+c
+c
 c
 c
 c
@@ -584,18 +689,22 @@ c
 c
 "}
 (19,1,1) = {"
-X
-X
-X
-X
-X
-X
-X
-J
-J
-J
-J
-J
+Q
+Q
+Q
+Q
+Q
+Q
+Q
+Q
+Q
+Q
+Q
+Z
+Z
+Z
+Z
+c
 c
 c
 c
@@ -607,23 +716,27 @@ N
 N
 c
 c
-J
+Z
 "}
 (20,1,1) = {"
-J
-J
-J
-J
-J
-J
-J
-J
-J
-J
-J
-J
-J
-J
+Q
+Q
+Q
+Q
+Q
+Q
+Q
+Q
+Q
+Q
+Q
+Z
+Z
+Z
+Z
+Z
+Z
+Z
 c
 c
 c
@@ -632,6 +745,6 @@ c
 c
 c
 c
-J
-J
+Z
+Z
 "}

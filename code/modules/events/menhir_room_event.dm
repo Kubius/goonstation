@@ -1,5 +1,13 @@
-ABSTRACT_TYPE(/area/precursor/unspace)
-/area/precursor/unspace
+ABSTRACT_TYPE(/area/unspace)
+/area/unspace
+	icon_state = "purple"
+	filler_turf = "/turf/unsimulated/floor/setpieces/bluefloor"
+	sound_environment = 1
+	skip_sims = 1
+	sound_group = "precursor"
+	sound_loop = 'sound/ambience/industrial/Precursor_Drone1.ogg'
+	requires_power = FALSE
+
 	sound_environment = 1
 	///Do we have an east, or west entrance?
 	var/local_facing = WEST
@@ -7,29 +15,37 @@ ABSTRACT_TYPE(/area/precursor/unspace)
 	var/seek_tag = "fix"
 
 	proc/update_visual_mirrors(turf/otherside_ref)
+		if(ON_COOLDOWN(src, "update_vismirrors", 3 SECONDS)) return
 		//Find our landmark
 		var/obj/anchor = locate(seek_tag)
 		if(!anchor)
-			boutput(world,"DEBUG DEBUG DEBUG")
 			return
 		var/anchor_x = anchor.x
 		var/anchor_y = anchor.y
 		var/anchor_z = anchor.z
 
-		//Iteration goes up if we're east facing, and down if we're west facing
+		var/turf/T
+		var/turf/otherside_turf
+
+		//---- Projection within our "pocket" ----
+
+		//Horizontal iteration goes up if we're east facing, and down if we're west facing
 		var/dirsign = 1
 		if(local_facing == WEST) dirsign = -1
 
-		var/turf/T
-		var/turf/otherside_turf
+		var/oriented_horz
+		var/clamped_horz
+		var/maxvert
+		var/v_offset
+
 		for (var/horz = -1 to 10)
-			var/oriented_horz = horz * dirsign
-			var/clamped_horz = max(horz, 0)
-			var/vertical = min((2 * clamped_horz), 15) //Follow the contour of the cone
-			var/v_offset = min(clamped_horz, 7) //Bump the start lower according to contour
-			for (var/vert = 0 to vertical)
-				T = locate(anchor_x + (oriented_horz), anchor_y + (vertical - v_offset), anchor_z)
-				otherside_turf = locate(otherside_ref.x + (oriented_horz), otherside_ref.y + (vertical - v_offset), otherside_ref.z)
+			oriented_horz = horz * dirsign
+			clamped_horz = max(horz, 0)
+			maxvert = min((2 * clamped_horz), 15) //Follow the contour of the cone
+			v_offset = min(clamped_horz, 7) //Bump the start lower according to contour
+			for (var/vert = 0 to maxvert)
+				T = locate(anchor_x + (oriented_horz), anchor_y + (vert - v_offset), anchor_z)
+				otherside_turf = locate(otherside_ref.x + (oriented_horz), otherside_ref.y + (vert - v_offset), otherside_ref.z)
 
 				T.vis_contents = null// clear previously assigned vis_contents
 				if (otherside_turf)
@@ -49,6 +65,7 @@ ABSTRACT_TYPE(/area/precursor/unspace)
 					T.desc = otherside_turf.desc
 					T.icon = otherside_turf.icon
 					T.icon_state = otherside_turf.icon_state
+					T.dir = otherside_turf.dir
 				else // past edge of map
 					T.icon = null
 					T.icon_state = null
@@ -56,50 +73,83 @@ ABSTRACT_TYPE(/area/precursor/unspace)
 					T.opacity = TRUE
 					T.name = ""
 					T.desc = ""
-				T.RL_Init()
+				//T.RL_Init()
 
-/area/precursor/unspace/medical
+		//---- Projection from our pocket back into regular space (only tie traversible tiles) ----
+		dirsign = -dirsign
+
+		for (var/horz = 2 to 5)
+			oriented_horz = horz * dirsign
+
+			if(horz > 3)
+				maxvert = 2
+				v_offset = 1
+			else
+				maxvert = 0
+				v_offset = 0
+
+			for (var/vert = 0 to maxvert)
+				otherside_turf = locate(anchor_x + (oriented_horz), anchor_y + (vert - v_offset), anchor_z)
+				T = locate(otherside_ref.x + (oriented_horz), otherside_ref.y + (vert - v_offset), otherside_ref.z)
+
+				T.vis_contents = null// clear previously assigned vis_contents
+				if (otherside_turf)
+					otherside_turf.appearance_flags |= KEEP_TOGETHER
+					if (!otherside_turf.listening_turfs)
+						otherside_turf.listening_turfs = list()
+					otherside_turf.listening_turfs += T
+
+					T.vis_contents += otherside_turf
+					T.density = otherside_turf.density
+					T.opacity = otherside_turf.opacity
+					for (var/atom/A as anything in otherside_turf)
+						if (A.opacity)
+							T.opacity = TRUE
+							break
+					T.name = otherside_turf.name
+					T.desc = otherside_turf.desc
+					T.icon = otherside_turf.icon
+					T.icon_state = otherside_turf.icon_state
+					T.dir = otherside_turf.dir
+				//T.RL_Init()
+
+/area/unspace/medical
 	name = "Soothing Chamber"
 	local_facing = WEST
 	seek_tag = "menhir_room_medical"
 
-	mirror
-		icon_state = "blue"
-		force_fullbright = TRUE
-
-/area/precursor/unspace/lounge
+/area/unspace/lounge
 	name = "Secluded Alcove"
 	local_facing = EAST
 	seek_tag = "menhir_room_lounge"
 
-	mirror
-		icon_state = "blue"
-		force_fullbright = TRUE
-
-/area/precursor/unspace/botany
+/area/unspace/botany
 	name = "Damp Antechamber"
 	local_facing = EAST
 	seek_tag = "menhir_room_botany"
 
-	mirror
-		icon_state = "blue"
-		force_fullbright = TRUE
-
-/area/precursor/unspace/poolroom
+/area/unspace/poolroom
 	name = "Misty Cavern"
 	local_facing = WEST
 	seek_tag = "menhir_room_cavern"
 	sound_environment = 10
 
-	mirror
+	reservoir
 		icon_state = "blue"
-		force_fullbright = TRUE
+		sound_loop = null
+
+/turf/space/fluid/cenote/menhir
+	oxygen = MOLES_O2STANDARD
+	nitrogen = MOLES_N2STANDARD
+	temperature = OCEAN_TEMP
+	desc = "A deep flooded sinkhole. Looks surprisingly pleasant, actually."
 
 ABSTRACT_TYPE(/obj/menhir_room_objs)
 /obj/menhir_room_objs
 	name = ""
 	desc = ""
 	anchored = ANCHORED_ALWAYS
+	invisibility = INVIS_ALWAYS
 
 	ex_act()
 		return
@@ -145,24 +195,80 @@ ABSTRACT_TYPE(/obj/menhir_room_objs/cross_dummy)
 
 /obj/menhir_room_objs/mirror_update_dummy
 	invisibility = INVIS_ALWAYS
+	var/area/unspace/update_area = null
 	var/turf/otherside_ref
-	var/entrance_loc
 
-	New(newLoc, turf/otherside_ref, entrance_loc)
+	New(newLoc, area/updatearea, turf/othersideref)
 		..()
-		src.otherside_ref = otherside_ref
-		src.entrance_loc = entrance_loc
+		src.update_area = updatearea
+		src.otherside_ref = othersideref
 
 	disposing()
+		src.update_area = null
 		src.otherside_ref = null
 		..()
 
 	Crossed(atom/movable/AM)
 		if (isliving(AM) && !isintangible(AM))
-			var/area/precursor/unspace/our_space = get_area(src)
-			our_space.update_visual_mirrors(src.otherside_ref)
+			if(src.update_area) src.update_area.update_visual_mirrors(src.otherside_ref)
 			return ..()
 		return ..()
+
+/obj/menhir_room_objs/hidey_helper
+	name = "hidey helper"
+	icon = 'icons/effects/mapeditor.dmi'
+	icon_state = "access_spawn"
+	var/zone = null
+
+	New()
+		..()
+		var/area/our_region = get_area(src)
+		src.zone = our_region.name
+		START_TRACKING
+		SPAWN(5)
+			for (var/obj/O in src.loc)
+				if(safe_to_grab(O))
+					O.set_loc(src)
+
+	proc/safe_to_grab(var/obj/O)
+		. = TRUE
+		if (!isobj(O) || O.invisibility == INVIS_ALWAYS || istype(O,/obj/overlay))
+			. = FALSE
+
+	proc/deposit_contents()
+		var/newloc = src.loc
+		showswirl(newloc)
+		for (var/obj/O in src)
+			O.set_loc(newloc)
+		SPAWN(0)
+			qdel(src)
+
+	disposing()
+		STOP_TRACKING
+		..()
+
+/obj/menhir_room_objs/hidey_helper_trigger
+	name = "hidey helper trigger"
+	icon = 'icons/misc/mark.dmi'
+	icon_state = "ydn"
+	var/working = FALSE
+
+	Crossed(atom/movable/AM)
+		if (!src.working && ismob(AM))
+			src.working = TRUE
+			SPAWN(0)
+				src.begin_unhiding()
+			return ..()
+		return ..()
+
+	proc/begin_unhiding()
+		var/area/our_area = get_area(src)
+		var/local_zone = our_area.name
+		for_by_tcl(hidey_helper,/obj/menhir_room_objs/hidey_helper)
+			if(hidey_helper.zone == local_zone)
+				hidey_helper.deposit_contents()
+				sleep(1)
+		qdel(src)
 
 #ifdef MAP_OVERRIDE_MENHIR
 
@@ -202,7 +308,7 @@ ABSTRACT_TYPE(/datum/menhir_room_roll)
 		/area/station/medical = 2,\
 		/area/station/security = 2,\
 		/area/station/crown = 2)
-	stole_from = list("medical bay","medbay")
+	stole_from = list("medical bay","medbay","med wing")
 
 /datum/menhir_room_roll/lounge
 	name = "secluded alcove (lounge)"
@@ -211,7 +317,7 @@ ABSTRACT_TYPE(/datum/menhir_room_roll)
 	base_weight = 50
 	area_busy_checks = list(/area/station/crew_quarters = 5,\
 		/area/station/hallway/secondary = 2)
-	stole_from = list("crew quarters","officers' lounge","cafeteria","bar")
+	stole_from = list("rec room","cafeteria","bar")
 
 /datum/menhir_room_roll/botany
 	name = "damp antechamber (botany)"
@@ -221,7 +327,7 @@ ABSTRACT_TYPE(/datum/menhir_room_roll)
 	area_busy_checks = list(/area/station/hydroponics = 6,\
 		/area/station/ranch = 3,\
 		/area/station/crew_quarters/cafeteria = 1)
-	stole_from = list("hydroponics bay","botany department","agricultural wing")
+	stole_from = list("hydroponics","botany","ag bay")
 
 /datum/menhir_room_roll/poolroom
 	name = "misty cavern (pool)"
@@ -332,6 +438,7 @@ ABSTRACT_TYPE(/datum/menhir_room_roll)
 					if(result & room_data.entrance_side) eligible_nodes += T
 
 				nodelandmark = pick(eligible_nodes)
+			node_tag = landmarks[LANDMARK_MENHIR_NODE][nodelandmark]
 
 		if (!room_data.map_path)
 			logTheThing(LOG_DEBUG, null, "Menhir room '[room_data.name]' has invalid map_path configuration.")
@@ -342,8 +449,6 @@ ABSTRACT_TYPE(/datum/menhir_room_roll)
 		var/datum/allocated_region/spawned_room = room_handler.load()
 		src.rooms_made += spawned_room
 		src.initialize_entrance(room_data.entrance_side, nodelandmark, spawned_room)
-
-		landmarks[LANDMARK_MENHIR_NODE].Remove(nodelandmark) //"expend" the node in node spawns, so future events won't select it again
 		src.room_pool -= room_data
 
 		message_delay = rand(20 SECONDS, 50 SECONDS)
@@ -352,9 +457,16 @@ ABSTRACT_TYPE(/datum/menhir_room_roll)
 		if (random_events.announce_events)
 			SPAWN(message_delay)
 				playsound_global(world, 'sound/misc/announcement_ominous.ogg', 60)
+			if(room_data.stole_from && prob(40)) //if prob isn't 40 this is debug
+				SPAWN(message_delay + rand(2 MINUTES, 3 MINUTES))
+					var/who = generate_random_station_name()
+					command_alert(get_admonishment(room_data.stole_from), "Communication from [who]")
+					playsound_global(world, 'sound/misc/announcement_1.ogg', 60)
 
 		logTheThing(LOG_STATION, null, "Menhir room '[room_data.name]' entrance created at [node_tag] arm - [log_loc(nodelandmark)]")
 		message_admins("Menhir room '[room_data.name]' entrance created at [node_tag] arm - [log_loc(nodelandmark)]")
+
+		landmarks[LANDMARK_MENHIR_NODE].Remove(nodelandmark) //"expend" the node in node spawns, so future events won't select it again
 
 	proc/initialize_entrance(entrance_side, turf/nodelandmark, datum/allocated_region/pocket_region)
 		var/region_tag = pocket_region.name
@@ -375,30 +487,61 @@ ABSTRACT_TYPE(/datum/menhir_room_roll)
 		var/turf/real_doormat = get_step(real_midpoint,entrance_side) //Inside-to-outside cross dummy exits here
 		var/turf/door_here = get_step(real_doormat,entrance_side) //Inside-to-outside cross dummy exits here
 
+		var/turf/pocket_juncture = get_step(pocket_inside,otherway) //The "junction point" inside room prefabs
+		var/turf/real_juncture = get_step(nodelandmark, otherway) //Real space corresponding to the "junction point" inside room prefabs
+		var/list/where_to_wall
+
 		var/obj/menhir_room_objs/cross_dummy/inside_dummy
 
 		switch (entrance_side)
 			if (EAST)
 				new /obj/menhir_room_objs/cross_dummy/west(real_midpoint, pocket_midpoint) //Moving west into the space
 				inside_dummy = new /obj/menhir_room_objs/cross_dummy/east(pocket_doormat, real_doormat) //Moving east out of the space
+				where_to_wall = list(NORTHWEST,WEST,SOUTHWEST)
+
 			if (WEST)
 				new /obj/menhir_room_objs/cross_dummy/east(real_midpoint, pocket_midpoint) //Moving east into the space
 				inside_dummy = new /obj/menhir_room_objs/cross_dummy/west(pocket_doormat, real_doormat) //Moving west out of the space
+				where_to_wall = list(NORTHEAST,EAST,SOUTHEAST)
+
+		new /obj/menhir_room_objs/mirror_update_dummy(get_step(pocket_inside,otherway), get_area(inside_dummy), door_here)
+		new /obj/menhir_room_objs/mirror_update_dummy(real_doormat, get_area(inside_dummy), door_here)
 
 		real_midpoint.reachable_turfs += pocket_inside
 		pocket_midpoint.reachable_turfs += real_doormat
 
-		//setup interiors
-		for(var/row = 1 to 5)
-			if(row == 3) continue //skip middle row
-			for(var/column = 1 to 5)
-				var/turf/paveover_target = locate(nodelandmark.x - 2 + column, nodelandmark.y - 2 + row, nodelandmark.z)
-				paveover_target.ReplaceWith(/turf/unsimulated/wall/auto/adventure/icemooninterior)
+		var/obj/machinery/door/unpowered/blue/doorbius = new /obj/machinery/door/unpowered/blue/vertical(door_here)
+		doorbius.locks_on_open = TRUE
 
-		new /obj/machinery/door/unpowered/blue/vertical(door_here)
+		//detect any additional walls we may have in the prefab
+		var/turf/nturf = get_step(pocket_juncture,NORTH)
+		var/turf/sturf = get_step(pocket_juncture,SOUTH)
+		if(nturf.density) where_to_wall += NORTH
+		if(sturf.density) where_to_wall += SOUTH
+
+		for(var/dir in alldirs)
+			if(dir == EAST || dir == WEST)
+				continue
+			var/turf/to_replace = get_step(real_midpoint,dir)
+			to_replace.ReplaceWith(/turf/unsimulated/wall/auto/adventure/icemooninterior,force=TRUE)
+
+		for(var/dir in where_to_wall)
+			var/turf/to_replace = get_step(real_juncture,dir)
+			to_replace.ReplaceWith(/turf/unsimulated/wall/auto/adventure/icemooninterior,force=TRUE)
 
 		SPAWN(20)
-			var/area/precursor/unspace/our_space = get_area(inside_dummy)
+			var/area/unspace/our_space = get_area(inside_dummy)
 			our_space.update_visual_mirrors(door_here)
 			RL_UPDATE_LIGHT(real_doormat)
+
+	proc/get_admonishment(where_stolen)
+		var/possible_responses = list("To all Nanotrasen assets in region, please be advised, an unknown threat - likely salvagers - is on the move. Our [pick(where_stolen)] was remotely ransacked before we realized what was happening - teleport block is advised.",\
+			"Broadcasting for [station_name(0)]. I don't know what the fuck you guys are up to but our [pick(where_stolen)] just had half its shit vanish and our sensor logs are pointing straight at you. Cut it out.",\
+			"Facility captain to [station_name(0)], we've just had an anomalous event of some kind and our [pick(where_stolen)] has abruptly lost most of its contents. Advise going to a high alert status until we hear back from NT.",\
+			"[station_name(0)], your artifact's acting up. We just lost a lot of hardware from our [pick(where_stolen)] and the eggheads are about 90% sure Toreador whatever is at fault. PLEASE return the equipment at your earliest convenience, if that thing even lets you.",\
+			"Anyone who's hearing this, lock your [pick(where_stolen)] down. Somebody just yoinked our shit in the last five minutes without so much as a sound.",\
+			"OUR [uppertext(pick(where_stolen))] IS FUCKING GONE"
+		)
+		. = pick(possible_responses)
+
 #endif
