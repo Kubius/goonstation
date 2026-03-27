@@ -303,7 +303,7 @@ ABSTRACT_TYPE(/datum/menhir_room_roll)
 	name = "soothing chamber (medical)"
 	entrance_side = WEST
 	map_path = /datum/mapPrefab/allocated/menhir_room_medical
-	base_weight = 40
+	base_weight = 50
 	area_busy_checks = list(/area/station/medical/medbay = 12,\
 		/area/station/medical = 2,\
 		/area/station/security = 2,\
@@ -314,7 +314,7 @@ ABSTRACT_TYPE(/datum/menhir_room_roll)
 	name = "secluded alcove (lounge)"
 	entrance_side = EAST
 	map_path = /datum/mapPrefab/allocated/menhir_room_lounge
-	base_weight = 50
+	base_weight = 80
 	area_busy_checks = list(/area/station/crew_quarters = 5,\
 		/area/station/hallway/secondary = 2)
 	stole_from = list("rec room","cafeteria","bar")
@@ -323,7 +323,7 @@ ABSTRACT_TYPE(/datum/menhir_room_roll)
 	name = "damp antechamber (botany)"
 	entrance_side = EAST
 	map_path = /datum/mapPrefab/allocated/menhir_room_botany
-	base_weight = 40
+	base_weight = 80
 	area_busy_checks = list(/area/station/hydroponics = 6,\
 		/area/station/ranch = 3,\
 		/area/station/crew_quarters/cafeteria = 1)
