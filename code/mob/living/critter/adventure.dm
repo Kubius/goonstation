@@ -212,6 +212,14 @@ TYPEINFO(/mob/living/critter/shade)
 	health_brute = 708
 	health_burn = 708
 
+	New()
+		. = ..()
+		APPLY_ATOM_PROPERTY(src, PROP_MOB_DISORIENT_RESIST_BODY, "theysing", 20)
+		APPLY_ATOM_PROPERTY(src, PROP_MOB_DISORIENT_RESIST_BODY_MAX, "theysing", 20)
+		APPLY_ATOM_PROPERTY(src, PROP_MOB_STUN_RESIST, "theysing", 50)
+		APPLY_ATOM_PROPERTY(src, PROP_MOB_STUN_RESIST_MAX, "theysing", 50)
+		APPLY_ATOM_PROPERTY(src, PROP_MOB_STAMINA_REGEN_BONUS, "theysing", 10)
+
 /mob/living/critter/shade/invader
 	name = "voice of shadow"
 	layer = 3.85
