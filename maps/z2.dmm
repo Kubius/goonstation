@@ -59958,7 +59958,8 @@
 	safeish = 1;
 	ready = 1;
 	density = 0;
-	invisibility = 101
+	invisibility = 101;
+	assembled = 1
 	},
 /turf/unsimulated/floor/setpieces/bluefloor,
 /area/precursor)
