@@ -27686,6 +27686,7 @@
 /turf/simulated/floor,
 /area/station/engine/storage)
 "qUt" = (
+/obj/machinery/light/small/floor,
 /turf/simulated/floor/black,
 /area/station/hallway/primary/central)
 "qUI" = (
