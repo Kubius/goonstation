@@ -130,7 +130,7 @@ ABSTRACT_TYPE(/datum/storyteller)
 						random_events.the_room_event.event_effect()
 
 			if(!did_specific)
-				if(prob(40 + (random_events.cycles_since_menhir_event * 15)) || random_events.cycles_since_menhir_event > 2)
+				if(prob(60 + (random_events.cycles_since_menhir_event * 15)) || random_events.cycles_since_menhir_event > 2)
 					random_events.cycles_since_menhir_event = 0
 					SPAWN(rand(1 MINUTE,5 MINUTES))
 						random_events.do_random_event(random_events.menhir_events)
