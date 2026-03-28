@@ -15397,10 +15397,13 @@
 	icon = 'icons/obj/stationobjs.dmi';
 	icon_state = "plant"
 	},
+/obj/machinery/turretid/armory{
+	pixel_x = -22
+	},
 /turf/simulated/floor/darkblueblack{
 	dir = 8
 	},
-/area/station/security/secwing)
+/area/station/ai_monitored/armory)
 "jtq" = (
 /obj/reagent_dispensers/foamtank,
 /obj/disposalpipe/segment/mail{
@@ -16583,6 +16586,10 @@
 "kjh" = (
 /obj/cable{
 	icon_state = "5-10"
+	},
+/obj/machinery/turret{
+	dir = 4;
+	enabled = 0
 	},
 /turf/simulated/floor/darkblueblack{
 	dir = 6
