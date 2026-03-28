@@ -270,6 +270,7 @@ TYPEINFO(/mob/living/critter/shade)
 /mob/living/critter/shade/invader
 	name = "voice of shadow"
 	layer = 3.85
+	health_burn_vuln = 0.1
 
 	examine()
 		src.desc = pick("Why do you defile the heavens?","This place was not for you.","Woe, that the butchers disturb our grieving sleep.")
