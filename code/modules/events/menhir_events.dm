@@ -130,7 +130,7 @@ ABSTRACT_TYPE(/datum/random_event/menhir)
 		showswirl(nodelandmark)
 		our_guest.set_loc(nodelandmark)
 		SPAWN(time_of_spook) //mess with our guest a little to see how they respond
-			if(prob(40)) //sing them a little sound
+			if(prob(60)) //sing them a little sound
 				var/response_tester_sound = pick('sound/effects/explosionfar.ogg','sound/effects/explosionfar.ogg','sound/musical_instruments/Gong_Rumbling.ogg')
 				our_guest.playsound_local_not_inworld(response_tester_sound, 60, 0)
 			else //test chemical reaction
