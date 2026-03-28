@@ -1428,6 +1428,7 @@
 /obj/cable{
 	icon_state = "1-2"
 	},
+/obj/item/furniture_parts/wheelchair,
 /turf/simulated/floor/white/grime,
 /area/station/hangar/medical)
 "aUw" = (
@@ -5610,11 +5611,11 @@
 /turf/simulated/wall/auto/supernorn,
 /area/station/medical/crematorium)
 "dtB" = (
-/obj/table/auto,
 /obj/machinery/light_switch/west,
 /obj/machinery/camera/directional/west{
 	pixel_y = 10
 	},
+/obj/machinery/vending/medical,
 /turf/simulated/floor/red,
 /area/station/medical/medbay/surgery)
 "dtQ" = (
