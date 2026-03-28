@@ -2546,7 +2546,6 @@
 	/obj/item/raw_material/cobryl,
 	/obj/item/raw_material/miracle,
 	/obj/item/raw_material/gemstone,
-	/obj/item/raw_material/starstone,
 	/obj/item/raw_material/syreline,
 	/obj/item/raw_material/uqill)
 
