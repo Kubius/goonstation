@@ -216,14 +216,16 @@ TYPEINFO(/mob/living/critter/shade)
 	base_move_delay = 1.3
 	base_walk_delay = 2
 	no_stamina_stuns = TRUE
+	can_bleed = FALSE
 
-	New()
+	New() //we shall not falter
 		. = ..()
-		APPLY_ATOM_PROPERTY(src, PROP_MOB_DISORIENT_RESIST_BODY, "theysing", 20)
-		APPLY_ATOM_PROPERTY(src, PROP_MOB_DISORIENT_RESIST_BODY_MAX, "theysing", 20)
-		APPLY_ATOM_PROPERTY(src, PROP_MOB_STUN_RESIST, "theysing", 90)
-		APPLY_ATOM_PROPERTY(src, PROP_MOB_STUN_RESIST_MAX, "theysing", 90)
-		APPLY_ATOM_PROPERTY(src, PROP_MOB_STAMINA_REGEN_BONUS, "theysing", 20)
+		APPLY_ATOM_PROPERTY(src, PROP_MOB_CANT_BE_PINNED, "theysing")
+		APPLY_ATOM_PROPERTY(src, PROP_MOB_DISORIENT_RESIST_BODY, "theysing", 100)
+		APPLY_ATOM_PROPERTY(src, PROP_MOB_DISORIENT_RESIST_BODY_MAX, "theysing", 100)
+		APPLY_ATOM_PROPERTY(src, PROP_MOB_STUN_RESIST, "theysing", 100)
+		APPLY_ATOM_PROPERTY(src, PROP_MOB_STUN_RESIST_MAX, "theysing", 100)
+		APPLY_ATOM_PROPERTY(src, PROP_MOB_STAMINA_REGEN_BONUS, "theysing", 100)
 
 	setup_hands() //you will be catching them
 		..()
@@ -238,6 +240,32 @@ TYPEINFO(/mob/living/critter/shade)
 		TL.dmg_sound = 'sound/impact_sounds/crunchy_sizzle.ogg'
 		TL.action = "strike"
 
+	critter_basic_attack(mob/target)
+		if (issilicon(target))
+			src.machine_breaker(target)
+			return TRUE
+		else
+			if(prob(50) && !ON_COOLDOWN(src,"shade_wave",1 MINUTE))
+				src.great_dark()
+			return ..()
+
+	proc/machine_breaker(var/mob/living/silicon/silicon) //the machines do not serve us
+		if (isrobot(silicon) && !ON_COOLDOWN(src, "this_place_is_not_for_you", 30 SECONDS))
+			var/mob/living/silicon/robot/cyborg = silicon
+			src.visible_message(SPAN_ALERT("<B>[src] shatters [cyborg.name]'s head with a wave of force! Holy shit!</B>"))
+			playsound(src.loc, 'sound/weapons/energy/LightningCannon.ogg', 50, 1)
+			playsound(src.loc, 'sound/impact_sounds/locker_break.ogg', 70, 1)
+			cyborg.compborg_lose_limb(cyborg.part_head)
+		else
+			src.visible_message(SPAN_ALERT("<B>[src] smashes [silicon] with a wave of force!</B>"))
+			playsound(src.loc, 'sound/impact_sounds/metal_thump.ogg', 50, 1)
+			random_brute_damage(silicon, 15, 0)
+
+	proc/great_dark()
+		SPAWN(6)
+			src.visible_message(SPAN_ALERT("<B>A wave of shadow spills forth from [src]!</B>"))
+			new /obj/overlay/darkness_field(get_turf(src), 20 SECONDS, radius = 12)
+
 //menhir shade: appears only in the case of the rare invasion event. very rare
 /mob/living/critter/shade/invader
 	name = "voice of shadow"
@@ -246,6 +274,18 @@ TYPEINFO(/mob/living/critter/shade)
 	examine()
 		src.desc = pick("Why do you defile the heavens?","This place was not for you.","Woe, that the butchers disturb our grieving sleep.")
 		. = ..()
+
+	critter_basic_attack(mob/target)
+		if (issilicon(target))
+			machine_strike(target)
+			return TRUE
+		else
+			return ..()
+
+	proc/machine_strike(var/mob/living/silicon/silicon) //the machines do not serve us
+		src.visible_message(SPAN_ALERT("<B>[src] strikes [silicon] with a wave of force!</B>"))
+		playsound(src.loc, 'sound/impact_sounds/metal_thump.ogg', 50, 1)
+		random_brute_damage(silicon, rand(5,15), 0)
 
 /mob/living/critter/shade/crew
 	name = "faded scientist"
