@@ -265,6 +265,30 @@
 	ex_act(severity)
 		return
 
+	attackby(obj/item/W, mob/user)
+		src.place_on(W, user)
+		return
+
+// menhir: version that clicks when you put something appropriate on it (initial use case, force feedback for something not immediately apparently)
+/obj/rack/precursor/pressure
+	///list of paths to react to
+	var/list/react_paths = null
+	///what to say when a path matches
+	var/response_string = "clicks softly."
+
+	attackby(obj/item/W, mob/user)
+		if(src.place_on(W, user) && src.react_paths)
+			for(var/path in src.react_paths)
+				if(istype(W,path))
+					playsound(src.loc, 'sound/machines/click.ogg', 10, 0, pitch = 0.7)
+					src.visible_message(SPAN_NOTICE("<b>[src] [src.response_string]</b>"))
+					break
+		return
+
+	ringstand
+		react_paths = list(/obj/item/basketball,/obj/item/chilly_orb)
+		response_string = "clicks softly. You hear a distant hum begin to rise."
+
 /obj/item/chilly_orb // borb
 	name = "chilly orb"
 	desc = "Neat."
