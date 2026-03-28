@@ -33975,7 +33975,9 @@
 /area/station/science/lab)
 "uzp" = (
 /obj/machinery/navbeacon/mule/QM1_north/south,
-/obj/machinery/bot/mulebot/QM1,
+/obj/machinery/bot/mulebot/QM1{
+	access_lookup = "Security Officer"
+	},
 /obj/decal/stripe_caution,
 /obj/machinery/light{
 	dir = 4;
