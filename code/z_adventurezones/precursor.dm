@@ -392,7 +392,46 @@ ABSTRACT_TYPE(/datum/menhir_puzzle)
 	target_path = /obj/item/instrument
 	desc_strings = list(
 		"A confluence of tones that pierces your mind demands another voice. Your hands begin to move on their own...",
-		"Mourners with no faces play a song that has lain dead for thousands of years. You find yourself playing along."
+		"Mourners with no faces play a song that has lain dead for thousands of years. Your song now joins theirs."
+	)
+
+/datum/menhir_puzzle/cameraviewer
+	target_path = /obj/item/device/camera_viewer
+	desc_strings = list(
+		"You approach an object resting on an unremarkable surface. As you peer into its face, you see yourself in front of the object.",
+		"Several figures cluster together, eyes fixed on a machine they hold, so that they may gaze through eyes that are not theirs."
+	)
+
+/datum/menhir_puzzle/firework
+	target_path = /obj/item/firework
+	desc_strings = list(
+		"A new star forms in a quiet night sky. The shapes below laugh and frolic.",
+		"A bright flash and a sound of thunder flood your perception, again and again, yet not for avarice or conquest."
+	)
+
+/datum/menhir_puzzle/gnome
+	target_path = /obj/item/gnomechompski
+	desc_strings = list(
+		"A small homunculus with pointed hat babbles incoherently. The moment you blink, it's nowhere to be found."
+	)
+
+/datum/menhir_puzzle/thermocouple
+	target_path = /obj/item/teg_semiconductor
+	desc_strings = list(
+		"At a union of ice and fire, a tablet, revered in its home, joins the two in a glowing harmony."
+	)
+
+/datum/menhir_puzzle/inter_rod
+	target_path = /obj/item/interdictor_rod
+	desc_strings = list(
+		"A great storm rages over the land, yet around a single pillar, not a drop of rain does fall.",
+		"The wind howls around you and scours the earth with light. A sceptre, nestled in a sanctuary of its own, grants sanctuary to you."
+	)
+
+/datum/menhir_puzzle/barrier
+	target_path = /obj/item/barrier
+	desc_strings = list(
+		"A knight clad in armor raises a shield before you. You raise your own in recognition."
 	)
 
 /obj/precursor_puzzle/innervator
