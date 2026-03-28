@@ -1258,14 +1258,7 @@
 /turf/simulated/floor/white,
 /area/station/science/teleporter)
 "aNV" = (
-/obj/machinery/power/data_terminal,
-/obj/cable{
-	icon_state = "0-8"
-	},
-/obj/table/reinforced/auto,
-/obj/machinery/computer3/generic/personal{
-	pixel_y = 6
-	},
+/obj/decal/stripe_caution,
 /turf/simulated/floor/orangeblack/side{
 	dir = 1
 	},
@@ -2597,10 +2590,6 @@
 /obj/cable{
 	icon_state = "1-2"
 	},
-/obj/cable{
-	icon_state = "2-4"
-	},
-/obj/landmark/start/job/quartermaster,
 /turf/simulated/floor/orangeblack/corner{
 	dir = 4
 	},
@@ -9656,9 +9645,6 @@
 /obj/cable{
 	icon_state = "1-2"
 	},
-/obj/cable{
-	icon_state = "2-4"
-	},
 /turf/simulated/floor,
 /area/station/quartermaster/office)
 "fWz" = (
@@ -11601,16 +11587,7 @@
 	dir = 6;
 	icon_state = "line1"
 	},
-/obj/machinery/power/data_terminal,
-/obj/cable{
-	icon_state = "0-8"
-	},
-/obj/table/reinforced/auto,
-/obj/machinery/networked/printer{
-	name = "Printer - Quartermasters";
-	pixel_y = 5;
-	print_id = "Quartermasters"
-	},
+/obj/decal/stripe_caution,
 /turf/simulated/floor,
 /area/station/quartermaster/office)
 "hfX" = (
@@ -19115,9 +19092,15 @@
 /area/station/turret_protected/incursion)
 "lLb" = (
 /obj/table/reinforced/auto,
-/obj/machinery/computer/television/small{
-	pixel_y = 6
+/obj/machinery/networked/printer{
+	name = "Printer - Quartermasters";
+	pixel_y = 5;
+	print_id = "Quartermasters"
 	},
+/obj/cable{
+	icon_state = "0-6"
+	},
+/obj/machinery/power/data_terminal,
 /turf/simulated/floor/grey,
 /area/station/quartermaster/cargobay{
 	name = "Cargo Import Export"
@@ -23004,12 +22987,6 @@
 	},
 /turf/simulated/floor/black,
 /area/station/science/testchamber)
-"oaU" = (
-/obj/landmark/start/job/quartermaster,
-/turf/simulated/floor/orangeblack/side{
-	dir = 8
-	},
-/area/station/quartermaster/office)
 "obr" = (
 /obj/machinery/portable_atmospherics/canister/air/large,
 /obj/cable{
@@ -29216,6 +29193,13 @@
 /obj/stool/chair/office/yellow{
 	dir = 4
 	},
+/obj/cable{
+	icon_state = "2-9"
+	},
+/obj/cable{
+	icon_state = "1-2"
+	},
+/obj/landmark/start/job/quartermaster,
 /turf/simulated/floor/grey/side{
 	dir = 1
 	},
@@ -32302,6 +32286,9 @@
 /obj/item/pen/marker/blue,
 /obj/item/pen/marker/red,
 /obj/item/pen/marker,
+/obj/item/hand_labeler{
+	pixel_x = 9
+	},
 /turf/simulated/floor/orangeblack,
 /area/station/quartermaster/office)
 "tAe" = (
@@ -33303,6 +33290,10 @@
 /turf/simulated/floor/caution/south,
 /area/station/engine/ptl)
 "ufm" = (
+/obj/stool/chair/office/yellow{
+	dir = 1
+	},
+/obj/landmark/start/job/quartermaster,
 /turf/simulated/floor/orangeblack/side,
 /area/station/quartermaster/office)
 "uft" = (
@@ -35580,6 +35571,9 @@
 	icon_state = "4-9"
 	},
 /obj/landmark/menhir/outreach,
+/obj/cable{
+	icon_state = "1-4"
+	},
 /turf/simulated/floor,
 /area/station/quartermaster/cargobay{
 	name = "Cargo Import Export"
@@ -37199,18 +37193,18 @@
 	})
 "wnM" = (
 /obj/table/reinforced/auto,
-/obj/item/paper_bin{
-	pixel_x = 5;
-	pixel_y = 4
-	},
 /obj/item/pen{
 	pixel_x = 3;
 	pixel_y = 5
 	},
-/obj/item/hand_labeler{
-	pixel_x = -8
-	},
 /obj/item/device/radio/intercom/cargo,
+/obj/machinery/computer3/generic/personal{
+	pixel_y = 6
+	},
+/obj/cable{
+	icon_state = "0-2"
+	},
+/obj/machinery/power/data_terminal,
 /turf/simulated/floor/grey,
 /area/station/quartermaster/cargobay{
 	name = "Cargo Import Export"
@@ -78509,7 +78503,7 @@ dBm
 eIf
 yld
 ofR
-oaU
+aUG
 iaS
 oiW
 pMR
