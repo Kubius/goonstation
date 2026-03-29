@@ -245,7 +245,7 @@ TYPEINFO(/mob/living/critter/shade)
 			src.machine_breaker(target)
 			return TRUE
 		else
-			if(prob(50) && !ON_COOLDOWN(src,"shade_wave",1 MINUTE))
+			if(prob(50) && !ON_COOLDOWN(src,"shade_wave",30 SECONDS))
 				src.great_dark()
 			return ..()
 
@@ -265,6 +265,13 @@ TYPEINFO(/mob/living/critter/shade)
 		SPAWN(6)
 			src.visible_message(SPAN_ALERT("<B>A wave of shadow spills forth from [src]!</B>"))
 			new /obj/overlay/darkness_field(get_turf(src), 20 SECONDS, radius = 12)
+
+	was_harmed(var/mob/M as mob, var/obj/item/weapon = 0, var/special = 0, var/intent = null) // good luck pinning it down
+		. = ..()
+		var/turf/mobloc = get_turf(M)
+		M.loc = get_turf(src)
+		src.loc = mobloc
+		playsound(mobloc, 'sound/effects/mag_golem.ogg', 18, 1, pitch = 0.7)
 
 //menhir shade: appears only in the case of the rare invasion event. very rare
 /mob/living/critter/shade/invader
