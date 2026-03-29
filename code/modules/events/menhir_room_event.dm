@@ -374,9 +374,10 @@ ABSTRACT_TYPE(/datum/menhir_room_roll)
 		. = FALSE
 		var/obj/plinth = locate("menhir_plinth")
 		if(plinth)
-			for (var/obj/O in plinth.loc)
+			for (var/obj/O in get_turf(plinth))
 				if(istype(O,/obj/item/basketball))
 					. = TRUE
+					return
 
 /datum/menhir_room_roll/sepulchure
 	name = "unworldly halls (sepulchre)"
@@ -391,9 +392,10 @@ ABSTRACT_TYPE(/datum/menhir_room_roll)
 		. = FALSE
 		var/obj/plinth = locate("menhir_plinth")
 		if(plinth)
-			for (var/obj/O in plinth.loc)
+			for (var/obj/O in get_turf(plinth))
 				if(istype(O,/obj/item/chilly_orb))
 					. = TRUE
+					return
 
 /datum/random_event/menhir/room
 	name = "The Crown Holds Court"

@@ -4166,6 +4166,12 @@
 	dir = 1
 	},
 /area/station/medical/medbay/pharmacy)
+"csw" = (
+/obj/storage/closet,
+/obj/random_item_spawner/tools/maybe_few,
+/obj/random_item_spawner/junk/few,
+/turf/simulated/floor/plating,
+/area/station/maintenance/southeast)
 "csF" = (
 /obj/mapping_helper/wingrille_spawn/auto/reinforced,
 /turf/simulated/floor/plating,
@@ -7310,16 +7316,6 @@
 	dir = 8
 	},
 /area/station/crew_quarters/quartersC)
-"epq" = (
-/obj/machinery/light{
-	dir = 1;
-	layer = 9.1;
-	pixel_y = 21
-	},
-/turf/simulated/floor/purpleblack{
-	dir = 4
-	},
-/area/station/hangar/science)
 "ept" = (
 /obj/machinery/door/airlock/pyro/glass,
 /obj/mapping_helper/firedoor_spawn,
@@ -10449,23 +10445,6 @@
 	},
 /turf/simulated/floor/engine,
 /area/station/science/teleporter)
-"goU" = (
-/obj/table/auto,
-/obj/item/storage/belt/utility{
-	pixel_y = -1;
-	pixel_x = -1
-	},
-/obj/item/storage/toolbox/mechanical{
-	pixel_y = 6
-	},
-/obj/item/device/light/flashlight{
-	pixel_y = 2;
-	pixel_x = 4
-	},
-/turf/simulated/floor/purpleblack{
-	dir = 8
-	},
-/area/station/hangar/science)
 "goW" = (
 /obj/machinery/light{
 	dir = 4;
@@ -21519,8 +21498,14 @@
 	},
 /area/station/hallway/primary/north)
 "naa" = (
-/obj/stool/chair/purple{
-	dir = 4
+/obj/storage/crate,
+/obj/item/reagent_containers/food/drinks/fueltank{
+	pixel_x = -6;
+	pixel_y = 5
+	},
+/obj/item/reagent_containers/food/drinks/fueltank{
+	pixel_x = 6;
+	pixel_y = 2
 	},
 /turf/simulated/floor/purpleblack{
 	dir = 8
@@ -34335,16 +34320,19 @@
 /turf/simulated/floor/black/grime,
 /area/station/engine/hotloop)
 "usn" = (
-/obj/storage/crate,
-/obj/item/reagent_containers/food/drinks/fueltank{
-	pixel_x = -6;
-	pixel_y = 5
-	},
-/obj/item/reagent_containers/food/drinks/fueltank{
-	pixel_x = 6;
-	pixel_y = 2
-	},
 /obj/machinery/door_control/podbay/engineering/new_walls/west,
+/obj/table/auto,
+/obj/item/storage/belt/utility{
+	pixel_y = -1;
+	pixel_x = -1
+	},
+/obj/item/storage/toolbox/mechanical{
+	pixel_y = 6
+	},
+/obj/item/device/light/flashlight{
+	pixel_y = 2;
+	pixel_x = 4
+	},
 /turf/simulated/floor/purpleblack{
 	dir = 8
 	},
@@ -36470,6 +36458,14 @@
 /turf/simulated/floor/red/side,
 /area/station/hallway/primary/east)
 "vEI" = (
+/obj/machinery/light{
+	dir = 1;
+	layer = 9.1;
+	pixel_y = 21
+	},
+/obj/stool/chair/purple{
+	dir = 4
+	},
 /turf/simulated/floor/purpleblack{
 	dir = 4
 	},
@@ -96067,7 +96063,7 @@ jfQ
 wsh
 sKA
 hqz
-xfu
+kaC
 xfu
 xfu
 xfu
@@ -96369,8 +96365,8 @@ qwR
 uZk
 sKA
 hqz
+csw
 xfu
-goU
 usn
 naa
 qCY
@@ -96672,7 +96668,7 @@ bye
 sKA
 hqz
 xfu
-epq
+xfu
 vEI
 gzF
 dgq
