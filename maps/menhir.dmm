@@ -24263,7 +24263,7 @@
 /obj/disposalpipe/segment/vertical,
 /obj/mapping_helper/firedoor_spawn,
 /obj/mapping_helper/access/kitchen,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/specialroom/cafeteria,
 /area/station/crew_quarters/kitchen)
 "oBA" = (
 /obj/disposalpipe/segment/mail,
