@@ -217,7 +217,6 @@ ABSTRACT_TYPE(/datum/random_event/menhir)
 			logTheThing(LOG_STATION, null, "Menhir probes event concluded.")
 			message_admins("Menhir probes event concluded.")
 
-
 		logTheThing(LOG_STATION, null, "Menhir probes event deployed [probe_deployments] probes.")
 		message_admins("Menhir probes event deployed [probe_deployments] probes.")
 

@@ -6183,6 +6183,15 @@
 	layer = 9.1;
 	pixel_x = -10
 	},
+/obj/table/auto,
+/obj/item/reagent_containers/food/snacks/candy/nougat{
+	pixel_y = 7;
+	pixel_x = -2
+	},
+/obj/item/reagent_containers/food/drinks/water{
+	pixel_y = 5;
+	pixel_x = -5
+	},
 /turf/simulated/floor/grey,
 /area/station/hallway/primary/west)
 "dKe" = (
@@ -18503,6 +18512,7 @@
 "lkG" = (
 /obj/table/auto,
 /obj/item/storage/toolbox/emergency,
+/obj/item/device/light/glowstick,
 /turf/simulated/floor/grey/side{
 	dir = 4
 	},
@@ -29425,6 +29435,7 @@
 "rIX" = (
 /obj/table/auto,
 /obj/item/storage/toolbox/emergency,
+/obj/item/device/light/glowstick,
 /turf/simulated/floor/grey/side{
 	dir = 8
 	},
@@ -40516,6 +40527,9 @@
 	areastring = "Fitness Room"
 	},
 /obj/cable,
+/obj/stool/chair{
+	dir = 4
+	},
 /turf/simulated/floor/grey,
 /area/station/hallway/primary/west)
 "xRa" = (

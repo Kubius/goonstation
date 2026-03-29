@@ -13,8 +13,8 @@
 	mat_changename = FALSE
 	mat_changedesc = FALSE
 	see_invisible = INVIS_CLOAK
-	say_language = LANGUAGE_CUBIC
-	flags = TABLEPASS | DOORPASS
+	say_language = LANGUAGE_CUBIC //if you're piloting one of these for gimmicks you don't want to ruin the bit by accident
+	flags = TABLEPASS
 
 	health_brute = 100
 	health_burn = 100
@@ -52,9 +52,9 @@
 		src.UpdateIcon()
 
 	disposing()
-		if(!src.oldmob && !src.disturbed && prob(30)) //drones which complete their probing without being disturbed may leave a gift
+		if(!src.oldmob && !src.disturbed && prob(42)) //drones which complete their probing without being disturbed may leave a gift
 			playsound(src.loc, 'sound/effects/ring_happi.ogg', 35, 0, extrarange = 16, pitch = 0.6)
-			var/list/gifts = list(/obj/item/reagent_containers/food/snacks/cube = 18, /obj/item/raw_material/cobryl = 10,\
+			var/list/gifts = list(/obj/item/reagent_containers/food/snacks/cube = 20, /obj/item/raw_material/cobryl = 12,\
 				/obj/item/raw_material/miracle = 2, "artifact" = 1)
 			var/thing2make = weighted_pick(gifts)
 			if(ispath(thing2make))
@@ -113,6 +113,7 @@
 			for (var/mob/living/L in orange(3,beepity))
 				random_burn_damage(L, rand(4,10))
 				if (istype(L))
+					L.flash(3 SECONDS)
 					L.apply_flash(60, 0, misstep = 35, stamina_damage = 200)
 			playsound(beepity.loc, 'sound/weapons/flashbang.ogg', 30, 1)
 		if(returning)
