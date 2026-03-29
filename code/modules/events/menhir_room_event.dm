@@ -332,7 +332,7 @@ ABSTRACT_TYPE(/datum/menhir_room_roll)
 	base_weight = 50
 	area_busy_checks = list(/area/station/medical/medbay = 12,\
 		/area/station/medical = 2,\
-		/area/station/security = 2,\
+		/area/station/security = 1,\
 		/area/station/crown = 2)
 	stole_from = list("medical bay","medbay","med wing")
 
