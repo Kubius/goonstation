@@ -66872,7 +66872,9 @@
 /turf/unsimulated/floor/plating,
 /area/moon/museum)
 "nuu" = (
-/obj/rack/precursor/pressure/ringstand,
+/obj/rack/precursor/pressure/ringstand{
+	tag = "menhir_plinth"
+	},
 /obj/item/clothing/gloves/ring/ominous{
 	pixel_y = 11;
 	rand_pos = 0
