@@ -313,6 +313,7 @@ ABSTRACT_TYPE(/datum/random_event/menhir)
 	name = "A Spire of Synthesis"
 	message_delay = 1 MINUTE
 	weight = 20
+	centcom_message = "A sustained period of elevated electromagnetic activity from TOREADOR-7I-22408 is currently underway. Personnel are advised to monitor station power grid and deactivate supply if anomalous behavior is detected."
 
 	event_effect()
 		///Location of "outreach".
@@ -327,15 +328,17 @@ ABSTRACT_TYPE(/datum/random_event/menhir)
 		showswirl(eventlandmark)
 		playsound(eventlandmark, 'sound/musical_instruments/artifact/Artifact_Precursor_4.ogg', 55, 0, extrarange = 24, pitch = 0.45)
 		SPAWN(2)
-			var/obj/sinkyboye = new /obj/machinery/artifact/synthesizer(eventlandmark)
+			var/obj/sinkyboye = Artifact_Spawn(eventlandmark,forceartitype = /datum/artifact/synthesizer)
 			sinkyboye.anchored = ANCHORED //give it a sec
 			SPAWN(1 SECOND)
 				sinkyboye.ArtifactActivated()
 
-		message_delay = rand(40 SECONDS,80 SECONDS)
+		message_delay = rand(12 SECONDS,16 SECONDS)
 		..()
 		if (random_events.announce_events)
 			SPAWN(message_delay)
+				playsound_global(world, 'sound/misc/announcement_ominous.ogg', 60)
+			SPAWN(message_delay + 20)
 				playsound_global(world, 'sound/misc/announcement_ominous.ogg', 60)
 
 		logTheThing(LOG_STATION, null, "Menhir powersink event at [log_loc(eventlandmark)]")
