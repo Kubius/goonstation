@@ -144,7 +144,7 @@ ABSTRACT_TYPE(/obj/mapping_helper/airlock)
 		var/turf/other_turf = locate(src.x + x_offset, src.y + y_offset, src.z)
 		return other_turf
 
-///Connects sets of double-door airlocks which have a 1 or 2 tile space in between.
+///Connects airlocks within a 1-tile radius of the helper to those within a 1-tile radius of a spot 2 tiles away (useful for multi-door airlocks)
 /obj/mapping_helper/airlock/cycler/auto/rook
 	icon_state = "cycle-auto-rook"
 
