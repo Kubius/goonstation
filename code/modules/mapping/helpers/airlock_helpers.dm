@@ -144,6 +144,38 @@ ABSTRACT_TYPE(/obj/mapping_helper/airlock)
 		var/turf/other_turf = locate(src.x + x_offset, src.y + y_offset, src.z)
 		return other_turf
 
+///Connects sets of double-door airlocks which have a 1 or 2 tile space in between.
+/obj/mapping_helper/airlock/cycler/auto/rook
+	icon_state = "cycle-auto-rook"
+
+	seek_pair_turf()
+		var/x_offset = 0
+		var/y_offset = 0
+		switch(src.dir)
+			if(NORTH)
+				y_offset = 2
+			if(SOUTH)
+				y_offset = -2
+			if(EAST)
+				x_offset = 2
+			if(WEST)
+				x_offset = -2
+		var/turf/other_turf = locate(src.x + x_offset, src.y + y_offset, src.z)
+		return other_turf
+
+	setup()
+		if (src.cycle_id)
+			CRASH("[src] has a manually set cycle ID. This should not be done with proximity cycler helpers. Coords: [src.x], [src.y], [src.z]")
+		src.cycle_id = "AUTO_[src.x]_[src.y]"
+		for (var/obj/machinery/door/airlock/D in range(1,get_turf(src)))
+			D.cycle_id = src.cycle_id
+			D.cycle_enter_id = "inner"
+			D.attempt_cycle_link()
+		var/turf/other_turf = src.seek_pair_turf()
+		for (var/obj/machinery/door/airlock/D in range(1,other_turf))
+			D.cycle_id = src.cycle_id
+			D.cycle_enter_id = "outer"
+			D.attempt_cycle_link()
 
 /obj/mapping_helper/airlock/breaker
 	name = "fake airlock converter"

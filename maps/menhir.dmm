@@ -1933,6 +1933,12 @@
 	icon_state = "4-8"
 	},
 /obj/mapping_helper/access/engineering_power,
+/obj/forcefield/energyshield/perma/doorlink{
+	desc = "A door-linked force field that prevents gasses from passing through it.";
+	dir = 4;
+	name = "Door-linked Atmospheric Forcefield";
+	powerlevel = 1
+	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/solar/west)
 "bhM" = (
@@ -8129,6 +8135,20 @@
 /obj/machinery/portable_atmospherics/scrubber,
 /turf/simulated/floor/black,
 /area/station/science/lab)
+"eUx" = (
+/obj/machinery/door/airlock/pyro/external{
+	dir = 4
+	},
+/obj/forcefield/energyshield/perma/doorlink{
+	desc = "A door-linked force field that prevents gasses from passing through it.";
+	dir = 4;
+	name = "Door-linked Atmospheric Forcefield";
+	powerlevel = 1
+	},
+/turf/simulated/floor/grey,
+/area/station/hallway/secondary/east{
+	name = "East Shuttle Concourse"
+	})
 "eVq" = (
 /obj/cable{
 	icon_state = "1-2"
@@ -8174,6 +8194,12 @@
 	},
 /obj/cable{
 	icon_state = "4-8"
+	},
+/obj/forcefield/energyshield/perma/doorlink{
+	desc = "A door-linked force field that prevents gasses from passing through it.";
+	dir = 4;
+	name = "Door-linked Atmospheric Forcefield";
+	powerlevel = 1
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/southwest)
@@ -26919,6 +26945,17 @@
 /area/station/hallway/secondary/east{
 	name = "East Shuttle Concourse"
 	})
+"qjm" = (
+/obj/machinery/door/airlock/pyro/external{
+	dir = 4
+	},
+/obj/mapping_helper/airlock/cycler/auto/rook{
+	dir = 4
+	},
+/turf/simulated/floor/grey,
+/area/station/hallway/secondary/east{
+	name = "East Shuttle Concourse"
+	})
 "qjq" = (
 /obj/machinery/computer3/generic/secure_data{
 	dir = 4
@@ -31190,6 +31227,12 @@
 /obj/machinery/door/airlock/pyro/external{
 	dir = 4
 	},
+/obj/forcefield/energyshield/perma/doorlink{
+	desc = "A door-linked force field that prevents gasses from passing through it.";
+	dir = 4;
+	name = "Door-linked Atmospheric Forcefield";
+	powerlevel = 1
+	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/southeast)
 "sIb" = (
@@ -34039,6 +34082,12 @@
 	icon_state = "4-8"
 	},
 /obj/mapping_helper/access/engineering_power,
+/obj/forcefield/energyshield/perma/doorlink{
+	desc = "A door-linked force field that prevents gasses from passing through it.";
+	dir = 4;
+	name = "Door-linked Atmospheric Forcefield";
+	powerlevel = 1
+	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/solar/east)
 "umr" = (
@@ -38354,6 +38403,12 @@
 /obj/cable{
 	icon_state = "4-8"
 	},
+/obj/forcefield/energyshield/perma/doorlink{
+	desc = "A door-linked force field that prevents gasses from passing through it.";
+	dir = 4;
+	name = "Door-linked Atmospheric Forcefield";
+	powerlevel = 1
+	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/east)
 "wFU" = (
@@ -38752,6 +38807,12 @@
 /obj/mapping_helper/airlock/cycler{
 	cycle_id = "nwmaint";
 	name = "Northwest Maintenance"
+	},
+/obj/forcefield/energyshield/perma/doorlink{
+	desc = "A door-linked force field that prevents gasses from passing through it.";
+	dir = 4;
+	name = "Door-linked Atmospheric Forcefield";
+	powerlevel = 1
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/west)
@@ -39650,6 +39711,17 @@
 /turf/simulated/wall/auto/supernorn,
 /area/station/hallway/secondary/east{
 	name = "East Shuttle Concourse"
+	})
+"xsv" = (
+/obj/machinery/door/airlock/pyro/external{
+	dir = 4
+	},
+/obj/mapping_helper/airlock/cycler/auto/rook{
+	dir = 8
+	},
+/turf/simulated/floor/grey,
+/area/station/hallway/secondary/west{
+	name = "West Shuttle Concourse"
 	})
 "xsH" = (
 /obj/stool/chair/comfy/blue{
@@ -72981,8 +73053,8 @@ uan
 qBi
 uan
 lou
+xsv
 kPv
-kPv
 lou
 lou
 deF
@@ -72992,7 +73064,7 @@ deF
 deF
 lou
 lou
-kPv
+xsv
 kPv
 lou
 uan
@@ -104390,7 +104462,7 @@ sEf
 lzH
 nQi
 iqP
-iqP
+qjm
 nQi
 nQi
 hQY
@@ -104400,7 +104472,7 @@ hQY
 hQY
 nQi
 nQi
-iqP
+qjm
 iqP
 nQi
 uan
@@ -104993,8 +105065,8 @@ sEf
 sEf
 fMD
 nQi
-iqP
-iqP
+eUx
+eUx
 nQi
 sEf
 sEf
@@ -105004,8 +105076,8 @@ sEf
 sEf
 sEf
 nQi
-iqP
-iqP
+eUx
+eUx
 nQi
 sEf
 sEf
