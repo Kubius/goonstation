@@ -5843,6 +5843,7 @@
 /obj/cable{
 	icon_state = "0-8"
 	},
+/obj/machinery/firealarm/directional/east,
 /turf/simulated/floor/black,
 /area/station/crew_quarters/cafeteria)
 "dyL" = (
@@ -6395,7 +6396,6 @@
 /area/station/bridge)
 "dQn" = (
 /obj/stool/bar,
-/obj/disposalpipe/segment/horizontal,
 /mob/living/carbon/human/npc/monkey/mr_muggles,
 /turf/simulated/floor/carpet{
 	icon_state = "fred2"
@@ -11777,6 +11777,9 @@
 	icon_state = "0-2"
 	},
 /obj/machinery/power/data_terminal,
+/obj/machinery/door/airlock/pyro/glass/windoor,
+/obj/mapping_helper/access/head_of_personnel,
+/obj/mapping_helper/access/security,
 /turf/simulated/floor/wood/two,
 /area/station/crew_quarters/courtroom)
 "heL" = (
@@ -13445,6 +13448,9 @@
 /obj/disposalpipe/segment/brig{
 	dir = 1
 	},
+/obj/machinery/door/airlock/pyro/glass/windoor,
+/obj/mapping_helper/access/head_of_personnel,
+/obj/mapping_helper/access/security,
 /turf/simulated/floor/wood/two,
 /area/station/crew_quarters/courtroom)
 "ibZ" = (
@@ -14785,7 +14791,6 @@
 /obj/table/reinforced/bar/auto,
 /obj/machinery/espresso_machine,
 /obj/mapping_helper/glassware_spawn,
-/obj/machinery/firealarm/directional/west,
 /turf/simulated/floor/black,
 /area/station/crew_quarters/cafeteria)
 "iSY" = (
@@ -22469,6 +22474,7 @@
 /obj/cable{
 	icon_state = "1-2"
 	},
+/obj/mapping_helper/firedoor_spawn,
 /turf/simulated/floor/wood/two,
 /area/station/crew_quarters/courtroom)
 "nFd" = (
@@ -22757,7 +22763,7 @@
 /area/station/maintenance/disposal)
 "nLK" = (
 /obj/stool/bar,
-/obj/disposalpipe/junction/middle/north,
+/obj/disposalpipe/segment/bent/north,
 /turf/simulated/floor/carpet{
 	icon_state = "fred2"
 	},
@@ -23025,16 +23031,6 @@
 	dir = 8
 	},
 /area/station/ranch)
-"nTz" = (
-/obj/table/reinforced/bar/auto,
-/obj/item_dispenser/icedispenser{
-	pixel_y = 10;
-	pixel_x = -5
-	},
-/turf/simulated/floor/specialroom/bar/edge{
-	dir = 8
-	},
-/area/station/crew_quarters/cafeteria)
 "nTB" = (
 /obj/mesh/catwalk,
 /turf/simulated/floor/airless/plating/catwalk{
@@ -26000,7 +25996,10 @@
 /obj/item/shaker/salt{
 	pixel_x = 3
 	},
-/obj/machinery/firealarm/directional/east,
+/obj/machinery/disposal/small/west{
+	pixel_x = 9
+	},
+/obj/disposalpipe/trunk/south,
 /turf/simulated/floor/specialroom/bar/edge{
 	dir = 8
 	},
@@ -26463,6 +26462,12 @@
 /area/station/hallway/secondary/entry{
 	name = "Arrival Concourse"
 	})
+"pST" = (
+/obj/stool/bar,
+/turf/simulated/floor/carpet{
+	icon_state = "fred2"
+	},
+/area/station/crew_quarters/cafeteria)
 "pTu" = (
 /turf/simulated/floor/blue/side{
 	dir = 1
@@ -27415,6 +27420,7 @@
 	})
 "qvf" = (
 /obj/submachine/slot_machine,
+/obj/machinery/firealarm/directional/west,
 /turf/simulated/floor/carpet/green/standard/edge{
 	dir = 10
 	},
@@ -28251,6 +28257,13 @@
 	dir = 8
 	},
 /area/station/hallway/primary/north)
+"qYp" = (
+/obj/stool/bar,
+/obj/disposalpipe/junction/left/west,
+/turf/simulated/floor/carpet{
+	icon_state = "fred2"
+	},
+/area/station/crew_quarters/cafeteria)
 "qYO" = (
 /turf/simulated/floor/black,
 /area/station/ai_monitored/armory)
@@ -32673,7 +32686,6 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/west)
 "twi" = (
-/obj/disposalpipe/segment/bent/north,
 /turf/simulated/floor/carpet{
 	icon_state = "fred2"
 	},
@@ -32724,6 +32736,12 @@
 /area/station/hallway/primary/southeast)
 "tyj" = (
 /obj/disposalpipe/segment/bent/south,
+/obj/mapping_helper/button/pair{
+	dir = 8
+	},
+/obj/machinery/door_control/bolter/new_walls/north{
+	dir = 2
+	},
 /turf/simulated/floor/black,
 /area/station/hallway/primary/central)
 "tyH" = (
@@ -33779,13 +33797,14 @@
 /turf/simulated/floor/shuttlebay,
 /area/station/mining/staff_room)
 "ueJ" = (
-/obj/machinery/door/airlock/pyro/glass/windoor,
 /obj/disposalpipe/segment/vertical,
 /obj/cable{
 	icon_state = "1-2"
 	},
 /obj/mapping_helper/access/security,
+/obj/machinery/door/airlock/pyro/glass/command,
 /obj/mapping_helper/access/head_of_personnel,
+/obj/mapping_helper/firedoor_spawn,
 /turf/simulated/floor/wood/two,
 /area/station/crew_quarters/courtroom)
 "ufh" = (
@@ -37488,6 +37507,9 @@
 	pixel_y = 8;
 	pixel_x = 1
 	},
+/obj/machinery/door/airlock/pyro/glass/windoor,
+/obj/mapping_helper/access/head_of_personnel,
+/obj/mapping_helper/access/security,
 /turf/simulated/floor/wood/two,
 /area/station/crew_quarters/courtroom)
 "wgQ" = (
@@ -39241,10 +39263,12 @@
 /turf/simulated/wall/auto/reinforced/supernorn,
 /area/station/hangar/science)
 "xfz" = (
-/obj/machinery/disposal,
-/obj/disposalpipe/trunk/south,
 /obj/machinery/camera/directional/west{
 	pixel_y = 10
+	},
+/obj/table/reinforced/bar/auto,
+/obj/item_dispenser/icedispenser{
+	pixel_y = 12
 	},
 /turf/simulated/floor/specialroom/bar/edge{
 	dir = 8
@@ -86023,7 +86047,7 @@ tid
 eaM
 elK
 sCA
-nTz
+lRR
 dQn
 iec
 muM
@@ -86326,7 +86350,7 @@ buJ
 sjn
 hTg
 vWF
-lhk
+pST
 tiI
 xwd
 xQR
@@ -86628,7 +86652,7 @@ jWC
 sjn
 vvn
 pYU
-lhk
+pST
 gqi
 oBU
 bqU
@@ -87836,7 +87860,7 @@ uDD
 sjn
 dym
 pFy
-lhk
+qYp
 xLo
 tgC
 vbI
