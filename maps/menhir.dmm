@@ -40892,7 +40892,6 @@
 /obj/cable{
 	icon_state = "4-8"
 	},
-/obj/monkeyplant,
 /turf/simulated/floor/bluewhite/corner{
 	dir = 4
 	},
