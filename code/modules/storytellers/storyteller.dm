@@ -110,20 +110,20 @@ ABSTRACT_TYPE(/datum/storyteller)
 		if (random_events.menhir_events_enabled)
 			//build the special room list if we need to
 			if(!random_events.special_room_list_built)
-				for(var/datum/menhir_room_roll/RR in random_events.the_room_event.room_pool)
+				for (var/datum/menhir_room_roll/RR in random_events.the_room_event.room_pool)
 					if(RR.has_special_condition)
 						random_events.menhir_special_rooms += RR
 				random_events.special_room_list_built = TRUE
 
 			var/did_specific = FALSE
-			if(random_events.the_room_event.is_event_available() && length(random_events.menhir_special_rooms))
+			if(random_events.the_room_event.is_event_available(natural_event = FALSE) && length(random_events.menhir_special_rooms))
 				//gather eligibility data once
 				var/direction_eligibility = 0
 				for (var/turf/T in landmarks[LANDMARK_MENHIR_NODE])
 					var/result = nodetagcheck(landmarks[LANDMARK_MENHIR_NODE][T])
 					if(result) direction_eligibility |= result
-				//and check against special room
-				for(var/datum/menhir_room_roll/RR in random_events.menhir_special_rooms)
+				//and check all special rooms against this and their own validation criteria
+				for (var/datum/menhir_room_roll/RR in random_events.menhir_special_rooms)
 					if(RR.special_eval(direction_eligibility))
 						did_specific = TRUE
 						random_events.cycles_since_menhir_event = 0

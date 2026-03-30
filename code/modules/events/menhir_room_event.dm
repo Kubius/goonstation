@@ -423,7 +423,7 @@ ABSTRACT_TYPE(/datum/menhir_room_roll)
 			return
 
 		var/node2use = null
-		if (!landmarks[LANDMARK_MENHIR_NODE] || length(landmarks[LANDMARK_MENHIR_NODE]) < 1) return
+		if (!landmarks[LANDMARK_MENHIR_NODE] || length(landmarks[LANDMARK_MENHIR_NODE]) < 1) return //if no nodes remain whatsoever, don't trigger event
 
 		var/list/nodenames = list()
 		for (var/turf/T in landmarks[LANDMARK_MENHIR_NODE])
@@ -443,13 +443,23 @@ ABSTRACT_TYPE(/datum/menhir_room_roll)
 		src.event_effect(source, node2use, room2use)
 		return
 
-	is_event_available(ignore_time_lock)
+	is_event_available(var/ignore_time_lock, var/natural_event = TRUE)
 		. = ..()
 		if(.)
-			if (!landmarks[LANDMARK_MENHIR_NODE] || length(landmarks[LANDMARK_MENHIR_NODE]) < 1) //if no eligible nodes remain, do not trigger event
+			if (!landmarks[LANDMARK_MENHIR_NODE] || length(landmarks[LANDMARK_MENHIR_NODE]) < 1) //if no nodes remain whatsoever, don't trigger event
 				. = FALSE
-			if (length(rooms_made) > 2) //maximum of 3 rooms per round
-				. = FALSE
+			if (natural_event) //do we have a valid outcome? skip this for triggers through special_eval, which are taking care of this on their own
+				var/direction_eligibility = 0
+				for (var/turf/T in landmarks[LANDMARK_MENHIR_NODE])
+					var/result = nodetagcheck(landmarks[LANDMARK_MENHIR_NODE][T])
+					if(result) direction_eligibility |= result
+				var/available_gens = FALSE
+				for (var/datum/menhir_room_roll/RR in src.room_pool)
+					if (RR.base_weight > 0 && direction_eligibility & RR.entrance_side)
+						available_gens = TRUE
+						break
+				if (!available_gens)
+					. = FALSE
 
 	event_effect(source, node_override, room_override)
 		///Node the room will spawn into
@@ -502,6 +512,7 @@ ABSTRACT_TYPE(/datum/menhir_room_roll)
 		if (!room_data.map_path)
 			logTheThing(LOG_DEBUG, null, "Menhir room '[room_data.name]' has invalid map_path configuration.")
 			message_admins("Menhir room '[room_data.name]' has invalid map_path configuration.")
+			return
 
 		var/datum/mapPrefab/allocated/room_handler = get_singleton(room_data.map_path)
 
