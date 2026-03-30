@@ -10646,6 +10646,7 @@
 /obj/disposalpipe/segment/transport{
 	dir = 4
 	},
+/obj/mapping_helper/firedoor_spawn,
 /turf/simulated/floor/black,
 /area/station/science/research_director)
 "guL" = (
@@ -18319,17 +18320,17 @@
 /obj/table/reinforced/chemistry/auto{
 	name = "prep counter"
 	},
-/obj/item/clothing/glasses/spectro{
-	pixel_y = 9
-	},
-/obj/item/device/reagentscanner{
-	pixel_y = 2;
-	pixel_x = 5
-	},
 /obj/machinery/light{
 	dir = 1;
 	layer = 9.1;
 	pixel_y = 21
+	},
+/obj/machinery/glass_recycler/bar{
+	pixel_y = 7
+	},
+/obj/item/clothing/glasses/spectro{
+	pixel_y = -2;
+	pixel_x = 5
 	},
 /turf/simulated/floor/black,
 /area/station/crew_quarters/cafeteria)
@@ -31049,10 +31050,6 @@
 /area/station/crew_quarters/kitchen)
 "sDL" = (
 /obj/table/auto,
-/obj/item/storage/box/donkpocket_kit{
-	pixel_x = -10;
-	pixel_y = 9
-	},
 /obj/item/reagent_containers/food/drinks/eggnog{
 	pixel_y = 16;
 	pixel_x = 5
@@ -31060,6 +31057,13 @@
 /obj/item/reagent_containers/food/snacks/condiment/chocchips{
 	pixel_y = 4;
 	pixel_x = 7
+	},
+/obj/item/device/reagentscanner{
+	pixel_x = -9
+	},
+/obj/item/storage/box/donkpocket_kit{
+	pixel_x = -10;
+	pixel_y = 9
 	},
 /turf/simulated/floor/black,
 /area/station/crew_quarters/catering)
