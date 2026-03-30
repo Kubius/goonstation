@@ -11756,7 +11756,9 @@
 	icon_state = "0-2"
 	},
 /obj/machinery/power/data_terminal,
-/obj/machinery/door/airlock/pyro/glass/windoor,
+/obj/machinery/door/airlock/pyro/glass/windoor{
+	autoclose = 0
+	},
 /obj/mapping_helper/access/head_of_personnel,
 /obj/mapping_helper/access/security,
 /turf/simulated/floor/wood/two,
@@ -13427,7 +13429,9 @@
 /obj/disposalpipe/segment/brig{
 	dir = 1
 	},
-/obj/machinery/door/airlock/pyro/glass/windoor,
+/obj/machinery/door/airlock/pyro/glass/windoor{
+	autoclose = 0
+	},
 /obj/mapping_helper/access/head_of_personnel,
 /obj/mapping_helper/access/security,
 /turf/simulated/floor/wood/two,
@@ -37503,7 +37507,9 @@
 	pixel_y = 8;
 	pixel_x = 1
 	},
-/obj/machinery/door/airlock/pyro/glass/windoor,
+/obj/machinery/door/airlock/pyro/glass/windoor{
+	autoclose = 0
+	},
 /obj/mapping_helper/access/head_of_personnel,
 /obj/mapping_helper/access/security,
 /turf/simulated/floor/wood/two,
