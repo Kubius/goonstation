@@ -70,7 +70,7 @@
 			O.ArtifactDeactivated()
 			return
 		var/datum/powernet/PN = C.get_powernet()
-		if(PN.newavail <= 50000 || PN.number != drawsource.number)
+		if((PN.newavail <= 50000 && PN.avail <= 50000) || PN.number != drawsource.number)
 			O.ArtifactDeactivated()
 			return
 		if(!current_draw)
