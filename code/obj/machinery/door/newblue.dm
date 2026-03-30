@@ -108,7 +108,7 @@ ADMIN_INTERACT_PROCS(/obj/machinery/door/unpowered/blue, proc/revoke_door)
 	playsound(src.loc, 'sound/impact_sounds/Stone_Scrape_1.ogg', 50, 1)
 
 /obj/machinery/door/unpowered/blue/close()
-	if (src.locked)
+	if (src.locked && src.locks_on_open)
 		return
 
 	. = ..()
