@@ -11520,6 +11520,11 @@
 	dir = 9
 	},
 /area/station/engine/storage)
+"gUQ" = (
+/obj/machinery/plantpot,
+/obj/item/device/radio/intercom/catering,
+/turf/simulated/floor/grass,
+/area/station/hydroponics)
 "gVv" = (
 /obj/machinery/atmospherics/pipe/simple{
 	dir = 5
@@ -40052,7 +40057,6 @@
 	pixel_x = -9
 	},
 /obj/disposalpipe/trunk/mail/south,
-/obj/item/device/radio/intercom/catering,
 /obj/machinery/light_switch/north,
 /turf/simulated/floor/green/side{
 	dir = 8
@@ -90929,7 +90933,7 @@ uKA
 mSD
 pyE
 pWr
-cfw
+gUQ
 tXl
 kjX
 kjX
