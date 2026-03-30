@@ -11058,6 +11058,9 @@
 /area/station/bridge/captain)
 "gFe" = (
 /obj/landmark/gps_waypoint,
+/obj/cable{
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/black,
 /area/station/medical/research)
 "gFl" = (
@@ -15179,17 +15182,14 @@
 /turf/simulated/floor/blue,
 /area/station/science/lab)
 "jhC" = (
-/obj/mapping_helper/wingrille_spawn/auto/reinforced,
-/obj/window_blinds/cog2/left{
-	dir = 8
+/obj/machinery/door/airlock/pyro/medical{
+	dir = 4
 	},
-/obj/cable{
-	icon_state = "0-2"
+/obj/mapping_helper/firedoor_spawn,
+/obj/mapping_helper/access/medical,
+/turf/simulated/floor/blueblack{
+	dir = 5
 	},
-/obj/cable{
-	icon_state = "0-8"
-	},
-/turf/simulated/floor/plating,
 /area/station/medical/research)
 "jin" = (
 /obj/table/reinforced/bar/auto{
@@ -15779,10 +15779,16 @@
 /turf/simulated/floor,
 /area/station/hallway/primary/north)
 "jBd" = (
-/obj/machinery/door/airlock/pyro/medical,
-/obj/mapping_helper/firedoor_spawn,
-/obj/mapping_helper/access/medical,
-/turf/simulated/floor/blue,
+/obj/mapping_helper/wingrille_spawn/auto/reinforced,
+/obj/cable,
+/obj/cable{
+	icon_state = "0-4"
+	},
+/obj/cable{
+	icon_state = "0-8"
+	},
+/obj/window_blinds/cog2/middle,
+/turf/simulated/floor/plating,
 /area/station/medical/research)
 "jBi" = (
 /obj/cable{
@@ -16238,10 +16244,12 @@
 /area/station/maintenance/southwest)
 "jRw" = (
 /obj/mapping_helper/wingrille_spawn/auto/reinforced,
-/obj/window_blinds/cog2/right{
+/obj/window_blinds/cog2{
 	dir = 8
 	},
-/obj/cable,
+/obj/cable{
+	icon_state = "0-8"
+	},
 /turf/simulated/floor/plating,
 /area/station/medical/research)
 "jRE" = (
@@ -19833,6 +19841,10 @@
 	},
 /area/station/hallway/primary/central)
 "lZj" = (
+/obj/spawner/clone_rack,
+/obj/cable{
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/blueblack,
 /area/station/medical/research)
 "lZq" = (
@@ -20008,6 +20020,14 @@
 	dir = 8
 	},
 /area/station/quartermaster/office)
+"mgG" = (
+/obj/mapping_helper/wingrille_spawn/auto/reinforced,
+/obj/cable{
+	icon_state = "0-8"
+	},
+/obj/window_blinds/cog2/right,
+/turf/simulated/floor/plating,
+/area/station/medical/research)
 "mha" = (
 /obj/disposalpipe/segment/brig{
 	dir = 4
@@ -26182,16 +26202,13 @@
 /turf/simulated/floor/plating,
 /area/station/crew_quarters/kitchen)
 "pLp" = (
-/obj/machinery/door_control{
-	name = "Exit Door Control";
-	pixel_x = 23;
-	dir = 4;
-	pixel_y = 1
-	},
-/obj/mapping_helper/button/pair{
-	dir = 10
-	},
 /obj/storage/secure/closet/medical/cloning,
+/obj/machinery/light_switch/east{
+	pixel_y = 7
+	},
+/obj/blind_switch/area/east{
+	pixel_y = -5
+	},
 /turf/simulated/floor/blueblack,
 /area/station/medical/research)
 "pLV" = (
@@ -26509,7 +26526,7 @@
 	icon_state = "1-8"
 	},
 /obj/cable{
-	icon_state = "4-8"
+	icon_state = "2-8"
 	},
 /turf/simulated/floor/blueblack{
 	dir = 1
@@ -31292,6 +31309,9 @@
 /obj/cable{
 	icon_state = "1-8"
 	},
+/obj/cable{
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/blueblack{
 	dir = 1
 	},
@@ -32229,11 +32249,14 @@
 /obj/cable{
 	icon_state = "0-2"
 	},
-/obj/blind_switch/area/east{
-	pixel_y = -5
+/obj/machinery/door_control{
+	name = "Exit Door Control";
+	pixel_x = 23;
+	dir = 4;
+	pixel_y = 1
 	},
-/obj/machinery/light_switch/east{
-	pixel_y = 7
+/obj/mapping_helper/button/pair{
+	dir = 6
 	},
 /turf/simulated/floor/blueblack,
 /area/station/medical/research)
@@ -38708,7 +38731,12 @@
 	},
 /area/station/medical/medbay/pharmacy)
 "wNC" = (
-/obj/spawner/clone_rack,
+/obj/cable{
+	icon_state = "1-4"
+	},
+/obj/stool/chair/blue{
+	dir = 8
+	},
 /turf/simulated/floor/black,
 /area/station/medical/research)
 "wNI" = (
@@ -39911,7 +39939,10 @@
 /area/ghostdrone_factory)
 "xwU" = (
 /obj/mapping_helper/wingrille_spawn/auto/reinforced,
-/obj/window_blinds/cog2,
+/obj/cable{
+	icon_state = "0-4"
+	},
+/obj/window_blinds/cog2/left,
 /turf/simulated/floor/plating,
 /area/station/medical/research)
 "xwV" = (
@@ -83379,7 +83410,7 @@ wbs
 wQM
 vLI
 pLp
-xwU
+mgG
 pTu
 qra
 mXv
