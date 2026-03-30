@@ -36811,6 +36811,20 @@
 /obj/mapping_helper/wingrille_spawn/auto/reinforced,
 /turf/simulated/floor/plating,
 /area/station/engine/power)
+"vOo" = (
+/obj/machinery/door/airlock/pyro/external{
+	dir = 4
+	},
+/obj/forcefield/energyshield/perma/doorlink{
+	desc = "A door-linked force field that prevents gasses from passing through it.";
+	dir = 4;
+	name = "Door-linked Atmospheric Forcefield";
+	powerlevel = 1
+	},
+/turf/simulated/floor/grey,
+/area/station/hallway/secondary/west{
+	name = "West Shuttle Concourse"
+	})
 "vOr" = (
 /obj/fakeobject{
 	density = 1;
@@ -72488,8 +72502,8 @@ sEf
 gJj
 uan
 lou
-kPv
-kPv
+vOo
+vOo
 lou
 uan
 bqv
@@ -72499,8 +72513,8 @@ sEf
 ndo
 uan
 lou
-kPv
-kPv
+vOo
+vOo
 lou
 uan
 lBB
