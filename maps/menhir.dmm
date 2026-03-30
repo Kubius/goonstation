@@ -6492,10 +6492,6 @@
 	icon_state = "0-8"
 	},
 /obj/machinery/power/data_terminal,
-/obj/machinery/light/small{
-	dir = 1;
-	pixel_y = 21
-	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/solar/east)
 "dTr" = (
@@ -7275,6 +7271,10 @@
 /obj/submachine/weapon_vendor/fishing/portable,
 /obj/disposalpipe/segment/brig{
 	dir = 4
+	},
+/obj/machinery/light/small{
+	dir = 1;
+	pixel_y = 21
 	},
 /turf/simulated/floor/black/grime,
 /area/station/storage/hydroponics{
@@ -16550,10 +16550,6 @@
 	icon_state = "0-4"
 	},
 /obj/machinery/power/data_terminal,
-/obj/machinery/light/small{
-	dir = 1;
-	pixel_y = 21
-	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/solar/west)
 "kaC" = (
@@ -19568,6 +19564,13 @@
 	dir = 8
 	},
 /obj/disposalpipe/segment/bent/east,
+/obj/machinery/door_control{
+	id = "crusher";
+	name = "Crusher Door Control";
+	pixel_x = -24;
+	dir = 8;
+	pixel_y = 0
+	},
 /turf/simulated/floor/grime,
 /area/station/maintenance/disposal)
 "lRR" = (
@@ -22972,6 +22975,13 @@
 /area/station/security/checkpoint/sec_foyer{
 	name = "Secure Release Foyer"
 	})
+"nSr" = (
+/obj/machinery/plantpot,
+/obj/machinery/light/small,
+/turf/simulated/floor/black/grime,
+/area/station/storage/hydroponics{
+	do_not_irradiate = 1
+	})
 "nSH" = (
 /obj/disposalpipe/segment/mail,
 /turf/simulated/floor/stairs/medical/wide,
@@ -24343,6 +24353,10 @@
 /area/station/science/storage)
 "oEL" = (
 /obj/reagent_dispensers/compostbin,
+/obj/machinery/light/small{
+	dir = 1;
+	pixel_y = 21
+	},
 /turf/simulated/floor/black/grime,
 /area/station/storage/hydroponics{
 	do_not_irradiate = 1
@@ -92993,7 +93007,7 @@ vVQ
 jbE
 hYm
 ujm
-qBW
+nSr
 lxu
 lRn
 vCx
