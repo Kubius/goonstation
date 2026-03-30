@@ -211,8 +211,7 @@ TYPEINFO(/mob/living/critter/shade)
 /mob/living/critter/shade/lordly
 	name = "voice of grief"
 	desc = "They sing for us no longer."
-	health_brute = 708
-	health_burn = 708
+	health_brute = 600
 	base_move_delay = 1.3
 	base_walk_delay = 2
 	no_stamina_stuns = TRUE
