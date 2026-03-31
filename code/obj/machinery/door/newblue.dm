@@ -13,6 +13,15 @@ ADMIN_INTERACT_PROCS(/obj/machinery/door/unpowered/blue, proc/revoke_door)
 	var/needs_precursor = FALSE
 	var/locks_on_open = FALSE
 
+	ex_act()
+	blob_act()
+	meteorhit()
+	damage_heat()
+	damage_corrosive()
+	damage_piercing()
+	damage_slashing()
+	damage_blunt()
+
 	New()
 		. = ..()
 		if(src.friendly_object || src.needs_precursor)
