@@ -289,6 +289,52 @@
 		react_paths = list(/obj/item/basketball,/obj/item/chilly_orb)
 		response_string = "clicks softly. You hear a distant hum begin to rise."
 
+// event reward edition: duplicates certain whitelisted items
+/obj/rack/precursor/pressure/knot
+	layer = 2.9 //it's layering weirdly ok don't judge me
+	react_paths = list(/obj/item/reagent_containers/glass,/obj/item/reagent_containers/food/snacks,/obj/item/raw_material,/obj/item/basketball/catball)
+	response_string = "clicks softly. A strange mist begins to coalesce..."
+	var/can_place = TRUE
+/*
+	///To return landmark to the pool
+	var/saved_tag = null
+
+	New(loc, var/used_tag)
+		. = ..()
+		if(used_tag)
+			src.saved_tag = used_tag
+*/
+	attackby(obj/item/W, mob/user)
+		if(src.place_on(W, user) && src.react_paths)
+			for(var/path in src.react_paths)
+				if(istype(W,path))
+					src.can_place = FALSE
+					W.mouse_opacity = 0 //lock it in
+					playsound(src.loc, 'sound/machines/click.ogg', 10, 0, pitch = 0.7)
+					src.visible_message("<b>[src] [src.response_string]</b>")
+					SPAWN(12)
+						src.do_duplication(W)
+					break
+		return
+
+	proc/do_duplication(var/obj/item/W)
+		showswirl_out(src)
+		W.loc = src
+		W.mouse_opacity = 1
+		var/orig_type = W.type
+		var/obj/item/new_thing = new orig_type(src)
+		SPAWN(12) //allow item time to set up
+			if(W.reagents) new_thing.reagents = W.reagents
+		SPAWN(rand(54,82))
+			src.layer = 3.1 //visual fx
+			var/our_spot = get_turf(src)
+			W.loc = our_spot
+			new_thing.loc = our_spot
+			SPAWN(1)
+				showswirl_out(src)
+				//landmarks[LANDMARK_MENHIR_NODE][our_spot] = saved_tag
+				qdel(src)
+
 /obj/item/chilly_orb // borb
 	name = "chilly orb"
 	desc = "Neat."
@@ -930,6 +976,7 @@ ABSTRACT_TYPE(/datum/menhir_puzzle)
 	var/target_red = 0
 	var/target_green = 0
 	var/target_blue = 0
+	var/self_removing = FALSE //menhir: self removing puzzle elements
 	////////////////////////////
 
 	New()
@@ -994,7 +1041,7 @@ ABSTRACT_TYPE(/datum/menhir_puzzle)
 			if(active) return
 			src.active = 1
 			SPAWN(0.5 SECONDS)
-				src.active = 0
+				if(src.active == 1) src.active = 0
 
 			var/setting_red = src.effector_NE.setting_red + src.effector_SE.setting_red + src.effector_SW.setting_red + src.effector_NW.setting_red
 			var/setting_green = src.effector_NE.setting_green + src.effector_SE.setting_green + src.effector_SW.setting_green + src.effector_NW.setting_green
@@ -1020,6 +1067,7 @@ ABSTRACT_TYPE(/datum/menhir_puzzle)
 						S.update_color(setting_red / 4, setting_green / 4, setting_blue / 4)
 						if(S.active)
 							S.deactivate()
+					if(src.self_removing) src.remove_puzzle_elements()
 				else
 					for(var/obj/precursor_puzzle/shield/S in src.linked_shields)
 						S.update_color(setting_red / 4, setting_green / 4, setting_blue / 4)
@@ -1028,6 +1076,19 @@ ABSTRACT_TYPE(/datum/menhir_puzzle)
 
 
 			return
+
+		remove_puzzle_elements()
+			src.active = 2
+			SPAWN(1 SECOND)
+				for(var/obj/precursor_puzzle/P in orange(src,3))
+					if(P:id == src.id)
+						if(!P.invisibility) showswirl_out(P.loc)
+						qdel(P)
+						sleep(1)
+				sleep(2)
+				showswirl_out(src.loc)
+				qdel(src)
+
 
 
 /obj/precursor_puzzle/shield
