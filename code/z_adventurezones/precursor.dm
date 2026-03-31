@@ -325,6 +325,7 @@
 		var/obj/item/new_thing = new orig_type(src)
 		SPAWN(12) //allow item time to set up
 			if(W.reagents) new_thing.reagents = W.reagents
+			if(W.amount) new_thing.amount = W.amount
 		SPAWN(rand(54,82))
 			src.layer = 3.1 //visual fx
 			var/our_spot = get_turf(src)
