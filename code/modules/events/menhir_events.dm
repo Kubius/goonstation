@@ -111,15 +111,13 @@ ABSTRACT_TYPE(/datum/random_event/menhir)
 		var/eligible_examinees = list()
 
 		for (var/mob/living/carbon/human/H in mobs)
-			if(!isalive(H) || !istype(get_area(H),/area/station) || !isturf(H.loc))
+			if(!isalive(H) || !istype(get_area(H),/area/station) || !isturf(H.loc) || !H.client)
 				continue
+			eligible_examinees += H
 
-			if (H.client && !H.mind?.is_antagonist() && !isVRghost(H) && isalive(H))
-				eligible_examinees += H
-
-		if (length(eligible_examinees) < 1)
-			logTheThing(LOG_DEBUG, null, "Menhir analysis event couldn't find anyone to take; aborting event.")
-			message_admins("Menhir analysis event couldn't find anyone to take; aborting event.")
+		if (length(eligible_examinees) < 4)
+			logTheThing(LOG_STATION, null, "Menhir analysis event couldn't find anyone to take; skipping event.")
+			message_admins("Menhir analysis event couldn't find anyone to take; skipping event.")
 			return
 
 		var/time_of_stay = rand(50 SECONDS,90 SECONDS)
@@ -312,7 +310,7 @@ ABSTRACT_TYPE(/datum/random_event/menhir)
 /datum/random_event/menhir/powersink
 	name = "A Spire of Synthesis"
 	message_delay = 1 MINUTE
-	weight = 20
+	weight = 15
 	centcom_message = "A sustained period of elevated electromagnetic activity from TOREADOR-7I-22408 is currently underway. Personnel are advised to monitor station power grid and deactivate supply if anomalous behavior is detected."
 
 	event_effect()
