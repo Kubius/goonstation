@@ -12435,6 +12435,12 @@
 	name = "TOREADOR-7I-22408 provisional facility"
 	},
 /obj/mapping_helper/button/area,
+/obj/forcefield/energyshield/perma/doorlink{
+	desc = "A door-linked force field that prevents gasses from passing through it.";
+	dir = 4;
+	name = "Door-linked Atmospheric Forcefield";
+	powerlevel = 1
+	},
 /turf/simulated/floor/shuttlebay{
 	icon_state = "engine_caution_east"
 	},
@@ -35872,6 +35878,12 @@
 	name = "TOREADOR-7I-22408 provisional facility"
 	},
 /obj/mapping_helper/button/area,
+/obj/forcefield/energyshield/perma/doorlink{
+	desc = "A door-linked force field that prevents gasses from passing through it.";
+	dir = 4;
+	name = "Door-linked Atmospheric Forcefield";
+	powerlevel = 1
+	},
 /turf/simulated/floor/shuttlebay{
 	icon_state = "engine_caution_corners";
 	dir = 1
@@ -36238,6 +36250,12 @@
 	name = "TOREADOR-7I-22408 provisional facility"
 	},
 /obj/mapping_helper/button/area,
+/obj/forcefield/energyshield/perma/doorlink{
+	desc = "A door-linked force field that prevents gasses from passing through it.";
+	dir = 4;
+	name = "Door-linked Atmospheric Forcefield";
+	powerlevel = 1
+	},
 /turf/simulated/floor/shuttlebay{
 	icon_state = "engine_caution_corners";
 	dir = 4
