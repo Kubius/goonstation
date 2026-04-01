@@ -301,7 +301,6 @@
 	})
 "aij" = (
 /obj/decal/cleanable/dirt/jen,
-/obj/item/light_parts,
 /obj/machinery/power/apc/autoname_north/nopoweralert{
 	req_access = null;
 	start_charge = 0;
@@ -313,6 +312,7 @@
 /obj/cable{
 	icon_state = "0-8"
 	},
+/obj/reagent_dispensers/chemicalbarrel,
 /turf/simulated/floor/plating,
 /area/research_outpost/limpet/maint)
 "aiP" = (
@@ -1862,11 +1862,6 @@
 /turf/simulated/floor/black/grime,
 /area/station/engine/power)
 "beS" = (
-/obj/machinery/gravity_tether/multi_area/research_outpost{
-	req_access = null;
-	req_access_txt = "12";
-	cell_type_path = /obj/item/cell
-	},
 /obj/machinery/light/small{
 	dir = 8;
 	pixel_x = -12
@@ -1874,6 +1869,7 @@
 /obj/cable{
 	icon_state = "0-2"
 	},
+/obj/machinery/gravity_tether/multi_area/limpet,
 /turf/simulated/floor/black/grime,
 /area/research_outpost/limpet/maint)
 "beT" = (
@@ -4589,7 +4585,6 @@
 /obj/fluid_pipe/t_junction/waste{
 	dir = 1
 	},
-/obj/item/wrench,
 /obj/item/screwdriver{
 	pixel_y = 9
 	},
@@ -5443,8 +5438,9 @@
 	dir = 8;
 	icon_state = "line1"
 	},
-/obj/storage/crate/furnacefuel{
-	spawn_contents = list(/obj/item/raw_material/char = 4)
+/obj/machinery/power/furnace,
+/obj/cable{
+	icon_state = "0-6"
 	},
 /turf/simulated/floor/caution/east,
 /area/research_outpost/limpet/maint)
@@ -17717,6 +17713,9 @@
 	icon_state = "5-8"
 	},
 /obj/random_item_spawner/junk/one_or_zero,
+/obj/cable{
+	icon_state = "5-9"
+	},
 /turf/simulated/floor/plating,
 /area/research_outpost/limpet/maint)
 "kUW" = (
@@ -33253,9 +33252,11 @@
 	dir = 9;
 	icon_state = "line2"
 	},
-/obj/reagent_dispensers/chemicalbarrel,
 /obj/cable{
 	icon_state = "1-2"
+	},
+/obj/storage/crate/furnacefuel{
+	spawn_contents = list(/obj/item/raw_material/char = 4)
 	},
 /turf/simulated/floor/caution/corner/misc{
 	dir = 6
@@ -39308,6 +39309,7 @@
 /obj/fluid_pipe/straight/waste{
 	dir = 4
 	},
+/obj/item/wrench,
 /turf/simulated/floor/plating,
 /area/research_outpost/limpet/maint)
 "xBo" = (
