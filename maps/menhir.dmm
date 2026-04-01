@@ -1863,7 +1863,11 @@
 /turf/simulated/floor/black/grime,
 /area/station/engine/power)
 "beS" = (
-/obj/machinery/gravity_tether/multi_area/research_outpost,
+/obj/machinery/gravity_tether/multi_area/research_outpost{
+	target_intensity = 0;
+	req_access = null;
+	req_access_txt = "12"
+	},
 /obj/machinery/light/small{
 	dir = 8;
 	pixel_x = -12
@@ -3360,14 +3364,13 @@
 /turf/simulated/floor/black,
 /area/station/security/secwing)
 "bWV" = (
-/obj/machinery/fluid_machinery/unary/drain/inlet_pump/active{
+/obj/machinery/fluid_machinery/unary/drain/inlet_pump{
 	dir = 1
 	},
 /obj/item/storage/wall{
 	dir = 8;
 	pixel_x = 32
 	},
-/obj/decal/cleanable/dirt/jen,
 /turf/simulated/floor/sanitary/white,
 /area/research_outpost/limpet/personnel)
 "bWZ" = (
@@ -23626,10 +23629,9 @@
 /obj/cable{
 	icon_state = "4-10"
 	},
-/obj/machinery/fluid_machinery/unary/drain/inlet_pump/active{
+/obj/machinery/fluid_machinery/unary/drain/inlet_pump{
 	dir = 8
 	},
-/obj/decal/cleanable/dirt/jen,
 /turf/simulated/floor/sanitary/white,
 /area/research_outpost/limpet/personnel)
 "our" = (
@@ -38979,10 +38981,10 @@
 	},
 /area/station/hallway/primary/southeast)
 "xrW" = (
-/obj/machinery/fluid_machinery/unary/drain/inlet_pump/active{
+/obj/machinery/optable,
+/obj/machinery/fluid_machinery/unary/drain/inlet_pump{
 	dir = 4
 	},
-/obj/machinery/optable,
 /turf/simulated/floor/white,
 /area/research_outpost/limpet/personnel)
 "xsa" = (
