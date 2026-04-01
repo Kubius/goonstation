@@ -3776,6 +3776,25 @@ ABSTRACT_TYPE(/area/station/catwalk)
 		name = "Research Outpost Pathology"
 		icon_state = "pink"
 
+/area/research_outpost/limpet
+	name = "The Limpet"
+	minimaps_to_render_on = null
+	do_not_irradiate = FALSE
+
+/area/research_outpost/limpet/hangar
+	name = "Limpet Hangar"
+	icon_state = "hangar"
+	do_not_irradiate = TRUE
+
+/area/research_outpost/limpet/maint
+	name = "Limpet Equipment Room"
+	icon_state = "purple"
+	do_not_irradiate = TRUE
+
+/area/research_outpost/limpet/personnel
+	name = "Limpet Personnel Wing"
+	icon_state = "pink"
+
 // end station areas //
 
 // Salvager Spawn

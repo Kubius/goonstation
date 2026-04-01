@@ -1842,5 +1842,19 @@ Only trained personnel should operate station systems. Follow all procedures car
 	NT administration responsible for site have made the executive determination that the point of ingress is the likely origin of any hazards that may arise if the artifact is activated; attempts to activate TOREADOR-7I-22408 at other points of its casing are considered inadvisable and unlikely to produce results.<br>
 	"}
 
+/obj/item/paper/menhir_limpet_note
+	name = "crumpled note"
+	desc = "This looks written hastily."
+	icon_state = "paper_caution_crumple"
+	info = {"
+	<span style="font-family:Lucida Handwriting;">
+	shipping out soon<br>
+	they're going to take all the logs, no one outside hq will probably see them again<br>
+	IT IS NOT INACTIVE<br>
+	if they tell you it is, they're lying<br>
+	it understands you<br>
+	don't let it go<br>
+	"}
+
 #undef IMAGE_OFFSET_X
 #undef IMAGE_OFFSET_Y
