@@ -1863,13 +1863,15 @@
 /area/station/engine/power)
 "beS" = (
 /obj/machinery/gravity_tether/multi_area/research_outpost{
-	target_intensity = 0;
 	req_access = null;
 	req_access_txt = "12"
 	},
 /obj/machinery/light/small{
 	dir = 8;
 	pixel_x = -12
+	},
+/obj/cable{
+	icon_state = "0-2"
 	},
 /turf/simulated/floor/black/grime,
 /area/research_outpost/limpet/maint)
@@ -13558,6 +13560,9 @@
 /obj/cable{
 	icon_state = "5-10"
 	},
+/obj/cable{
+	icon_state = "5-9"
+	},
 /turf/simulated/floor/plating,
 /area/research_outpost/limpet/maint)
 "ipk" = (
@@ -21136,6 +21141,9 @@
 /area/station/crew_quarters/catering)
 "mZa" = (
 /obj/machinery/fluid_machinery/binary/valve/active,
+/obj/cable{
+	icon_state = "6-8"
+	},
 /turf/simulated/floor/plating,
 /area/research_outpost/limpet/maint)
 "mZm" = (
@@ -33247,6 +33255,9 @@
 	icon_state = "line2"
 	},
 /obj/reagent_dispensers/chemicalbarrel,
+/obj/cable{
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/caution/corner/misc{
 	dir = 6
 	},
@@ -33470,6 +33481,9 @@
 	},
 /obj/stool/chair{
 	dir = 4
+	},
+/obj/cable{
+	icon_state = "1-4"
 	},
 /turf/simulated/floor/caution/east,
 /area/research_outpost/limpet/maint)
