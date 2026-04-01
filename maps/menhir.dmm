@@ -1864,7 +1864,8 @@
 "beS" = (
 /obj/machinery/gravity_tether/multi_area/research_outpost{
 	req_access = null;
-	req_access_txt = "12"
+	req_access_txt = "12";
+	cell_type_path = /obj/item/cell
 	},
 /obj/machinery/light/small{
 	dir = 8;
