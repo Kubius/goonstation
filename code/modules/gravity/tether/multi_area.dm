@@ -123,7 +123,7 @@ ABSTRACT_TYPE(/obj/machinery/gravity_tether/multi_area)
 	base_area_typepath = /area/research_outpost
 	uses_area_power = TRUE
 	passive_wattage_per_g_quantum = 1 WATTS
-	cell_type_path = /obj/item/cell
+	cell_type_path = /obj/item/cell/custom //to not suck down power forever
 
 // asteroid field
 
