@@ -4586,7 +4586,6 @@
 /turf/simulated/floor/black,
 /area/station/science/research_director)
 "cHQ" = (
-/obj/decal/cleanable/dirt/jen,
 /obj/fluid_pipe/t_junction/waste{
 	dir = 1
 	},
@@ -17717,7 +17716,6 @@
 /obj/cable{
 	icon_state = "5-8"
 	},
-/obj/decal/cleanable/dirt/jen,
 /obj/random_item_spawner/junk/one_or_zero,
 /turf/simulated/floor/plating,
 /area/research_outpost/limpet/maint)
