@@ -908,6 +908,11 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/west)
+"aEl" = (
+/obj/decal/cleanable/dirt/jen,
+/obj/item/crowbar/purple,
+/turf/simulated/floor/airless/mauxite,
+/area/research_outpost/limpet)
 "aFa" = (
 /obj/cable{
 	icon_state = "4-8"
@@ -34436,12 +34441,11 @@
 /turf/simulated/floor/black,
 /area/station/hallway/primary/central)
 "uMU" = (
-/obj/decal/cleanable/dirt/jen,
-/obj/item/device/t_scanner,
 /obj/decal/tile_edge/line/black{
 	dir = 8;
 	icon_state = "line1"
 	},
+/obj/machinery/recharge_station,
 /turf/simulated/floor/airless/mauxite,
 /area/research_outpost/limpet)
 "uNh" = (
@@ -70593,7 +70597,7 @@ sEf
 sEf
 sEf
 cdU
-wZA
+aEl
 wVy
 xIs
 hXV

@@ -267,10 +267,11 @@ TYPEINFO(/mob/living/critter/shade)
 
 	was_harmed(var/mob/M as mob, var/obj/item/weapon = 0, var/special = 0, var/intent = null) // good luck pinning it down
 		. = ..()
-		var/turf/mobloc = get_turf(M)
-		M.loc = get_turf(src)
-		src.loc = mobloc
-		playsound(mobloc, 'sound/effects/mag_golem.ogg', 18, 1, pitch = 0.7)
+		if(prob(80))
+			var/turf/mobloc = get_turf(M)
+			M.loc = get_turf(src)
+			src.loc = mobloc
+			playsound(mobloc, 'sound/effects/mag_golem.ogg', 18, 1, pitch = 0.7)
 
 //menhir shade: appears only in the case of the rare invasion event. very rare
 /mob/living/critter/shade/invader
