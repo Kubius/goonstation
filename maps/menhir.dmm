@@ -2085,6 +2085,13 @@
 /obj/disposalpipe/segment/vertical,
 /turf/simulated/floor/black,
 /area/station/crew_quarters/cafeteria)
+"bkb" = (
+/obj/mapping_helper/wingrille_spawn/auto/reinforced,
+/obj/disposalpipe/segment/ejection{
+	dir = 2
+	},
+/turf/simulated/floor/plating,
+/area/station/hangar/science)
 "bks" = (
 /obj/cable{
 	icon_state = "1-8"
@@ -2682,6 +2689,9 @@
 /obj/cable{
 	icon_state = "2-8"
 	},
+/obj/disposalpipe/segment/ejection{
+	dir = 4
+	},
 /turf/simulated/floor/black/grime,
 /area/station/maintenance/inner/se{
 	name = "Southeast Auxiliary Conduit"
@@ -3254,6 +3264,9 @@
 /obj/cable{
 	icon_state = "4-8"
 	},
+/obj/disposalpipe/segment/ejection{
+	dir = 4
+	},
 /turf/simulated/floor/black/grime,
 /area/station/maintenance/inner/se{
 	name = "Southeast Auxiliary Conduit"
@@ -3644,6 +3657,16 @@
 /obj/item/storage/wall/random,
 /turf/simulated/floor/white,
 /area/research_outpost/limpet/personnel)
+"cdL" = (
+/obj/lattice{
+	dir = 10;
+	icon_state = "lattice-dir"
+	},
+/obj/machinery/mass_driver{
+	id = "menhir_yeet"
+	},
+/turf/space,
+/area/space)
 "cdN" = (
 /obj/machinery/networked/storage/tape_drive{
 	bank_id = "Control";
@@ -5291,6 +5314,9 @@
 /area/station/science/artifact)
 "dgq" = (
 /obj/landmark/gps_waypoint,
+/obj/disposalpipe/segment/ejection{
+	dir = 4
+	},
 /turf/simulated/floor/purpleblack{
 	dir = 4
 	},
@@ -7404,6 +7430,15 @@
 /area/station/hallway/secondary/exit{
 	name = "Primary Docking Wing"
 	})
+"exr" = (
+/obj/disposalpipe/trunk/north,
+/obj/machinery/conveyor/WE{
+	name = "loading belt - east";
+	operating = 1
+	},
+/obj/disposaloutlet/east,
+/turf/simulated/floor/plating/airless,
+/area/space)
 "exv" = (
 /obj/laser_sink/mirror,
 /obj/machinery/door_control{
@@ -9407,6 +9442,19 @@
 	},
 /turf/simulated/floor/engine,
 /area/station/science/teleporter)
+"fOo" = (
+/obj/mesh/catwalk,
+/obj/cable{
+	icon_state = "4-8"
+	},
+/obj/disposalpipe/segment/ejection{
+	dir = 8;
+	icon_state = "pipe-c"
+	},
+/turf/simulated/floor/black/grime,
+/area/station/maintenance/inner/se{
+	name = "Southeast Auxiliary Conduit"
+	})
 "fOs" = (
 /obj/cable{
 	icon_state = "1-10"
@@ -9593,6 +9641,9 @@
 /obj/machinery/power/data_terminal,
 /turf/simulated/floor/black,
 /area/station/turret_protected/Zeta)
+"fWc" = (
+/turf/simulated/wall/auto/reinforced/supernorn,
+/area/space)
 "fWv" = (
 /obj/cable{
 	icon_state = "1-2"
@@ -9925,6 +9976,9 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/solar/east)
 "ggc" = (
+/obj/disposalpipe/segment/ejection{
+	dir = 2
+	},
 /turf/simulated/floor/shuttlebay{
 	icon_state = "engine_caution_corners"
 	},
@@ -10826,7 +10880,7 @@
 	dir = 4
 	},
 /obj/machinery/activation_button/flusher_button{
-	id = "dangerflush";
+	id = "cargo_downdahall";
 	name = "Chute Activator";
 	pixel_x = 21;
 	dir = 8;
@@ -11648,6 +11702,10 @@
 /area/station/maintenance/inner/sw{
 	name = "Southwest Auxiliary Conduit"
 	})
+"hlz" = (
+/obj/machinery/launcher_loader/south,
+/turf/simulated/floor/plating/airless,
+/area/space)
 "hlO" = (
 /obj/machinery/manufacturer/robotics,
 /turf/simulated/floor/grey,
@@ -13209,6 +13267,13 @@
 /obj/disposalpipe/segment/mail,
 /turf/simulated/floor/carpet/grime,
 /area/station/security/detectives_office)
+"idj" = (
+/obj/disposalpipe/segment/ejection{
+	dir = 4;
+	icon_state = "pipe-c"
+	},
+/turf/simulated/floor/black,
+/area/station/science/artifact)
 "iea" = (
 /obj/storage/secure/closet/courtroom,
 /turf/simulated/floor/wood/two,
@@ -13332,6 +13397,9 @@
 /obj/disposalpipe/segment/mail,
 /obj/cable{
 	icon_state = "2-4"
+	},
+/obj/disposalpipe/segment/ejection{
+	dir = 4
 	},
 /turf/simulated/floor/black/grime,
 /area/station/maintenance/inner/se{
@@ -16466,6 +16534,10 @@
 /area/station/science/bot_storage)
 "kgp" = (
 /obj/mesh/catwalk,
+/obj/disposalpipe/segment/ejection{
+	dir = 4;
+	icon_state = "pipe-c"
+	},
 /turf/simulated/floor/black/grime,
 /area/station/maintenance/inner/se{
 	name = "Southeast Auxiliary Conduit"
@@ -18661,6 +18733,15 @@
 	dir = 1
 	},
 /area/station/hallway/primary/west)
+"lyI" = (
+/obj/disposalpipe/segment/ejection{
+	dir = 2;
+	icon_state = "pipe-c"
+	},
+/turf/simulated/floor/shuttlebay{
+	icon_state = "engine_caution_west"
+	},
+/area/station/hangar/science)
 "lzd" = (
 /obj/cable{
 	icon_state = "1-2"
@@ -20329,7 +20410,7 @@
 /obj/machinery/camera/directional/north,
 /obj/machinery/floorflusher{
 	desc = "It's totally not just a gigantic disposal chute! Quartermasters can use this one to move goods further into the hall.";
-	id = "dangerflush";
+	id = "cargo_downdahall";
 	name = "cargo relocation chute"
 	},
 /obj/disposalpipe/trunk/west,
@@ -21777,6 +21858,9 @@
 	},
 /obj/cable{
 	icon_state = "1-8"
+	},
+/obj/disposalpipe/segment/ejection{
+	dir = 4
 	},
 /turf/simulated/floor/black/grime,
 /area/station/maintenance/inner/se{
@@ -27314,6 +27398,9 @@
 /obj/cable{
 	icon_state = "5-8"
 	},
+/obj/disposalpipe/segment/ejection{
+	dir = 4
+	},
 /turf/simulated/floor/purpleblack{
 	dir = 8
 	},
@@ -27803,15 +27890,16 @@
 /area/station/crown)
 "qXk" = (
 /obj/machinery/floorflusher{
-	desc = "It's totally not just a gigantic disposal chute! This one seems to not operate automatically.";
-	id = "cargo_moveaside";
-	name = "manual loading chutes"
+	desc = "Funny space bomb goes here.";
+	id = "dangerflush";
+	name = "manual loading chute"
 	},
 /obj/machinery/light{
 	dir = 4;
 	layer = 9.1;
 	pixel_x = 10
 	},
+/obj/disposalpipe/trunk/west,
 /turf/simulated/floor/black,
 /area/station/science/artifact)
 "qXo" = (
@@ -28016,6 +28104,13 @@
 	},
 /turf/simulated/floor/black/grime,
 /area/station/maintenance/disposal)
+"rdG" = (
+/obj/machinery/conveyor/WE{
+	name = "loading belt - east";
+	operating = 1
+	},
+/turf/simulated/floor/plating/airless,
+/area/space)
 "rdO" = (
 /obj/machinery/door/airlock/pyro/maintenance{
 	dir = 4
@@ -33474,6 +33569,18 @@
 	},
 /turf/simulated/floor/carpet/blue/fancy/edge/south,
 /area/station/crew_quarters/md)
+"unr" = (
+/obj/mesh/catwalk,
+/obj/cable{
+	icon_state = "4-8"
+	},
+/obj/disposalpipe/segment/ejection{
+	dir = 4
+	},
+/turf/simulated/floor/black/grime,
+/area/station/maintenance/inner/se{
+	name = "Southeast Auxiliary Conduit"
+	})
 "unv" = (
 /obj/decal/tile_edge/line/black{
 	dir = 8;
@@ -33950,6 +34057,15 @@
 	},
 /turf/simulated/floor/engine/glow/blue,
 /area/station/turret_protected/ai)
+"uBV" = (
+/obj/mesh/catwalk,
+/obj/disposalpipe/segment/ejection{
+	dir = 4
+	},
+/turf/simulated/floor/black/grime,
+/area/station/maintenance/inner/se{
+	name = "Southeast Auxiliary Conduit"
+	})
 "uCh" = (
 /turf/space,
 /area/shuttle/merchant_shuttle/right_station/cogmap2)
@@ -37228,6 +37344,9 @@
 /obj/cable{
 	icon_state = "4-8"
 	},
+/obj/disposalpipe/segment/ejection{
+	dir = 4
+	},
 /turf/simulated/floor/black/grime,
 /area/station/maintenance/inner/se{
 	name = "Southeast Auxiliary Conduit"
@@ -38112,6 +38231,19 @@
 /obj/disposalpipe/segment/bent/east,
 /turf/simulated/floor/specialroom/arcade,
 /area/station/janitor/office)
+"wRu" = (
+/obj/mesh/catwalk,
+/obj/cable{
+	icon_state = "4-8"
+	},
+/obj/disposalpipe/segment/ejection{
+	dir = 1;
+	icon_state = "pipe-c"
+	},
+/turf/simulated/floor/black/grime,
+/area/station/maintenance/inner/se{
+	name = "Southeast Auxiliary Conduit"
+	})
 "wRG" = (
 /obj/machinery/door/airlock/pyro/external,
 /turf/simulated/floor/engine/caution/misc,
@@ -39576,6 +39708,9 @@
 /obj/cable{
 	icon_state = "4-8"
 	},
+/obj/disposalpipe/segment/ejection{
+	dir = 4
+	},
 /turf/simulated/floor/purpleblack{
 	dir = 4
 	},
@@ -40122,6 +40257,18 @@
 /area/station/hallway/secondary/exit{
 	name = "Primary Docking Wing"
 	})
+"xWB" = (
+/obj/machinery/door/poddoor/blast{
+	name = "Artifact Loading Door";
+	dir = 4
+	},
+/obj/mapping_helper/button/area,
+/obj/decal/tile_edge/stripe/extra_big,
+/obj/disposalpipe/segment/ejection{
+	dir = 2
+	},
+/turf/simulated/floor/black,
+/area/station/science/artifact)
 "xWG" = (
 /obj/storage/secure/closet/command{
 	name = "Vessel Commissioning Supply"
@@ -91141,9 +91288,9 @@ vnv
 daa
 ufH
 tbA
-tbA
-rZj
-nxH
+idj
+xWB
+wRu
 dSc
 lpU
 rId
@@ -91445,7 +91592,7 @@ qSi
 dDA
 qXk
 iIk
-nxH
+unr
 dSc
 wcf
 rId
@@ -91747,7 +91894,7 @@ iIk
 iIk
 iIk
 iIk
-nxH
+unr
 dSc
 ltQ
 rId
@@ -92049,7 +92196,7 @@ wZD
 wZD
 chr
 jGr
-nxH
+unr
 aQT
 awd
 awd
@@ -93257,7 +93404,7 @@ irj
 jGr
 ukG
 rqr
-nxH
+unr
 dSc
 awd
 hoT
@@ -93861,7 +94008,7 @@ wZD
 lGx
 cXW
 wZD
-nxH
+unr
 dSc
 pHh
 sbV
@@ -94163,7 +94310,7 @@ wZD
 jGr
 cvo
 wZD
-nxH
+unr
 aQT
 pHh
 sEf
@@ -94465,7 +94612,7 @@ wZD
 jGr
 foM
 kgp
-nxH
+fOo
 dSc
 vRc
 sEf
@@ -94766,7 +94913,7 @@ jZF
 jZF
 jZF
 foM
-kgp
+uBV
 nxH
 dSc
 jzJ
@@ -96276,18 +96423,18 @@ xfu
 aMB
 jva
 mkC
-mkC
+lyI
 ggc
-bnM
+bkb
+exr
+sbV
 qHc
 sbV
 sbV
+qHc
 sbV
 sbV
-sbV
-sbV
-sbV
-sbV
+qHc
 sbV
 sbV
 xqm
@@ -96581,18 +96728,18 @@ vYT
 vYT
 mFa
 bnM
-xqm
+rdG
+hTK
+tvx
 sEf
 sEf
+tvx
 sEf
 sEf
+tvx
 sEf
 sEf
-sEf
-sEf
-sEf
-sEf
-gxh
+tvx
 sEf
 sEf
 sEf
@@ -96883,7 +97030,8 @@ vYT
 vYT
 lsv
 bnM
-xqm
+hlz
+cdL
 sEf
 sEf
 sEf
@@ -96894,7 +97042,6 @@ sEf
 sEf
 sEf
 sEf
-tvx
 sEf
 sEf
 sEf
@@ -97185,8 +97332,8 @@ vYT
 vYT
 tnn
 xfu
-xqm
-sEf
+fWc
+bXb
 sEf
 sEf
 sEf
