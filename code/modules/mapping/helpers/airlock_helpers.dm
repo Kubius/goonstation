@@ -23,6 +23,21 @@ ABSTRACT_TYPE(/obj/mapping_helper/airlock)
 	icon_state = "welded"
 	weld = TRUE
 
+ABSTRACT_TYPE(/obj/mapping_helper/airlock/cycler)
+/obj/mapping_helper/airlock/cycler
+	name = "airlock cycler linkage"
+	// for var editing:
+	var/cycle_id = ""	//! The ID of the cycling airlock. All airlocks connected should have the same ID
+	var/enter_id = ""	//! Used within a network for things like double doors.
+
+	setup()
+		if (!src.cycle_id)
+			CRASH("[src] has no cycle ID set. Coords: [src.x], [src.y], [src.z]")
+		for (var/obj/machinery/door/airlock/D in get_turf(src))
+			D.cycle_id = src.cycle_id
+			D.cycle_enter_id = src.enter_id
+			D.attempt_cycle_link()
+
 /* How to Use:
 For standard airlocks which are just a single tile in width, you use these ones.
 This links them together by their cycle_id.
@@ -38,23 +53,12 @@ But opening an interior door will still close both space doors.
 It's different to tg's direction based one, but these can have 3 way intersections and 90 degree airlocks,
 so I feel they're better and more versatile, even if they're harder to set up.. ~Tyrant
 */
-/obj/mapping_helper/airlock/cycler
-	name = "airlock cycler linkage"
+/obj/mapping_helper/airlock/cycler/manual
+	name = "manual airlock cycler linkage"
 	icon_state = "cycle"
-	// for var editing:
-	var/cycle_id = ""	//! The ID of the cycling airlock. All airlocks connected should have the same ID
-	var/enter_id = ""	//! Used within a network for things like double doors.
-
-	setup()
-		if (!src.cycle_id)
-			CRASH("[src] has no cycle ID set. Coords: [src.x], [src.y], [src.z]")
-		for (var/obj/machinery/door/airlock/D in get_turf(src))
-			D.cycle_id = src.cycle_id
-			D.cycle_enter_id = src.enter_id
-			D.attempt_cycle_link()
 
 ABSTRACT_TYPE(/obj/mapping_helper/airlock/cycler/auto)
-///For cases when you have a set of two nearby airlocks and nothing else, this will allow setup without any variable editing.
+///For many cases when you have a simple pair of inner/outer airlocks and nothing else, this will allow setup without any variable editing.
 /obj/mapping_helper/airlock/cycler/auto
 	name = "proximity airlock cycler linkage"
 	///When looking for airlocks at either end, check for them within this radius.
