@@ -11518,6 +11518,13 @@
 	dir = 5
 	},
 /area/station/science/hall)
+"hcE" = (
+/obj/cable{
+	icon_state = "4-8"
+	},
+/mob/living/critter/small_animal/ranch_base/sheep/white/dolly/ai_controlled,
+/turf/simulated/floor/grass/leafy,
+/area/station/ranch)
 "hcJ" = (
 /turf/simulated/wall/auto/supernorn,
 /area/station/crew_quarters/baroffice)
@@ -21852,6 +21859,7 @@
 /obj/shrub{
 	dir = 10
 	},
+/obj/item/reagent_containers/food/snacks/ingredient/egg/critter/sheep,
 /turf/simulated/floor/grass/leafy,
 /area/station/ranch)
 "nue" = (
@@ -90985,7 +90993,7 @@ kjX
 xZR
 kks
 huE
-wZQ
+hcE
 ucR
 huE
 huE
