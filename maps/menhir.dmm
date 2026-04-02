@@ -12567,8 +12567,15 @@
 /obj/table/reinforced/bar/auto{
 	name = "wooden table"
 	},
-/obj/item_dispenser/idcarddispenser{
-	pixel_y = 0
+/obj/machinery/shredder{
+	pixel_y = 12
+	},
+/obj/item/toy/judge_block{
+	pixel_y = -12;
+	pixel_x = 1
+	},
+/obj/item/toy/judge_gavel{
+	pixel_y = -11
 	},
 /turf/simulated/floor/wood/two,
 /area/station/crew_quarters/courtroom)
@@ -14913,6 +14920,9 @@
 	})
 "jfm" = (
 /obj/machinery/chem_dispenser/alcohol,
+/obj/machinery/shipalert{
+	pixel_y = 26
+	},
 /turf/simulated/floor/minitiles/black,
 /area/station/bridge)
 "jfn" = (
@@ -20997,8 +21007,13 @@
 /area/research_outpost/limpet/personnel)
 "mRX" = (
 /obj/machinery/manufacturer/hop_and_uniform,
-/obj/machinery/light_switch/north,
+/obj/machinery/light_switch/north{
+	pixel_x = 9
+	},
 /obj/machinery/firealarm/directional/east,
+/obj/item_dispenser/idcarddispenser{
+	pixel_x = -5
+	},
 /turf/simulated/floor/wood/two,
 /area/station/crew_quarters/courtroom)
 "mSd" = (
@@ -24921,10 +24936,18 @@
 	pixel_y = 19;
 	pixel_x = 9
 	},
-/obj/item/storage/toolbox/emergency{
-	pixel_y = 3
-	},
 /obj/blind_switch/area/west,
+/obj/item/reagent_containers/syringe/haloperidol{
+	pixel_x = -5;
+	pixel_y = 4
+	},
+/obj/item/reagent_containers/syringe/haloperidol{
+	pixel_x = 3;
+	pixel_y = 5
+	},
+/obj/item/storage/toolbox/emergency{
+	pixel_y = -2
+	},
 /turf/simulated/floor/specialroom/medbay,
 /area/station/medical/staff)
 "oYR" = (
