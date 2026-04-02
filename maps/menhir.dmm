@@ -4389,7 +4389,6 @@
 "cBP" = (
 /obj/decal/cleanable/dirt/jen,
 /obj/fluid_pipe/straight/supply,
-/obj/machinery/light_switch/east,
 /turf/simulated/floor/white,
 /area/research_outpost/limpet/personnel)
 "cBR" = (
@@ -7730,6 +7729,7 @@
 	pixel_y = 15
 	},
 /obj/decal/cleanable/dirt/jen,
+/obj/machinery/light_switch/west,
 /turf/simulated/floor/white,
 /area/research_outpost/limpet/personnel)
 "eIf" = (
@@ -11097,6 +11097,17 @@
 /obj/mapping_helper/access/chapel_office,
 /turf/simulated/floor/black,
 /area/station/chapel/office)
+"gMj" = (
+/obj/lattice{
+	dir = 1;
+	icon_state = "lattice-dir-b"
+	},
+/obj/warp_beacon/deployed{
+	beaconid = "7I-22408";
+	name = "Buoy 7I-22408"
+	},
+/turf/space,
+/area/space)
 "gMk" = (
 /obj/decal/cleanable/dirt/jen,
 /obj/fluid_pipe/elbow/supply{
@@ -11898,6 +11909,7 @@
 	layer = 9.1;
 	pixel_x = 10
 	},
+/obj/machinery/light_switch/north,
 /turf/simulated/floor/darkpurple,
 /area/research_outpost/limpet/personnel)
 "hpt" = (
@@ -27626,6 +27638,10 @@
 	icon_state = "0-4"
 	},
 /obj/machinery/power/data_terminal,
+/obj/machinery/recharger/wall{
+	dir = 8;
+	pixel_x = -24
+	},
 /turf/simulated/floor/darkpurpleblack{
 	dir = 1
 	},
@@ -28545,6 +28561,7 @@
 /obj/stool/bed,
 /obj/item/clothing/suit/bedsheet/pink,
 /obj/item/storage/wall/purple,
+/obj/machinery/light_switch/east,
 /turf/simulated/floor/darkblueblack{
 	dir = 8
 	},
@@ -35842,6 +35859,7 @@
 	pixel_x = 5
 	},
 /obj/item/clothing/mask/breath,
+/obj/machinery/light_switch/west,
 /turf/simulated/floor/black/grime,
 /area/research_outpost/limpet/hangar)
 "vBX" = (
@@ -36733,6 +36751,10 @@
 "vZZ" = (
 /obj/decal/cleanable/dirt/jen,
 /obj/machinery/vending/pizza,
+/obj/machinery/recharger/wall{
+	dir = 8;
+	pixel_x = -24
+	},
 /turf/simulated/floor/darkpurpleblack,
 /area/research_outpost/limpet)
 "waI" = (
@@ -37282,6 +37304,7 @@
 /obj/fluid_pipe/elbow/supply{
 	dir = 8
 	},
+/obj/machinery/light_switch/north,
 /turf/simulated/floor/caution/west,
 /area/research_outpost/limpet/maint)
 "wnM" = (
@@ -39024,7 +39047,6 @@
 /area/station/teleporter)
 "xnk" = (
 /obj/decal/cleanable/dirt/jen,
-/obj/machinery/light_switch/west,
 /turf/simulated/floor/darkblueblack{
 	dir = 4
 	},
@@ -68232,9 +68254,9 @@ wKU
 wKU
 nFe
 qHc
+uan
+uan
 vVB
-sEf
-sEf
 sEf
 sEf
 sEf
@@ -68532,7 +68554,7 @@ eHI
 nzE
 xrW
 wKU
-fMu
+wKU
 xqm
 sEf
 sEf
@@ -72460,9 +72482,9 @@ wKU
 wKU
 sbV
 qHc
-vVB
-sEf
-sEf
+uan
+uan
+gMj
 sEf
 sEf
 sEf
