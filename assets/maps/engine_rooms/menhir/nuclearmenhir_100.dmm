@@ -57,6 +57,13 @@
 	},
 /turf/simulated/floor/black/grime,
 /area/station/engine/monitoring)
+"bI" = (
+/obj/machinery/atmospherics/pipe/simple/insulated{
+	dir = 9;
+	can_rupture = 0
+	},
+/turf/simulated/floor/engine,
+/area/station/engine/core/nuclear)
 "bR" = (
 /obj/lattice{
 	dir = 8;
@@ -171,7 +178,8 @@
 /area/station/engine/monitoring)
 "fE" = (
 /obj/machinery/atmospherics/pipe/simple/insulated/cold{
-	dir = 6
+	dir = 6;
+	can_rupture = 0
 	},
 /turf/simulated/floor/engine,
 /area/station/engine/core/nuclear)
@@ -1435,12 +1443,6 @@
 /obj/machinery/atmospherics/pipe/simple/insulated/cold,
 /turf/simulated/floor/engine,
 /area/station/engine/core/nuclear)
-"St" = (
-/obj/machinery/atmospherics/pipe/simple/insulated{
-	dir = 9
-	},
-/turf/simulated/floor/engine,
-/area/station/engine/core/nuclear)
 "SH" = (
 /obj/machinery/power/data_terminal,
 /obj/machinery/power/nuclear/turbine_control{
@@ -2108,10 +2110,10 @@ XG
 MD
 sv
 Tq
-sk
 hK
-sk
-St
+bI
+dn
+dn
 dn
 dn
 Uz
