@@ -20170,6 +20170,9 @@
 	dir = 4;
 	icon_state = "pipe-c"
 	},
+/obj/cable{
+	icon_state = "2-8"
+	},
 /turf/simulated/floor/white,
 /area/station/science/hall)
 "muy" = (
@@ -24027,11 +24030,12 @@
 	layer = 9.1;
 	pixel_x = -10
 	},
-/obj/table/glass/reinforced/auto,
-/obj/item/paper/book/from_file/dwainedummies{
-	pixel_y = 7
-	},
 /obj/machinery/light_switch/north,
+/obj/cable{
+	icon_state = "0-4"
+	},
+/obj/machinery/power/data_terminal,
+/obj/machinery/computer/telescope,
 /turf/simulated/floor/purple,
 /area/station/science/hall)
 "oEe" = (
@@ -37539,6 +37543,9 @@
 /area/station/science/storage)
 "wxA" = (
 /obj/disposalpipe/segment/mail,
+/obj/cable{
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/purplewhite/corner{
 	dir = 1
 	},
@@ -39316,9 +39323,8 @@
 	},
 /area/station/bridge)
 "xvK" = (
-/obj/table/glass/reinforced/auto,
-/obj/item/paper/blueprint/chart/system{
-	pixel_y = 13
+/obj/stool/chair/comfy/purple{
+	dir = 1
 	},
 /turf/simulated/floor/purplewhite{
 	dir = 8
