@@ -997,17 +997,9 @@
 	layer = 9.1;
 	pixel_x = -10
 	},
-/obj/table/nanotrasen/auto,
-/obj/item/paper/menhir_advisory{
-	pixel_y = 3;
-	pixel_x = -5
-	},
-/obj/item/paper/menhir_advisory{
-	pixel_y = 3
-	},
-/obj/item/paper/menhir_advisory{
-	pixel_y = 3;
-	pixel_x = 5
+/obj/vehicle/segway{
+	desc = "A gaudy sticker delineates this as the Captain's personal segway. This affords the operator no additional dignity.";
+	name = "\improper Executive Space Segway"
 	},
 /turf/simulated/floor/minitiles/black,
 /area/station/bridge/captain)
@@ -1163,10 +1155,7 @@
 	name = "Primary Docking Wing"
 	})
 "aJR" = (
-/obj/vehicle/segway{
-	desc = "A gaudy sticker delineates this as the Captain's personal segway. This affords the operator no additional dignity.";
-	name = "\improper Executive Space Segway"
-	},
+/mob/living/critter/small_animal/cat/jones,
 /turf/simulated/floor/minitiles/black,
 /area/station/bridge/captain)
 "aKb" = (
@@ -25675,7 +25664,6 @@
 /obj/decal/tile_edge/line/black{
 	icon_state = "line1"
 	},
-/mob/living/critter/small_animal/cat/jones,
 /turf/simulated/floor/carpet/arcade,
 /area/station/bridge/captain)
 "pBg" = (
@@ -27130,6 +27118,10 @@
 /obj/item/device/light/zippo{
 	pixel_x = -9;
 	pixel_y = 4
+	},
+/obj/item/paper/menhir_advisory{
+	pixel_x = 8;
+	pixel_y = 3
 	},
 /turf/simulated/floor/black,
 /area/station/bridge)
