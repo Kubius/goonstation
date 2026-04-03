@@ -414,9 +414,9 @@ ABSTRACT_TYPE(/datum/menhir_room_roll)
 		. = ..()
 
 	///Menhir room event scales its rate of appearance based on server population
-	/// * 85 weight (slightly below other common events) at 30 pop, 210 weight (double other common events) at 80 pop
+	/// * 100 weight (in band with other common events) at 30 pop, 250 weight (~double other common events) at 80 pop
 	proc/update_weight()
-		src.weight = 10 + round(total_clients() * 2.5)
+		src.weight = 10 + round(total_clients() * 3)
 
 	admin_call(var/source)
 		if (..())

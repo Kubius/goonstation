@@ -3667,7 +3667,7 @@
 	id = "menhir_yeet"
 	},
 /turf/simulated/floor/plating/airless,
-/area/space)
+/area/station/hangar/science)
 "cdN" = (
 /obj/machinery/networked/storage/tape_drive{
 	bank_id = "Control";
@@ -4255,6 +4255,7 @@
 	icon_state = "2-8"
 	},
 /obj/disposalpipe/segment/mail,
+/obj/landmark/menhir/outreach,
 /turf/simulated/floor/white,
 /area/station/science/hall)
 "cxI" = (
@@ -7432,7 +7433,7 @@
 	},
 /obj/disposaloutlet/east,
 /turf/simulated/floor/plating/airless,
-/area/space)
+/area/station/hangar/science)
 "exv" = (
 /obj/laser_sink/mirror,
 /obj/machinery/door_control{
@@ -9646,9 +9647,6 @@
 /obj/machinery/power/data_terminal,
 /turf/simulated/floor/black,
 /area/station/turret_protected/Zeta)
-"fWc" = (
-/turf/simulated/wall/auto/reinforced/supernorn,
-/area/space)
 "fWv" = (
 /obj/cable{
 	icon_state = "1-2"
@@ -11735,7 +11733,7 @@
 "hlz" = (
 /obj/machinery/launcher_loader/south,
 /turf/simulated/floor/plating/airless,
-/area/space)
+/area/station/hangar/science)
 "hlO" = (
 /obj/machinery/manufacturer/robotics,
 /turf/simulated/floor/grey,
@@ -18596,6 +18594,14 @@
 	dir = 1
 	},
 /area/station/hallway/primary/east)
+"lsW" = (
+/obj/landmark/menhir/extrusion{
+	data = "EAST"
+	},
+/turf/simulated/wall/auto/reinforced/supernorn,
+/area/station/maintenance/outer/east{
+	name = "Escape Auxiliary Arm"
+	})
 "ltJ" = (
 /obj/machinery/conveyor/EW{
 	id = "ghostdrone_cuba";
@@ -23676,6 +23682,15 @@
 /area/station/storage/hydroponics{
 	do_not_irradiate = 1
 	})
+"orY" = (
+/obj/mapping_helper/wingrille_spawn/auto/reinforced,
+/obj/landmark/menhir/extrusion{
+	data = "WEST"
+	},
+/turf/simulated/floor/plating,
+/area/station/maintenance/outer/sw{
+	name = "Arrivals Auxiliary Arm"
+	})
 "osk" = (
 /obj/mapping_helper/wingrille_spawn/auto/reinforced,
 /obj/disposalpipe/segment/mail{
@@ -28158,7 +28173,7 @@
 	operating = 1
 	},
 /turf/simulated/floor/plating/airless,
-/area/space)
+/area/station/hangar/science)
 "rdO" = (
 /obj/machinery/door/airlock/pyro/maintenance{
 	dir = 4
@@ -37510,6 +37525,14 @@
 	},
 /turf/simulated/floor/black,
 /area/station/hangar/sec)
+"wuT" = (
+/obj/landmark/menhir/extrusion{
+	data = "WEST"
+	},
+/turf/simulated/wall/auto/reinforced/supernorn,
+/area/station/maintenance/outer/sw{
+	name = "Arrivals Auxiliary Arm"
+	})
 "wvB" = (
 /obj/table/reinforced/auto,
 /obj/item/paper_bin{
@@ -81006,17 +81029,17 @@ sEf
 lYo
 sEf
 sEf
-lYo
+sEf
+sEf
+sEf
+sEf
+sEf
 sEf
 sEf
 lYo
 sEf
 sEf
 sEf
-lYo
-sEf
-sEf
-lYo
 sEf
 sEf
 sEf
@@ -81306,10 +81329,10 @@ htJ
 nFe
 nFe
 iBj
-iBj
 mnX
 mnX
 mnX
+wuT
 mnX
 mnX
 phn
@@ -81320,8 +81343,8 @@ iBj
 phn
 phn
 phn
-iBj
-iBj
+orY
+phn
 phn
 phn
 ttp
@@ -95198,10 +95221,10 @@ fMD
 sbV
 sbV
 cpG
-cpG
 sPW
 sPW
 sPW
+lsW
 sPW
 sPW
 dNF
@@ -95502,10 +95525,10 @@ sEf
 tvx
 sEf
 sEf
-tvx
 sEf
 sEf
-tvx
+sEf
+sEf
 sEf
 sEf
 sEf
@@ -97410,7 +97433,7 @@ vYT
 vYT
 tnn
 xfu
-fWc
+xfu
 bXb
 sEf
 sEf

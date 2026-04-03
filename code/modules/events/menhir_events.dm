@@ -15,13 +15,67 @@ ABSTRACT_TYPE(/datum/random_event/menhir)
 		if(length(eligible_sites))
 			. = pick(eligible_sites)
 
+//some little fellas!
+/datum/random_event/menhir/probes
+	name = "Emissaries of the Crown"
+	message_delay = 1 MINUTE
+	weight = 150
+	var/list/deployed_probes = list()
+
+	is_event_available(ignore_time_lock)
+		. = ..()
+		if(.)
+			if (length(src.deployed_probes)) //we're already deployed!
+				. = FALSE
+
+	event_effect()
+		var/list/candidate_landmarks = list()
+		for (var/turf/T in landmarks[LANDMARK_HALLOWEEN_SPAWN])
+			candidate_landmarks += T
+		for (var/turf/T in landmarks[LANDMARK_MENHIR_OUTREACH])
+			if(istype(get_area(T),/area/station/maintenance)) continue
+			candidate_landmarks += T
+
+		var/probe_deployments = rand(8,11)
+		var/have_deployed = 0
+		SPAWN(1) //don't hold up other operations
+			var/turf/rolling_target
+			while(have_deployed < probe_deployments)
+				have_deployed++
+				rolling_target = pick(candidate_landmarks)
+				candidate_landmarks -= rolling_target
+				showswirl(rolling_target)
+				var/mob/deployed_probe = new /mob/living/critter/robotic/probe(rolling_target)
+				src.deployed_probes += deployed_probe
+				sleep(1)
+
+		SPAWN(rand(3 MINUTES, 5 MINUTES))
+			for (var/mob/M in deployed_probes)
+				if(!QDELETED(M))
+					var/turf/T = get_turf(M)
+					showswirl_out(T)
+					deployed_probes -= M
+					qdel(M)
+					sleep(1)
+			logTheThing(LOG_STATION, null, "Menhir probes event concluded.")
+			message_admins("Menhir probes event concluded.")
+
+		logTheThing(LOG_STATION, null, "Menhir probes event deployed [probe_deployments] probes.")
+		message_admins("Menhir probes event deployed [probe_deployments] probes.")
+
+		message_delay = rand(25 SECONDS,32 SECONDS)
+		..()
+		if (random_events.announce_events)
+			SPAWN(message_delay)
+				playsound_global(world, 'sound/misc/announcement_ominous.ogg', 60)
+
 //pulled one out of cold storage for ya
 /datum/random_event/menhir/gift
 	name = "A Gift from the Crown"
 	message_delay = 3 MINUTES
 
 	event_effect()
-		///Site the gift artifact spawns at; will be a node (external ball) if possible, adding a door to it and disqualifying node from further events
+		///Site the gift artifact spawns at; will sometimes be in a "node" (outer ball) if it can, adding a door to it and disqualifying node from further events
 		var/turf/nodelandmark
 		///Tag for the node the event is occurring in, when a node is selected
 		var/node_tag = null
@@ -30,15 +84,18 @@ ABSTRACT_TYPE(/datum/random_event/menhir)
 		///List of eligible walls in node mode
 		var/list/eligible_walls = list()
 
-		if(!landmarks[LANDMARK_MENHIR_NODE] || length(landmarks[LANDMARK_MENHIR_NODE]) < 1) //fallback mode: pick a curated station tile instead
+		var/can_node = TRUE
+		if(!landmarks[LANDMARK_MENHIR_NODE] || length(landmarks[LANDMARK_MENHIR_NODE]) < 1) can_node = FALSE
+
+		if(!can_node || prob(60)) //outreach mode: drop it somewhere on the station
 			nodelandmark = pick_landmark(LANDMARK_MENHIR_OUTREACH)
 			if (!istype(nodelandmark,/turf/simulated/floor) || is_blocked_turf(nodelandmark))
 				nodelandmark = get_open_outreach()
 				if(!nodelandmark)
-					logTheThing(LOG_DEBUG, null, "Menhir gift event couldn't find a fallback turf after all nodes expended; aborting event.")
-					message_admins("Menhir gift event couldn't find a fallback turf after all nodes expended; aborting event.")
+					logTheThing(LOG_DEBUG, null, "Menhir gift event couldn't find an outreach turf; aborting event.")
+					message_admins("Menhir gift event couldn't find an outreach turf; aborting event.")
 					return
-		else
+		else //node mode: pick a ball, any ball
 			nodelandmark = pick_landmark(LANDMARK_MENHIR_NODE)
 			node_tag = landmarks[LANDMARK_MENHIR_NODE][nodelandmark]
 
@@ -165,54 +222,203 @@ ABSTRACT_TYPE(/datum/random_event/menhir)
 		logTheThing(LOG_STATION, null, "Menhir analysis event at [node_tag] arm - [log_loc(nodelandmark)]")
 		message_admins("Menhir analysis event triggered at [node_tag] arm - [log_loc(nodelandmark)]")
 
-//let's take a look around
-/datum/random_event/menhir/probes
-	name = "Emissaries of the Crown"
+//the crown could just use a minute ok
+/datum/random_event/menhir/closure
+	name = "The Crown Reclusive"
 	message_delay = 1 MINUTE
-	var/list/deployed_probes = list()
+	weight = 65
 
 	is_event_available(ignore_time_lock)
 		. = ..()
 		if(.)
-			if (length(src.deployed_probes)) //we're already deployed!
+			if (!locate("menhir_entrance_bluedoor")) //don't do this more than once a round
 				. = FALSE
 
 	event_effect()
-		var/list/candidate_landmarks = list()
-		for (var/turf/T in landmarks[LANDMARK_HALLOWEEN_SPAWN])
-			candidate_landmarks += T
-		for (var/turf/T in landmarks[LANDMARK_MENHIR_OUTREACH])
-			if(istype(get_area(T),/area/station/maintenance)) continue
-			candidate_landmarks += T
+		var/obj/machinery/door/unpowered/blue/entrance = locate("menhir_entrance_bluedoor")
+		if (!entrance) //in case of manual call
+			logTheThing(LOG_DEBUG, null, "Menhir closure event couldn't find the Crown's entrance door; aborting event.")
+			message_admins("Menhir closure event couldn't find the Crown's entrance door; aborting event.")
+			return
+		var/turf/eventlandmark = get_turf(entrance)
+		entrance.locked = TRUE
+		var/delay = rand(2,12)
+		SPAWN(delay)
+			entrance.close()
+		SPAWN(delay+38)
+			entrance.revoke_door()
+		SPAWN(rand(2 MINUTES, 3 MINUTES))
+			playsound(eventlandmark, 'sound/effects/ring_happi.ogg', 55, 0, extrarange = 24, pitch = 0.3)
+			new /obj/machinery/door/unpowered/blue(eventlandmark)
 
-		var/probe_deployments = rand(8,11)
-		var/have_deployed = 0
+		playsound(eventlandmark, 'sound/effects/ring_happi.ogg', 45, 0, extrarange = 24, pitch = 0.3)
+
+		message_delay = rand(20 SECONDS,30 SECONDS)
+		..()
+		if (random_events.announce_events)
+			SPAWN(message_delay)
+				playsound_global(world, 'sound/misc/announcement_ominous.ogg', 60)
+
+		logTheThing(LOG_STATION, null, "Menhir closure event at [log_loc(eventlandmark)]")
+		message_admins("Menhir closure event triggered at [log_loc(eventlandmark)]")
+
+#define RAND_3_BY_3 1
+#define RAND_3_BY_5 2
+#define RAND_5_BY_3 3
+
+//you like rooms, right?
+/datum/random_event/menhir/extrusion
+	name = "A Place of Paths Not Taken"
+	message_delay = 3 MINUTES
+	weight = 50
+
+	is_event_available(ignore_time_lock)
+		. = ..()
+		if(.)
+			if (!landmarks[LANDMARK_MENHIR_EXTRUSION] || length(landmarks[LANDMARK_MENHIR_EXTRUSION]) < 1) //if no eligible nodes remain, do not trigger event
+				. = FALSE
+
+	event_effect()
+		var/turf/extlandmark = pick(landmarks[LANDMARK_MENHIR_EXTRUSION])
+		var/alignment = landmarks[LANDMARK_MENHIR_EXTRUSION][extlandmark]
+		var/are_we_west = FALSE
+		if (alignment == "WEST") are_we_west = TRUE
+		var/roomtype = rand(1,3)
+
+		var/list/frametiles = src.get_walls(extlandmark, are_we_west, roomtype)
+		var/list/to_area_swap = src.get_whole_coverage(extlandmark, are_we_west, roomtype)
+		var/turf/rroom_site = src.get_room_spot(extlandmark, are_we_west, roomtype)
+
+		var/area/hostarea
+		if (are_we_west)
+			hostarea = station_areas["Arrivals Auxiliary Arm"]
+		else
+			hostarea = station_areas["Escape Auxiliary Arm"]
+
+		for (var/turf/T in to_area_swap)
+			if(isarea(T.loc))
+				var/area/A = T.loc
+				A.contents -= T
+			hostarea.contents += T
+
+		for (var/turf/T in frametiles)
+			T.ReplaceWithWall()
+			leaveresidual(T)
+
+		for (var/obj/O in extlandmark)
+			if(O.anchored) qdel(O)
+		extlandmark.ReplaceWithFloor()
+		var/obj/newdoor = new /obj/machinery/door/airlock/gannets/maintenance(extlandmark)
+		newdoor.dir = WEST
+
+		var/obj/landmark/random_room/mark_plier
+		switch(roomtype)
+			if(RAND_3_BY_3) mark_plier = new /obj/landmark/random_room/size3x3(rroom_site)
+			if(RAND_3_BY_5) mark_plier = new /obj/landmark/random_room/size3x5(rroom_site)
+			if(RAND_5_BY_3) mark_plier = new /obj/landmark/random_room/size5x3(rroom_site)
+		mark_plier.apply()
+
+		message_delay = rand(1 MINUTE, 3 MINUTES)
+		..()
+		if (random_events.announce_events)
+			SPAWN(message_delay)
+				playsound_global(world, 'sound/misc/announcement_ominous.ogg', 60)
+
+		landmarks[LANDMARK_MENHIR_EXTRUSION].Remove(extlandmark)
+
+		logTheThing(LOG_STATION, null, "Menhir extrusion event at [log_loc(extlandmark)]")
+		message_admins("Menhir extrusion event triggered at [log_loc(extlandmark)]")
+
+	///Retrieves the turfs to frame out the new room.
+	proc/get_walls(var/turf/T, var/offset_to_west, var/roomtype)
+		. = list()
+		var/offset_H = 4
+		if(roomtype == RAND_5_BY_3) offset_H = 6
+		var/offset_V = 2 //applies in each direction, so total vertical span is double this plus 1
+		if(roomtype == RAND_3_BY_5) offset_V = 3
+
+		if(offset_to_west)
+			. += block(T.x - offset_H, T.y - offset_V, T.z, T.x - offset_H, T.y + offset_V, T.z) //vertical at far end
+			offset_H -= 1
+			. += block(T.x - offset_H, T.y - offset_V, T.z, T.x - 1, T.y - offset_V, T.z) //below, from far to close
+			. += block(T.x - offset_H, T.y + offset_V, T.z, T.x - 1, T.y + offset_V, T.z) //above, from far to close
+		else
+			. += block(T.x + offset_H, T.y - offset_V, T.z, T.x + offset_H, T.y + offset_V, T.z) //vertical at far end
+			offset_H -= 1
+			. += block(T.x + 1, T.y - offset_V, T.z, T.x + offset_H, T.y - offset_V, T.z) //below, from close to far
+			. += block(T.x + 1, T.y + offset_V, T.z, T.x + offset_H, T.y + offset_V, T.z) //above, from close to far
+		return
+
+	///Retrieves all turfs associated with the new room (for addition to associated area).
+	proc/get_whole_coverage(var/turf/T, var/offset_to_west, var/roomtype)
+		. = list()
+		var/offset_H = 4
+		if(roomtype == RAND_5_BY_3) offset_H = 6
+		var/offset_V = 2 //applies in each direction, so total vertical span is double this plus 1
+		if(roomtype == RAND_3_BY_5) offset_V = 3
+
+		if(offset_to_west)
+			. = block(T.x - offset_H, T.y - offset_V, T.z, T.x - 1, T.y + offset_V, T.z)
+		else
+			. = block(T.x + 1, T.y - offset_V, T.z, T.x + offset_H, T.y + offset_V, T.z)
+		return
+
+	///Retrieves the turf the event should place a random room spawner onto.
+	proc/get_room_spot(var/turf/T, var/offset_to_west, var/roomtype)
+		var/horz_bump = 1
+		if(offset_to_west)
+			if(roomtype == RAND_5_BY_3)
+				horz_bump = -5
+			else
+				horz_bump = -3
+
+		if(roomtype == RAND_3_BY_5)
+			. = locate(T.x + horz_bump, T.y - 2, T.z)
+		else
+			. = locate(T.x + horz_bump, T.y - 1, T.z)
+		return
+
+#undef RAND_3_BY_3
+#undef RAND_3_BY_5
+#undef RAND_5_BY_3
+
+//little iffy on this one, probably need some better alternatives
+/datum/random_event/menhir/apc_off
+	name = "Quiet is the Chorus"
+	message_delay = 1 MINUTE
+	weight = 35
+
+	event_effect()
+		var/list/station_areas = get_accessible_station_areas()
+		var/list/candidate_areas = list()
+		for (var/area_name in station_areas)
+			var/area/A = station_areas[area_name]
+			if(!istype(A,/area/station/maintenance) && istype(A.area_apc))
+				candidate_areas += A
+
+		var/report_num = 0
+		var/spare_areas = rand(8,16)
 		SPAWN(1) //don't hold up other operations
-			var/turf/rolling_target
-			while(have_deployed < probe_deployments)
-				have_deployed++
-				rolling_target = pick(candidate_landmarks)
-				candidate_landmarks -= rolling_target
-				showswirl(rolling_target)
-				var/mob/deployed_probe = new /mob/living/critter/robotic/probe(rolling_target)
-				src.deployed_probes += deployed_probe
+			while(length(candidate_areas) > spare_areas)
+				var/area/our_target = pick(candidate_areas)
+				candidate_areas -= our_target
+				report_num++
+				var/obj/machinery/power/apc/to_mess_with = our_target.area_apc
+				to_mess_with.operating = FALSE
+				to_mess_with.update()
+				to_mess_with.UpdateIcon()
+				SPAWN(2)
+					playsound(to_mess_with.loc, 'sound/effects/sparks1.ogg', 30, 0)
+					FLICK("apc-spark", to_mess_with)
+				SPAWN(rand(25 SECONDS, 30 SECONDS))
+					to_mess_with.operating = TRUE
+					to_mess_with.update()
+					to_mess_with.UpdateIcon()
 				sleep(1)
+			logTheThing(LOG_STATION, null, "Menhir apc_off event triggered for [report_num] areas")
+			message_admins("Menhir apc_off event triggered for [report_num] areas")
 
-		SPAWN(rand(3 MINUTES, 5 MINUTES))
-			for (var/mob/M in deployed_probes)
-				if(!QDELETED(M))
-					var/turf/T = get_turf(M)
-					showswirl_out(T)
-					deployed_probes -= M
-					qdel(M)
-					sleep(1)
-			logTheThing(LOG_STATION, null, "Menhir probes event concluded.")
-			message_admins("Menhir probes event concluded.")
-
-		logTheThing(LOG_STATION, null, "Menhir probes event deployed [probe_deployments] probes.")
-		message_admins("Menhir probes event deployed [probe_deployments] probes.")
-
-		message_delay = rand(25 SECONDS,32 SECONDS)
+		message_delay = rand(9 SECONDS,15 SECONDS)
 		..()
 		if (random_events.announce_events)
 			SPAWN(message_delay)
@@ -222,7 +428,7 @@ ABSTRACT_TYPE(/datum/random_event/menhir)
 /datum/random_event/menhir/knot
 	name = "A Receptacle of Reflection"
 	message_delay = 3 MINUTES
-	weight = 50
+	weight = 35
 
 	is_event_available(ignore_time_lock)
 		. = ..()
@@ -302,88 +508,6 @@ ABSTRACT_TYPE(/datum/random_event/menhir)
 		logTheThing(LOG_STATION, null, "Menhir knot event at [node_tag] arm - [log_loc(nodelandmark)]")
 		message_admins("Menhir knot event triggered at [node_tag] arm - [log_loc(nodelandmark)]")
 
-//the crown could just use a minute ok
-/datum/random_event/menhir/closure
-	name = "The Crown Reclusive"
-	message_delay = 1 MINUTE
-	weight = 50
-
-	is_event_available(ignore_time_lock)
-		. = ..()
-		if(.)
-			if (!locate("menhir_entrance_bluedoor")) //don't do this more than once a round
-				. = FALSE
-
-	event_effect()
-		var/obj/machinery/door/unpowered/blue/entrance = locate("menhir_entrance_bluedoor")
-		if (!entrance) //in case of manual call
-			logTheThing(LOG_DEBUG, null, "Menhir closure event couldn't find the Crown's entrance door; aborting event.")
-			message_admins("Menhir closure event couldn't find the Crown's entrance door; aborting event.")
-			return
-		var/turf/eventlandmark = get_turf(entrance)
-		entrance.locked = TRUE
-		var/delay = rand(2,12)
-		SPAWN(delay)
-			entrance.close()
-		SPAWN(delay+38)
-			entrance.revoke_door()
-		SPAWN(rand(2 MINUTES, 3 MINUTES))
-			playsound(eventlandmark, 'sound/effects/ring_happi.ogg', 55, 0, extrarange = 24, pitch = 0.3)
-			new /obj/machinery/door/unpowered/blue(eventlandmark)
-
-		playsound(eventlandmark, 'sound/effects/ring_happi.ogg', 45, 0, extrarange = 24, pitch = 0.3)
-
-		message_delay = rand(20 SECONDS,30 SECONDS)
-		..()
-		if (random_events.announce_events)
-			SPAWN(message_delay)
-				playsound_global(world, 'sound/misc/announcement_ominous.ogg', 60)
-
-		logTheThing(LOG_STATION, null, "Menhir closure event at [log_loc(eventlandmark)]")
-		message_admins("Menhir closure event triggered at [log_loc(eventlandmark)]")
-
-//little iffy on this one, probably need some better alternatives
-/datum/random_event/menhir/apc_off
-	name = "Quiet is the Chorus"
-	message_delay = 1 MINUTE
-	weight = 50
-
-	event_effect()
-		var/list/station_areas = get_accessible_station_areas()
-		var/list/candidate_areas = list()
-		for (var/area_name in station_areas)
-			var/area/A = station_areas[area_name]
-			if(!istype(A,/area/station/maintenance) && istype(A.area_apc))
-				candidate_areas += A
-
-		var/report_num = 0
-		var/spare_areas = rand(8,16)
-		SPAWN(1) //don't hold up other operations
-			while(length(candidate_areas) > spare_areas)
-				var/area/our_target = pick(candidate_areas)
-				candidate_areas -= our_target
-				report_num++
-				var/obj/machinery/power/apc/to_mess_with = our_target.area_apc
-				to_mess_with.operating = FALSE
-				to_mess_with.update()
-				to_mess_with.UpdateIcon()
-				SPAWN(2)
-					playsound(to_mess_with.loc, 'sound/effects/sparks1.ogg', 30, 0)
-					FLICK("apc-spark", to_mess_with)
-				SPAWN(rand(25 SECONDS, 30 SECONDS))
-					to_mess_with.operating = TRUE
-					to_mess_with.update()
-					to_mess_with.UpdateIcon()
-				sleep(1)
-			logTheThing(LOG_STATION, null, "Menhir apc_off event triggered for [report_num] areas")
-			message_admins("Menhir apc_off event triggered for [report_num] areas")
-
-		message_delay = rand(9 SECONDS,15 SECONDS)
-		..()
-		if (random_events.announce_events)
-			SPAWN(message_delay)
-				playsound_global(world, 'sound/misc/announcement_ominous.ogg', 60)
-
 //the crown tries out one of its more novel machines
 /datum/random_event/menhir/powersink
 	name = "A Spire of Synthesis"
@@ -428,7 +552,7 @@ ABSTRACT_TYPE(/datum/random_event/menhir)
 /datum/random_event/menhir/road
 	name = "For Parted Are The Gates"
 	message_delay = 30 SECONDS
-	weight = 2
+	weight = 8
 
 	is_event_available(ignore_time_lock)
 		. = ..()
@@ -466,7 +590,7 @@ ABSTRACT_TYPE(/datum/random_event/menhir)
 	required_elapsed_round_time = 22 MINUTES
 	centcom_headline = "ARTIFACT CONDITION ALERT"
 	centcom_message = "A massive spike in electromagnetic activity that does not match prior readings has been detected from TOREADOR-7I-22408. All personnel should immediately make ready for hazardous conditions."
-	weight = 1
+	weight = 3
 
 	is_event_available(ignore_time_lock)
 		. = ..()

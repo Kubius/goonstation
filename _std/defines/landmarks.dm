@@ -174,6 +174,7 @@
 
 //Menhir map
 #define LANDMARK_MENHIR_DOOR "menhir_door"
+#define LANDMARK_MENHIR_EXTRUSION "menhir_extrusion"
 #define LANDMARK_MENHIR_NODE "menhir_node"
 #define LANDMARK_MENHIR_OUTREACH "menhir_outreach"
 #define LANDMARK_MENHIR_PENANCE "menhir_penance"
