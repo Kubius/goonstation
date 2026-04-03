@@ -227,7 +227,7 @@ ABSTRACT_TYPE(/datum/random_event/menhir)
 /datum/random_event/menhir/closure
 	name = "The Crown Reclusive"
 	message_delay = 1 MINUTE
-	weight = 65
+	weight = 50
 
 	is_event_available(ignore_time_lock)
 		. = ..()
