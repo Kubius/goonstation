@@ -15,7 +15,7 @@ ABSTRACT_TYPE(/datum/storyteller)
 #ifdef MAP_OVERRIDE_MENHIR
 	var/menhir_event_start = 8 MINUTES
 	var/menhir_time_range = list(7 MINUTES, 10 MINUTES)
-	var/menhir_event_prob = 70
+	var/menhir_event_prob = 75
 	var/dry_cycles_before_guarantee = 2
 #endif
 
