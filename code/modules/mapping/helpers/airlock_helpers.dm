@@ -53,7 +53,6 @@ so I feel they're better and more versatile, even if they're harder to set up.. 
 			D.cycle_enter_id = src.enter_id
 			D.attempt_cycle_link()
 
-ABSTRACT_TYPE(/obj/mapping_helper/airlock/cycler/auto)
 ///For cases when you have a set of two nearby airlocks and nothing else, this will allow setup without any variable editing.
 /obj/mapping_helper/airlock/cycler/auto
 	name = "proximity airlock cycler linkage"
