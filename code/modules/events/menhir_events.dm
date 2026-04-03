@@ -229,7 +229,7 @@ ABSTRACT_TYPE(/datum/random_event/menhir)
 				var/response_tester_sound = pick('sound/effects/explosionfar.ogg','sound/effects/explosionfar.ogg','sound/musical_instruments/Gong_Rumbling.ogg')
 				our_guest.playsound_local_not_inworld(response_tester_sound, 60, 0)
 			else //test chemical reaction
-				var/response_tester_reagent = pick("ants","love","colors","transparium","psilocybin","lumen","ethanol")
+				var/response_tester_reagent = pick("love","colors","transparium","psilocybin","lumen","ethanol")
 				var/quantity = 10
 				switch(response_tester_reagent)
 					if("transparium")
