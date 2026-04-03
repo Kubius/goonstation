@@ -10,7 +10,7 @@ var/global/menhir_candidates_last_built = 0
 //Does our candidate need to be directly on a turf, and not inside anything else?
 #define EVFILTER_ONTURF 2
 //By default, anyone in Precursor areas counts as "present" as well. This filter prevents that.
-#define EVFILTER_MAIN_Z 4
+#define EVFILTER_NO_MOON 4
 
 ///Grabs (and updates, if necessary) the list of people who are present for on-station events. Provide a filter to narrow the returned pool further.
 /proc/get_menhir_event_candidates(var/filter = 0)
@@ -36,9 +36,11 @@ var/global/menhir_candidates_last_built = 0
 			if(filter & EVFILTER_ONTURF && !isturf(M.loc))
 				. -= M
 				continue
-			if(filter & EVFILTER_MAIN_Z && !isonstationz(M))
-				. -= M
-				continue
+			if(filter & EVFILTER_NO_MOON)
+				var/area/mobarea = get_area(M)
+				if(istype(mobarea,/area/precursor))
+					. -= M
+					continue
 
 	return
 
@@ -186,6 +188,8 @@ ABSTRACT_TYPE(/datum/random_event/menhir)
 	name = "The Crown Inquires"
 	message_delay = 2 MINUTES
 	weight = 80
+	///Increase the minimum required candidates each time the event goes off, to a cap.
+	var/required_candidates = 1
 
 	is_event_available(ignore_time_lock)
 		. = ..()
@@ -203,12 +207,15 @@ ABSTRACT_TYPE(/datum/random_event/menhir)
 		///Tag for the node the event is occurring in
 		var/node_tag = landmarks[LANDMARK_MENHIR_NODE][nodelandmark]
 
-		var/eligible_examinees = get_menhir_event_candidates(EVFILTER_HUMAN | EVFILTER_ONTURF | EVFILTER_MAIN_Z)
+		var/list/eligible_examinees = get_menhir_event_candidates(EVFILTER_HUMAN | EVFILTER_ONTURF | EVFILTER_NO_MOON)
+		var/candidate_num = length(eligible_examinees)
 
-		if (length(eligible_examinees) < 4)
-			logTheThing(LOG_STATION, null, "Menhir analysis event couldn't find anyone to take; skipping event.")
-			message_admins("Menhir analysis event couldn't find anyone to take; skipping event.")
+		if (candidate_num < src.required_candidates)
+			logTheThing(LOG_STATION, null, "Menhir analysis event has inadequate candidates ([candidate_num]/[src.required_candidates]); skipping event.")
+			message_admins("Menhir analysis event has inadequate candidates ([candidate_num]/[src.required_candidates]); skipping event.")
 			return
+
+		src.required_candidates = min(src.required_candidates + 2, 15)
 
 		var/time_of_stay = rand(50 SECONDS,90 SECONDS)
 		var/time_of_spook = time_of_stay * 0.3 + rand(0,15 SECONDS)
@@ -696,6 +703,6 @@ ABSTRACT_TYPE(/datum/random_event/menhir)
 
 #undef EVFILTER_HUMAN
 #undef EVFILTER_ONTURF
-#undef EVFILTER_MAIN_Z
+#undef EVFILTER_NO_MOON
 
 #endif
