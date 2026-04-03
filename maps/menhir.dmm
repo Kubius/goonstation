@@ -992,16 +992,24 @@
 	},
 /area/station/science/testchamber)
 "aGE" = (
-/obj/vehicle/segway{
-	desc = "A gaudy sticker delineates this as the Captain's personal segway. This affords the operator no additional dignity.";
-	name = "\improper Executive Space Segway"
-	},
 /obj/machinery/light{
 	dir = 8;
 	layer = 9.1;
 	pixel_x = -10
 	},
-/turf/simulated/floor/carpet/arcade,
+/obj/table/nanotrasen/auto,
+/obj/item/paper/menhir_advisory{
+	pixel_y = 3;
+	pixel_x = -5
+	},
+/obj/item/paper/menhir_advisory{
+	pixel_y = 3
+	},
+/obj/item/paper/menhir_advisory{
+	pixel_y = 3;
+	pixel_x = 5
+	},
+/turf/simulated/floor/minitiles/black,
 /area/station/bridge/captain)
 "aHj" = (
 /obj/machinery/light{
@@ -1155,10 +1163,11 @@
 	name = "Primary Docking Wing"
 	})
 "aJR" = (
-/mob/living/critter/small_animal/cat/jones{
-	dir = 8
+/obj/vehicle/segway{
+	desc = "A gaudy sticker delineates this as the Captain's personal segway. This affords the operator no additional dignity.";
+	name = "\improper Executive Space Segway"
 	},
-/turf/simulated/floor/carpet/arcade,
+/turf/simulated/floor/minitiles/black,
 /area/station/bridge/captain)
 "aKb" = (
 /obj/disposalpipe/segment/bent/east,
@@ -3903,6 +3912,10 @@
 "ckF" = (
 /obj/machinery/computer/arcade,
 /obj/machinery/camera/directional/north,
+/obj/decal/tile_edge/line/black{
+	dir = 1;
+	icon_state = "line1"
+	},
 /turf/simulated/floor/carpet/arcade,
 /area/station/bridge/captain)
 "ckH" = (
@@ -9364,10 +9377,6 @@
 	},
 /obj/table/reinforced/industrial/auto,
 /obj/item/paper/menhir_advisory{
-	pixel_x = -3;
-	pixel_y = -2
-	},
-/obj/item/paper/menhir_advisory{
 	pixel_x = -7
 	},
 /obj/item/device/t_scanner{
@@ -9378,6 +9387,10 @@
 /obj/item/clothing/glasses/toggleable/meson{
 	pixel_y = 8;
 	pixel_x = -1
+	},
+/obj/item/paper/menhir_advisory{
+	pixel_x = -3;
+	pixel_y = -2
 	},
 /turf/simulated/floor/darkpurpleblack,
 /area/station/turret_protected/incursion)
@@ -14053,11 +14066,13 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/southeast)
 "iEh" = (
-/obj/table/wood/auto,
+/obj/table/reinforced/bar/auto{
+	name = "wooden table"
+	},
 /obj/displaycase/captain{
 	pixel_y = 6
 	},
-/turf/simulated/floor/carpet/arcade,
+/turf/simulated/floor/minitiles/black,
 /area/station/bridge/captain)
 "iEm" = (
 /obj/machinery/door/airlock/pyro/maintenance,
@@ -15008,6 +15023,10 @@
 	pixel_y = 6
 	},
 /obj/machinery/light_switch/north,
+/obj/item/paper/menhir_toreador_extra{
+	pixel_y = -5;
+	pixel_x = 7
+	},
 /turf/simulated/floor/carpet/red/fancy/edge/north,
 /area/station/security/hos)
 "jis" = (
@@ -15037,6 +15056,10 @@
 	layer = 9.1;
 	pixel_x = 10
 	},
+/obj/decal/tile_edge/line/black{
+	dir = 5;
+	icon_state = "line2"
+	},
 /turf/simulated/floor/carpet/arcade,
 /area/station/bridge/captain)
 "jjt" = (
@@ -15064,6 +15087,9 @@
 "jjY" = (
 /obj/cable{
 	icon_state = "1-4"
+	},
+/obj/decal/tile_edge/line/black{
+	icon_state = "line1"
 	},
 /turf/simulated/floor/carpet/arcade,
 /area/station/bridge/captain)
@@ -17337,6 +17363,10 @@
 	pixel_x = 3
 	},
 /obj/machinery/light_switch/north,
+/obj/decal/tile_edge/line/black{
+	dir = 1;
+	icon_state = "line1"
+	},
 /turf/simulated/floor/carpet/arcade,
 /area/station/bridge/captain)
 "kIV" = (
@@ -21330,6 +21360,10 @@
 "ncj" = (
 /obj/storage/secure/closet/command/captain,
 /obj/machinery/alarm/directional/east,
+/obj/decal/tile_edge/line/black{
+	dir = 4;
+	icon_state = "line1"
+	},
 /turf/simulated/floor/carpet/arcade,
 /area/station/bridge/captain)
 "ncs" = (
@@ -21569,6 +21603,9 @@
 /obj/machinery/camera/directional/north,
 /turf/simulated/floor/specialroom/cafeteria,
 /area/station/crew_quarters/kitchen)
+"nkW" = (
+/turf/simulated/floor/minitiles/black,
+/area/station/bridge/captain)
 "nlb" = (
 /obj/fakeobject/pipe/heat{
 	dir = 5
@@ -23151,6 +23188,10 @@
 	},
 /obj/item/reagent_containers/food/drinks/tea{
 	pixel_y = -2;
+	pixel_x = -6
+	},
+/obj/item/paper/menhir_toreador_extra{
+	pixel_y = 10;
 	pixel_x = -6
 	},
 /turf/simulated/floor/carpet/purple/fancy/edge/north,
@@ -25630,6 +25671,13 @@
 	},
 /turf/simulated/floor/blueblack,
 /area/station/medical/research)
+"pAI" = (
+/obj/decal/tile_edge/line/black{
+	icon_state = "line1"
+	},
+/mob/living/critter/small_animal/cat/jones,
+/turf/simulated/floor/carpet/arcade,
+/area/station/bridge/captain)
 "pBg" = (
 /obj/table/reinforced/auto,
 /obj/machinery/networked/printer{
@@ -27303,9 +27351,14 @@
 	name = "Southwest Auxiliary Conduit"
 	})
 "qzD" = (
-/obj/table/wood/auto,
+/obj/table/reinforced/bar/auto{
+	name = "wooden table"
+	},
 /obj/machinery/recharger{
 	pixel_y = 3
+	},
+/obj/decal/tile_edge/line/black{
+	icon_state = "line1"
 	},
 /turf/simulated/floor/carpet/arcade,
 /area/station/bridge/captain)
@@ -31314,6 +31367,10 @@
 /obj/cable{
 	icon_state = "1-2"
 	},
+/obj/decal/tile_edge/line/black{
+	dir = 1;
+	icon_state = "line1"
+	},
 /turf/simulated/floor/carpet/arcade,
 /area/station/bridge/captain)
 "sUU" = (
@@ -32625,6 +32682,13 @@
 /area/station/hallway/secondary/exit{
 	name = "Primary Docking Wing"
 	})
+"tKP" = (
+/obj/decal/tile_edge/line/black{
+	dir = 4;
+	icon_state = "line1"
+	},
+/turf/simulated/floor/carpet/arcade,
+/area/station/bridge/captain)
 "tLb" = (
 /obj/cable{
 	icon_state = "2-8"
@@ -34095,6 +34159,9 @@
 /obj/machinery/power/apc/autoname_east,
 /obj/cable{
 	icon_state = "0-8"
+	},
+/obj/decal/tile_edge/line/black{
+	icon_state = "line1"
 	},
 /turf/simulated/floor/carpet/arcade,
 /area/station/bridge/captain)
@@ -36271,6 +36338,14 @@
 	dir = 8;
 	layer = 9.1;
 	pixel_x = -10
+	},
+/obj/decal/tile_edge/line/black{
+	dir = 1;
+	icon_state = "line1"
+	},
+/obj/item/paper/menhir_toreador_extra{
+	pixel_x = 11;
+	pixel_y = -3
 	},
 /turf/simulated/floor/carpet/arcade,
 /area/station/bridge/captain)
@@ -97690,8 +97765,8 @@ qfg
 kIk
 kKg
 cMQ
-jlM
-jlM
+pAI
+nkW
 aGE
 omc
 aIb
@@ -97993,7 +98068,7 @@ sUQ
 mnb
 cGT
 jjY
-jlM
+nkW
 aJR
 skY
 ldM
@@ -98295,8 +98370,8 @@ ckF
 jlM
 kCe
 uBd
-jlM
-jlM
+nkW
+nkW
 wHv
 ldM
 meW
@@ -98594,7 +98669,7 @@ qeB
 cKT
 cKT
 jiQ
-jlM
+tKP
 ncj
 qfg
 ejx

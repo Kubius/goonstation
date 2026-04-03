@@ -1822,8 +1822,7 @@ Only trained personnel should operate station systems. Follow all procedures car
 
 /obj/item/paper/menhir_advisory
 	name = "TOREADOR-7I-22408 report sheet"
-	icon_state = "artifact_form"
-	desc = "If it had adhesive on the back at one point, it doesn't anymore."
+	icon_state = "toreador_report"
 	info ={"
 	<h1>ARTIFACT ANALYSIS<br>TOREADOR-7I-22408</h1><br>
 	<h2>ORIGIN</h2>
@@ -1840,6 +1839,23 @@ Only trained personnel should operate station systems. Follow all procedures car
 	<br>
 	<h2>ADDITIONAL INFORMATION</h2>
 	NT administration responsible for site have made the executive determination that the point of ingress is the likely origin of any hazards that may arise if the artifact is activated; attempts to activate TOREADOR-7I-22408 at other points of its casing are considered inadvisable and unlikely to produce results.<br>
+	"}
+
+/obj/item/paper/menhir_toreador_extra
+	name = "TOREADOR administrative advisory"
+	icon_state = "toreador_report"
+	info ={"
+	<h1>FOR RELEASE TO MENHIR RESEARCH ENCLAVE</h1><br>
+	<h1>COMMAND STAFF ONLY</h1><br>
+	TOREADOR project personnel operating previous 7I-22408 provisional facility (designated Limpet) have experienced adverse psychological effects during prolonged staffing tours.<br>
+	<br>
+	While it is expected that this is solely the consequence of isolation in a provisional facility for extended periods, we have been unable to rule out a wide-area emanation from 7I-22408.<br>
+	<br>
+	With the construction of the Menhir Research Enclave, standard personnel rotations are expected to ameliorate this possibility; however, vigilance remains advised.<br>
+	<br>
+	<b>MANDATE: Under no circumstances is any individual going by the name of Alessi Kondaru permitted to make ingress to TOREADOR-7I-22408.</b><br>
+	<br>
+	Do not attempt to confine them if they have boarded incidentally, but docking requests should be turned down on any other procedural basis, or Protocol 7I should other basis be unavailable. Any record of contact with this individual should be expunged.<br>
 	"}
 
 /obj/item/paper/menhir_limpet_note
