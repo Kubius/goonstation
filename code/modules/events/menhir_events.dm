@@ -319,6 +319,11 @@ ABSTRACT_TYPE(/datum/random_event/menhir)
 			if(RAND_5_BY_3) mark_plier = new /obj/landmark/random_room/size5x3(rroom_site)
 		mark_plier.apply()
 
+		if(prob(60))
+			playsound(extlandmark, 'sound/effects/ring_happi.ogg', 65, 0, pitch = 0.45, extrarange = 24)
+		else
+			playsound(extlandmark, 'sound/musical_instruments/artifact/Artifact_Precursor_2.ogg', 65, 0, extrarange = 24)
+
 		message_delay = rand(1 MINUTE, 3 MINUTES)
 		..()
 		if (random_events.announce_events)
