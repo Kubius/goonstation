@@ -1,4 +1,47 @@
 #ifdef MAP_OVERRIDE_MENHIR
+///List of people who are present on station for events, updated once a cycle for events to check. SHOULD NOT BE ACCESSED DIRECTLY - use helper.
+var/global/list/menhir_local_event_candidates = list()
+///Time at which the list of people present on station for events was last updated.
+var/global/menhir_candidates_last_built = 0
+
+//-----------Bitflags for filtering events------------
+//Does our candidate need to be human?
+#define EVFILTER_HUMAN 1
+//Does our candidate need to be directly on a turf, and not inside anything else?
+#define EVFILTER_ONTURF 2
+//By default, anyone in Precursor areas counts as "present" as well. This filter prevents that.
+#define EVFILTER_MAIN_Z 4
+
+///Grabs (and updates, if necessary) the list of people who are present for on-station events. Provide a filter to narrow the returned pool further.
+/proc/get_menhir_event_candidates(var/filter = 0)
+	//Build stage
+	if(menhir_candidates_last_built < (world.time - 20 SECONDS) && !length(menhir_local_event_candidates))
+		menhir_candidates_last_built = world.time
+		menhir_local_event_candidates = list()
+
+		for (var/mob/living/L in mobs)
+			if(!isalive(L) || !L.client || ismobcritter(L))
+				continue
+			var/area/mobarea = get_area(L)
+			if(istype(mobarea,/area/station) || istype(mobarea,/area/unspace) || istype(mobarea, /area/research_outpost) || istype(mobarea, /area/precursor))
+				menhir_local_event_candidates += L
+	. = menhir_local_event_candidates
+
+	//Filter stage
+	if(filter)
+		for(var/mob/M in .)
+			if(filter & EVFILTER_HUMAN && !istype(M,/mob/living/carbon/human))
+				. -= M
+				continue
+			if(filter & EVFILTER_ONTURF && !isturf(M.loc))
+				. -= M
+				continue
+			if(filter & EVFILTER_MAIN_Z && !isonstationz(M))
+				. -= M
+				continue
+
+	return
+
 ABSTRACT_TYPE(/datum/random_event/menhir)
 /datum/random_event/menhir
 	centcom_headline = "Artifact Condition Advisory"
@@ -160,12 +203,7 @@ ABSTRACT_TYPE(/datum/random_event/menhir)
 		///Tag for the node the event is occurring in
 		var/node_tag = landmarks[LANDMARK_MENHIR_NODE][nodelandmark]
 
-		var/eligible_examinees = list()
-
-		for (var/mob/living/carbon/human/H in mobs)
-			if(!isalive(H) || !istype(get_area(H),/area/station) || !isturf(H.loc) || !H.client)
-				continue
-			eligible_examinees += H
+		var/eligible_examinees = get_menhir_event_candidates(EVFILTER_HUMAN | EVFILTER_ONTURF | EVFILTER_MAIN_Z)
 
 		if (length(eligible_examinees) < 4)
 			logTheThing(LOG_STATION, null, "Menhir analysis event couldn't find anyone to take; skipping event.")
@@ -521,6 +559,13 @@ ABSTRACT_TYPE(/datum/random_event/menhir)
 	weight = 15
 	centcom_message = "A sustained period of elevated electromagnetic activity from TOREADOR-7I-22408 is currently underway. Personnel are advised to monitor station power grid and deactivate supply if anomalous behavior is detected."
 
+	is_event_available(ignore_time_lock)
+		. = ..()
+		if(.)
+			var/list/eligible_caretakers = get_menhir_event_candidates()
+			if (!length(eligible_caretakers))
+				. = FALSE
+
 	event_effect()
 		///Location of "outreach".
 		var/turf/eventlandmark = pick_landmark(LANDMARK_MENHIR_OUTREACH)
@@ -558,7 +603,7 @@ ABSTRACT_TYPE(/datum/random_event/menhir)
 /datum/random_event/menhir/road
 	name = "For Parted Are The Gates"
 	message_delay = 30 SECONDS
-	weight = 8
+	weight = 5
 
 	is_event_available(ignore_time_lock)
 		. = ..()
@@ -596,13 +641,17 @@ ABSTRACT_TYPE(/datum/random_event/menhir)
 	required_elapsed_round_time = 22 MINUTES
 	centcom_headline = "ARTIFACT CONDITION ALERT"
 	centcom_message = "A massive spike in electromagnetic activity that does not match prior readings has been detected from TOREADOR-7I-22408. All personnel should immediately make ready for hazardous conditions."
-	weight = 3
+	weight = 2
 
 	is_event_available(ignore_time_lock)
 		. = ..()
 		if(.)
 			if (!landmarks[LANDMARK_MENHIR_DARK] || length(landmarks[LANDMARK_MENHIR_DARK]) < 1)
 				. = FALSE //they have already made their ingress
+
+			var/list/eligible_caretakers = get_menhir_event_candidates()
+			if (length(eligible_caretakers) < 8)
+				. = FALSE
 
 	event_effect()
 		if (!landmarks[LANDMARK_MENHIR_DARK] || length(landmarks[LANDMARK_MENHIR_DARK]) < 1) return //manual call safeguard
@@ -644,4 +693,9 @@ ABSTRACT_TYPE(/datum/random_event/menhir)
 
 		logTheThing(LOG_STATION, null, "Menhir shadow event triggered.")
 		message_admins("Menhir shadow event triggered.")
+
+#undef EVFILTER_HUMAN
+#undef EVFILTER_ONTURF
+#undef EVFILTER_MAIN_Z
+
 #endif
