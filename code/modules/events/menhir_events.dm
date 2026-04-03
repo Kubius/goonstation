@@ -666,7 +666,7 @@ ABSTRACT_TYPE(/datum/random_event/menhir)
 					new /mob/living/critter/shade/invader(T)
 
 		playsound_global(world, 'sound/musical_instruments/artifact/Artifact_Void_2.ogg', 70, 0, 0.45)
-		var/remusic = 115 SECONDS
+		var/remusic = 110 SECONDS
 		SPAWN(remusic)
 			playsound_global(world, 'sound/musical_instruments/artifact/Artifact_Void_2.ogg', 70, 0, 0.45)
 
