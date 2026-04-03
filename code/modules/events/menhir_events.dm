@@ -142,6 +142,7 @@ ABSTRACT_TYPE(/datum/random_event/menhir)
 /datum/random_event/menhir/analysis
 	name = "The Crown Inquires"
 	message_delay = 2 MINUTES
+	weight = 80
 
 	is_event_available(ignore_time_lock)
 		. = ..()
