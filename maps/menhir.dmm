@@ -4512,6 +4512,16 @@
 	},
 /turf/simulated/floor/grime,
 /area/station/maintenance/disposal)
+"cDY" = (
+/obj/machinery/portable_atmospherics/canister/oxygen,
+/obj/item/storage/wall{
+	dir = 8;
+	name = "stalemate resolution cabinet";
+	pixel_x = 32;
+	spawn_contents = list(/obj/item/boardgame/chess,/obj/item/furniture_parts/stool,/obj/item/furniture_parts/stool)
+	},
+/turf/simulated/floor/black/grime,
+/area/station/science/storage)
 "cEb" = (
 /turf/simulated/floor/specialroom/medbay,
 /area/station/medical/staff)
@@ -90579,7 +90589,7 @@ cdc
 uzU
 qqn
 oKB
-xyk
+cDY
 xyk
 ovF
 vBX
