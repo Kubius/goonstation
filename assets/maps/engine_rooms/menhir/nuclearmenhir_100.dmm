@@ -851,6 +851,7 @@
 /turf/simulated/floor/engine/caution/west,
 /area/station/engine/core/nuclear)
 "zQ" = (
+/obj/machinery/camera/directional/south,
 /turf/simulated/floor/engine/caution/corner,
 /area/station/engine/core/nuclear)
 "Ab" = (

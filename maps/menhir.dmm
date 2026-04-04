@@ -407,6 +407,7 @@
 	pixel_x = -6;
 	pixel_y = -1
 	},
+/obj/machinery/camera/directional/south,
 /turf/simulated/floor/orangeblack/side{
 	dir = 8
 	},
@@ -774,6 +775,15 @@
 	},
 /turf/simulated/floor,
 /area/station/hallway/primary/east)
+"awJ" = (
+/obj/disposalpipe/segment/morgue{
+	dir = 1
+	},
+/obj/machinery/camera/directional/east,
+/turf/simulated/floor/green/side{
+	dir = 4
+	},
+/area/station/hallway/primary/north)
 "axw" = (
 /obj/reagent_dispensers/watertank/fountain,
 /obj/machinery/light/small{
@@ -19293,13 +19303,6 @@
 	},
 /turf/space,
 /area/space)
-"lzK" = (
-/obj/disposalpipe/segment/transport,
-/obj/machinery/camera/directional/west{
-	pixel_y = 10
-	},
-/turf/simulated/floor,
-/area/station/hallway/primary/west)
 "lzN" = (
 /obj/table/reinforced/industrial/auto,
 /obj/item/storage/box/revimp_kit,
@@ -30016,6 +30019,7 @@
 "rHV" = (
 /obj/disposalpipe/segment/horizontal,
 /obj/disposalpipe/segment/mail,
+/obj/machinery/camera/directional/west,
 /turf/simulated/floor/grey/side{
 	dir = 8
 	},
@@ -38895,6 +38899,7 @@
 	dir = 8
 	},
 /obj/storage/crate/bin,
+/obj/random_item_spawner/junk/some,
 /turf/simulated/floor/wood/two,
 /area/station/hallway/secondary/exit{
 	name = "Primary Docking Wing"
@@ -81165,7 +81170,7 @@ ppI
 aqW
 ppI
 ppI
-lzK
+ppI
 ppI
 ppI
 ppI
@@ -89878,7 +89883,7 @@ hNP
 fMk
 fMk
 nnk
-iwf
+awJ
 nnN
 kCY
 iwf
