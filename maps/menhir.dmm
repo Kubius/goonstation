@@ -7106,6 +7106,7 @@
 /obj/stool/chair/office/blue{
 	dir = 4
 	},
+/obj/landmark/start/job/assistant,
 /turf/simulated/floor/carpet/arcade,
 /area/station/hallway/primary/north)
 "eiG" = (
@@ -15843,10 +15844,10 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/northeast)
 "jtz" = (
-/obj/stool/chair{
+/obj/stool/chair/office/blue{
 	dir = 4
 	},
-/obj/landmark/start/job/assistant,
+/obj/landmark/start/job/mail_courier,
 /turf/simulated/floor/carpet/arcade,
 /area/station/hallway/primary/north)
 "jtQ" = (
@@ -16989,12 +16990,12 @@
 /obj/stool/chair/office/blue{
 	dir = 4
 	},
-/obj/landmark/start/job/mail_courier,
 /obj/machinery/light{
 	dir = 8;
 	layer = 9.1;
 	pixel_x = -10
 	},
+/obj/landmark/start/job/assistant,
 /turf/simulated/floor/carpet/arcade,
 /area/station/hallway/primary/north)
 "kgF" = (
