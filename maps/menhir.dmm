@@ -116,11 +116,6 @@
 /obj/machinery/traymachine/morgue,
 /turf/simulated/floor/sanitary/white,
 /area/station/medical/crematorium)
-"aer" = (
-/obj/machinery/light,
-/obj/disposalpipe/segment/horizontal,
-/turf/simulated/floor/yellow/side,
-/area/station/hallway/primary/west)
 "aet" = (
 /obj/cable{
 	icon_state = "4-8"
@@ -20517,7 +20512,6 @@
 "mls" = (
 /obj/storage/secure/closet/engineering/mechanic,
 /obj/item/device/t_scanner,
-/obj/machinery/light,
 /obj/machinery/alarm/directional/east,
 /turf/simulated/floor/yellowblack{
 	dir = 1
@@ -30007,6 +30001,7 @@
 "rHf" = (
 /obj/storage/secure/closet/engineering/mechanic,
 /obj/item/device/t_scanner,
+/obj/machinery/light,
 /turf/simulated/floor/yellowblack{
 	dir = 1
 	},
@@ -31960,7 +31955,6 @@
 /area/research_outpost/limpet/maint)
 "sKr" = (
 /obj/machinery/power/data_terminal,
-/obj/machinery/light,
 /obj/cable{
 	icon_state = "0-4"
 	},
@@ -40066,6 +40060,11 @@
 /obj/disposalpipe/segment/horizontal,
 /turf/simulated/floor/sanitary/white,
 /area/station/medical/crematorium)
+"xfk" = (
+/obj/disposalpipe/segment/horizontal,
+/obj/machinery/light,
+/turf/simulated/floor/yellow/side,
+/area/station/hallway/primary/west)
 "xfl" = (
 /turf/simulated/floor/grey/corner{
 	dir = 1
@@ -81483,7 +81482,7 @@ ffh
 jBx
 hVo
 vdE
-aXg
+nYR
 aXg
 upM
 aXg
@@ -82085,7 +82084,7 @@ osZ
 lhN
 lhN
 oxh
-aer
+xBa
 rjT
 rjT
 vGr
@@ -82387,7 +82386,7 @@ aGr
 qBA
 lhN
 oxh
-xBa
+xfk
 rjT
 rJv
 uhp
