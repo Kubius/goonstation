@@ -13982,10 +13982,6 @@
 	},
 /turf/space,
 /area/station/science/lab)
-"iqK" = (
-/obj/mesh/catwalk,
-/turf/simulated/floor/black,
-/area/station/crown)
 "iqP" = (
 /obj/machinery/door/airlock/pyro/external{
 	dir = 4
@@ -25530,7 +25526,9 @@
 /area/station/hangar/sec)
 "oWo" = (
 /turf/simulated/floor/yellowblack,
-/area/space)
+/area/station/maintenance/inner/sw{
+	name = "Southwest Auxiliary Conduit"
+	})
 "oWq" = (
 /obj/reagent_dispensers/foamtank,
 /obj/decal/tile_edge/line/purple{
@@ -95652,7 +95650,7 @@ vAE
 nFa
 jqG
 wKs
-iqK
+cCb
 lhN
 lhN
 xtE
