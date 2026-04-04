@@ -17372,10 +17372,10 @@
 /turf/simulated/floor/grass,
 /area/station/hydroponics)
 "ksj" = (
-/obj/machinery/camera/directional/west,
 /obj/shrub{
 	dir = 8
 	},
+/obj/machinery/camera/ranch/directional/west,
 /turf/simulated/floor/grass/leafy,
 /area/station/ranch)
 "ksl" = (
