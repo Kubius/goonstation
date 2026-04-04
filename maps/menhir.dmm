@@ -42042,14 +42042,6 @@
 /obj/landmark/shuttle_subwoofer,
 /turf/space,
 /area/space)
-"yjQ" = (
-/obj/machinery/light{
-	dir = 4;
-	layer = 9.1;
-	pixel_x = 10
-	},
-/turf/simulated/floor/wood/two,
-/area/station/crew_quarters/fitness)
 "yki" = (
 /obj/machinery/light{
 	dir = 4;
@@ -78468,7 +78460,7 @@ vna
 wBb
 iKA
 ufS
-yjQ
+mrD
 kNo
 iXa
 ejj
