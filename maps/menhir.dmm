@@ -35469,6 +35469,16 @@
 /obj/machinery/power/data_terminal,
 /turf/simulated/floor/black,
 /area/station/science/research_director)
+"uIV" = (
+/obj/mesh/catwalk,
+/obj/disposalpipe/segment/mail{
+	dir = 4
+	},
+/obj/machinery/light/small,
+/turf/simulated/floor/black/grime,
+/area/station/maintenance/inner/se{
+	name = "Southeast Auxiliary Conduit"
+	})
 "uJG" = (
 /obj/machinery/door/airlock/pyro/glass,
 /obj/disposalpipe/segment/transport,
@@ -92386,7 +92396,7 @@ eud
 rZj
 hYF
 nxH
-dSc
+uIV
 rId
 rId
 fkW
@@ -93594,7 +93604,7 @@ wZD
 chr
 jGr
 unr
-aQT
+dSc
 awd
 awd
 jKf
