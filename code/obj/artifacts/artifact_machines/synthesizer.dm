@@ -129,6 +129,7 @@
 			/obj/item/raw_material/starstone = 0.05*completion)
 
 		drawn_energy = 0
+		initial_draw += 1 KILO WATT
 
 		SPAWN(rand(5,15))
 			var/turf/home_turf = get_turf(O)
