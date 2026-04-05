@@ -533,7 +533,7 @@ ABSTRACT_TYPE(/datum/menhir_room_roll)
 		if (random_events.announce_events)
 			SPAWN(message_delay)
 				playsound_global(world, 'sound/misc/announcement_ominous.ogg', 60)
-			if(room_data.stole_from && prob(40)) //if prob isn't 40 this is debug
+			if(room_data.stole_from && prob(60)) //if prob is 100 this is debug
 				SPAWN(message_delay + rand(2 MINUTES, 3 MINUTES))
 					var/who = generate_random_station_name()
 					command_alert(get_admonishment(room_data.stole_from), alert_origin = "Communication from [who]")
