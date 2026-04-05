@@ -49,7 +49,7 @@
 			O.visible_message(SPAN_ALERT("[O] emits a loud pop and lights up momentarily but nothing happens!"))
 			return 0
 		var/datum/powernet/PN = C.get_powernet()
-		if(PN.avail <= 50000)
+		if(PN.newavail <= 50000 && PN.avail <= 50000)
 			O.visible_message(SPAN_ALERT("[O] emits a loud pop and lights up momentarily but nothing happens!"))
 			return 0
 		src.drawsource = PN
@@ -127,6 +127,8 @@
 			/obj/item/raw_material/yuranite = 0.2*completion,\
 			/obj/item/material_piece/neutronium = 0.05*completion,\
 			/obj/item/raw_material/starstone = 0.05*completion)
+
+		drawn_energy = 0
 
 		SPAWN(rand(5,15))
 			var/turf/home_turf = get_turf(O)
