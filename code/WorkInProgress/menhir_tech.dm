@@ -80,6 +80,28 @@ TYPEINFO_NEW(/obj/effects/menhir_fog)
 		playsound(noisy_turf, weirdnoise, 70, 1)
 
 #ifdef MAP_OVERRIDE_MENHIR
+
+///Undelay verb to facilitate lowpop testing; should be removed if rotation happens
+/mob/verb/player_undelay()
+	set name = "Undelay Round"
+	set desc = "Here and ready to go? Nobody around to kick things off? Push the button!"
+	if (length(onlineAdmins))
+		boutput(src, SPAN_ALERT("An administrator is present; round undelay is at their discretion."))
+		return
+	if (!game_start_delayed || current_state > GAME_STATE_PREGAME)
+		boutput(src, SPAN_ALERT("There's no delay to undelay."))
+		return
+	if (src.client && !src.client.authenticated)
+		boutput(src, SPAN_ALERT("You must be logged in to request a round undelay."))
+		return
+	var/confirm = tgui_alert(src, "Non-administrators do not have the ability to re-delay the round start; only start the countdown when you're ready.", "Undelay Round Start?", list("Yes", "Cancel"))
+	if (confirm != "Yes")
+		return
+	game_start_delayed = !(game_start_delayed)
+	logTheThing(LOG_ADMIN, usr, "has used the public round start undelay.")
+	logTheThing(LOG_DIARY, usr, "has used the public round start undelay.", "admin")
+	boutput(world, "<b>[key_name(usr)] has used the public round start undelay.</b>")
+
 /client/proc/cmd_admin_vislayer()
 	SET_ADMIN_CAT(ADMIN_CAT_SELF)
 	set name = "Menhir Visibility Toggle"
@@ -103,4 +125,5 @@ TYPEINFO_NEW(/obj/effects/menhir_fog)
 	logTheThing(LOG_ADMIN, usr, "has [(activated ? "activated" : "deactivated")] see_invisible override.")
 	logTheThing(LOG_DIARY, usr, "has [(activated ? "activated" : "deactivated")] see_invisible override.", "admin")
 	message_admins("[key_name(usr)] has [(activated ? "activated" : "deactivated")] see_invisible override.")
+
 #endif
