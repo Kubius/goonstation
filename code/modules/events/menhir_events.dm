@@ -354,7 +354,7 @@ ABSTRACT_TYPE(/datum/random_event/menhir)
 		for (var/obj/O in extlandmark)
 			if(O.anchored) qdel(O)
 		extlandmark.ReplaceWithFloor()
-		var/obj/newdoor = new /obj/machinery/door/airlock/gannets/maintenance(extlandmark)
+		var/obj/newdoor = new /obj/machinery/door/airlock/pyro/classic(extlandmark)
 		newdoor.dir = WEST
 
 		var/obj/landmark/random_room/mark_plier
