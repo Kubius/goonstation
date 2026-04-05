@@ -24442,9 +24442,6 @@
 /obj/machinery/camera/directional/south,
 /turf/simulated/floor/black,
 /area/station/crew_quarters/catering)
-"ouU" = (
-/turf/simulated/wall/auto/reinforced/supernorn,
-/area/space)
 "ovs" = (
 /obj/rack,
 /obj/item/clothing/suit/hazard/fire,
@@ -37350,6 +37347,13 @@
 	},
 /turf/simulated/floor,
 /area/station/science/bot_storage)
+"vLc" = (
+/obj/disposalpipe/segment/morgue{
+	dir = 4
+	},
+/obj/machinery/navbeacon/guardbot_buddytime,
+/turf/simulated/floor/wood,
+/area/station/crew_quarters/cafeteria)
 "vLj" = (
 /obj/mesh/catwalk,
 /obj/disposalpipe/segment/mail{
@@ -41383,10 +41387,6 @@
 	dir = 8
 	},
 /area/station/medical/medbay/pharmacy)
-"xOv" = (
-/obj/mapping_helper/wingrille_spawn/auto/reinforced,
-/turf/simulated/floor/plating,
-/area/space)
 "xOx" = (
 /obj/cable{
 	icon_state = "1-8"
@@ -87491,7 +87491,7 @@ iAN
 hrR
 rtV
 tQl
-iec
+vLc
 oBU
 ptY
 rKZ
@@ -88479,7 +88479,7 @@ ovF
 uVW
 ovF
 jtQ
-xOv
+jtQ
 hTK
 sEf
 sEf
@@ -88782,7 +88782,7 @@ suL
 dji
 evv
 jtQ
-xOv
+jtQ
 vVB
 sEf
 sEf
@@ -89084,7 +89084,7 @@ kTD
 asH
 vTu
 ufh
-xOv
+jtQ
 sEf
 sEf
 sEf
@@ -89386,7 +89386,7 @@ rxJ
 wsE
 npi
 raP
-xOv
+jtQ
 sEf
 sEf
 sEf
@@ -89688,7 +89688,7 @@ exv
 fUm
 fUm
 uhi
-xOv
+jtQ
 sEf
 sEf
 sEf
@@ -89990,7 +89990,7 @@ qRb
 fUm
 fUm
 fUm
-xOv
+jtQ
 sEf
 sEf
 sEf
@@ -90292,7 +90292,7 @@ vda
 fUm
 fUm
 fUm
-xOv
+jtQ
 sEf
 sEf
 sEf
@@ -90594,7 +90594,7 @@ vBX
 ovF
 hbP
 ovF
-ouU
+ovF
 vVB
 sEf
 sEf
@@ -90895,7 +90895,7 @@ ovF
 ovF
 ovF
 gks
-ouU
+ovF
 bXb
 sEf
 sEf

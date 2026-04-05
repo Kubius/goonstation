@@ -45,6 +45,7 @@ TYPEINFO_NEW(/obj/effects/menhir_fog)
 	name = "blue floor"
 	desc = "This floor looks awfully strange."
 	icon = 'icons/misc/worlds.dmi'
+	pryable = FALSE
 #ifdef IN_MAP_EDITOR
 	icon_state = "old_floor2"
 #else

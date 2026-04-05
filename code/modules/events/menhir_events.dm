@@ -438,13 +438,29 @@ ABSTRACT_TYPE(/datum/random_event/menhir)
 	name = "Quiet is the Chorus"
 	message_delay = 1 MINUTE
 	weight = 35
+	var/list/ineligible_areas = list(
+		/area/station/maintenance,
+		/area/station/engine/core,
+		/area/station/engine/hotloop,
+		/area/station/engine/coldloop,
+		/area/station/engine/combustion_chamber,
+		/area/station/engine/monitoring,
+		/area/station/engine/power,
+		/area/station/crown
+	)
 
 	event_effect()
 		var/list/station_areas = get_accessible_station_areas()
 		var/list/candidate_areas = list()
 		for (var/area_name in station_areas)
 			var/area/A = station_areas[area_name]
-			if(!istype(A,/area/station/maintenance) && istype(A.area_apc))
+			var/not_eligible = FALSE
+			for (var/check_area in ineligible_areas)
+				if (istype(A,check_area))
+					not_eligible = TRUE
+					break
+			if (not_eligible) continue
+			if (istype(A.area_apc))
 				candidate_areas += A
 
 		var/report_num = 0
