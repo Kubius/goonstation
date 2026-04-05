@@ -4,13 +4,13 @@ TYPEINFO_NEW(/obj/effects/menhir_fog)
 	. = ..()
 	connects_to = typecacheof(list(/obj/effects/menhir_fog))
 /obj/effects/menhir_fog
-	name = "fog of war"
+	name = "peculiar fog"
 	desc = "Something has chosen not to be seen."
 	icon = 'icons/effects/fogofwar.dmi'
 	layer = 3.9
 	mouse_opacity = 1
 	anchored = ANCHORED
-	invisibility = INVIS_AI_EYE
+	invisibility = INVIS_FLOCK //selected so as not to block out AI more than for any particular lore implication
 #ifdef IN_MAP_EDITOR
 	icon_state = "editor"
 #else
