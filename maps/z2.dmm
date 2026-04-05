@@ -56644,7 +56644,7 @@
 "fEd" = (
 /obj/machinery/door/unpowered/blue{
 	friendly_object = /obj/item/raw_material/cobryl;
-	color = "#f7e0e0";
+	color = "#f79090";
 	name = "thrumming edifice";
 	desc = "The fissures and seams run red. That can't be good."
 	},
