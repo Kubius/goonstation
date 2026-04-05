@@ -10269,7 +10269,6 @@
 	icon_state = "0-2"
 	},
 /obj/mesh/catwalk,
-/obj/disposalpipe/segment/bent/east,
 /turf/simulated/floor/black,
 /area/station/hallway/primary/southwest)
 "gjt" = (
@@ -15740,7 +15739,6 @@
 	icon_state = "1-2"
 	},
 /obj/mapping_helper/access/maint,
-/obj/disposalpipe/segment/vertical,
 /turf/simulated/floor/black,
 /area/station/maintenance/south)
 "jri" = (
@@ -32440,7 +32438,7 @@
 /obj/cable{
 	icon_state = "1-10"
 	},
-/obj/disposalpipe/junction/middle/west,
+/obj/disposalpipe/segment/bent/south,
 /turf/simulated/floor/plating,
 /area/station/maintenance/south)
 "tbj" = (
@@ -41620,7 +41618,6 @@
 /area/station/maintenance/disposal)
 "xVY" = (
 /obj/mesh/catwalk,
-/obj/disposalpipe/trunk/west,
 /obj/machinery/disposal/transport{
 	name = "primary hallway shunt unit"
 	},
@@ -85421,8 +85418,8 @@ xFh
 xFh
 gjg
 jqP
-rUg
-rUg
+oHk
+oHk
 tbe
 nEt
 rUg
