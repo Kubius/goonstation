@@ -7002,7 +7002,7 @@
 	dir = 4
 	},
 /turf/space,
-/area/station/science/lab)
+/area/space)
 "efA" = (
 /obj/disposalpipe/switch_junction/left/north,
 /obj/mapping_helper/mailtag/qm,
@@ -13055,13 +13055,6 @@
 	dir = 1
 	},
 /area/station/medical/crematorium)
-"hOZ" = (
-/obj/lattice{
-	dir = 10;
-	icon_state = "lattice-dir"
-	},
-/turf/space,
-/area/station/science/lab)
 "hPj" = (
 /obj/cable{
 	icon_state = "1-2"
@@ -13996,13 +13989,6 @@
 /area/station/hallway/secondary/east{
 	name = "East Shuttle Concourse"
 	})
-"iqJ" = (
-/obj/lattice{
-	dir = 1;
-	icon_state = "lattice-dir"
-	},
-/turf/space,
-/area/station/science/lab)
 "iqP" = (
 /obj/machinery/door/airlock/pyro/external{
 	dir = 4
@@ -17225,13 +17211,6 @@
 	},
 /turf/simulated/floor/sanitary/white,
 /area/station/crew_quarters/bathroom)
-"kob" = (
-/obj/lattice{
-	dir = 1;
-	icon_state = "lattice-dir"
-	},
-/turf/space,
-/area/station/science/testchamber)
 "koG" = (
 /obj/decal/tile_edge/line/black{
 	dir = 4;
@@ -26335,10 +26314,6 @@
 	},
 /turf/unsimulated/floor/setpieces/bluefloor,
 /area/station/hallway/primary/southeast)
-"pAg" = (
-/obj/lattice,
-/turf/space,
-/area/station/science/testchamber)
 "pAs" = (
 /obj/decal/cleanable/dirt/jen,
 /obj/table/reinforced/industrial/auto,
@@ -33606,13 +33581,6 @@
 	name = "very reinforced wall"
 	},
 /area/station/science/lab)
-"tHO" = (
-/obj/lattice{
-	dir = 5;
-	icon_state = "lattice-dir"
-	},
-/turf/space,
-/area/station/science/lab)
 "tHS" = (
 /obj/filing_cabinet,
 /obj/noticeboard/persistent/customs/directional/north,
@@ -38220,13 +38188,6 @@
 /area/station/security/checkpoint/sec_foyer{
 	name = "Secure Release Foyer"
 	})
-"wgE" = (
-/obj/lattice{
-	dir = 5;
-	icon_state = "lattice-dir-b"
-	},
-/turf/space,
-/area/station/science/lab)
 "wgF" = (
 /obj/item/device/radio/beacon,
 /turf/unsimulated/floor/shuttle,
@@ -94829,10 +94790,10 @@ tHt
 etx
 rpN
 rId
-iqJ
-iqJ
-iqJ
-wgE
+sbV
+sbV
+sbV
+bXb
 sEf
 sEf
 sEf
@@ -95128,9 +95089,9 @@ kJH
 kJH
 pay
 tHt
-hOZ
+xqm
 eft
-tHO
+tvx
 sEf
 sEf
 sEf
@@ -95420,8 +95381,8 @@ wZD
 unr
 wYA
 pHh
-kob
-kob
+sbV
+sbV
 pHh
 kJH
 dDj
@@ -97543,7 +97504,7 @@ pHh
 pHh
 pHh
 pHh
-pAg
+qHc
 xqm
 sEf
 sEf
@@ -97838,13 +97799,13 @@ xfu
 pHh
 sbV
 qHc
-kob
-kob
-pAg
-kob
-kob
-pAg
-kob
+sbV
+sbV
+qHc
+sbV
+sbV
+qHc
+sbV
 sbV
 xqm
 sEf
