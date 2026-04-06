@@ -3312,6 +3312,12 @@
 /obj/disposalpipe/segment/bent/east,
 /turf/simulated/floor/sanitary/white,
 /area/station/crew_quarters/bathroom)
+"bVF" = (
+/obj/machinery/sink/slim{
+	dir = 1
+	},
+/turf/simulated/floor/blackwhite/side,
+/area/station/science/lab)
 "bVV" = (
 /obj/shrub{
 	dir = 10
@@ -4311,13 +4317,6 @@
 	},
 /turf/simulated/floor/grass,
 /area/station/medical/dome)
-"czX" = (
-/obj/disposalpipe/segment/mail{
-	dir = 1;
-	icon_state = "pipe-c"
-	},
-/turf/simulated/floor/plating,
-/area/station/engine/monitoring)
 "czZ" = (
 /obj/disposalpipe/segment/mail,
 /obj/landmark/gps_waypoint,
@@ -6223,7 +6222,7 @@
 	},
 /obj/machinery/camera/directional/south,
 /turf/simulated/floor/blackwhite/side,
-/area/station/science/storage)
+/area/station/engine/monitoring)
 "dKe" = (
 /obj/table/reinforced/bar/auto{
 	name = "wooden table"
@@ -7276,14 +7275,6 @@
 	icon_state = "engine_caution_east"
 	},
 /area/station/hangar/science)
-"emI" = (
-/obj/mesh/catwalk,
-/obj/disposalpipe/segment/mail{
-	dir = 4
-	},
-/obj/machinery/camera/directional/south,
-/turf/simulated/floor/black/grime,
-/area/station/science/lab)
 "enk" = (
 /obj/machinery/light_switch/west,
 /obj/shrub{
@@ -7391,7 +7382,7 @@
 	pixel_x = -12
 	},
 /turf/simulated/floor/yellowblack,
-/area/station/science/storage)
+/area/station/engine/monitoring)
 "epD" = (
 /obj/machinery/atmospherics/unary/portables_connector,
 /obj/decal/poster/wallsign/stencil/right/one{
@@ -8121,7 +8112,7 @@
 	pixel_x = 12
 	},
 /turf/simulated/floor/purpleblack,
-/area/station/science/storage)
+/area/station/science/lab)
 "eTd" = (
 /obj/cable{
 	icon_state = "1-2"
@@ -11106,7 +11097,7 @@
 	},
 /obj/random_item_spawner/junk/one_or_zero,
 /turf/simulated/floor/plating,
-/area/station/engine/monitoring)
+/area/station/maintenance/south)
 "gGd" = (
 /obj/machinery/atmospherics/binary/valve{
 	name = "heat exchanger pressure valve"
@@ -13053,7 +13044,9 @@
 /obj/disposalpipe/switch_junction/left/west,
 /obj/mapping_helper/mailtag/research,
 /turf/simulated/floor/black/grime,
-/area/station/science/lab)
+/area/station/maintenance/inner/se{
+	name = "Southeast Auxiliary Conduit"
+	})
 "hPG" = (
 /obj/cable{
 	icon_state = "4-8"
@@ -14056,7 +14049,9 @@
 	dir = 4
 	},
 /turf/simulated/floor/black/grime,
-/area/station/science/lab)
+/area/station/maintenance/inner/se{
+	name = "Southeast Auxiliary Conduit"
+	})
 "isu" = (
 /obj/disposalpipe/segment/mail{
 	dir = 4
@@ -14494,9 +14489,6 @@
 	},
 /turf/unsimulated/floor/shuttle,
 /area/shuttle/arrival/station)
-"iGl" = (
-/turf/space,
-/area/station/science/storage)
 "iGp" = (
 /obj/machinery/light,
 /turf/simulated/floor/grass/leafy,
@@ -15200,7 +15192,7 @@
 "jdM" = (
 /obj/machinery/shower,
 /turf/simulated/floor/sanitary,
-/area/station/science/storage)
+/area/station/engine/monitoring)
 "jdS" = (
 /obj/machinery/conveyor/WE{
 	id = "disposals";
@@ -22079,7 +22071,9 @@
 	},
 /obj/mapping_helper/access/maint,
 /turf/simulated/floor/black/grime,
-/area/station/science/lab)
+/area/station/maintenance/inner/se{
+	name = "Southeast Auxiliary Conduit"
+	})
 "nhG" = (
 /obj/disposalpipe/segment/vertical,
 /obj/cable{
@@ -27671,7 +27665,7 @@
 	},
 /obj/machinery/camera/directional/south,
 /turf/simulated/floor/blackwhite/side,
-/area/station/science/storage)
+/area/station/science/lab)
 "qpj" = (
 /obj/rack,
 /obj/item/sheet/steel/fullstack{
@@ -31142,7 +31136,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/blackwhite/side,
-/area/station/science/storage)
+/area/station/engine/monitoring)
 "sov" = (
 /obj/storage/closet/fire,
 /turf/simulated/floor/plating,
@@ -36038,14 +36032,6 @@
 /obj/disposalpipe/segment/bent/west,
 /turf/simulated/floor,
 /area/station/mining/refinery)
-"uYX" = (
-/obj/mesh/catwalk,
-/obj/machinery/light/small,
-/obj/disposalpipe/segment/mail{
-	dir = 4
-	},
-/turf/simulated/floor/black/grime,
-/area/station/science/lab)
 "uYY" = (
 /obj/table/auto,
 /obj/item/paper_bin{
@@ -37359,6 +37345,10 @@
 	},
 /turf/simulated/floor/grass,
 /area/station/medical/dome)
+"vLP" = (
+/obj/machinery/shower,
+/turf/simulated/floor/sanitary,
+/area/station/science/lab)
 "vMD" = (
 /obj/table/reinforced/auto,
 /obj/item/clothing/head/helmet/men{
@@ -38376,12 +38366,6 @@
 /area/station/hallway/secondary/exit{
 	name = "Primary Docking Wing"
 	})
-"wla" = (
-/obj/disposalpipe/segment/mail{
-	dir = 4
-	},
-/turf/simulated/floor/plating,
-/area/station/engine/monitoring)
 "wld" = (
 /obj/decal/stripe_delivery,
 /turf/simulated/floor/grey,
@@ -40535,7 +40519,9 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/black/grime,
-/area/station/science/lab)
+/area/station/maintenance/inner/se{
+	name = "Southeast Auxiliary Conduit"
+	})
 "xsk" = (
 /turf/simulated/wall/auto/supernorn,
 /area/station/hallway/secondary/east{
@@ -86621,7 +86607,7 @@ sNg
 sNg
 tTc
 nDQ
-sYz
+wuo
 sEf
 sEf
 sEf
@@ -86923,7 +86909,7 @@ let
 sNg
 tTc
 nDQ
-sYz
+wuo
 rkO
 sEf
 sEf
@@ -87225,7 +87211,7 @@ jkJ
 sNg
 jbL
 qhA
-czX
+cXR
 rkO
 sEf
 sEf
@@ -87527,7 +87513,7 @@ yhb
 sNg
 ect
 jCd
-wla
+nDQ
 rkO
 sEf
 sEf
@@ -87829,7 +87815,7 @@ mJx
 sNg
 mFj
 tTc
-wla
+nDQ
 rkO
 sEf
 sEf
@@ -88131,21 +88117,21 @@ oET
 sNg
 meh
 tTc
-wla
+nDQ
 vLC
 vLC
 vLC
 vLC
-rkO
+vLC
 sEf
 sEf
 sEf
-iGl
+sEf
 wfx
 wfx
 wfx
 wfx
-rkO
+wfx
 sEf
 sEf
 sEf
@@ -88735,7 +88721,7 @@ vdc
 hmY
 dzZ
 tTc
-wla
+nDQ
 wqm
 uLh
 uLh
@@ -89037,7 +89023,7 @@ rax
 hmY
 dzZ
 tTc
-wla
+nDQ
 wqm
 uLh
 uLh
@@ -89339,7 +89325,7 @@ cRK
 hmY
 wlL
 tTc
-wla
+nDQ
 sYz
 nGY
 oUq
@@ -89645,7 +89631,7 @@ nhD
 rId
 etx
 etx
-nvM
+etx
 adh
 nvM
 nvM
@@ -89947,7 +89933,7 @@ iso
 rId
 kbJ
 sFt
-jdM
+vLP
 adh
 cLN
 cLN
@@ -90249,7 +90235,7 @@ hPy
 oMj
 nWC
 nWC
-som
+bVF
 adh
 qkP
 cLN
@@ -90849,7 +90835,7 @@ ydE
 mSv
 qhv
 nxH
-uYX
+aQT
 exK
 xvO
 nry
@@ -91151,7 +91137,7 @@ iIk
 iIk
 uTI
 nxH
-emI
+wYA
 rId
 rId
 jaW
