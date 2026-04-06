@@ -180,8 +180,8 @@ ABSTRACT_TYPE(/datum/random_event/menhir)
 			logTheThing(LOG_STATION, null, "Menhir gift event at [node_tag] arm - [log_loc(nodelandmark)]")
 			message_admins("Menhir gift event triggered at [node_tag] arm - [log_loc(nodelandmark)]")
 		else
-			logTheThing(LOG_STATION, null, "Menhir gift event (fallback mode) at [log_loc(nodelandmark)]")
-			message_admins("Menhir gift event triggered (fallback mode) - [log_loc(nodelandmark)]")
+			logTheThing(LOG_STATION, null, "Menhir gift event (out-of-node) at [log_loc(nodelandmark)]")
+			message_admins("Menhir gift event triggered (out-of-node) - [log_loc(nodelandmark)]")
 
 //pick somebody out and see how they respond
 /datum/random_event/menhir/analysis
@@ -225,36 +225,51 @@ ABSTRACT_TYPE(/datum/random_event/menhir)
 		showswirl(nodelandmark)
 		our_guest.set_loc(nodelandmark)
 		SPAWN(time_of_spook) //mess with our guest a little to see how they respond
-			if(prob(60)) //sing them a little sound
-				var/response_tester_sound = pick('sound/effects/explosionfar.ogg','sound/effects/explosionfar.ogg','sound/musical_instruments/Gong_Rumbling.ogg')
-				our_guest.playsound_local_not_inworld(response_tester_sound, 80, 0)
-			else //test chemical reaction
-				var/response_tester_reagent = pick("love","colors","transparium","psilocybin","lumen","ethanol")
-				var/quantity = 10
-				switch(response_tester_reagent)
-					if("transparium")
-						quantity = 40
-					if("lumen")
-						quantity = 30
-				our_guest.reagents.add_reagent(response_tester_reagent, quantity)
-				our_guest.playsound_local_not_inworld('sound/items/hypo.ogg', 30, 0)
-				boutput(our_guest,SPAN_ALERT("You feel a small poke and see a tiny mechanical arm receding into the floor.[pick(" That can't be good."," What the hell?","")]"))
+			if(our_guest)
+				if(prob(60)) //sing them a little sound
+					var/response_tester_sound = pick('sound/effects/explosionfar.ogg','sound/effects/explosionfar.ogg','sound/musical_instruments/Gong_Rumbling.ogg')
+					our_guest.playsound_local_not_inworld(response_tester_sound, 80, 0)
+				else //test chemical reaction
+					var/response_tester_reagent = pick("love","colors","transparium","psilocybin","lumen","ethanol")
+					var/quantity = 10
+					switch(response_tester_reagent)
+						if("transparium")
+							quantity = 40
+						if("lumen")
+							quantity = 30
+					our_guest.reagents.add_reagent(response_tester_reagent, quantity)
+					our_guest.playsound_local_not_inworld('sound/items/hypo.ogg', 30, 0)
+					boutput(our_guest,SPAN_ALERT("You feel a small poke and see a tiny mechanical arm receding into the floor.[pick(" That can't be good."," What the hell?","")]"))
 		SPAWN(time_of_stay)
-			if(prob(1))
-				var/turf/nearby_spot = null
-				for(var/D in alldirs)
-					var/turf/proxturf = get_step(whisked_from,D)
-					if(!is_blocked_turf(proxturf))
-						nearby_spot = proxturf
-						break
-				SPAWN(6)
-					showswirl(nearby_spot)
-				SPAWN(8)
-					var/obj/ourpop = new /obj/item/reagent_containers/food/snacks/candy/lollipop(nearby_spot)
-					ourpop.icon_state = "lpop-5"
-			showswirl(whisked_from)
-			showswirl_out(nodelandmark)
-			our_guest.set_loc(whisked_from)
+			if(our_guest)
+				if(prob(1))
+					var/turf/nearby_spot = null
+					for(var/D in alldirs)
+						var/turf/proxturf = get_step(whisked_from,D)
+						if(!is_blocked_turf(proxturf))
+							nearby_spot = proxturf
+							break
+					SPAWN(6)
+						showswirl(nearby_spot)
+					SPAWN(8)
+						var/obj/ourpop = new /obj/item/reagent_containers/food/snacks/candy/lollipop(nearby_spot)
+						ourpop.icon_state = "lpop-5"
+				showswirl(whisked_from)
+				showswirl_out(nodelandmark)
+				our_guest.set_loc(whisked_from)
+		SPAWN(time_of_stay + 5)
+			var/moved_objects = 0
+			for(var/atom/movable/AM in range(2,nodelandmark))
+				if(!AM.anchored)
+					var/turf/dumpspot = pick(landmarks[LANDMARK_MENHIR_OUTREACH])
+					var/area/dumparea = get_area(dumpspot)
+					showswirl(dumpspot)
+					AM.set_loc(dumpspot)
+					moved_objects++
+
+			if(moved_objects)
+				logTheThing(LOG_STATION, null, "Menhir analysis event relocated [moved_objects] atoms out of node post-event.")
+				message_admins("Menhir analysis event relocated [moved_objects] atoms out of node post-event.")
 
 		SPAWN(5)
 			playsound(nodelandmark, 'sound/musical_instruments/artifact/Artifact_Precursor_5.ogg', 55, 0, pitch = 0.45, extrarange = 24)
