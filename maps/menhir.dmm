@@ -2677,21 +2677,6 @@
 	},
 /turf/simulated/floor/carpet/grime,
 /area/station/security/detectives_office)
-"bBS" = (
-/obj/mesh/catwalk,
-/obj/cable{
-	icon_state = "4-8"
-	},
-/obj/cable{
-	icon_state = "2-8"
-	},
-/obj/disposalpipe/segment/ejection{
-	dir = 4
-	},
-/turf/simulated/floor/black/grime,
-/area/station/maintenance/inner/se{
-	name = "Southeast Auxiliary Conduit"
-	})
 "bCu" = (
 /obj/machinery/door/airlock/pyro/external{
 	dir = 4
@@ -41813,6 +41798,21 @@
 /obj/disposalpipe/segment/mail,
 /turf/simulated/floor/plating,
 /area/station/maintenance/southeast)
+"ybO" = (
+/obj/mesh/catwalk,
+/obj/cable{
+	icon_state = "4-8"
+	},
+/obj/disposalpipe/segment/ejection{
+	dir = 4
+	},
+/obj/cable{
+	icon_state = "2-8"
+	},
+/turf/simulated/floor/black/grime,
+/area/station/maintenance/inner/se{
+	name = "Southeast Auxiliary Conduit"
+	})
 "ybU" = (
 /obj/machinery/atmospherics/pipe/manifold/overfloor{
 	dir = 8
@@ -94170,8 +94170,8 @@ wZD
 wZD
 wZD
 jGr
-unr
-dSc
+ybO
+tLB
 aov
 wms
 eOS
@@ -94472,8 +94472,8 @@ jGr
 jGr
 jGr
 jGr
-bBS
-tLB
+unr
+dSc
 awd
 hCn
 hRg
