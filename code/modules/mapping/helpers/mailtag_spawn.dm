@@ -1,7 +1,6 @@
 #define MEDICAL "#3daff7"
 #define SECURITY "#f73d3d"
 #define MORGUE_BLACK "#002135"
-#define TOXINS "#a3f73d"
 #define RESEARCH "#b23df7"
 #define ENGINEERING "#f7af3d"
 #define CARGO "#f7e43d"
@@ -195,7 +194,6 @@
 #undef MEDICAL
 #undef SECURITY
 #undef MORGUE_BLACK
-#undef TOXINS
 #undef RESEARCH
 #undef ENGINEERING
 #undef CARGO
