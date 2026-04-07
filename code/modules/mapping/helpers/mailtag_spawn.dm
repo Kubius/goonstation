@@ -7,6 +7,7 @@
 #define MAINTENANCE "#e5ff32"
 #define COMMAND "#00783c"
 
+ABSTRACT_TYPE(/obj/mapping_helper/mailtag)
 /obj/mapping_helper/mailtag
 	name = "junction mailtag spawn"
 	desc = "Configures a mail junction with its mail tag, then destroys itself."
@@ -26,6 +27,9 @@
 	// - /obj/mapping_helper/mailtag (here)
 	// - /obj/machinery/disposal/mail/autoname
 	// - /obj/machinery/disposal/mail/small/autoname
+
+	manual
+		name = "varedit mailtag spawn"
 
 	janitor
 		name = "Janitor"
@@ -124,72 +128,72 @@
 			name = "Medical Booth"
 			mail_tag = "medical booth"
 
-	checkpoint
-		name = "Don't spawn me"
-		color = SECURITY
+ABSTRACT_TYPE(/obj/mapping_helper/mailtag/checkpoint)
+/obj/mapping_helper/mailtag/checkpoint
+	color = SECURITY
 
-		arrivals
-			name = "Arrivals Checkpoint"
-			mail_tag = "arrivals checkpoint"
-		escape
-			name = "Escape Hallway Checkpoint"
-			mail_tag = "escape checkpoint"
-		customs
-			name = "Customs Checkpoint"
-			mail_tag = "customs checkpoint"
-		sec_foyer
-			name = "Security Foyer Checkpoint"
-			mail_tag = "sec foyer checkpoint"
-		podbay
-			name = "Pod Bay Checkpoint"
-			mail_tag = "podbay checkpoint"
-		chapel
-			name = "Chapel Checkpoint"
-			mail_tag = "chapel checkpoint"
-		cargo
-			name = "Cargo Checkpoint"
-			mail_tag = "cargo checkpoint"
-		west
-			name = "West Hallway Checkpoint"
-			mail_tag = "west hallway checkpoint"
-		east
-			name = "East Hallway Checkpoint"
-			mail_tag = "east hallway checkpoint"
+	arrivals
+		name = "Arrivals Checkpoint"
+		mail_tag = "arrivals checkpoint"
+	escape
+		name = "Escape Hallway Checkpoint"
+		mail_tag = "escape checkpoint"
+	customs
+		name = "Customs Checkpoint"
+		mail_tag = "customs checkpoint"
+	sec_foyer
+		name = "Security Foyer Checkpoint"
+		mail_tag = "sec foyer checkpoint"
+	podbay
+		name = "Pod Bay Checkpoint"
+		mail_tag = "podbay checkpoint"
+	chapel
+		name = "Chapel Checkpoint"
+		mail_tag = "chapel checkpoint"
+	cargo
+		name = "Cargo Checkpoint"
+		mail_tag = "cargo checkpoint"
+	west
+		name = "West Hallway Checkpoint"
+		mail_tag = "west hallway checkpoint"
+	east
+		name = "East Hallway Checkpoint"
+		mail_tag = "east hallway checkpoint"
 
-	public
-		name = "Don't spawn me"
-		color = MAINTENANCE
+ABSTRACT_TYPE(/obj/mapping_helper/mailtag/public)
+/obj/mapping_helper/mailtag/public
+	color = MAINTENANCE
 
-		crew
-			name = "Crew Quarters"
-			mail_tag = "crew"
-		crewA
-			name = "Crew A"
-			mail_tag = "crewA"
-		crewB
-			name = "Crew B"
-			mail_tag = "crewB"
-		arcade
-			name = "Arcade"
-			mail_tag = "arcade"
-		market
-			name = "Market"
-			mail_tag = "market"
-		cafeteria
-			name = "Cafeteria"
-			mail_tag = "cafeteria"
-		arrivals
-			name = "Arrivals"
-			mail_tag = "arrivals hallway"
-		escape
-			name = "Escape"
-			mail_tag = "escape hallway"
-		medbay_lobby
-			name = "Medbay Lobby"
-			mail_tag = "medbay lobby"
-		podbay
-			name = "Pod Bay"
-			mail_tag = "podbay"
+	crew
+		name = "Crew Quarters"
+		mail_tag = "crew"
+	crewA
+		name = "Crew A"
+		mail_tag = "crewA"
+	crewB
+		name = "Crew B"
+		mail_tag = "crewB"
+	arcade
+		name = "Arcade"
+		mail_tag = "arcade"
+	market
+		name = "Market"
+		mail_tag = "market"
+	cafeteria
+		name = "Cafeteria"
+		mail_tag = "cafeteria"
+	arrivals
+		name = "Arrivals"
+		mail_tag = "arrivals hallway"
+	escape
+		name = "Escape"
+		mail_tag = "escape hallway"
+	medbay_lobby
+		name = "Medbay Lobby"
+		mail_tag = "medbay lobby"
+	podbay
+		name = "Pod Bay"
+		mail_tag = "podbay"
 
 #undef MEDICAL
 #undef SECURITY
