@@ -262,7 +262,6 @@ ABSTRACT_TYPE(/datum/random_event/menhir)
 			for(var/atom/movable/AM in range(2,nodelandmark))
 				if(!AM.anchored)
 					var/turf/dumpspot = pick(landmarks[LANDMARK_MENHIR_OUTREACH])
-					var/area/dumparea = get_area(dumpspot)
 					showswirl(dumpspot)
 					AM.set_loc(dumpspot)
 					moved_objects++
