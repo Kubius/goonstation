@@ -678,11 +678,15 @@ ABSTRACT_TYPE(/datum/random_event/menhir)
 	required_elapsed_round_time = 22 MINUTES
 	centcom_headline = "ARTIFACT CONDITION ALERT"
 	centcom_message = "A massive spike in electromagnetic activity that does not match prior readings has been detected from TOREADOR-7I-22408. All personnel should immediately make ready for hazardous conditions."
-	weight = 2
+	weight = 5
 
 	is_event_available(ignore_time_lock)
 		. = ..()
 		if(.)
+			var/obj/machinery/door/unpowered/blue/seal = locate("vestibule_of_grief")
+			if (!seal || seal.density) //the way has not been opened
+				. = FALSE
+
 			if (!landmarks[LANDMARK_MENHIR_DARK] || length(landmarks[LANDMARK_MENHIR_DARK]) < 1)
 				. = FALSE //they have already made their ingress
 

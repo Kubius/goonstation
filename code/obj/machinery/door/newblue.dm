@@ -58,7 +58,7 @@ ADMIN_INTERACT_PROCS(/obj/machinery/door/unpowered/blue, proc/revoke_door)
 
 	attackby(obj/item/W, mob/user)
 		..()
-		if(src.locked && (src.friendly_object || src.needs_precursor))
+		if(src.locked && !(src.locks_on_open && !src.density) && (src.friendly_object || src.needs_precursor))
 			if(src.friendly_object && !istype(W,src.friendly_object))
 				if (!ON_COOLDOWN(src, "smacksounde", 1 SECOND))
 					user.visible_message(SPAN_ALERT("[src] sounds oddly hollow as it's struck."))

@@ -56407,7 +56407,9 @@
 	friendly_object = /obj/item/raw_material/cobryl;
 	color = "#f79090";
 	name = "thrumming edifice";
-	desc = "The fissures and seams run red. That can't be good."
+	desc = "The fissures and seams run red. That can't be good.";
+	tag = "vestibule_of_grief";
+	locks_on_open = 1
 	},
 /turf/unsimulated/floor/setpieces/bluefloor{
 	dir = 1
