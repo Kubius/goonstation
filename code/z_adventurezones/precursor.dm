@@ -472,7 +472,7 @@ ABSTRACT_TYPE(/datum/menhir_puzzle)
 	target_path = /obj/item/interdictor_rod
 	desc_strings = list(
 		"A great storm rages over the land, yet around a single pillar, not a drop of rain does fall.",
-		"The wind howls around you and scours the earth with light. A sceptre, nestled in a sanctuary of its own, grants sanctuary to you."
+		"The wind howls around you and scours the earth with light. A sceptre, nestled in a small sanctuary of its own, grants sanctuary to you."
 	)
 
 /datum/menhir_puzzle/barrier
