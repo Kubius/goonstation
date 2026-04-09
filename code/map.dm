@@ -634,7 +634,7 @@ var/global/list/mapNames = list(
 
 /datum/map_settings/menhir
 	name = "MENHIR"
-	goonhub_map = "/maps/kondaru"
+	goonhub_map = "/maps/"
 	walls = /turf/simulated/wall/auto/supernorn
 	rwalls = /turf/simulated/wall/auto/reinforced/supernorn
 
@@ -667,7 +667,6 @@ var/global/list/mapNames = list(
 	valid_nuke_targets = list("the main security hall" = list(/area/station/security/secwing),
 		"the quartermaster's front office" = list(/area/station/quartermaster/office),
 		"the courtroom" = list(/area/station/crew_quarters/courtroom),
-		"the thermo-electric generator room" = list(/area/station/engine/core),
 		"the refinery (arc smelter)" = list(/area/station/mining/refinery),
 		"the medbay" = list(/area/station/medical/medbay, /area/station/medical/medbay/surgery),
 		"the station's cafeteria" = list(/area/station/crew_quarters/cafeteria),
