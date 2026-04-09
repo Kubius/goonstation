@@ -37540,6 +37540,7 @@
 /obj/stool/chair{
 	dir = 4
 	},
+/obj/landmark/start/job/assistant,
 /turf/simulated/floor/shuttle/menhir_arm,
 /area/station/hallway/primary/southeast)
 "vPE" = (
