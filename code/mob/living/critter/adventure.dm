@@ -269,6 +269,7 @@ TYPEINFO(/mob/living/critter/shade)
 		. = ..()
 		if(prob(80))
 			var/turf/mobloc = get_turf(M)
+			if(mobloc.z == src.z)
 			M.loc = get_turf(src)
 			src.loc = mobloc
 			playsound(mobloc, 'sound/effects/mag_golem.ogg', 18, 1, pitch = 0.7)
