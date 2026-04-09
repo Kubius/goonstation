@@ -216,6 +216,7 @@ TYPEINFO(/mob/living/critter/shade)
 	base_walk_delay = 2
 	no_stamina_stuns = TRUE
 	can_bleed = FALSE
+	var/can_burst = TRUE
 
 	New() //we shall not falter
 		. = ..()
@@ -244,8 +245,11 @@ TYPEINFO(/mob/living/critter/shade)
 			src.machine_breaker(target)
 			return TRUE
 		else
-			if(prob(50) && !ON_COOLDOWN(src,"shade_wave",30 SECONDS))
-				src.great_dark()
+			if(src.can_burst)
+				if(src.health < 100)
+					src.extinction_burst(target)
+				else if(prob(50) && !ON_COOLDOWN(src,"shade_wave",30 SECONDS))
+					src.great_dark()
 			return ..()
 
 	proc/machine_breaker(var/mob/living/silicon/silicon) //the machines do not serve us
@@ -260,6 +264,19 @@ TYPEINFO(/mob/living/critter/shade)
 			playsound(src.loc, 'sound/impact_sounds/metal_thump.ogg', 50, 1)
 			random_brute_damage(silicon, 15, 0)
 
+	proc/extinction_burst(var/mob/target)
+		if (!target) return
+		src.can_burst = FALSE
+		var/turf/makespot = get_turf(target)
+		var/turf/possible_alternate = get_step(makespot,src.dir)
+		if (!possible_alternate.density) makespot = possible_alternate
+		SPAWN(2)
+			src.visible_message(SPAN_ALERT("<B>[src] fractures into two forms!</B>"))
+			playsound(src.loc, 'sound/impact_sounds/Energy_Hit_1.ogg', 90, 1, pitch = 0.45)
+			new /mob/living/critter/shade/lordly/twinned(makespot)
+			var/half_of_remaining_hp = 0.5 * src.health
+			random_brute_damage(src,half_of_remaining_hp,FALSE)
+
 	proc/great_dark()
 		SPAWN(6)
 			src.visible_message(SPAN_ALERT("<B>A wave of shadow spills forth from [src]!</B>"))
@@ -271,8 +288,20 @@ TYPEINFO(/mob/living/critter/shade)
 			var/turf/mobloc = get_turf(M)
 			if(mobloc.z == src.z)
 				M.loc = get_turf(src)
-				src.loc = mobloc
-				playsound(mobloc, 'sound/effects/mag_golem.ogg', 18, 1, pitch = 0.7)
+				var/turf/dest_loc = mobloc
+				if(prob(35))
+					var/turf/possible_alternate = get_step(src,pick(alldirs))
+					if(!possible_alternate.density) dest_loc = possible_alternate
+				src.loc = dest_loc
+				playsound(dest_loc, 'sound/effects/mag_golem.ogg', 18, 1, pitch = 0.7)
+
+	twinned
+		name = "voice of anguish"
+		desc = "A last rebuke."
+		health_brute = 50
+		can_burst = FALSE
+
+		chase_lines(var/mob/target)
 
 //menhir shade: appears only in the case of the rare invasion event. very rare
 /mob/living/critter/shade/invader
