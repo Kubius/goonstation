@@ -14108,7 +14108,16 @@
 /turf/simulated/floor/black/grime,
 /area/station/security/brig/genpop)
 "iuz" = (
-/obj/storage/closet/welding_supply,
+/obj/storage/crate,
+/obj/item/clothing/under/jersey/red,
+/obj/item/clothing/under/jersey/purple,
+/obj/item/clothing/under/jersey/green,
+/obj/item/clothing/under/jersey/black,
+/obj/item/clothing/under/jersey,
+/obj/item/basketball{
+	desc = "Something beautiful overwhelms you when you look at this ball.";
+	name = "barkley's basketball"
+	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/east)
 "iuY" = (
@@ -15795,14 +15804,6 @@
 	},
 /turf/simulated/floor/black,
 /area/station/security/secwing)
-"jtl" = (
-/obj/rack,
-/obj/item/bballbasket,
-/obj/item/bballbasket,
-/obj/item/bballbasket,
-/obj/item/bballbasket,
-/turf/simulated/floor/shuttle/menhir_arm,
-/area/station/hallway/primary/central)
 "jtp" = (
 /obj/shrub{
 	icon = 'icons/obj/stationobjs.dmi';
@@ -29216,6 +29217,14 @@
 	dir = 8
 	},
 /area/station/hallway/primary/north)
+"rmJ" = (
+/obj/disposalpipe/segment/mail{
+	dir = 2;
+	icon_state = "pipe-c"
+	},
+/obj/storage/closet/office,
+/turf/simulated/floor/plating,
+/area/station/maintenance/east)
 "rmL" = (
 /obj/machinery/light/small/floor,
 /obj/disposalpipe/segment/mail,
@@ -31170,19 +31179,6 @@
 	},
 /turf/simulated/floor/sanitary/white,
 /area/station/medical/morgue)
-"spA" = (
-/obj/storage/crate,
-/obj/item/clothing/under/jersey/red,
-/obj/item/clothing/under/jersey/purple,
-/obj/item/clothing/under/jersey/green,
-/obj/item/clothing/under/jersey/black,
-/obj/item/clothing/under/jersey,
-/obj/item/basketball{
-	desc = "Something beautiful overwhelms you when you look at this ball.";
-	name = "barkley's basketball"
-	},
-/turf/simulated/floor/shuttle/menhir_arm,
-/area/station/hallway/primary/central)
 "spV" = (
 /obj/stool/chair/office/yellow{
 	dir = 4
@@ -32377,7 +32373,11 @@
 	},
 /area/station/medical/medbay/surgery)
 "sZG" = (
-/obj/storage/closet/office,
+/obj/rack,
+/obj/item/bballbasket,
+/obj/item/bballbasket,
+/obj/item/bballbasket,
+/obj/item/bballbasket,
 /turf/simulated/floor/plating,
 /area/station/maintenance/east)
 "tag" = (
@@ -91991,7 +91991,7 @@ lkQ
 opl
 wHq
 nng
-jtl
+blY
 lhN
 swe
 osZ
@@ -92596,7 +92596,7 @@ wTQ
 lZH
 blY
 blY
-spA
+blY
 lhN
 lhN
 nah
@@ -101339,7 +101339,7 @@ sEf
 fMD
 qHc
 nej
-hHx
+rmJ
 qcg
 qcg
 qcg
