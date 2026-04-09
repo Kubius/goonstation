@@ -24333,9 +24333,6 @@
 	dir = 4
 	},
 /obj/mapping_helper/firedoor_spawn,
-/obj/cable{
-	icon_state = "4-8"
-	},
 /turf/simulated/floor/grey,
 /area/station/crew_quarters/lounge)
 "osZ" = (
