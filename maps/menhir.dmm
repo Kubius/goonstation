@@ -20289,7 +20289,6 @@
 /area/station/science/chemistry)
 "meP" = (
 /obj/disposalpipe/segment/bent/east,
-/obj/landmark/menhir/outreach,
 /turf/simulated/floor,
 /area/station/hallway/secondary/west{
 	name = "West Shuttle Concourse"
@@ -20923,7 +20922,6 @@
 /area/station/science/storage)
 "myI" = (
 /obj/disposalpipe/segment/bent/south,
-/obj/landmark/menhir/outreach,
 /turf/simulated/floor,
 /area/station/hallway/secondary/east{
 	name = "East Shuttle Concourse"
@@ -27446,6 +27444,7 @@
 /obj/cable{
 	icon_state = "5-8"
 	},
+/obj/landmark/menhir/outreach,
 /turf/simulated/floor,
 /area/station/hallway/secondary/east{
 	name = "East Shuttle Concourse"
@@ -28337,6 +28336,7 @@
 /obj/cable{
 	icon_state = "4-9"
 	},
+/obj/landmark/menhir/outreach,
 /turf/simulated/floor,
 /area/station/hallway/secondary/west{
 	name = "West Shuttle Concourse"
