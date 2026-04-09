@@ -652,6 +652,10 @@
 /obj/item/paper/book/from_file/the_trial,
 /turf/simulated/floor/shuttle/menhir_arm,
 /area/station/hallway/primary/southeast)
+"aub" = (
+/obj/storage/closet/law,
+/turf/simulated/floor/shuttle/menhir_arm,
+/area/station/hallway/primary/central)
 "auu" = (
 /obj/cable{
 	icon_state = "4-10"
@@ -2857,11 +2861,6 @@
 /area/station/maintenance/inner/se{
 	name = "Southeast Auxiliary Conduit"
 	})
-"bGW" = (
-/obj/mapping_helper/wingrille_spawn/auto/reinforced,
-/obj/disposalpipe/segment/vertical,
-/turf/simulated/floor/plating,
-/area/station/medical/robotics)
 "bGX" = (
 /obj/machinery/bathtub{
 	anchored = 1;
@@ -4880,6 +4879,7 @@
 /obj/item/storage/box/cablesbox{
 	pixel_y = 5
 	},
+/obj/blind_switch/area/north,
 /turf/simulated/floor/black,
 /area/station/medical/robotics)
 "cQK" = (
@@ -7978,6 +7978,13 @@
 	dir = 1
 	},
 /area/station/security/interrogation)
+"eOq" = (
+/obj/mapping_helper/wingrille_spawn/auto/reinforced,
+/obj/window_blinds/cog2/left{
+	dir = 4
+	},
+/turf/simulated/floor/plating,
+/area/station/medical/robotics)
 "eOw" = (
 /obj/stool/chair/office/red{
 	dir = 4;
@@ -14923,6 +14930,13 @@
 /obj/machinery/firealarm/directional/north,
 /turf/simulated/floor/black,
 /area/station/medical/robotics)
+"iSX" = (
+/obj/mapping_helper/wingrille_spawn/auto/reinforced,
+/obj/window_blinds/cog2/right{
+	dir = 4
+	},
+/turf/simulated/floor/plating,
+/area/station/medical/robotics)
 "iSY" = (
 /obj/machinery/chem_dispenser/chemical,
 /obj/mapping_helper/glassware_spawn,
@@ -16264,16 +16278,12 @@
 /area/station/hallway/primary/north)
 "jMo" = (
 /obj/disposalpipe/junction/left/west,
-/obj/shrub{
-	dir = 4;
-	icon = 'icons/obj/stationobjs.dmi';
-	icon_state = "plant"
-	},
 /obj/machinery/light{
 	dir = 4;
 	layer = 9.1;
 	pixel_x = 10
 	},
+/obj/stool/bar,
 /turf/simulated/floor/carpet{
 	icon_state = "fred2"
 	},
@@ -16577,6 +16587,9 @@
 	dir = 1;
 	layer = 9.1;
 	pixel_y = 21
+	},
+/obj/machinery/macrofab/emergency_pod{
+	dir = 4
 	},
 /turf/simulated/floor/shuttlebay{
 	icon_state = "engine_caution_corners";
@@ -18009,6 +18022,18 @@
 /area/station/hallway/secondary/exit{
 	name = "Primary Docking Wing"
 	})
+"kNN" = (
+/obj/table/round/auto,
+/obj/item/reagent_containers/food/snacks/popcorn{
+	pixel_y = 7;
+	pixel_x = -5
+	},
+/obj/item/reagent_containers/food/snacks/popcorn{
+	pixel_y = 3;
+	pixel_x = 4
+	},
+/turf/simulated/floor/shuttle/menhir_arm,
+/area/station/hallway/primary/southeast)
 "kNQ" = (
 /obj/disposalpipe/segment/mail{
 	dir = 4
@@ -19890,15 +19915,7 @@
 /turf/simulated/floor/carpet/grime,
 /area/station/security/detectives_office)
 "lSF" = (
-/obj/rack,
-/obj/item/device/radio{
-	pixel_y = 3;
-	pixel_x = 7
-	},
-/obj/item/device/radio{
-	pixel_y = 3;
-	pixel_x = -6
-	},
+/obj/storage/closet/wardrobe/red,
 /turf/simulated/floor/plating,
 /area/station/maintenance/southeast)
 "lSI" = (
@@ -20981,6 +20998,11 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/southwest)
+"mCR" = (
+/obj/mapping_helper/wingrille_spawn/auto/reinforced,
+/obj/window_blinds/cog2/right,
+/turf/simulated/floor/plating,
+/area/station/medical/robotics)
 "mCZ" = (
 /obj/machinery/r_door_control/podbay/engineering,
 /turf/simulated/wall/auto/reinforced/supernorn,
@@ -21883,7 +21905,7 @@
 "nco" = (
 /obj/storage/closet/emergency,
 /turf/simulated/floor/plating,
-/area/station/security/brig/genpop)
+/area/station/maintenance/southeast)
 "ncs" = (
 /obj/stool/bench/red,
 /obj/machinery/light{
@@ -29556,9 +29578,6 @@
 /area/station/engine/storage)
 "rtV" = (
 /obj/table/reinforced/bar/auto,
-/obj/machinery/computer/television/small{
-	pixel_y = 8
-	},
 /obj/disposalpipe/segment/vertical,
 /turf/simulated/floor/specialroom/bar/edge{
 	dir = 8
@@ -30088,6 +30107,7 @@
 /area/station/chapel/sanctuary)
 "rKd" = (
 /obj/mapping_helper/wingrille_spawn/auto/reinforced,
+/obj/window_blinds/cog2/left,
 /turf/simulated/floor/plating,
 /area/station/medical/robotics)
 "rKz" = (
@@ -31149,7 +31169,7 @@
 "sov" = (
 /obj/storage/closet/fire,
 /turf/simulated/floor/plating,
-/area/station/security/brig/genpop)
+/area/station/maintenance/southeast)
 "soG" = (
 /obj/table/reinforced/auto,
 /obj/item/storage/box/diskbox,
@@ -33215,11 +33235,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/west)
-"twi" = (
-/turf/simulated/floor/carpet{
-	icon_state = "fred2"
-	},
-/area/station/crew_quarters/cafeteria)
 "twk" = (
 /obj/machinery/networked/test_apparatus/gas_sensor{
 	setup_tag = "TEST_CHAMBER"
@@ -37703,6 +37718,15 @@
 	},
 /turf/simulated/floor,
 /area/research_outpost/limpet)
+"vVs" = (
+/obj/table/reinforced/bar/auto,
+/obj/machinery/computer/television/small{
+	pixel_y = 8
+	},
+/turf/simulated/floor/specialroom/bar/edge{
+	dir = 8
+	},
+/area/station/crew_quarters/cafeteria)
 "vVB" = (
 /obj/lattice{
 	dir = 1;
@@ -39788,6 +39812,9 @@
 	},
 /obj/mapping_helper/firedoor_spawn,
 /obj/mapping_helper/access/robotics,
+/obj/window_blinds/cog2/middle{
+	dir = 4
+	},
 /turf/simulated/floor/black,
 /area/station/medical/robotics)
 "wWD" = (
@@ -40032,7 +40059,8 @@
 	},
 /obj/table/reinforced/bar/auto,
 /obj/item_dispenser/icedispenser{
-	pixel_y = 12
+	pixel_y = 12;
+	pixel_x = -4
 	},
 /turf/simulated/floor/specialroom/bar/edge{
 	dir = 8
@@ -41051,6 +41079,9 @@
 "xGT" = (
 /obj/mapping_helper/wingrille_spawn/auto/reinforced,
 /obj/disposalpipe/segment/mail{
+	dir = 4
+	},
+/obj/window_blinds/cog2/left{
 	dir = 4
 	},
 /turf/simulated/floor/plating,
@@ -69382,21 +69413,21 @@ sEf
 sEf
 sEf
 sEf
+lYo
+sEf
+sEf
+sEf
+lYo
 sEf
 sEf
 sEf
 sEf
 sEf
+lYo
 sEf
 sEf
 sEf
-sEf
-sEf
-sEf
-sEf
-sEf
-sEf
-sEf
+lYo
 sEf
 sEf
 sEf
@@ -69683,7 +69714,7 @@ sEf
 sEf
 sEf
 sEf
-sEf
+vtP
 xhy
 irw
 irw
@@ -69699,7 +69730,7 @@ irw
 irw
 irw
 mfy
-sEf
+vVB
 sEf
 sEf
 sEf
@@ -70891,7 +70922,7 @@ sEf
 sEf
 sEf
 sEf
-sEf
+vtP
 lTI
 kUe
 kUe
@@ -70907,7 +70938,7 @@ kUe
 kUe
 kUe
 rEB
-sEf
+vVB
 sEf
 sEf
 sEf
@@ -72703,7 +72734,7 @@ sEf
 sEf
 sEf
 sEf
-sEf
+vtP
 lTI
 kUe
 kUe
@@ -72719,7 +72750,7 @@ kUe
 kUe
 kUe
 rEB
-sEf
+vVB
 sEf
 sEf
 sEf
@@ -73911,7 +73942,7 @@ sEf
 sEf
 sEf
 sEf
-sEf
+vtP
 oSE
 xEQ
 xEQ
@@ -73927,7 +73958,7 @@ xEQ
 vqj
 xEQ
 aHv
-sEf
+vVB
 sEf
 sEf
 sEf
@@ -74214,7 +74245,7 @@ sEf
 sEf
 sEf
 sEf
-sEf
+tvx
 lzH
 xqm
 sEf
@@ -74228,7 +74259,7 @@ vsC
 qHc
 xqm
 sEf
-sEf
+tvx
 sEf
 sEf
 sEf
@@ -79014,7 +79045,7 @@ anY
 mZm
 rXW
 vIx
-bGW
+gLT
 efa
 ogk
 vna
@@ -79316,7 +79347,7 @@ jsz
 rpO
 jQN
 gfr
-rKd
+gLT
 rBz
 vna
 vna
@@ -80216,13 +80247,13 @@ flJ
 eOY
 bFT
 gLT
-rKd
+iSX
 xGT
-rKd
+gLT
 cQI
 noD
 wRP
-rKd
+mCR
 hjm
 nBd
 vna
@@ -80521,9 +80552,9 @@ neb
 iMH
 pSl
 gLT
-rKd
+iSX
 wWu
-rKd
+eOq
 gLT
 okc
 nBd
@@ -86243,7 +86274,7 @@ uPM
 thN
 fhA
 xfz
-twi
+pST
 iec
 kDw
 wdf
@@ -88054,7 +88085,7 @@ kJk
 sCA
 sjn
 dbN
-lRR
+vVs
 pUk
 iec
 xwd
@@ -93203,7 +93234,7 @@ blY
 blY
 blY
 blY
-blY
+aub
 lhN
 lhN
 lhN
@@ -93812,7 +93843,7 @@ eON
 eON
 cCb
 cCb
-vPy
+kNN
 ksl
 vPy
 vPy
