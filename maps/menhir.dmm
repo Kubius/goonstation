@@ -5246,14 +5246,6 @@
 	dir = 1
 	},
 /area/station/hallway/primary/north)
-"ddi" = (
-/obj/machinery/vending/coffee,
-/turf/simulated/floor/grey/side{
-	dir = 8
-	},
-/area/station/hallway/secondary/east{
-	name = "East Shuttle Concourse"
-	})
 "ddp" = (
 /obj/machinery/door/airlock/pyro/glass{
 	dir = 4
@@ -10697,6 +10689,9 @@
 /obj/landmark/gps_waypoint,
 /turf/simulated/floor/white,
 /area/station/science/hall)
+"gvm" = (
+/turf/simulated/floor/red,
+/area/station/hallway/primary/southeast)
 "gvB" = (
 /obj/rack,
 /obj/item/clothing/suit/space/emerg,
@@ -10950,8 +10945,10 @@
 	pixel_y = 14
 	},
 /obj/item/kitchen/food_box/donut_box{
-	pixel_y = 3;
-	pixel_x = -8
+	desc = "Never let a good thing go unmerchandised.";
+	name = "Crown Donuts";
+	pixel_x = -7;
+	pixel_y = 3
 	},
 /turf/simulated/floor/purplewhite/corner{
 	dir = 1
@@ -13425,11 +13422,14 @@
 	do_not_irradiate = 1
 	})
 "hYp" = (
-/obj/disposalpipe/segment/brig{
-	icon_state = "pipe-c"
-	},
 /obj/cable{
 	icon_state = "4-8"
+	},
+/obj/disposalpipe/segment/brig{
+	dir = 4
+	},
+/obj/cable{
+	icon_state = "1-8"
 	},
 /turf/simulated/floor/darkblue/side{
 	dir = 9
@@ -13443,6 +13443,18 @@
 /area/station/maintenance/inner/se{
 	name = "Southeast Auxiliary Conduit"
 	})
+"hYO" = (
+/obj/table/reinforced/industrial/auto,
+/obj/item/kitchen/food_box/candycorn{
+	pixel_y = 3;
+	pixel_x = -6
+	},
+/obj/item/paper/menhir_contingency{
+	pixel_y = 7;
+	pixel_x = 3
+	},
+/turf/simulated/floor/black,
+/area/station/hallway/primary/east)
 "hZe" = (
 /obj/disposalpipe/segment/mail{
 	dir = 2;
@@ -16689,6 +16701,16 @@
 /area/station/hallway/secondary/exit{
 	name = "Primary Docking Wing"
 	})
+"jXq" = (
+/obj/cable{
+	icon_state = "4-8"
+	},
+/obj/landmark/halloween,
+/obj/disposalpipe/segment/brig{
+	icon_state = "pipe-c"
+	},
+/turf/simulated/floor,
+/area/station/hallway/primary/east)
 "jXu" = (
 /turf/simulated/wall/auto/supernorn,
 /area/station/chapel/sanctuary)
@@ -16764,6 +16786,11 @@
 	icon_state = "engine_caution_north"
 	},
 /area/station/mining/staff_room)
+"jZg" = (
+/obj/table/reinforced/industrial/auto,
+/obj/machinery/phone,
+/turf/simulated/floor/darkblue,
+/area/station/hallway/primary/east)
 "jZq" = (
 /turf/simulated/wall/auto/reinforced/supernorn,
 /area/station/hangar/qm{
@@ -21080,6 +21107,15 @@
 	layer = 9.1;
 	pixel_y = 21
 	},
+/obj/machinery/power/data_terminal,
+/obj/cable{
+	icon_state = "0-2"
+	},
+/obj/machinery/networked/storage/tape_drive{
+	bank_id = "Contingency";
+	locked = 0;
+	name = "Databank - Contingency"
+	},
 /turf/simulated/floor/darkblue,
 /area/station/hallway/primary/east)
 "mEO" = (
@@ -22478,6 +22514,7 @@
 /turf/simulated/floor/specialroom/arcade,
 /area/station/science/chemistry)
 "nue" = (
+/obj/machinery/vending/coffee,
 /turf/simulated/floor/black,
 /area/station/hallway/primary/east)
 "nuf" = (
@@ -22800,12 +22837,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/south)
-"nDZ" = (
-/obj/disposalpipe/segment/brig{
-	icon_state = "pipe-c"
-	},
-/turf/simulated/floor,
-/area/station/hallway/primary/east)
 "nEt" = (
 /obj/cable{
 	icon_state = "2-8"
@@ -34527,6 +34558,9 @@
 	layer = 9.1;
 	pixel_x = 10
 	},
+/obj/stool/chair/comfy/blue{
+	dir = 8
+	},
 /turf/simulated/floor/darkblue/side{
 	dir = 4
 	},
@@ -36938,8 +36972,10 @@
 	pixel_x = 15
 	},
 /obj/item/kitchen/food_box/donut_box{
-	pixel_y = 3;
-	pixel_x = -3
+	desc = "Never let a good thing go unmerchandised.";
+	name = "Crown Donuts";
+	pixel_x = -4;
+	pixel_y = 3
 	},
 /obj/machinery/firealarm/directional/north,
 /obj/machinery/camera/directional/west{
@@ -38383,6 +38419,14 @@
 	dir = 1
 	},
 /area/station/crew_quarters/md)
+"wkv" = (
+/obj/machinery/vending/cards,
+/turf/simulated/floor/grey/side{
+	dir = 8
+	},
+/area/station/hallway/secondary/east{
+	name = "East Shuttle Concourse"
+	})
 "wkL" = (
 /turf/simulated/floor/stairs/wide/middle{
 	dir = 1
@@ -40442,15 +40486,6 @@
 	},
 /turf/space,
 /area/space)
-"xqv" = (
-/obj/disposalpipe/segment/brig{
-	dir = 1;
-	icon_state = "pipe-c"
-	},
-/turf/simulated/floor/black/side{
-	dir = 1
-	},
-/area/station/hallway/primary/east)
 "xqH" = (
 /obj/cable{
 	icon_state = "2-5"
@@ -94157,7 +94192,7 @@ ucI
 ucI
 ucI
 ucI
-ucI
+txT
 cCb
 cCb
 aSL
@@ -94459,8 +94494,8 @@ wTu
 myC
 byA
 jVk
-jVk
-jVk
+lZN
+gvm
 jYx
 tGE
 mGo
@@ -97466,8 +97501,8 @@ bqc
 mwD
 mED
 hYp
-xqv
-nue
+xbH
+hYO
 lhN
 lhN
 xtE
@@ -97767,8 +97802,8 @@ wLt
 wLt
 rGG
 lKF
-sGe
-nDZ
+jXq
+aKk
 pAM
 jMJ
 pkX
@@ -98370,7 +98405,7 @@ scu
 tQa
 bkY
 mwD
-oip
+jZg
 uhJ
 uFu
 twC
@@ -104409,9 +104444,9 @@ kYk
 sbV
 qHc
 hQY
-ddi
 nNF
 wSV
+wkv
 xsk
 vEx
 iXW

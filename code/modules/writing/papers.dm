@@ -1841,6 +1841,17 @@ Only trained personnel should operate station systems. Follow all procedures car
 	NT administration responsible for site have made the executive determination that the point of ingress is the likely origin of any hazards that may arise if the artifact is activated; attempts to activate TOREADOR-7I-22408 at other points of its casing are considered inadvisable and unlikely to produce results.<br>
 	"}
 
+/obj/item/paper/menhir_contingency
+	name = "TOREADOR-7I-22408 contingency brief"
+	icon_state = "toreador_report"
+	info ={"
+	<h1>DATA CONTINGENCY PROCEDURE</h1>
+	The nearby ThinkTape bay, identifier 'Contingency', has been made available to increase the odds of successful data recovery in the event of unexpectedly hostile artifact activation.<br>
+	<br>
+	Before any attempts are made to activate TOREADOR-7I-22408, a crewmember trained in pod flight should be posted in this location.<br>
+	<br>
+	In the event TOREADOR-7I-22408 undergoes an activation event, the stimuli that prompted this should <b>immediately</b> be recorded to the preinstalled tape, which is then taken off-site by the crewmember. <b>DO NOT WAIT FOR ARTIFACT EFFECTS TO APPEAR - BY THE TIME ANY HOSTILE EFFECTS MANIFEST, ESCAPE MAY NO LONGER BE POSSIBLE.</b><br>"}
+
 /obj/item/paper/menhir_toreador_extra
 	name = "TOREADOR administrative advisory"
 	icon_state = "toreador_report"
