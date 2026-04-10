@@ -3,6 +3,7 @@ TYPEINFO(/obj/effects/menhir_fog)
 TYPEINFO_NEW(/obj/effects/menhir_fog)
 	. = ..()
 	connects_to = typecacheof(list(/obj/effects/menhir_fog))
+///Menhir's "fog of war". Provides an (imperfect) visual shroud to somewhat preserve the mystique of the Crown.
 /obj/effects/menhir_fog
 	name = "peculiar fog"
 	desc = "Something has chosen not to be seen."
@@ -94,10 +95,10 @@ TYPEINFO_NEW(/obj/effects/menhir_fog)
 		return
 
 	var/activated = FALSE
-	if(usr.see_invisible == 7)
-		usr.see_invisible = INVIS_SPOOKY //this should revert to a saved pre-change state eventually
+	if(usr.see_invisible == INVIS_AI_EYE)
+		usr.see_invisible = INVIS_SPOOKY // this could revert to a saved pre-change state eventually
 	else
-		usr.see_invisible = 7
+		usr.see_invisible = INVIS_AI_EYE // highest level that's still beneath the fog
 		activated = TRUE
 
 	boutput(usr, SPAN_NOTICE("<b>Vision [activated ? "altered." : "restored to default."]</b>"))
