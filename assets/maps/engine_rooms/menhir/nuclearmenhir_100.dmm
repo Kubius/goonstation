@@ -1010,13 +1010,6 @@
 "Db" = (
 /turf/simulated/floor/black/grime,
 /area/station/engine/power)
-"Dc" = (
-/obj/cable{
-	icon_state = "4-8"
-	},
-/obj/landmark/gps_waypoint,
-/turf/simulated/floor/black/grime,
-/area/station/engine/power)
 "Do" = (
 /obj/machinery/light,
 /obj/cable/orange{
@@ -2079,7 +2072,7 @@ UV
 (16,1,1) = {"
 LQ
 Db
-Dc
+XG
 xt
 sv
 tV

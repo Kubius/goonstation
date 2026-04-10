@@ -1863,6 +1863,7 @@
 	icon_state = "1-2"
 	},
 /obj/mapping_helper/firedoor_spawn,
+/obj/landmark/gps_waypoint,
 /turf/simulated/floor/black/grime,
 /area/station/engine/power)
 "beS" = (
@@ -22017,6 +22018,10 @@
 /obj/mapping_helper/wingrille_spawn/auto/reinforced,
 /turf/simulated/floor/plating,
 /area/station/maintenance/east)
+"neN" = (
+/obj/landmark/gps_waypoint,
+/turf/simulated/floor/black/grime,
+/area/station/engine/monitoring)
 "nfp" = (
 /obj/table/reinforced/auto,
 /obj/item/rods/steel/fullstack{
@@ -88788,7 +88793,7 @@ tTc
 nDQ
 wqm
 uLh
-uLh
+neN
 dJo
 adh
 tQq
