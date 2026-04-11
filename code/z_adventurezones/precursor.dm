@@ -1617,6 +1617,9 @@ var/global/list/scarysounds = list('sound/machines/engine_alert3.ogg',
 	density = 0
 	var/go_to = null
 
+	ex_act(severity)
+		return
+
 	Crossed(atom/movable/AM as mob|obj)
 		..()
 		if(!go_to) return
