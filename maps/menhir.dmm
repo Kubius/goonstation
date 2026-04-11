@@ -15766,6 +15766,18 @@
 	},
 /turf/space,
 /area/shuttle/arrival/station)
+"jne" = (
+/obj/machinery/door/airlock/pyro/external{
+	dir = 4
+	},
+/obj/forcefield/energyshield/perma/doorlink{
+	desc = "A door-linked force field that prevents gasses from passing through it.";
+	dir = 4;
+	name = "Door-linked Atmospheric Forcefield";
+	powerlevel = 1
+	},
+/turf/simulated/floor/plating,
+/area/station/maintenance/west)
 "jnx" = (
 /obj/landmark/kudzu,
 /turf/simulated/floor/plating,
@@ -21207,6 +21219,12 @@
 	name = "test chamber plating"
 	},
 /area/station/science/testchamber)
+"mvY" = (
+/obj/mapping_helper/airlock/cycler/auto/rook{
+	dir = 8
+	},
+/turf/simulated/floor/plating,
+/area/station/maintenance/west)
 "mwD" = (
 /obj/mapping_helper/wingrille_spawn/auto/reinforced,
 /obj/machinery/door/poddoor/pyro/shutters{
@@ -76428,7 +76446,7 @@ sEf
 sEf
 htJ
 wHN
-jxH
+jne
 rMf
 rMf
 rMf
@@ -77032,7 +77050,7 @@ htJ
 qHc
 wHN
 kqe
-wTr
+mvY
 rMf
 wTr
 wTr
