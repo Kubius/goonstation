@@ -217,7 +217,7 @@ ABSTRACT_TYPE(/datum/random_event/menhir)
 
 		src.required_candidates = min(src.required_candidates + 2, 15)
 
-		var/time_of_stay = rand(50 SECONDS,90 SECONDS)
+		var/time_of_stay = rand(40 SECONDS,50 SECONDS)
 		var/time_of_spook = time_of_stay * 0.3 + rand(0,15 SECONDS)
 		var/mob/living/carbon/human/our_guest = pick(eligible_examinees)
 		var/turf/whisked_from = get_turf(our_guest)
