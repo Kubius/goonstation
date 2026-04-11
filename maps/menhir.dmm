@@ -7944,6 +7944,17 @@
 /area/station/crew_quarters/lounge/port{
 	name = "Book Nook"
 	})
+"eNZ" = (
+/obj/decal/tile_edge/stripe/extra_big{
+	dir = 1
+	},
+/obj/disposalpipe/segment/ejection{
+	dir = 2
+	},
+/turf/simulated/floor/black/grime,
+/area/station/maintenance/inner/se{
+	name = "Southeast Auxiliary Conduit"
+	})
 "eOe" = (
 /obj/machinery/door/airlock/pyro/glass{
 	dir = 4
@@ -93423,7 +93434,7 @@ ufH
 tbA
 idj
 xWB
-hYF
+eNZ
 wRu
 dSc
 leD
