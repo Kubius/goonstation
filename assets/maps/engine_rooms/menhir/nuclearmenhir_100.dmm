@@ -700,6 +700,9 @@
 	},
 /turf/space,
 /area/space)
+"vH" = (
+/turf/simulated/wall/auto/reinforced/supernorn,
+/area/station/hangar/engine)
 "wk" = (
 /turf/simulated/wall/auto/reinforced/supernorn,
 /area/station/engine/core/nuclear)
@@ -1650,7 +1653,7 @@
 /area/station/engine/core/nuclear)
 
 (1,1,1) = {"
-yU
+vH
 UV
 UV
 UV
@@ -1678,7 +1681,7 @@ UV
 UV
 "}
 (2,1,1) = {"
-yU
+vH
 UV
 UV
 UV
@@ -1706,7 +1709,7 @@ UV
 UV
 "}
 (3,1,1) = {"
-yU
+vH
 UV
 UV
 UV

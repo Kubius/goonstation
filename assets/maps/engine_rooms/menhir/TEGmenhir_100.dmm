@@ -32,12 +32,8 @@
 /turf/simulated/wall/auto/reinforced/supernorn,
 /area/station/engine/hotloop)
 "bh" = (
-/obj/lattice{
-	dir = 10;
-	icon_state = "lattice-dir"
-	},
-/turf/space,
-/area/space)
+/turf/simulated/wall/auto/reinforced/supernorn,
+/area/station/hangar/engine)
 "bI" = (
 /obj/machinery/atmospherics/pipe/simple/junction{
 	dir = 8
@@ -705,10 +701,6 @@
 	},
 /turf/simulated/floor/caution/corner/ne,
 /area/station/engine/hotloop)
-"oP" = (
-/obj/lattice,
-/turf/space,
-/area/space)
 "pd" = (
 /obj/machinery/atmospherics/binary/passive_gate/opened{
 	target_pressure = 1e+031
@@ -2381,7 +2373,7 @@ Br
 Br
 "}
 (2,1,1) = {"
-oP
+bh
 qu
 Br
 Br
@@ -2409,7 +2401,7 @@ Br
 Br
 "}
 (3,1,1) = {"
-TP
+bh
 oF
 he
 he
@@ -2437,7 +2429,7 @@ Br
 Br
 "}
 (4,1,1) = {"
-Br
+TP
 oF
 yk
 mr
