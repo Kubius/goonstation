@@ -933,7 +933,7 @@
 /area/station/hallway/primary/west)
 "aEb" = (
 /obj/machinery/door/airlock/pyro/external,
-/obj/mapping_helper/airlock/cycler{
+/obj/mapping_helper/airlock/cycler/manual{
 	cycle_id = "nwmaint";
 	name = "Northwest Maintenance"
 	},
@@ -39662,7 +39662,7 @@
 /obj/machinery/door/airlock/pyro/external{
 	dir = 4
 	},
-/obj/mapping_helper/airlock/cycler{
+/obj/mapping_helper/airlock/cycler/manual{
 	cycle_id = "nwmaint";
 	name = "Northwest Maintenance"
 	},
