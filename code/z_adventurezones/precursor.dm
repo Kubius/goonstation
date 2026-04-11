@@ -481,6 +481,24 @@ ABSTRACT_TYPE(/datum/menhir_puzzle)
 		"A knight clad in armor raises a shield before you. You raise your own in recognition."
 	)
 
+/datum/menhir_puzzle/panicbutton
+	target_path = /obj/item/device/panicbutton
+	desc_strings = list(
+		"A sharp pain shoots through you. With your touch, a small trinket calls for aid, and an unheard sound carries its plea to your kin."
+	)
+
+/datum/menhir_puzzle/microphone
+	target_path = /obj/item/device/microphone
+	desc_strings = list(
+		"A vast amphitheatre stretches before you. You sing to the stone in your hand, and the stone sings to the masses."
+	)
+
+/datum/menhir_puzzle/gtoolbox
+	target_path = /obj/item/storage/toolbox/artistic
+	desc_strings = list(
+		"A metal vessel of verdant hue lies before you, resting upon a blank canvas that stretches gracefully into the distance."
+	)
+
 /obj/precursor_puzzle/innervator
 	name = "peculiar panel"
 	desc = "You can't explain why, but it feels like it's watching you."
