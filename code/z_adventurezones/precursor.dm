@@ -1633,10 +1633,6 @@ var/global/list/scarysounds = list('sound/machines/engine_alert3.ogg',
 						if(!isintangible(AM) && !istype(AM,/mob/dead/observer))
 							do_move = FALSE
 							break
-					for(var/mob/O in viewers(other))
-						if(!isintangible(AM) && !istype(AM,/mob/dead/observer))
-							do_move = FALSE
-							break
 					if(do_move)
 						if(other)
 							ON_COOLDOWN(other,"transpose",2)
