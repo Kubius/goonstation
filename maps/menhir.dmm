@@ -36968,6 +36968,9 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/door/airlock/pyro/classic,
+/obj/decal/tile_edge/line/black{
+	icon_state = "line1"
+	},
 /turf/simulated/floor/carpet/arcade,
 /area/station/crew_quarters/clown{
 	name = "Honkington's Abode"
@@ -38160,6 +38163,9 @@
 /obj/disposalpipe/junction/right/south,
 /obj/cable{
 	icon_state = "2-4"
+	},
+/obj/cable{
+	icon_state = "1-2"
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/west)
