@@ -36056,6 +36056,12 @@
 /obj/machinery/light_switch/east,
 /turf/simulated/floor/plating,
 /area/station/maintenance/solar/west)
+"uGz" = (
+/obj/mapping_helper/airlock/cycler/auto/rook,
+/turf/simulated/floor/blueblack{
+	dir = 8
+	},
+/area/station/bridge)
 "uHc" = (
 /obj/machinery/light{
 	dir = 4;
@@ -98521,7 +98527,7 @@ cUs
 iOM
 cSt
 eVO
-wLt
+uGz
 wLt
 rGG
 lKF
