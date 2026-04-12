@@ -282,6 +282,54 @@ ABSTRACT_TYPE(/datum/random_event/menhir)
 		logTheThing(LOG_STATION, null, "Menhir analysis event at [node_tag] arm - [log_loc(nodelandmark)]")
 		message_admins("Menhir analysis event triggered at [node_tag] arm - [log_loc(nodelandmark)]")
 
+//it appears you may need a top up! let's help with that
+/datum/random_event/menhir/supercharge
+	name = "One Flame Begets Another"
+	message_delay = 1 MINUTE
+	weight = 70
+
+	event_effect()
+		var/list/station_areas = get_accessible_station_areas()
+		var/list/candidate_apcs = list()
+		for (var/area_name in station_areas)
+			var/area/A = station_areas[area_name]
+			if (istype(A.area_apc))
+				var/obj/machinery/power/apc/our_apc = A.area_apc
+				if(!our_apc.cell) continue
+				var/powerfraction = ((1 - (our_apc.cell.charge / our_apc.cell.maxcharge)) * 10)
+				var/apc_weight = min(1,round(powerfraction ^ 2)) //lower power is dramatically higher odds
+				candidate_apcs[our_apc] = apc_weight
+
+		var/zones_to_electrify = rand(4,6)
+		if(length(candidate_apcs) < zones_to_electrify)
+			logTheThing(LOG_DEBUG, null, "Menhir supercharge event couldn't find enough APCs to electrify! This shouldn't happen.")
+			message_admins("Menhir supercharge event couldn't find enough APCs to electrify! This shouldn't happen. Aborting event")
+			return
+
+		SPAWN(1) //don't hold up other operations
+			var/report_string = ""
+			for(var/i = 1 to zones_to_electrify)
+				var/obj/machinery/power/apc/our_target = weighted_pick(candidate_apcs)
+				var/area/apc_loc_area = get_area(our_target) //align to the physical position of the APC, not where it powers
+				var/orb_spawns = list()
+				for(var/turf/T in orange(6,our_target))
+					if(!is_blocked_turf(T) && get_area(T) == apc_loc_area) orb_spawns += T
+				var/turf/orb_spawn_here = pick(orb_spawns)
+				if(orb_spawn_here)
+					new /obj/machinery/menhir_energy_sphere(orb_spawn_here,our_target)
+					report_string += "[log_loc(orb_spawn_here)]"
+					if(i != zones_to_electrify) report_string += ", "
+				sleep(2)
+
+			logTheThing(LOG_STATION, null, "Menhir supercharge event triggered at: [report_string]")
+			message_admins("Menhir supercharge event triggered at: [report_string]")
+
+		message_delay = rand(6 SECONDS,9 SECONDS)
+		..()
+		if (random_events.announce_events)
+			SPAWN(message_delay)
+				playsound_global(world, 'sound/misc/announcement_ominous.ogg', 60)
+
 //the crown could just use a minute ok
 /datum/random_event/menhir/closure
 	name = "The Crown Reclusive"
@@ -322,6 +370,65 @@ ABSTRACT_TYPE(/datum/random_event/menhir)
 		logTheThing(LOG_STATION, null, "Menhir closure event at [log_loc(eventlandmark)]")
 		message_admins("Menhir closure event triggered at [log_loc(eventlandmark)]")
 
+//a moment of silence
+/datum/random_event/menhir/apc_off
+	name = "Quiet is the Chorus"
+	message_delay = 1 MINUTE
+	weight = 50
+	var/list/ineligible_areas = list(
+		/area/station/maintenance,
+		/area/station/engine/core,
+		/area/station/engine/hotloop,
+		/area/station/engine/coldloop,
+		/area/station/engine/combustion_chamber,
+		/area/station/engine/monitoring,
+		/area/station/engine/power,
+		/area/station/crown
+	)
+
+	event_effect()
+		var/list/station_areas = get_accessible_station_areas()
+		var/list/candidate_areas = list()
+		for (var/area_name in station_areas)
+			var/area/A = station_areas[area_name]
+			var/not_eligible = FALSE
+			for (var/check_area in ineligible_areas)
+				if (istype(A,check_area))
+					not_eligible = TRUE
+					break
+			if (not_eligible) continue
+			if (istype(A.area_apc))
+				candidate_areas += A
+
+		var/report_num = 0
+		var/spare_areas = rand(8,16)
+		var/outage_time = rand(30 SECONDS, 36 SECONDS)
+		SPAWN(1) //don't hold up other operations
+			while(length(candidate_areas) > spare_areas)
+				var/area/our_target = pick(candidate_areas)
+				candidate_areas -= our_target
+				report_num++
+				var/obj/machinery/power/apc/to_mess_with = our_target.area_apc
+				to_mess_with.operating = FALSE
+				to_mess_with.update()
+				to_mess_with.UpdateIcon()
+				SPAWN(2)
+					playsound(to_mess_with.loc, 'sound/effects/sparks1.ogg', 30, 0)
+					FLICK("apc-spark", to_mess_with)
+				SPAWN(rand(outage_time, outage_time + 5 SECONDS))
+					to_mess_with.operating = TRUE
+					to_mess_with.update()
+					to_mess_with.UpdateIcon()
+				sleep(1)
+			logTheThing(LOG_STATION, null, "Menhir apc_off event triggered for [report_num] areas")
+			message_admins("Menhir apc_off event triggered for [report_num] areas")
+
+		message_delay = rand(9 SECONDS,15 SECONDS)
+		..()
+		if (random_events.announce_events)
+			SPAWN(message_delay)
+				playsound_global(world, 'sound/misc/announcement_ominous.ogg', 60)
+
 #define RAND_3_BY_3 1
 #define RAND_3_BY_5 2
 #define RAND_5_BY_3 3
@@ -330,7 +437,7 @@ ABSTRACT_TYPE(/datum/random_event/menhir)
 /datum/random_event/menhir/extrusion
 	name = "A Place of Paths Not Taken"
 	message_delay = 3 MINUTES
-	weight = 50
+	weight = 35
 
 	is_event_available(ignore_time_lock)
 		. = ..()
@@ -446,113 +553,6 @@ ABSTRACT_TYPE(/datum/random_event/menhir)
 #undef RAND_3_BY_3
 #undef RAND_3_BY_5
 #undef RAND_5_BY_3
-
-//a moment of silence
-/datum/random_event/menhir/apc_off
-	name = "Quiet is the Chorus"
-	message_delay = 1 MINUTE
-	weight = 50
-	var/list/ineligible_areas = list(
-		/area/station/maintenance,
-		/area/station/engine/core,
-		/area/station/engine/hotloop,
-		/area/station/engine/coldloop,
-		/area/station/engine/combustion_chamber,
-		/area/station/engine/monitoring,
-		/area/station/engine/power,
-		/area/station/crown
-	)
-
-	event_effect()
-		var/list/station_areas = get_accessible_station_areas()
-		var/list/candidate_areas = list()
-		for (var/area_name in station_areas)
-			var/area/A = station_areas[area_name]
-			var/not_eligible = FALSE
-			for (var/check_area in ineligible_areas)
-				if (istype(A,check_area))
-					not_eligible = TRUE
-					break
-			if (not_eligible) continue
-			if (istype(A.area_apc))
-				candidate_areas += A
-
-		var/report_num = 0
-		var/spare_areas = rand(8,16)
-		var/outage_time = rand(30 SECONDS, 36 SECONDS)
-		SPAWN(1) //don't hold up other operations
-			while(length(candidate_areas) > spare_areas)
-				var/area/our_target = pick(candidate_areas)
-				candidate_areas -= our_target
-				report_num++
-				var/obj/machinery/power/apc/to_mess_with = our_target.area_apc
-				to_mess_with.operating = FALSE
-				to_mess_with.update()
-				to_mess_with.UpdateIcon()
-				SPAWN(2)
-					playsound(to_mess_with.loc, 'sound/effects/sparks1.ogg', 30, 0)
-					FLICK("apc-spark", to_mess_with)
-				SPAWN(rand(outage_time, outage_time + 5 SECONDS))
-					to_mess_with.operating = TRUE
-					to_mess_with.update()
-					to_mess_with.UpdateIcon()
-				sleep(1)
-			logTheThing(LOG_STATION, null, "Menhir apc_off event triggered for [report_num] areas")
-			message_admins("Menhir apc_off event triggered for [report_num] areas")
-
-		message_delay = rand(9 SECONDS,15 SECONDS)
-		..()
-		if (random_events.announce_events)
-			SPAWN(message_delay)
-				playsound_global(world, 'sound/misc/announcement_ominous.ogg', 60)
-
-//it appears you may need a top up! let's help with that
-/datum/random_event/menhir/supercharge
-	name = "One Flame Begets Another"
-	message_delay = 1 MINUTE
-	weight = 70
-
-	event_effect()
-		var/list/station_areas = get_accessible_station_areas()
-		var/list/candidate_apcs = list()
-		for (var/area_name in station_areas)
-			var/area/A = station_areas[area_name]
-			if (istype(A.area_apc))
-				var/obj/machinery/power/apc/our_apc = A.area_apc
-				if(!our_apc.cell) continue
-				var/powerfraction = ((1 - (our_apc.cell.charge / our_apc.cell.maxcharge)) * 10)
-				var/apc_weight = min(1,round(powerfraction ^ 2)) //lower power is dramatically higher odds
-				candidate_apcs[our_apc] = apc_weight
-
-		var/zones_to_electrify = rand(4,6)
-		if(length(candidate_apcs) < zones_to_electrify)
-			logTheThing(LOG_DEBUG, null, "Menhir supercharge event couldn't find enough APCs to electrify! This shouldn't happen.")
-			message_admins("Menhir supercharge event couldn't find enough APCs to electrify! This shouldn't happen. Aborting event")
-			return
-
-		SPAWN(1) //don't hold up other operations
-			var/report_string = ""
-			for(var/i = 1 to zones_to_electrify)
-				var/obj/machinery/power/apc/our_target = weighted_pick(candidate_apcs)
-				var/area/apc_loc_area = get_area(our_target) //align to the physical position of the APC, not where it powers
-				var/orb_spawns = list()
-				for(var/turf/T in orange(6,our_target))
-					if(!is_blocked_turf(T) && get_area(T) == apc_loc_area) orb_spawns += T
-				var/turf/orb_spawn_here = pick(orb_spawns)
-				if(orb_spawn_here)
-					new /obj/machinery/menhir_energy_sphere(orb_spawn_here,our_target)
-					report_string += "[log_loc(orb_spawn_here)]"
-					if(i != zones_to_electrify) report_string += ", "
-				sleep(2)
-
-			logTheThing(LOG_STATION, null, "Menhir supercharge event triggered at: [report_string]")
-			message_admins("Menhir supercharge event triggered at: [report_string]")
-
-		message_delay = rand(6 SECONDS,9 SECONDS)
-		..()
-		if (random_events.announce_events)
-			SPAWN(message_delay)
-				playsound_global(world, 'sound/misc/announcement_ominous.ogg', 60)
 
 //untangle the snare, untangle a prize
 /datum/random_event/menhir/knot
