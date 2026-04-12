@@ -302,7 +302,7 @@ ABSTRACT_TYPE(/datum/random_event/menhir)
 				var/obj/machinery/power/apc/our_apc = A.area_apc
 				if(!our_apc.cell) continue
 				var/powerfraction = ((1 - (our_apc.cell.charge / our_apc.cell.maxcharge)) * 10)
-				var/apc_weight = min(1,round(powerfraction ^ 2.5)) //lower power is dramatically higher odds
+				var/apc_weight = max(1,round(powerfraction ^ 2.5)) //lower power is dramatically higher odds
 				candidate_apcs[our_apc] = apc_weight
 
 		var/zones_to_electrify = rand(4,6)
