@@ -303,7 +303,6 @@ ABSTRACT_TYPE(/datum/random_event/menhir)
 				if(!our_apc.cell) continue
 				var/powerfraction = ((1 - (our_apc.cell.charge / our_apc.cell.maxcharge)) * 20)
 				var/apc_weight = max(1,round(powerfraction ** 3)) //lower power is dramatically higher odds
-				boutput(world,"[A.name] | [apc_weight]") //GIGA DEBUG HOLY HELL DO NOT PUSH THIS LIVE
 				candidate_apcs[our_apc] = apc_weight
 
 		var/zones_to_electrify = rand(4,6)
