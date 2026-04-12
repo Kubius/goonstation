@@ -102,10 +102,5 @@ TYPEINFO_NEW(/obj/effects/menhir_fog)
 		activated = TRUE
 
 	boutput(usr, SPAN_NOTICE("<b>Vision [activated ? "altered." : "restored to default."]</b>"))
-
-	logTheThing(LOG_ADMIN, usr, "has [(activated ? "activated" : "deactivated")] see_invisible override.")
-	logTheThing(LOG_DIARY, usr, "has [(activated ? "activated" : "deactivated")] see_invisible override.", "admin")
-	message_admins("[key_name(usr)] has [(activated ? "activated" : "deactivated")] see_invisible override.")
-
 #endif
 
