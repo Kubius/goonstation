@@ -161,7 +161,7 @@ TYPEINFO_NEW(/obj/effects/menhir_fog)
 
 	proc/complete_cycle()
 		playsound(src.loc, 'sound/effects/lightning_strike.ogg', 80, 0, pitch = 0.8)
-		for (var/mob/living/flashmob in range(src, 3))
+		for (var/mob/living/flashmob in range(src, 4))
 			if (flashmob.hasStatus("spatial_protection"))
 				for_by_tcl(IX, /obj/machinery/interdictor)
 					if(IX.notify_interdictor(flashmob))
