@@ -447,11 +447,11 @@ ABSTRACT_TYPE(/datum/random_event/menhir)
 #undef RAND_3_BY_5
 #undef RAND_5_BY_3
 
-//little iffy on this one, probably need some better alternatives
+//a moment of silence
 /datum/random_event/menhir/apc_off
 	name = "Quiet is the Chorus"
 	message_delay = 1 MINUTE
-	weight = 35
+	weight = 50
 	var/list/ineligible_areas = list(
 		/area/station/maintenance,
 		/area/station/engine/core,
@@ -479,6 +479,7 @@ ABSTRACT_TYPE(/datum/random_event/menhir)
 
 		var/report_num = 0
 		var/spare_areas = rand(8,16)
+		var/outage_time = rand(30 SECONDS, 36 SECONDS)
 		SPAWN(1) //don't hold up other operations
 			while(length(candidate_areas) > spare_areas)
 				var/area/our_target = pick(candidate_areas)
@@ -491,7 +492,7 @@ ABSTRACT_TYPE(/datum/random_event/menhir)
 				SPAWN(2)
 					playsound(to_mess_with.loc, 'sound/effects/sparks1.ogg', 30, 0)
 					FLICK("apc-spark", to_mess_with)
-				SPAWN(rand(25 SECONDS, 30 SECONDS))
+				SPAWN(rand(outage_time, outage_time + 5 SECONDS))
 					to_mess_with.operating = TRUE
 					to_mess_with.update()
 					to_mess_with.UpdateIcon()
