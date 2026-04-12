@@ -93,7 +93,7 @@ TYPEINFO_NEW(/obj/effects/menhir_fog)
 	icon = 'icons/obj/artifacts/puzzles.dmi'
 	icon_state = "sphere"
 	anchored = ANCHORED
-	density = 1
+	density = 0
 	opacity = 0
 	alpha = 0
 	var/datum/light/light
@@ -124,6 +124,7 @@ TYPEINFO_NEW(/obj/effects/menhir_fog)
 				src.light.enable()
 				animate(src, alpha = 255, transform = matrix(), time = 2 SECONDS, easing = CIRCULAR_EASING)
 			SPAWN(3 SECONDS)
+				src.density = 1
 				src.arc_status = ARC_READY
 
 	process()
@@ -181,7 +182,7 @@ TYPEINFO_NEW(/obj/effects/menhir_fog)
 		..()
 
 	EnteredProximity(atom/movable/AM)
-		if(iscarbon(AM) && prob(20))
+		if(src.arc_status && iscarbon(AM) && prob(20))
 			var/mob/living/carbon/user = AM
 			src.shock(user)
 
