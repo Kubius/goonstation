@@ -128,7 +128,7 @@ TYPEINFO_NEW(/obj/effects/menhir_fog)
 				src.arc_status = ARC_READY
 
 	process()
-		if(!target_apc || !target_apc.cell)
+		if(!target_apc || !target_apc.cell || !target_apc.operating)
 			src.complete_cycle()
 			return
 		switch(src.arc_status)
