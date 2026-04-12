@@ -160,15 +160,17 @@ TYPEINFO_NEW(/obj/effects/menhir_fog)
 
 	proc/complete_cycle()
 		playsound(src.loc, 'sound/effects/lightning_strike.ogg', 80, 0, pitch = 0.8)
-		for (var/mob/living/poorSoul in range(src, 3))
-			if (M.hasStatus("spatial_protection"))
+		for (var/mob/living/flashmob in range(src, 3))
+			if (flashmob.hasStatus("spatial_protection"))
 				for_by_tcl(IX, /obj/machinery/interdictor)
-					if(IX.notify_interdictor(M))
+					if(IX.notify_interdictor(flashmob))
 						break
+				boutput(flashmob,"<b>The discharge glances off of your protective field!</b>")
+				arcFlash(src, get_turf(flashmob), (600 - add_budget) * 200)
 			else
-				arcFlash(src, poorSoul, (600 - add_budget) * 200) //don't arcflash hard unless we overcharged something
-				if (isdead(poorSoul) && prob(15))
-					poorSoul.gib()
+				arcFlash(src, flashmob, (600 - add_budget) * 200) //don't arcflash hard unless we overcharged something
+				if (isdead(flashmob) && prob(15))
+					flashmob.gib()
 		SPAWN(4)
 			qdel(src)
 
