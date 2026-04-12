@@ -81,6 +81,142 @@ TYPEINFO_NEW(/obj/effects/menhir_fog)
 		var/turf/noisy_turf = pick(get_area_turfs(/area/station/crown))
 		playsound(noisy_turf, weirdnoise, 70, 1)
 
+#define ARC_NOT_READY 0
+#define ARC_READY 1
+#define ARC_ACTIVE 2
+#define ARC_CONCLUDE 3
+
+//Menhir variant of precursor energy sphere without the tag stuff, for events. Hooks to an APC and charges it
+/obj/machinery/menhir_energy_sphere
+	name = "rydberg-matter sphere"
+	desc = "That doesn't look very safe at all."
+	icon = 'icons/obj/artifacts/puzzles.dmi'
+	icon_state = "sphere"
+	anchored = ANCHORED
+	density = 0
+	opacity = 0
+	alpha = 0
+	var/datum/light/light
+	var/obj/machinery/power/apc/target_apc
+	var/list/boltlines = list()
+	var/arc_status = ARC_NOT_READY
+	var/warned = FALSE
+	///Can overcharge cells by 500 units an orb, to a cap of 5,000 cell capacity
+	var/add_budget = 500
+
+	New(newLoc, var/obj/inputapc)
+		if(inputapc)
+			src.target_apc = inputapc
+		else
+			var/obj/machinery/power/apc/prospective_target = get_local_apc(src)
+			if(prospective_target) src.target_apc = prospective_target
+		..()
+		src.Scale(3,3)
+		src.light = new /datum/light/point
+		src.light.attach(src)
+		src.light.set_color(0.6,0.7,1)
+		src.AddComponent(/datum/component/proximity)
+
+		if(src.target_apc)
+			playsound(src.loc, 'sound/weapons/energy/howitzer_firing.ogg', 40, 0, pitch = 0.45, extrarange = 24)
+			SPAWN(3)
+				animate(src, alpha = 255, transform = matrix(), time = 2 SECONDS, easing = SINE_EASING)
+			SPAWN(3 SECONDS)
+				src.arc_status = ARC_READY
+
+	process()
+		if(!target_apc || !target_apc.cell)
+			src.complete_cycle()
+			return
+		switch(src.arc_status)
+			if(ARC_READY)
+				src.arc_status = ARC_ACTIVE
+				playsound(src.loc, 'sound/machines/shieldoverload.ogg', 80, 0, extrarange = 24)
+				SPAWN(8)
+					src.boltlines = drawLineObj(src, src.target_apc, /obj/line_obj/elec, 'icons/obj/projectiles.dmi',"WholeLghtn",1,1,"HalfStartLghtn","HalfEndLghtn",FLY_LAYER,1,PreloadedIcon='icons/effects/LghtLine.dmi')
+					src.light.set_brightness(1.4)
+					src.light.enable()
+			if(ARC_ACTIVE)
+				var/obj/item/cell/targetcell = src.target_apc.cell
+				var/add_amt = rand(80,100)
+				if(src.add_budget && targetcell.maxcharge < 5000)
+					targetcell.maxcharge = min(targetcell.maxcharge + 100, 5000)
+					src.add_budget -= 100
+
+				if(targetcell.charge + 210 > targetcell.maxcharge)
+					if(!src.warned)
+						src.visible_message(SPAN_ALERT("<b>[src] begins to shudder and spark!</b>"))
+						src.warned = TRUE
+					playsound(src.loc, 'sound/effects/elec_bzzz.ogg', 65, 1, pitch = 0.8)
+				else
+					playsound(src.loc, 'sound/machines/siphon_run.ogg', 65, 1, pitch = 1.65)
+
+				targetcell.charge = min(targetcell.charge + add_amt, targetcell.maxcharge)
+				if(targetcell.charge == targetcell.maxcharge)
+					src.arc_status = ARC_CONCLUDE
+			if(ARC_CONCLUDE)
+				src.complete_cycle()
+
+	proc/complete_cycle()
+		playsound(src.loc, 'sound/effects/lightning_strike.ogg', 80, 0, pitch = 0.8)
+		for (var/mob/living/poorSoul in range(src, 3))
+			arcFlash(src, poorSoul, (550 - add_budget) * 100) //don't arcflash hard unless we overcharged something
+			if (isdead(poorSoul) && prob(15))
+				poorSoul.gib()
+		SPAWN(4)
+			qdel(src)
+
+	disposing()
+		for (var/obj/O in boltlines)
+			qdel(O)
+		light.disable()
+		..()
+
+	EnteredProximity(atom/movable/AM)
+		if(iscarbon(AM) && prob(20))
+			var/mob/living/carbon/user = AM
+			src.shock(user)
+
+	bump(atom/movable/AM as mob)
+		if(iscarbon(AM))
+			var/mob/living/carbon/user = AM
+			src.shock(user)
+
+	proc/shock(var/mob/living/user as mob)
+		if(user)
+			elecflash(user,power=2)
+			var/shock_damage = rand(10,15)
+
+			if (user.bioHolder.HasEffect("resist_electric_heal"))
+				var/healing = 0
+				if (shock_damage)
+					healing = shock_damage / 3
+				user.HealDamage("All", shock_damage, shock_damage)
+				user.take_toxin_damage(0 - healing)
+				boutput(user, SPAN_NOTICE("You absorb the electrical shock, healing your body!"))
+				return
+			else if (user.bioHolder.HasEffect("resist_electric"))
+				boutput(user, SPAN_NOTICE("You feel electricity course through you harmlessly!"))
+				return
+
+			user.TakeDamage(user.hand == LEFT_HAND ? "l_arm" : "r_arm", 0, shock_damage)
+			boutput(user, SPAN_ALERT("<B>You feel a powerful shock course through your body sending you flying!</B>"))
+			user.unlock_medal("HIGH VOLTAGE", 1)
+			user.Virus_ShockCure(100)
+			user:shock_cyberheart(100)
+			user.changeStatus("stunned", 2 SECONDS)
+			user.changeStatus("knockdown", 2 SECONDS)
+			var/atom/target = get_edge_target_turf(user, get_dir(src, get_step_away(user, src)))
+			user.throw_at(target, 200, 4)
+			for(var/mob/M in AIviewers(src))
+				if(M == user)	continue
+			user.show_message(SPAN_ALERT("[user.name] was shocked by the [src.name]!"), 3, SPAN_ALERT("You hear a heavy electrical crack"), 2)
+
+#undef ARC_NOT_READY
+#undef ARC_READY
+#undef ARC_ACTIVE
+#undef ARC_CONCLUDE
+
 #ifdef MAP_OVERRIDE_MENHIR
 
 /client/proc/cmd_admin_vislayer()
