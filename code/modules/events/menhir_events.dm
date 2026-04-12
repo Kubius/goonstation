@@ -44,6 +44,8 @@ var/global/menhir_candidates_last_built = 0
 
 	return
 
+#define MENHIR_STANDARD_ALERT_VOLUME 50
+
 ABSTRACT_TYPE(/datum/random_event/menhir)
 /datum/random_event/menhir
 	centcom_headline = "Artifact Condition Advisory"
@@ -112,7 +114,7 @@ ABSTRACT_TYPE(/datum/random_event/menhir)
 		..()
 		if (random_events.announce_events)
 			SPAWN(message_delay)
-				playsound_global(world, 'sound/misc/announcement_ominous.ogg', 60)
+				playsound_global(world, 'sound/misc/announcement_ominous.ogg', MENHIR_STANDARD_ALERT_VOLUME)
 
 //pulled one out of cold storage for ya
 /datum/random_event/menhir/gift
@@ -174,7 +176,7 @@ ABSTRACT_TYPE(/datum/random_event/menhir)
 
 		if (random_events.announce_events)
 			SPAWN(message_delay)
-				playsound_global(world, 'sound/misc/announcement_ominous.ogg', 60)
+				playsound_global(world, 'sound/misc/announcement_ominous.ogg', MENHIR_STANDARD_ALERT_VOLUME)
 
 		if(node_tag)
 			logTheThing(LOG_STATION, null, "Menhir gift event at [node_tag] arm - [log_loc(nodelandmark)]")
@@ -277,7 +279,7 @@ ABSTRACT_TYPE(/datum/random_event/menhir)
 		..()
 		if (random_events.announce_events)
 			SPAWN(message_delay)
-				playsound_global(world, 'sound/misc/announcement_ominous.ogg', 60)
+				playsound_global(world, 'sound/misc/announcement_ominous.ogg', MENHIR_STANDARD_ALERT_VOLUME)
 
 		logTheThing(LOG_STATION, null, "Menhir analysis event at [node_tag] arm - [log_loc(nodelandmark)]")
 		message_admins("Menhir analysis event triggered at [node_tag] arm - [log_loc(nodelandmark)]")
@@ -328,7 +330,7 @@ ABSTRACT_TYPE(/datum/random_event/menhir)
 		..()
 		if (random_events.announce_events)
 			SPAWN(message_delay)
-				playsound_global(world, 'sound/misc/announcement_ominous.ogg', 60)
+				playsound_global(world, 'sound/misc/announcement_ominous.ogg', MENHIR_STANDARD_ALERT_VOLUME)
 
 //the crown could just use a minute ok
 /datum/random_event/menhir/closure
@@ -365,7 +367,7 @@ ABSTRACT_TYPE(/datum/random_event/menhir)
 		..()
 		if (random_events.announce_events)
 			SPAWN(message_delay)
-				playsound_global(world, 'sound/misc/announcement_ominous.ogg', 60)
+				playsound_global(world, 'sound/misc/announcement_ominous.ogg', MENHIR_STANDARD_ALERT_VOLUME)
 
 		logTheThing(LOG_STATION, null, "Menhir closure event at [log_loc(eventlandmark)]")
 		message_admins("Menhir closure event triggered at [log_loc(eventlandmark)]")
@@ -427,7 +429,7 @@ ABSTRACT_TYPE(/datum/random_event/menhir)
 		..()
 		if (random_events.announce_events)
 			SPAWN(message_delay)
-				playsound_global(world, 'sound/misc/announcement_ominous.ogg', 60)
+				playsound_global(world, 'sound/misc/announcement_ominous.ogg', MENHIR_STANDARD_ALERT_VOLUME)
 
 #define RAND_3_BY_3 1
 #define RAND_3_BY_5 2
@@ -494,7 +496,7 @@ ABSTRACT_TYPE(/datum/random_event/menhir)
 		..()
 		if (random_events.announce_events)
 			SPAWN(message_delay)
-				playsound_global(world, 'sound/misc/announcement_ominous.ogg', 60)
+				playsound_global(world, 'sound/misc/announcement_ominous.ogg', MENHIR_STANDARD_ALERT_VOLUME)
 
 		landmarks[LANDMARK_MENHIR_EXTRUSION].Remove(extlandmark)
 
@@ -633,7 +635,7 @@ ABSTRACT_TYPE(/datum/random_event/menhir)
 
 		if (random_events.announce_events)
 			SPAWN(message_delay)
-				playsound_global(world, 'sound/misc/announcement_ominous.ogg', 60)
+				playsound_global(world, 'sound/misc/announcement_ominous.ogg', MENHIR_STANDARD_ALERT_VOLUME)
 
 		logTheThing(LOG_STATION, null, "Menhir knot event at [node_tag] arm - [log_loc(nodelandmark)]")
 		message_admins("Menhir knot event triggered at [node_tag] arm - [log_loc(nodelandmark)]")
@@ -715,7 +717,7 @@ ABSTRACT_TYPE(/datum/random_event/menhir)
 		..()
 		if (random_events.announce_events)
 			SPAWN(message_delay)
-				playsound_global(world, 'sound/misc/announcement_ominous.ogg', 60)
+				playsound_global(world, 'sound/misc/announcement_ominous.ogg', MENHIR_STANDARD_ALERT_VOLUME)
 
 		logTheThing(LOG_STATION, null, "Menhir road event triggered.")
 		message_admins("Menhir road event triggered.")
