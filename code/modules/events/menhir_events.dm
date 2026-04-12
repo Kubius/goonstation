@@ -51,6 +51,15 @@ ABSTRACT_TYPE(/datum/random_event/menhir)
 	centcom_headline = "Artifact Condition Advisory"
 	centcom_message = "A spike in electromagnetic activity from TOREADOR-7I-22408 was recently recorded. Personnel on site are advised to monitor artifact for changes in structure or activity."
 	centcom_origin = ALERT_ANOMALY
+	///Some events may not want to have an announcement on account of being minor and/or self-evident.
+	var/unannounced = FALSE
+
+	New()
+		. = ..()
+		if(src.unannounced)
+			src.centcom_headline = null
+			src.centcom_message = null
+			src.centcom_origin = null
 
 	///Outreach turfs are locations that start open and are suitable for an event to occur at. Events should pick and check one blindly at first, and fall back to this if necessary.
 	proc/get_open_outreach()
@@ -67,6 +76,7 @@ ABSTRACT_TYPE(/datum/random_event/menhir)
 	name = "Emissaries of the Crown"
 	message_delay = 1 MINUTE
 	weight = 150
+	unannounced = TRUE
 	var/list/deployed_probes = list()
 
 	is_event_available(ignore_time_lock)
@@ -110,11 +120,7 @@ ABSTRACT_TYPE(/datum/random_event/menhir)
 		logTheThing(LOG_STATION, null, "Menhir probes event deployed [probe_deployments] probes.")
 		message_admins("Menhir probes event deployed [probe_deployments] probes.")
 
-		message_delay = rand(25 SECONDS,32 SECONDS)
 		..()
-		if (random_events.announce_events)
-			SPAWN(message_delay)
-				playsound_global(world, 'sound/misc/announcement_ominous.ogg', MENHIR_STANDARD_ALERT_VOLUME)
 
 //pulled one out of cold storage for ya
 /datum/random_event/menhir/gift
@@ -190,6 +196,7 @@ ABSTRACT_TYPE(/datum/random_event/menhir)
 	name = "The Crown Inquires"
 	message_delay = 2 MINUTES
 	weight = 80
+	unannounced = TRUE
 	///Increase the minimum required candidates each time the event goes off, to a cap.
 	var/required_candidates = 1
 
@@ -275,11 +282,7 @@ ABSTRACT_TYPE(/datum/random_event/menhir)
 		SPAWN(5)
 			playsound(nodelandmark, 'sound/musical_instruments/artifact/Artifact_Precursor_5.ogg', 55, 0, pitch = 0.45, extrarange = 24)
 
-		message_delay = time_of_stay + rand(15 SECONDS,30 SECONDS)
 		..()
-		if (random_events.announce_events)
-			SPAWN(message_delay)
-				playsound_global(world, 'sound/misc/announcement_ominous.ogg', MENHIR_STANDARD_ALERT_VOLUME)
 
 		logTheThing(LOG_STATION, null, "Menhir analysis event at [node_tag] arm - [log_loc(nodelandmark)]")
 		message_admins("Menhir analysis event triggered at [node_tag] arm - [log_loc(nodelandmark)]")
@@ -337,6 +340,7 @@ ABSTRACT_TYPE(/datum/random_event/menhir)
 	name = "The Crown Reclusive"
 	message_delay = 1 MINUTE
 	weight = 50
+	unannounced = TRUE
 
 	is_event_available(ignore_time_lock)
 		. = ..()
@@ -363,11 +367,7 @@ ABSTRACT_TYPE(/datum/random_event/menhir)
 
 		playsound(eventlandmark, 'sound/effects/ring_happi.ogg', 45, 0, extrarange = 24, pitch = 0.3)
 
-		message_delay = rand(20 SECONDS,30 SECONDS)
 		..()
-		if (random_events.announce_events)
-			SPAWN(message_delay)
-				playsound_global(world, 'sound/misc/announcement_ominous.ogg', MENHIR_STANDARD_ALERT_VOLUME)
 
 		logTheThing(LOG_STATION, null, "Menhir closure event at [log_loc(eventlandmark)]")
 		message_admins("Menhir closure event triggered at [log_loc(eventlandmark)]")

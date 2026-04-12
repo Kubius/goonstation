@@ -15,8 +15,6 @@ ABSTRACT_TYPE(/datum/storyteller)
 #ifdef MAP_OVERRIDE_MENHIR
 	var/menhir_event_start = 8 MINUTES
 	var/menhir_time_range = list(7 MINUTES, 10 MINUTES)
-	var/menhir_event_prob = 75
-	var/dry_cycles_before_guarantee = 2
 #endif
 
 	var/spawn_event_start = 23 MINUTES
@@ -126,19 +124,13 @@ ABSTRACT_TYPE(/datum/storyteller)
 				for (var/datum/menhir_room_roll/RR in random_events.menhir_special_rooms)
 					if(RR.special_eval(direction_eligibility))
 						did_specific = TRUE
-						random_events.cycles_since_menhir_event = 0
 						logTheThing(LOG_STATION, null, "Menhir room '[RR.name]' special condition was triggered; forcing room event.")
 						message_admins(SPAN_INTERNAL("Menhir room '[RR.name]' special condition was triggered; forcing room event."))
 						random_events.the_room_event.event_effect()
 
 			if(!did_specific)
-				if(prob(menhir_event_prob) || random_events.cycles_since_menhir_event > dry_cycles_before_guarantee)
-					random_events.cycles_since_menhir_event = 0
-					SPAWN(rand(1 MINUTE,5 MINUTES))
-						random_events.do_random_event(random_events.menhir_events)
-				else
-					random_events.cycles_since_menhir_event++
-					message_admins(SPAN_INTERNAL("Menhir event has been skipped for this cycle."))
+				SPAWN(rand(8 SECONDS,2 MINUTES)) //slight additional variance so things don't always drop exactly on cue
+					random_events.do_random_event(random_events.menhir_events)
 
 		random_events.menhir_event_timer = rand(random_events.time_between_menhir_events_lower, random_events.time_between_menhir_events_upper)
 		random_events.next_menhir_event = ticker.round_elapsed_ticks + random_events.menhir_event_timer
@@ -232,10 +224,3 @@ ABSTRACT_TYPE(/datum/storyteller)
 				random_events.next_major_event += rand(1 MINUTE, 2 MINUTES)
 
 		..()
-
-#ifdef MAP_OVERRIDE_MENHIR
-/datum/storyteller/wakingcrown
-	name = "Waking Crown"
-	description = "A Menhir event will always trigger each cycle."
-	menhir_event_prob = 100
-#endif

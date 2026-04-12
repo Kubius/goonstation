@@ -25,8 +25,6 @@ var/datum/event_controller/random_events
 	var/time_between_menhir_events_upper = 10 MINUTES
 	var/menhir_events_enabled = TRUE
 	var/menhir_event_cycle_count = 0
-	///Events aren't guaranteed to happen on each of these ticks
-	var/cycles_since_menhir_event = 0
 	///Room event has certain possibilities that will guarantee a room's spawn next cycle if an eligible space remains
 	var/list/menhir_special_rooms = list()
 	var/special_room_list_built = FALSE
