@@ -93,7 +93,7 @@ TYPEINFO_NEW(/obj/effects/menhir_fog)
 	icon = 'icons/obj/artifacts/puzzles.dmi'
 	icon_state = "sphere"
 	anchored = ANCHORED
-	density = 0
+	density = 1
 	opacity = 0
 	alpha = 0
 	var/datum/light/light
@@ -115,12 +115,14 @@ TYPEINFO_NEW(/obj/effects/menhir_fog)
 		src.light = new /datum/light/point
 		src.light.attach(src)
 		src.light.set_color(0.6,0.7,1)
+		src.light.set_brightness(0.7)
 		src.AddComponent(/datum/component/proximity)
 
 		if(src.target_apc)
 			playsound(src.loc, 'sound/weapons/energy/howitzer_firing.ogg', 40, 0, pitch = 0.45, extrarange = 24)
 			SPAWN(3)
-				animate(src, alpha = 255, transform = matrix(), time = 2 SECONDS, easing = SINE_EASING)
+				src.light.enable()
+				animate(src, alpha = 255, transform = matrix(), time = 2 SECONDS, easing = CIRCULAR_EASING)
 			SPAWN(3 SECONDS)
 				src.arc_status = ARC_READY
 
@@ -135,7 +137,6 @@ TYPEINFO_NEW(/obj/effects/menhir_fog)
 				SPAWN(8)
 					src.boltlines = drawLineObj(src, src.target_apc, /obj/line_obj/elec, 'icons/obj/projectiles.dmi',"WholeLghtn",1,1,"HalfStartLghtn","HalfEndLghtn",FLY_LAYER,1,PreloadedIcon='icons/effects/LghtLine.dmi')
 					src.light.set_brightness(1.4)
-					src.light.enable()
 			if(ARC_ACTIVE)
 				var/obj/item/cell/targetcell = src.target_apc.cell
 				var/add_amt = rand(80,100)
@@ -149,7 +150,7 @@ TYPEINFO_NEW(/obj/effects/menhir_fog)
 						src.warned = TRUE
 					playsound(src.loc, 'sound/effects/elec_bzzz.ogg', 65, 1, pitch = 0.8)
 				else
-					playsound(src.loc, 'sound/machines/siphon_run.ogg', 65, 1, pitch = 1.65)
+					playsound(src.loc, 'sound/machines/siphon_run.ogg', 65, 0, pitch = 1.65)
 
 				targetcell.charge = min(targetcell.charge + add_amt, targetcell.maxcharge)
 				if(targetcell.charge == targetcell.maxcharge)
@@ -160,9 +161,14 @@ TYPEINFO_NEW(/obj/effects/menhir_fog)
 	proc/complete_cycle()
 		playsound(src.loc, 'sound/effects/lightning_strike.ogg', 80, 0, pitch = 0.8)
 		for (var/mob/living/poorSoul in range(src, 3))
-			arcFlash(src, poorSoul, (550 - add_budget) * 100) //don't arcflash hard unless we overcharged something
-			if (isdead(poorSoul) && prob(15))
-				poorSoul.gib()
+			if (M.hasStatus("spatial_protection"))
+				for_by_tcl(IX, /obj/machinery/interdictor)
+					if(IX.notify_interdictor(M))
+						break
+			else
+				arcFlash(src, poorSoul, (600 - add_budget) * 200) //don't arcflash hard unless we overcharged something
+				if (isdead(poorSoul) && prob(15))
+					poorSoul.gib()
 		SPAWN(4)
 			qdel(src)
 
@@ -181,6 +187,7 @@ TYPEINFO_NEW(/obj/effects/menhir_fog)
 		if(iscarbon(AM))
 			var/mob/living/carbon/user = AM
 			src.shock(user)
+			src.density = 0 //special behavior for this version
 
 	proc/shock(var/mob/living/user as mob)
 		if(user)
