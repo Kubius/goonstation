@@ -3432,11 +3432,11 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/solar/east)
 "bYj" = (
-/obj/machinery/computer/announcement/station/bridge{
-	dir = 4
+/obj/table/reinforced/industrial/auto,
+/obj/item/storage/box/PDAbox{
+	pixel_y = 6;
+	pixel_x = -3
 	},
-/obj/cable,
-/obj/machinery/power/data_terminal,
 /obj/machinery/camera/directional/south,
 /turf/simulated/floor/minitiles/black,
 /area/station/bridge)
@@ -6428,12 +6428,6 @@
 /obj/random_item_spawner/gross_with_junk/one_or_zero,
 /turf/simulated/floor/plating,
 /area/station/maintenance/east)
-"dPF" = (
-/obj/stool/chair/office/blue{
-	dir = 8
-	},
-/turf/simulated/floor/minitiles/black,
-/area/station/bridge)
 "dQm" = (
 /obj/rack,
 /obj/item/clothing/suit/space/emerg,
@@ -17102,8 +17096,9 @@
 	},
 /area/station/mining/staff_room)
 "jZg" = (
-/obj/table/reinforced/industrial/auto,
-/obj/machinery/phone,
+/obj/stool/chair/comfy/blue{
+	dir = 8
+	},
 /turf/simulated/floor/darkblue,
 /area/station/hallway/primary/east)
 "jZq" = (
@@ -19985,10 +19980,8 @@
 	},
 /area/station/security/checkpoint/arrivals)
 "lFR" = (
-/obj/table/reinforced/industrial/auto,
-/obj/item/storage/box/PDAbox{
-	pixel_y = 6;
-	pixel_x = -3
+/obj/stool/chair/office/blue{
+	dir = 1
 	},
 /turf/simulated/floor/minitiles/black,
 /area/station/bridge)
@@ -26621,6 +26614,14 @@
 	},
 /turf/simulated/wall/auto/supernorn,
 /area/research_outpost/limpet/personnel)
+"pnX" = (
+/obj/machinery/computer/announcement/station/bridge{
+	dir = 8
+	},
+/obj/cable,
+/obj/machinery/power/data_terminal,
+/turf/simulated/floor/minitiles/black,
+/area/station/bridge)
 "pon" = (
 /turf/space,
 /area/supply/sell_point)
@@ -35267,9 +35268,8 @@
 	layer = 9.1;
 	pixel_x = 10
 	},
-/obj/stool/chair/comfy/blue{
-	dir = 8
-	},
+/obj/table/reinforced/industrial/auto,
+/obj/machinery/phone,
 /turf/simulated/floor/darkblue/side{
 	dir = 4
 	},
@@ -99543,8 +99543,8 @@ oHN
 qsG
 pYf
 kcD
-lsw
-kJy
+xIA
+pnX
 qfg
 qfg
 qfg
@@ -99845,7 +99845,7 @@ oHN
 dKe
 dFw
 kcD
-xIA
+lsw
 bYj
 qfg
 vNa
@@ -100148,7 +100148,7 @@ xsH
 svY
 asR
 lsw
-dPF
+kJy
 qfg
 kIk
 kKg
