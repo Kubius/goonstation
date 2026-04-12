@@ -3134,14 +3134,6 @@
 	},
 /turf/simulated/floor/carpet/arcade,
 /area/station/crew_quarters/quartersC)
-"bRc" = (
-/obj/cable{
-	icon_state = "2-8"
-	},
-/turf/simulated/floor/greenblack{
-	dir = 8
-	},
-/area/station/turret_protected/Zeta)
 "bRn" = (
 /obj/cable{
 	icon_state = "1-2"
@@ -6667,16 +6659,11 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/northwest)
 "dWl" = (
-/obj/machinery/turret,
-/obj/machinery/door_control{
-	id = "dwaine_core";
-	name = "DWAINE Core Shield";
-	pixel_x = 25;
-	dir = 4;
-	pixel_y = -5
+/obj/cable{
+	icon_state = "4-8"
 	},
-/turf/simulated/floor/greenblack{
-	dir = 4
+/turf/simulated/floor/greenblack/corner{
+	dir = 8
 	},
 /area/station/turret_protected/Zeta)
 "dWJ" = (
@@ -8687,13 +8674,6 @@
 	icon_state = "engine_caution_south"
 	},
 /area/research_outpost/limpet/hangar)
-"fkw" = (
-/obj/cable{
-	icon_state = "1-6"
-	},
-/obj/landmark/gps_waypoint,
-/turf/simulated/floor/black,
-/area/station/turret_protected/Zeta)
 "fkI" = (
 /obj/machinery/computer3/generic/secure_data,
 /obj/machinery/power/data_terminal,
@@ -8994,6 +8974,14 @@
 	dir = 1
 	},
 /area/station/medical/medbay/pharmacy)
+"fvO" = (
+/obj/cable{
+	icon_state = "5-8"
+	},
+/turf/simulated/floor/greenblack{
+	dir = 8
+	},
+/area/station/turret_protected/Zeta)
 "fwS" = (
 /obj/storage/crate/robotparts,
 /turf/simulated/floor/grime,
@@ -9862,14 +9850,12 @@
 	},
 /area/station/science/lab)
 "fVL" = (
-/obj/machinery/computer3/terminal/zeta{
-	dir = 4;
-	setup_os_string = "ZETA_MAINFRAME"
-	},
 /obj/cable{
-	icon_state = "0-4"
+	icon_state = "1-2"
 	},
-/obj/machinery/power/data_terminal,
+/obj/stool/chair/office/blue{
+	dir = 8
+	},
 /turf/simulated/floor/black,
 /area/station/turret_protected/Zeta)
 "fWv" = (
@@ -9963,16 +9949,19 @@
 /turf/simulated/floor/grey/blackgrime,
 /area/station/security/brig/genpop)
 "fZa" = (
+/obj/machinery/computer3/terminal/zeta{
+	dir = 4;
+	setup_os_string = "ZETA_MAINFRAME"
+	},
+/obj/machinery/power/data_terminal,
+/obj/cable{
+	icon_state = "0-5"
+	},
 /obj/machinery/turretid/computer_core{
 	pixel_x = -24
 	},
-/obj/table/reinforced/auto,
-/obj/machinery/cell_charger,
-/obj/item/cell/charged,
-/obj/item/cell/charged,
-/obj/item/cell/supercell/charged,
 /turf/simulated/floor/greenblack{
-	dir = 5
+	dir = 4
 	},
 /area/station/turret_protected/Zeta)
 "fZy" = (
@@ -11178,14 +11167,9 @@
 	name = "Secure Release Foyer"
 	})
 "gFF" = (
-/obj/stool/chair/office/blue{
-	dir = 8
-	},
+/obj/landmark/gps_waypoint,
 /obj/cable{
-	icon_state = "2-8"
-	},
-/obj/cable{
-	icon_state = "1-2"
+	icon_state = "4-8"
 	},
 /turf/simulated/floor/black,
 /area/station/turret_protected/Zeta)
@@ -11332,11 +11316,11 @@
 /area/station/hallway/primary/east)
 "gKT" = (
 /obj/table/reinforced/auto,
-/obj/item/paper/book/from_file/guardbot_guide{
-	pixel_x = 3;
-	pixel_y = 3
+/obj/item/disk/data/tape/master/readonly,
+/obj/item/paper/book/from_file/dwainedummies{
+	pixel_y = 6
 	},
-/obj/item/storage/box/tapebox,
+/obj/item/device/multitool,
 /turf/simulated/floor/black,
 /area/station/turret_protected/Zeta)
 "gKZ" = (
@@ -14119,12 +14103,6 @@
 /obj/disposalpipe/segment/horizontal,
 /turf/simulated/floor/plating,
 /area/station/medical/research)
-"inS" = (
-/obj/cable{
-	icon_state = "2-8"
-	},
-/turf/simulated/floor/black,
-/area/station/turret_protected/Zeta)
 "iod" = (
 /obj/cable{
 	icon_state = "6-8"
@@ -15695,10 +15673,15 @@
 	},
 /area/station/science/chemistry)
 "jkJ" = (
-/obj/cable{
-	icon_state = "4-9"
+/obj/table/reinforced/auto,
+/obj/item/paper/book/from_file/guardbot_guide{
+	pixel_x = 3;
+	pixel_y = 3
 	},
-/turf/simulated/floor/greenblack,
+/obj/item/storage/box/tapebox{
+	pixel_x = -14
+	},
+/turf/simulated/floor/black,
 /area/station/turret_protected/Zeta)
 "jkX" = (
 /obj/rack,
@@ -17309,19 +17292,13 @@
 	name = "Solitary Confinement #1"
 	})
 "kgn" = (
-/obj/machinery/computer3/terminal/zeta{
-	dir = 4;
-	setup_os_string = "ZETA_MAINFRAME"
-	},
-/obj/machinery/light_switch/west,
 /obj/cable{
-	icon_state = "0-4"
+	icon_state = "4-8"
 	},
-/obj/machinery/power/data_terminal,
-/turf/simulated/floor/grey/side{
-	dir = 8
+/turf/simulated/floor/greenblack{
+	dir = 5
 	},
-/area/station/science/bot_storage)
+/area/station/turret_protected/Zeta)
 "kgp" = (
 /obj/mesh/catwalk,
 /obj/disposalpipe/segment/ejection{
@@ -18920,23 +18897,13 @@
 	name = "Security Office"
 	})
 "laP" = (
-/obj/table/reinforced/auto,
-/obj/item/circuitboard/robotics{
-	pixel_y = -3
-	},
-/obj/item/disk/data/floppy/read_only/network_progs{
-	pixel_y = 6
-	},
-/obj/item/disk/data/floppy/read_only/communications{
-	pixel_x = -13;
-	pixel_y = 6
-	},
 /obj/machinery/light{
 	dir = 1;
 	layer = 9.1;
 	pixel_y = 21
 	},
 /obj/machinery/firealarm/directional/east,
+/obj/machinery/turret,
 /turf/simulated/floor/greenblack{
 	dir = 4
 	},
@@ -19021,14 +18988,15 @@
 /turf/simulated/floor/black,
 /area/station/turret_protected/incursion)
 "let" = (
+/obj/table/reinforced/auto,
+/obj/item/storage/box/diskbox,
 /obj/machinery/light{
 	dir = 8;
 	layer = 9.1;
 	pixel_x = -10
 	},
-/obj/machinery/turret,
 /turf/simulated/floor/greenblack{
-	dir = 10
+	dir = 8
 	},
 /area/station/turret_protected/Zeta)
 "leD" = (
@@ -21848,14 +21816,9 @@
 	})
 "mJx" = (
 /obj/machinery/light,
-/obj/cable{
-	icon_state = "4-8"
-	},
-/obj/cable{
-	icon_state = "4-9"
-	},
+/obj/machinery/turret,
 /turf/simulated/floor/greenblack{
-	dir = 8
+	dir = 4
 	},
 /area/station/turret_protected/Zeta)
 "mJU" = (
@@ -22881,11 +22844,11 @@
 /turf/simulated/floor/black/grime,
 /area/station/security/interrogation)
 "noX" = (
-/obj/stool/chair/office{
-	dir = 8
-	},
 /obj/cable{
 	icon_state = "4-8"
+	},
+/obj/cable{
+	icon_state = "4-10"
 	},
 /turf/simulated/floor,
 /area/station/science/bot_storage)
@@ -24881,13 +24844,18 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/solar/east)
 "ott" = (
-/obj/machinery/computer/robotics{
-	dir = 4
+/obj/cable{
+	icon_state = "4-10"
 	},
 /obj/cable{
-	icon_state = "0-4"
+	icon_state = "4-9"
 	},
-/obj/machinery/power/data_terminal,
+/obj/cable{
+	icon_state = "4-8"
+	},
+/obj/cable{
+	icon_state = "1-4"
+	},
 /turf/simulated/floor/black,
 /area/station/turret_protected/Zeta)
 "otv" = (
@@ -25340,17 +25308,6 @@
 /area/station/hallway/secondary/exit{
 	name = "Primary Docking Wing"
 	})
-"oET" = (
-/obj/machinery/door/airlock/pyro/command{
-	dir = 4
-	},
-/obj/mapping_helper/firedoor_spawn,
-/obj/cable{
-	icon_state = "4-8"
-	},
-/obj/mapping_helper/access/heads,
-/turf/simulated/floor/black,
-/area/station/turret_protected/Zeta)
 "oEU" = (
 /obj/cable{
 	icon_state = "1-2"
@@ -25890,17 +25847,6 @@
 	name = "Security Office"
 	})
 "oSO" = (
-/obj/table/reinforced/auto,
-/obj/item/disk/data/tape{
-	layer = 3.5;
-	pixel_x = -5;
-	pixel_y = -5
-	},
-/obj/item/disk/data/tape/master/readonly,
-/obj/item/paper/book/from_file/dwainedummies{
-	pixel_y = 6
-	},
-/obj/item/device/multitool,
 /obj/machinery/ai_status_display{
 	pixel_y = 28
 	},
@@ -25908,6 +25854,11 @@
 	dir = 8;
 	layer = 9.1;
 	pixel_x = -10
+	},
+/obj/machinery/computer3/terminal/zeta,
+/obj/machinery/power/data_terminal,
+/obj/cable{
+	icon_state = "0-2"
 	},
 /turf/simulated/floor/greenblack{
 	dir = 8
@@ -29176,9 +29127,12 @@
 /turf/simulated/floor/carpet/arcade,
 /area/station/crew_quarters/lounge)
 "qMU" = (
-/obj/cable{
-	icon_state = "4-8"
-	},
+/obj/table/reinforced/auto,
+/obj/machinery/cell_charger,
+/obj/item/cell/charged,
+/obj/item/cell/charged,
+/obj/item/cell/supercell/charged,
+/obj/machinery/light_switch/west,
 /turf/simulated/floor/greenblack{
 	dir = 4
 	},
@@ -31929,9 +31883,12 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/southeast)
 "soG" = (
-/obj/table/reinforced/auto,
-/obj/item/storage/box/diskbox,
+/obj/cable{
+	icon_state = "0-2"
+	},
+/obj/machinery/power/data_terminal,
 /obj/machinery/camera/directional/north,
+/obj/machinery/computer/robotics,
 /turf/simulated/floor/black,
 /area/station/turret_protected/Zeta)
 "soK" = (
@@ -33063,6 +33020,19 @@
 	},
 /turf/simulated/floor/black,
 /area/station/security/secwing)
+"sUV" = (
+/obj/machinery/door/airlock/pyro/command{
+	dir = 4
+	},
+/obj/mapping_helper/firedoor_spawn,
+/obj/cable{
+	icon_state = "4-8"
+	},
+/obj/mapping_helper/access/heads,
+/turf/simulated/floor/greenblack{
+	dir = 1
+	},
+/area/station/turret_protected/Zeta)
 "sVr" = (
 /obj/machinery/launcher_loader/north,
 /obj/disposalpipe/segment/vertical,
@@ -33701,10 +33671,13 @@
 /turf/simulated/floor/carpet/grime,
 /area/station/security/detectives_office)
 "tlQ" = (
-/obj/machinery/light_switch/east,
-/turf/simulated/floor/greenblack{
-	dir = 9
+/obj/machinery/door_control{
+	id = "dwaine_core";
+	name = "DWAINE Core Shield";
+	pixel_x = 24;
+	dir = 4
 	},
+/turf/simulated/floor/greenblack/corner,
 /area/station/turret_protected/Zeta)
 "tmB" = (
 /obj/disposalpipe/segment/vertical,
@@ -36936,8 +36909,8 @@
 /area/station/engine/ptl)
 "vdc" = (
 /obj/machinery/light,
-/obj/cable{
-	icon_state = "5-8"
+/obj/stool/chair/office{
+	dir = 1
 	},
 /turf/simulated/floor,
 /area/station/science/bot_storage)
@@ -38061,9 +38034,6 @@
 	},
 /obj/cable{
 	icon_state = "1-4"
-	},
-/obj/cable{
-	icon_state = "1-10"
 	},
 /turf/simulated/floor,
 /area/station/science/bot_storage)
@@ -39570,10 +39540,7 @@
 /area/station/crew_quarters/quartersA)
 "wso" = (
 /obj/cable{
-	icon_state = "2-8"
-	},
-/obj/cable{
-	icon_state = "1-2"
+	icon_state = "4-8"
 	},
 /turf/simulated/floor/greenblack{
 	dir = 8
@@ -42853,10 +42820,18 @@
 	name = "Logistics Dock"
 	})
 "yhb" = (
-/obj/cable{
-	icon_state = "4-8"
+/obj/table/reinforced/auto,
+/obj/item/circuitboard/robotics{
+	pixel_y = -3
 	},
-/turf/simulated/floor/greenblack,
+/obj/item/disk/data/floppy/read_only/network_progs{
+	pixel_y = 6
+	},
+/obj/item/disk/data/floppy/read_only/communications{
+	pixel_x = -13;
+	pixel_y = 6
+	},
+/turf/simulated/floor/black,
 /area/station/turret_protected/Zeta)
 "yia" = (
 /obj/rack,
@@ -87803,9 +87778,9 @@ tag
 oyD
 sNg
 oSO
-bRc
-wso
 iod
+wso
+fvO
 let
 sNg
 tTc
@@ -88407,9 +88382,9 @@ iYa
 rKA
 sNg
 gKT
-inS
+dDq
 gFF
-fkw
+dDq
 yhb
 sNg
 lzA
@@ -89012,9 +88987,9 @@ nEX
 sNg
 sNg
 sNg
+sUV
 sNg
 sNg
-oET
 sNg
 meh
 dqD
