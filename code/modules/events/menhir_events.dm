@@ -440,7 +440,7 @@ ABSTRACT_TYPE(/datum/random_event/menhir)
 /datum/random_event/menhir/extrusion
 	name = "A Place of Paths Not Taken"
 	message_delay = 3 MINUTES
-	weight = 35
+	weight = 50
 
 	is_event_available(ignore_time_lock)
 		. = ..()
@@ -459,11 +459,7 @@ ABSTRACT_TYPE(/datum/random_event/menhir)
 		var/list/to_area_swap = src.get_whole_coverage(extlandmark, are_we_west, roomtype)
 		var/turf/rroom_site = src.get_room_spot(extlandmark, are_we_west, roomtype)
 
-		var/area/hostarea
-		if (are_we_west)
-			hostarea = station_areas["Arrivals Auxiliary Arm"]
-		else
-			hostarea = station_areas["Escape Auxiliary Arm"]
+		var/area/hostarea = get_area(extlandmark)
 
 		for (var/turf/T in to_area_swap)
 			if(isarea(T.loc))
@@ -471,15 +467,28 @@ ABSTRACT_TYPE(/datum/random_event/menhir)
 				A.contents -= T
 			hostarea.contents += T
 
+		var/do_rwalls = FALSE
+		if (istype(extlandmark,/turf/simulated/wall/auto/reinforced)) do_rwalls = TRUE
+
 		for (var/turf/T in frametiles)
-			T.ReplaceWithWall()
+			if((T.density && !do_rwalls) || locate(/obj/window) in T || locate(/obj/machinery/door) in T) continue
+			if(do_rwalls)
+				T.ReplaceWithRWall()
+			else
+				T.ReplaceWithWall()
 			leaveresidual(T)
 
+		var/already_have_door = FALSE
 		for (var/obj/O in extlandmark)
-			if(O.anchored) qdel(O)
-		extlandmark.ReplaceWithFloor()
-		var/obj/newdoor = new /obj/machinery/door/airlock/pyro/classic(extlandmark)
-		newdoor.dir = WEST
+			if(istype(O,/obj/mesh) || istype(O,/obj/window))
+				qdel(O)
+			if(istype(O,/obj/machinery/door))
+				already_have_door = TRUE
+		if (extlandmark.density)
+			extlandmark.ReplaceWith(/turf/simulated/floor/plating)
+		if (!already_have_door)
+			var/obj/newdoor = new /obj/machinery/door/airlock/pyro/maintenance(extlandmark)
+			newdoor.dir = EAST
 
 		var/obj/landmark/random_room/mark_plier
 		switch(roomtype)
@@ -512,6 +521,7 @@ ABSTRACT_TYPE(/datum/random_event/menhir)
 		var/offset_V = 2 //applies in each direction, so total vertical span is double this plus 1
 		if(roomtype == RAND_3_BY_5) offset_V = 3
 
+		. += block(T.x, T.y - offset_V, T.z, T.x, T.y + offset_V, T.z) //vertical along landmark column (consistent across directions)
 		if(offset_to_west)
 			. += block(T.x - offset_H, T.y - offset_V, T.z, T.x - offset_H, T.y + offset_V, T.z) //vertical at far end
 			offset_H -= 1
@@ -533,9 +543,9 @@ ABSTRACT_TYPE(/datum/random_event/menhir)
 		if(roomtype == RAND_3_BY_5) offset_V = 3
 
 		if(offset_to_west)
-			. = block(T.x - offset_H, T.y - offset_V, T.z, T.x - 1, T.y + offset_V, T.z)
+			. = block(T.x - offset_H, T.y - offset_V, T.z, T.x, T.y + offset_V, T.z)
 		else
-			. = block(T.x + 1, T.y - offset_V, T.z, T.x + offset_H, T.y + offset_V, T.z)
+			. = block(T.x, T.y - offset_V, T.z, T.x + offset_H, T.y + offset_V, T.z)
 		return
 
 	///Retrieves the turf the event should place a random room spawner onto.

@@ -1787,6 +1787,7 @@
 /area/station/hangar/main)
 "bcX" = (
 /obj/reagent_dispensers/fueltank,
+/obj/item/device/radio/intercom/engineering,
 /turf/simulated/floor/yellowblack{
 	dir = 4
 	},
@@ -3032,6 +3033,7 @@
 /area/station/janitor/office)
 "bOt" = (
 /obj/machinery/vending/monkey/research,
+/obj/machinery/firealarm/directional/north,
 /turf/simulated/floor/shuttlebay{
 	name = "test chamber plating"
 	},
@@ -5076,7 +5078,7 @@
 	name = "Book Nook"
 	})
 "cVz" = (
-/obj/item/device/radio/intercom/engineering,
+/obj/machinery/camera/directional/north,
 /turf/simulated/floor/shuttlebay{
 	icon_state = "engine_caution_corners";
 	dir = 4
@@ -5777,6 +5779,12 @@
 	},
 /turf/simulated/floor/carpet/grime,
 /area/station/crew_quarters/baroffice)
+"dtT" = (
+/obj/machinery/r_door_control/podbay/research{
+	pixel_y = -8
+	},
+/turf/simulated/wall/auto/reinforced/supernorn,
+/area/station/maintenance/southeast)
 "dud" = (
 /obj/cable{
 	icon_state = "1-2"
@@ -7661,10 +7669,6 @@
 	dir = 8
 	},
 /area/station/security/secwing)
-"eAn" = (
-/obj/machinery/r_door_control/podbay/research,
-/turf/simulated/wall/auto/reinforced/supernorn,
-/area/station/hangar/science)
 "eAw" = (
 /obj/lattice,
 /obj/warp_beacon/medbay,
@@ -8344,6 +8348,30 @@
 /obj/landmark/start/job/assistant,
 /turf/simulated/floor/carpet/arcade,
 /area/station/crew_quarters/lounge)
+"eXS" = (
+/obj/item/reagent_containers/food/snacks/soup/superchili{
+	desc = "You don't know how long this has been here, but it somehow smells fresh. Possibly because the bacteria burn on contact.";
+	doants = 0;
+	dropped_item = /obj/item/reagent_containers/food/snacks/soup/superchili;
+	food_effects = list("food_warm","food_fireburp","food_sweaty","food_deep_burp");
+	initial_reagents = list("capsaicin"=50,"refried_beans"=40,"histamine"=30);
+	initial_volume = 120;
+	name = "forbidden chili";
+	pixel_x = -7;
+	pixel_y = 9
+	},
+/obj/decal/cleanable/cobweb{
+	icon_state = "cobweb2"
+	},
+/obj/stool/chair{
+	dir = 8
+	},
+/obj/item/kitchen/utensil/spoon{
+	pixel_x = -11;
+	pixel_y = -6
+	},
+/turf/simulated/floor/carpet/red/fancy/innercorner/omni,
+/area/station/security/beepsky)
 "eYc" = (
 /obj/machinery/power/apc/autoname_east{
 	areastring = "Southeast Primary Hallway";
@@ -8910,6 +8938,12 @@
 	dir = 9
 	},
 /area/station/science/lab)
+"fte" = (
+/obj/landmark/menhir/extrusion{
+	data = "EAST"
+	},
+/turf/simulated/wall/auto/supernorn,
+/area/station/security/beepsky)
 "ftx" = (
 /obj/landmark/gps_waypoint,
 /obj/machinery/light/small/floor,
@@ -9759,6 +9793,14 @@
 /obj/mapping_helper/access/chapel_office,
 /turf/simulated/floor/black,
 /area/station/chapel/office)
+"fQd" = (
+/obj/machinery/light/runway_light/delay2,
+/obj/lattice{
+	dir = 4;
+	icon_state = "lattice-dir"
+	},
+/turf/space,
+/area/space)
 "fQo" = (
 /obj/stool/chair/red{
 	dir = 8
@@ -10272,14 +10314,6 @@
 	dir = 4
 	},
 /area/station/storage/eva)
-"ggz" = (
-/obj/lattice{
-	dir = 5;
-	icon_state = "lattice-dir"
-	},
-/obj/machinery/light/runway_light/delay4,
-/turf/space,
-/area/space)
 "ggP" = (
 /obj/cable{
 	icon_state = "1-2"
@@ -10378,8 +10412,10 @@
 	name = "Arrivals Auxiliary Arm"
 	})
 "gkQ" = (
-/obj/iv_stand,
 /obj/disposalpipe/segment/vertical,
+/obj/table/reinforced/chemistry/auto,
+/obj/item/reagent_containers/iv_drip/saline,
+/obj/item/reagent_containers/iv_drip/saline,
 /turf/simulated/floor/shuttlebay{
 	name = "test chamber plating"
 	},
@@ -11499,9 +11535,17 @@
 	name = "West Shuttle Concourse"
 	})
 "gPX" = (
-/obj/disposalpipe/trunk/west,
-/obj/disposaloutlet/west,
 /obj/machinery/alarm/directional/east,
+/obj/table/reinforced/chemistry/auto,
+/obj/item/clothing/mask/gas/emergency{
+	pixel_y = 10
+	},
+/obj/item/storage/firstaid/fire{
+	pixel_x = -4
+	},
+/obj/item/storage/firstaid/toxin{
+	pixel_x = 4
+	},
 /turf/simulated/floor/shuttlebay{
 	name = "test chamber plating"
 	},
@@ -11933,6 +11977,7 @@
 	},
 /area/station/hallway/primary/southwest)
 "hgr" = (
+/obj/machinery/r_door_control/podbay/research/new_walls/north,
 /turf/simulated/floor/shuttlebay{
 	icon_state = "engine_caution_north"
 	},
@@ -16168,6 +16213,23 @@
 	dir = 1
 	},
 /area/station/quartermaster/office)
+"juY" = (
+/obj/machinery/door/airlock/pyro/external{
+	dir = 4
+	},
+/obj/forcefield/energyshield/perma/doorlink{
+	desc = "A door-linked force field that prevents gasses from passing through it.";
+	dir = 4;
+	name = "Door-linked Atmospheric Forcefield";
+	powerlevel = 1
+	},
+/obj/landmark/menhir/extrusion{
+	data = "EAST"
+	},
+/turf/simulated/floor/grey,
+/area/station/hallway/secondary/east{
+	name = "East Shuttle Concourse"
+	})
 "jva" = (
 /obj/machinery/power/apc/autoname_north,
 /obj/cable{
@@ -16692,7 +16754,7 @@
 	},
 /area/station/crew_quarters/ce)
 "jOA" = (
-/obj/machinery/camera/directional/north,
+/obj/machinery/r_door_control/podbay/engineering/new_walls/north,
 /turf/simulated/floor/shuttlebay{
 	icon_state = "engine_caution_north"
 	},
@@ -17965,6 +18027,13 @@
 /area/station/maintenance/outer/sw{
 	name = "Arrivals Auxiliary Arm"
 	})
+"kBS" = (
+/obj/lattice{
+	icon_state = "lattice-dir-b"
+	},
+/obj/machinery/light/runway_light,
+/turf/space,
+/area/space)
 "kCe" = (
 /obj/stool/bed,
 /obj/item/clothing/suit/bedsheet/captain,
@@ -19547,14 +19616,6 @@
 /turf/simulated/floor/carpet/arcade,
 /area/station/crew_quarters/clown{
 	name = "Honkington's Abode"
-	})
-"lsW" = (
-/obj/landmark/menhir/extrusion{
-	data = "EAST"
-	},
-/turf/simulated/wall/auto/reinforced/supernorn,
-/area/station/maintenance/outer/east{
-	name = "Escape Auxiliary Arm"
 	})
 "ltJ" = (
 /obj/machinery/conveyor/EW{
@@ -21474,10 +21535,6 @@
 /obj/window_blinds/cog2/right,
 /turf/simulated/floor/plating,
 /area/station/medical/robotics)
-"mCZ" = (
-/obj/machinery/r_door_control/podbay/engineering,
-/turf/simulated/wall/auto/reinforced/supernorn,
-/area/station/hangar/engine)
 "mDj" = (
 /obj/fluid_pipe/straight/supply,
 /turf/simulated/wall/auto/reinforced/supernorn,
@@ -21938,6 +21995,13 @@
 	icon_state = "catwalk_cross"
 	},
 /area/station/solar/east)
+"mOs" = (
+/obj/mapping_helper/wingrille_spawn/auto/reinforced,
+/obj/landmark/menhir/extrusion{
+	data = "WEST"
+	},
+/turf/simulated/floor/plating,
+/area/station/maintenance/west)
 "mOy" = (
 /obj/machinery/printing_press,
 /turf/simulated/floor/wood/two,
@@ -23448,6 +23512,12 @@
 	},
 /turf/simulated/floor/sanitary,
 /area/station/engine/monitoring)
+"nHe" = (
+/obj/machinery/r_door_control/podbay/engineering{
+	pixel_y = -8
+	},
+/turf/simulated/wall/auto/supernorn,
+/area/station/maintenance/southwest)
 "nHm" = (
 /obj/disposalpipe/segment/horizontal,
 /obj/cable{
@@ -25510,17 +25580,8 @@
 /turf/simulated/floor/black,
 /area/station/hallway/primary/central)
 "oJp" = (
-/obj/table/reinforced/chemistry/auto,
-/obj/item/clothing/mask/gas/emergency{
-	pixel_y = 10
-	},
-/obj/item/storage/firstaid/fire{
-	pixel_x = -4
-	},
-/obj/item/storage/firstaid/toxin{
-	pixel_x = 4
-	},
-/obj/machinery/firealarm/directional/east,
+/obj/machinery/camera/directional/east,
+/obj/machinery/chemicompiler_stationary,
 /turf/simulated/floor/shuttlebay{
 	name = "test chamber plating"
 	},
@@ -26562,6 +26623,15 @@
 /area/station/maintenance/outer/east{
 	name = "Escape Auxiliary Arm"
 	})
+"pnK" = (
+/obj/landmark/menhir/extrusion{
+	data = "EAST"
+	},
+/turf/simulated/wall/auto/reinforced/supernorn{
+	explosion_resistance = 15;
+	name = "very reinforced wall"
+	},
+/area/station/science/testchamber)
 "pnW" = (
 /obj/cable{
 	icon_state = "2-5"
@@ -29193,8 +29263,7 @@
 	},
 /area/station/hallway/primary/west)
 "qRy" = (
-/obj/machinery/chemicompiler_stationary,
-/obj/machinery/camera/directional/east,
+/obj/iv_stand,
 /turf/simulated/floor/shuttlebay{
 	name = "test chamber plating"
 	},
@@ -29740,6 +29809,14 @@
 	dir = 1
 	},
 /area/station/hallway/primary/southeast)
+"rhC" = (
+/obj/machinery/light/runway_light/delay3,
+/obj/lattice{
+	dir = 4;
+	icon_state = "lattice-dir"
+	},
+/turf/space,
+/area/space)
 "rhZ" = (
 /obj/machinery/door/airlock/pyro/engineering{
 	dir = 4
@@ -30457,6 +30534,12 @@
 	},
 /turf/simulated/floor/black,
 /area/station/crew_quarters/catering)
+"rBj" = (
+/obj/disposalpipe/segment/vertical,
+/turf/simulated/floor/shuttlebay{
+	name = "test chamber plating"
+	},
+/area/station/science/testchamber)
 "rBz" = (
 /turf/simulated/floor/blue/side{
 	dir = 1
@@ -30760,12 +30843,25 @@
 /area/station/engine/elect)
 "rJA" = (
 /obj/table/reinforced/chemistry/auto,
-/obj/item/reagent_containers/iv_drip/saline,
-/obj/item/reagent_containers/iv_drip/saline,
 /obj/machinery/light{
 	dir = 4;
 	layer = 9.1;
 	pixel_x = 10
+	},
+/obj/item/paper_bin{
+	pixel_x = -4;
+	pixel_y = 6
+	},
+/obj/item/pen{
+	pixel_x = -2
+	},
+/obj/item/pen/marker/red{
+	pixel_x = 1;
+	pixel_y = 2
+	},
+/obj/item/pen/marker/blue{
+	pixel_x = 4;
+	pixel_y = 5
 	},
 /turf/simulated/floor/engine,
 /area/station/science/testchamber)
@@ -32824,28 +32920,14 @@
 	name = "Primary Docking Wing"
 	})
 "sPT" = (
-/obj/table/reinforced/chemistry/auto,
-/obj/item/paper_bin{
-	pixel_x = -4;
-	pixel_y = 6
-	},
-/obj/item/pen/marker/red{
-	pixel_x = 1;
-	pixel_y = 2
-	},
-/obj/item/pen/marker/blue{
-	pixel_x = 4;
-	pixel_y = 5
-	},
-/obj/item/pen{
-	pixel_x = -2
-	},
 /obj/machinery/light{
 	dir = 4;
 	layer = 9.1;
 	pixel_x = 10
 	},
 /obj/item/device/radio/intercom,
+/obj/disposaloutlet/west,
+/obj/disposalpipe/trunk/west,
 /turf/simulated/floor/shuttlebay{
 	name = "test chamber plating"
 	},
@@ -33165,6 +33247,14 @@
 	dir = 9
 	},
 /area/station/crew_quarters/cafeteria)
+"tbm" = (
+/obj/lattice{
+	dir = 10;
+	icon_state = "lattice-dir"
+	},
+/obj/machinery/light/runway_light/delay5,
+/turf/space,
+/area/space)
 "tbA" = (
 /turf/simulated/floor/black,
 /area/station/science/artifact)
@@ -39497,6 +39587,12 @@
 /area/station/hallway/secondary/west{
 	name = "West Shuttle Concourse"
 	})
+"wrD" = (
+/obj/landmark/menhir/extrusion{
+	data = "WEST"
+	},
+/turf/space,
+/area/station/mining/magnet)
 "wrH" = (
 /turf/simulated/floor/black/grime,
 /area/station/maintenance/inner/sw{
@@ -39587,14 +39683,6 @@
 	},
 /turf/simulated/floor/black,
 /area/station/hangar/sec)
-"wuT" = (
-/obj/landmark/menhir/extrusion{
-	data = "WEST"
-	},
-/turf/simulated/wall/auto/reinforced/supernorn,
-/area/station/maintenance/outer/sw{
-	name = "Arrivals Auxiliary Arm"
-	})
 "wvd" = (
 /obj/machinery/light/small/floor,
 /turf/simulated/floor/shuttlebay{
@@ -40906,6 +40994,14 @@
 /obj/disposalpipe/trunk/mail/east,
 /turf/simulated/floor/black,
 /area/station/crew_quarters/catering)
+"xgb" = (
+/obj/lattice{
+	dir = 8;
+	icon_state = "lattice-dir"
+	},
+/obj/machinery/light/runway_light/delay4,
+/turf/space,
+/area/space)
 "xgI" = (
 /turf/simulated/wall/auto/supernorn,
 /area/station/storage/emergency)
@@ -41011,6 +41107,14 @@
 /obj/item/shipcomponent/communications/mining,
 /turf/simulated/floor/orangeblack/side,
 /area/station/mining/staff_room)
+"xiX" = (
+/obj/lattice{
+	dir = 10;
+	icon_state = "lattice-dir"
+	},
+/obj/machinery/light/runway_light/delay4,
+/turf/space,
+/area/space)
 "xjC" = (
 /obj/reagent_dispensers/watertank/big,
 /obj/landmark/pest,
@@ -70265,7 +70369,7 @@ sEf
 lYo
 sEf
 sEf
-sEf
+wrD
 sEf
 sEf
 lYo
@@ -75041,7 +75145,7 @@ sEf
 sEf
 sEf
 sEf
-kHv
+lYo
 sEf
 sEf
 sEf
@@ -75343,7 +75447,7 @@ sEf
 sEf
 sEf
 sEf
-jWo
+gxh
 sEf
 sEf
 sEf
@@ -75645,7 +75749,7 @@ sEf
 sEf
 sEf
 htJ
-yem
+xqm
 sEf
 sEf
 sEf
@@ -76548,7 +76652,7 @@ jne
 rMf
 rMf
 rMf
-wHN
+mOs
 rMf
 rMf
 irP
@@ -80532,7 +80636,7 @@ rMn
 qSY
 tVJ
 hov
-vlo
+nHe
 sEf
 sEf
 sEf
@@ -80840,7 +80944,7 @@ iwG
 iwG
 iwG
 nPv
-mCZ
+kEK
 sEf
 sEf
 sEf
@@ -83159,7 +83263,7 @@ iBj
 mnX
 mnX
 mnX
-wuT
+mnX
 mnX
 mnX
 phn
@@ -97454,10 +97558,10 @@ vRc
 sEf
 sEf
 vRc
-aGB
-aGB
-aGB
 mvx
+rBj
+rBj
+rBj
 gkQ
 uds
 pHh
@@ -97655,7 +97759,7 @@ cpG
 sPW
 sPW
 sPW
-lsW
+sPW
 sPW
 sPW
 dNF
@@ -98060,7 +98164,7 @@ nFe
 pHh
 pHh
 pHh
-pHh
+pnK
 pHh
 pHh
 pHh
@@ -99264,7 +99368,7 @@ vYT
 lsv
 bnM
 rdG
-hTK
+sEf
 sEf
 sEf
 sEf
@@ -99565,8 +99669,8 @@ vYT
 vYT
 lsv
 bnM
-hlz
-cdL
+rdG
+sEf
 sEf
 sEf
 sEf
@@ -99867,8 +99971,8 @@ vYT
 vYT
 tnn
 xfu
-xfu
-bXb
+rdG
+sEf
 sEf
 sEf
 sEf
@@ -100168,9 +100272,9 @@ emv
 emv
 emv
 cCX
-eAn
-xqm
-sEf
+xfu
+rdG
+hTK
 sEf
 sEf
 sEf
@@ -100464,15 +100568,15 @@ rFt
 evR
 eQR
 teO
-pva
+dtT
 sEf
 sEf
 sEf
 sEf
 sEf
-sEf
-gxh
-sEf
+bnM
+hlz
+cdL
 sEf
 sEf
 sEf
@@ -100766,15 +100870,15 @@ cHr
 kaC
 teO
 teO
-yem
+tbm
 sEf
 sEf
 sEf
 sEf
 sEf
-sEf
-jtY
-sEf
+bnM
+xfu
+bXb
 sEf
 sEf
 sEf
@@ -101068,14 +101172,14 @@ eQR
 teO
 teO
 sbV
-jTh
+xiX
 sEf
 sEf
 sEf
 sEf
 sEf
-sEf
-jWo
+xgb
+bXb
 sEf
 sEf
 sEf
@@ -101370,14 +101474,14 @@ teO
 teO
 bXb
 sEf
-czs
+rhC
 sEf
 sEf
 sEf
 sEf
 sEf
+jtY
 sEf
-vCz
 sEf
 sEf
 sEf
@@ -101672,15 +101776,15 @@ sbV
 bXb
 sEf
 sEf
+fQd
 sEf
 sEf
 sEf
 sEf
 sEf
+jWo
 sEf
-uPq
-cPo
-vVB
+sEf
 sEf
 sEf
 sEf
@@ -101974,14 +102078,14 @@ sEf
 sEf
 sEf
 sEf
+czs
 sEf
 sEf
 sEf
 sEf
-sEf
-sEf
-sEf
-ggz
+kBS
+cPo
+vVB
 sEf
 sEf
 sEf
@@ -102282,7 +102386,7 @@ sEf
 sEf
 sEf
 sEf
-sEf
+jSY
 sEf
 sEf
 sEf
@@ -103172,10 +103276,10 @@ kaC
 kaC
 kaC
 ulr
+lAz
 ulr
 gGy
-gGy
-xqm
+bXb
 sEf
 sEf
 sEf
@@ -103473,10 +103577,10 @@ kyh
 kaC
 kaC
 kaC
-jZF
-sbV
-uan
-xqm
+ulr
+eXS
+ulr
+bXb
 sEf
 sEf
 sEf
@@ -103773,12 +103877,12 @@ uDB
 rfH
 kyh
 jZF
-teO
 jZF
 jZF
+ulr
+fte
+ulr
 sEf
-sEf
-tvx
 sEf
 sEf
 sEf
@@ -104076,10 +104180,10 @@ rfH
 cxI
 sEf
 sEf
+tvx
 sEf
 sEf
-sEf
-sEf
+tvx
 sEf
 sEf
 sEf
@@ -107079,7 +107183,7 @@ sEf
 sEf
 sEf
 nQi
-eUx
+juY
 eUx
 nQi
 sEf
