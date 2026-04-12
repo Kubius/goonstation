@@ -302,7 +302,7 @@ ABSTRACT_TYPE(/datum/random_event/menhir)
 				var/obj/machinery/power/apc/our_apc = A.area_apc
 				if(!our_apc.cell) continue
 				var/powerfraction = ((1 - (our_apc.cell.charge / our_apc.cell.maxcharge)) * 10)
-				var/apc_weight = min(1,round(powerfraction ^ 2)) //lower power is dramatically higher odds
+				var/apc_weight = min(1,round(powerfraction ^ 2.5)) //lower power is dramatically higher odds
 				candidate_apcs[our_apc] = apc_weight
 
 		var/zones_to_electrify = rand(4,6)
@@ -315,6 +315,7 @@ ABSTRACT_TYPE(/datum/random_event/menhir)
 			var/report_string = ""
 			for(var/i = 1 to zones_to_electrify)
 				var/obj/machinery/power/apc/our_target = weighted_pick(candidate_apcs)
+				candidate_apcs[our_target] = 0
 				var/area/apc_loc_area = get_area(our_target) //align to the physical position of the APC, not where it powers
 				var/orb_spawns = list()
 				for(var/turf/T in orange(6,our_target))

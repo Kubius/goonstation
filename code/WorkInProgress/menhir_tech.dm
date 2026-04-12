@@ -172,7 +172,8 @@ TYPEINFO_NEW(/obj/effects/menhir_fog)
 				arcFlash(src, flashmob, (600 - add_budget) * 200) //don't arcflash hard unless we overcharged something
 				if (isdead(flashmob) && prob(15))
 					flashmob.gib()
-		SPAWN(4)
+		animate(src, alpha = 0, time = 5, easing = BOUNCE_EASING)
+		SPAWN(6)
 			qdel(src)
 
 	disposing()
