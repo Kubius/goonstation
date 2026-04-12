@@ -106,10 +106,10 @@ TYPEINFO_NEW(/obj/effects/menhir_fog)
 
 	New(newLoc, var/obj/inputapc)
 		if(inputapc)
-			src.target_apc = inputapc
+			target_apc = inputapc
 		else
 			var/obj/machinery/power/apc/prospective_target = get_local_apc(src)
-			if(prospective_target) src.target_apc = prospective_target
+			if(prospective_target) target_apc = prospective_target
 		..()
 		src.Scale(3,3)
 		src.light = new /datum/light/point
@@ -118,7 +118,7 @@ TYPEINFO_NEW(/obj/effects/menhir_fog)
 		src.light.set_brightness(0.7)
 		src.AddComponent(/datum/component/proximity)
 
-		if(src.target_apc)
+		if(target_apc)
 			playsound(src.loc, 'sound/weapons/energy/howitzer_firing.ogg', 40, 0, pitch = 0.45, extrarange = 24)
 			SPAWN(3)
 				src.light.enable()
@@ -128,7 +128,7 @@ TYPEINFO_NEW(/obj/effects/menhir_fog)
 				src.arc_status = ARC_READY
 
 	process()
-		if(!target_apc || !target_apc.cell || !target_apc.operating)
+		if(!target_apc || !target_apc.cell)
 			src.complete_cycle()
 			return
 		switch(src.arc_status)
@@ -136,26 +136,33 @@ TYPEINFO_NEW(/obj/effects/menhir_fog)
 				src.arc_status = ARC_ACTIVE
 				playsound(src.loc, 'sound/machines/shieldoverload.ogg', 80, 0, extrarange = 24)
 				SPAWN(8)
-					src.boltlines = drawLineObj(src, src.target_apc, /obj/line_obj/elec, 'icons/obj/projectiles.dmi',"WholeLghtn",1,1,"HalfStartLghtn","HalfEndLghtn",FLY_LAYER,1,PreloadedIcon='icons/effects/LghtLine.dmi')
+					src.boltlines = drawLineObj(src, target_apc, /obj/line_obj/elec, 'icons/obj/projectiles.dmi',"WholeLghtn",1,1,"HalfStartLghtn","HalfEndLghtn",FLY_LAYER,1,PreloadedIcon='icons/effects/LghtLine.dmi')
 					src.light.set_brightness(1.4)
 			if(ARC_ACTIVE)
-				var/obj/item/cell/targetcell = src.target_apc.cell
-				var/add_amt = rand(80,100)
-				if(src.add_budget && targetcell.maxcharge < 5000)
-					targetcell.maxcharge = min(targetcell.maxcharge + 100, 5000)
-					src.add_budget -= 100
-
-				if(targetcell.charge + 210 > targetcell.maxcharge)
+				if(!target_apc.operating && target_apc.cell.charge > 0.3 * target_apc.cell.maxcharge) //if the APC is charged but not "flowing", interrupt early
 					if(!src.warned)
 						src.visible_message(SPAN_ALERT("<b>[src] begins to shudder and spark!</b>"))
 						src.warned = TRUE
 					playsound(src.loc, 'sound/effects/elec_bzzz.ogg', 65, 1, pitch = 0.8)
-				else
-					playsound(src.loc, 'sound/machines/siphon_run.ogg', 65, 0, pitch = 1.65)
-
-				targetcell.charge = min(targetcell.charge + add_amt, targetcell.maxcharge)
-				if(targetcell.charge == targetcell.maxcharge)
 					src.arc_status = ARC_CONCLUDE
+				else
+					var/obj/item/cell/targetcell = target_apc.cell
+					var/add_amt = rand(80,100)
+					if(src.add_budget && targetcell.maxcharge < 5000)
+						targetcell.maxcharge = min(targetcell.maxcharge + 100, 5000)
+						src.add_budget -= 100
+
+					if(targetcell.charge + 210 > targetcell.maxcharge)
+						if(!src.warned)
+							src.visible_message(SPAN_ALERT("<b>[src] begins to shudder and spark!</b>"))
+							src.warned = TRUE
+						playsound(src.loc, 'sound/effects/elec_bzzz.ogg', 65, 1, pitch = 0.8)
+					else
+						playsound(src.loc, 'sound/machines/siphon_run.ogg', 65, 0, pitch = 1.65)
+
+					targetcell.charge = min(targetcell.charge + add_amt, targetcell.maxcharge)
+					if(targetcell.charge == targetcell.maxcharge)
+						src.arc_status = ARC_CONCLUDE
 			if(ARC_CONCLUDE)
 				src.complete_cycle()
 
