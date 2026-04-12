@@ -13124,7 +13124,7 @@
 	dir = 1
 	},
 /obj/mapping_helper/firedoor_spawn,
-/obj/mapping_helper/access/crematorium,
+/obj/mapping_helper/access/chapel_office,
 /turf/simulated/floor/blackwhite{
 	dir = 1
 	},
