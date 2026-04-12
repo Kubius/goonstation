@@ -16178,6 +16178,9 @@
 /obj/cable{
 	icon_state = "0-6"
 	},
+/obj/machinery/status_display/market{
+	pixel_y = 32
+	},
 /turf/simulated/floor/orangeblack/side{
 	dir = 1
 	},
