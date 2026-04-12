@@ -40720,16 +40720,6 @@
 /obj/disposalpipe/junction/left/north,
 /turf/simulated/floor,
 /area/station/hallway/primary/east)
-"wYA" = (
-/obj/mesh/catwalk,
-/obj/disposalpipe/segment/mail{
-	dir = 4
-	},
-/obj/machinery/camera/directional/south,
-/turf/simulated/floor/black/grime,
-/area/station/maintenance/inner/se{
-	name = "Southeast Auxiliary Conduit"
-	})
 "wYC" = (
 /obj/cable{
 	icon_state = "1-2"
@@ -92045,7 +92035,7 @@ iIk
 iIk
 uTI
 nxH
-wYA
+dSc
 rId
 rId
 jaW
@@ -96273,7 +96263,7 @@ lGx
 idh
 wZD
 unr
-wYA
+dSc
 pHh
 sbV
 sbV
@@ -99228,7 +99218,7 @@ qEa
 qEa
 oBa
 okL
-ulU
+xiu
 ubu
 jmd
 dwm
@@ -99530,7 +99520,7 @@ wSm
 cNh
 bym
 okL
-xiu
+ulU
 ubu
 jKu
 vyl
