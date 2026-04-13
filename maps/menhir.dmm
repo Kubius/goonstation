@@ -33270,6 +33270,9 @@
 	name = "Primary Docking Wing"
 	})
 "tcz" = (
+/obj/decal/stage_edge{
+	dir = 4
+	},
 /turf/simulated/floor/red/side{
 	dir = 4
 	},
@@ -34449,6 +34452,9 @@
 "tKd" = (
 /obj/machinery/camera/directional/east{
 	pixel_y = 10
+	},
+/obj/decal/stage_edge{
+	dir = 4
 	},
 /turf/simulated/floor/escape{
 	dir = 4
@@ -39788,9 +39794,6 @@
 /turf/simulated/floor/yellow,
 /area/station/engine/storage)
 "wyZ" = (
-/obj/decal/stage_edge{
-	dir = 8
-	},
 /obj/storage/crate/bin,
 /obj/random_item_spawner/junk/some,
 /turf/simulated/floor/wood/two,
@@ -76343,12 +76346,12 @@ sEf
 sEf
 htJ
 nFe
-nFe
-nFe
 hTK
 sEf
-htJ
-qHc
+sEf
+sEf
+sEf
+lzH
 lzf
 jXD
 cey
@@ -82663,7 +82666,7 @@ sEf
 sEf
 sEf
 sEf
-sEf
+lYo
 sEf
 sEf
 sEf
@@ -82965,12 +82968,12 @@ sEf
 sEf
 lYo
 sEf
+gxh
 sEf
 sEf
 sEf
 sEf
 sEf
-htJ
 phn
 iBj
 iBj
@@ -98065,8 +98068,8 @@ sEf
 sEf
 tvx
 sEf
+gxh
 sEf
-tvx
 sEf
 sEf
 sEf
@@ -98367,7 +98370,7 @@ sEf
 sEf
 sEf
 sEf
-sEf
+tvx
 sEf
 sEf
 sEf
@@ -98458,7 +98461,7 @@ naa
 bga
 pHh
 qHc
-qHc
+sbV
 pHh
 pHh
 pHh
@@ -98466,7 +98469,7 @@ pHh
 pHh
 pHh
 pHh
-qHc
+sbV
 xqm
 sEf
 sEf
@@ -98760,16 +98763,16 @@ xPv
 mua
 pHh
 pHh
-sbV
-sbV
-sbV
-qHc
-sbV
-sbV
-qHc
-sbV
-sbV
-xqm
+sEf
+tvx
+sEf
+sEf
+sEf
+sEf
+sEf
+tvx
+sEf
+tvx
 sEf
 sEf
 sEf
@@ -99065,13 +99068,13 @@ exr
 sEf
 sEf
 sEf
-tvx
 sEf
 sEf
-tvx
 sEf
 sEf
-tvx
+sEf
+sEf
+sEf
 sEf
 sEf
 sEf
@@ -103576,7 +103579,7 @@ kaC
 ulr
 eXS
 ulr
-bXb
+xqm
 sEf
 sEf
 sEf
@@ -103878,7 +103881,7 @@ jZF
 ulr
 fte
 ulr
-sEf
+bXb
 sEf
 sEf
 sEf
@@ -104175,11 +104178,11 @@ uDB
 rfH
 cxI
 sEf
-sEf
 tvx
 sEf
 sEf
-tvx
+sEf
+sEf
 sEf
 sEf
 sEf
