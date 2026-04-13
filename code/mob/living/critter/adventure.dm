@@ -310,7 +310,7 @@ TYPEINFO(/mob/living/critter/shade)
 
 		chase_lines(var/mob/target)
 
-//menhir shade: appears only in the case of the rare invasion event. very rare
+//menhir shade: appears only in the case of the invasion event. a bit unstable, can take burn damage
 /mob/living/critter/shade/invader
 	name = "voice of shadow"
 	layer = 3.85
