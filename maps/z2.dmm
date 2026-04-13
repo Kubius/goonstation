@@ -62141,7 +62141,11 @@
 "jNM" = (
 /obj/rack/precursor,
 /obj/map/light/dimred,
-/obj/random_item_spawner/menhir/one,
+/obj/item/chilly_orb{
+	id = "TREPID";
+	color = "#f7e0e0";
+	desc = "Your eyes can't quite seem to focus on it. Something is wrong here."
+	},
 /turf/unsimulated/floor/setpieces/bluefloor{
 	dir = 4
 	},

@@ -278,16 +278,54 @@
 
 	attackby(obj/item/W, mob/user)
 		if(src.place_on(W, user) && src.react_paths)
-			for(var/path in src.react_paths)
-				if(istype(W,path))
-					playsound(src.loc, 'sound/machines/click.ogg', 10, 0, pitch = 0.7)
-					src.visible_message(SPAN_NOTICE("<b>[src] [src.response_string]</b>"))
-					break
+			src.path_eval(W,user)
 		return
 
-	ringstand
-		react_paths = list(/obj/item/basketball,/obj/item/chilly_orb)
-		response_string = "clicks softly. You hear a distant hum begin to rise."
+	proc/path_eval(obj/item/W, mob/user)
+		for(var/path in src.react_paths)
+			if(istype(W,path))
+				playsound(src.loc, 'sound/machines/click.ogg', 10, 0, pitch = 0.7)
+				src.visible_message(SPAN_NOTICE("<b>[src] [src.response_string]</b>"))
+				break
+
+/obj/rack/precursor/pressure/ringstand
+	react_paths = list(/obj/item/basketball,/obj/item/chilly_orb/menhir)
+	response_string = "clicks softly. You hear a distant hum begin to rise."
+	var/did_danger = FALSE
+
+	path_eval(obj/item/W, mob/user)
+		if(W.type == /obj/item/chilly_orb) //exact path is deliberate
+			playsound(src.loc, 'sound/machines/click.ogg', 10, 0, pitch = 0.7)
+			src.visible_message(SPAN_ALERT("[src] clicks softly. A faint crimson light flashes onto [user]..."))
+			user.playsound_local_not_inworld('sound/musical_instruments/Vuvuzela_1.ogg', 12, 0, pitch = 0.2)
+			var/obj/item/chilly_orb/omen = W
+			switch(omen.id)
+				if("DECEIT")
+					boutput(user,SPAN_GRAB("« 86 96 67 07 23 86 67 37 27 76 23 96 27 48 23 38 28 96 08 28 58 38 58 23 96 27 48 23 97 48 «<br>"))
+				if("TREPID")
+					boutput(user,SPAN_GRAB("« 96 77 56 87 23 78 96 87 23 56 23 57 97 97 48 23 86 67 37 27 76 23 96 27 48 «<br>"))
+				if("THEN")
+					boutput(user,SPAN_GRAB("« 86 67 37 27 76 23 96 27 48 23 97 48 23 67 67 56 76 23 38 67 67 56 27 23 28 58 97 «<br>"))
+				if("SORROW") //this comes from killing the voice of grief. you were warned multiple times to cut it out.
+					boutput(user,SPAN_HARM("« 96 87 97 17 96 66 23 44 67 37 17 37 68 23 28 58 97 23 27 76 56 96 28 66 23 97 27 78 23 58 97 98 «<br>"))
+					if(!did_danger)
+						did_danger = TRUE
+						for (var/datum/random_event/RE in random_events.menhir_events)
+							if(istype(RE,/datum/random_event/menhir/shadow))
+								RE.weight = 50
+								break
+						playsound(src.loc, 'sound/effects/ghostvoice.ogg', 100, 0)
+						SPAWN(40)
+							var/turf/goawaynow = pick_landmark(LANDMARK_FALL_DEEP)
+							playsound(user.loc, "explosion", 60, 1)
+							user.set_loc(goawaynow)
+							explosion(src,user.loc,-1,-1,1,2)
+							explosion(src,goawaynow,-1,-1,1,2)
+				if("SURFACE")
+					boutput(user,SPAN_NOTICE("» 76 79 78 71 32 72 65 86 69 32 87 69 32 77 73 83 83 69 68 32 73 84 83 32 83 79 78 71 »<br>"))
+				else
+					boutput(user,SPAN_NOTICE("» 87 69 32 83 73 78 71 44 32 87 69 32 83 73 78 71 44 32 87 69 32 83 73 78 71 »<br>"))
+		..()
 
 // event reward edition: duplicates certain whitelisted items
 /obj/rack/precursor/pressure/knot

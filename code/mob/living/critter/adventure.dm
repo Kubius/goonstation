@@ -301,6 +301,13 @@ TYPEINFO(/mob/living/critter/shade)
 		health_brute = 50
 		can_burst = FALSE
 
+		death()
+			var/obj/item/chilly_orb/okfine = new /obj/item/chilly_orb(src.loc)
+			okfine.color = "#f7c0c0"
+			okfine.desc = "The cold seems to bite at the air around it. This should have been left undisturbed."
+			okfine.id = "SORROW"
+			. = ..()
+
 		chase_lines(var/mob/target)
 
 //menhir shade: appears only in the case of the rare invasion event. very rare
