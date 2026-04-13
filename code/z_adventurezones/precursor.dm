@@ -310,10 +310,13 @@
 					boutput(user,SPAN_HARM("« 96 87 97 17 96 66 23 44 67 37 17 37 68 23 28 58 97 23 27 76 56 96 28 66 23 97 27 78 23 58 97 98 «<br>"))
 					if(!did_danger)
 						did_danger = TRUE
+//if this exists, bump it up.
+#ifdef MAP_OVERRIDE_MENHIR
 						for (var/datum/random_event/RE in random_events.menhir_events)
 							if(istype(RE,/datum/random_event/menhir/shadow))
 								RE.weight = 50
 								break
+#endif
 						playsound(src.loc, 'sound/effects/ghostvoice.ogg', 100, 0)
 						SPAWN(40)
 							var/turf/goawaynow = pick_landmark(LANDMARK_FALL_DEEP)
