@@ -55762,7 +55762,9 @@
 /area/retentioncenter)
 "fep" = (
 /obj/item/chilly_orb{
-	id = "DECEIT"
+	id = "DECEIT";
+	color = "#f7e0e0";
+	desc = "Your eyes can't quite seem to focus on it. Something is wrong here."
 	},
 /turf/unsimulated/floor/setpieces/bluefloor{
 	dir = 8
