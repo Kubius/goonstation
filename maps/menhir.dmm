@@ -10191,13 +10191,10 @@
 	dir = 4
 	},
 /obj/machinery/door/poddoor/pyro/shutters{
-	density = 0;
 	dir = 4;
-	icon_state = "pdoor0";
 	id = "cargo_shutter_out";
 	layer = 5;
-	name = "Export Shutters";
-	opacity = 0
+	name = "Export Shutters"
 	},
 /turf/simulated/floor/caution/northsouth,
 /area/station/quartermaster/office)
@@ -25847,13 +25844,10 @@
 	dir = 4
 	},
 /obj/machinery/door/poddoor/pyro/shutters{
-	density = 0;
 	dir = 4;
-	icon_state = "pdoor0";
 	id = "cargo_shutter_in";
 	layer = 5;
-	name = "Import Shutters";
-	opacity = 0
+	name = "Import Shutters"
 	},
 /obj/machinery/conveyor/WE{
 	id = "qmin"
@@ -32608,13 +32602,10 @@
 	dir = 4
 	},
 /obj/machinery/door/poddoor/pyro/shutters{
-	density = 0;
 	dir = 4;
-	icon_state = "pdoor0";
 	id = "cargo_shutter_out";
 	layer = 5;
-	name = "Export Shutters";
-	opacity = 0
+	name = "Export Shutters"
 	},
 /turf/simulated/floor/caution/northsouth,
 /area/station/quartermaster/cargobay{
@@ -37783,13 +37774,10 @@
 	dir = 4
 	},
 /obj/machinery/door/poddoor/pyro/shutters{
-	density = 0;
 	dir = 4;
-	icon_state = "pdoor0";
 	id = "cargo_shutter_in";
 	layer = 5;
-	name = "Import Shutters";
-	opacity = 0
+	name = "Import Shutters"
 	},
 /obj/machinery/conveyor/WE{
 	id = "qmin"
