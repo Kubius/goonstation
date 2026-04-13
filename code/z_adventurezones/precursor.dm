@@ -292,7 +292,20 @@
 // event reward edition: duplicates certain whitelisted items
 /obj/rack/precursor/pressure/knot
 	layer = 2.9 //it's layering weirdly ok don't judge me
-	react_paths = list(/obj/item/reagent_containers/glass,/obj/item/reagent_containers/food/snacks,/obj/item/raw_material,/obj/item/basketball/catball)
+	react_paths = list(/obj/item/reagent_containers/glass,
+		/obj/item/reagent_containers/food/snacks,
+		/obj/item/raw_material,
+		/obj/item/basketball,
+		/obj/item/kitchen,
+		/obj/item/crowbar,
+		/obj/item/screwdriver,
+		/obj/item/wrench,
+		/obj/item/weldingtool,
+		/obj/item/wirecutters,
+		/obj/item/mining_tool,
+		/obj/item/tool,
+		/obj/item/instrument,
+		/obj/item/clothing)
 	response_string = "clicks softly. A strange mist begins to coalesce..."
 	var/can_place = TRUE
 /*
@@ -313,19 +326,30 @@
 					playsound(src.loc, 'sound/machines/click.ogg', 10, 0, pitch = 0.7)
 					src.visible_message("<b>[src] [src.response_string]</b>")
 					SPAWN(12)
-						src.do_duplication(W)
+						src.do_duplication(W, user)
 					break
 		return
 
-	proc/do_duplication(var/obj/item/W)
+	proc/do_duplication(var/obj/item/W,var/mob/user)
 		showswirl_out(src)
 		W.loc = src
 		W.mouse_opacity = 1
 		var/orig_type = W.type
+		if(istype(W,/obj/item/clothing/gloves/ring/ominous))
+			orig_type = /obj/item/clothing/gloves/ring
 		var/obj/item/new_thing = new orig_type(src)
 		SPAWN(12) //allow item time to set up
 			if(W.reagents) new_thing.reagents = W.reagents
 			if(W.amount) new_thing.amount = W.amount
+			if(istype(W,/obj/item/clothing/gloves/ring/ominous)) //avarice is tolerated up to a point
+				W:agitation += 110
+				W:cumulation += 50
+				W:last_agitator = user
+				new_thing.icon = W.icon
+				new_thing.icon_state = W.icon_state
+				new_thing.color = "#FF9990"
+				new_thing.name = "forsaken arc"
+				new_thing.desc = SPAN_GRAB("« 64 38 58 28 97 27 76 23 96 87 97 23 98 67 87 97 23 38 37 23 96 28 96 27 48 «<br>")
 		SPAWN(rand(54,82))
 			src.layer = 3.1 //visual fx
 			var/our_spot = get_turf(src)

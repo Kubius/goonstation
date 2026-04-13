@@ -15,7 +15,7 @@
 	examine(mob/user)
 		. = ..()
 		if(ishuman(user))
-			. += " For some reason, you feel a strange urge to slide it onto your finger."
+			. += "<br>For some reason, you feel a strange urge to slide it onto your finger."
 
 	New()
 		. = ..()
