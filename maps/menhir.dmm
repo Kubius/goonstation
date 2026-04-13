@@ -1160,7 +1160,9 @@
 	name = "Primary Docking Wing"
 	})
 "aJR" = (
-/mob/living/critter/small_animal/cat/jones,
+/obj/stool/chair/office/blue{
+	dir = 1
+	},
 /turf/simulated/floor/minitiles/black,
 /area/station/bridge/captain)
 "aKe" = (
@@ -1464,6 +1466,13 @@
 	},
 /turf/simulated/floor/white/grime,
 /area/station/hangar/medical)
+"aTt" = (
+/obj/mapping_helper/wingrille_spawn/auto/reinforced,
+/obj/window_blinds/cog2/left{
+	dir = 8
+	},
+/turf/simulated/floor/plating,
+/area/station/chapel/office)
 "aUw" = (
 /obj/cable{
 	icon_state = "2-8"
@@ -5108,6 +5117,13 @@
 	pixel_y = 7;
 	pixel_x = 5
 	},
+/obj/machinery/power/apc/autoname_west{
+	name = "Chapel APC";
+	areastring = "Chapel"
+	},
+/obj/cable{
+	icon_state = "0-5"
+	},
 /turf/simulated/floor/black,
 /area/station/chapel/office)
 "cVV" = (
@@ -6810,9 +6826,7 @@
 /turf/simulated/floor/carpet/grime,
 /area/station/security/detectives_office)
 "eat" = (
-/obj/stool/chair/couch{
-	dir = 8
-	},
+/obj/stool/chair/comfy,
 /turf/simulated/floor/specialroom/chapel{
 	dir = 1
 	},
@@ -8561,7 +8575,11 @@
 /obj/disposalpipe/segment/morgue{
 	dir = 4
 	},
-/turf/simulated/wall/auto/supernorn,
+/obj/mapping_helper/wingrille_spawn/auto/reinforced,
+/obj/window_blinds/cog2/right{
+	dir = 8
+	},
+/turf/simulated/floor/plating,
 /area/station/chapel/office)
 "fgr" = (
 /obj/landmark/observer,
@@ -9828,7 +9846,10 @@
 	},
 /obj/disposalpipe/segment/horizontal,
 /obj/landmark/gps_waypoint,
-/turf/simulated/floor/black,
+/obj/cable{
+	icon_state = "2-4"
+	},
+/turf/simulated/floor/carpet/red/standard/edge/nw,
 /area/station/chapel/office)
 "fSh" = (
 /obj/machinery/computer/ordercomp{
@@ -11484,13 +11505,13 @@
 	},
 /area/station/bridge)
 "gOT" = (
-/obj/stool/chair/couch{
-	dir = 8
-	},
 /obj/machinery/light{
 	dir = 1;
 	layer = 9.1;
 	pixel_y = 21
+	},
+/obj/table/reinforced/bar/auto{
+	name = "wooden table"
 	},
 /turf/simulated/floor/specialroom/chapel{
 	dir = 1
@@ -11792,10 +11813,8 @@
 /turf/simulated/floor/engine/glow/blue,
 /area/station/turret_protected/ai)
 "haF" = (
-/obj/stool/chair/couch{
-	dir = 4
-	},
 /obj/noticeboard/persistent/chapel/directional/north,
+/obj/stool/chair/comfy,
 /turf/simulated/floor/specialroom/chapel,
 /area/station/chapel/sanctuary)
 "haP" = (
@@ -15025,7 +15044,6 @@
 "iPX" = (
 /obj/machinery/atmospherics/pipe/simple,
 /obj/storage/secure/closet/security/forensics,
-/obj/machinery/light_switch/north,
 /turf/simulated/floor/carpet/grime,
 /area/station/security/detectives_office)
 "iQb" = (
@@ -16246,16 +16264,6 @@
 /area/station/hallway/secondary/west{
 	name = "West Shuttle Concourse"
 	})
-"jxz" = (
-/obj/cable{
-	icon_state = "4-8"
-	},
-/obj/cable{
-	icon_state = "2-4"
-	},
-/obj/disposalpipe/segment/horizontal,
-/turf/simulated/floor/black,
-/area/station/chapel/office)
 "jxH" = (
 /obj/machinery/door/airlock/pyro/external{
 	dir = 4
@@ -18190,11 +18198,6 @@
 /obj/mapping_helper/wingrille_spawn/auto/reinforced,
 /turf/simulated/floor/plating,
 /area/station/crew_quarters/barber_shop)
-"kGR" = (
-/obj/mapping_helper/wingrille_spawn/auto/reinforced,
-/obj/window_blinds/cog2/middle,
-/turf/simulated/floor/plating,
-/area/station/security/detectives_office)
 "kHv" = (
 /obj/lattice{
 	dir = 9;
@@ -23034,7 +23037,10 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/west)
 "nsV" = (
-/turf/simulated/floor/black,
+/obj/cable{
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/carpet/red/standard/edge/west,
 /area/station/chapel/office)
 "nte" = (
 /obj/item/device/radio/beacon,
@@ -26329,6 +26335,13 @@
 /obj/disposalpipe/segment/vertical,
 /turf/simulated/floor/yellow,
 /area/station/engine/elect)
+"pes" = (
+/obj/cable{
+	icon_state = "4-8"
+	},
+/obj/disposalpipe/segment/horizontal,
+/turf/simulated/floor/carpet/red/standard/edge/ne,
+/area/station/chapel/office)
 "peH" = (
 /obj/decal/tile_edge/line/blue{
 	dir = 10;
@@ -29450,6 +29463,9 @@
 	},
 /turf/unsimulated/wall/auto/adventure/icemooninterior,
 /area/station/crown)
+"qXh" = (
+/turf/simulated/floor/carpet/red/standard/edge/east,
+/area/station/chapel/office)
 "qXk" = (
 /obj/machinery/floorflusher{
 	desc = "Funny space bomb goes here.";
@@ -30891,11 +30907,6 @@
 "rKz" = (
 /obj/table/wood/auto,
 /obj/machinery/light/lamp/green,
-/obj/machinery/power/apc/autoname_west{
-	name = "Chapel APC";
-	areastring = "Chapel"
-	},
-/obj/cable,
 /turf/simulated/floor/black,
 /area/station/chapel/office)
 "rKA" = (
@@ -31830,7 +31841,7 @@
 	dir = 2;
 	icon_state = "pipe-c"
 	},
-/turf/simulated/floor/black,
+/turf/simulated/floor/carpet/red/standard/edge/se,
 /area/station/chapel/office)
 "skG" = (
 /obj/cable{
@@ -33756,6 +33767,9 @@
 	dir = 1;
 	pixel_y = 21
 	},
+/obj/machinery/light_switch/north{
+	pixel_x = 10
+	},
 /turf/simulated/floor/carpet/grime,
 /area/station/security/detectives_office)
 "tlQ" = (
@@ -34957,7 +34971,10 @@
 /obj/disposalpipe/segment/morgue{
 	dir = 4
 	},
-/turf/simulated/floor/black,
+/obj/cable{
+	icon_state = "1-10"
+	},
+/turf/simulated/floor/carpet/red/standard/edge/sw,
 /area/station/chapel/office)
 "tXF" = (
 /obj/disposalpipe/segment/brig,
@@ -37960,6 +37977,12 @@
 /obj/machinery/light_switch/east,
 /turf/simulated/floor/grass,
 /area/station/hallway/primary/north)
+"vFs" = (
+/mob/living/critter/small_animal/cat/jones{
+	dir = 4
+	},
+/turf/simulated/floor/minitiles/black,
+/area/station/bridge/captain)
 "vFQ" = (
 /obj/machinery/navbeacon/mule/chapel_north/east,
 /obj/decal/stripe_caution,
@@ -42839,10 +42862,22 @@
 	},
 /area/research_outpost/limpet/personnel)
 "ydn" = (
-/obj/stool/chair/couch{
-	dir = 4
-	},
 /obj/machinery/camera/directional/north,
+/obj/table/reinforced/bar/auto{
+	name = "wooden table"
+	},
+/obj/item/paper_bin{
+	pixel_y = 3;
+	pixel_x = -1
+	},
+/obj/item/pen/fancy{
+	pixel_y = 8;
+	pixel_x = 10
+	},
+/obj/item/pen{
+	pixel_x = 6;
+	pixel_y = 6
+	},
 /turf/simulated/floor/specialroom/chapel,
 /area/station/chapel/sanctuary)
 "ydy" = (
@@ -94743,7 +94778,7 @@ hBo
 tlE
 plw
 sEf
-kGR
+lvS
 clS
 iaY
 seM
@@ -94753,7 +94788,7 @@ hKV
 oVd
 oVd
 gMh
-oVd
+aTt
 ffJ
 oVd
 pWr
@@ -95045,7 +95080,7 @@ hBo
 hhf
 plw
 nFe
-lvS
+wln
 tlO
 tyX
 seM
@@ -95054,7 +95089,7 @@ wln
 ody
 fQa
 gOU
-jxz
+cvB
 rKz
 mdI
 cVR
@@ -95658,8 +95693,8 @@ wln
 sbV
 oVd
 fyc
-cvB
-nsV
+pes
+qXh
 sky
 efZ
 hNT
@@ -100225,7 +100260,7 @@ kIk
 kKg
 cMQ
 pAI
-nkW
+vFs
 ayY
 omc
 pBU
