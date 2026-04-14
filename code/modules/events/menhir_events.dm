@@ -98,12 +98,16 @@ ABSTRACT_TYPE(/datum/random_event/menhir)
 		SPAWN(1) //don't hold up other operations
 			var/turf/rolling_target
 			while(have_deployed < probe_deployments)
-				have_deployed++
 				rolling_target = pick(candidate_landmarks)
 				candidate_landmarks -= rolling_target
 				showswirl(rolling_target)
-				var/mob/deployed_probe = new /mob/living/critter/robotic/probe(rolling_target)
+				var/mob/deployed_probe
+				if(have_deployed < 2)
+					deployed_probe = new /mob/living/critter/robotic/probe/arbitor(rolling_target)
+				else
+					deployed_probe = new /mob/living/critter/robotic/probe(rolling_target)
 				src.deployed_probes += deployed_probe
+				have_deployed++
 				sleep(1)
 
 		SPAWN(rand(3 MINUTES, 5 MINUTES))

@@ -48,6 +48,7 @@
 		HH.icon_state = "handn"
 		HH.limb_name = "gravitational projector"
 		HH.can_hold_items = 1
+		HH.can_attack = 0
 
 	emp_act()
 		return
@@ -79,12 +80,14 @@
 			else
 				Artifact_Spawn(src.loc,forceartiorigin = "precursor")
 
-/datum/projectile/laser/light/longrange/salvo
+/datum/projectile/laser/precursor/probe
+	damage = 6
 	shot_number = 5
-	shot_volume = 55
+	shot_sound = 'sound/weapons/laser_b.ogg'
+	shot_volume = 50
 
 /datum/limb/gun/energy/probe_light
-	proj = new/datum/projectile/laser/light/longrange/salvo
+	proj = new/datum/projectile/laser/precursor/probe
 	shots = 1
 	current_shots = 1
 	cooldown = 1 SECOND
@@ -97,6 +100,7 @@
 	icon_state = "arbitor"
 	flags = TABLEPASS | DOORPASS
 	hand_count = 2
+	ai_retaliates = TRUE
 
 	setup_hands()
 		. = ..()
@@ -107,8 +111,10 @@
 		HH.icon_state = "handzap"
 		HH.limb_name = "lens"
 		HH.can_hold_items = 0
-		HH.can_attack = 0
+		HH.can_attack = 1
 		HH.can_range_attack = 1
+		active_hand = 2
+		set_hand(2)
 
 	exit_procedure()
 		return
