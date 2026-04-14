@@ -1781,6 +1781,16 @@
 /obj/machinery/power/data_terminal,
 /turf/simulated/floor/engine/vacuum,
 /area/station/science/lab)
+"bcP" = (
+/obj/cable{
+	icon_state = "4-8"
+	},
+/obj/disposalpipe/segment/morgue{
+	dir = 4
+	},
+/obj/landmark/menhir/outreach,
+/turf/simulated/floor/white,
+/area/station/medical/medbay/surgery)
 "bcS" = (
 /obj/table/reinforced/auto,
 /obj/item/device/radio{
@@ -10360,6 +10370,7 @@
 /obj/cable{
 	icon_state = "1-2"
 	},
+/obj/landmark/menhir/outreach,
 /turf/simulated/floor/neutral,
 /area/station/storage/eva)
 "ghb" = (
@@ -15331,6 +15342,7 @@
 	icon_state = "1-8"
 	},
 /obj/disposalpipe/segment/horizontal,
+/obj/landmark/menhir/outreach,
 /turf/simulated/floor/grey,
 /area/station/crew_quarters/catering)
 "iXM" = (
@@ -16889,6 +16901,7 @@
 	icon_state = "pipe-c";
 	dir = 2
 	},
+/obj/landmark/menhir/outreach,
 /turf/simulated/floor/dirt,
 /area/station/ranch)
 "jRs" = (
@@ -22016,6 +22029,7 @@
 	icon_state = "2-4"
 	},
 /obj/disposalpipe/segment/bent/east,
+/obj/landmark/menhir/outreach,
 /turf/simulated/floor/purplewhite/corner{
 	dir = 8
 	},
@@ -22637,6 +22651,7 @@
 	icon_state = "4-8"
 	},
 /obj/disposalpipe/segment/bent/north,
+/obj/landmark/menhir/outreach,
 /turf/simulated/floor/bluewhite,
 /area/station/medical/medbay)
 "ngE" = (
@@ -25862,7 +25877,6 @@
 	icon_state = "5-8"
 	},
 /obj/disposalpipe/segment/bent/south,
-/obj/landmark/menhir/outreach,
 /turf/simulated/floor/white,
 /area/station/medical/medbay)
 "oRp" = (
@@ -26007,6 +26021,7 @@
 /obj/cable{
 	icon_state = "1-8"
 	},
+/obj/landmark/menhir/outreach,
 /turf/simulated/floor/bluewhite/corner{
 	dir = 8
 	},
@@ -27915,6 +27930,7 @@
 /obj/cable{
 	icon_state = "5-10"
 	},
+/obj/landmark/menhir/outreach,
 /turf/simulated/floor,
 /area/station/engine/elect)
 "qdv" = (
@@ -32890,6 +32906,17 @@
 /obj/machinery/navbeacon/guardbotsecbot_circularpatrol/beacon20_to_1_end,
 /turf/simulated/floor/purple,
 /area/station/hallway/primary/southwest)
+"sMW" = (
+/obj/cable{
+	icon_state = "4-8"
+	},
+/obj/decal/tile_edge/line/black{
+	dir = 1;
+	icon_state = "line1"
+	},
+/obj/landmark/menhir/outreach,
+/turf/simulated/floor,
+/area/station/crew_quarters/lounge)
 "sNg" = (
 /turf/simulated/wall/auto/reinforced/supernorn,
 /area/station/turret_protected/Zeta)
@@ -35772,6 +35799,13 @@
 	},
 /turf/simulated/floor/darkblue,
 /area/research_outpost/limpet/personnel)
+"urn" = (
+/obj/cable{
+	icon_state = "4-8"
+	},
+/obj/landmark/menhir/outreach,
+/turf/simulated/floor/plating,
+/area/station/maintenance/southwest)
 "urw" = (
 /obj/stool/chair/office/purple{
 	dir = 8
@@ -40629,6 +40663,7 @@
 /obj/cable{
 	icon_state = "1-2"
 	},
+/obj/landmark/menhir/outreach,
 /turf/simulated/floor/specialroom/arcade,
 /area/station/science/chemistry)
 "wSV" = (
@@ -40955,6 +40990,7 @@
 /obj/cable{
 	icon_state = "4-8"
 	},
+/obj/landmark/menhir/outreach,
 /turf/simulated/floor,
 /area/station/security/checkpoint/arrivals)
 "xdq" = (
@@ -80365,7 +80401,7 @@ fFi
 xCu
 nOM
 xIQ
-ocp
+bcP
 nOM
 xPm
 gLT
@@ -81615,7 +81651,7 @@ fKB
 iGq
 pMR
 pMR
-mxH
+urn
 tVJ
 vlo
 tVJ
@@ -88794,7 +88830,7 @@ lpk
 qMQ
 qMQ
 lpk
-dul
+sMW
 xPW
 hNl
 rpJ
