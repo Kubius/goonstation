@@ -52,9 +52,9 @@
 	emp_act()
 		return
 
-	was_harmed(var/mob/M as mob, var/obj/item/weapon = 0, var/special = 0, var/intent = null)
+	was_harmed(var/mob/M as mob, var/obj/item/weapon, var/special, var/intent)
 		src.bonked = TRUE
-		..()
+		. = ..(M, weapon, special, intent)
 
 	New()
 		. = ..()
