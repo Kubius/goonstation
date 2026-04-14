@@ -8037,6 +8037,11 @@
 /area/station/medical/medbay/surgery)
 "ePd" = (
 /obj/machinery/light/small/floor,
+/obj/table/reinforced/industrial/auto,
+/obj/item/screwdriver/grey{
+	pixel_y = 5;
+	pixel_x = -3
+	},
 /turf/simulated/floor/circuit/off,
 /area/station/turret_protected/ai)
 "eQj" = (
@@ -26855,6 +26860,15 @@
 /obj/random_item_spawner/tableware,
 /turf/simulated/floor/wood,
 /area/station/crew_quarters/cafeteria)
+"puq" = (
+/obj/machinery/light/small/floor,
+/obj/table/reinforced/industrial/auto,
+/obj/item/device/multitool{
+	pixel_y = 4;
+	pixel_x = 5
+	},
+/turf/simulated/floor/circuit/off,
+/area/station/turret_protected/ai)
 "put" = (
 /obj/machinery/light{
 	dir = 8;
@@ -83357,7 +83371,7 @@ qBY
 glf
 iGe
 izL
-xnG
+waI
 lFj
 jIf
 cCe
@@ -83657,7 +83671,7 @@ cMM
 uVu
 sgR
 gyx
-ePd
+puq
 izL
 waI
 lFj
