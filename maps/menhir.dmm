@@ -219,7 +219,7 @@
 /obj/item/device/multitool{
 	pixel_x = -7
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/grey/blackgrime/other,
 /area/station/storage/tech)
 "afO" = (
 /obj/landmark/gps_waypoint,
@@ -23639,7 +23639,7 @@
 /obj/item/disk/data/floppy/read_only/terminal_os,
 /obj/item/peripheral/printer,
 /obj/item/device/flash,
-/turf/simulated/floor/grime,
+/turf/simulated/floor/grey/blackgrime/other,
 /area/station/storage/tech)
 "nJh" = (
 /obj/machinery/computer/television,
@@ -30383,9 +30383,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/medical/staff)
-"ruf" = (
-/turf/simulated/floor/grime,
-/area/station/hydroponics)
 "rug" = (
 /obj/cable{
 	icon_state = "1-2"
@@ -92121,7 +92118,7 @@ kzV
 jEE
 xxe
 lle
-ruf
+pWr
 tdg
 eEX
 bEK
