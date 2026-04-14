@@ -582,6 +582,7 @@ ABSTRACT_TYPE(/datum/random_event/menhir)
 		for (var/turf/T in landmarks[LANDMARK_HALLOWEEN_SPAWN])
 			candidate_landmarks += T
 		for (var/turf/T in landmarks[LANDMARK_MENHIR_OUTREACH])
+			if(istype(get_area(T),/area/station/maintenance) && prob(50)) continue
 			candidate_landmarks += T
 
 		var/anomaly_count = rand(10,14)
