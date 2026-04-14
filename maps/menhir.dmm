@@ -3526,6 +3526,10 @@
 	},
 /turf/simulated/floor/yellow/side,
 /area/station/engine/storage)
+"bZx" = (
+/obj/landmark/halloween,
+/turf/simulated/floor,
+/area/station/hallway/primary/southeast)
 "bZQ" = (
 /obj/cable{
 	icon_state = "1-2"
@@ -31000,6 +31004,12 @@
 /obj/machinery/light,
 /turf/simulated/floor/black,
 /area/station/crew_quarters/cafeteria)
+"rLX" = (
+/obj/landmark/halloween,
+/turf/simulated/floor/black/side{
+	dir = 1
+	},
+/area/station/hallway/primary/southwest)
 "rMf" = (
 /turf/simulated/wall/auto/supernorn,
 /area/station/maintenance/west)
@@ -39882,6 +39892,10 @@
 	dir = 1
 	},
 /area/station/hydroponics)
+"wyx" = (
+/obj/landmark/halloween,
+/turf/simulated/floor/black/side,
+/area/station/hallway/primary/southwest)
 "wyQ" = (
 /obj/table/reinforced/auto,
 /obj/machinery/door/airlock/pyro/glass/windoor{
@@ -85846,7 +85860,7 @@ fYS
 kvF
 wAs
 vsT
-req
+rLX
 qra
 xFh
 rrD
@@ -85854,7 +85868,7 @@ rrD
 rrD
 xFh
 qra
-lZV
+wyx
 sgn
 ezW
 vUy
@@ -95207,7 +95221,7 @@ pLT
 hHC
 ucI
 ucI
-ucI
+bZx
 cCb
 aSL
 aSL
@@ -95217,7 +95231,7 @@ aSL
 aSL
 aSL
 cCb
-ucI
+bZx
 ucI
 ucI
 ucI
