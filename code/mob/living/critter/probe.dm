@@ -48,7 +48,6 @@
 		HH.icon_state = "handn"
 		HH.limb_name = "gravitational projector"
 		HH.can_hold_items = 1
-		HH.can_attack = 0
 
 	emp_act()
 		return
