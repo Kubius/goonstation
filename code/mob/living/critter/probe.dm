@@ -157,9 +157,9 @@
 	if(!istype(beepity)) return
 	var/turf/currentspot = get_turf(beepity)
 	var/preflight = FALSE
-	if(last_cycle_turf && beepity.deployment_turf && beepity.type == /mob/living/critter/robotic/probe)
+	if(last_cycle_turf && beepity.deployment_turf)
 		preflight = TRUE
-	if(preflight && (GET_DIST(currentspot,last_cycle_turf) > 4 || beepity.bonked))
+	if(preflight && (GET_DIST(currentspot,last_cycle_turf) > 4 || (beepity.bonked && beepity.type == /mob/living/critter/robotic/probe)))
 		var/returning = FALSE
 		if(GET_DIST(currentspot,beepity.deployment_turf) > 4) returning = TRUE
 		if(!beepity.disturbed)
