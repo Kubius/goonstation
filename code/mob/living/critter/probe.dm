@@ -163,9 +163,10 @@
 		var/returning = FALSE
 		if(GET_DIST(currentspot,beepity.deployment_turf) > 4) returning = TRUE
 		if(!beepity.disturbed)
-			beepity.visible_message(SPAN_ALERT("<b>[beepity]<b> makes an irritated sound. It doesn't seem to like being shoved around."))
-			playsound(beepity.loc, 'sound/effects/elec_bzzz.ogg', 40, 0, pitch = 0.5)
-			beepity.disturbed = TRUE
+			if(!beepity.oldmob) //don't do irritation behavior if we were possessed
+				beepity.visible_message(SPAN_ALERT("<b>[beepity]<b> makes an irritated sound. It doesn't seem to like being shoved around."))
+				playsound(beepity.loc, 'sound/effects/elec_bzzz.ogg', 40, 0, pitch = 0.5)
+				beepity.disturbed = TRUE
 		else
 			beepity.visible_message(SPAN_ALERT("<b>[beepity] emits a searing flash[returning ? " as it teleports away" : null]!<b>"))
 			for (var/mob/living/L in orange(3,beepity))
