@@ -1,3 +1,4 @@
+///Precursor probe for Menhir random events
 /mob/living/critter/robotic/probe
 	name = "curious visage"
 	desc = "It hovers in much the same way that bricks don't."
@@ -15,6 +16,7 @@
 	see_invisible = INVIS_CLOAK
 	say_language = LANGUAGE_CUBIC //if you're piloting one of these for gimmicks you don't want to ruin the bit by accident
 	flags = TABLEPASS
+	hand_count = 1
 
 	health_brute = 100
 	health_burn = 100
@@ -22,7 +24,6 @@
 	can_lie = FALSE
 	can_burn = FALSE
 	isFlying = 1
-	var/jetpack = 1 //dear god this does suck doesn't it
 	base_move_delay = 1.5
 	base_walk_delay = 3.5
 	var/disturbed = FALSE //we'd like to probe quietly. you get one oops.
@@ -35,8 +36,18 @@
 	add_abilities = list(/datum/targetable/critter/flash,/datum/targetable/critter/fadeout/drone)
 
 	setup_healths()
-		add_hh_flesh(src.health_brute, src.health_brute_vuln)
-		add_hh_flesh_burn(src.health_burn, src.health_burn_vuln)
+		add_hh_robot(src.health_brute, src.health_brute_vuln)
+		add_hh_robot_burn(src.health_burn, src.health_burn_vuln)
+
+	setup_hands()
+		. = ..()
+		var/datum/handHolder/HH = hands[1]
+		HH.limb = new /datum/limb
+		HH.name = "gravitational projector"
+		HH.icon = 'icons/mob/critter_ui.dmi'
+		HH.icon_state = "handn"
+		HH.limb_name = "gravitational projector"
+		HH.can_hold_items = 1
 
 	emp_act()
 		return
@@ -47,11 +58,17 @@
 
 	New()
 		. = ..()
+		APPLY_ATOM_PROPERTY(src, PROP_ATOM_GRAVITY_IMMUNE, src)
+		src.remove_lifeprocess("gravity")
 		src.deployment_turf = get_turf(src)
 		src.name = "[pick("peculiar","quirky","strange","cold","intricate","odd","curious")] [pick("visage","proxy","interface","attendant")]"
 		src.UpdateIcon()
 
 	disposing()
+		src.exit_procedure()
+		. = ..()
+
+	proc/exit_procedure()
 		if(!src.oldmob && !src.disturbed && prob(42)) //drones which complete their probing without being disturbed may leave a gift
 			playsound(src.loc, 'sound/effects/ring_happi.ogg', 35, 0, extrarange = 16, pitch = 0.6)
 			var/list/gifts = list(/obj/item/reagent_containers/food/snacks/cube = 20, /obj/item/raw_material/cobryl = 12,\
@@ -61,7 +78,40 @@
 				new thing2make(src.loc)
 			else
 				Artifact_Spawn(src.loc,forceartiorigin = "precursor")
+
+/datum/projectile/laser/light/longrange/salvo
+	shot_number = 5
+	shot_volume = 55
+
+/datum/limb/gun/energy/probe_light
+	proj = new/datum/projectile/laser/light/longrange/salvo
+	shots = 1
+	current_shots = 1
+	cooldown = 1 SECOND
+	reload_time = 1 SECOND
+
+///Bigger, more capable probe powered by what may or may not be a pocket singularity
+/mob/living/critter/robotic/probe/arbitor
+	name = "cold proxy"
+	desc = "A faint shimmer continually courses over its surface."
+	icon_state = "arbitor"
+	flags = TABLEPASS | DOORPASS
+	hand_count = 2
+
+	setup_hands()
 		. = ..()
+		var/datum/handHolder/HH = hands[2]
+		HH.limb = new /datum/limb/gun/energy/probe_light
+		HH.name = "particle reallocator"
+		HH.icon = 'icons/mob/critter_ui.dmi'
+		HH.icon_state = "handzap"
+		HH.limb_name = "lens"
+		HH.can_hold_items = 0
+		HH.can_attack = 0
+		HH.can_range_attack = 1
+
+	exit_procedure()
+		return
 
 /mob/living/critter/robotic/probe/update_icon()
 	if (isalive(src))
@@ -101,7 +151,10 @@
 	var/mob/living/critter/robotic/probe/beepity = holder.owner
 	if(!istype(beepity)) return
 	var/turf/currentspot = get_turf(beepity)
-	if(last_cycle_turf && beepity.deployment_turf && (GET_DIST(currentspot,last_cycle_turf) > 4 || beepity.bonked))
+	var/preflight = FALSE
+	if(last_cycle_turf && beepity.deployment_turf && beepity.type == /mob/living/critter/robotic/probe)
+		preflight = TRUE
+	if(preflight && (GET_DIST(currentspot,last_cycle_turf) > 4 || beepity.bonked))
 		var/returning = FALSE
 		if(GET_DIST(currentspot,beepity.deployment_turf) > 4) returning = TRUE
 		if(!beepity.disturbed)
