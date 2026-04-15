@@ -27321,11 +27321,14 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/east)
 "pHF" = (
-/obj/machinery/door/airlock/pyro/medical,
+/obj/machinery/door/airlock/pyro/weapons{
+	aiControlDisabled = 0
+	},
 /obj/mapping_helper/firedoor_spawn,
 /obj/cable{
 	icon_state = "2-9"
 	},
+/obj/mapping_helper/access/maint,
 /obj/mapping_helper/access/research,
 /turf/simulated/floor/black,
 /area/station/turret_protected/incursion)
