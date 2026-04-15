@@ -75,7 +75,7 @@ ABSTRACT_TYPE(/datum/random_event/menhir)
 /datum/random_event/menhir/probes
 	name = "Emissaries of the Crown"
 	message_delay = 1 MINUTE
-	weight = 150
+	weight = 300
 	unannounced = TRUE
 	var/list/deployed_probes = list()
 
@@ -130,6 +130,7 @@ ABSTRACT_TYPE(/datum/random_event/menhir)
 /datum/random_event/menhir/gift
 	name = "A Gift from the Crown"
 	message_delay = 3 MINUTES
+	weight = 200
 
 	event_effect()
 		///Site the gift artifact spawns at; will sometimes be in a "node" (outer ball) if it can, adding a door to it and disqualifying node from further events
@@ -199,7 +200,7 @@ ABSTRACT_TYPE(/datum/random_event/menhir)
 /datum/random_event/menhir/analysis
 	name = "The Crown Inquires"
 	message_delay = 2 MINUTES
-	weight = 80
+	weight = 150
 	unannounced = TRUE
 	///Increase the minimum required candidates each time the event goes off, to a cap.
 	var/required_candidates = 1
@@ -295,7 +296,7 @@ ABSTRACT_TYPE(/datum/random_event/menhir)
 /datum/random_event/menhir/supercharge
 	name = "One Flame Begets Another"
 	message_delay = 1 MINUTE
-	weight = 70
+	weight = 150
 
 	event_effect()
 		var/list/station_areas = get_accessible_station_areas()
@@ -344,7 +345,6 @@ ABSTRACT_TYPE(/datum/random_event/menhir)
 /datum/random_event/menhir/closure
 	name = "The Crown Reclusive"
 	message_delay = 1 MINUTE
-	weight = 50
 	unannounced = TRUE
 
 	is_event_available(ignore_time_lock)
@@ -381,7 +381,6 @@ ABSTRACT_TYPE(/datum/random_event/menhir)
 /datum/random_event/menhir/apc_off
 	name = "Quiet is the Chorus"
 	message_delay = 1 MINUTE
-	weight = 50
 	var/list/ineligible_areas = list(
 		/area/station/maintenance,
 		/area/station/engine/core,
@@ -444,7 +443,6 @@ ABSTRACT_TYPE(/datum/random_event/menhir)
 /datum/random_event/menhir/extrusion
 	name = "A Place of Paths Not Taken"
 	message_delay = 3 MINUTES
-	weight = 50
 
 	is_event_available(ignore_time_lock)
 		. = ..()
@@ -575,7 +573,6 @@ ABSTRACT_TYPE(/datum/random_event/menhir)
 /datum/random_event/menhir/gravity
 	name = "A Shift in the Sands"
 	message_delay = 1 MINUTE
-	weight = 50
 
 	event_effect()
 		var/list/candidate_landmarks = list()
@@ -634,7 +631,7 @@ ABSTRACT_TYPE(/datum/random_event/menhir)
 /datum/random_event/menhir/knot
 	name = "A Receptacle of Reflection"
 	message_delay = 3 MINUTES
-	weight = 35
+	weight = 70
 
 	is_event_available(ignore_time_lock)
 		. = ..()
@@ -718,7 +715,7 @@ ABSTRACT_TYPE(/datum/random_event/menhir)
 /datum/random_event/menhir/powersink
 	name = "A Spire of Synthesis"
 	message_delay = 1 MINUTE
-	weight = 15
+	weight = 40
 	centcom_message = "A sustained period of elevated electromagnetic activity from TOREADOR-7I-22408 is currently underway. Personnel are advised to monitor station power grid and deactivate supply if anomalous behavior is detected."
 
 	is_event_available(ignore_time_lock)
@@ -765,7 +762,7 @@ ABSTRACT_TYPE(/datum/random_event/menhir)
 /datum/random_event/menhir/road
 	name = "For Parted Are The Gates"
 	message_delay = 30 SECONDS
-	weight = 5
+	weight = 10
 
 	is_event_available(ignore_time_lock)
 		. = ..()
@@ -803,7 +800,7 @@ ABSTRACT_TYPE(/datum/random_event/menhir)
 	required_elapsed_round_time = 22 MINUTES
 	centcom_headline = "ARTIFACT CONDITION ALERT"
 	centcom_message = "A massive spike in electromagnetic activity that does not match prior readings has been detected from TOREADOR-7I-22408. All personnel should immediately make ready for hazardous conditions."
-	weight = 5
+	weight = 10
 
 	is_event_available(ignore_time_lock)
 		. = ..()

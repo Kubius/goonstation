@@ -400,7 +400,7 @@ ABSTRACT_TYPE(/datum/menhir_room_roll)
 /datum/random_event/menhir/room
 	name = "The Crown Holds Court"
 	message_delay = 1 MINUTE
-	weight = 10
+	weight = 20
 	customization_available = 1
 	///Consumable pool of room data.
 	var/list/room_pool = list()
@@ -414,9 +414,9 @@ ABSTRACT_TYPE(/datum/menhir_room_roll)
 		. = ..()
 
 	///Menhir room event scales its rate of appearance based on server population
-	/// * 100 weight (in band with other common events) at 30 pop, 250 weight (~double other common events) at 80 pop
+	/// * 170 weight (semi-common) at 30 pop, 300 weight (matching the most-common emissary event) at 56 pop
 	proc/update_weight()
-		src.weight = 10 + (total_clients() * 3)
+		src.weight = 20 + (total_clients() * 5)
 
 	admin_call(var/source)
 		if (..())

@@ -314,7 +314,7 @@
 #ifdef MAP_OVERRIDE_MENHIR
 						for (var/datum/random_event/RE in random_events.menhir_events)
 							if(istype(RE,/datum/random_event/menhir/shadow))
-								RE.weight = 50
+								RE.weight = 500
 								break
 #endif
 						playsound(src.loc, 'sound/effects/ghostvoice.ogg', 100, 0)
