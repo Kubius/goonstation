@@ -28,12 +28,13 @@
 	base_walk_delay = 3.5
 	var/disturbed = FALSE //we'd like to probe quietly. you get one oops.
 	var/bonked = FALSE //being bonked is frustrating.
+	var/obj/item/implant/access/data_interface //probes can learn to access things; doesn't come with access by default
 
 	var/tmp/turf/deployment_turf = null
 
 	is_npc = TRUE
 	ai_type = /datum/aiHolder/probe
-	add_abilities = list(/datum/targetable/critter/flash,/datum/targetable/critter/fadeout/drone)
+	add_abilities = list(/datum/targetable/critter/probe_access,/datum/targetable/critter/fadeout/probe)
 
 	setup_healths()
 		add_hh_robot(src.health_brute, src.health_brute_vuln)
@@ -62,6 +63,7 @@
 		src.remove_lifeprocess("gravity")
 		src.deployment_turf = get_turf(src)
 		src.name = "[pick("peculiar","quirky","strange","cold","intricate","odd","curious")] [pick("visage","proxy","interface","attendant")]"
+		src.data_interface = new /obj/item/implant/access/infinite(src)
 		src.UpdateIcon()
 
 	disposing()
@@ -97,9 +99,9 @@
 	name = "cold proxy"
 	desc = "A faint shimmer continually courses over its surface."
 	icon_state = "arbitor"
-	flags = TABLEPASS | DOORPASS
 	hand_count = 2
 	ai_retaliates = TRUE
+	add_abilities = list(/datum/targetable/critter/probe_access,/datum/targetable/critter/fadeout/probe,/datum/targetable/critter/probe_slip)
 
 	setup_hands()
 		. = ..()
@@ -134,6 +136,61 @@
 		src.icon_state = "[initial(icon_state)]-dead"
 		src.ClearSpecificOverlays("activeglow")
 
+/datum/targetable/critter/probe_access
+	name = "Probe Access"
+	desc = "Analyze an object's required access codes and recalibrate your internal systems to produce them."
+	icon_state = "probe_access"
+	cooldown = 5 SECONDS
+	targeted = 1
+	target_anything = TRUE
+	cast(atom/target)
+		if (..())
+			return 1
+		if (!istype(target,/obj))
+			boutput(holder.owner, SPAN_ALERT("That is not an appopriate category of object."))
+			return 1
+		if (GET_DIST(holder.owner, target) > 5)
+			boutput(holder.owner, SPAN_ALERT("That is too far away to scan."))
+			return 1
+		var/mob/living/critter/robotic/probe/C = holder.owner
+		if(!istype(C) || !C.data_interface)
+			boutput(holder.owner, SPAN_ALERT("You lack the appropriate systems to do this."))
+			return 1
+		var/obj/O = target
+		if(O.req_access && length(O.req_access))
+			C.data_interface.access.access |= O.req_access
+			boutput(C, SPAN_NOTICE("Successfully replicated [length(O.req_access)] access codes."))
+		else
+			boutput(C, SPAN_ALERT("The targeted object lacks access requirements."))
+		playsound(get_turf(C), 'sound/machines/scan2.ogg', 45, 1, pitch = 0.8)
+
+/datum/targetable/critter/probe_slip
+	name = "Slipstream"
+	desc = "Alter the cohesion field protecting you, allowing you to slip through doors with ease."
+	cooldown = 3 SECONDS
+	icon_state = "probe_slip"
+
+	cast(atom/target)
+		if (disabled)
+			return 1
+		if (..())
+			return 1
+		var/mob/living/critter/robotic/probe/arbitor/C = holder.owner
+		if(!istype(C))
+			boutput(holder.owner, SPAN_ALERT("You lack the appropriate systems to do this."))
+			return 1
+		if(C.flags & DOORPASS)
+			playsound(C, 'sound/machines/sweep.ogg', 25, 0, pitch = 0.3)
+			C.flags &= ~DOORPASS
+			C.color = initial(C.color)
+		else
+			C.flags |= DOORPASS
+			playsound(C, 'sound/effects/power_charge.ogg', 30, 0, pitch = 0.5)
+			C.color = "#DEDEEE"
+
+#define PROBE_PRIO_OBSERVE 1
+#define PROBE_PRIO_ANALYZE 5
+
 /datum/aiHolder/probe
 	New()
 		..()
@@ -142,15 +199,17 @@
 /datum/aiTask/prioritizer/critter/probe/New()
 	..()
 	transition_tasks += holder.get_instance(/datum/aiTask/timed/probe_idle, list(src.holder, src))
+	transition_tasks += holder.get_instance(/datum/aiTask/timed/targeted/probe_a_machine, list(src.holder, src))
 
+///Primary task for probes; poke around and scan things, and reset position if being dragged too far or (for basic probes) attacked
 /datum/aiTask/timed/probe_idle
 	name = "observing"
-	minimum_task_ticks = 35
-	maximum_task_ticks = 50
+	minimum_task_ticks = 12
+	maximum_task_ticks = 16
 	var/tmp/turf/last_cycle_turf = null
 
 /datum/aiTask/timed/probe_idle/evaluate()
-	. = 1
+	. = PROBE_PRIO_OBSERVE
 
 /datum/aiTask/timed/probe_idle/on_tick()
 	var/mob/living/critter/robotic/probe/beepity = holder.owner
@@ -193,3 +252,123 @@
 			if(prob(30))
 				playsound(beepity.loc, 'sound/machines/scan2.ogg', 40, 0, pitch = 0.6)
 		last_cycle_turf = currentspot
+
+/datum/aiTask/timed/probe_idle/on_reset()
+	..()
+	holder.stop_move()
+	last_cycle_turf = null
+
+///Secondary task for probes; select an eligible machine and faff about with its wires a little
+/datum/aiTask/timed/targeted/probe_a_machine
+	name = "probing"
+	minimum_task_ticks = 30
+	maximum_task_ticks = 50
+	frustration_threshold = 4
+	var/list/probeable_types = list(/obj/machinery/power/apc,
+		/obj/machinery/vending,
+		/obj/machinery/manufacturer,
+		/obj/machinery/door/airlock)
+	var/list/candidate_list = list()
+	///Keep tabs on which turf we're on while we're moving. If it doesn't change while trying to close the distance, we stuck
+	var/turf/movetracker = null
+	///If we're stuck (or if we're successfully pulsing) let the timing system know
+	var/increment_frust = FALSE
+
+/datum/aiTask/timed/targeted/probe_a_machine/evaluate()
+	..()
+	var/mob/living/critter/robotic/probe/C = holder.owner
+	if(istype(C) && prob(30))
+		for(var/obj/machinery/O in view(6,C))
+			for(var/type in src.probeable_types)
+				if(istype(O,type))
+					src.candidate_list += O
+	if(length(src.candidate_list))
+		return PROBE_PRIO_ANALYZE
+	. = 0
+
+/datum/aiTask/timed/targeted/probe_a_machine/frustration_check()
+	. = FALSE
+	if(src.increment_frust)
+		. = TRUE
+		src.increment_frust = FALSE
+
+/datum/aiTask/timed/targeted/probe_a_machine/on_tick()
+	var/mob/living/critter/robotic/probe/beepity = holder.owner
+	if (!istype(beepity) || HAS_ATOM_PROPERTY(beepity, PROP_MOB_CANTMOVE))
+		return
+
+	if(length(beepity.grabbed_by) > 1)
+		beepity.resist()
+
+	if(!holder.target)
+		holder.target = pick(src.candidate_list)
+		playsound(get_turf(beepity), 'sound/machines/sweep.ogg', 20, 0, pitch = 0.3)
+		src.candidate_list.Cut() //reset in advance of next probing cycle
+
+	if(holder.target && holder.target.z == beepity.z)
+		var/obj/O = holder.target
+		if(QDELETED(O))
+			return
+		var/dist = get_dist(beepity, O)
+		if (dist > 1)
+			var/turf/movehere = get_turf(O)
+			var/whooshed = FALSE
+			if(src.movetracker && src.movetracker == get_turf(beepity))
+				src.increment_frust = TRUE //only increment frustration if we are trying to move and can't (we're stationary when pulsing)
+				if(src.frustration == 0) //try reading access data around us, see if that helps
+					for(var/obj/machinery/door/airlock/D in range(1,beepity))
+						if(D.req_access) beepity.data_interface.access.access |= D.req_access
+				if(src.frustration == 2) //let's try something extra
+					if(get_area(O) != get_area(beepity)) //we're out of area, do a hop
+						var/turf/alt_turf
+						for(var/dir in cardinal)
+							alt_turf = get_step(O,dir)
+							if(!is_blocked_turf(alt_turf))
+								showswirl_out(beepity.loc)
+								showswirl(alt_turf)
+								beepity.set_loc(alt_turf)
+								whooshed = TRUE
+								break
+					else //we're in the same area, try to just float over there
+						var/turf/alt_turf
+						for(var/dir in cardinal)
+							alt_turf = get_step(O,dir)
+							if(!is_blocked_turf(alt_turf))
+								movehere = alt_turf
+								break
+			if(!whooshed) holder.move_to(movehere,1)
+			src.movetracker = get_turf(beepity)
+
+		if (dist <= 1)
+			if(src.movetracker) src.frustration = 1 //go to a "budget" of 3 actions if we did a movement phase
+			beepity.dir = get_dir(beepity,O)
+			src.movetracker = null
+			var/wire = pick(APCWireColorToIndex)
+			if(istype(O,/obj/machinery/door/airlock))
+				var/obj/machinery/door/airlock/target_airlock = O
+				wire = pick(airlockWireColorToIndex)
+				if(!target_airlock.isWireColorCut(wire))
+					target_airlock.pulse(wire)
+			if(istype(O,/obj/machinery/manufacturer))
+				var/obj/machinery/manufacturer/target_manufacturer = O
+				target_manufacturer.pulse(null, wire)
+			if(istype(O,/obj/machinery/vending))
+				var/obj/machinery/vending/target_vending = O
+				if(!target_vending.isWireColorCut(wire))
+					target_vending.pulse(wire)
+			if(istype(O,/obj/machinery/power/apc))
+				var/obj/machinery/power/apc/target_apc = O
+				if(!target_apc.isWireColorCut(wire))
+					target_apc.pulse(wire)
+			src.increment_frust = TRUE
+			playsound(get_turf(beepity), 'sound/machines/scan2.ogg', 25, 1, pitch = 0.8)
+	..()
+
+/datum/aiTask/timed/targeted/probe_a_machine/on_reset()
+	..()
+	holder.stop_move()
+	src.frustration = 0
+	src.movetracker = null
+
+#undef PROBE_PRIO_OBSERVE
+#undef PROBE_PRIO_ANALYZE

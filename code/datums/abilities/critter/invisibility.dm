@@ -110,5 +110,6 @@
 		fade_anim_length = 12
 		linger_time = 5
 
-	drone
+	probe
 		fade_alpha = 0
+		icon_state = "probe_cloak"
