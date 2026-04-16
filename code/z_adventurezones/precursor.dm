@@ -1713,7 +1713,7 @@ var/global/list/scarysounds = list('sound/machines/engine_alert3.ogg',
 				if(!ON_COOLDOWN(src,"transpose",1.2 SECONDS) && prob(70))
 					var/do_move = TRUE
 					for(var/mob/M in oviewers(AM))
-						if(!isintangible(AM) && !isobserver(AM))
+						if(!isintangible(AM) && isliving(AM))
 							do_move = FALSE
 							break
 					if(do_move)
