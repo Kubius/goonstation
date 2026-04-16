@@ -302,7 +302,7 @@
 
 	if(!holder.target)
 		holder.target = pick(src.candidate_list)
-		logTheThing(LOG_STATION, beepity, "(probe) selected [holder_target] for tampering at [log_loc(holder_target)]")
+		logTheThing(LOG_STATION, beepity, "(probe) selected [holder.target] for tampering at [log_loc(holder.target)]")
 		playsound(get_turf(beepity), 'sound/machines/sweep.ogg', 20, 0, pitch = 0.3)
 		src.candidate_list.Cut() //reset in advance of next probing cycle
 
