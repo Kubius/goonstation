@@ -303,14 +303,14 @@ ABSTRACT_TYPE(/datum/random_event/menhir)
 		var/list/candidate_apcs = list()
 		for (var/area_name in station_areas)
 			var/area/A = station_areas[area_name]
-			if (istype(A.area_apc))
+			if (!istype(A,/area/station/maintenance) && istype(A.area_apc))
 				var/obj/machinery/power/apc/our_apc = A.area_apc
 				if(!our_apc.cell) continue
 				var/powerfraction = ((1 - (our_apc.cell.charge / our_apc.cell.maxcharge)) * 20)
 				var/apc_weight = max(1,round(powerfraction ** 2)) //lower power is dramatically higher odds
 				candidate_apcs[our_apc] = apc_weight
 
-		var/zones_to_electrify = rand(4,6)
+		var/zones_to_electrify = rand(6,8)
 		if(length(candidate_apcs) < zones_to_electrify)
 			logTheThing(LOG_DEBUG, null, "Menhir supercharge event couldn't find enough APCs to electrify! This shouldn't happen.")
 			message_admins("Menhir supercharge event couldn't find enough APCs to electrify! This shouldn't happen. Aborting event")
