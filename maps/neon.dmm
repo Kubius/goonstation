@@ -31943,6 +31943,10 @@
 	},
 /obj/landmark/start/job/botanist,
 /obj/machinery/light/incandescent,
+/obj/item/paper/book/from_file/hydroponicsguide{
+	pixel_y = 5;
+	pixel_x = 14
+	},
 /turf/simulated/floor/green/side{
 	dir = 9
 	},
