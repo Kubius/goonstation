@@ -5284,9 +5284,13 @@
 /area/station/security/processing)
 "dOc" = (
 /obj/table/reinforced/auto,
+/obj/item/wrench{
+	pixel_x = 3;
+	pixel_y = 2
+	},
 /obj/item/bee_egg_carton{
-	pixel_y = 5;
-	pixel_x = -1
+	pixel_y = 8;
+	pixel_x = -7
 	},
 /turf/simulated/floor/green/side{
 	dir = 4
@@ -81627,9 +81631,9 @@ lbr
 pIU
 qUb
 ccs
-aEY
-hHL
 ccs
+hHL
+aEY
 tPg
 qUb
 jhx
