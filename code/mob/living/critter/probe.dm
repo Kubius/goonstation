@@ -158,8 +158,16 @@
 			return 1
 		var/obj/O = target
 		if(O.req_access && length(O.req_access))
-			C.data_interface.access.access |= O.req_access
-			boutput(C, SPAN_NOTICE("Successfully replicated [length(O.req_access)] access codes."))
+			var/codes_replicated = 0
+			for(var/access_item in O.req_access)
+				if(islist(access_item)) //combo-access scan
+					for(var/sub_access in access_item)
+						C.data_interface.access.access |= sub_access
+						codes_replicated++
+				else //regular-access scan
+					C.data_interface.access.access |= access_item
+					codes_replicated++
+			boutput(C, SPAN_NOTICE("Successfully replicated [codes_replicated] access codes."))
 		else
 			boutput(C, SPAN_ALERT("The targeted object lacks access requirements."))
 		playsound(get_turf(C), 'sound/machines/scan2.ogg', 45, 1, pitch = 0.8)
@@ -320,7 +328,13 @@
 				src.increment_frust = TRUE //only increment frustration if we are trying to move and can't (we're stationary when pulsing)
 				if(src.frustration == 0) //try reading access data around us, see if that helps
 					for(var/obj/machinery/door/airlock/D in range(1,beepity))
-						if(D.req_access) beepity.data_interface.access.access |= D.req_access
+						if(D.req_access)
+							for(var/access_item in D.req_access)
+								if(islist(access_item)) //combo-access scan
+									for(var/sub_access in access_item)
+										beepity.data_interface.access.access |= sub_access
+								else //regular-access scan
+									beepity.data_interface.access.access |= access_item
 				if(src.frustration == 2) //let's try something extra
 					if(get_area(O) != get_area(beepity)) //we're out of area, do a hop
 						var/turf/alt_turf
