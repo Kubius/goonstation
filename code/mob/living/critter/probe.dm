@@ -277,7 +277,9 @@
 /datum/aiTask/timed/targeted/probe_a_machine/evaluate()
 	..()
 	var/mob/living/critter/robotic/probe/C = holder.owner
-	if(istype(C) && prob(30))
+	var/probe_prob = 10
+	if(C.disturbed) probe_prob = 40
+	if(istype(C) && prob(probe_prob))
 		for(var/obj/machinery/O in view(6,C))
 			for(var/type in src.probeable_types)
 				if(istype(O,type))
