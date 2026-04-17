@@ -1349,6 +1349,13 @@
 	dir = 4
 	},
 /area/station/engine/elect)
+"aVV" = (
+/obj/machinery/sink/slim{
+	dir = 1
+	},
+/obj/machinery/drainage,
+/turf/simulated/floor/green/side,
+/area/station/hydroponics/bay)
 "aWp" = (
 /obj/machinery/light/flock{
 	dir = 8
@@ -15947,11 +15954,7 @@
 /turf/simulated/floor/grime,
 /area/iss)
 "lbr" = (
-/obj/machinery/sink/slim{
-	dir = 4;
-	pixel_x = -8
-	},
-/obj/machinery/drainage,
+/obj/machinery/hydro_growlamp,
 /turf/simulated/floor/green/side{
 	dir = 8
 	},
@@ -25379,7 +25382,7 @@
 /turf/simulated/floor/yellow,
 /area/station/engine/gas)
 "rSO" = (
-/obj/machinery/hydro_growlamp,
+/obj/submachine/seed_vendor,
 /turf/simulated/floor/green/side{
 	dir = 1
 	},
@@ -82828,7 +82831,7 @@ gqC
 veq
 ikA
 lqR
-oRY
+aVV
 lit
 woo
 ilz
