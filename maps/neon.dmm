@@ -4062,6 +4062,8 @@
 /area/station/medical/medbay/pharmacy)
 "cZJ" = (
 /obj/machinery/door/airlock/pyro/alt,
+/obj/mapping_helper/access/hydro,
+/obj/mapping_helper/firedoor_spawn,
 /turf/simulated/floor/green,
 /area/station/hydroponics/bay)
 "cZT" = (
