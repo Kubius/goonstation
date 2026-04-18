@@ -2464,9 +2464,7 @@
 	},
 /area/station/hallway/primary/south)
 "bTy" = (
-/obj/stool/chair/blue{
-	dir = 4
-	},
+/obj/stool/bed/moveable,
 /turf/simulated/floor/specialroom/medbay,
 /area/station/medical/medbay/psychiatrist)
 "bTY" = (
@@ -8085,6 +8083,10 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/southwest)
+"fEa" = (
+/obj/disposalpipe/segment/mail,
+/turf/simulated/floor/specialroom/medbay,
+/area/station/hallway/primary/central)
 "fEp" = (
 /mob/living/critter/martian/soldier,
 /turf/simulated/floor/martian,
@@ -8860,7 +8862,8 @@
 "gfg" = (
 /obj/machinery/optable,
 /obj/blind_switch/north{
-	pixel_x = 6
+	pixel_x = 6;
+	id = "robotics"
 	},
 /obj/machinery/light_switch/north{
 	pixel_x = -6
@@ -21441,6 +21444,16 @@
 /obj/machinery/light/incandescent/warm/very,
 /turf/simulated/floor/grime,
 /area/diner/kitchen)
+"paD" = (
+/obj/machinery/computer3/generic/med_data{
+	dir = 4
+	},
+/obj/cable,
+/obj/machinery/power/data_terminal,
+/turf/simulated/floor/white/checker2{
+	dir = 5
+	},
+/area/station/medical/medbay/cloner)
 "paJ" = (
 /obj/fakeobject/apc_broken,
 /turf/simulated/wall/auto/reinforced/old,
@@ -25149,8 +25162,15 @@
 	dir = 4
 	},
 /obj/cable{
-	icon_state = "4-8"
+	icon_state = "0-2"
 	},
+/obj/cable{
+	icon_state = "0-4"
+	},
+/obj/cable{
+	icon_state = "0-8"
+	},
+/obj/machinery/power/data_terminal,
 /turf/simulated/floor/white/checker2{
 	dir = 5
 	},
@@ -77740,7 +77760,7 @@ tRo
 nMd
 upv
 rHx
-bfs
+paD
 sSZ
 lEB
 man
@@ -78042,7 +78062,7 @@ gGr
 nMd
 uFw
 lHb
-dNF
+bfs
 oKt
 boG
 xNW
@@ -84679,7 +84699,7 @@ llY
 hXQ
 dWO
 qHN
-lam
+fEa
 oVG
 nkt
 knB
