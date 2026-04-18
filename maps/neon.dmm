@@ -1074,6 +1074,7 @@
 /area/diner/kitchen)
 "aLf" = (
 /obj/submachine/seed_manipulator,
+/obj/machinery/light/incandescent,
 /turf/simulated/floor/green/side{
 	dir = 1
 	},
@@ -1793,12 +1794,12 @@
 /turf/simulated/wall/auto/reinforced/supernorn,
 /area/station/hallway/secondary/exit)
 "bsF" = (
-/obj/cable{
-	icon_state = "4-8"
-	},
 /obj/disposalpipe/segment/produce{
 	dir = 8;
 	icon_state = "pipe-c"
+	},
+/obj/cable{
+	icon_state = "2-8"
 	},
 /turf/simulated/floor/green/side{
 	dir = 8
@@ -2519,10 +2520,6 @@
 /obj/bubble_vent/oxygen,
 /turf/space/fluid,
 /area/space)
-"bWI" = (
-/obj/disposalpipe/segment/bent/east,
-/turf/simulated/floor/green/corner,
-/area/station/hydroponics/bay)
 "bWL" = (
 /obj/decal/cleanable/oil,
 /obj/disposalpipe/segment{
@@ -3747,6 +3744,11 @@
 /obj/railing,
 /turf/simulated/floor/yellow/side,
 /area/shuttle/sea_elevator_room)
+"cPe" = (
+/obj/machinery/plantpot,
+/obj/machinery/light_switch/west,
+/turf/simulated/floor/grass/random,
+/area/station/hydroponics/bay)
 "cPj" = (
 /obj/submachine/laundry_machine,
 /obj/machinery/light_switch/west,
@@ -4059,10 +4061,8 @@
 /turf/simulated/floor/specialroom/medbay,
 /area/station/medical/medbay/pharmacy)
 "cZJ" = (
-/obj/cable{
-	icon_state = "1-8"
-	},
-/turf/simulated/floor/green/side,
+/obj/machinery/door/airlock/pyro/alt,
+/turf/simulated/floor/green,
 /area/station/hydroponics/bay)
 "cZT" = (
 /obj/disposalpipe/segment/morgue,
@@ -6852,7 +6852,6 @@
 /obj/machinery/chem_master{
 	dir = 8
 	},
-/obj/machinery/light/incandescent,
 /turf/simulated/floor/green/side{
 	dir = 6
 	},
@@ -7051,6 +7050,13 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/north)
+"eVa" = (
+/obj/machinery/plantpot,
+/obj/machinery/firealarm/directional/north,
+/turf/simulated/floor/green/side{
+	dir = 1
+	},
+/area/station/hydroponics/bay)
 "eVt" = (
 /obj/machinery/computer/ordercomp,
 /obj/machinery/ai_status_display{
@@ -11009,8 +11015,8 @@
 /turf/space/fluid,
 /area/evilreaver)
 "hKo" = (
-/obj/reagent_dispensers/watertank/big,
 /obj/disposalpipe/segment/mail,
+/obj/reagent_dispensers/compostbin,
 /turf/simulated/floor/grass/random,
 /area/station/hydroponics/bay)
 "hKL" = (
@@ -11536,7 +11542,7 @@
 /turf/simulated/floor/grass/leafy,
 /area/station/ranch)
 "ida" = (
-/obj/disposalpipe/segment/bent/south,
+/obj/disposalpipe/segment/vertical,
 /turf/simulated/floor/green/side{
 	dir = 8
 	},
@@ -11765,13 +11771,6 @@
 /obj/item/clothing/under/swimsuit/donkini,
 /turf/simulated/floor/grime,
 /area/iss)
-"ikA" = (
-/obj/machinery/plantpot,
-/obj/machinery/light/incandescent,
-/turf/simulated/floor/green/side{
-	dir = 1
-	},
-/area/station/hydroponics/bay)
 "ikC" = (
 /obj/storage/secure/closet/command/medical_director,
 /obj/item/device/radio/intercom/medical,
@@ -11790,11 +11789,6 @@
 	},
 /turf/simulated/floor/red,
 /area/station/security/main)
-"ilz" = (
-/turf/simulated/floor/green/side{
-	dir = 8
-	},
-/area/station/hydroponics/bay)
 "ilF" = (
 /turf/simulated/floor/redblack{
 	dir = 1
@@ -12461,12 +12455,6 @@
 "iJU" = (
 /turf/unsimulated/wall/auto/adventure/shuttle/dark,
 /area/iss)
-"iKa" = (
-/obj/disposalpipe/segment/vertical,
-/turf/simulated/floor/green/side{
-	dir = 6
-	},
-/area/station/hydroponics/bay)
 "iKd" = (
 /obj/machinery/door/airlock/pyro/external,
 /turf/simulated/floor,
@@ -12597,11 +12585,6 @@
 /obj/disposalpipe/segment/mail,
 /turf/simulated/floor,
 /area/station/hallway/primary/north)
-"iOT" = (
-/obj/machinery/disposal/mail/small/autoname/hydroponics/south,
-/obj/disposalpipe/trunk/west,
-/turf/simulated/floor/green/side,
-/area/station/hydroponics/bay)
 "iOX" = (
 /obj/mapping_helper/wingrille_spawn/auto/reinforced,
 /turf/simulated/floor/plating,
@@ -15959,8 +15942,10 @@
 /area/iss)
 "lbr" = (
 /obj/machinery/hydro_growlamp,
+/obj/machinery/power/apc/autoname_west,
+/obj/cable,
 /turf/simulated/floor/green/side{
-	dir = 8
+	dir = 10
 	},
 /area/station/hydroponics/bay)
 "lbB" = (
@@ -16989,7 +16974,6 @@
 	dir = 4
 	},
 /obj/landmark/start/job/botanist,
-/obj/machinery/light_switch/north,
 /turf/simulated/floor/green/side{
 	dir = 1
 	},
@@ -20013,6 +19997,7 @@
 /area/station/maintenance/northeast)
 "nZw" = (
 /obj/machinery/light/small/floor,
+/obj/disposalpipe/segment/vertical,
 /turf/simulated/floor/green/side{
 	dir = 8
 	},
@@ -20428,12 +20413,6 @@
 /obj/disposalpipe/segment/vertical,
 /turf/simulated/floor,
 /area/station/security/evidence)
-"okB" = (
-/obj/cable{
-	icon_state = "2-8"
-	},
-/turf/simulated/floor,
-/area/station/hydroponics/bay)
 "olE" = (
 /obj/submachine/chicken_incubator,
 /obj/item/reagent_containers/food/snacks/ingredient/egg{
@@ -21044,6 +21023,11 @@
 	},
 /turf/simulated/floor/specialroom/cafeteria,
 /area/station/crew_quarters/kitchen)
+"oLx" = (
+/obj/machinery/light/incandescent,
+/obj/reagent_dispensers/watertank/big,
+/turf/simulated/floor/grass/random,
+/area/station/hydroponics/bay)
 "oLG" = (
 /obj/machinery/door/airlock/pyro/engineering/alt{
 	dir = 8
@@ -22376,16 +22360,6 @@
 	dir = 4
 	},
 /area/station/security/processing)
-"pIU" = (
-/obj/reagent_dispensers/compostbin,
-/obj/machinery/power/apc/autoname_west,
-/obj/cable{
-	icon_state = "0-4"
-	},
-/turf/simulated/floor/green/side{
-	dir = 10
-	},
-/area/station/hydroponics/bay)
 "pJo" = (
 /turf/simulated/wall/auto/reinforced/supernorn,
 /area/radiostation/studio)
@@ -22692,10 +22666,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/southwest)
-"pQJ" = (
-/obj/disposalpipe/segment/bent/north,
-/turf/simulated/floor/grass/random,
-/area/station/hydroponics/bay)
 "pQL" = (
 /obj/machinery/door/airlock/pyro/external{
 	dir = 4
@@ -23005,7 +22975,6 @@
 	},
 /area/research_outpost)
 "qbC" = (
-/obj/disposalpipe/segment/horizontal,
 /obj/machinery/navbeacon/mule/hydroponics_north,
 /turf/simulated/floor/grass/random,
 /area/station/hydroponics/bay)
@@ -23411,12 +23380,6 @@
 /obj/machinery/portable_atmospherics/scrubber,
 /turf/simulated/floor/black,
 /area/station/science/lab)
-"qry" = (
-/obj/cable{
-	icon_state = "1-2"
-	},
-/turf/simulated/floor,
-/area/station/hydroponics/bay)
 "qsc" = (
 /turf/simulated/wall/auto/reinforced/old,
 /area/evilreaver/atmospherics)
@@ -27781,13 +27744,6 @@
 	dir = 4
 	},
 /area/station/science/chemistry)
-"tBI" = (
-/obj/mapping_helper/wingrille_spawn/auto/reinforced,
-/obj/window_blinds/cog2/closed/left{
-	icon_state = "blinds_cog2-L-c"
-	},
-/turf/simulated/floor/plating,
-/area/station/hydroponics/bay)
 "tBS" = (
 /obj/machinery/light/incandescent/netural,
 /turf/simulated/floor/plating,
@@ -28337,19 +28293,17 @@
 	},
 /turf/simulated/floor/specialroom/bar,
 /area/diner/dining)
-"tTM" = (
-/obj/mapping_helper/wingrille_spawn/auto/reinforced,
-/obj/window_blinds/cog2/closed/right{
-	icon_state = "blinds_cog2-R-c"
-	},
-/turf/simulated/floor/plating,
-/area/station/hydroponics/bay)
 "tUd" = (
 /turf/simulated/wall/auto/supernorn,
 /area/station/crew_quarters/clown)
 "tUC" = (
-/obj/machinery/disposal/mail/small/autoname/hydroponics/north,
-/obj/disposalpipe/trunk/mail/west,
+/obj/machinery/plantpot{
+	anchored = 1
+	},
+/obj/disposalpipe/trunk/east,
+/obj/machinery/disposal/small/north{
+	pixel_y = 32
+	},
 /turf/simulated/floor/grass/random,
 /area/station/hydroponics/bay)
 "tUJ" = (
@@ -29981,13 +29935,6 @@
 /obj/landmark/start/job/assistant,
 /turf/simulated/floor,
 /area/station/crew_quarters/lounge)
-"veq" = (
-/obj/mapping_helper/wingrille_spawn/auto/reinforced,
-/obj/window_blinds/cog2/closed/middle{
-	icon_state = "blinds_cog2-M-c"
-	},
-/turf/simulated/floor/plating,
-/area/station/hydroponics/bay)
 "veu" = (
 /obj/machinery/door/airlock/pyro/glass/sci{
 	dir = 4
@@ -31177,10 +31124,6 @@
 "vQZ" = (
 /turf/simulated/floor/plating,
 /area/derelict_diner)
-"vRk" = (
-/obj/disposalpipe/segment/vertical,
-/turf/simulated/floor/grass/random,
-/area/station/hydroponics/bay)
 "vRl" = (
 /obj/lattice,
 /turf/simulated/floor/martian,
@@ -31638,10 +31581,8 @@
 /turf/simulated/floor/black,
 /area/station/security/brig)
 "wdz" = (
-/obj/disposalpipe/segment/mail{
-	dir = 4
-	},
-/obj/disposalpipe/segment/vertical,
+/obj/disposalpipe/trunk/mail/west,
+/obj/machinery/disposal/mail/small/autoname/hydroponics/north,
 /turf/simulated/floor/grass/random,
 /area/station/hydroponics/bay)
 "wdN" = (
@@ -31947,6 +31888,7 @@
 	pixel_y = 5;
 	pixel_x = 14
 	},
+/obj/disposalpipe/segment/bent/south,
 /turf/simulated/floor/green/side{
 	dir = 9
 	},
@@ -33752,7 +33694,6 @@
 	pixel_x = 6;
 	pixel_y = 3
 	},
-/obj/blind_switch/area/north/on,
 /turf/simulated/floor/green/side{
 	dir = 5
 	},
@@ -81632,14 +81573,14 @@ qXv
 iOs
 bsF
 lbr
-pIU
+lit
 qUb
 ccs
-ccs
-hHL
 aEY
+hHL
+cPe
 tPg
-qUb
+oLx
 jhx
 tCh
 gyJ
@@ -81932,8 +81873,8 @@ pSr
 eRq
 qXv
 rSO
-okB
-qry
+lqR
+oRY
 cZJ
 add
 qeG
@@ -82235,14 +82176,14 @@ dxg
 ncd
 scU
 lqR
-bWI
-iKa
+oRY
+lit
 wdz
-vRk
-vRk
-vRk
-vRk
-pQJ
+mtv
+mtv
+mtv
+mtv
+mtv
 ccs
 jhx
 fym
@@ -82534,10 +82475,10 @@ wGm
 wfV
 qeb
 iqI
-tBI
-uHs
+qXv
+eVa
 lqR
-iOT
+aVV
 lit
 tUC
 quP
@@ -82836,16 +82777,16 @@ ckM
 kVy
 pHX
 gqC
-veq
-ikA
+qXv
+uHs
 lqR
-aVV
+oRY
 lit
 woo
-ilz
+ida
 nZw
-ilz
-ilz
+ida
+ida
 ida
 bki
 swf
@@ -83138,7 +83079,7 @@ aJe
 iFb
 tEU
 dUl
-tTM
+qXv
 aLf
 eff
 oRY
@@ -83440,7 +83381,7 @@ icL
 iFb
 tEU
 pMd
-lit
+qXv
 xBZ
 mri
 eNm
