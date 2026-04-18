@@ -13145,6 +13145,13 @@
 	},
 /turf/space/fluid,
 /area/space)
+"jkL" = (
+/obj/disposalpipe/segment/vertical,
+/obj/machinery/navbeacon/mule/hydroponics_north/west,
+/turf/simulated/floor/green/side{
+	dir = 8
+	},
+/area/station/hydroponics/bay)
 "jkO" = (
 /obj/item/shipcomponent/sensor/ecto,
 /turf/simulated/floor/plating/airless/asteroid,
@@ -18294,6 +18301,10 @@
 	},
 /turf/simulated/floor/plating/damaged1,
 /area/evilreaver/atmospherics)
+"mHH" = (
+/obj/machinery/light/incandescent,
+/turf/simulated/floor/green/side,
+/area/station/hydroponics/bay)
 "mIV" = (
 /obj/table/reinforced/auto{
 	icon_state = "3"
@@ -22976,10 +22987,6 @@
 	dir = 8
 	},
 /area/research_outpost)
-"qbC" = (
-/obj/machinery/navbeacon/mule/hydroponics_north,
-/turf/simulated/floor/grass/random,
-/area/station/hydroponics/bay)
 "qcr" = (
 /obj/decal/cleanable/oil{
 	icon_state = "floor5"
@@ -82480,14 +82487,14 @@ iqI
 qXv
 eVa
 lqR
-aVV
+mHH
 lit
 tUC
 quP
 quP
-quP
 mtv
-qbC
+mtv
+mtv
 qUb
 jhx
 tCh
@@ -82782,14 +82789,14 @@ gqC
 qXv
 uHs
 lqR
-oRY
+aVV
 lit
 woo
 ida
 nZw
 ida
 ida
-ida
+jkL
 bki
 swf
 mUZ
