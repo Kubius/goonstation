@@ -1932,6 +1932,11 @@
 /area/station/crew_quarters/market{
 	name = "Supply Lobby"
 	})
+"bxN" = (
+/obj/submachine/cargopad/hydroponic,
+/mob/living/carbon/human/npc/monkey/krimpus,
+/turf/simulated/floor/grass/random,
+/area/station/hydroponics/bay)
 "bxT" = (
 /obj/submachine/slot_machine,
 /turf/simulated/floor/specialroom/bar,
@@ -5285,15 +5290,7 @@
 	},
 /area/station/security/processing)
 "dOc" = (
-/obj/table/reinforced/auto,
-/obj/item/wrench{
-	pixel_x = 3;
-	pixel_y = 2
-	},
-/obj/item/bee_egg_carton{
-	pixel_y = 8;
-	pixel_x = -7
-	},
+/obj/submachine/seed_vendor,
 /turf/simulated/floor/green/side{
 	dir = 4
 	},
@@ -26113,8 +26110,6 @@
 /turf/simulated/floor,
 /area/radiostation/podbay)
 "sqE" = (
-/obj/submachine/cargopad/hydroponic,
-/mob/living/carbon/human/npc/monkey/krimpus,
 /obj/machinery/light/incandescent,
 /turf/simulated/floor/green/side{
 	dir = 4
@@ -33399,7 +33394,15 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/inner/east)
 "xqj" = (
-/obj/submachine/seed_vendor,
+/obj/table/reinforced/auto,
+/obj/item/wrench{
+	pixel_x = 3;
+	pixel_y = 2
+	},
+/obj/item/bee_egg_carton{
+	pixel_y = 8;
+	pixel_x = -7
+	},
 /turf/simulated/floor/green/side,
 /area/station/hydroponics/bay)
 "xqD" = (
@@ -82493,7 +82496,7 @@ tUC
 quP
 quP
 mtv
-mtv
+bxN
 mtv
 qUb
 jhx
