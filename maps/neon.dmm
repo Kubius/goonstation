@@ -8083,10 +8083,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/southwest)
-"fEa" = (
-/obj/disposalpipe/segment/mail,
-/turf/simulated/floor/specialroom/medbay,
-/area/station/hallway/primary/central)
 "fEp" = (
 /mob/living/critter/martian/soldier,
 /turf/simulated/floor/martian,
@@ -84699,7 +84695,7 @@ llY
 hXQ
 dWO
 qHN
-fEa
+lam
 oVG
 nkt
 knB
