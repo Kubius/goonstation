@@ -806,16 +806,13 @@ ABSTRACT_TYPE(/datum/random_event/menhir)
 		. = ..()
 		if(.)
 			var/obj/machinery/door/unpowered/blue/seal = locate("vestibule_of_grief")
-			if (!seal || seal.density) //the way has not been opened
-				. = FALSE
+			if (!seal || seal.density) //the way has not been opened; is the disturbance great enough regardless?
+				var/list/eligible_caretakers = get_menhir_event_candidates()
+				if (length(eligible_caretakers) < 16)
+					. = FALSE
 
 			if (!landmarks[LANDMARK_MENHIR_DARK] || length(landmarks[LANDMARK_MENHIR_DARK]) < 1)
 				. = FALSE //they have already made their ingress
-
-			var/list/eligible_caretakers = get_menhir_event_candidates()
-			if (length(eligible_caretakers) < 8)
-				. = FALSE
-
 	event_effect()
 		if (!landmarks[LANDMARK_MENHIR_DARK] || length(landmarks[LANDMARK_MENHIR_DARK]) < 1) return //manual call safeguard
 		for (var/turf/T in landmarks[LANDMARK_MENHIR_DARK])
