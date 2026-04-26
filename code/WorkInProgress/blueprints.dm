@@ -571,7 +571,11 @@
 	/turf/simulated/shuttle, \
 	/turf/simulated/floor/shuttle, \
 	/turf/simulated/wall/auto/shuttle, \
-	/turf/simulated/wall/auto/martian, \
+	/turf/simulated/wall/void, \
+	/turf/simulated/wall/auto/feather/strong, \
+	/turf/simulated/wall/airbridge, \
+	/turf/simulated/wall/ancient, \
+	/turf/simulated/wall/auto/asteroid, \
 )
 
 /datum/abcu_blueprint
