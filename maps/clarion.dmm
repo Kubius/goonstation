@@ -10400,6 +10400,9 @@
 /obj/cable/blue{
 	icon_state = "1-8"
 	},
+/obj/cable/blue{
+	icon_state = "2-8"
+	},
 /turf/simulated/floor/black,
 /area/station/engine/ptl)
 "cJw" = (
@@ -12945,9 +12948,6 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/east)
 "ezk" = (
-/obj/cable{
-	icon_state = "2-4"
-	},
 /obj/stool/chair/office/yellow{
 	dir = 8
 	},
@@ -15198,6 +15198,9 @@
 	dir = 8;
 	pixel_x = -10
 	},
+/obj/cable/blue{
+	icon_state = "1-4"
+	},
 /turf/simulated/floor/black,
 /area/station/engine/ptl)
 "fYA" = (
@@ -16192,9 +16195,6 @@
 /turf/simulated/floor/black,
 /area/station/hallway/primary/southeast)
 "gEM" = (
-/obj/cable{
-	icon_state = "2-4"
-	},
 /turf/simulated/floor{
 	dir = 8;
 	icon_state = "yellowblack"
@@ -17998,9 +17998,10 @@
 /area/station/ai_monitored/armory)
 "hUf" = (
 /obj/mapping_helper/wingrille_spawn/auto/reinforced/crystal,
-/obj/cable{
+/obj/cable/blue{
 	icon_state = "0-4"
 	},
+/obj/cable/blue,
 /turf/simulated/floor/plating,
 /area/station/engine/ptl)
 "hUj" = (
@@ -22949,9 +22950,6 @@
 	},
 /area/station/medical/medbay/lobby)
 "lrx" = (
-/obj/cable{
-	icon_state = "1-8"
-	},
 /turf/simulated/floor{
 	dir = 1;
 	icon_state = "yellowblackcorner";
@@ -23126,9 +23124,6 @@
 "lwS" = (
 /obj/cable,
 /obj/machinery/power/apc/autoname_east,
-/obj/cable{
-	icon_state = "0-8"
-	},
 /turf/simulated/floor/black,
 /area/station/engine/ptl)
 "lxw" = (
@@ -24384,10 +24379,10 @@
 /area/station/crew_quarters/captain)
 "mlI" = (
 /obj/mapping_helper/wingrille_spawn/auto/reinforced/crystal,
-/obj/cable{
+/obj/cable/blue{
 	icon_state = "0-8"
 	},
-/obj/cable{
+/obj/cable/blue{
 	icon_state = "0-4"
 	},
 /turf/simulated/floor/plating,
@@ -25621,6 +25616,9 @@
 	dir = 8
 	},
 /obj/landmark/start/job/technical_trainee,
+/obj/cable/blue{
+	icon_state = "1-2"
+	},
 /turf/simulated/floor{
 	dir = 1;
 	icon_state = "yellowblack"
@@ -32269,6 +32267,9 @@
 	},
 /area/station/medical/dome)
 "rJd" = (
+/obj/cable/blue{
+	icon_state = "2-8"
+	},
 /turf/simulated/floor{
 	dir = 8;
 	icon_state = "yellowblackcorner";
@@ -35707,6 +35708,17 @@
 	},
 /turf/simulated/floor/airless/plating/catwalk,
 /area/station/solar/east)
+"tUl" = (
+/obj/machinery/door/airlock/pyro/maintenance/alt{
+	dir = 4
+	},
+/obj/mapping_helper/access/maint,
+/obj/mapping_helper/firedoor_spawn,
+/obj/cable{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plating,
+/area/station/maintenance/south)
 "tUr" = (
 /obj/table/auto,
 /obj/item/clipboard{
@@ -37098,11 +37110,8 @@
 /area/station/maintenance/southeast)
 "uKn" = (
 /obj/mapping_helper/wingrille_spawn/auto/reinforced/crystal,
-/obj/cable{
+/obj/cable/blue{
 	icon_state = "0-8"
-	},
-/obj/cable{
-	dir = null
 	},
 /turf/simulated/floor/plating,
 /area/station/engine/ptl)
@@ -81022,7 +81031,7 @@ rvL
 rvL
 rvL
 ybv
-ybv
+tUl
 bHT
 bBB
 oTn
