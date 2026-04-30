@@ -9989,9 +9989,6 @@
 /obj/cable/orange{
 	icon_state = "4-8"
 	},
-/obj/cable{
-	icon_state = "2-4"
-	},
 /turf/simulated/floor{
 	dir = 8;
 	icon_state = "yellowblack"
@@ -13508,6 +13505,13 @@
 /obj/window/reinforced/north,
 /turf/simulated/floor/plating/airless,
 /area/station/engine/substation/west)
+"eUO" = (
+/obj/decal/cleanable/dirt,
+/obj/cable{
+	icon_state = "1-8"
+	},
+/turf/simulated/floor/plating,
+/area/station/maintenance/south)
 "eWn" = (
 /obj/disposalpipe/segment,
 /obj/machinery/light{
@@ -18916,9 +18920,6 @@
 /obj/cable/orange{
 	icon_state = "1-8"
 	},
-/obj/cable{
-	icon_state = "4-8"
-	},
 /turf/simulated/floor{
 	dir = 4;
 	icon_state = "yellowblack"
@@ -24310,6 +24311,9 @@
 /area/station/turret_protected/ai)
 "miQ" = (
 /obj/disposalpipe/segment/mail,
+/obj/cable{
+	icon_state = "4-8"
+	},
 /turf/simulated/floor{
 	dir = 4;
 	icon_state = "yellowblack"
@@ -31513,6 +31517,12 @@
 "rhT" = (
 /turf/simulated/floor/engine,
 /area/station/mining/staff_room)
+"rhX" = (
+/obj/cable{
+	icon_state = "2-4"
+	},
+/turf/simulated/floor/plating,
+/area/station/maintenance/south)
 "rij" = (
 /obj/table/wood/auto,
 /obj/random_item_spawner/tableware,
@@ -33976,6 +33986,19 @@
 	},
 /turf/simulated/floor,
 /area/station/janitor/supply)
+"sOR" = (
+/obj/cable{
+	icon_state = "1-2"
+	},
+/obj/disposalpipe/segment,
+/obj/cable{
+	icon_state = "2-4"
+	},
+/turf/simulated/floor{
+	dir = 8;
+	icon_state = "yellowblack"
+	},
+/area/station/hallway/primary/southeast)
 "sPo" = (
 /turf/simulated/floor/carpet/arcade,
 /area/station/crew_quarters/captain)
@@ -35847,17 +35870,6 @@
 /obj/machinery/alarm/directional/east,
 /turf/simulated/floor,
 /area/station/science/artifact)
-"tYW" = (
-/obj/machinery/door/airlock/pyro/maintenance/alt{
-	dir = 4
-	},
-/obj/mapping_helper/access/maint,
-/obj/mapping_helper/firedoor_spawn,
-/obj/cable{
-	icon_state = "4-8"
-	},
-/turf/simulated/floor/plating,
-/area/station/maintenance/south)
 "tYX" = (
 /obj/mesh/catwalk,
 /obj/cable/yellow{
@@ -80406,7 +80418,7 @@ ifk
 kur
 lbf
 crH
-ifk
+sOR
 xPb
 vWD
 hqK
@@ -81009,7 +81021,7 @@ wXE
 rvL
 rvL
 rvL
-tYW
+ybv
 ybv
 bHT
 bBB
@@ -81311,8 +81323,8 @@ bEH
 aJf
 sNj
 rvL
-wzQ
 boN
+wzQ
 bHT
 ilW
 fCQ
@@ -81613,8 +81625,8 @@ bUI
 vWj
 vWj
 rvL
-wzQ
-vSf
+rhX
+eUO
 bHT
 vrD
 qwJ
