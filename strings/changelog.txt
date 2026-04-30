@@ -1,5 +1,9 @@
 
 (t)wed apr 29 26
+(u)TheGeneralJay
+(p)26279
+(e)🗺|A-Mapping
+(*)Crew of the NSS Clarion can now utilize the fancy new southern hall.
 (u)bamlord
 (p)26458
 (e)|
