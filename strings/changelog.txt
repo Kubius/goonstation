@@ -1,6 +1,9 @@
 
 (t)thu apr 30 26
 (u)glowbold
+(e)💅👮|C-QoL, A-Security
+(*)Detectives now get two fingerprint dusters in their forensics cart. Cargo can order more in a Forensic-locked crate.
+(u)glowbold
 (p)26395
 (e)⚖💊|C-Balance, A-Medical
 (+)A stopped or missing heart stops bleeding, and causes your organs to slowly die.
