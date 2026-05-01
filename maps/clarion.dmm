@@ -3059,7 +3059,7 @@
 	},
 /obj/fitness/speedbag/captain,
 /obj/decal/cleanable/cobweb,
-/obj/item/reagent_containers/applicator/glue,
+/obj/item/reagent_containers/applicator/stick/glue,
 /turf/simulated/floor/carpet/arcade,
 /area/station/crew_quarters/clown)
 "azY" = (

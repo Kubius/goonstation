@@ -628,7 +628,7 @@ ABSTRACT_TYPE(/datum/supply_packs)
 	desc = "2x Fingerprint Dusters, 1x Luminol Spray Bottle, 1x Forensic Scanner, 2x Security Tape Roll, 3x Body Bags, 5x Evidence Boxes."
 	category = "Security Department"
 	contains = list(
-		/obj/item/reagent_containers/applicator/silver_nitrate = 2,
+		/obj/item/reagent_containers/applicator/brush/silver_nitrate = 2,
 		/obj/item/spraybottle/detective = 1,
 		/obj/item/device/detective_scanner = 1,
 		/obj/item/sec_tape/vended = 2,
@@ -679,7 +679,7 @@ ABSTRACT_TYPE(/datum/supply_packs)
 					/obj/item/storage/box/cocktail_umbrellas = 2,
 					/obj/item/storage/box/cocktail_doodads = 2,
 					/obj/item/storage/box/fruit_wedges = 1,
-					/obj/item/shaker/salt = 1)
+					/obj/item/reagent_containers/applicator/condiment/shaker/salt = 1)
 	cost = PAY_TRADESMAN*2
 	containertype = /obj/storage/crate
 	containername = "Cocktail Party Supplies"

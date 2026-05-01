@@ -1481,7 +1481,7 @@
 	pixel_y = 3
 	},
 /obj/item/device/radio/intercom,
-/obj/item/reagent_containers/applicator/glue,
+/obj/item/reagent_containers/applicator/stick/glue,
 /turf/simulated/floor/carpet/arcade,
 /area/station/crew_quarters/clown{
 	name = "Clowntainment"

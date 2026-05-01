@@ -6,7 +6,7 @@
 (*)AI turrets (and Computer Core/Armory(If not using a NARCS)) on the stun setting can no longer be heard through walls
 (u)glowbold
 (e)💅👮|C-QoL, A-Security
-(*)Detectives now get two fingerprint dusters in their forensics cart. Cargo can order more in a Forensic-locked crate.
+(*)Detectives now get two fingerprint dusters in their forensics cart (sprite by TemThrush). Cargo can order more in a Forensic-locked crate.
 (u)glowbold
 (p)26395
 (e)⚖💊|C-Balance, A-Medical
