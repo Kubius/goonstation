@@ -60,6 +60,6 @@
 
 /obj/item/reagent_containers/applicator/silver_nitrate
 	name = "fingerprint duster (silver nitrate)"
-	desc = "Helps reveal fingerprints otherwise obscured by thin gloves."
+	desc = "Helps reveal fingerprint fragments that can be recovered from gloveprints."
 	amount_per_transfer_from_this = 1
 	initial_reagents = list("silver_nitrate" = 30)
