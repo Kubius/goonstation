@@ -1,5 +1,9 @@
 
 (t)fri may 01 26
+(u)Tela
+(p)26350
+(e)🎨|C-Sprites
+(+)Adds 4 New Hairstyles! Side Pigtails, Long Top Bun, Curtained Ponytail, Low Bun, Along with Hairparts for Side Pigtails and Scorpion Braid.
 (u)Urist McCoder
 (p)26406
 (e)🆕⚗|C-Feature, A-Chemistry
