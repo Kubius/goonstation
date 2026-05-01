@@ -44832,11 +44832,11 @@
 /obj/table/wood/auto,
 /obj/item/plate,
 /obj/random_item_spawner/tableware/few,
-/obj/item/shaker/salt{
+/obj/item/reagent_containers/applicator/condiment/shaker/salt{
 	pixel_x = -12;
 	pixel_y = 9
 	},
-/obj/item/shaker/pepper{
+/obj/item/reagent_containers/applicator/condiment/shaker/pepper{
 	pixel_x = -7;
 	pixel_y = 12
 	},
@@ -53876,11 +53876,11 @@
 	pixel_x = 19;
 	pixel_y = 8
 	},
-/obj/item/shaker/pepper{
+/obj/item/reagent_containers/applicator/condiment/shaker/pepper{
 	pixel_x = -9;
 	pixel_y = 10
 	},
-/obj/item/shaker/salt{
+/obj/item/reagent_containers/applicator/condiment/shaker/salt{
 	pixel_x = -5;
 	pixel_y = 8
 	},
@@ -63293,11 +63293,11 @@
 "xcr" = (
 /obj/table/wood/auto,
 /obj/item/plate,
-/obj/item/shaker/mustard{
+/obj/item/reagent_containers/applicator/condiment/bottle/mustard{
 	pixel_x = 3;
 	pixel_y = 8
 	},
-/obj/item/shaker/ketchup{
+/obj/item/reagent_containers/applicator/condiment/bottle/ketchup{
 	pixel_x = 8;
 	pixel_y = 6
 	},

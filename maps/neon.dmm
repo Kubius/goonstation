@@ -18457,11 +18457,11 @@
 /area/station/crew_quarters/kitchen)
 "mGy" = (
 /obj/table/reinforced/bar/auto,
-/obj/item/shaker/ketchup{
+/obj/item/reagent_containers/applicator/condiment/bottle/ketchup{
 	pixel_x = -4;
 	pixel_y = 1
 	},
-/obj/item/shaker/mustard{
+/obj/item/reagent_containers/applicator/condiment/bottle/mustard{
 	pixel_x = 3
 	},
 /turf/simulated/floor/grime,
@@ -22885,10 +22885,10 @@
 /area/station/turret_protected/Zeta)
 "pUY" = (
 /obj/table/reinforced/bar/auto,
-/obj/item/shaker/salt{
+/obj/item/reagent_containers/applicator/condiment/shaker/salt{
 	pixel_x = 1
 	},
-/obj/item/shaker/pepper{
+/obj/item/reagent_containers/applicator/condiment/shaker/pepper{
 	pixel_x = -8;
 	pixel_y = 3
 	},
@@ -27788,19 +27788,19 @@
 /area/station/engine/gas)
 "tAI" = (
 /obj/table/reinforced/bar/auto,
-/obj/item/shaker/pepper{
+/obj/item/reagent_containers/applicator/condiment/shaker/pepper{
 	pixel_x = -9;
 	pixel_y = 10
 	},
-/obj/item/shaker/salt{
+/obj/item/reagent_containers/applicator/condiment/shaker/salt{
 	pixel_x = -5;
 	pixel_y = 8
 	},
-/obj/item/shaker/mustard{
+/obj/item/reagent_containers/applicator/condiment/bottle/mustard{
 	pixel_x = 3;
 	pixel_y = 8
 	},
-/obj/item/shaker/ketchup{
+/obj/item/reagent_containers/applicator/condiment/bottle/ketchup{
 	pixel_x = 8;
 	pixel_y = 6
 	},

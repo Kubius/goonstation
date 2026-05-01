@@ -12750,10 +12750,10 @@
 /area/station/crew_quarters/bar)
 "bkV" = (
 /obj/table/reinforced/bar/auto,
-/obj/item/shaker/pepper{
+/obj/item/reagent_containers/applicator/condiment/shaker/pepper{
 	pixel_x = 3
 	},
-/obj/item/shaker/salt{
+/obj/item/reagent_containers/applicator/condiment/shaker/salt{
 	pixel_x = -3
 	},
 /turf/simulated/floor/carpet/blue/fancy/narrow/T_east,
@@ -13036,10 +13036,10 @@
 /area/station/crew_quarters/kitchen)
 "blR" = (
 /obj/table/auto,
-/obj/item/shaker/salt{
+/obj/item/reagent_containers/applicator/condiment/shaker/salt{
 	pixel_x = -7
 	},
-/obj/item/shaker/pepper,
+/obj/item/reagent_containers/applicator/condiment/shaker/pepper,
 /turf/simulated/floor/white,
 /area/station/crew_quarters/kitchen)
 "blU" = (
@@ -13206,10 +13206,10 @@
 /area/station/crew_quarters/bar)
 "bmy" = (
 /obj/table/reinforced/bar/auto,
-/obj/item/shaker/ketchup{
+/obj/item/reagent_containers/applicator/condiment/bottle/ketchup{
 	pixel_x = 3
 	},
-/obj/item/shaker/mustard{
+/obj/item/reagent_containers/applicator/condiment/bottle/mustard{
 	pixel_x = -2
 	},
 /turf/simulated/floor/carpet/blue/fancy/narrow/T_south,
@@ -13581,10 +13581,10 @@
 /obj/item/reagent_containers/food/snacks/hotdog,
 /obj/item/reagent_containers/food/snacks/hotdog,
 /obj/item/reagent_containers/food/snacks/hotdog,
-/obj/item/shaker/ketchup{
+/obj/item/reagent_containers/applicator/condiment/bottle/ketchup{
 	pixel_x = 6
 	},
-/obj/item/shaker/mustard{
+/obj/item/reagent_containers/applicator/condiment/bottle/mustard{
 	pixel_x = -6
 	},
 /turf/simulated/floor/white,
@@ -21777,10 +21777,10 @@
 /area/diner/kitchen)
 "cbE" = (
 /obj/table/reinforced/bar/auto,
-/obj/item/shaker/salt{
+/obj/item/reagent_containers/applicator/condiment/shaker/salt{
 	pixel_x = 1
 	},
-/obj/item/shaker/pepper{
+/obj/item/reagent_containers/applicator/condiment/shaker/pepper{
 	pixel_x = -8;
 	pixel_y = 3
 	},
@@ -21788,11 +21788,11 @@
 /area/diner/kitchen)
 "cbF" = (
 /obj/table/reinforced/bar/auto,
-/obj/item/shaker/ketchup{
+/obj/item/reagent_containers/applicator/condiment/bottle/ketchup{
 	pixel_x = -4;
 	pixel_y = 1
 	},
-/obj/item/shaker/mustard{
+/obj/item/reagent_containers/applicator/condiment/bottle/mustard{
 	pixel_x = 3
 	},
 /turf/simulated/floor/grime,
@@ -38118,7 +38118,7 @@
 /turf/simulated/floor/shuttlebay,
 /area/station/hangar/engine)
 "ofL" = (
-/obj/item/shaker/ketchup,
+/obj/item/reagent_containers/applicator/condiment/bottle/ketchup,
 /obj/decal/cleanable/ketchup,
 /turf/simulated/floor/plating/random,
 /area/station/maintenance/inner/central)

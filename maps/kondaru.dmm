@@ -40214,10 +40214,10 @@
 /area/station/crew_quarters/radio/news_office)
 "lso" = (
 /obj/table/auto,
-/obj/item/shaker/mustard{
+/obj/item/reagent_containers/applicator/condiment/bottle/mustard{
 	pixel_x = -6
 	},
-/obj/item/shaker/ketchup{
+/obj/item/reagent_containers/applicator/condiment/bottle/ketchup{
 	pixel_x = 6
 	},
 /turf/simulated/floor/specialroom/bar,
@@ -43148,10 +43148,10 @@
 	layer = 9.1;
 	pixel_x = 10
 	},
-/obj/item/shaker/salt{
+/obj/item/reagent_containers/applicator/condiment/shaker/salt{
 	pixel_x = -3
 	},
-/obj/item/shaker/pepper{
+/obj/item/reagent_containers/applicator/condiment/shaker/pepper{
 	pixel_x = 3
 	},
 /turf/simulated/floor/specialroom/bar,
@@ -46685,14 +46685,14 @@
 /area/station/security/secwing)
 "pTf" = (
 /obj/table/auto,
-/obj/item/shaker/salt,
-/obj/item/shaker/mustard{
+/obj/item/reagent_containers/applicator/condiment/shaker/salt,
+/obj/item/reagent_containers/applicator/condiment/bottle/mustard{
 	pixel_x = -6
 	},
-/obj/item/shaker/pepper{
+/obj/item/reagent_containers/applicator/condiment/shaker/pepper{
 	pixel_x = 3
 	},
-/obj/item/shaker/ketchup{
+/obj/item/reagent_containers/applicator/condiment/bottle/ketchup{
 	pixel_x = 6
 	},
 /obj/item/matchbook{
@@ -49133,19 +49133,19 @@
 /area/station/quartermaster/cargobay)
 "rAD" = (
 /obj/table/reinforced/bar/auto,
-/obj/item/shaker/mustard{
+/obj/item/reagent_containers/applicator/condiment/bottle/mustard{
 	pixel_x = -1;
 	pixel_y = 8
 	},
-/obj/item/shaker/ketchup{
+/obj/item/reagent_containers/applicator/condiment/bottle/ketchup{
 	pixel_x = 8;
 	pixel_y = 3
 	},
-/obj/item/shaker/pepper{
+/obj/item/reagent_containers/applicator/condiment/shaker/pepper{
 	pixel_x = -5;
 	pixel_y = 3
 	},
-/obj/item/shaker/salt{
+/obj/item/reagent_containers/applicator/condiment/shaker/salt{
 	pixel_x = 3
 	},
 /obj/disposalpipe/segment/horizontal,
@@ -52600,7 +52600,7 @@
 	dir = 8;
 	name = "silverware cabinet";
 	pixel_x = 32;
-	spawn_contents = list(/obj/item/storage/box/cutlery,/obj/item/storage/box/cutlery,/obj/item/storage/box/cutlery,/obj/item/storage/box/plates,/obj/item/storage/box/plates,/obj/item/shaker/salt,/obj/item/shaker/pepper)
+	spawn_contents = list(/obj/item/storage/box/cutlery,/obj/item/storage/box/cutlery,/obj/item/storage/box/cutlery,/obj/item/storage/box/plates,/obj/item/storage/box/plates,/obj/item/reagent_containers/applicator/condiment/shaker/salt,/obj/item/reagent_containers/applicator/condiment/shaker/pepper)
 	},
 /turf/simulated/floor/black,
 /area/station/bridge)
