@@ -57,3 +57,9 @@
 	name = "really big glue stick"
 	desc = "It's a stick. Of glue. Glue stick. This one looks really long."
 	infinite = TRUE
+
+/obj/item/reagent_containers/applicator/silver_nitrate
+	name = "fingerprint duster (silver nitrate)"
+	desc = "Helps reveal fingerprints otherwise obscured by thin gloves."
+	amount_per_transfer_from_this = 1
+	initial_reagents = list("silver_nitrate" = 30)
