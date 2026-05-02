@@ -1,3 +1,7 @@
+/datum/mind
+	/// Currently held passport, for Nations.
+	var/obj/item/passport/current_passport = null
+
 /obj/item/passport
 	name = "passport"
 	desc = "An identity document confirming its owner's citizenship or lack thereof."
@@ -14,9 +18,11 @@
 	var/datum/mind/owner = null
 	var/custom_name = FALSE
 
-/obj/item/passport/New(datum/nation/nation_to_assign = null)
+/obj/item/passport/New(datum/mind/owner_to_assign, datum/nation/nation_to_assign)
 	. = ..()
-	if (istype(/datum/nation, nation_to_assign))
+	if (ismind(owner_to_assign))
+		src.owner = owner_to_assign
+	if (istype(nation_to_assign, /datum/nation))
 		src.nation = nation_to_assign
 	src.set_appearance()
 
@@ -35,8 +41,8 @@
 		return
 	if (!src.custom_name)
 		src.name = "passport ([src.nation.name])"
-	if (length(src.nation.custom_passport) && istext(src.nation.custom_passport))
-		src.icon_state = src.nation.custom_passport
+	if (length(src.nation.passport_icon_state) && istext(src.nation.passport_icon_state))
+		src.icon_state = src.nation.passport_icon_state
 		src.ClearAllOverlays()
 		return
 	var/image/cover_image = SafeGetOverlayImage("cover", src.icon, "passport-cover")
@@ -50,3 +56,6 @@
 	desc = "A passport-like document identifying the owner as an agent of the United Nations."
 	icon_state = "passport-UN"
 	custom_name = TRUE
+
+/obj/item/passport/un/set_appearance()
+	return
