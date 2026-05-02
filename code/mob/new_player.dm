@@ -226,6 +226,9 @@ TYPEINFO(/mob/new_player)
 			else if(istype(ticker.mode, /datum/game_mode/pod_wars))
 				var/datum/game_mode/pod_wars/mode = ticker.mode
 				mode.add_latejoin_to_team(character.mind, JOB)
+			else if(istype(ticker.mode, /datum/game_mode/nations))
+				var/datum/game_mode/nations/mode = ticker.mode
+				mode.handle_latejoin(character.mind, JOB)
 			else if(istype(ticker.mode, /datum/game_mode/battle_royale))
 				var/datum/game_mode/battle_royale/battlemode = ticker.mode
 				if (current_state < GAME_STATE_FINISHED)

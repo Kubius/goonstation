@@ -74,7 +74,7 @@ var/list/roundstart_nation_types = list(
 	if (length(candidates))
 		var/list/remaining_candidates = list()
 		for (var/datum/mind/candidate in candidates)
-			remaining_candidates += "[candidate.current] (ckey: [candidate.ckey])"
+			remaining_candidates += "[key_name(candidate)]"
 		logTheThing(LOG_GAMEMODE, src, "has a non-empty list of candidates (length: [length(candidates)]) after assigning UN and nations roles \
 			([english_list(remaining_candidates)])!")
 		message_admins("Nations: A non-empty list of candidates (length: [length(candidates)]) was left after assigning UN and nations roles!")
@@ -122,24 +122,36 @@ var/list/roundstart_nation_types = list(
 			src.issue_passport(candidate_mob)
 	return candidates
 
-/datum/game_mode/nations/proc/assign_to_UN(datum/mind/candidate_mind)
+/datum/game_mode/nations/proc/assign_to_UN(datum/mind/candidate_mind, datum/job/candidate_job)
 	. = TRUE
 	if (!ismind(candidate_mind))
 		return FALSE
-	var/datum/job/mind_job = find_job_in_controller_by_string(candidate_mind.current.job)
-	if (mind_job in src.UN_jobs)
+	var/datum/job/mind_job
+	if (istype(candidate_job, /datum/job))
+		mind_job = candidate_job
+	else
+		mind_job = find_job_in_controller_by_string(candidate_mind.current.job)
+	var/success = FALSE
+	if (mind_job.type in src.UN_jobs)
 		UN_personnel += candidate_mind
-		return
+		success = TRUE
 	if (mind_job.job_category in src.UN_job_categories)
 		UN_personnel += candidate_mind
+		success = TRUE
+	if (success)
+		logTheThing(LOG_GAMEMODE, src, "assigned [key_name(candidate_mind)] to the UN!")
 		return
 	. = FALSE
 
-/datum/game_mode/nations/proc/assign_to_a_nation(datum/mind/candidate_mind)
+/datum/game_mode/nations/proc/assign_to_a_nation(datum/mind/candidate_mind, datum/job/candidate_job)
 	. = TRUE
 	if (!ismind(candidate_mind))
 		return FALSE
-	var/datum/job/mind_job = find_job_in_controller_by_string(candidate_mind.current.job)
+	var/datum/job/mind_job
+	if (istype(candidate_job, /datum/job))
+		mind_job = candidate_job
+	else
+		mind_job = find_job_in_controller_by_string(candidate_mind.current.job)
 	for (var/datum/nation/nation in src.nations)
 		if ((mind_job.type in nation.leader_jobs) && !nation.leader)
 			nation.add_leader(candidate_mind.current.mind)
@@ -152,11 +164,23 @@ var/list/roundstart_nation_types = list(
 			return
 	. = FALSE
 
+/datum/game_mode/nations/proc/handle_latejoin(datum/mind/new_mind, datum/job/new_mind_job)
+	if (src.assign_to_UN(new_mind, new_mind_job))
+		if (iscarbon(new_mind.current))
+			src.issue_passport(new_mind.current, /obj/item/passport/un)
+		return
+	if (src.assign_to_a_nation(new_mind, new_mind_job))
+		if (iscarbon(new_mind.current))
+			src.issue_passport(new_mind.current)
+		return
+	logTheThing(LOG_GAMEMODE, new_mind.current, "attempted to latejoin and was not assigned to the UN or any nation!")
+	message_admins("Nations: [key_name(new_mind)] attempted to latejoin and was not assigned to the UN or any nation!")
+
 /datum/game_mode/nations/proc/issue_passport(mob/living/carbon/passport_owner, passport_type)
 	if (!iscarbon(passport_owner))
 		return
 	var/obj/item/passport/new_passport
-	if (istype(passport_type, /obj/item/passport))
+	if (ispath(passport_type, /obj/item/passport))
 		new_passport = new passport_type(passport_owner.mind, src.get_nation(passport_owner))
 	else
 		new_passport = new /obj/item/passport(passport_owner.mind, src.get_nation(passport_owner))

@@ -22,16 +22,16 @@
 		return
 	if (src.leader)
 		var/datum/mind/old_leader = src.leader
-		logTheThing(LOG_GAMEMODE, src, "removed [old_leader.current] (ckey: [old_leader.ckey]) as leader of [src.name]!")
+		logTheThing(LOG_GAMEMODE, src, "removed [key_name(old_leader)] as leader of [src.name]!")
 		src.leader = new_leader
 	src.add_citizen(new_leader)
-	logTheThing(LOG_GAMEMODE, src, "installed [new_leader.current] (ckey: [new_leader.ckey]) as leader of [src.name]!")
+	logTheThing(LOG_GAMEMODE, src, "installed [key_name(new_leader)] as leader of [src.name]!")
 
 /datum/nation/proc/add_citizen(datum/mind/new_citizen)
 	if (new_citizen in src.citizens)
 		return
 	src.citizens += new_citizen
-	logTheThing(LOG_GAMEMODE, src, "assigned [new_citizen.current] (ckey: [new_citizen.ckey]) to the nation of [src.name]!")
+	logTheThing(LOG_GAMEMODE, src, "assigned [key_name(new_citizen)] to the nation of [src.name]!")
 
 /datum/nation/engineering
 	name = "Engistan"
