@@ -17,18 +17,37 @@
 	var/passport_color = "#FF0000"
 	var/passport_symbol = "generic-gold"
 
+/datum/nation/proc/add_leader(datum/mind/new_leader)
+	if (src.leader == new_leader)
+		return
+	if (src.leader)
+		var/datum/mind/old_leader = src.leader
+		logTheThing(LOG_GAMEMODE, src, "removed [old_leader.current] (ckey: [old_leader.ckey]) as leader of [src.name]!")
+		src.leader = new_leader
+	src.add_citizen(new_leader)
+	logTheThing(LOG_GAMEMODE, src, "installed [new_leader.current] (ckey: [new_leader.ckey]) as leader of [src.name]!")
+
+/datum/nation/proc/add_citizen(datum/mind/new_citizen)
+	if (new_citizen in src.citizens)
+		return
+	src.citizens += new_citizen
+	logTheThing(LOG_GAMEMODE, src, "assigned [new_citizen.current] (ckey: [new_citizen.ckey]) to the nation of [src.name]!")
+
 /datum/nation/engineering
 	name = "Engistan"
+	leader_jobs = list(/datum/job/command/chief_engineer)
 	citizen_job_categories = list(JOB_ENGINEERING)
 	passport_icon_state = "passport-engineering"
 
 /datum/nation/medical
 	name = "Asclepius"
+	leader_jobs = list(/datum/job/command/medical_director)
 	citizen_job_categories = list(JOB_MEDICAL)
 	passport_icon_state = "passport-medical"
 
 /datum/nation/research
 	name = "Erudite"
+	leader_jobs = list(/datum/job/command/research_director)
 	citizen_job_categories = list(JOB_RESEARCH)
 	passport_icon_state = "passport-research"
 
