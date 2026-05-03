@@ -1085,9 +1085,7 @@
 "aID" = (
 /obj/machinery/chem_dispenser/chemical,
 /obj/mapping_helper/glassware_spawn,
-/obj/cable{
-	icon_state = "5-8"
-	},
+/obj/machinery/light_switch/east,
 /turf/simulated/floor/purpleblack{
 	dir = 8
 	},
@@ -3736,7 +3734,8 @@
 /obj/machinery/mass_driver{
 	dir = 4;
 	id = "ghostboye";
-	name = "drone dispersal cannon"
+	name = "drone dispersal cannon";
+	drive_range = 300
 	},
 /obj/disposalpipe/segment/bent/south,
 /turf/simulated/floor/caution/west,
@@ -3943,6 +3942,7 @@
 "clv" = (
 /obj/storage/closet/emergency,
 /obj/machinery/light,
+/obj/machinery/light_switch/east,
 /turf/unsimulated/floor/sanitary,
 /area/station/crewquarters/cryotron)
 "clH" = (
@@ -7943,6 +7943,7 @@
 	dir = 4;
 	pixel_x = 12
 	},
+/obj/machinery/light_switch/north,
 /turf/simulated/floor/black,
 /area/station/garden/owlery)
 "eLT" = (
@@ -11555,6 +11556,9 @@
 /obj/machinery/light/small{
 	dir = 8;
 	pixel_x = -12
+	},
+/obj/blind_switch/area/west{
+	pixel_y = 12
 	},
 /turf/simulated/floor/black,
 /area/station/chapel/office)
@@ -15202,9 +15206,14 @@
 	pixel_x = 7;
 	pixel_y = -1
 	},
-/obj/machinery/firealarm/directional/east,
+/obj/machinery/firealarm/directional/east{
+	pixel_y = 8
+	},
 /obj/machinery/door_control/podbay/mining/new_walls/north{
 	dir = 2
+	},
+/obj/machinery/light_switch/east{
+	pixel_y = -8
 	},
 /turf/simulated/floor/orangeblack/side{
 	dir = 4
@@ -15268,6 +15277,7 @@
 /obj/disposalpipe/segment/transport{
 	dir = 4
 	},
+/obj/machinery/light_switch/north,
 /turf/simulated/floor/plating,
 /area/station/science/gen_storage)
 "iTZ" = (
@@ -16832,6 +16842,7 @@
 "jON" = (
 /obj/storage/secure/crate/weapon/armory/pod_weapons,
 /obj/decal/stripe_caution,
+/obj/machinery/recharger/wall/sticky,
 /turf/simulated/floor/engine,
 /area/station/ai_monitored/armory)
 "jPp" = (
@@ -21024,6 +21035,7 @@
 /obj/disposalpipe/segment/brig{
 	icon_state = "pipe-c"
 	},
+/obj/machinery/light_switch/north,
 /turf/simulated/floor/black/grime,
 /area/station/storage/hydroponics{
 	do_not_irradiate = 1
@@ -23112,9 +23124,6 @@
 /obj/machinery/drainage,
 /obj/cable{
 	icon_state = "1-2"
-	},
-/obj/cable{
-	icon_state = "2-4"
 	},
 /turf/simulated/floor/specialroom/arcade,
 /area/station/science/chemistry)
@@ -27026,7 +27035,7 @@
 	pixel_y = 6;
 	pixel_x = -2
 	},
-/turf/unsimulated/floor/setpieces/bluefloor,
+/turf/simulated/floor/shuttle/menhir_arm,
 /area/station/hallway/primary/southeast)
 "pAs" = (
 /obj/decal/cleanable/dirt/jen,
@@ -35309,7 +35318,6 @@
 /obj/cable{
 	icon_state = "1-2"
 	},
-/obj/mapping_helper/access/security,
 /obj/machinery/door/airlock/pyro/glass/security,
 /obj/mapping_helper/access/head_of_personnel,
 /obj/mapping_helper/access/security,
@@ -38087,6 +38095,7 @@
 	icon_state = "0-8"
 	},
 /obj/machinery/firealarm/directional/east,
+/obj/machinery/light_switch/north,
 /turf/simulated/floor/grey/side{
 	dir = 4
 	},
@@ -38471,6 +38480,7 @@
 	dir = 1;
 	pixel_y = 21
 	},
+/obj/machinery/light_switch/west,
 /turf/simulated/floor/carpet/arcade,
 /area/station/crew_quarters/clown{
 	name = "Honkington's Abode"
@@ -42647,6 +42657,7 @@
 	dir = 4;
 	pixel_x = 12
 	},
+/obj/blind_switch/area/north,
 /turf/simulated/floor/specialroom/arcade,
 /area/station/janitor/office)
 "xUe" = (
