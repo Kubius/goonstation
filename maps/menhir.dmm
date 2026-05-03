@@ -30395,6 +30395,16 @@
 	dir = 1
 	},
 /area/station/hallway/primary/north)
+"rtG" = (
+/obj/mesh/catwalk,
+/obj/machinery/light_switch/west{
+	pixel_y = 13
+	},
+/turf/simulated/floor/airless/plating/catwalk{
+	dir = 4;
+	icon_state = "catwalk_cross"
+	},
+/area/station/mining/magnet)
 "rtO" = (
 /obj/machinery/light{
 	dir = 1;
@@ -76003,7 +76013,7 @@ erv
 erv
 dMm
 rEC
-dMm
+rtG
 vsC
 vsC
 sbV
