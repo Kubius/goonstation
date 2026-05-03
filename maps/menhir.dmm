@@ -328,9 +328,8 @@
 "aij" = (
 /obj/decal/cleanable/dirt/jen,
 /obj/machinery/power/apc/autoname_north/nopoweralert{
-	req_access = null;
-	start_charge = 0;
-	req_access_txt = "12"
+	req_access = list(12);
+	start_charge = 0
 	},
 /obj/cable{
 	icon_state = "0-8"
@@ -2330,19 +2329,19 @@
 /area/station/hallway/primary/west)
 "bqU" = (
 /obj/table/wood/auto,
-/obj/item/shaker/mustard{
+/obj/item/reagent_containers/applicator/condiment/bottle/mustard{
 	pixel_x = -1;
 	pixel_y = 8
 	},
-/obj/item/shaker/ketchup{
+/obj/item/reagent_containers/applicator/condiment/bottle/ketchup{
 	pixel_x = 8;
 	pixel_y = 3
 	},
-/obj/item/shaker/pepper{
+/obj/item/reagent_containers/applicator/condiment/shaker/pepper{
 	pixel_x = -5;
 	pixel_y = 3
 	},
-/obj/item/shaker/salt{
+/obj/item/reagent_containers/applicator/condiment/shaker/salt{
 	pixel_x = 3
 	},
 /turf/simulated/floor/wood,
@@ -17751,14 +17750,14 @@
 /area/research_outpost/limpet)
 "kqZ" = (
 /obj/table/auto,
-/obj/item/shaker/mustard{
+/obj/item/reagent_containers/applicator/condiment/bottle/mustard{
 	pixel_x = -6
 	},
-/obj/item/shaker/salt,
-/obj/item/shaker/pepper{
+/obj/item/reagent_containers/applicator/condiment/shaker/salt,
+/obj/item/reagent_containers/applicator/condiment/shaker/pepper{
 	pixel_x = 3
 	},
-/obj/item/shaker/ketchup{
+/obj/item/reagent_containers/applicator/condiment/bottle/ketchup{
 	pixel_x = 6
 	},
 /obj/machinery/light/small,
@@ -22949,9 +22948,8 @@
 	pixel_x = -5
 	},
 /obj/machinery/power/apc/autoname_north/nopoweralert{
-	req_access = null;
-	start_charge = 0;
-	req_access_txt = "12"
+	req_access = list(12);
+	start_charge = 0
 	},
 /obj/machinery/atmospherics/pipe/simple/overfloor{
 	dir = 10
@@ -27174,19 +27172,19 @@
 	})
 "pFy" = (
 /obj/table/reinforced/bar/auto,
-/obj/item/shaker/mustard{
+/obj/item/reagent_containers/applicator/condiment/bottle/mustard{
 	pixel_x = -1;
 	pixel_y = 8
 	},
-/obj/item/shaker/ketchup{
+/obj/item/reagent_containers/applicator/condiment/bottle/ketchup{
 	pixel_x = 8;
 	pixel_y = 3
 	},
-/obj/item/shaker/pepper{
+/obj/item/reagent_containers/applicator/condiment/shaker/pepper{
 	pixel_x = -5;
 	pixel_y = 3
 	},
-/obj/item/shaker/salt{
+/obj/item/reagent_containers/applicator/condiment/shaker/salt{
 	pixel_x = 3
 	},
 /obj/machinery/disposal/small/west{
@@ -31137,8 +31135,7 @@
 	icon_state = "glass_locked";
 	id_tag = "tox_airlock_exterior";
 	locked = 1;
-	name = "Toxins Research Access";
-	req_access_txt = null
+	name = "Toxins Research Access"
 	},
 /obj/mapping_helper/airlock/cycler/auto/knight,
 /obj/machinery/atmospherics/pipe/simple/insulated{
@@ -41481,9 +41478,8 @@
 /obj/decal/cleanable/dirt/jen,
 /obj/machinery/vending/coffee,
 /obj/machinery/power/apc/autoname_east/nopoweralert{
-	start_charge = 0;
-	req_access = null;
-	req_access_txt = "12"
+	req_access = list(12);
+	start_charge = 0
 	},
 /obj/cable,
 /turf/simulated/floor/darkpurpleblack,
@@ -43007,9 +43003,8 @@
 	},
 /obj/item/storage/wall/random,
 /obj/machinery/power/apc/autoname_west/nopoweralert{
-	req_access = null;
-	start_charge = 0;
-	req_access_txt = "12"
+	req_access = list(12);
+	start_charge = 0
 	},
 /obj/cable{
 	icon_state = "0-4"
