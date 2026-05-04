@@ -19037,9 +19037,6 @@
 /obj/item/scissors/surgical_scissors{
 	pixel_x = 5
 	},
-/obj/cable{
-	icon_state = "0-6"
-	},
 /obj/machinery/phone/wall{
 	pixel_y = 32
 	},
@@ -33990,6 +33987,9 @@
 /obj/item/reagent_containers/glass/bottle/epinephrine,
 /obj/machinery/firealarm/directional/west,
 /obj/machinery/power/apc/autoname_north,
+/obj/cable{
+	icon_state = "0-6"
+	},
 /turf/simulated/floor/red,
 /area/station/medical/medbay/surgery)
 "tkM" = (
