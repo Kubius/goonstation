@@ -1,6 +1,6 @@
 /datum/mind
 	/// Currently held passport, for Nations.
-	var/obj/item/passport/current_passport = null
+	var/obj/item/passport/passport = null
 
 /obj/item/passport
 	name = "passport"
