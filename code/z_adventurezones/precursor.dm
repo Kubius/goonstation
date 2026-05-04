@@ -636,52 +636,73 @@ ABSTRACT_TYPE(/datum/menhir_puzzle)
 
 		src.tag = "orb_stand_[id]"
 
-	attack_hand(mob/user)
-		if (src.receive_only)
-			boutput(user, SPAN_NOTICE("[src] doesn't respond to your touch.")) //span_notice is deliberate to indicate nothing is amiss here
-			return
-
+	attack_hand(var/mob/user)
 		if (user.stat || user.getStatusDuration("knockdown") || BOUNDS_DIST(user, src) > 0)
 			return
 
+		src.try_teleport(user)
+
+	///Target is the mob being sent, activator is the mob to notify when an attempt fails
+	proc/try_teleport(var/mob/target,var/mob/activator)
+		if (!target)
+			return
+
+		if (!activator)
+			activator = target
+
+		if (src.receive_only)
+			boutput(activator, SPAN_NOTICE("[src] doesn't respond to your touch.")) //span_notice is deliberate to indicate nothing is amiss here
+			return
+
 		if (!src.assembled)
-			boutput(user, SPAN_NOTICE("[src] is missing something."))
+			boutput(activator, SPAN_NOTICE("[src] is missing something."))
 			return
 
 		if (!src.ready)
-			boutput(user, SPAN_NOTICE("[src] isn't ready yet."))
+			boutput(activator, SPAN_NOTICE("[src] isn't ready yet."))
 			return
 
 		var/obj/precursor_puzzle/orb_stand/other = locate("orb_stand_[target_id]")
 		if (!istype(other))
 			return
 
-		if(other.invisibility) //more menhir shenanigans
+		if(other.invisibility) //in case we'd like to cloak one end until it's needed
 			other.invisibility = 0
 			other.density = 1
 
 		SPAWN(1 DECI SECOND)
 			src.ready = 0 // disable momentarily to prevent spamming
-			if(src.safeish && prob(95)) // menhir cowardice
-				user.visible_message("<b>[user] is [pick("whisked away","taken somewhere","sent somewhere")] by [src]!</b>")
+			if(src.safeish && (prob(95) || target.stat))
+				target.visible_message("<b>[target] is [pick("whisked away","taken somewhere","sent somewhere")] by [src]!</b>")
 				var/otherside = get_turf(other)
-				showswirl_out(user)
+				showswirl_out(target)
 				showswirl(otherside)
-				user.set_loc(otherside)
+				target.set_loc(otherside)
 			else
-				user.visible_message(SPAN_ALERT("<b>[user] is blasted away somewhere by [src]! Holy shit!</b>"))
+				target.visible_message(SPAN_ALERT("<b>[target] is blasted away somewhere by [src]! Holy shit!</b>"))
 				var/otherside = get_turf(other)
-				user.set_loc(otherside)
+				target.set_loc(otherside)
 				explosion(src,src.loc,-1,-1,1,2)
 				playsound(src.loc, "explosion", 60, 1)
 				explosion(src,otherside,-1,-1,1,2)
-				if(ishuman(user))
-					var/mob/living/carbon/human/H = user
+				if(ishuman(target))
+					var/mob/living/carbon/human/H = target
 					H:update_burning(5) // this isn't a safe way to travel at all!!!
 			sleep(5 SECONDS)
 			src.ready = 1
 
 	attackby(obj/item/W, mob/user)
+		if(istype(W, /obj/item/grab))
+			var/obj/item/grab/G = W
+			if(ismob(G.affecting))
+				var/mob/M = G.affecting
+				var/resisting_action = TRUE
+				if (M.getStatusDuration("stunned") || M.getStatusDuration("knockdown") || M.getStatusDuration("unconscious") || M.stat || M.a_intent == "help")
+					resisting_action = FALSE
+				if (BOUNDS_DIST(M,src) == 0 && !resisting_action)
+					src.try_teleport(M,G.assailant)
+				return
+
 		if(src.ready || src.assembled)
 			..()
 			return

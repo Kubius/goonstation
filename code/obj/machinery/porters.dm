@@ -32,6 +32,18 @@ TYPEINFO(/obj/item/remote/porter)
 	proc/get_machinery()
 		return
 
+	///Used for get_machinery polling; returns TRUE when passed a turf that exists and isn't in a restricted Z (with some special exemptions for Menhir if pertinent)
+	proc/loc_eval(var/turf/T)
+		. = FALSE
+		if(!T || !isturf(T)) return
+		if(isrestrictedz(T.z))
+#ifdef MAP_OVERRIDE_MENHIR
+			if (istype(T.loc,/area/precursor/menhir) || istype(T.loc,/area/unspace))
+				. = TRUE
+#endif
+			return
+		return TRUE
+
 	// As to avoid a separate lookup for every remote.
 	proc/teleport_sanity_check(var/obj/machinery/test_machinery, var/mob/test_mob, var/turf/test_turf, var/no_zlevel_check = 0)
 		// Failure states:
@@ -68,7 +80,12 @@ TYPEINFO(/obj/item/remote/porter)
 		if (test_turf)
 			if (test_turf.loc:teleport_blocked == 2) return 0
 			if (!no_zlevel_check && (isrestrictedz(test_turf.z) || isrestrictedz(our_loc.z))) // Somebody will find a way to abuse it if I don't put this here.
+#ifdef MAP_OVERRIDE_MENHIR
+				if (!istype(our_loc.loc,/area/precursor/menhir) && !istype(our_loc.loc,/area/unspace)) //Special Exemption
+					return 0
+#else
 				return 0
+#endif
 			if (test_turf.density)
 				return 5
 			for (var/obj/thing in view(0, test_turf))
@@ -83,7 +100,12 @@ TYPEINFO(/obj/item/remote/porter)
 			if (!our_loc || !isturf(our_loc))
 				return 0
 			if (!no_zlevel_check && isrestrictedz(our_loc.z)) // Somebody will find a way to abuse it if I don't put this here.
+#ifdef MAP_OVERRIDE_MENHIR
+				if (!istype(our_loc.loc,/area/precursor/menhir) && !istype(our_loc.loc,/area/unspace)) //Special Exemption
+					return 0
+#else
 				return 0
+#endif
 			if (our_loc.density)
 				return 4
 			for (var/obj/thing2 in view(0, our_loc))
@@ -198,7 +220,7 @@ TYPEINFO(/obj/item/remote/porter)
 
 		for (var/obj/machinery/port_a_brig/M in by_cat[TR_CAT_PORTABLE_MACHINERY])
 			var/turf/M_loc = get_turf(M)
-			if (M && M_loc && isturf(M_loc) && isrestrictedz(M_loc.z)) // Don't show stuff in "somewhere", okay.
+			if (M && !src.loc_eval(M_loc)) // Don't show stuff in "somewhere", okay.
 				continue
 			if (!(M in src.machinerylist))
 				src.machinerylist["[src.machinery_name] #[src.machinerylist.len + 1] at [get_area(M)]"] += M // Don't remove the #[number] part here.
@@ -217,7 +239,7 @@ TYPEINFO(/obj/item/remote/porter)
 
 		for (var/obj/machinery/sleeper/port_a_medbay/M in by_cat[TR_CAT_PORTABLE_MACHINERY])
 			var/turf/M_loc = get_turf(M)
-			if (M && M_loc && isturf(M_loc) && isrestrictedz(M_loc.z)) // Don't show stuff in "somewhere", okay.
+			if (M && !src.loc_eval(M_loc)) // Don't show stuff in "somewhere", okay.
 				continue
 			if (!(M in src.machinerylist))
 				src.machinerylist["[src.machinery_name] #[src.machinerylist.len + 1] at [get_area(M)]"] += M // Don't remove the #[number] part here.
@@ -241,7 +263,7 @@ TYPEINFO(/obj/item/remote/porter/port_a_sci)
 
 		for (var/obj/storage/closet/port_a_sci/M in by_cat[TR_CAT_PORTABLE_MACHINERY])
 			/*var/turf/M_loc = get_turf(M)
-			if (M && M_loc && isturf(M_loc) && isrestrictedz(M_loc.z)) // Don't show stuff in "somewhere", okay.
+			if (M && !src.loc_eval(M_loc)) // Don't show stuff in "somewhere", okay.
 				continue*/
 			if (!(M in src.machinerylist))
 				src.machinerylist["[src.machinery_name] #[src.machinerylist.len + 1] at [get_area(M)]"] += M // Don't remove the #[number] part here.
@@ -260,7 +282,7 @@ TYPEINFO(/obj/item/remote/porter/port_a_sci)
 
 		for (var/obj/machinery/vending/port_a_nanomed/M in by_cat[TR_CAT_PORTABLE_MACHINERY])
 			var/turf/M_loc = get_turf(M)
-			if (M && M_loc && isturf(M_loc) && isrestrictedz(M_loc.z)) // Don't show stuff in "somewhere", okay.
+			if (M && !src.loc_eval(M_loc)) // Don't show stuff in "somewhere", okay.
 				continue
 			if (!(M in src.machinerylist))
 				src.machinerylist["[src.machinery_name] #[src.machinerylist.len + 1] at [get_area(M)]"] += M // Don't remove the #[number] part here.
@@ -279,7 +301,7 @@ TYPEINFO(/obj/item/remote/porter/port_a_sci)
 
 		for (var/obj/machinery/computer/genetics/portable/M in by_cat[TR_CAT_PORTABLE_MACHINERY])
 			var/turf/M_loc = get_turf(M)
-			if (M && M_loc && isturf(M_loc) && isrestrictedz(M_loc.z)) // Don't show stuff in "somewhere", okay.
+			if (M && !src.loc_eval(M_loc)) // Don't show stuff in "somewhere", okay.
 				continue
 			if (!(M in src.machinerylist))
 				src.machinerylist["[src.machinery_name] #[src.machinerylist.len + 1] at [get_area(M)]"] += M // Don't remove the #[number] part here.

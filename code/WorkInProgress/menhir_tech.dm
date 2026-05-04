@@ -59,7 +59,7 @@ TYPEINFO_NEW(/obj/effects/menhir_fog)
 	filler_turf = "/turf/unsimulated/floor/setpieces/bluefloor"
 	sound_environment = 5
 	sound_loop = 'sound/ambience/industrial/Precursor_Drone1.ogg'
-	teleport_blocked = 2
+	teleport_blocked = AREA_TELEPORT_BLOCKED
 	do_not_irradiate = 1
 	requires_power = FALSE
 
