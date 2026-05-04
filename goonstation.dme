@@ -933,6 +933,7 @@
 #include "code\modules\antagonists\macho_man\abilities\stare.dm"
 #include "code\modules\antagonists\macho_man\abilities\summon_arena.dm"
 #include "code\modules\antagonists\macho_man\abilities\throw.dm"
+#include "code\modules\antagonists\nations\citizen.dm"
 #include "code\modules\antagonists\nations\nation.dm"
 #include "code\modules\antagonists\nations\passport.dm"
 #include "code\modules\antagonists\nuclear_operative\nuclear_operative.dm"
