@@ -231,31 +231,57 @@ ABSTRACT_TYPE(/datum/random_event/menhir)
 
 		src.required_candidates = min(src.required_candidates + 2, 15)
 
+		var/mob/congratulations_you_won = pick(eligible_examinees)
+		SPAWN(0)
+			src.visit_scheduling(congratulations_you_won,nodelandmark)
+
+		..()
+
+		logTheThing(LOG_STATION, null, "Menhir analysis event at [node_tag] arm - [log_loc(nodelandmark)]")
+		message_admins("Menhir analysis event triggered at [node_tag] arm - [log_loc(nodelandmark)]")
+
+	proc/visit_scheduling(var/mob/living/carbon/human/our_guest,var/turf/selected_node)
+		var/hold_attempts = 0
+		while(hold_attempts < 3)
+			hold_attempts++
+			var/nerd_broke_out = src.do_a_visit(our_guest,selected_node,hold_attempts)
+			if(!nerd_broke_out)
+				break
+			sleep(rand(12,24))
+
+	proc/do_a_visit(var/mob/living/carbon/human/our_guest,var/turf/selected_node,var/assertiveness)
 		var/time_of_stay = rand(40 SECONDS,50 SECONDS)
 		var/time_of_spook = time_of_stay * 0.3 + rand(0,15 SECONDS)
-		var/mob/living/carbon/human/our_guest = pick(eligible_examinees)
+
 		var/turf/whisked_from = get_turf(our_guest)
 		showswirl_out(whisked_from)
-		showswirl(nodelandmark)
-		our_guest.set_loc(nodelandmark)
+		showswirl(selected_node)
+		our_guest.set_loc(selected_node)
+		SPAWN(5)
+			playsound(selected_node, 'sound/musical_instruments/artifact/Artifact_Precursor_5.ogg', 55, 0, pitch = 0.45, extrarange = 24)
 		SPAWN(time_of_spook) //mess with our guest a little to see how they respond
 			if(our_guest)
-				if(prob(60)) //sing them a little sound
-					var/response_tester_sound = pick('sound/effects/explosionfar.ogg','sound/effects/explosionfar.ogg','sound/musical_instruments/Gong_Rumbling.ogg')
-					our_guest.playsound_local_not_inworld(response_tester_sound, 80, 0)
-				else //test chemical reaction
-					var/response_tester_reagent = pick("love","colors","transparium","psilocybin","lumen","ethanol")
-					var/quantity = 10
-					switch(response_tester_reagent)
-						if("transparium")
-							quantity = 40
-						if("lumen")
-							quantity = 30
-					our_guest.reagents.add_reagent(response_tester_reagent, quantity)
-					our_guest.playsound_local_not_inworld('sound/items/hypo.ogg', 30, 0)
-					boutput(our_guest,SPAN_ALERT("You feel a small poke and see a tiny mechanical arm receding into the floor.[pick(" That can't be good."," What the hell?","")]"))
-		SPAWN(time_of_stay)
-			if(our_guest)
+				var/area/A = get_area(our_guest)
+				if(istype(A,/area/station/crown)) //make sure the guest is still here
+					var/noise_odds = min((4 - assertiveness) * 20, 10)
+					if(prob(noise_odds)) //sing them a little sound; less likely to do this if our guest has been rambunctious
+						var/response_tester_sound = pick('sound/effects/explosionfar.ogg','sound/effects/explosionfar.ogg','sound/musical_instruments/Gong_Rumbling.ogg')
+						our_guest.playsound_local_not_inworld(response_tester_sound, 80, 0)
+					else //test chemical reaction
+						var/response_tester_reagent = pick("love","colors","transparium","psilocybin","lumen","ethanol")
+						var/quantity = 10
+						switch(response_tester_reagent)
+							if("transparium")
+								quantity = 40
+							if("lumen")
+								quantity = 30
+						our_guest.reagents.add_reagent(response_tester_reagent, quantity)
+						our_guest.playsound_local_not_inworld('sound/items/hypo.ogg', 30, 0)
+						boutput(our_guest,SPAN_ALERT("You feel a small poke and see a tiny mechanical arm receding into the floor.[pick(" That can't be good."," What the hell?","")]"))
+		sleep(time_of_stay)
+		if(our_guest)
+			var/area/A = get_area(our_guest)
+			if(istype(A,/area/station/crown)) //our guest remains
 				if(prob(1))
 					var/turf/nearby_spot = null
 					for(var/D in alldirs)
@@ -269,11 +295,13 @@ ABSTRACT_TYPE(/datum/random_event/menhir)
 						var/obj/ourpop = new /obj/item/reagent_containers/food/snacks/candy/lollipop(nearby_spot)
 						ourpop.icon_state = "lpop-5"
 				showswirl(whisked_from)
-				showswirl_out(nodelandmark)
+				showswirl_out(selected_node)
 				our_guest.set_loc(whisked_from)
-		SPAWN(time_of_stay + 5)
+			else //our guest broke out, let's try that again
+				. = TRUE
+		SPAWN(5)
 			var/moved_objects = 0
-			for(var/atom/movable/AM in range(2,nodelandmark))
+			for(var/atom/movable/AM in range(2,selected_node))
 				if(!AM.anchored)
 					var/turf/dumpspot = pick(landmarks[LANDMARK_MENHIR_OUTREACH])
 					showswirl(dumpspot)
@@ -283,14 +311,6 @@ ABSTRACT_TYPE(/datum/random_event/menhir)
 			if(moved_objects)
 				logTheThing(LOG_STATION, null, "Menhir analysis event relocated [moved_objects] atoms out of node post-event.")
 				message_admins("Menhir analysis event relocated [moved_objects] atoms out of node post-event.")
-
-		SPAWN(5)
-			playsound(nodelandmark, 'sound/musical_instruments/artifact/Artifact_Precursor_5.ogg', 55, 0, pitch = 0.45, extrarange = 24)
-
-		..()
-
-		logTheThing(LOG_STATION, null, "Menhir analysis event at [node_tag] arm - [log_loc(nodelandmark)]")
-		message_admins("Menhir analysis event triggered at [node_tag] arm - [log_loc(nodelandmark)]")
 
 //it appears you may need a top up! let's help with that
 /datum/random_event/menhir/supercharge
