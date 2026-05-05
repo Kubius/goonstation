@@ -1,4 +1,13 @@
 
+(t)tue may 05 26
+(u)grasswitch
+(p)26343
+(e)|
+(+)Removed foam-based chemical artifact bombs.
+(t)mon may 03 26
+(u)glowbold
+(e)💅👮|C-QoL, A-Security
+(*)The DetGadget hat can now store a fingerprint duster from the Detective's forensics cart.
 (t)fri may 01 26
 (u)Tela
 (p)26350
