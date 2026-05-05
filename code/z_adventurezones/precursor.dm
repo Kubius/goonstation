@@ -517,7 +517,7 @@ ABSTRACT_TYPE(/datum/menhir_puzzle)
 /datum/menhir_puzzle/firework
 	target_path = /obj/item/firework
 	desc_strings = list(
-		"A new star forms in a quiet night sky. The shapes below laugh and frolic.",
+		"For but a moment, a new star roars in a quiet night sky. The shapes below laugh and frolic.",
 		"A bright flash and a sound of thunder flood your perception, again and again, yet not for avarice or conquest."
 	)
 
@@ -562,6 +562,36 @@ ABSTRACT_TYPE(/datum/menhir_puzzle)
 	target_path = /obj/item/storage/toolbox/artistic
 	desc_strings = list(
 		"A metal vessel of verdant hue lies before you, resting upon a blank canvas that stretches gracefully into the distance."
+	)
+
+/datum/menhir_puzzle/cautionsign
+	target_path = /obj/item/caution
+	desc_strings = list(
+		"A small slate of bright yellow stands before you. Though it could be struck down in a moment, you feel a compulsion not to pass beyond it."
+	)
+
+/datum/menhir_puzzle/pcrystal
+	target_path = /obj/item/pressure_crystal
+	desc_strings = list(
+		"Thunderous noise and blinding light. Nestled in the remnants of a place unmade, a crystal rests, and remembers."
+	)
+
+/datum/menhir_puzzle/viscerite
+	target_path = /obj/item/raw_material/martian
+	desc_strings = list(
+		"Snarls of rosy sinew wait in unsettling stillness before you. As you grasp one to examine it more closely, it begins to shudder and contort..."
+	)
+
+/datum/menhir_puzzle/lotto
+	target_path = /obj/item/lotteryTicket
+	desc_strings = list(
+		"Indistinct figures step one after another into a small structure, leaving with a slip of parchment they hope will change their fate."
+	)
+
+/datum/menhir_puzzle/record
+	target_path = /obj/item/record
+	desc_strings = list(
+		"In a quiet alcove, a hooded figure peruses a row of deep black slates. The figure's selection, grasped tightly, begins to spin and sing."
 	)
 
 /obj/precursor_puzzle/innervator

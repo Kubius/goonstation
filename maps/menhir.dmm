@@ -15616,6 +15616,14 @@
 	},
 /turf/simulated/floor/black/grime,
 /area/station/maintenance/disposal)
+"jdU" = (
+/obj/effects/menhir_fog,
+/obj/landmark/menhir/dark,
+/obj/random_item_spawner/menhir/one,
+/turf/unsimulated/floor/setpieces/bluefloor{
+	dir = 1
+	},
+/area/station/crown)
 "jdY" = (
 /obj/decal/tile_edge/line/yellow{
 	dir = 1;
@@ -19089,6 +19097,13 @@
 	},
 /turf/simulated/floor/black,
 /area/station/science/lab)
+"law" = (
+/obj/effects/menhir_fog,
+/obj/precursor_puzzle/innervator,
+/turf/unsimulated/floor/setpieces/bluefloor{
+	dir = 1
+	},
+/area/station/crown)
 "laN" = (
 /obj/storage/secure/closet/security/equipment,
 /obj/disposalpipe/segment/vertical,
@@ -25196,7 +25211,7 @@
 	})
 "ouG" = (
 /obj/effects/menhir_fog,
-/obj/machinery/door/unpowered/blue,
+/obj/machinery/door/unpowered/blue/autopuzzle,
 /turf/unsimulated/floor/setpieces/bluefloor{
 	dir = 8
 	},
@@ -89767,7 +89782,7 @@ uId
 lhN
 uId
 lhN
-uId
+jdU
 lhN
 yej
 lhN
@@ -90369,7 +90384,7 @@ aGr
 aGr
 fxO
 lhN
-osZ
+law
 lhN
 uId
 lhN
@@ -91577,7 +91592,7 @@ aGr
 aGr
 fxO
 lhN
-osZ
+law
 lhN
 uId
 lhN
