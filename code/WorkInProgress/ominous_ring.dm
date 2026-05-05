@@ -246,7 +246,7 @@
 	stability_loss = 0
 	msgGain = "A strange comfort washes over you, like every cell in your body is singing together."
 	msgLose = "The chorus recedes from your body."
-	heal_per_tick = 1.2
+	heal_per_tick = 0.8
 	regrow_prob = 0
 	acceptable_in_mutini = 0
 	var/obj/item/clothing/gloves/ring/ominous/host_ring = null
