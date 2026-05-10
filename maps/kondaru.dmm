@@ -33922,6 +33922,10 @@
 /obj/machinery/light_switch/north,
 /turf/simulated/floor/darkblue,
 /area/station/janitor/office)
+"hiT" = (
+/obj/machinery/light_switch/north,
+/turf/simulated/wall/auto/supernorn,
+/area/station/crew_quarters/arcade)
 "hjz" = (
 /obj/machinery/firealarm/directional/east,
 /turf/simulated/floor/orangeblack/side{
@@ -56963,6 +56967,7 @@
 /obj/item/clothing/mask/gas/emergency,
 /obj/item/clothing/head/helmet/space/captain,
 /obj/item/tank/jetpack,
+/obj/machinery/light_switch/east,
 /turf/simulated/floor/carpet/arcade,
 /area/station/bridge/captain)
 "xtW" = (
@@ -122519,7 +122524,7 @@ paR
 bfO
 qSI
 sKA
-sKA
+hiT
 sKA
 dgL
 sKA
