@@ -134,6 +134,10 @@
 						var/area_string = "Off-Station Location"
 						if (istype(A, /area/station))
 							area_string = A
+#ifdef MAP_OVERRIDE_MENHIR
+						if (istype(A, /area/precursor/menhir) || istype(A,/area/station/crown) || istype(A,/area/unspace))
+							area_string = "TOREADOR-7I-22408"
+#endif
 						. += "<A href='byond://?src=\ref[src];op=control;machinery=\ref[O]'>[O] at [area_string]</A><BR>"
 
 			. += "<BR><A href='byond://?src=\ref[src];op=scanmachinery'>Scan for linkable machinery</A><BR>"
@@ -145,6 +149,10 @@
 			var/area/A = get_area(src.active)
 			if (istype(A, /area/station))
 				area_string = A.name
+#ifdef MAP_OVERRIDE_MENHIR
+			if (istype(A, /area/precursor/menhir) || istype(A,/area/station/crown) || istype(A,/area/unspace))
+				area_string = "TOREADOR-7I-22408"
+#endif
 			var/home_string = "Off-Station Location"
 
 			if (istype(src.active, /obj/machinery/port_a_brig/))
