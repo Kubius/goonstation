@@ -499,17 +499,6 @@
 "adG" = (
 /turf/unsimulated/wall/setpieces/hospital/window,
 /area/hospital)
-"adI" = (
-/obj/item/paper/book/from_file/the_trial{
-	pixel_x = -8;
-	pixel_y = 6
-	},
-/obj/item/paper{
-	info = "\"A member of an insidious race of calcium-based beings, known to cleverly hide under of the flesh of carbon-based organisms. Their presence can only be revealed via special rays of radiation or certain medical procedures.\"";
-	name = "Skeleton.png"
-	},
-/turf/unsimulated/floor/wood/two,
-/area/centcom/offices/studenterhue)
 "adJ" = (
 /obj/machinery/navbeacon{
 	codes_txt = "patrol;next_patrol=sov3";
@@ -26296,6 +26285,20 @@
 	},
 /turf/unsimulated/floor/grey,
 /area/afterlife/heaven)
+"bZx" = (
+/obj/storage/secure/crate/bee{
+	desc = "A crate with a picture of an owl on it. Hoot.";
+	name = "Owl crate"
+	},
+/obj/item/reagent_containers/food/snacks/ingredient/egg/critter/owl,
+/obj/item/reagent_containers/food/snacks/ingredient/egg/critter/owl,
+/obj/item/reagent_containers/food/snacks/ingredient/egg/critter/owl,
+/obj/item/reagent_containers/food/snacks/ingredient/egg/critter/owl,
+/obj/item/reagent_containers/food/snacks/ingredient/egg/critter/owl,
+/obj/item/reagent_containers/food/snacks/ingredient/egg/critter/owl,
+/obj/item/reagent_containers/food/snacks/ingredient/egg/critter/owl,
+/turf/unsimulated/floor/plating,
+/area/owlery/staffhall)
 "bZy" = (
 /turf/unsimulated/floor/carpet{
 	dir = 10;
@@ -57596,20 +57599,6 @@
 	},
 /turf/unsimulated/floor/black,
 /area/owlery/Owlmait2)
-"gqR" = (
-/obj/storage/secure/crate/bee{
-	desc = "A crate with a picture of an owl on it. Hoot.";
-	name = "Owl crate"
-	},
-/obj/item/reagent_containers/food/snacks/ingredient/egg/critter/owl,
-/obj/item/reagent_containers/food/snacks/ingredient/egg/critter/owl,
-/obj/item/reagent_containers/food/snacks/ingredient/egg/critter/owl,
-/obj/item/reagent_containers/food/snacks/ingredient/egg/critter/owl,
-/obj/item/reagent_containers/food/snacks/ingredient/egg/critter/owl,
-/obj/item/reagent_containers/food/snacks/ingredient/egg/critter/owl,
-/obj/item/reagent_containers/food/snacks/ingredient/egg/critter/owl,
-/turf/unsimulated/floor/plating,
-/area/owlery/staffhall)
 "gqT" = (
 /obj/fakeobject/oldcanister,
 /obj/machinery/light/small,
@@ -64181,6 +64170,17 @@
 	},
 /turf/unsimulated/floor/stairs/medical,
 /area/centcom/offices/bilo)
+"lgD" = (
+/obj/item/paper/book/from_file/the_trial{
+	pixel_x = -8;
+	pixel_y = 6
+	},
+/obj/item/paper{
+	info = "\"A member of an insidious race of calcium-based beings, known to cleverly hide under of the flesh of carbon-based organisms. Their presence can only be revealed via special rays of radiation or certain medical procedures.\"";
+	name = "Skeleton.png"
+	},
+/turf/unsimulated/floor/wood/two,
+/area/centcom/offices/studenterhue)
 "lhd" = (
 /turf/unsimulated/floor/blackwhite{
 	dir = 4
@@ -74436,6 +74436,15 @@
 /obj/mapping_helper/wingrille_spawn/auto,
 /turf/unsimulated/floor/engine,
 /area/shuttle/merchant_shuttle/right_centcom/cogmap2)
+"sUy" = (
+/obj/spacevine{
+	icon_state = "vine-light2"
+	},
+/mob/living/critter/gorilla/carl,
+/turf/unsimulated/floor/green/side{
+	dir = 1
+	},
+/area/crater/biodome/north)
 "sVQ" = (
 /obj/fakeobject/pipe{
 	color = "b4b4b4";
@@ -96303,7 +96312,7 @@ cnw
 cnw
 bBm
 aBY
-gqR
+bZx
 chS
 aBY
 cwN
@@ -117549,7 +117558,7 @@ wTN
 aMc
 aMJ
 aML
-aOc
+sUy
 aOY
 nyQ
 aQx
@@ -153796,7 +153805,7 @@ seL
 gJV
 wel
 rJY
-adI
+lgD
 poK
 wel
 dEo

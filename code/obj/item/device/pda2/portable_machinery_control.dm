@@ -131,7 +131,7 @@
 				for (var/obj/O in src.machinerylist )
 					if (istype(O, src.our_machinery))
 						var/area/A = get_area(O)
-						var/area_string = "Off-Station Location"
+						var/area_string = "Off-[global.station_or_ship()] Location"
 						if (istype(A, /area/station))
 							area_string = A
 #ifdef MAP_OVERRIDE_MENHIR
@@ -145,15 +145,15 @@
 		else // Control a particular piece of machinery.
 
 			. += "<B>[src.active]</B><BR> Status: (<A href='byond://?src=\ref[src];op=control;machinery=\ref[src.active]'><i>refresh</i></A>)<BR>"
-			var/area_string = "Off-Station Location"
+			var/area_string = "Off-[global.station_or_ship()] Location"
 			var/area/A = get_area(src.active)
 			if (istype(A, /area/station))
 				area_string = A.name
-#ifdef MAP_OVERRIDE_MENHIR
-			if (istype(A, /area/precursor/menhir) || istype(A,/area/station/crown) || istype(A,/area/unspace))
+			#ifdef MAP_OVERRIDE_MENHIR
+			if (istypes(A, list(/area/precursor/menhir, /area/station/crown, /area/unspace)))
 				area_string = "TOREADOR-7I-22408"
-#endif
-			var/home_string = "Off-Station Location"
+			#endif
+			var/home_string = "Off-[global.station_or_ship()] Location"
 
 			if (istype(src.active, /obj/machinery/port_a_brig/))
 				var/obj/machinery/port_a_brig/P2 = src.active
@@ -163,7 +163,10 @@
 					var/area/home_area = get_area(P2.homeloc)
 					if (istype(home_area, /area/station))
 						home_string = home_area.name
-
+					#ifdef MAP_OVERRIDE_MENHIR
+					if (istypes(home_area, list(/area/precursor/menhir, /area/station/crown, /area/unspace)))
+						home_string = "TOREADOR-7I-22408"
+					#endif
 				. += "Location: [area_string] (Home: [home_string])<BR>"
 				. += "Occupant: [P2.occupant ? "[P2.occupant.name]" : "None"] ([P2.locked ? "locked" : "unlocked"])"
 
