@@ -719,6 +719,7 @@
 	dir = 8;
 	name = "old wooden chair"
 	},
+/obj/landmark/antagonist/blob,
 /turf/simulated/floor/black,
 /area/station/garden/owlery)
 "avG" = (
@@ -4703,6 +4704,10 @@
 "cIX" = (
 /turf/simulated/wall/auto/reinforced/supernorn,
 /area/research_outpost/limpet/maint)
+"cJE" = (
+/obj/landmark/antagonist/blob,
+/turf/simulated/floor/plating,
+/area/station/maintenance/west)
 "cJJ" = (
 /obj/machinery/ghostdrone_factory,
 /obj/machinery/conveyor/EW{
@@ -7477,7 +7482,7 @@
 /turf/simulated/floor,
 /area/station/hallway/primary/west)
 "etS" = (
-/obj/landmark/kudzu,
+/obj/landmark/antagonist/blob,
 /turf/simulated/floor/plating,
 /area/station/maintenance/east)
 "eud" = (
@@ -13520,6 +13525,7 @@
 /turf/space,
 /area/space)
 "hTL" = (
+/obj/landmark/antagonist/blob,
 /turf/simulated/floor/shuttlebay{
 	icon_state = "engine_caution_corners";
 	dir = 1
@@ -25015,6 +25021,12 @@
 /area/station/hangar/qm{
 	name = "Logistics Dock"
 	})
+"ory" = (
+/obj/landmark/antagonist/blob,
+/turf/simulated/floor/plating,
+/area/station/maintenance/inner/se{
+	name = "Southeast Auxiliary Conduit"
+	})
 "orG" = (
 /obj/machinery/vehicle/miniputt/indyputt/armed{
 	dir = 1
@@ -25478,10 +25490,6 @@
 /obj/disposalpipe/segment/mail,
 /turf/simulated/floor/redblack,
 /area/station/maintenance/southeast)
-"oBB" = (
-/obj/landmark/kudzu,
-/turf/simulated/floor/blueblack,
-/area/station/maintenance/east)
 "oBU" = (
 /obj/stool/chair/dining/wood,
 /obj/landmark/start/job/assistant,
@@ -33977,6 +33985,7 @@
 /obj/machinery/atmospherics/pipe/manifold/overfloor{
 	dir = 4
 	},
+/obj/landmark/antagonist/blob,
 /turf/simulated/floor/plating,
 /area/station/atmos/hookups/central{
 	name = "Emergency Repressurization"
@@ -37547,6 +37556,11 @@
 /obj/tree,
 /turf/simulated/floor/grass/leafy,
 /area/station/garden/owlery)
+"vju" = (
+/obj/decal/cleanable/dirt,
+/obj/landmark/kudzu,
+/turf/simulated/floor/plating,
+/area/station/maintenance/east)
 "vjH" = (
 /obj/decal/tile_edge/line/black{
 	dir = 4;
@@ -79482,7 +79496,7 @@ rcZ
 bsI
 vuv
 vyW
-wTr
+cJE
 wTr
 wTr
 tei
@@ -95543,7 +95557,7 @@ wZD
 wZD
 wxr
 wZD
-wZD
+ory
 wxr
 rOB
 ngb
@@ -97295,7 +97309,7 @@ pHs
 qEa
 hZc
 gpb
-oBB
+xhi
 qEa
 qEa
 cRy
@@ -100016,7 +100030,7 @@ iuz
 aQF
 qEa
 wSm
-cNh
+vju
 bym
 okL
 ulU
@@ -103976,7 +103990,7 @@ dQW
 bVV
 muJ
 cms
-cms
+lfR
 cms
 cms
 cms
