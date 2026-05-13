@@ -19756,14 +19756,6 @@
 /obj/decal/cleanable/desk_clutter{
 	pixel_y = -1
 	},
-/obj/item/instrument/bikehorn{
-	pixel_y = 11;
-	pixel_x = -4
-	},
-/obj/item/clothing/mask/clown_nose{
-	pixel_y = 3;
-	pixel_x = 7
-	},
 /obj/cable{
 	icon_state = "4-8"
 	},
@@ -19773,6 +19765,15 @@
 /obj/machinery/light/small{
 	dir = 4;
 	pixel_x = 12
+	},
+/obj/item/reagent_containers/applicator/stick/glue,
+/obj/item/clothing/mask/clown_nose{
+	pixel_y = 3;
+	pixel_x = 7
+	},
+/obj/item/instrument/bikehorn{
+	pixel_y = 11;
+	pixel_x = -4
 	},
 /turf/simulated/floor/carpet/arcade,
 /area/station/crew_quarters/clown{
