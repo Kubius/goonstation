@@ -793,6 +793,19 @@
 	},
 /turf/simulated/floor/engine,
 /area/station/engine/core)
+"rh" = (
+/obj/machinery/atmospherics/pipe/simple/heat_exchanging{
+	dir = 6
+	},
+/obj/machinery/sparker{
+	id = "eng_ignition";
+	layer = 7;
+	name = "Mounted Igniter";
+	pixel_y = 24;
+	dir = 2
+	},
+/turf/simulated/floor/engine/vacuum,
+/area/station/engine/combustion_chamber)
 "rl" = (
 /obj/table/reinforced/auto,
 /obj/item/device/analyzer/atmospheric{
@@ -1704,15 +1717,8 @@
 /obj/machinery/atmospherics/pipe/simple/junction{
 	dir = 8
 	},
-/obj/machinery/atmospherics/unary/outlet_injector/active{
-	dir = 1
-	},
-/obj/machinery/sparker{
-	id = "eng_ignition";
-	layer = 7;
-	name = "Mounted Igniter";
-	pixel_x = 24;
-	pixel_y = 12
+/obj/machinery/atmospherics/pipe/simple/insulated{
+	can_rupture = 0
 	},
 /turf/simulated/floor/engine/vacuum,
 /area/station/engine/combustion_chamber)
@@ -2165,6 +2171,9 @@
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
 	dir = 10
 	},
+/obj/machinery/atmospherics/unary/outlet_injector/active{
+	dir = 1
+	},
 /turf/simulated/floor/engine/vacuum,
 /area/station/engine/combustion_chamber)
 "VE" = (
@@ -2440,7 +2449,7 @@ mr
 wl
 oF
 oF
-Xj
+rh
 qP
 Xj
 qP
