@@ -22,7 +22,7 @@
 	. = ..()
 	if (ismind(owner_to_assign))
 		src.owner = owner_to_assign
-		src.owner.current_passport = src
+		src.owner.passport = src
 	if (istype(nation_to_assign, /datum/nation))
 		src.nation = nation_to_assign
 	src.set_appearance()
