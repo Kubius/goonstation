@@ -29,7 +29,7 @@
 		src.owner = owner_to_assign
 		src.owner.passport = src
 
-		src.name = "[src.owner.current.real_name]'s [src.name]"
+		src.name = "[src.owner.current.real_name]’s [src.name]"
 
 /obj/item/passport/disposing()
 	src.owner?.passport = null
