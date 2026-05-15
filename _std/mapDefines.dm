@@ -70,6 +70,8 @@
 
 #elif defined(MAP_OVERRIDE_FLEET)*/
 
+#elif defined(MAP_OVERRIDE_NATIONS)
+
 #else // the "default" map
 //#define UNDERWATER_MAP 1
 

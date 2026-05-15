@@ -40,6 +40,7 @@ var/global/list/mapNames = list(
 	"blank" =				list("id" = "BLANK",		"settings" = "", 				"playerPickable" = FALSE),
 	"blank_underwater" =	list("id" = "BLANK_UNDERWATER", "settings" = "", 			"playerPickable" = FALSE),
 	"DevTest" =				list("id" = "DEVTEST",		"settings" = "devtest",			"playerPickable" = FALSE,	"MaxPlayersAllowed" = 69),
+	"Nations" =				list("id" = "NATIONS",		"settings" = "nations",			"playerPickable" = FALSE),
 )
 
 /obj/landmark/map
