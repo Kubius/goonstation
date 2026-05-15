@@ -19,7 +19,6 @@
 	nation_type = /datum/nation/un
 	generate_name = FALSE
 
-
 /datum/antagonist/nation/citizen/engineering
 	id = ROLE_NATION_ENG
 	display_name = "Eng Citizen"
@@ -31,7 +30,6 @@
 	display_name = "Eng Leader"
 	antagonist_icon = "engineering-leader"
 	nation_type = /datum/nation/engineering
-
 
 /datum/antagonist/nation/citizen/medical
 	id = ROLE_NATION_MED
@@ -45,7 +43,6 @@
 	antagonist_icon = "medical-leader"
 	nation_type = /datum/nation/medical
 
-
 /datum/antagonist/nation/citizen/research
 	id = ROLE_NATION_SCI
 	display_name = "Sci Citizen"
@@ -58,7 +55,6 @@
 	antagonist_icon = "research-leader"
 	nation_type = /datum/nation/research
 
-
 /datum/antagonist/nation/citizen/service
 	id = ROLE_NATION_SER
 	display_name = "Civ Citizen"
@@ -70,7 +66,6 @@
 	display_name = "Civ Leader"
 	antagonist_icon = "service-leader"
 	nation_type = /datum/nation/service
-
 
 /datum/antagonist/nation/citizen/supply
 	id = ROLE_NATION_SUP

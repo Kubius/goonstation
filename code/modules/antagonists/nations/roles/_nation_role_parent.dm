@@ -38,13 +38,10 @@ ABSTRACT_TYPE(/datum/antagonist/nation)
 /datum/antagonist/nation/proc/remove_callback()
 	src.owner.remove_antagonist(src)
 
-
-
 ABSTRACT_TYPE(/datum/antagonist/nation/citizen)
 /datum/antagonist/nation/citizen
 	succinct_end_of_round_antagonist_entry = TRUE
 	role_type = "Citizen"
-
 
 ABSTRACT_TYPE(/datum/antagonist/nation/leader)
 /datum/antagonist/nation/leader

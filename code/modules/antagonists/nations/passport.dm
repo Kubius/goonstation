@@ -43,10 +43,6 @@
 	src.add_fingerprint(user)
 	actions.start(new /datum/action/show_item(user, src, "passport", 5, 3), user)
 
-
-
-
-
 /obj/item/passport/un
 	name = "\improper United Nations laissez-passer"
 	desc = "A passport-like document identifying the owner as an agent of the United Nations."
