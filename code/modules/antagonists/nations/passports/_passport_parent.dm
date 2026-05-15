@@ -65,7 +65,7 @@
 
 /obj/item/passport/ui_data(mob/user)
 	. = list(
-		"isLeader" = src.nation_type?.leader == user.mind ? TRUE : FALSE,
+		"isLeader" = src.nation_type?.leader == user.mind ? TRUE : FALSE, // todo: doesn't presently work as src.nation_type is a type path not instance
 		"isOwner" = src.owner == user.mind ? TRUE : FALSE,
 		"nationColor" = src.nation_type?.passport_color,
 		"nationName" = src.nation_type?.name,
@@ -102,4 +102,4 @@
 
 // todo: extract the role type from /datum/antagonist/nation/var/role_type
 /obj/item/passport/proc/get_owner_role_type()
-	. = "N/A"
+	. = ""

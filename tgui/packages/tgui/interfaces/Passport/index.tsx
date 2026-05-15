@@ -10,6 +10,7 @@ import { Button, Stack } from 'tgui-core/components';
 
 import { useBackend } from '../../backend';
 import { Image } from '../../components';
+import { resource } from '../../goonstation/cdn';
 import { Window } from '../../layouts';
 import { PassportData } from './types';
 
@@ -45,11 +46,15 @@ export const Passport = () => {
           </Stack.Item>
           <Stack.Item grow>
             <Stack fill>
-              <Stack.Item align="center" minWidth="40%">
+              <Stack.Item align="center" height="100%">
                 <Image
                   pixelated
-                  src={`data:image/png;base64,${ownerIcon}`}
-                  width="100%"
+                  src={
+                    ownerIcon
+                      ? `data:image/png;base64,${ownerIcon}`
+                      : resource('images/antagTips/unknown-traitor-image.png')
+                  }
+                  height="100%"
                 />
               </Stack.Item>
               <PassportInfobox />
@@ -89,7 +94,7 @@ const PassportInfo = (props: PassportInfoProps) => {
     <Stack.Item>
       <Stack vertical>
         <Stack.Item bold>{header}</Stack.Item>
-        <Stack.Item>{info.toUpperCase()}</Stack.Item>
+        <Stack.Item>{info ? info.toUpperCase() : 'N/A'}</Stack.Item>
       </Stack>
     </Stack.Item>
   );

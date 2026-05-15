@@ -24,7 +24,7 @@
 	if (src.leader)
 		var/datum/mind/old_leader = src.leader
 		logTheThing(LOG_GAMEMODE, src, "removed [key_name(old_leader)] as leader of [src.name]!")
-		src.leader = new_leader
+	src.leader = new_leader
 	src.add_citizen(new_leader)
 	logTheThing(LOG_GAMEMODE, src, "installed [key_name(new_leader)] as leader of [src.name]!")
 
