@@ -59,5 +59,19 @@
 #define ROLE_PIRATE_FIRST_MATE "pirate_first_mate"
 #define ROLE_PIRATE_CAPTAIN "pirate_captain"
 #define ROLE_CONFIRMED_CRIMINAL "confirmed_criminal"
-#define ROLE_NATION_CITIZEN "nation_citizen"
-#define ROLE_NATION_LEADER "nation_leader"
+
+#define ROLE_UN "un"
+#define ROLE_UN_UNDSEC "un_undsec"
+#define ROLE_UN_SECGEN "un_secgen"
+
+#define ROLE_NATION_ENG "nation_eng_citizen"
+#define ROLE_NATION_MED "nation_med_citizen"
+#define ROLE_NATION_SCI "nation_sci_citizen"
+#define ROLE_NATION_SER "nation_ser_citizen"
+#define ROLE_NATION_SUP "nation_sup_citizen"
+
+#define ROLE_NATION_ENG_LEADER "nation_eng_leader"
+#define ROLE_NATION_MED_LEADER "nation_med_leader"
+#define ROLE_NATION_SCI_LEADER "nation_sci_leader"
+#define ROLE_NATION_SER_LEADER "nation_ser_leader"
+#define ROLE_NATION_SUP_LEADER "nation_sup_leader"

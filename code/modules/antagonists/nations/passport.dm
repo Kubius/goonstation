@@ -14,49 +14,67 @@
 	throwforce = 0
 	throw_speed = 3
 	throw_range = 15
-	var/datum/nation/nation = null
+
+	var/datum/nation/nation_type = null
 	var/datum/mind/owner = null
 	var/custom_name = FALSE
 
-/obj/item/passport/New(datum/mind/owner_to_assign, datum/nation/nation_to_assign)
+/obj/item/passport/New(newLoc, datum/mind/owner_to_assign)
 	. = ..()
+
+	if (!src.custom_name && src.nation_type)
+		src.name = "passport ([src.nation_type::name])"
+
 	if (ismind(owner_to_assign))
 		src.owner = owner_to_assign
 		src.owner.passport = src
-	if (istype(nation_to_assign, /datum/nation))
-		src.nation = nation_to_assign
-	src.set_appearance()
+
+		src.name = "[src.owner.current.real_name]’s [src.name]"
+
+/obj/item/passport/disposing()
+	src.owner?.passport = null
+	. = ..()
 
 /obj/item/passport/attack_self(mob/user as mob)
 	if (ON_COOLDOWN(user, "showoff_item", SHOWOFF_COOLDOWN))
 		return
+
 	user.visible_message("[user] shows you [his_or_her(user)] [bicon(src)] [src.name].", "You show off your passport. [bicon(src)]")
 	src.add_fingerprint(user)
 	actions.start(new /datum/action/show_item(user, src, "passport", 5, 3), user)
 
-/obj/item/passport/proc/set_appearance()
-	if (!src.nation)
-		src.name = "passport (STATELESS)"
-		src.icon_state = "passport-stateless"
-		src.ClearAllOverlays()
-		return
-	if (!src.custom_name)
-		src.name = "passport ([src.nation.name])"
-	if (length(src.nation.passport_icon_state) && istext(src.nation.passport_icon_state))
-		src.icon_state = src.nation.passport_icon_state
-		src.ClearAllOverlays()
-		return
-	var/image/cover_image = SafeGetOverlayImage("cover", src.icon, "passport-cover")
-	cover_image.color = src.nation.passport_color
-	src.UpdateOverlays(cover_image, "cover")
-	var/image/symbol_image = SafeGetOverlayImage("symbol", src.icon, src.nation.passport_symbol)
-	src.UpdateOverlays(symbol_image, "symbol")
+
+
+
 
 /obj/item/passport/un
 	name = "\improper United Nations laissez-passer"
 	desc = "A passport-like document identifying the owner as an agent of the United Nations."
 	icon_state = "passport-UN"
+	nation_type = /datum/nation/un
 	custom_name = TRUE
 
-/obj/item/passport/un/set_appearance()
-	return
+/obj/item/passport/engineering
+	icon_state = "passport-engineering"
+	nation_type = /datum/nation/engineering
+
+/obj/item/passport/medical
+	icon_state = "passport-medical"
+	nation_type = /datum/nation/medical
+
+/obj/item/passport/research
+	icon_state = "passport-research"
+	nation_type = /datum/nation/research
+
+/obj/item/passport/service
+	icon_state = "passport-service"
+	nation_type = /datum/nation/service
+
+/obj/item/passport/supply
+	icon_state = "passport-supply"
+	nation_type = /datum/nation/supply
+
+/obj/item/passport/stateless
+	name = "passport (STATELESS)"
+	icon_state = "passport-stateless"
+	custom_name = TRUE

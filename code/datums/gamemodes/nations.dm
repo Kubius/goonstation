@@ -179,14 +179,15 @@ var/list/roundstart_nation_types = list(
 /datum/game_mode/nations/proc/issue_passport(mob/living/carbon/passport_owner, passport_type)
 	if (!iscarbon(passport_owner))
 		return
-	var/obj/item/passport/new_passport
-	if (ispath(passport_type, /obj/item/passport))
-		new_passport = new passport_type(passport_owner.mind, src.get_nation(passport_owner))
-	else
-		new_passport = new /obj/item/passport(passport_owner.mind, src.get_nation(passport_owner))
+
+	passport_type ||= src.get_nation(passport_owner)?.passport_type || /obj/item/passport/stateless
+
+	var/obj/item/passport/new_passport = new passport_type(null, passport_owner.mind)
 	passport_owner.put_in_hand_or_drop(new_passport)
 
 /datum/game_mode/nations/proc/get_nation(mob/living/carbon/target)
+	RETURN_TYPE(/datum/nation)
+
 	. = null
 	if (!iscarbon(target))
 		return

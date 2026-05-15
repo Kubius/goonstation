@@ -1,8 +1,8 @@
 /datum/nation
 	var/name = "\the Independent Station-state of Cargonia"
 
-	var/datum/mind/leader = null
-	var/list/datum/mind/citizens = list()
+	/// The passport type that this nation should use.
+	var/passport_type = /obj/item/passport
 
 	/// List of jobs which provide valid candidates for the nation's leader at roundstart.
 	var/list/leader_jobs = list()
@@ -11,11 +11,8 @@
 	/// List of jobs categories which are assigned regular citizenship to this nation at roundstart. Checked SECOND. See `_std/defines/job.dm`.
 	var/list/citizen_job_categories = list()
 
-	/// `icon_state` for premade passports.
-	var/passport_icon_state = null
-	// Custom passports
-	var/passport_color = "#FF0000"
-	var/passport_symbol = "generic-gold"
+	var/datum/mind/leader = null
+	var/list/datum/mind/citizens = list()
 
 /datum/nation/proc/add_leader(datum/mind/new_leader)
 	if (src.leader == new_leader)
@@ -33,37 +30,47 @@
 	src.citizens += new_citizen
 	logTheThing(LOG_GAMEMODE, src, "assigned [key_name(new_citizen)] to the nation of [src.name]!")
 
+
+
+
+
+/datum/nation/un
+	name = "United Nations"
+	passport_type = /obj/item/passport/un
+	leader_jobs = list(/datum/job/command/captain)
+	citizen_job_categories = list(JOB_SECURITY)
+
 /datum/nation/engineering
 	name = "Engistan"
+	passport_type = /obj/item/passport/engineering
 	leader_jobs = list(/datum/job/command/chief_engineer)
 	citizen_job_categories = list(JOB_ENGINEERING)
-	passport_icon_state = "passport-engineering"
 
 /datum/nation/medical
 	name = "Asclepius"
+	passport_type = /obj/item/passport/medical
 	leader_jobs = list(/datum/job/command/medical_director)
 	citizen_job_categories = list(JOB_MEDICAL)
-	passport_icon_state = "passport-medical"
 
 /datum/nation/research
 	name = "Erudite"
+	passport_type = /obj/item/passport/research
 	leader_jobs = list(/datum/job/command/research_director)
 	citizen_job_categories = list(JOB_RESEARCH)
-	passport_icon_state = "passport-research"
 
 /datum/nation/service
 	name = "\the Grey Horde"
+	passport_type = /obj/item/passport/service
 	leader_jobs = list(/datum/job/command/head_of_personnel)
 	citizen_job_categories = list(
 		JOB_CIVILIAN,
 		JOB_CLOWN,
 	)
-	passport_icon_state = "passport-service"
 
 /datum/nation/supply
 	name = "\the Independent Station-state of Cargonia"
+	passport_type = /obj/item/passport/supply
 	citizen_jobs = list(
 		/datum/job/engineering/miner,
 		/datum/job/engineering/quartermaster,
 	)
-	passport_icon_state = "passport-supply"
