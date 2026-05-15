@@ -30,14 +30,14 @@
 	src.citizens += new_citizen
 	logTheThing(LOG_GAMEMODE, src, "assigned [key_name(new_citizen)] to the nation of [src.name]!")
 
-
-
-
-
 /datum/nation/un
 	name = "United Nations"
 	passport_type = /obj/item/passport/un
 	leader_jobs = list(/datum/job/command/captain)
+	citizen_jobs = list(
+		/datum/job/civilian/AI,
+		/datum/job/civilian/cyborg,
+	)
 	citizen_job_categories = list(JOB_SECURITY)
 
 /datum/nation/engineering
