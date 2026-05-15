@@ -1,10 +1,14 @@
 /datum/nation
-	var/name = "\the Independent Station-state of Cargonia"
+	var/name = ""
+	/// For displaying the short-form on Passports.
+	var/short_name = ""
 
 	/// The passport type that this nation should use.
 	var/passport_type = /obj/item/passport
+	/// For custom-generated passports as well as the UI.
+	var/passport_color = "#1a378d"
 
-	/// List of jobs which provide valid candidates for the nation's leader at roundstart.
+	/// List of jobs which provide the highest priority candidates for the nation's leader at roundstart.
 	var/list/leader_jobs = list()
 	/// List of jobs which are assigned regular citizenship to this nation at roundstart. Checked FIRST. As /datum/job types.
 	var/list/citizen_jobs = list()
@@ -33,34 +37,40 @@
 /datum/nation/un
 	name = "United Nations"
 	passport_type = /obj/item/passport/un
+	passport_color = "#24639a"
 	leader_jobs = list(/datum/job/command/captain)
 	citizen_jobs = list(
 		/datum/job/civilian/AI,
 		/datum/job/civilian/cyborg,
+		/datum/job/command/head_of_security,
 	)
 	citizen_job_categories = list(JOB_SECURITY)
 
 /datum/nation/engineering
 	name = "Engistan"
 	passport_type = /obj/item/passport/engineering
+	passport_color = "#d37610"
 	leader_jobs = list(/datum/job/command/chief_engineer)
 	citizen_job_categories = list(JOB_ENGINEERING)
 
 /datum/nation/medical
 	name = "Asclepius"
 	passport_type = /obj/item/passport/medical
+	passport_color = "#c9294e"
 	leader_jobs = list(/datum/job/command/medical_director)
 	citizen_job_categories = list(JOB_MEDICAL)
 
 /datum/nation/research
 	name = "Erudite"
 	passport_type = /obj/item/passport/research
+	passport_color = "#5a1d8a"
 	leader_jobs = list(/datum/job/command/research_director)
 	citizen_job_categories = list(JOB_RESEARCH)
 
 /datum/nation/service
 	name = "\the Grey Horde"
 	passport_type = /obj/item/passport/service
+	passport_color = "#167935"
 	leader_jobs = list(/datum/job/command/head_of_personnel)
 	citizen_job_categories = list(
 		JOB_CIVILIAN,
@@ -69,7 +79,9 @@
 
 /datum/nation/supply
 	name = "\the Independent Station-state of Cargonia"
+	short_name = "Cargonia"
 	passport_type = /obj/item/passport/supply
+	passport_color = "#4a301b"
 	citizen_jobs = list(
 		/datum/job/engineering/miner,
 		/datum/job/engineering/quartermaster,

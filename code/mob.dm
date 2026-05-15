@@ -3019,6 +3019,8 @@ TYPEINFO(/mob)
 					ID.registered = newname
 					ID.update_name()
 			src.real_name = newname
+			if (src.mind.passport)
+				src.mind.passport.set_owner_name()
 			src.UpdateName()
 			return 1
 		else

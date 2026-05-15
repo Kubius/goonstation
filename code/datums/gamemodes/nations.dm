@@ -1,7 +1,6 @@
 /*
 	TO DO:
-	* guarantee leaders for each nation if a player is assigned to it
-	* manual assignment of players to a nation
+	* issue passports to everybody, including non-antags
  */
 
 /// Initially populated with the default nation types.
@@ -22,21 +21,6 @@ var/list/roundstart_nation_types = list(
 
 	var/list/datum/nation/nations = list()
 
-	var/list/datum/mind/UN_personnel = list()
-
-	/// List of jobs assigned to the UN at roundstart. Checked FIRST. As /datum/job types.
-	var/list/UN_jobs = list(
-		/datum/job/civilian/AI,
-		/datum/job/civilian/cyborg,
-		/datum/job/command/captain,
-		/datum/job/command/head_of_security,
-	)
-	/// List of jobs categories assigned to the UN at roundstart. Checked SECOND. See `_std/defines/job.dm`.
-	var/list/UN_job_categories = list(
-		JOB_SECURITY,
-		JOB_NANOTRASEN,
-	)
-
 /datum/game_mode/nations/announce()
 	boutput(world, "<B>The current game mode is - Nations!</B>")
 	boutput(world, "<B>Guide your nation's destiny among the stars!</B>")
@@ -48,81 +32,58 @@ var/list/roundstart_nation_types = list(
 		message_admins("Nations gamemode is being started without the Nations map! Careful!")
 
 /datum/game_mode/nations/post_setup()
-	var/list/datum/mind/candidates = list()
-	for (var/datum/mind/candidate_mind)
-		candidates += candidate_mind
+	var/list/datum/mind/client_minds = list()
+	for (var/client/client)
+		client_minds += client?.mob.mind
 
 	for (var/nation_type in roundstart_nation_types)
 		var/datum/nation/new_nation = new nation_type()
 		src.nations += new_nation
 
-	candidates = src.populate_UN(candidates)
-	candidates = src.populate_nations(candidates)
+	client_minds = src.populate_nations(client_minds)
 
 	var/list/nation_populations = list()
 	for (var/datum/nation/nation in src.nations)
 		if (!length(nation.citizens))
 			continue
+		if (!nation.leader)
+			nation.add_leader(pick(nation.citizens))
 		nation_populations += "[nation.name] ([length(nation.citizens)])"
 	if (length(nation_populations))
 		logTheThing(LOG_GAMEMODE, src, "set up the following nations: [english_list(nation_populations)]")
 		message_admins("Nations: Set up the following nations: [english_list(nation_populations)]")
-	if (length(src.UN_personnel))
-		logTheThing(LOG_GAMEMODE, src, "assigned [length(src.UN_personnel)] to the UN.")
-		message_admins("Nations: Assigned [length(src.UN_personnel)] to the UN.")
 
-	if (length(candidates))
-		var/list/remaining_candidates = list()
-		for (var/datum/mind/candidate in candidates)
-			remaining_candidates += "[key_name(candidate)]"
-		logTheThing(LOG_GAMEMODE, src, "has a non-empty list of candidates (length: [length(candidates)]) after assigning UN and nations roles \
-			([english_list(remaining_candidates)])!")
-		message_admins("Nations: A non-empty list of candidates (length: [length(candidates)]) was left after assigning UN and nations roles!")
-
-	// todo: check if all nations have leaders
+	if (length(client_minds))
+		var/list/remaining_client_minds = list()
+		for (var/datum/mind/candidate in client_minds)
+			remaining_client_minds += "[key_name(candidate)]"
+		logTheThing(LOG_GAMEMODE, src, "has rendered [length(client_minds)] players ([english_list(remaining_client_minds)]) stateless!")
+		message_admins("Nations: rendered [length(client_minds)] players stateless!")
 
 /datum/game_mode/nations/send_intercept(badguy_list)
 	return
 
-/datum/game_mode/nations/proc/populate_UN(list/datum/mind/candidates)
-	logTheThing(LOG_GAMEMODE, src, "attempting to populate the UN.")
-	message_admins("Nations: Attempting to populate the UN.")
-	if (!length(candidates))
-		logTheThing(LOG_GAMEMODE, src, "was unable to populate the UN as no valid candidates were found!")
-		message_admins("Nations: Unable to populate the UN as no valid candidates were found!")
-		return
-	for (var/datum/mind/candidate_mind in candidates)
-		if (!src.assign_to_UN(candidate_mind))
-			continue
-		candidates -= candidate_mind
-		if (iscarbon(candidate_mind.current))
-			src.issue_passport(candidate_mind.current, /obj/item/passport/un)
-	return candidates
-
-/datum/game_mode/nations/proc/populate_nations(list/datum/mind/candidates)
+/datum/game_mode/nations/proc/populate_nations(list/datum/mind/client_minds)
 	logTheThing(LOG_GAMEMODE, src, "attempting to populate each nation.")
 	message_admins("Nations: Attempting to populate each nation.")
 	if (!length(src.nations))
 		logTheThing(LOG_GAMEMODE, src, "was unable to populate the nations as they don't seem to exist! Aborting!")
 		message_admins("Nations: Unable to populate the nations as they don't seem to exist! Aborting!")
 		return
-	if (!length(candidates))
+	if (!length(client_minds))
 		logTheThing(LOG_GAMEMODE, src, "was unable to populate the nations as no valid candidates were found!")
 		message_admins("Nations: Unable to populate the nations as no valid candidates were found!")
 		return
-	shuffle_list(candidates)
-	for (var/datum/mind/candidate_mind in candidates)
+	shuffle_list(client_minds)
+	for (var/datum/mind/candidate_mind in client_minds)
 		if (!src.assign_to_a_nation(candidate_mind))
 			continue
 		if (!iscarbon(candidate_mind.current))
 			continue
-		var/mob/living/carbon/candidate_mob = candidate_mind.current
-		candidates -= candidate_mind
-		if (iscarbon(candidate_mind.current))
-			src.issue_passport(candidate_mob)
-	return candidates
+		client_minds -= candidate_mind
+	return client_minds
 
-/datum/game_mode/nations/proc/assign_to_UN(datum/mind/candidate_mind, datum/job/candidate_job)
+/datum/game_mode/nations/proc/assign_to_a_nation(datum/mind/candidate_mind, candidate_job)
 	. = TRUE
 	if (!ismind(candidate_mind))
 		return FALSE
@@ -130,28 +91,7 @@ var/list/roundstart_nation_types = list(
 	if (istype(candidate_job, /datum/job))
 		mind_job = candidate_job
 	else
-		mind_job = find_job_in_controller_by_string(candidate_mind.current.job)
-	var/success = FALSE
-	if (mind_job.type in src.UN_jobs)
-		UN_personnel += candidate_mind
-		success = TRUE
-	if (mind_job.job_category in src.UN_job_categories)
-		UN_personnel += candidate_mind
-		success = TRUE
-	if (success)
-		logTheThing(LOG_GAMEMODE, src, "assigned [key_name(candidate_mind)] to the UN!")
-		return
-	. = FALSE
-
-/datum/game_mode/nations/proc/assign_to_a_nation(datum/mind/candidate_mind, datum/job/candidate_job)
-	. = TRUE
-	if (!ismind(candidate_mind))
-		return FALSE
-	var/datum/job/mind_job
-	if (istype(candidate_job, /datum/job))
-		mind_job = candidate_job
-	else
-		mind_job = find_job_in_controller_by_string(candidate_mind.current.job)
+		mind_job = find_job_in_controller_by_string(candidate_mind.assigned_role)
 	for (var/datum/nation/nation in src.nations)
 		if ((mind_job.type in nation.leader_jobs) && !nation.leader)
 			nation.add_leader(candidate_mind.current.mind)
@@ -165,25 +105,10 @@ var/list/roundstart_nation_types = list(
 	. = FALSE
 
 /datum/game_mode/nations/proc/handle_latejoin(datum/mind/new_mind, datum/job/new_mind_job)
-	if (src.assign_to_UN(new_mind, new_mind_job))
-		if (iscarbon(new_mind.current))
-			src.issue_passport(new_mind.current, /obj/item/passport/un)
-		return
 	if (src.assign_to_a_nation(new_mind, new_mind_job))
-		if (iscarbon(new_mind.current))
-			src.issue_passport(new_mind.current)
 		return
 	logTheThing(LOG_GAMEMODE, new_mind.current, "attempted to latejoin and was not assigned to the UN or any nation!")
 	message_admins("Nations: [key_name(new_mind)] attempted to latejoin and was not assigned to the UN or any nation!")
-
-/datum/game_mode/nations/proc/issue_passport(mob/living/carbon/passport_owner, passport_type)
-	if (!iscarbon(passport_owner))
-		return
-
-	passport_type ||= src.get_nation(passport_owner)?.passport_type || /obj/item/passport/stateless
-
-	var/obj/item/passport/new_passport = new passport_type(null, passport_owner.mind)
-	passport_owner.put_in_hand_or_drop(new_passport)
 
 /datum/game_mode/nations/proc/get_nation(mob/living/carbon/target)
 	RETURN_TYPE(/datum/nation)
