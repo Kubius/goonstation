@@ -1,7 +1,8 @@
 /datum/map_settings/nations
-	name = "Orbital Platform Geneva"
+	name = "Nations"
+	display_name = "Orbital Platform Geneva"
 	default_gamemode = "nations"
-	// goonhub_map = "/maps/nations"
+	goonhub_map = "/maps/nations"
 	walls = /turf/simulated/wall/auto/supernorn
 	rwalls = /turf/simulated/wall/auto/reinforced/supernorn
 	style = "station"
