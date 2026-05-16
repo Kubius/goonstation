@@ -8487,7 +8487,8 @@
 /area/station/medical/crematorium)
 "dYB" = (
 /obj/machinery/door/airlock/pyro/medical/alt{
-	dir = 4
+	dir = 4;
+	id = "general_assembly"
 	},
 /obj/mapping_helper/button/area,
 /obj/mapping_helper/airlock/bolter,
@@ -12489,7 +12490,8 @@
 	})
 "fJX" = (
 /obj/machinery/door/airlock/pyro/mining{
-	dir = 4
+	dir = 4;
+	id = "general_assembly"
 	},
 /obj/mapping_helper/button/area,
 /obj/mapping_helper/airlock/bolter,
@@ -23524,7 +23526,8 @@
 /area/station/medical/medbay)
 "ksO" = (
 /obj/machinery/door/airlock/pyro/toxins_alt{
-	dir = 4
+	dir = 4;
+	id = "general_assembly"
 	},
 /obj/mapping_helper/button/area,
 /obj/mapping_helper/airlock/bolter,
@@ -28568,6 +28571,12 @@
 /obj/table/nanotrasen/auto,
 /obj/item/device/microphone{
 	pixel_y = 4
+	},
+/obj/machinery/door_control/bolter{
+	pixel_x = 7;
+	id = "general_assembly";
+	name = "General Assembly Door Bolt Control";
+	pixel_y = 8
 	},
 /turf/simulated/floor/carpet/red/fancy/edge/south,
 /area/station/bridge/united_command{
@@ -46380,7 +46389,8 @@
 /area/station/hangar/qm)
 "uPr" = (
 /obj/machinery/door/airlock/pyro/medical/alt2{
-	dir = 4
+	dir = 4;
+	id = "general_assembly"
 	},
 /obj/mapping_helper/button/area,
 /obj/mapping_helper/airlock/bolter,
@@ -49898,7 +49908,8 @@
 /area/station/mining/refinery)
 "wyY" = (
 /obj/machinery/door/airlock/pyro/sci_alt{
-	dir = 4
+	dir = 4;
+	id = "general_assembly"
 	},
 /obj/mapping_helper/button/area,
 /obj/mapping_helper/airlock/bolter,
