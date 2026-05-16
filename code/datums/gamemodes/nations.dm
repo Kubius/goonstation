@@ -107,6 +107,12 @@ var/list/roundstart_nation_types = list(
 	. = FALSE
 
 /datum/game_mode/nations/proc/handle_latejoin(datum/mind/new_mind, datum/job/new_mind_job)
+	var/turf/spawn_turf = pick_landmark(LANDMARK_LATEJOIN, locate(1, 1, 1))
+	var/obj/cryotron/latejoin_cryotron = locate(/obj/cryotron) in spawn_turf
+	if (istype(latejoin_cryotron, /obj/cryotron))
+		latejoin_cryotron.add_person_to_queue(new_mind.current, new_mind_job)
+	else
+		new_mind.current?.set_loc(spawn_turf)
 	if (src.assign_to_a_nation(new_mind, new_mind_job))
 		return
 	logTheThing(LOG_GAMEMODE, new_mind.current, "attempted to latejoin and was not assigned to the UN or any nation!")
