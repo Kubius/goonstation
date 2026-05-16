@@ -1577,6 +1577,29 @@ datum/commodity/drugs/sell/poppies
 	desc = "Roam as a Gnome with this giant-sized gnome costume."
 	price = PAY_UNTRAINED
 
+//alternate clown uniforms
+/datum/commodity/costume/clown
+	onmarket = 0
+	price = 100 //the money that a clown starts with
+	comname = "Clown Equipment"
+	comtype = /obj/item/storage/box/costume/clown/commodity
+
+/datum/commodity/costume/clown/blue
+	comname = "Blue Clown Equipment"
+	comtype = /obj/item/storage/box/costume/clown/blue
+
+/datum/commodity/costume/clown/purple
+	comname = "Purple Clown Equipment"
+	comtype = /obj/item/storage/box/costume/clown/purple
+
+/datum/commodity/costume/clown/pink
+	comname = "Pink Clown Equipment"
+	comtype = /obj/item/storage/box/costume/clown/pink
+
+/datum/commodity/costume/clown/blue
+	comname = "Yellow Clown Equipment"
+	comtype = /obj/item/storage/box/costume/clown/yellow
+
 /datum/commodity/backpack/breadpack
 	comname = "Bag-uette"
 	comtype = /obj/item/storage/backpack/breadpack

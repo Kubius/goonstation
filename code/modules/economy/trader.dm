@@ -1156,6 +1156,13 @@ ABSTRACT_TYPE(/obj/npc/trader/robot/robuddy)
 		/////////////////////////////////////////////////////////
 		//// sell list //////////////////////////////////////////
 		/////////////////////////////////////////////////////////
+#ifdef MAP_OVERRIDE_NATIONS
+		src.goods_sell += new /datum/commodity/costume/clown(src)
+		src.goods_sell += new /datum/commodity/costume/clown/blue(src)
+		src.goods_sell += new /datum/commodity/costume/clown/purple(src)
+		src.goods_sell += new /datum/commodity/costume/clown/pink(src)
+		src.goods_sell += new /datum/commodity/costume/clown/yellow(src)
+#endif
 		src.goods_sell += new /datum/commodity/costume/bee(src)
 		src.goods_sell += new /datum/commodity/costume/monkey(src)
 		src.goods_sell += new /datum/commodity/costume/robuddy(src)

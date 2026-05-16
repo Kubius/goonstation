@@ -10,6 +10,7 @@ var/list/roundstart_nation_types = list(
 	/datum/nation/research,
 	/datum/nation/service,
 	/datum/nation/supply,
+	/datum/nation/clown,
 )
 
 /datum/game_mode/nations

@@ -274,6 +274,11 @@
 	req_access = list(access_engineering_chief)
 	color = ENGINEERING
 
+/obj/mapping_helper/access/clown
+	name = "clown access spawn"
+	req_access = list(access_clown)
+	color = RESEARCH
+
 //////////// Other ////
 /obj/mapping_helper/access/centcom
 	name = "centcom access spawn"

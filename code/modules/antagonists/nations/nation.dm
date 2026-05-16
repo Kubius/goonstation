@@ -74,7 +74,6 @@
 	leader_jobs = list(/datum/job/command/head_of_personnel)
 	citizen_job_categories = list(
 		JOB_CIVILIAN,
-		JOB_CLOWN,
 	)
 
 /datum/nation/supply
@@ -85,4 +84,15 @@
 	citizen_jobs = list(
 		/datum/job/engineering/miner,
 		/datum/job/engineering/quartermaster,
+	)
+
+/datum/nation/clown
+	name = "\the Circus"
+	passport_type = /obj/item/passport/clown
+	passport_color = "#d73715"
+	citizen_jobs = list(
+		/datum/job/civilian/clown,
+	)
+	citizen_job_categories = list(
+		JOB_CLOWN,
 	)

@@ -293,6 +293,54 @@
 		/obj/item/device/pda2/clown,
 	)
 
+/obj/item/storage/box/costume/clown/commodity
+	spawn_contents = list(/obj/item/clothing/mask/clown_hat,
+	/obj/item/clothing/under/misc/clown,
+	/obj/item/clothing/shoes/clown_shoes,
+	/obj/item/storage/fanny/funny,
+	/obj/item/device/radio/headset/clown,
+	/obj/item/device/pda2/clown)
+
+/obj/item/storage/box/costume/clown/blue
+	name = "blue clown costume"
+	color = "#6868f3"
+	spawn_contents = list(/obj/item/clothing/mask/clown_hat/blue,
+	/obj/item/clothing/under/misc/clown/blue,
+	/obj/item/clothing/shoes/clown_shoes/blue,
+	/obj/item/storage/fanny/funny/blue,
+	/obj/item/device/radio/headset/clown/blue,
+	/obj/item/device/pda2/clown/blue)
+
+/obj/item/storage/box/costume/clown/purple
+	name = "purple clown costume"
+	color = "#9445dd"
+	spawn_contents = list(/obj/item/clothing/mask/clown_hat/purple,
+	/obj/item/clothing/under/misc/clown/purple,
+	/obj/item/clothing/shoes/clown_shoes/purple,
+	/obj/item/storage/fanny/funny/purple,
+	/obj/item/device/radio/headset/clown/purple,
+	/obj/item/device/pda2/clown/purple)
+
+/obj/item/storage/box/costume/clown/pink
+	name = "pink clown costume"
+	color = "#db5aca"
+	spawn_contents = list(/obj/item/clothing/mask/clown_hat/pink,
+	/obj/item/clothing/under/misc/clown/pink,
+	/obj/item/clothing/shoes/clown_shoes/pink,
+	/obj/item/storage/fanny/funny/pink,
+	/obj/item/device/radio/headset/clown/pink,
+	/obj/item/device/pda2/clown/pink)
+
+/obj/item/storage/box/costume/clown/yellow
+	name = "yellow clown costume"
+	color = "#fae050"
+	spawn_contents = list(/obj/item/clothing/mask/clown_hat/yellow,
+	/obj/item/clothing/under/misc/clown/yellow,
+	/obj/item/clothing/shoes/clown_shoes/yellow,
+	/obj/item/storage/fanny/funny/yellow,
+	/obj/item/device/radio/headset/clown/yellow,
+	/obj/item/device/pda2/clown)
+
 /obj/item/storage/box/costume/mime
 	name = "mime costume"
 	icon_state = "mime"

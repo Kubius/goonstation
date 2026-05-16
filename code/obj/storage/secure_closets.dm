@@ -1108,3 +1108,24 @@
 	reinforced = TRUE
 	icon_state = "nanotrasen"
 	icon_closed = "nanotrasen"
+
+// The cluwnes lied, the ringmaster DOES run the circus, HONK!
+/obj/storage/secure/closet/command/ringmaster
+	name = "Ringmaster Locker"
+	req_access = list(access_clown)
+	icon_state = "ringmaster"
+	icon_closed = "ringmaster"
+	spawn_contents = list(/obj/item/clothing/under/misc/clown/fancy,
+	/obj/item/clothing/shoes/swat/heavy/clown,
+	/obj/item/clothing/head/fancy/rank,
+	/obj/item/device/radio_upgrade/station/command,
+	/obj/item/storage/toolbox/artistic,
+	/obj/item/storage/box/balloonbox,
+	/obj/item/instrument/bikehorn/blue)
+
+	make_my_stuff()
+		if (..()) // make_my_stuff is called multiple times due to lazy init, so the parent returns 1 if it actually fired and 0 if it already has
+			var/obj/item/clothing/shoes/swat/heavy/clown/clown_boots = locate() in src
+			clown_boots?.emag_act() //make them honk
+			return 1
+

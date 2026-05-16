@@ -25,6 +25,10 @@
 	icon_state = "passport-supply"
 	nation_type = /datum/nation/supply
 
+/obj/item/passport/clown
+	icon_state = "passport-clown"
+	nation_type = /datum/nation/clown
+
 /obj/item/passport/stateless
 	name = "passport (STATELESS)"
 	icon_state = "passport-stateless"
