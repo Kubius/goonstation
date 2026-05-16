@@ -224,9 +224,7 @@
 	pixel_x = -10
 	},
 /turf/simulated/floor/mauxite,
-/area/pod_wars/spacejunk/fstation/primary{
-	name = "Kuiper Dock One"
-	})
+/area/nations_neutral/shipwright/bay1)
 "afp" = (
 /obj/stool/chair,
 /obj/machinery/light{
@@ -281,10 +279,12 @@
 	dir = 4;
 	pixel_x = -32
 	},
+/obj/machinery/light/small{
+	dir = 1;
+	pixel_y = 21
+	},
 /turf/simulated/floor/industrial,
-/area/pod_wars/spacejunk/fstation{
-	name = "Kuiper Shipwright"
-	})
+/area/nations_neutral/shipwright)
 "agf" = (
 /obj/machinery/door/airlock/pyro/medical/alt2{
 	dir = 4
@@ -327,9 +327,7 @@
 	name = "Some Form of Owl Radar"
 	},
 /turf/simulated/floor/grass/leafy,
-/area/spacehabitat{
-	name = "Forster's Rock"
-	})
+/area/nations_neutral/hoot)
 "ahD" = (
 /obj/stool/bed,
 /obj/machinery/door_control/bolter/new_walls/east,
@@ -340,10 +338,9 @@
 	dir = 4;
 	pixel_x = -32
 	},
+/obj/machinery/light/small,
 /turf/simulated/floor/industrial,
-/area/pod_wars/spacejunk/fstation{
-	name = "Kuiper Shipwright"
-	})
+/area/nations_neutral/shipwright)
 "ahQ" = (
 /obj/table/reinforced/industrial/auto,
 /obj/item/clothing/gloves/yellow{
@@ -372,9 +369,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/mauxite,
-/area/pod_wars/spacejunk/fstation/maintdock{
-	name = "Kuiper Dock Two"
-	})
+/area/nations_neutral/shipwright/bay2)
 "aiL" = (
 /obj/machinery/portable_atmospherics/canister/sleeping_agent,
 /obj/decal/mule/beacon/no_auto_dropoff_spawn,
@@ -638,9 +633,7 @@
 /turf/simulated/floor/stairs/dark{
 	dir = 1
 	},
-/area/pod_wars/spacejunk/fstation/maintdock{
-	name = "Kuiper Dock Two"
-	})
+/area/nations_neutral/shipwright/bay2)
 "aqM" = (
 /obj/machinery/activation_button/driver_button{
 	desc = "An emergency ejection button.  Maybe some antique gizmo turns out to be an active bomb or something.  Maybe you want it away from you then.";
@@ -1165,9 +1158,7 @@
 "aAW" = (
 /obj/mapping_helper/wingrille_spawn/auto/reinforced,
 /turf/simulated/floor/plating,
-/area/pod_wars/spacejunk/fstation/maintdock{
-	name = "Kuiper Dock Two"
-	})
+/area/nations_neutral/shipwright/bay2)
 "aAX" = (
 /obj/cable{
 	icon_state = "4-8"
@@ -1677,9 +1668,7 @@
 "aQS" = (
 /obj/mapping_helper/wingrille_spawn/auto/reinforced,
 /turf/simulated/floor/plating,
-/area/pod_wars/spacejunk/fstation/mess{
-	name = "Kuiper Mess Hall"
-	})
+/area/nations_neutral/shipwright/messhall)
 "aQU" = (
 /obj/stool/chair/couch{
 	dir = 4
@@ -1799,9 +1788,7 @@
 /area/station/medical/medbay/psychiatrist)
 "aUx" = (
 /turf/simulated/floor/shuttlebay,
-/area/pod_wars/spacejunk/fstation/primary{
-	name = "Kuiper Dock One"
-	})
+/area/nations_neutral/shipwright/bay1)
 "aUC" = (
 /obj/decal/tile_edge/line/yellow{
 	dir = 8;
@@ -1817,9 +1804,7 @@
 	icon_state = "1-4"
 	},
 /turf/simulated/floor/minitiles,
-/area/pod_wars/spacejunk/fstation/power{
-	name = "Kuiper Systems Station"
-	})
+/area/nations_neutral/shipwright/systems)
 "aUM" = (
 /obj/table/reinforced/auto,
 /obj/machinery/networked/printer{
@@ -2163,9 +2148,7 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/industrial,
-/area/pod_wars/spacejunk/fstation{
-	name = "Kuiper Shipwright"
-	})
+/area/nations_neutral/shipwright)
 "aZE" = (
 /obj/storage/crate/freezer{
 	anchored = 1
@@ -2434,9 +2417,7 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/minitiles,
-/area/pod_wars/spacejunk/fstation/mess{
-	name = "Kuiper Mess Hall"
-	})
+/area/nations_neutral/shipwright/messhall)
 "bfb" = (
 /turf/simulated/floor,
 /area/station/hallway/primary/northwest)
@@ -2931,9 +2912,7 @@
 	icon_state = "line1"
 	},
 /turf/simulated/floor/minitiles,
-/area/pod_wars/spacejunk/fstation/command{
-	name = "Kuiper Administration"
-	})
+/area/nations_neutral/shipwright/command)
 "btk" = (
 /obj/stool/chair/office/yellow{
 	dir = 4
@@ -3030,9 +3009,7 @@
 /obj/table/auto,
 /obj/machinery/recharger,
 /turf/simulated/floor/caution/south,
-/area/spacehabitat{
-	name = "Forster's Rock"
-	})
+/area/nations_neutral/hoot)
 "bwe" = (
 /obj/cable{
 	icon_state = "1-2"
@@ -3160,9 +3137,7 @@
 	},
 /obj/machinery/drainage,
 /turf/simulated/floor/minitiles/white,
-/area/pod_wars/spacejunk/fstation/mess{
-	name = "Kuiper Mess Hall"
-	})
+/area/nations_neutral/shipwright/messhall)
 "bxD" = (
 /obj/cable{
 	icon_state = "2-4"
@@ -3357,16 +3332,12 @@
 /obj/rack,
 /obj/item/clothing/mask/breath,
 /turf/simulated/floor/industrial,
-/area/pod_wars/spacejunk/fstation/primary{
-	name = "Kuiper Dock One"
-	})
+/area/nations_neutral/shipwright/bay1)
 "bCi" = (
 /turf/simulated/floor/engine/vacuum{
 	icon_state = "engine_caution_we"
 	},
-/area/spacehabitat{
-	name = "Forster's Rock"
-	})
+/area/nations_neutral/hoot)
 "bCu" = (
 /turf/simulated/floor/orangeblack/side{
 	dir = 1
@@ -3476,18 +3447,14 @@
 /turf/simulated/floor/plating/airless/shuttlebay{
 	name = "landing pad plating"
 	},
-/area/pod_wars/spacejunk/fstation{
-	name = "Kuiper Shipwright"
-	})
+/area/nations_neutral/shipwright)
 "bER" = (
 /turf/simulated/floor/engine/caution/north,
 /area/station/hangar/medical)
 "bFg" = (
 /obj/mapping_helper/wingrille_spawn/auto/reinforced,
 /turf/simulated/floor/plating,
-/area/pod_wars/spacejunk/fstation/medbay{
-	name = "Kuiper Medical Bay"
-	})
+/area/nations_neutral/shipwright/medbooth)
 "bFm" = (
 /obj/storage/secure/crate/plasma/armory/anti_biological,
 /obj/decal/mule/beacon/no_auto_dropoff_spawn,
@@ -3730,9 +3697,7 @@
 "bJV" = (
 /obj/landmark/random_room/size3x3,
 /turf/simulated/floor/plating,
-/area/pod_wars/spacejunk/fstation/primary{
-	name = "Kuiper Dock One"
-	})
+/area/nations_neutral/shipwright/bay1)
 "bKc" = (
 /obj/table/reinforced/auto,
 /obj/item/gobowl/b{
@@ -4004,9 +3969,7 @@
 /turf/simulated/floor/shuttlebay{
 	icon_state = "engine_caution_south"
 	},
-/area/pod_wars/spacejunk/fstation/maintdock{
-	name = "Kuiper Dock Two"
-	})
+/area/nations_neutral/shipwright/bay2)
 "bQj" = (
 /obj/cable{
 	icon_state = "1-2"
@@ -4024,9 +3987,7 @@
 	free_resources = null
 	},
 /turf/simulated/floor/mauxite,
-/area/pod_wars/spacejunk/fstation/primary{
-	name = "Kuiper Dock One"
-	})
+/area/nations_neutral/shipwright/bay1)
 "bRm" = (
 /obj/reagent_dispensers/watertank/fountain,
 /turf/simulated/floor/minitiles/black,
@@ -4041,9 +4002,7 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/minitiles,
-/area/pod_wars/spacejunk/fstation/mess{
-	name = "Kuiper Mess Hall"
-	})
+/area/nations_neutral/shipwright/messhall)
 "bRM" = (
 /obj/cable{
 	icon_state = "0-2"
@@ -4269,9 +4228,7 @@
 /obj/table/reinforced/auto,
 /obj/machinery/mixer,
 /turf/simulated/floor/minitiles/white,
-/area/pod_wars/spacejunk/fstation/mess{
-	name = "Kuiper Mess Hall"
-	})
+/area/nations_neutral/shipwright/messhall)
 "bYk" = (
 /obj/stool/bed,
 /obj/item/clothing/suit/bedsheet{
@@ -4311,9 +4268,7 @@
 "bYK" = (
 /obj/machinery/door/airlock/pyro/classic,
 /turf/simulated/floor/industrial,
-/area/pod_wars/spacejunk/fstation/primary{
-	name = "Kuiper Dock One"
-	})
+/area/nations_neutral/shipwright/bay1)
 "bZm" = (
 /obj/player_piano,
 /obj/machinery/light{
@@ -4444,9 +4399,7 @@
 	cell_type = 15000
 	},
 /turf/simulated/floor/grey,
-/area/spacehabitat{
-	name = "Forster's Rock"
-	})
+/area/nations_neutral/hoot)
 "ccO" = (
 /obj/machinery/manufacturer/hangar,
 /obj/machinery/firealarm/directional/east{
@@ -4609,9 +4562,7 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/shuttlebay,
-/area/pod_wars/spacejunk/fstation/power{
-	name = "Kuiper Systems Station"
-	})
+/area/nations_neutral/shipwright/systems)
 "chp" = (
 /obj/nations_control_point_computer,
 /turf/simulated/floor/wood,
@@ -4721,9 +4672,7 @@
 	icon_state = "2-8"
 	},
 /turf/simulated/floor/mauxite,
-/area/pod_wars/spacejunk/fstation/primary{
-	name = "Kuiper Dock One"
-	})
+/area/nations_neutral/shipwright/bay1)
 "cjF" = (
 /obj/machinery/conveyor/NS{
 	id = "front_qmio"
@@ -5410,9 +5359,7 @@
 "cAR" = (
 /obj/shrub,
 /turf/simulated/floor/grass/leafy,
-/area/spacehabitat{
-	name = "Forster's Rock"
-	})
+/area/nations_neutral/hoot)
 "cAT" = (
 /obj/cable{
 	icon_state = "2-4"
@@ -5552,9 +5499,7 @@
 "cFT" = (
 /obj/storage/closet/welding_supply,
 /turf/simulated/floor/grey,
-/area/spacehabitat{
-	name = "Forster's Rock"
-	})
+/area/nations_neutral/hoot)
 "cGk" = (
 /obj/stool/chair/boxingrope_corner{
 	dir = 5
@@ -5632,6 +5577,11 @@
 "cHT" = (
 /turf/simulated/wall/auto/reinforced/supernorn/colored/green,
 /area/station/janitor/office)
+"cIi" = (
+/obj/mapping_helper/wingrille_spawn/auto/reinforced,
+/obj/random_item_spawner/junk/one_or_zero,
+/turf/simulated/floor/plating,
+/area/nations_neutral/shipwright)
 "cIu" = (
 /obj/machinery/light/small,
 /turf/simulated/floor/engine/caution/south,
@@ -6267,9 +6217,7 @@
 "cUO" = (
 /obj/storage/closet/radiation,
 /turf/simulated/floor/industrial,
-/area/pod_wars/spacejunk/fstation{
-	name = "Kuiper Shipwright"
-	})
+/area/nations_neutral/shipwright)
 "cVj" = (
 /obj/mapping_helper/wingrille_spawn/auto/reinforced/crystal,
 /obj/cable{
@@ -6356,9 +6304,7 @@
 	icon_state = "0-8"
 	},
 /turf/simulated/floor/minitiles,
-/area/pod_wars/spacejunk/fstation/power{
-	name = "Kuiper Systems Station"
-	})
+/area/nations_neutral/shipwright/systems)
 "cXn" = (
 /obj/machinery/door/airlock/pyro/engineering,
 /obj/mapping_helper/access/engineering_mechanic,
@@ -6639,9 +6585,7 @@
 	},
 /obj/machinery/light,
 /turf/simulated/floor/mauxite,
-/area/pod_wars/spacejunk/fstation/primary{
-	name = "Kuiper Dock One"
-	})
+/area/nations_neutral/shipwright/bay1)
 "dco" = (
 /obj/rack,
 /obj/item/storage/toolbox/emergency,
@@ -6675,9 +6619,7 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/industrial,
-/area/pod_wars/spacejunk/fstation{
-	name = "Kuiper Shipwright"
-	})
+/area/nations_neutral/shipwright)
 "ddD" = (
 /obj/machinery/power/apc/autoname_west,
 /obj/cable{
@@ -6708,9 +6650,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/mauxite,
-/area/pod_wars/spacejunk/fstation/primary{
-	name = "Kuiper Dock One"
-	})
+/area/nations_neutral/shipwright/bay1)
 "deV" = (
 /obj/stool/chair/couch{
 	dir = 4
@@ -6778,9 +6718,7 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/black/grime,
-/area/pod_wars/spacejunk/fstation/observatory{
-	name = "Kuiper Hardware Bay"
-	})
+/area/nations_neutral/shipwright/hardware)
 "dgH" = (
 /obj/machinery/recharger/wall/sticky{
 	dir = 8;
@@ -6997,9 +6935,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/grey,
-/area/spacehabitat{
-	name = "Forster's Rock"
-	})
+/area/nations_neutral/hoot)
 "dma" = (
 /obj/cable{
 	icon_state = "4-8"
@@ -7051,9 +6987,7 @@
 	dir = 8
 	},
 /turf/simulated/wall/auto/jen/brown,
-/area/pod_wars/spacejunk/fstation/primary{
-	name = "Kuiper Dock One"
-	})
+/area/nations_neutral/shipwright/bay1)
 "dof" = (
 /obj/rack,
 /obj/item/clothing/suit/space/emerg,
@@ -7210,9 +7144,7 @@
 	icon_state = "2-4"
 	},
 /turf/simulated/floor/industrial,
-/area/pod_wars/spacejunk/fstation{
-	name = "Kuiper Shipwright"
-	})
+/area/nations_neutral/shipwright)
 "dru" = (
 /obj/table/reinforced/auto,
 /obj/machinery/door/airlock/pyro/glass/windoor{
@@ -7283,9 +7215,7 @@
 	},
 /obj/cable/yellow,
 /turf/simulated/floor/airless/plating/catwalk/auto,
-/area/spacehabitat{
-	name = "Forster's Rock"
-	})
+/area/nations_neutral/hoot)
 "duf" = (
 /obj/stool/chair/comfy/purple{
 	dir = 8
@@ -7428,9 +7358,7 @@
 	icon_state = "2-4"
 	},
 /turf/simulated/floor/industrial,
-/area/pod_wars/spacejunk/fstation/maintdock{
-	name = "Kuiper Dock Two"
-	})
+/area/nations_neutral/shipwright/bay2)
 "dwS" = (
 /obj/cable{
 	icon_state = "1-8"
@@ -7635,9 +7563,7 @@
 "dBo" = (
 /obj/landmark/random_room/size3x3,
 /turf/simulated/floor/plating,
-/area/pod_wars/spacejunk/fstation/maintdock{
-	name = "Kuiper Dock Two"
-	})
+/area/nations_neutral/shipwright/bay2)
 "dBK" = (
 /obj/cable{
 	icon_state = "1-2"
@@ -7689,9 +7615,7 @@
 "dCt" = (
 /obj/mesh/catwalk,
 /turf/simulated/floor/airless/plating/catwalk/auto,
-/area/pod_wars/spacejunk/fstation{
-	name = "Kuiper Shipwright"
-	})
+/area/nations_neutral/shipwright)
 "dCK" = (
 /obj/cable{
 	icon_state = "4-8"
@@ -7819,9 +7743,7 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/airless/plating/catwalk/auto,
-/area/spacehabitat{
-	name = "Forster's Rock"
-	})
+/area/nations_neutral/hoot)
 "dGV" = (
 /obj/cabinet/psychiatry,
 /turf/simulated/floor/black,
@@ -8087,9 +8009,7 @@
 	})
 "dMv" = (
 /turf/simulated/floor/caution/east,
-/area/spacehabitat{
-	name = "Forster's Rock"
-	})
+/area/nations_neutral/hoot)
 "dMy" = (
 /obj/cable{
 	icon_state = "4-8"
@@ -8412,9 +8332,7 @@
 	pixel_x = -12
 	},
 /turf/simulated/floor/industrial,
-/area/pod_wars/spacejunk/fstation{
-	name = "Kuiper Shipwright"
-	})
+/area/nations_neutral/shipwright)
 "dWc" = (
 /obj/stool/chair{
 	dir = 8
@@ -8535,9 +8453,7 @@
 	icon_state = "0-4"
 	},
 /turf/simulated/floor/airless/plating/catwalk/auto,
-/area/spacehabitat{
-	name = "Forster's Rock"
-	})
+/area/nations_neutral/hoot)
 "dYW" = (
 /obj/machinery/weapon_stand/rifle_rack/recharger,
 /obj/machinery/power/apc/autoname_west/noaicontrol{
@@ -8784,9 +8700,7 @@
 /area/station/hallway/primary/northwest)
 "eeq" = (
 /turf/simulated/wall/auto/jen/brown,
-/area/pod_wars/spacejunk/fstation/mess{
-	name = "Kuiper Mess Hall"
-	})
+/area/nations_neutral/shipwright/messhall)
 "eer" = (
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
 	dir = 9
@@ -9002,9 +8916,7 @@
 	icon_state = "0-8"
 	},
 /turf/simulated/floor/caution/north,
-/area/spacehabitat{
-	name = "Forster's Rock"
-	})
+/area/nations_neutral/hoot)
 "eiH" = (
 /obj/machinery/drainage,
 /turf/simulated/floor/sanitary,
@@ -9168,9 +9080,7 @@
 /obj/mesh/catwalk,
 /obj/machinery/light/small,
 /turf/simulated/floor/airless/plating/catwalk/auto,
-/area/spacehabitat{
-	name = "Forster's Rock"
-	})
+/area/nations_neutral/hoot)
 "elP" = (
 /obj/item/storage/toilet/goldentoilet{
 	dir = 8
@@ -9236,9 +9146,7 @@
 "enR" = (
 /obj/mesh/catwalk,
 /turf/simulated/floor/airless/plating/catwalk/auto,
-/area/pod_wars/spacejunk/fstation/primary{
-	name = "Kuiper Dock One"
-	})
+/area/nations_neutral/shipwright/bay1)
 "eof" = (
 /obj/cable{
 	icon_state = "1-2"
@@ -9387,9 +9295,7 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/industrial,
-/area/pod_wars/spacejunk/fstation/primary{
-	name = "Kuiper Dock One"
-	})
+/area/nations_neutral/shipwright/bay1)
 "eqH" = (
 /obj/disposalpipe/segment/vertical,
 /turf/simulated/floor/purple/side{
@@ -9409,9 +9315,7 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/mauxite,
-/area/pod_wars/spacejunk/fstation/maintdock{
-	name = "Kuiper Dock Two"
-	})
+/area/nations_neutral/shipwright/bay2)
 "erw" = (
 /obj/table/reinforced/auto,
 /obj/item/storage/firstaid/brute,
@@ -9787,9 +9691,7 @@
 	icon_state = "1-4"
 	},
 /turf/simulated/floor/minitiles/white,
-/area/pod_wars/spacejunk/fstation/medbay{
-	name = "Kuiper Medical Bay"
-	})
+/area/nations_neutral/shipwright/medbooth)
 "ezc" = (
 /obj/machinery/light/small/floor,
 /turf/simulated/floor,
@@ -9985,9 +9887,7 @@
 /turf/simulated/floor/engine/vacuum{
 	icon_state = "engine_caution_ns"
 	},
-/area/spacehabitat{
-	name = "Forster's Rock"
-	})
+/area/nations_neutral/hoot)
 "eEm" = (
 /obj/cable{
 	icon_state = "1-2"
@@ -10127,9 +10027,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/minitiles/white,
-/area/pod_wars/spacejunk/fstation/mess{
-	name = "Kuiper Mess Hall"
-	})
+/area/nations_neutral/shipwright/messhall)
 "eHw" = (
 /obj/mapping_helper/wingrille_spawn/auto/reinforced/crystal,
 /turf/simulated/floor/plating,
@@ -10489,9 +10387,7 @@
 	dir = 9
 	},
 /turf/simulated/floor/grass/leafy,
-/area/spacehabitat{
-	name = "Forster's Rock"
-	})
+/area/nations_neutral/hoot)
 "eRV" = (
 /obj/machinery/door/airlock/pyro/external{
 	dir = 8
@@ -10576,9 +10472,7 @@
 /area/station/security/brig/minibrig2)
 "eUs" = (
 /turf/simulated/wall/auto/jen/brown,
-/area/pod_wars/spacejunk/fstation/primary{
-	name = "Kuiper Dock One"
-	})
+/area/nations_neutral/shipwright/bay1)
 "eUz" = (
 /obj/machinery/door/airlock/pyro/external,
 /obj/cable{
@@ -10588,9 +10482,7 @@
 	dir = 10
 	},
 /turf/simulated/floor/industrial,
-/area/pod_wars/spacejunk/fstation/maintdock{
-	name = "Kuiper Dock Two"
-	})
+/area/nations_neutral/shipwright/bay2)
 "eUW" = (
 /obj/lattice{
 	icon_state = "lattice-dir"
@@ -10991,9 +10883,7 @@
 	icon_state = "2-8"
 	},
 /turf/simulated/floor/industrial,
-/area/pod_wars/spacejunk/fstation{
-	name = "Kuiper Shipwright"
-	})
+/area/nations_neutral/shipwright)
 "feG" = (
 /obj/cable{
 	icon_state = "1-8"
@@ -11033,9 +10923,7 @@
 	start_charge = 0
 	},
 /turf/simulated/floor/sanitary,
-/area/pod_wars/spacejunk/fstation/crewquarters{
-	name = "Kuiper Personnel Systems"
-	})
+/area/nations_neutral/shipwright/systems)
 "fft" = (
 /obj/cable{
 	icon_state = "1-2"
@@ -11117,9 +11005,7 @@
 	pixel_x = -10
 	},
 /turf/simulated/floor/minitiles/white,
-/area/pod_wars/spacejunk/fstation/mess{
-	name = "Kuiper Mess Hall"
-	})
+/area/nations_neutral/shipwright/messhall)
 "fgZ" = (
 /obj/cable{
 	icon_state = "4-9"
@@ -11170,9 +11056,7 @@
 "fiH" = (
 /obj/machinery/computer/arcade,
 /turf/simulated/floor/minitiles,
-/area/pod_wars/spacejunk/fstation/mess{
-	name = "Kuiper Mess Hall"
-	})
+/area/nations_neutral/shipwright/messhall)
 "fiS" = (
 /obj/storage/closet/emergency,
 /turf/simulated/floor/plating,
@@ -11434,10 +11318,12 @@
 /obj/cable{
 	icon_state = "2-8"
 	},
+/obj/machinery/light/small{
+	dir = 4;
+	pixel_x = 12
+	},
 /turf/simulated/floor/industrial,
-/area/pod_wars/spacejunk/fstation/primary{
-	name = "Kuiper Dock One"
-	})
+/area/nations_neutral/shipwright/bay1)
 "fop" = (
 /turf/simulated/wall/auto/supernorn/colored/purple,
 /area/station/storage/auxillary{
@@ -11449,18 +11335,15 @@
 	pixel_x = 5
 	},
 /obj/machinery/vending/medical_public,
-/obj/machinery/light{
-	dir = 4;
-	layer = 9.1;
-	pixel_x = 10
-	},
 /obj/machinery/light_switch/north{
 	pixel_x = -7
 	},
+/obj/item/storage/wall/medical{
+	dir = 8;
+	pixel_x = 32
+	},
 /turf/simulated/floor/minitiles/white,
-/area/pod_wars/spacejunk/fstation/medbay{
-	name = "Kuiper Medical Bay"
-	})
+/area/nations_neutral/shipwright/medbooth)
 "foN" = (
 /obj/machinery/door/airlock/pyro/glass/engineering{
 	dir = 4
@@ -11764,10 +11647,12 @@
 	pixel_x = -32;
 	pixel_y = 0
 	},
+/obj/machinery/light/small{
+	dir = 1;
+	pixel_y = 21
+	},
 /turf/simulated/floor/industrial,
-/area/pod_wars/spacejunk/fstation{
-	name = "Kuiper Shipwright"
-	})
+/area/nations_neutral/shipwright)
 "fwX" = (
 /obj/machinery/portable_atmospherics/canister/oxygen,
 /turf/simulated/floor/darkblueblack{
@@ -11846,9 +11731,7 @@
 /obj/table/auto,
 /obj/random_item_spawner/tools/two,
 /turf/simulated/floor/caution/south,
-/area/spacehabitat{
-	name = "Forster's Rock"
-	})
+/area/nations_neutral/hoot)
 "fyS" = (
 /obj/machinery/door/airlock/pyro/command/alt{
 	dir = 4
@@ -12101,9 +11984,7 @@
 	icon_state = "2-4"
 	},
 /turf/simulated/floor/minitiles,
-/area/pod_wars/spacejunk/fstation/command{
-	name = "Kuiper Administration"
-	})
+/area/nations_neutral/shipwright/command)
 "fCr" = (
 /obj/machinery/sink/slim{
 	dir = 8;
@@ -12711,9 +12592,7 @@
 /obj/random_item_spawner/tools/one,
 /obj/random_item_spawner/junk/few,
 /turf/simulated/floor/industrial,
-/area/pod_wars/spacejunk/fstation/maintdock{
-	name = "Kuiper Dock Two"
-	})
+/area/nations_neutral/shipwright/bay2)
 "fOt" = (
 /obj/disposalpipe/segment/vertical,
 /turf/simulated/floor/black,
@@ -12723,9 +12602,7 @@
 "fOW" = (
 /obj/machinery/vending/kitchen,
 /turf/simulated/floor/minitiles/white,
-/area/pod_wars/spacejunk/fstation/mess{
-	name = "Kuiper Mess Hall"
-	})
+/area/nations_neutral/shipwright/messhall)
 "fPd" = (
 /obj/table/auto,
 /obj/item/paper_bin,
@@ -13141,9 +13018,7 @@
 "fYG" = (
 /obj/machinery/macrofab/emergency_pod,
 /turf/simulated/floor/shuttlebay,
-/area/spacehabitat{
-	name = "Forster's Rock"
-	})
+/area/nations_neutral/hoot)
 "fYI" = (
 /obj/cable{
 	icon_state = "6-9"
@@ -13344,9 +13219,7 @@
 /obj/table/reinforced/industrial/auto,
 /obj/random_item_spawner/tools/one,
 /turf/simulated/floor/black/grime,
-/area/pod_wars/spacejunk/fstation/observatory{
-	name = "Kuiper Hardware Bay"
-	})
+/area/nations_neutral/shipwright/hardware)
 "gdG" = (
 /turf/simulated/floor/blueblack{
 	dir = 1
@@ -13490,9 +13363,7 @@
 /obj/machinery/door/airlock/pyro/external,
 /obj/mapping_helper/airlock/cycler/auto/queen,
 /turf/simulated/floor/industrial,
-/area/pod_wars/spacejunk/fstation{
-	name = "Kuiper Shipwright"
-	})
+/area/nations_neutral/shipwright)
 "ggN" = (
 /obj/machinery/computer3/generic/med_data{
 	dir = 8
@@ -13553,9 +13424,7 @@
 	})
 "ghe" = (
 /turf/simulated/floor/industrial,
-/area/pod_wars/spacejunk/fstation/maintdock{
-	name = "Kuiper Dock Two"
-	})
+/area/nations_neutral/shipwright/bay2)
 "ghf" = (
 /obj/cable{
 	icon_state = "2-8"
@@ -13564,9 +13433,7 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/industrial,
-/area/pod_wars/spacejunk/fstation{
-	name = "Kuiper Shipwright"
-	})
+/area/nations_neutral/shipwright)
 "ght" = (
 /obj/machinery/door/airlock/pyro/glass,
 /obj/cable{
@@ -13707,9 +13574,7 @@
 /obj/table/reinforced/auto,
 /obj/machinery/cell_charger,
 /turf/simulated/floor/minitiles,
-/area/pod_wars/spacejunk/fstation/power{
-	name = "Kuiper Systems Station"
-	})
+/area/nations_neutral/shipwright/systems)
 "gkr" = (
 /obj/shrub{
 	dir = 4;
@@ -13951,9 +13816,7 @@
 	})
 "gnW" = (
 /turf/simulated/floor/plating,
-/area/pod_wars/spacejunk/fstation/maintdock{
-	name = "Kuiper Dock Two"
-	})
+/area/nations_neutral/shipwright/bay2)
 "gob" = (
 /obj/disposalpipe/segment/horizontal,
 /turf/simulated/floor/carpet/purple/fancy/edge/east,
@@ -14019,9 +13882,7 @@
 	dir = 5
 	},
 /turf/simulated/floor/industrial,
-/area/pod_wars/spacejunk/fstation/power{
-	name = "Kuiper Systems Station"
-	})
+/area/nations_neutral/shipwright/systems)
 "gpg" = (
 /obj/machinery/light/small/floor,
 /obj/machinery/plantpot{
@@ -14195,9 +14056,7 @@
 	})
 "gtN" = (
 /turf/simulated/wall/auto/jen/brown,
-/area/pod_wars/spacejunk/fstation/medbay{
-	name = "Kuiper Medical Bay"
-	})
+/area/nations_neutral/shipwright/medbooth)
 "gtO" = (
 /turf/simulated/floor/bluewhite,
 /area/station/hallway/secondary/west{
@@ -14249,9 +14108,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/industrial,
-/area/pod_wars/spacejunk/fstation/primary{
-	name = "Kuiper Dock One"
-	})
+/area/nations_neutral/shipwright/bay1)
 "gvB" = (
 /obj/cable{
 	icon_state = "4-10"
@@ -14763,9 +14620,7 @@
 	},
 /obj/machinery/door_control/bolter/new_walls/east,
 /turf/simulated/floor/sanitary,
-/area/pod_wars/spacejunk/fstation/crewquarters{
-	name = "Kuiper Personnel Systems"
-	})
+/area/nations_neutral/shipwright/systems)
 "gFf" = (
 /obj/cable{
 	icon_state = "4-8"
@@ -14803,9 +14658,7 @@
 	icon_state = "0-8"
 	},
 /turf/simulated/floor/industrial,
-/area/pod_wars/spacejunk/fstation/maintdock{
-	name = "Kuiper Dock Two"
-	})
+/area/nations_neutral/shipwright/bay2)
 "gGi" = (
 /obj/cable{
 	icon_state = "4-8"
@@ -14993,9 +14846,7 @@
 "gKr" = (
 /obj/random_item_spawner/junk/one_or_zero,
 /turf/simulated/floor/industrial,
-/area/pod_wars/spacejunk/fstation/primary{
-	name = "Kuiper Dock One"
-	})
+/area/nations_neutral/shipwright/bay1)
 "gKA" = (
 /obj/machinery/mass_driver{
 	desc = "A device that launches objects, like ANCIENT BOMBS, for example, on it at great velocity when activated.";
@@ -15282,9 +15133,7 @@
 	icon_state = "1-8"
 	},
 /turf/simulated/floor/minitiles,
-/area/pod_wars/spacejunk/fstation/command{
-	name = "Kuiper Administration"
-	})
+/area/nations_neutral/shipwright/command)
 "gQg" = (
 /obj/machinery/atmospherics/unary/vent,
 /obj/lattice{
@@ -15531,9 +15380,7 @@
 	},
 /obj/random_item_spawner/junk/one_or_zero,
 /turf/simulated/floor/mauxite,
-/area/pod_wars/spacejunk/fstation/primary{
-	name = "Kuiper Dock One"
-	})
+/area/nations_neutral/shipwright/bay1)
 "gYk" = (
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
 	dir = 9
@@ -15591,9 +15438,7 @@
 	})
 "gZV" = (
 /turf/simulated/floor/minitiles,
-/area/pod_wars/spacejunk/fstation/mess{
-	name = "Kuiper Mess Hall"
-	})
+/area/nations_neutral/shipwright/messhall)
 "hak" = (
 /obj/cable{
 	icon_state = "4-10"
@@ -15838,9 +15683,7 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/industrial,
-/area/pod_wars/spacejunk/fstation{
-	name = "Kuiper Shipwright"
-	})
+/area/nations_neutral/shipwright)
 "heX" = (
 /obj/machinery/power/apc/autoname_west,
 /obj/cable{
@@ -16073,9 +15916,7 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/mauxite,
-/area/pod_wars/spacejunk/fstation/maintdock{
-	name = "Kuiper Dock Two"
-	})
+/area/nations_neutral/shipwright/bay2)
 "hlq" = (
 /obj/stool/bench/auto,
 /turf/simulated/floor/darkblue,
@@ -16183,9 +16024,7 @@
 	dir = 6
 	},
 /turf/simulated/floor/industrial,
-/area/pod_wars/spacejunk/fstation/primary{
-	name = "Kuiper Dock One"
-	})
+/area/nations_neutral/shipwright/bay1)
 "hod" = (
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
 	dir = 9
@@ -16472,11 +16311,6 @@
 	dir = 1
 	},
 /area/station/science/hall)
-"huK" = (
-/turf/simulated/wall/auto/jen/brown,
-/area/pod_wars/spacejunk/fstation/crewquarters{
-	name = "Kuiper Personnel Systems"
-	})
 "huO" = (
 /turf/simulated/floor/wood,
 /area/station/engine/engineering/ce)
@@ -16583,9 +16417,7 @@
 	icon_state = "1-8"
 	},
 /turf/simulated/floor/mauxite,
-/area/pod_wars/spacejunk/fstation/maintdock{
-	name = "Kuiper Dock Two"
-	})
+/area/nations_neutral/shipwright/bay2)
 "hyN" = (
 /turf/simulated/floor/grey,
 /area/station/storage/emergency2{
@@ -16700,9 +16532,7 @@
 /obj/table/auto,
 /obj/random_item_spawner/tableware/some,
 /turf/simulated/floor/minitiles,
-/area/pod_wars/spacejunk/fstation/mess{
-	name = "Kuiper Mess Hall"
-	})
+/area/nations_neutral/shipwright/messhall)
 "hBr" = (
 /obj/machinery/atmospherics/pipe/manifold{
 	dir = 8
@@ -16729,9 +16559,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/grass/leafy,
-/area/spacehabitat{
-	name = "Forster's Rock"
-	})
+/area/nations_neutral/hoot)
 "hBP" = (
 /obj/stool/chair{
 	dir = 8
@@ -16810,9 +16638,7 @@
 	icon_state = "0-8"
 	},
 /turf/simulated/floor/industrial,
-/area/pod_wars/spacejunk/fstation{
-	name = "Kuiper Shipwright"
-	})
+/area/nations_neutral/shipwright)
 "hEG" = (
 /obj/machinery/camera/directional/south,
 /turf/simulated/floor/blueblack,
@@ -16838,9 +16664,7 @@
 	pixel_x = -12
 	},
 /turf/simulated/floor/black/grime,
-/area/pod_wars/spacejunk/fstation/observatory{
-	name = "Kuiper Hardware Bay"
-	})
+/area/nations_neutral/shipwright/hardware)
 "hEX" = (
 /obj/marker/supplymarker,
 /turf/simulated/floor/carpet/arcade,
@@ -17065,9 +16889,7 @@
 	},
 /obj/machinery/power/data_terminal,
 /turf/simulated/floor/minitiles,
-/area/pod_wars/spacejunk/fstation/command{
-	name = "Kuiper Administration"
-	})
+/area/nations_neutral/shipwright/command)
 "hJj" = (
 /obj/machinery/vending/air_vendor/plasma,
 /turf/simulated/floor/blueblack,
@@ -17435,9 +17257,7 @@
 /obj/mapping_helper/button/area,
 /obj/mapping_helper/airlock/bolter,
 /turf/simulated/floor/caution/northsouth,
-/area/pod_wars/spacejunk/fstation/primary{
-	name = "Kuiper Dock One"
-	})
+/area/nations_neutral/shipwright/bay1)
 "hPu" = (
 /obj/table/reinforced/auto,
 /obj/item/shipcomponent/sensor/mining{
@@ -17506,9 +17326,7 @@
 	icon_state = "1-4"
 	},
 /turf/simulated/floor/minitiles,
-/area/pod_wars/spacejunk/fstation/power{
-	name = "Kuiper Systems Station"
-	})
+/area/nations_neutral/shipwright/systems)
 "hQh" = (
 /turf/simulated/wall/auto/reinforced/supernorn,
 /area/station/security/secwing)
@@ -17587,9 +17405,7 @@
 	pixel_x = -8
 	},
 /turf/simulated/wall/auto/jen/brown,
-/area/pod_wars/spacejunk/fstation/maintdock{
-	name = "Kuiper Dock Two"
-	})
+/area/nations_neutral/shipwright/bay2)
 "hTq" = (
 /obj/storage/crate/bloody,
 /obj/item/reagent_containers/glass/bottle/ammonia/large,
@@ -17664,9 +17480,7 @@
 	powerlevel = 1
 	},
 /turf/simulated/floor/industrial,
-/area/pod_wars/spacejunk/fstation{
-	name = "Kuiper Shipwright"
-	})
+/area/nations_neutral/shipwright)
 "hUc" = (
 /obj/machinery/genetics_booth,
 /turf/simulated/floor/bluewhite,
@@ -17772,9 +17586,7 @@
 /obj/machinery/optable,
 /obj/machinery/drainage,
 /turf/simulated/floor/minitiles/white,
-/area/pod_wars/spacejunk/fstation/medbay{
-	name = "Kuiper Medical Bay"
-	})
+/area/nations_neutral/shipwright/medbooth)
 "hXH" = (
 /obj/machinery/light{
 	dir = 8;
@@ -17784,9 +17596,7 @@
 /turf/simulated/floor/caution/corner/misc{
 	dir = 10
 	},
-/area/spacehabitat{
-	name = "Forster's Rock"
-	})
+/area/nations_neutral/hoot)
 "hXU" = (
 /obj/stool/chair/purple,
 /turf/simulated/floor/purple/side{
@@ -17800,9 +17610,7 @@
 	name = "Owl Good Things"
 	},
 /turf/simulated/floor/grass/leafy,
-/area/spacehabitat{
-	name = "Forster's Rock"
-	})
+/area/nations_neutral/hoot)
 "hYz" = (
 /obj/cable{
 	icon_state = "1-4"
@@ -17851,9 +17659,7 @@
 /turf/simulated/floor/stairs/dark{
 	dir = 1
 	},
-/area/pod_wars/spacejunk/fstation/maintdock{
-	name = "Kuiper Dock Two"
-	})
+/area/nations_neutral/shipwright/bay2)
 "hZG" = (
 /turf/simulated/floor/engine/caution/corner2{
 	dir = 6
@@ -17895,9 +17701,7 @@
 	pixel_y = 20
 	},
 /turf/simulated/floor/sanitary,
-/area/pod_wars/spacejunk/fstation/crewquarters{
-	name = "Kuiper Personnel Systems"
-	})
+/area/nations_neutral/shipwright/systems)
 "iaQ" = (
 /obj/disposalpipe/segment/brig,
 /turf/simulated/floor/black,
@@ -17950,9 +17754,7 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/stairs/dark,
-/area/pod_wars/spacejunk/fstation/primary{
-	name = "Kuiper Dock One"
-	})
+/area/nations_neutral/shipwright/bay1)
 "icr" = (
 /obj/mapping_helper/wingrille_spawn/auto/reinforced/crystal,
 /obj/machinery/door/poddoor/pyro/shutters{
@@ -18205,9 +18007,7 @@
 	},
 /obj/machinery/drainage,
 /turf/simulated/floor/sanitary,
-/area/pod_wars/spacejunk/fstation/crewquarters{
-	name = "Kuiper Personnel Systems"
-	})
+/area/nations_neutral/shipwright/systems)
 "ihV" = (
 /obj/decal/tile_edge/stripe/extra_big,
 /obj/decal/tile_edge/floorguide/catering{
@@ -18564,9 +18364,7 @@
 	dir = 6
 	},
 /turf/simulated/floor/grass/leafy,
-/area/spacehabitat{
-	name = "Forster's Rock"
-	})
+/area/nations_neutral/hoot)
 "inr" = (
 /obj/mapping_helper/wingrille_spawn/auto/reinforced,
 /turf/simulated/floor/plating,
@@ -18634,9 +18432,7 @@
 	icon_state = "1-8"
 	},
 /turf/simulated/floor/industrial,
-/area/pod_wars/spacejunk/fstation{
-	name = "Kuiper Shipwright"
-	})
+/area/nations_neutral/shipwright)
 "ipE" = (
 /obj/cable{
 	icon_state = "1-2"
@@ -18833,9 +18629,7 @@
 	icon_state = "4-9"
 	},
 /turf/simulated/floor/industrial,
-/area/pod_wars/spacejunk/fstation/maintdock{
-	name = "Kuiper Dock Two"
-	})
+/area/nations_neutral/shipwright/bay2)
 "iug" = (
 /obj/machinery/light/small,
 /turf/simulated/floor/sanitary,
@@ -19350,9 +19144,7 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/minitiles,
-/area/pod_wars/spacejunk/fstation/power{
-	name = "Kuiper Systems Station"
-	})
+/area/nations_neutral/shipwright/systems)
 "iEy" = (
 /obj/table/reinforced/auto,
 /obj/item/paper_bin{
@@ -19632,9 +19424,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/grey,
-/area/spacehabitat{
-	name = "Forster's Rock"
-	})
+/area/nations_neutral/hoot)
 "iLa" = (
 /obj/item/storage/toilet{
 	dir = 8
@@ -19901,9 +19691,7 @@
 	pixel_x = -10
 	},
 /turf/simulated/floor/mauxite,
-/area/pod_wars/spacejunk/fstation/maintdock{
-	name = "Kuiper Dock Two"
-	})
+/area/nations_neutral/shipwright/bay2)
 "iQn" = (
 /obj/cable/orange,
 /obj/machinery/computer/power_monitor/smes,
@@ -19966,9 +19754,7 @@
 	pixel_y = 21
 	},
 /turf/simulated/floor/mauxite,
-/area/pod_wars/spacejunk/fstation/maintdock{
-	name = "Kuiper Dock Two"
-	})
+/area/nations_neutral/shipwright/bay2)
 "iRQ" = (
 /obj/machinery/camera/television{
 	c_tag = "test chamber";
@@ -19997,9 +19783,7 @@
 /turf/simulated/floor/plating/airless/shuttlebay{
 	name = "landing pad plating"
 	},
-/area/pod_wars/spacejunk/fstation{
-	name = "Kuiper Shipwright"
-	})
+/area/nations_neutral/shipwright)
 "iSs" = (
 /obj/machinery/light{
 	dir = 8;
@@ -20300,9 +20084,7 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/industrial,
-/area/pod_wars/spacejunk/fstation/maintdock{
-	name = "Kuiper Dock Two"
-	})
+/area/nations_neutral/shipwright/bay2)
 "jao" = (
 /obj/decal/tile_edge/stripe/extra_big{
 	dir = 8
@@ -20413,9 +20195,7 @@
 	pixel_y = 21
 	},
 /turf/simulated/floor/mauxite,
-/area/pod_wars/spacejunk/fstation/maintdock{
-	name = "Kuiper Dock Two"
-	})
+/area/nations_neutral/shipwright/bay2)
 "jcV" = (
 /obj/disposalpipe/segment/produce{
 	dir = 8;
@@ -20603,9 +20383,7 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/minitiles,
-/area/pod_wars/spacejunk/fstation/power{
-	name = "Kuiper Systems Station"
-	})
+/area/nations_neutral/shipwright/systems)
 "jja" = (
 /obj/cable{
 	icon_state = "1-2"
@@ -20881,9 +20659,7 @@
 /area/station/mining/refinery)
 "jpb" = (
 /turf/simulated/floor/black/grime,
-/area/pod_wars/spacejunk/fstation/observatory{
-	name = "Kuiper Hardware Bay"
-	})
+/area/nations_neutral/shipwright/hardware)
 "jpi" = (
 /obj/decal/tile_edge/floorguide/engineering{
 	dir = 1
@@ -20912,9 +20688,7 @@
 "jpF" = (
 /obj/machinery/light_switch/north,
 /turf/simulated/floor/industrial,
-/area/pod_wars/spacejunk/fstation{
-	name = "Kuiper Shipwright"
-	})
+/area/nations_neutral/shipwright)
 "jpI" = (
 /turf/simulated/floor/industrial,
 /area/station/bridge)
@@ -20998,9 +20772,7 @@
 /turf/simulated/floor/plating/airless/shuttlebay{
 	name = "landing pad plating"
 	},
-/area/pod_wars/spacejunk/fstation{
-	name = "Kuiper Shipwright"
-	})
+/area/nations_neutral/shipwright)
 "jro" = (
 /obj/machinery/light/emergency,
 /turf/simulated/floor/purple,
@@ -21067,9 +20839,7 @@
 	icon_state = "2-8"
 	},
 /turf/simulated/floor/minitiles,
-/area/pod_wars/spacejunk/fstation/command{
-	name = "Kuiper Administration"
-	})
+/area/nations_neutral/shipwright/command)
 "jss" = (
 /turf/simulated/wall/auto/supernorn,
 /area/station/medical/crematorium)
@@ -21132,9 +20902,7 @@
 "jtF" = (
 /obj/random_item_spawner/junk/one_or_zero,
 /turf/simulated/floor/industrial,
-/area/pod_wars/spacejunk/fstation{
-	name = "Kuiper Shipwright"
-	})
+/area/nations_neutral/shipwright)
 "jtG" = (
 /turf/simulated/floor/darkblue/side{
 	dir = 4
@@ -21153,9 +20921,7 @@
 	pixel_y = 6
 	},
 /turf/simulated/floor/minitiles,
-/area/pod_wars/spacejunk/fstation/command{
-	name = "Kuiper Administration"
-	})
+/area/nations_neutral/shipwright/command)
 "juE" = (
 /obj/machinery/sink/slim{
 	pixel_y = 16
@@ -21338,9 +21104,7 @@
 	},
 /obj/reagent_dispensers/fueltank,
 /turf/simulated/floor/industrial,
-/area/pod_wars/spacejunk/fstation{
-	name = "Kuiper Shipwright"
-	})
+/area/nations_neutral/shipwright)
 "jxY" = (
 /obj/random_item_spawner/junk/one_or_zero,
 /obj/machinery/light/small{
@@ -21348,9 +21112,7 @@
 	pixel_x = 12
 	},
 /turf/simulated/floor/industrial,
-/area/pod_wars/spacejunk/fstation/primary{
-	name = "Kuiper Dock One"
-	})
+/area/nations_neutral/shipwright/bay1)
 "jyi" = (
 /obj/machinery/door/unpowered/wood/pyro{
 	dir = 1
@@ -21467,15 +21229,8 @@
 /obj/item/suture,
 /obj/item/scissors/surgical_scissors,
 /obj/item/surgical_spoon,
-/obj/machinery/light{
-	dir = 8;
-	layer = 9.1;
-	pixel_x = -10
-	},
 /turf/simulated/floor/minitiles/white,
-/area/pod_wars/spacejunk/fstation/medbay{
-	name = "Kuiper Medical Bay"
-	})
+/area/nations_neutral/shipwright/medbooth)
 "jAl" = (
 /turf/simulated/floor/black,
 /area/station/engine/elect)
@@ -21709,9 +21464,7 @@
 /turf/simulated/floor/shuttlebay{
 	icon_state = "engine_caution_west"
 	},
-/area/pod_wars/spacejunk/fstation/power{
-	name = "Kuiper Systems Station"
-	})
+/area/nations_neutral/shipwright/systems)
 "jED" = (
 /obj/machinery/conveyor/EW{
 	id = "acceptornot"
@@ -21891,9 +21644,7 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/black/grime,
-/area/pod_wars/spacejunk/fstation/observatory{
-	name = "Kuiper Hardware Bay"
-	})
+/area/nations_neutral/shipwright/hardware)
 "jIi" = (
 /obj/machinery/computer3/generic/med_data,
 /turf/simulated/floor/bluewhite{
@@ -21930,9 +21681,7 @@
 "jIM" = (
 /obj/mesh/catwalk,
 /turf/simulated/floor/airless/plating/catwalk/auto,
-/area/pod_wars/spacejunk/fstation/power{
-	name = "Kuiper Systems Station"
-	})
+/area/nations_neutral/shipwright/systems)
 "jIS" = (
 /obj/cable{
 	icon_state = "1-2"
@@ -21985,9 +21734,7 @@
 /area/station/bridge)
 "jKH" = (
 /turf/simulated/floor/minitiles/white,
-/area/pod_wars/spacejunk/fstation/mess{
-	name = "Kuiper Mess Hall"
-	})
+/area/nations_neutral/shipwright/messhall)
 "jKY" = (
 /obj/stool/bed,
 /obj/machinery/door_control/bolter/new_walls/west,
@@ -22024,9 +21771,7 @@
 "jLC" = (
 /obj/stool,
 /turf/simulated/floor/minitiles,
-/area/pod_wars/spacejunk/fstation/mess{
-	name = "Kuiper Mess Hall"
-	})
+/area/nations_neutral/shipwright/messhall)
 "jLM" = (
 /obj/airbridge_controller{
 	id = "international_eng";
@@ -22206,9 +21951,7 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/minitiles/white,
-/area/pod_wars/spacejunk/fstation/mess{
-	name = "Kuiper Mess Hall"
-	})
+/area/nations_neutral/shipwright/messhall)
 "jQe" = (
 /obj/disposalpipe/segment/brig,
 /turf/simulated/floor/black/grime,
@@ -22232,9 +21975,7 @@
 /obj/table/reinforced/auto,
 /obj/machinery/microwave,
 /turf/simulated/floor/minitiles/white,
-/area/pod_wars/spacejunk/fstation/mess{
-	name = "Kuiper Mess Hall"
-	})
+/area/nations_neutral/shipwright/messhall)
 "jQV" = (
 /obj/cable{
 	icon_state = "4-8"
@@ -22257,9 +21998,7 @@
 	pixel_x = 10
 	},
 /turf/simulated/floor/shuttlebay,
-/area/spacehabitat{
-	name = "Forster's Rock"
-	})
+/area/nations_neutral/hoot)
 "jRd" = (
 /obj/disposalpipe/segment/horizontal,
 /turf/simulated/floor/specialroom/arcade,
@@ -22775,9 +22514,7 @@
 /area/station/hallway/primary/east)
 "jYO" = (
 /turf/simulated/floor/plating,
-/area/pod_wars/spacejunk/fstation{
-	name = "Kuiper Shipwright"
-	})
+/area/nations_neutral/shipwright)
 "jYQ" = (
 /obj/cable{
 	icon_state = "4-8"
@@ -22999,9 +22736,7 @@
 	name = "Owlacious Crumb"
 	},
 /turf/simulated/floor/grass/leafy,
-/area/spacehabitat{
-	name = "Forster's Rock"
-	})
+/area/nations_neutral/hoot)
 "kea" = (
 /obj/machinery/genetics_scanner,
 /turf/simulated/floor/blue/checker,
@@ -23270,9 +23005,7 @@
 	pixel_y = 8
 	},
 /turf/simulated/floor/caution/south,
-/area/spacehabitat{
-	name = "Forster's Rock"
-	})
+/area/nations_neutral/hoot)
 "klp" = (
 /obj/disposalpipe/segment/brig,
 /obj/cable{
@@ -23350,14 +23083,8 @@
 	icon_state = "1-2"
 	},
 /obj/random_item_spawner/junk/one_or_zero,
-/obj/machinery/light/small{
-	dir = 4;
-	pixel_x = 12
-	},
 /turf/simulated/floor/industrial,
-/area/pod_wars/spacejunk/fstation/maintdock{
-	name = "Kuiper Dock Two"
-	})
+/area/nations_neutral/shipwright/bay2)
 "kni" = (
 /obj/cable{
 	icon_state = "4-8"
@@ -23524,9 +23251,7 @@
 	},
 /obj/machinery/light_switch/east,
 /turf/simulated/floor/black/grime,
-/area/pod_wars/spacejunk/fstation/observatory{
-	name = "Kuiper Hardware Bay"
-	})
+/area/nations_neutral/shipwright/hardware)
 "kqS" = (
 /obj/machinery/vending/capsule,
 /turf/simulated/floor/bluewhite{
@@ -23583,9 +23308,7 @@
 "ksv" = (
 /obj/landmark/random_room/size3x5,
 /turf/simulated/floor/plating,
-/area/pod_wars/spacejunk/fstation{
-	name = "Kuiper Shipwright"
-	})
+/area/nations_neutral/shipwright)
 "ksA" = (
 /obj/shrub{
 	dir = 6
@@ -23807,9 +23530,7 @@
 	powerlevel = 1
 	},
 /turf/simulated/floor/shuttlebay,
-/area/spacehabitat{
-	name = "Forster's Rock"
-	})
+/area/nations_neutral/hoot)
 "kyY" = (
 /obj/table/auto,
 /obj/machinery/computer/television/small{
@@ -24010,9 +23731,7 @@
 /area/station/hangar/science)
 "kDW" = (
 /turf/simulated/floor/industrial,
-/area/pod_wars/spacejunk/fstation/primary{
-	name = "Kuiper Dock One"
-	})
+/area/nations_neutral/shipwright/bay1)
 "kEg" = (
 /obj/mapping_helper/wingrille_spawn/auto/reinforced,
 /obj/window_blinds/cog2/right,
@@ -24021,9 +23740,7 @@
 "kEy" = (
 /turf/simulated/floor/grass/leafy,
 /turf/simulated/wall/auto/asteroid/dark,
-/area/spacehabitat{
-	name = "Forster's Rock"
-	})
+/area/nations_neutral/hoot)
 "kEZ" = (
 /turf/simulated/floor/carpet/blue/fancy/edge/se,
 /area/station/medical/head/private)
@@ -24247,9 +23964,7 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/industrial,
-/area/pod_wars/spacejunk/fstation/maintdock{
-	name = "Kuiper Dock Two"
-	})
+/area/nations_neutral/shipwright/bay2)
 "kKm" = (
 /obj/storage/closet/biohazard,
 /obj/cable{
@@ -24295,9 +24010,7 @@
 /area/station/engine/engineering/ce/private)
 "kKP" = (
 /turf/simulated/floor/minitiles/white,
-/area/pod_wars/spacejunk/fstation/medbay{
-	name = "Kuiper Medical Bay"
-	})
+/area/nations_neutral/shipwright/medbooth)
 "kKQ" = (
 /turf/simulated/wall/auto/reinforced/supernorn/colored/purple,
 /area/station/science/hall)
@@ -24335,9 +24048,7 @@
 	icon_state = "0-4"
 	},
 /turf/simulated/floor/minitiles,
-/area/pod_wars/spacejunk/fstation/power{
-	name = "Kuiper Systems Station"
-	})
+/area/nations_neutral/shipwright/systems)
 "kLQ" = (
 /obj/table/auto,
 /obj/item/hand_labeler{
@@ -24443,9 +24154,7 @@
 	},
 /obj/cable,
 /turf/simulated/floor/minitiles,
-/area/pod_wars/spacejunk/fstation/power{
-	name = "Kuiper Systems Station"
-	})
+/area/nations_neutral/shipwright/systems)
 "kNM" = (
 /obj/stool/bed,
 /obj/item/clothing/suit/bedsheet/blue,
@@ -24813,9 +24522,7 @@
 /turf/simulated/floor/engine/vacuum{
 	icon_state = "engine_caution_ns"
 	},
-/area/spacehabitat{
-	name = "Forster's Rock"
-	})
+/area/nations_neutral/hoot)
 "kXc" = (
 /obj/machinery/camera/directional/north,
 /turf/simulated/floor/black/side,
@@ -24824,9 +24531,7 @@
 	})
 "kXf" = (
 /turf/simulated/wall/auto/jen/brown,
-/area/pod_wars/spacejunk/fstation/maintdock{
-	name = "Kuiper Dock Two"
-	})
+/area/nations_neutral/shipwright/bay2)
 "kXp" = (
 /obj/machinery/door/airlock/pyro,
 /turf/simulated/floor/blackwhite{
@@ -24880,9 +24585,7 @@
 	pixel_x = -12
 	},
 /turf/simulated/floor/minitiles,
-/area/pod_wars/spacejunk/fstation/command{
-	name = "Kuiper Administration"
-	})
+/area/nations_neutral/shipwright/command)
 "kYc" = (
 /obj/cable{
 	icon_state = "1-2"
@@ -25126,9 +24829,7 @@
 	})
 "ldJ" = (
 /turf/simulated/floor/industrial,
-/area/pod_wars/spacejunk/fstation{
-	name = "Kuiper Shipwright"
-	})
+/area/nations_neutral/shipwright)
 "ldK" = (
 /obj/machinery/dispenser,
 /obj/machinery/light_switch/west,
@@ -25188,9 +24889,7 @@
 "leP" = (
 /obj/storage/closet/emergency,
 /turf/simulated/floor/industrial,
-/area/pod_wars/spacejunk/fstation{
-	name = "Kuiper Shipwright"
-	})
+/area/nations_neutral/shipwright)
 "lfi" = (
 /obj/machinery/ore_cloud_storage_container,
 /obj/machinery/light_switch/west,
@@ -25353,9 +25052,7 @@
 	icon_state = "1-8"
 	},
 /turf/simulated/floor/mauxite,
-/area/pod_wars/spacejunk/fstation/maintdock{
-	name = "Kuiper Dock Two"
-	})
+/area/nations_neutral/shipwright/bay2)
 "liH" = (
 /turf/simulated/floor/darkblueblack{
 	dir = 8
@@ -25363,9 +25060,7 @@
 /area/station/ai_monitored/armory)
 "liO" = (
 /turf/simulated/wall/auto/jen/brown,
-/area/pod_wars/spacejunk/fstation{
-	name = "Kuiper Shipwright"
-	})
+/area/nations_neutral/shipwright)
 "liZ" = (
 /obj/table/auto,
 /obj/item/disk/data/cartridge/diagnostics{
@@ -25537,9 +25232,7 @@
 "lmr" = (
 /obj/machinery/door/airlock/pyro/classic,
 /turf/simulated/floor/industrial,
-/area/pod_wars/spacejunk/fstation/maintdock{
-	name = "Kuiper Dock Two"
-	})
+/area/nations_neutral/shipwright/bay2)
 "lmD" = (
 /obj/machinery/door/airlock/pyro/alt{
 	dir = 4
@@ -25724,9 +25417,7 @@
 	pixel_x = 12
 	},
 /turf/simulated/floor/grass/leafy,
-/area/spacehabitat{
-	name = "Forster's Rock"
-	})
+/area/nations_neutral/hoot)
 "lpK" = (
 /obj/cable{
 	icon_state = "1-10"
@@ -25793,17 +25484,13 @@
 	dir = 4
 	},
 /turf/simulated/floor/grey,
-/area/spacehabitat{
-	name = "Forster's Rock"
-	})
+/area/nations_neutral/hoot)
 "lsv" = (
 /obj/cable{
 	icon_state = "2-4"
 	},
 /turf/simulated/floor/minitiles,
-/area/pod_wars/spacejunk/fstation/mess{
-	name = "Kuiper Mess Hall"
-	})
+/area/nations_neutral/shipwright/messhall)
 "lsG" = (
 /obj/machinery/door/airlock/pyro/glass{
 	dir = 4
@@ -25939,18 +25626,14 @@
 /turf/simulated/floor/plating/airless/shuttlebay{
 	name = "landing pad plating"
 	},
-/area/pod_wars/spacejunk/fstation{
-	name = "Kuiper Shipwright"
-	})
+/area/nations_neutral/shipwright)
 "lup" = (
 /obj/cable{
 	icon_state = "1-4"
 	},
 /obj/random_item_spawner/junk/one_or_zero,
 /turf/simulated/floor/industrial,
-/area/pod_wars/spacejunk/fstation/primary{
-	name = "Kuiper Dock One"
-	})
+/area/nations_neutral/shipwright/bay1)
 "luL" = (
 /obj/table/reinforced/auto,
 /obj/machinery/door_control/bolter{
@@ -26434,9 +26117,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/industrial,
-/area/pod_wars/spacejunk/fstation{
-	name = "Kuiper Shipwright"
-	})
+/area/nations_neutral/shipwright)
 "lGh" = (
 /obj/cable{
 	icon_state = "5-8"
@@ -26473,9 +26154,7 @@
 /obj/machinery/portable_reclaimer,
 /obj/machinery/door_control/podbay/mainpod2/new_walls/west,
 /turf/simulated/floor/mauxite,
-/area/pod_wars/spacejunk/fstation/maintdock{
-	name = "Kuiper Dock Two"
-	})
+/area/nations_neutral/shipwright/bay2)
 "lHa" = (
 /turf/simulated/floor/carpet/blue/fancy/narrow/T_north,
 /area/station/medical/staff)
@@ -26701,9 +26380,7 @@
 	pixel_y = 21
 	},
 /turf/simulated/floor/grey,
-/area/spacehabitat{
-	name = "Forster's Rock"
-	})
+/area/nations_neutral/hoot)
 "lMB" = (
 /obj/stool/bench/yellow/auto,
 /obj/landmark/start/job/miner,
@@ -26729,9 +26406,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/industrial,
-/area/pod_wars/spacejunk/fstation/maintdock{
-	name = "Kuiper Dock Two"
-	})
+/area/nations_neutral/shipwright/bay2)
 "lNk" = (
 /obj/mapping_helper/airlock/cycler/auto/rook,
 /obj/mapping_helper/wingrille_spawn/auto/reinforced,
@@ -26895,9 +26570,7 @@
 "lPu" = (
 /obj/mapping_helper/wingrille_spawn/auto/reinforced,
 /turf/simulated/floor/plating,
-/area/pod_wars/spacejunk/fstation/command{
-	name = "Kuiper Administration"
-	})
+/area/nations_neutral/shipwright/command)
 "lPR" = (
 /obj/reagent_dispensers/watertank/fountain,
 /obj/machinery/light_switch/west,
@@ -27155,9 +26828,7 @@
 	start_charge = 0
 	},
 /turf/simulated/floor/minitiles/white,
-/area/pod_wars/spacejunk/fstation/mess{
-	name = "Kuiper Mess Hall"
-	})
+/area/nations_neutral/shipwright/messhall)
 "lWI" = (
 /obj/mesh/catwalk{
 	dir = 4
@@ -27365,9 +27036,7 @@
 	},
 /obj/random_item_spawner/tools/one_or_zero,
 /turf/simulated/floor/mauxite,
-/area/pod_wars/spacejunk/fstation/maintdock{
-	name = "Kuiper Dock Two"
-	})
+/area/nations_neutral/shipwright/bay2)
 "maM" = (
 /obj/machinery/atmospherics/unary/vent_pump{
 	dir = 4;
@@ -27423,9 +27092,7 @@
 	icon_state = "0-8"
 	},
 /turf/simulated/floor/industrial,
-/area/pod_wars/spacejunk/fstation/primary{
-	name = "Kuiper Dock One"
-	})
+/area/nations_neutral/shipwright/bay1)
 "mbs" = (
 /obj/cable{
 	icon_state = "1-2"
@@ -27842,14 +27509,8 @@
 	icon_state = "1-2"
 	},
 /obj/random_item_spawner/junk/one_or_zero,
-/obj/machinery/light/small{
-	dir = 4;
-	pixel_x = 12
-	},
 /turf/simulated/floor/industrial,
-/area/pod_wars/spacejunk/fstation/primary{
-	name = "Kuiper Dock One"
-	})
+/area/nations_neutral/shipwright/bay1)
 "mll" = (
 /obj/landmark/halloween,
 /turf/simulated/floor/black,
@@ -27966,9 +27627,7 @@
 	icon_state = "0-8"
 	},
 /turf/simulated/floor/airless/plating/catwalk/auto,
-/area/spacehabitat{
-	name = "Forster's Rock"
-	})
+/area/nations_neutral/hoot)
 "mnF" = (
 /obj/mapping_helper/wingrille_spawn/auto/reinforced,
 /obj/mapping_helper/airlock/cycler/auto/rook{
@@ -28173,9 +27832,7 @@
 "mpB" = (
 /obj/machinery/light/small/floor,
 /turf/simulated/floor/grey,
-/area/spacehabitat{
-	name = "Forster's Rock"
-	})
+/area/nations_neutral/hoot)
 "mpJ" = (
 /obj/machinery/light/small,
 /turf/simulated/floor/sanitary,
@@ -28531,9 +28188,7 @@
 	},
 /obj/item/storage/toolbox/mechanical,
 /turf/simulated/floor/mauxite,
-/area/pod_wars/spacejunk/fstation/primary{
-	name = "Kuiper Dock One"
-	})
+/area/nations_neutral/shipwright/bay1)
 "myp" = (
 /obj/decal/stripe_delivery,
 /turf/simulated/floor/caution/misc{
@@ -28589,6 +28244,13 @@
 /obj/machinery/light,
 /turf/simulated/floor/black,
 /area/station/hangar/medical)
+"mAc" = (
+/obj/machinery/light/small,
+/obj/cable{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/industrial,
+/area/nations_neutral/shipwright)
 "mAn" = (
 /obj/machinery/power/apc/autoname_north,
 /obj/cable{
@@ -28768,9 +28430,7 @@
 	dir = 5
 	},
 /turf/simulated/floor/grass/leafy,
-/area/spacehabitat{
-	name = "Forster's Rock"
-	})
+/area/nations_neutral/hoot)
 "mFO" = (
 /obj/machinery/light{
 	dir = 4;
@@ -28796,9 +28456,7 @@
 	dir = 8
 	},
 /turf/simulated/wall/auto/jen/brown,
-/area/pod_wars/spacejunk/fstation/maintdock{
-	name = "Kuiper Dock Two"
-	})
+/area/nations_neutral/shipwright/bay2)
 "mGE" = (
 /obj/machinery/light/small{
 	dir = 1;
@@ -28989,6 +28647,15 @@
 	},
 /turf/simulated/floor/black,
 /area/station/hangar/engine)
+"mJY" = (
+/obj/cable{
+	icon_state = "1-2"
+	},
+/obj/item/device/radio/intercom/loudspeaker/speaker/west{
+	pixel_x = 22
+	},
+/turf/simulated/floor/minitiles,
+/area/nations_neutral/shipwright/messhall)
 "mKF" = (
 /turf/simulated/floor/stairs/wide/other{
 	dir = 4
@@ -29055,9 +28722,7 @@
 	pixel_y = 7
 	},
 /turf/simulated/floor/minitiles/white,
-/area/pod_wars/spacejunk/fstation/medbay{
-	name = "Kuiper Medical Bay"
-	})
+/area/nations_neutral/shipwright/medbooth)
 "mMd" = (
 /turf/simulated/floor/engine,
 /area/station/engine/ptl)
@@ -29083,9 +28748,7 @@
 /turf/simulated/floor/engine/vacuum{
 	icon_state = "engine_caution_corners"
 	},
-/area/spacehabitat{
-	name = "Forster's Rock"
-	})
+/area/nations_neutral/hoot)
 "mNh" = (
 /obj/disposalpipe/segment/bent/west,
 /turf/simulated/floor/plating,
@@ -29097,9 +28760,7 @@
 	icon_state = "solarbase";
 	name = "solar paneling"
 	},
-/area/spacehabitat{
-	name = "Forster's Rock"
-	})
+/area/nations_neutral/hoot)
 "mNz" = (
 /obj/table/reinforced/auto,
 /obj/item/clothing/mask/gas{
@@ -29659,9 +29320,7 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/minitiles/white,
-/area/pod_wars/spacejunk/fstation/medbay{
-	name = "Kuiper Medical Bay"
-	})
+/area/nations_neutral/shipwright/medbooth)
 "mYC" = (
 /turf/simulated/floor/white,
 /area/station/science/lab)
@@ -29704,9 +29363,7 @@
 "mZK" = (
 /obj/mapping_helper/wingrille_spawn/auto/reinforced,
 /turf/simulated/floor/plating,
-/area/pod_wars/spacejunk/fstation/power{
-	name = "Kuiper Systems Station"
-	})
+/area/nations_neutral/shipwright/systems)
 "nad" = (
 /obj/machinery/bathtub{
 	anchored = 1;
@@ -30065,9 +29722,7 @@
 	pixel_x = 23
 	},
 /turf/simulated/floor/black/grime,
-/area/pod_wars/spacejunk/fstation/observatory{
-	name = "Kuiper Hardware Bay"
-	})
+/area/nations_neutral/shipwright/hardware)
 "nis" = (
 /obj/table/auto,
 /obj/item/paper_bin{
@@ -30146,9 +29801,7 @@
 	desc = "mr worldwide"
 	},
 /turf/simulated/floor/grass/leafy,
-/area/spacehabitat{
-	name = "Forster's Rock"
-	})
+/area/nations_neutral/hoot)
 "nke" = (
 /turf/simulated/floor/bluewhite/corner{
 	dir = 1
@@ -30268,9 +29921,7 @@
 "nne" = (
 /obj/stool/chair,
 /turf/simulated/floor/industrial,
-/area/pod_wars/spacejunk/fstation{
-	name = "Kuiper Shipwright"
-	})
+/area/nations_neutral/shipwright)
 "nnB" = (
 /obj/machinery/conveyor_switch{
 	id = "qmin";
@@ -30310,9 +29961,7 @@
 /obj/mesh/catwalk,
 /obj/machinery/recharge_station,
 /turf/simulated/floor/airless/plating/catwalk/auto,
-/area/pod_wars/spacejunk/fstation{
-	name = "Kuiper Shipwright"
-	})
+/area/nations_neutral/shipwright)
 "noA" = (
 /turf/simulated/floor/orangeblack/corner{
 	dir = 1
@@ -30518,9 +30167,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/industrial,
-/area/pod_wars/spacejunk/fstation{
-	name = "Kuiper Shipwright"
-	})
+/area/nations_neutral/shipwright)
 "nsw" = (
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
 	dir = 4
@@ -30582,9 +30229,7 @@
 /turf/simulated/floor/shuttlebay{
 	icon_state = "engine_caution_north"
 	},
-/area/pod_wars/spacejunk/fstation/primary{
-	name = "Kuiper Dock One"
-	})
+/area/nations_neutral/shipwright/bay1)
 "nuD" = (
 /obj/machinery/computer/arcade,
 /turf/simulated/floor/engine,
@@ -30708,9 +30353,7 @@
 /area/station/hallway/primary/northwest)
 "nyq" = (
 /turf/simulated/floor/sanitary,
-/area/pod_wars/spacejunk/fstation/crewquarters{
-	name = "Kuiper Personnel Systems"
-	})
+/area/nations_neutral/shipwright/systems)
 "nys" = (
 /obj/lattice{
 	icon_state = "lattice-dir"
@@ -30753,9 +30396,7 @@
 	icon_state = "1-4"
 	},
 /turf/simulated/floor/industrial,
-/area/pod_wars/spacejunk/fstation/maintdock{
-	name = "Kuiper Dock Two"
-	})
+/area/nations_neutral/shipwright/bay2)
 "nzU" = (
 /obj/machinery/door/airlock/pyro/glass,
 /turf/simulated/floor/darkblue/side{
@@ -30996,9 +30637,7 @@
 /obj/table/auto,
 /obj/random_item_spawner/tools/four,
 /turf/simulated/floor/caution/south,
-/area/spacehabitat{
-	name = "Forster's Rock"
-	})
+/area/nations_neutral/hoot)
 "nGD" = (
 /obj/machinery/r_door_control/podbay/engineering,
 /turf/simulated/wall/auto/reinforced/supernorn/colored/yellow,
@@ -31131,9 +30770,7 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/industrial,
-/area/pod_wars/spacejunk/fstation/power{
-	name = "Kuiper Systems Station"
-	})
+/area/nations_neutral/shipwright/systems)
 "nKs" = (
 /obj/cable{
 	icon_state = "1-2"
@@ -31445,18 +31082,14 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/mauxite,
-/area/pod_wars/spacejunk/fstation/primary{
-	name = "Kuiper Dock One"
-	})
+/area/nations_neutral/shipwright/bay1)
 "nRj" = (
 /obj/table/auto,
 /obj/machinery/computer/television/small{
 	pixel_y = 6
 	},
 /turf/simulated/floor/minitiles,
-/area/pod_wars/spacejunk/fstation/mess{
-	name = "Kuiper Mess Hall"
-	})
+/area/nations_neutral/shipwright/messhall)
 "nRs" = (
 /obj/decal/tile_edge/stripe,
 /turf/simulated/floor/wood,
@@ -31547,9 +31180,7 @@
 /obj/table/auto,
 /obj/machinery/cell_charger,
 /turf/simulated/floor/caution/south,
-/area/spacehabitat{
-	name = "Forster's Rock"
-	})
+/area/nations_neutral/hoot)
 "nUl" = (
 /obj/machinery/vending/air_vendor/plasma,
 /turf/simulated/floor/purpleblack{
@@ -31947,9 +31578,7 @@
 /area/station/bridge)
 "ogK" = (
 /turf/simulated/floor/grey,
-/area/spacehabitat{
-	name = "Forster's Rock"
-	})
+/area/nations_neutral/hoot)
 "ogP" = (
 /obj/table/reinforced/auto,
 /obj/machinery/defib_mount{
@@ -31967,9 +31596,7 @@
 	icon_state = "0-8"
 	},
 /turf/simulated/floor/airless/plating/catwalk/auto,
-/area/spacehabitat{
-	name = "Forster's Rock"
-	})
+/area/nations_neutral/hoot)
 "ohf" = (
 /obj/landmark/pest,
 /turf/simulated/floor/plating,
@@ -32036,9 +31663,7 @@
 "oig" = (
 /obj/random_item_spawner/junk/one_or_zero,
 /turf/simulated/floor/industrial,
-/area/pod_wars/spacejunk/fstation/maintdock{
-	name = "Kuiper Dock Two"
-	})
+/area/nations_neutral/shipwright/bay2)
 "oii" = (
 /obj/cable{
 	icon_state = "1-2"
@@ -32278,9 +31903,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/shuttlebay,
-/area/spacehabitat{
-	name = "Forster's Rock"
-	})
+/area/nations_neutral/hoot)
 "opn" = (
 /obj/machinery/light/small{
 	dir = 1;
@@ -32290,9 +31913,7 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/industrial,
-/area/pod_wars/spacejunk/fstation{
-	name = "Kuiper Shipwright"
-	})
+/area/nations_neutral/shipwright)
 "opp" = (
 /obj/machinery/turret,
 /obj/decal/mule/dropoff,
@@ -32625,9 +32246,7 @@
 /turf/simulated/floor/plating/airless/shuttlebay{
 	name = "landing pad plating"
 	},
-/area/pod_wars/spacejunk/fstation{
-	name = "Kuiper Shipwright"
-	})
+/area/nations_neutral/shipwright)
 "oxf" = (
 /obj/machinery/networked/test_apparatus/pitching_machine{
 	dir = 8
@@ -32703,9 +32322,7 @@
 	},
 /obj/random_item_spawner/junk/one_or_zero,
 /turf/simulated/floor/industrial,
-/area/pod_wars/spacejunk/fstation/maintdock{
-	name = "Kuiper Dock Two"
-	})
+/area/nations_neutral/shipwright/bay2)
 "oAE" = (
 /obj/mapping_helper/wingrille_spawn/auto/reinforced/crystal,
 /obj/cable,
@@ -32911,9 +32528,7 @@
 	},
 /obj/mapping_helper/button/area,
 /turf/simulated/floor/sanitary,
-/area/pod_wars/spacejunk/fstation/crewquarters{
-	name = "Kuiper Personnel Systems"
-	})
+/area/nations_neutral/shipwright/systems)
 "oFM" = (
 /obj/machinery/atmospherics/pipe/manifold{
 	dir = 1
@@ -32928,9 +32543,7 @@
 	icon_state = "2-8"
 	},
 /turf/simulated/floor/industrial,
-/area/pod_wars/spacejunk/fstation{
-	name = "Kuiper Shipwright"
-	})
+/area/nations_neutral/shipwright)
 "oGc" = (
 /turf/simulated/floor/black{
 	icon_state = "respect1"
@@ -33106,6 +32719,14 @@
 	},
 /turf/simulated/floor/black,
 /area/station/hangar/medical)
+"oLi" = (
+/obj/machinery/light{
+	dir = 8;
+	layer = 9.1;
+	pixel_x = -10
+	},
+/turf/simulated/floor/minitiles/white,
+/area/nations_neutral/shipwright/medbooth)
 "oLk" = (
 /obj/cable{
 	icon_state = "1-2"
@@ -33162,9 +32783,7 @@
 	pixel_x = 8
 	},
 /turf/simulated/floor/caution/north,
-/area/spacehabitat{
-	name = "Forster's Rock"
-	})
+/area/nations_neutral/hoot)
 "oMA" = (
 /obj/cable{
 	icon_state = "1-2"
@@ -33175,9 +32794,7 @@
 "oMD" = (
 /obj/machinery/portable_atmospherics/canister/air,
 /turf/simulated/floor/caution/south,
-/area/spacehabitat{
-	name = "Forster's Rock"
-	})
+/area/nations_neutral/hoot)
 "oMP" = (
 /obj/disposaloutlet{
 	name = "Produce Chute";
@@ -33264,6 +32881,14 @@
 /area/station/maintenance/outer/south{
 	name = "Research Maintenance"
 	})
+"oOH" = (
+/obj/storage/secure/closet/personal,
+/obj/machinery/light/small{
+	dir = 1;
+	pixel_y = 21
+	},
+/turf/simulated/floor/industrial,
+/area/nations_neutral/shipwright)
 "oOI" = (
 /obj/machinery/door/airlock/pyro/maintenance,
 /obj/cable{
@@ -33345,9 +32970,7 @@
 	},
 /obj/random_item_spawner/tools/one_or_zero,
 /turf/simulated/floor/mauxite,
-/area/pod_wars/spacejunk/fstation/primary{
-	name = "Kuiper Dock One"
-	})
+/area/nations_neutral/shipwright/bay1)
 "oPY" = (
 /obj/decal/tile_edge/stripe/extra_big,
 /turf/simulated/floor/grey/corner{
@@ -33540,9 +33163,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/grey,
-/area/spacehabitat{
-	name = "Forster's Rock"
-	})
+/area/nations_neutral/hoot)
 "oSQ" = (
 /turf/simulated/wall/auto/supernorn/colored/orange,
 /area/space)
@@ -33620,9 +33241,7 @@
 	dir = 6
 	},
 /turf/simulated/floor/industrial,
-/area/pod_wars/spacejunk/fstation/primary{
-	name = "Kuiper Dock One"
-	})
+/area/nations_neutral/shipwright/bay1)
 "oUJ" = (
 /obj/cable{
 	icon_state = "1-2"
@@ -33737,9 +33356,7 @@
 	icon_state = "2-4"
 	},
 /turf/simulated/floor/industrial,
-/area/pod_wars/spacejunk/fstation/maintdock{
-	name = "Kuiper Dock Two"
-	})
+/area/nations_neutral/shipwright/bay2)
 "oYg" = (
 /obj/table/reinforced/bar/auto{
 	name = "wooden table"
@@ -33763,9 +33380,7 @@
 	icon_state = "0-4"
 	},
 /turf/simulated/floor/minitiles,
-/area/pod_wars/spacejunk/fstation/command{
-	name = "Kuiper Administration"
-	})
+/area/nations_neutral/shipwright/command)
 "oYN" = (
 /obj/machinery/manufacturer/qm,
 /obj/machinery/power/apc/autoname_west,
@@ -33892,9 +33507,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/grass/leafy,
-/area/spacehabitat{
-	name = "Forster's Rock"
-	})
+/area/nations_neutral/hoot)
 "paD" = (
 /obj/machinery/light{
 	dir = 8;
@@ -34006,9 +33619,7 @@
 	},
 /obj/random_item_spawner/junk/one_or_zero,
 /turf/simulated/floor/mauxite,
-/area/pod_wars/spacejunk/fstation/primary{
-	name = "Kuiper Dock One"
-	})
+/area/nations_neutral/shipwright/bay1)
 "pdW" = (
 /obj/table/auto,
 /obj/item/peripheral/sound_card{
@@ -34129,9 +33740,7 @@
 /area/station/crew_quarters/kitchen)
 "pgK" = (
 /turf/simulated/floor/plating,
-/area/pod_wars/spacejunk/fstation/primary{
-	name = "Kuiper Dock One"
-	})
+/area/nations_neutral/shipwright/bay1)
 "pgT" = (
 /obj/machinery/turret{
 	dir = 1
@@ -34175,9 +33784,7 @@
 /area/station/quartermaster/cargobay)
 "pic" = (
 /turf/simulated/floor/shuttlebay,
-/area/spacehabitat{
-	name = "Forster's Rock"
-	})
+/area/nations_neutral/hoot)
 "pig" = (
 /obj/cable{
 	icon_state = "0-9"
@@ -34304,9 +33911,7 @@
 	icon_state = "2-4"
 	},
 /turf/simulated/floor/industrial,
-/area/pod_wars/spacejunk/fstation/primary{
-	name = "Kuiper Dock One"
-	})
+/area/nations_neutral/shipwright/bay1)
 "plG" = (
 /turf/simulated/wall/auto/reinforced/supernorn/colored/cyan,
 /area/station/medical/morgue)
@@ -34438,9 +34043,7 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/caution/north,
-/area/spacehabitat{
-	name = "Forster's Rock"
-	})
+/area/nations_neutral/hoot)
 "pqj" = (
 /obj/mesh/catwalk,
 /obj/machinery/door/airlock/pyro/classic,
@@ -34532,18 +34135,6 @@
 	dir = 1
 	},
 /area/station/crew_quarters/observatory)
-"psk" = (
-/obj/machinery/light/small{
-	dir = 8;
-	pixel_x = -12
-	},
-/obj/cable{
-	icon_state = "1-2"
-	},
-/turf/simulated/floor/industrial,
-/area/pod_wars/spacejunk/fstation{
-	name = "Kuiper Shipwright"
-	})
 "psB" = (
 /obj/storage/closet/emergency,
 /obj/machinery/light/small{
@@ -34815,9 +34406,7 @@
 "pyF" = (
 /obj/machinery/gibber/output_south,
 /turf/simulated/floor/minitiles/white,
-/area/pod_wars/spacejunk/fstation/mess{
-	name = "Kuiper Mess Hall"
-	})
+/area/nations_neutral/shipwright/messhall)
 "pyK" = (
 /obj/table/reinforced/auto,
 /obj/item/shipcomponent/mainweapon/rockdrills,
@@ -34871,9 +34460,7 @@
 "pzE" = (
 /obj/mesh/catwalk,
 /turf/simulated/floor/airless/plating/catwalk/auto,
-/area/spacehabitat{
-	name = "Forster's Rock"
-	})
+/area/nations_neutral/hoot)
 "pzK" = (
 /obj/table/reinforced/auto,
 /obj/machinery/phone,
@@ -34949,9 +34536,7 @@
 /turf/simulated/floor/plating/airless/shuttlebay{
 	name = "landing pad plating"
 	},
-/area/pod_wars/spacejunk/fstation{
-	name = "Kuiper Shipwright"
-	})
+/area/nations_neutral/shipwright)
 "pAO" = (
 /obj/cable{
 	icon_state = "1-2"
@@ -35293,10 +34878,9 @@
 	pixel_x = -32;
 	pixel_y = 0
 	},
+/obj/machinery/light/small,
 /turf/simulated/floor/industrial,
-/area/pod_wars/spacejunk/fstation{
-	name = "Kuiper Shipwright"
-	})
+/area/nations_neutral/shipwright)
 "pGW" = (
 /obj/rack,
 /obj/item/clothing/suit/hazard/fire{
@@ -35474,9 +35058,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/industrial,
-/area/pod_wars/spacejunk/fstation{
-	name = "Kuiper Shipwright"
-	})
+/area/nations_neutral/shipwright)
 "pKC" = (
 /obj/stool,
 /obj/machinery/light{
@@ -35485,9 +35067,7 @@
 	pixel_x = -10
 	},
 /turf/simulated/floor/minitiles,
-/area/pod_wars/spacejunk/fstation/mess{
-	name = "Kuiper Mess Hall"
-	})
+/area/nations_neutral/shipwright/messhall)
 "pKJ" = (
 /obj/table/auto,
 /obj/item/device/radio{
@@ -35842,9 +35422,7 @@
 	pixel_x = -12
 	},
 /turf/simulated/floor/black/grime,
-/area/pod_wars/spacejunk/fstation/observatory{
-	name = "Kuiper Hardware Bay"
-	})
+/area/nations_neutral/shipwright/hardware)
 "pSC" = (
 /turf/simulated/floor/caution/east,
 /area/station/janitor/office)
@@ -35917,9 +35495,7 @@
 	pixel_y = 21
 	},
 /turf/simulated/floor/airless/plating/catwalk/auto,
-/area/spacehabitat{
-	name = "Forster's Rock"
-	})
+/area/nations_neutral/hoot)
 "pUr" = (
 /obj/mapping_helper/wingrille_spawn/auto/reinforced,
 /obj/window_blinds/cog2/left,
@@ -36132,9 +35708,7 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/minitiles/white,
-/area/pod_wars/spacejunk/fstation/mess{
-	name = "Kuiper Mess Hall"
-	})
+/area/nations_neutral/shipwright/messhall)
 "qaD" = (
 /obj/stool/chair{
 	dir = 8
@@ -36249,9 +35823,7 @@
 	dir = 5
 	},
 /turf/simulated/floor/industrial,
-/area/pod_wars/spacejunk/fstation/maintdock{
-	name = "Kuiper Dock Two"
-	})
+/area/nations_neutral/shipwright/bay2)
 "qey" = (
 /obj/decal/tile_edge/carpet{
 	icon_state = "rug2";
@@ -36324,9 +35896,7 @@
 	pixel_y = 4
 	},
 /turf/simulated/floor/industrial,
-/area/pod_wars/spacejunk/fstation{
-	name = "Kuiper Shipwright"
-	})
+/area/nations_neutral/shipwright)
 "qfP" = (
 /turf/space,
 /area/mining/magnet)
@@ -36809,9 +36379,7 @@
 	powerlevel = 1
 	},
 /turf/simulated/floor/industrial,
-/area/pod_wars/spacejunk/fstation/maintdock{
-	name = "Kuiper Dock Two"
-	})
+/area/nations_neutral/shipwright/bay2)
 "qtk" = (
 /turf/simulated/wall/auto/reinforced/supernorn,
 /area/station/security/detectives_office)
@@ -37193,9 +36761,7 @@
 	powerlevel = 1
 	},
 /turf/simulated/floor/grey,
-/area/spacehabitat{
-	name = "Forster's Rock"
-	})
+/area/nations_neutral/hoot)
 "qBT" = (
 /obj/cable{
 	icon_state = "1-2"
@@ -37234,9 +36800,7 @@
 "qCI" = (
 /obj/mapping_helper/wingrille_spawn/auto/reinforced,
 /turf/simulated/floor/plating,
-/area/pod_wars/spacejunk/fstation{
-	name = "Kuiper Shipwright"
-	})
+/area/nations_neutral/shipwright)
 "qCW" = (
 /obj/machinery/phone/wall{
 	pixel_y = 32
@@ -37449,9 +37013,7 @@
 	icon_state = "6-8"
 	},
 /turf/simulated/floor/industrial,
-/area/pod_wars/spacejunk/fstation/primary{
-	name = "Kuiper Dock One"
-	})
+/area/nations_neutral/shipwright/bay1)
 "qHz" = (
 /obj/stool/chair{
 	dir = 8
@@ -37474,17 +37036,6 @@
 "qHJ" = (
 /turf/simulated/wall/auto/supernorn/colored/cyan,
 /area/station/medical/morgue)
-"qHR" = (
-/obj/machinery/door/airlock/pyro/classic{
-	dir = 4
-	},
-/obj/cable{
-	icon_state = "4-8"
-	},
-/turf/simulated/floor/industrial,
-/area/pod_wars/spacejunk/fstation/crewquarters{
-	name = "Kuiper Personnel Systems"
-	})
 "qIb" = (
 /obj/storage/secure/closet/engineering/mechanic,
 /turf/simulated/floor/yellowblack{
@@ -37516,9 +37067,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/grass/leafy,
-/area/spacehabitat{
-	name = "Forster's Rock"
-	})
+/area/nations_neutral/hoot)
 "qJW" = (
 /obj/cable{
 	icon_state = "2-8"
@@ -37724,7 +37273,6 @@
 /turf/simulated/floor,
 /area/station/quartermaster/cargobay)
 "qQi" = (
-/obj/machinery/light/small/floor,
 /obj/cable{
 	icon_state = "1-4"
 	},
@@ -37732,9 +37280,7 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/minitiles,
-/area/pod_wars/spacejunk/fstation/mess{
-	name = "Kuiper Mess Hall"
-	})
+/area/nations_neutral/shipwright/messhall)
 "qQj" = (
 /obj/table/reinforced/auto,
 /obj/machinery/door/airlock/pyro/glass/windoor{
@@ -38049,9 +37595,7 @@
 /area/station/engine/core/thermoelectric)
 "qUE" = (
 /turf/simulated/floor/engine/vacuum,
-/area/spacehabitat{
-	name = "Forster's Rock"
-	})
+/area/nations_neutral/hoot)
 "qUH" = (
 /obj/rack,
 /obj/item/tank/jetpack/micro{
@@ -38141,9 +37685,7 @@
 "qWk" = (
 /obj/mapping_helper/wingrille_spawn/auto/reinforced,
 /turf/simulated/floor/plating,
-/area/pod_wars/spacejunk/fstation/primary{
-	name = "Kuiper Dock One"
-	})
+/area/nations_neutral/shipwright/bay1)
 "qWq" = (
 /obj/cable{
 	icon_state = "4-8"
@@ -38262,9 +37804,7 @@
 	},
 /obj/reagent_dispensers/chemicalbarrel/oil,
 /turf/simulated/floor/industrial,
-/area/pod_wars/spacejunk/fstation{
-	name = "Kuiper Shipwright"
-	})
+/area/nations_neutral/shipwright)
 "qZG" = (
 /obj/stool/chair/couch{
 	dir = 8
@@ -38283,9 +37823,7 @@
 "qZP" = (
 /obj/landmark/spawner/loot,
 /turf/simulated/floor/grass/leafy,
-/area/spacehabitat{
-	name = "Forster's Rock"
-	})
+/area/nations_neutral/hoot)
 "qZT" = (
 /obj/cable{
 	icon_state = "1-2"
@@ -38523,9 +38061,7 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/airless/plating/catwalk/auto,
-/area/spacehabitat{
-	name = "Forster's Rock"
-	})
+/area/nations_neutral/hoot)
 "rfT" = (
 /obj/stool/chair/office/blue{
 	dir = 4
@@ -38567,18 +38103,14 @@
 	name = "Owl Blart"
 	},
 /turf/simulated/floor/grass/leafy,
-/area/spacehabitat{
-	name = "Forster's Rock"
-	})
+/area/nations_neutral/hoot)
 "rhy" = (
 /obj/machinery/light/small{
 	dir = 4;
 	pixel_x = 12
 	},
 /turf/simulated/floor/grey,
-/area/spacehabitat{
-	name = "Forster's Rock"
-	})
+/area/nations_neutral/hoot)
 "rhO" = (
 /obj/decal/tile_edge/line/yellow{
 	dir = 8;
@@ -38634,9 +38166,7 @@
 	},
 /obj/storage/secure/closet/personal,
 /turf/simulated/floor/industrial,
-/area/pod_wars/spacejunk/fstation{
-	name = "Kuiper Shipwright"
-	})
+/area/nations_neutral/shipwright)
 "rkE" = (
 /obj/machinery/door/airlock/pyro/external,
 /obj/forcefield/energyshield/perma/doorlink{
@@ -38718,9 +38248,7 @@
 "rnS" = (
 /obj/mapping_helper/wingrille_spawn/auto/reinforced,
 /turf/simulated/floor/plating,
-/area/spacehabitat{
-	name = "Forster's Rock"
-	})
+/area/nations_neutral/hoot)
 "roc" = (
 /obj/cable{
 	icon_state = "1-2"
@@ -38843,9 +38371,7 @@
 	icon_state = "line1"
 	},
 /turf/simulated/floor/minitiles,
-/area/pod_wars/spacejunk/fstation/command{
-	name = "Kuiper Administration"
-	})
+/area/nations_neutral/shipwright/command)
 "rqp" = (
 /obj/machinery/chemicompiler_stationary,
 /turf/simulated/floor/black,
@@ -38942,9 +38468,7 @@
 	},
 /obj/random_item_spawner/junk/one_or_zero,
 /turf/simulated/floor/mauxite,
-/area/pod_wars/spacejunk/fstation/primary{
-	name = "Kuiper Dock One"
-	})
+/area/nations_neutral/shipwright/bay1)
 "rsR" = (
 /obj/disposalpipe/segment/produce{
 	dir = 4
@@ -39011,9 +38535,7 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/industrial,
-/area/pod_wars/spacejunk/fstation/maintdock{
-	name = "Kuiper Dock Two"
-	})
+/area/nations_neutral/shipwright/bay2)
 "ruF" = (
 /obj/cable{
 	icon_state = "4-8"
@@ -39419,9 +38941,7 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/minitiles,
-/area/pod_wars/spacejunk/fstation/power{
-	name = "Kuiper Systems Station"
-	})
+/area/nations_neutral/shipwright/systems)
 "rFq" = (
 /obj/cable{
 	icon_state = "2-8"
@@ -39439,9 +38959,7 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plating,
-/area/spacehabitat{
-	name = "Forster's Rock"
-	})
+/area/nations_neutral/hoot)
 "rFN" = (
 /obj/machinery/conveyor/NS{
 	id = "garbage";
@@ -39647,9 +39165,7 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/industrial,
-/area/pod_wars/spacejunk/fstation{
-	name = "Kuiper Shipwright"
-	})
+/area/nations_neutral/shipwright)
 "rLK" = (
 /obj/machinery/networked/mainframe/zeta{
 	tag = "ZETA_MAINFRAME"
@@ -39704,9 +39220,7 @@
 	},
 /obj/random_item_spawner/tools/one_or_zero,
 /turf/simulated/floor/mauxite,
-/area/pod_wars/spacejunk/fstation/maintdock{
-	name = "Kuiper Dock Two"
-	})
+/area/nations_neutral/shipwright/bay2)
 "rNm" = (
 /turf/simulated/wall/auto/supernorn/colored/cyan,
 /area/station/hallway/secondary/west{
@@ -39879,9 +39393,7 @@
 	pixel_x = 10
 	},
 /turf/simulated/floor/shuttlebay,
-/area/pod_wars/spacejunk/fstation/maintdock{
-	name = "Kuiper Dock Two"
-	})
+/area/nations_neutral/shipwright/bay2)
 "rPQ" = (
 /obj/cable{
 	icon_state = "1-2"
@@ -40086,15 +39598,11 @@
 /area/station/crew_quarters/cafeteria)
 "rTf" = (
 /turf/simulated/wall/auto/jen/brown,
-/area/pod_wars/spacejunk/fstation/power{
-	name = "Kuiper Systems Station"
-	})
+/area/nations_neutral/shipwright/systems)
 "rTo" = (
 /obj/machinery/light,
 /turf/simulated/floor/shuttlebay,
-/area/spacehabitat{
-	name = "Forster's Rock"
-	})
+/area/nations_neutral/hoot)
 "rTp" = (
 /turf/simulated/wall/auto/supernorn/colored/orange,
 /area/station/quartermaster/cargobay)
@@ -40285,9 +39793,7 @@
 	start_charge = 0
 	},
 /turf/simulated/floor/minitiles/white,
-/area/pod_wars/spacejunk/fstation/medbay{
-	name = "Kuiper Medical Bay"
-	})
+/area/nations_neutral/shipwright/medbooth)
 "rXr" = (
 /obj/cable{
 	icon_state = "1-2"
@@ -40371,9 +39877,7 @@
 	powerlevel = 1
 	},
 /turf/simulated/floor/industrial,
-/area/pod_wars/spacejunk/fstation/primary{
-	name = "Kuiper Dock One"
-	})
+/area/nations_neutral/shipwright/bay1)
 "rYX" = (
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 8
@@ -40389,9 +39893,7 @@
 	dir = 9
 	},
 /turf/simulated/floor/industrial,
-/area/pod_wars/spacejunk/fstation/primary{
-	name = "Kuiper Dock One"
-	})
+/area/nations_neutral/shipwright/bay1)
 "rZf" = (
 /obj/cable{
 	icon_state = "4-8"
@@ -40430,9 +39932,7 @@
 	},
 /obj/machinery/light,
 /turf/simulated/floor/mauxite,
-/area/pod_wars/spacejunk/fstation/primary{
-	name = "Kuiper Dock One"
-	})
+/area/nations_neutral/shipwright/bay1)
 "rZU" = (
 /obj/cable{
 	icon_state = "4-8"
@@ -40501,9 +40001,7 @@
 /obj/table/auto,
 /obj/machinery/defib_mount,
 /turf/simulated/floor/minitiles/white,
-/area/pod_wars/spacejunk/fstation/medbay{
-	name = "Kuiper Medical Bay"
-	})
+/area/nations_neutral/shipwright/medbooth)
 "sbk" = (
 /obj/cable{
 	icon_state = "1-4"
@@ -40541,9 +40039,7 @@
 /obj/reagent_dispensers/foamtank,
 /obj/machinery/light,
 /turf/simulated/floor/grey,
-/area/spacehabitat{
-	name = "Forster's Rock"
-	})
+/area/nations_neutral/hoot)
 "sbw" = (
 /turf/simulated/floor/engine/caution/corner{
 	dir = 1
@@ -40620,9 +40116,7 @@
 /obj/random_item_spawner/tools/one,
 /obj/random_item_spawner/junk/few,
 /turf/simulated/floor/industrial,
-/area/pod_wars/spacejunk/fstation/primary{
-	name = "Kuiper Dock One"
-	})
+/area/nations_neutral/shipwright/bay1)
 "sdo" = (
 /obj/disposalpipe/segment/vertical,
 /turf/simulated/floor/green/side{
@@ -40718,9 +40212,7 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/industrial,
-/area/pod_wars/spacejunk/fstation/command{
-	name = "Kuiper Administration"
-	})
+/area/nations_neutral/shipwright/command)
 "sgG" = (
 /obj/machinery/portable_atmospherics/canister/nitrogen,
 /obj/machinery/power/apc/autoname_west,
@@ -40955,6 +40447,11 @@
 	dir = 5
 	},
 /area/station/engine/storage)
+"snL" = (
+/obj/storage/secure/closet/personal,
+/obj/machinery/light/small,
+/turf/simulated/floor/industrial,
+/area/nations_neutral/shipwright)
 "soc" = (
 /obj/rack,
 /obj/item/clothing/suit/space/emerg,
@@ -41062,9 +40559,7 @@
 	},
 /obj/random_item_spawner/snacks/one,
 /turf/simulated/floor/minitiles/white,
-/area/pod_wars/spacejunk/fstation/mess{
-	name = "Kuiper Mess Hall"
-	})
+/area/nations_neutral/shipwright/messhall)
 "spW" = (
 /obj/decal/stage_edge,
 /turf/simulated/floor/wood/seven,
@@ -41142,9 +40637,7 @@
 /obj/machinery/door_control/bolter/new_walls/east,
 /obj/mapping_helper/button/area,
 /turf/simulated/floor/sanitary,
-/area/pod_wars/spacejunk/fstation/crewquarters{
-	name = "Kuiper Personnel Systems"
-	})
+/area/nations_neutral/shipwright/systems)
 "ssu" = (
 /obj/cable{
 	icon_state = "1-2"
@@ -41698,15 +41191,6 @@
 /area/station/hallway/secondary/central{
 	name = "UN General Assembly Observation Deck"
 	})
-"sDf" = (
-/obj/machinery/light/small/floor,
-/obj/cable{
-	icon_state = "1-2"
-	},
-/turf/simulated/floor/minitiles,
-/area/pod_wars/spacejunk/fstation/mess{
-	name = "Kuiper Mess Hall"
-	})
 "sDW" = (
 /obj/machinery/door/airlock/pyro/medical,
 /obj/mapping_helper/access/medical,
@@ -41981,9 +41465,7 @@
 "sIC" = (
 /obj/machinery/door/airlock/pyro/classic,
 /turf/simulated/floor/sanitary,
-/area/pod_wars/spacejunk/fstation/crewquarters{
-	name = "Kuiper Personnel Systems"
-	})
+/area/nations_neutral/shipwright/systems)
 "sIP" = (
 /obj/machinery/light/emergency{
 	dir = 1;
@@ -42061,9 +41543,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/mauxite,
-/area/pod_wars/spacejunk/fstation/primary{
-	name = "Kuiper Dock One"
-	})
+/area/nations_neutral/shipwright/bay1)
 "sKl" = (
 /obj/machinery/communications_dish{
 	tag = "MAIN_DISH_SS13"
@@ -42314,9 +41794,7 @@
 /area/station/science/lab)
 "sPN" = (
 /turf/simulated/floor/caution/westeast,
-/area/spacehabitat{
-	name = "Forster's Rock"
-	})
+/area/nations_neutral/hoot)
 "sQr" = (
 /obj/stool/bench/blue/auto,
 /turf/simulated/floor/grey/side{
@@ -42451,9 +41929,7 @@
 /turf/simulated/floor/caution/corner/misc{
 	dir = 9
 	},
-/area/spacehabitat{
-	name = "Forster's Rock"
-	})
+/area/nations_neutral/hoot)
 "sUC" = (
 /obj/reagent_dispensers/foamtank,
 /obj/machinery/light{
@@ -42462,9 +41938,7 @@
 	pixel_y = 21
 	},
 /turf/simulated/floor/mauxite,
-/area/pod_wars/spacejunk/fstation/maintdock{
-	name = "Kuiper Dock Two"
-	})
+/area/nations_neutral/shipwright/bay2)
 "sUD" = (
 /obj/decal/tile_edge/line/black{
 	dir = 8;
@@ -42474,9 +41948,7 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/minitiles,
-/area/pod_wars/spacejunk/fstation/command{
-	name = "Kuiper Administration"
-	})
+/area/nations_neutral/shipwright/command)
 "sUG" = (
 /obj/machinery/light_switch/east,
 /obj/shrub,
@@ -42809,23 +42281,20 @@
 /turf/simulated/floor/grey/side,
 /area/station/hallway/primary/south)
 "teZ" = (
-/obj/item/device/radio/intercom/loudspeaker/speaker/west{
-	pixel_x = 22
-	},
 /obj/stool,
+/obj/machinery/light/small{
+	dir = 4;
+	pixel_x = 12
+	},
 /turf/simulated/floor/minitiles,
-/area/pod_wars/spacejunk/fstation/mess{
-	name = "Kuiper Mess Hall"
-	})
+/area/nations_neutral/shipwright/messhall)
 "tfg" = (
 /obj/machinery/r_door_control/podbay/mainpod1{
 	pixel_y = 8;
 	pixel_x = -8
 	},
 /turf/simulated/wall/auto/jen/brown,
-/area/pod_wars/spacejunk/fstation/primary{
-	name = "Kuiper Dock One"
-	})
+/area/nations_neutral/shipwright/bay1)
 "tft" = (
 /obj/decal/tile_edge/stripe/extra_big{
 	dir = 1
@@ -43039,9 +42508,7 @@
 	icon_state = "1-4"
 	},
 /turf/simulated/floor/industrial,
-/area/pod_wars/spacejunk/fstation{
-	name = "Kuiper Shipwright"
-	})
+/area/nations_neutral/shipwright)
 "tkl" = (
 /obj/cable{
 	icon_state = "1-2"
@@ -43063,9 +42530,7 @@
 	icon_state = "1-4"
 	},
 /turf/simulated/floor/mauxite,
-/area/pod_wars/spacejunk/fstation/primary{
-	name = "Kuiper Dock One"
-	})
+/area/nations_neutral/shipwright/bay1)
 "tkJ" = (
 /obj/cable{
 	icon_state = "4-8"
@@ -43417,9 +42882,7 @@
 	initial_reagents = list("silver_sulfadiazine" = 30)
 	},
 /turf/simulated/floor/minitiles/white,
-/area/pod_wars/spacejunk/fstation/medbay{
-	name = "Kuiper Medical Bay"
-	})
+/area/nations_neutral/shipwright/medbooth)
 "ttP" = (
 /turf/simulated/floor/grey/blackgrime,
 /area/station/crew_quarters/catering)
@@ -43549,9 +43012,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/minitiles,
-/area/pod_wars/spacejunk/fstation/mess{
-	name = "Kuiper Mess Hall"
-	})
+/area/nations_neutral/shipwright/messhall)
 "twN" = (
 /obj/table/reinforced/auto,
 /obj/machinery/door/airlock/pyro/glass/windoor{
@@ -43594,9 +43055,7 @@
 	pixel_y = 8
 	},
 /turf/simulated/floor/sanitary,
-/area/pod_wars/spacejunk/fstation/crewquarters{
-	name = "Kuiper Personnel Systems"
-	})
+/area/nations_neutral/shipwright/systems)
 "tyj" = (
 /turf/simulated/floor/engine,
 /area/station/hangar/qm)
@@ -43779,9 +43238,7 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/industrial,
-/area/pod_wars/spacejunk/fstation{
-	name = "Kuiper Shipwright"
-	})
+/area/nations_neutral/shipwright)
 "tBJ" = (
 /obj/shrub{
 	dir = 5
@@ -43852,9 +43309,7 @@
 	icon_state = "2-8"
 	},
 /turf/simulated/floor/minitiles,
-/area/pod_wars/spacejunk/fstation/power{
-	name = "Kuiper Systems Station"
-	})
+/area/nations_neutral/shipwright/systems)
 "tCv" = (
 /obj/submachine/chicken_incubator,
 /obj/item/reagent_containers/food/snacks/ingredient/egg{
@@ -43972,9 +43427,7 @@
 	},
 /obj/cable,
 /turf/simulated/floor/minitiles,
-/area/pod_wars/spacejunk/fstation/power{
-	name = "Kuiper Systems Station"
-	})
+/area/nations_neutral/shipwright/systems)
 "tFh" = (
 /turf/simulated/floor/blue/side{
 	dir = 4
@@ -44084,9 +43537,7 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/minitiles/white,
-/area/pod_wars/spacejunk/fstation/mess{
-	name = "Kuiper Mess Hall"
-	})
+/area/nations_neutral/shipwright/messhall)
 "tHb" = (
 /obj/shrub{
 	icon = 'icons/obj/stationobjs.dmi';
@@ -44664,9 +44115,7 @@
 "tSq" = (
 /obj/machinery/door/airlock/pyro/classic,
 /turf/simulated/floor/industrial,
-/area/pod_wars/spacejunk/fstation{
-	name = "Kuiper Shipwright"
-	})
+/area/nations_neutral/shipwright)
 "tSu" = (
 /obj/disposalpipe/junction/left/east,
 /obj/cable{
@@ -45049,9 +44498,7 @@
 	icon_state = "2-4"
 	},
 /turf/simulated/floor/mauxite,
-/area/pod_wars/spacejunk/fstation/maintdock{
-	name = "Kuiper Dock Two"
-	})
+/area/nations_neutral/shipwright/bay2)
 "ubi" = (
 /obj/machinery/light/small/floor,
 /turf/simulated/floor/specialroom/freezer,
@@ -45127,22 +44574,17 @@
 /turf/simulated/floor/sanitary/white,
 /area/station/medical/robotics)
 "ucR" = (
-/obj/machinery/light/small,
 /obj/cable{
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/industrial,
-/area/pod_wars/spacejunk/fstation{
-	name = "Kuiper Shipwright"
-	})
+/area/nations_neutral/shipwright)
 "udf" = (
 /obj/cable{
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/industrial,
-/area/pod_wars/spacejunk/fstation/primary{
-	name = "Kuiper Dock One"
-	})
+/area/nations_neutral/shipwright/bay1)
 "udl" = (
 /obj/cable{
 	icon_state = "1-2"
@@ -45213,10 +44655,12 @@
 /obj/cable{
 	icon_state = "1-8"
 	},
+/obj/machinery/light/small{
+	dir = 4;
+	pixel_x = 12
+	},
 /turf/simulated/floor/industrial,
-/area/pod_wars/spacejunk/fstation/power{
-	name = "Kuiper Systems Station"
-	})
+/area/nations_neutral/shipwright/systems)
 "ufU" = (
 /obj/machinery/portable_atmospherics/canister/carbon_dioxide,
 /turf/simulated/floor/caution/north,
@@ -45270,9 +44714,7 @@
 	name = "Inner Berth Locks"
 	},
 /turf/simulated/floor/stairs/dark,
-/area/pod_wars/spacejunk/fstation/primary{
-	name = "Kuiper Dock One"
-	})
+/area/nations_neutral/shipwright/bay1)
 "ugq" = (
 /obj/cable{
 	icon_state = "1-10"
@@ -45401,9 +44843,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/grey,
-/area/spacehabitat{
-	name = "Forster's Rock"
-	})
+/area/nations_neutral/hoot)
 "ukn" = (
 /turf/simulated/floor/carpet/red/fancy/edge/north,
 /area/station/crew_quarters/jazz{
@@ -45469,9 +44909,7 @@
 	},
 /obj/machinery/light_switch/north,
 /turf/simulated/floor/sanitary,
-/area/pod_wars/spacejunk/fstation/crewquarters{
-	name = "Kuiper Personnel Systems"
-	})
+/area/nations_neutral/shipwright/systems)
 "ulz" = (
 /obj/cable{
 	icon_state = "1-2"
@@ -45813,10 +45251,9 @@
 /obj/cable{
 	icon_state = "4-8"
 	},
+/obj/random_item_spawner/junk/one_or_zero,
 /turf/simulated/floor/industrial,
-/area/pod_wars/spacejunk/fstation{
-	name = "Kuiper Shipwright"
-	})
+/area/nations_neutral/shipwright)
 "uqS" = (
 /obj/table/reinforced/auto,
 /obj/item/shipcomponent/mainweapon/constructor/stocked{
@@ -45955,9 +45392,7 @@
 	pixel_y = 21
 	},
 /turf/simulated/floor/black/grime,
-/area/pod_wars/spacejunk/fstation/observatory{
-	name = "Kuiper Hardware Bay"
-	})
+/area/nations_neutral/shipwright/hardware)
 "uxd" = (
 /obj/table/reinforced/chemistry/auto/basicsup,
 /obj/machinery/glass_recycler{
@@ -46144,9 +45579,7 @@
 	icon_state = "2-4"
 	},
 /turf/simulated/floor/industrial,
-/area/pod_wars/spacejunk/fstation{
-	name = "Kuiper Shipwright"
-	})
+/area/nations_neutral/shipwright)
 "uDL" = (
 /obj/machinery/atmospherics/unary/tank{
 	dir = 1
@@ -46162,9 +45595,7 @@
 /area/station/chapel/office)
 "uEc" = (
 /turf/simulated/wall/auto/asteroid/dark,
-/area/spacehabitat{
-	name = "Forster's Rock"
-	})
+/area/nations_neutral/hoot)
 "uEm" = (
 /obj/storage/crate/rcd,
 /obj/machinery/camera/directional/south,
@@ -46354,9 +45785,7 @@
 "uKX" = (
 /obj/mesh/catwalk,
 /turf/simulated/floor/airless/plating/catwalk/auto,
-/area/pod_wars/spacejunk/fstation/command{
-	name = "Kuiper Administration"
-	})
+/area/nations_neutral/shipwright/command)
 "uLi" = (
 /obj/cable{
 	icon_state = "1-8"
@@ -46569,9 +45998,7 @@
 	pixel_x = 8
 	},
 /turf/simulated/floor/grey,
-/area/spacehabitat{
-	name = "Forster's Rock"
-	})
+/area/nations_neutral/hoot)
 "uQd" = (
 /obj/disposalpipe/segment/vertical,
 /turf/simulated/floor/specialroom/arcade,
@@ -46911,9 +46338,7 @@
 	})
 "uZz" = (
 /turf/simulated/floor/caution/west,
-/area/spacehabitat{
-	name = "Forster's Rock"
-	})
+/area/nations_neutral/hoot)
 "uZI" = (
 /obj/machinery/door/poddoor/blast/pyro/podbay_autoclose/engineering_horizontal/vertical,
 /obj/forcefield/energyshield/perma/doorlink{
@@ -46972,9 +46397,7 @@
 	},
 /obj/storage/closet/fire,
 /turf/simulated/floor/industrial,
-/area/pod_wars/spacejunk/fstation{
-	name = "Kuiper Shipwright"
-	})
+/area/nations_neutral/shipwright)
 "vbv" = (
 /obj/mesh/catwalk,
 /obj/cable/yellow{
@@ -47112,6 +46535,16 @@
 /area/station/security/checkpoint/research{
 	name = "Research Customs"
 	})
+"vgz" = (
+/obj/cable{
+	icon_state = "1-2"
+	},
+/obj/machinery/light/small{
+	dir = 4;
+	pixel_x = 12
+	},
+/turf/simulated/floor/minitiles,
+/area/nations_neutral/shipwright/messhall)
 "vgN" = (
 /obj/machinery/door/airlock/pyro/glass{
 	dir = 4
@@ -47149,9 +46582,7 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/mauxite,
-/area/pod_wars/spacejunk/fstation/primary{
-	name = "Kuiper Dock One"
-	})
+/area/nations_neutral/shipwright/bay1)
 "vhW" = (
 /obj/stool/chair{
 	dir = 8
@@ -47190,9 +46621,7 @@
 	})
 "viY" = (
 /turf/simulated/floor/shuttlebay,
-/area/pod_wars/spacejunk/fstation/maintdock{
-	name = "Kuiper Dock Two"
-	})
+/area/nations_neutral/shipwright/bay2)
 "vjv" = (
 /obj/machinery/light{
 	dir = 4;
@@ -47269,9 +46698,7 @@
 	powerlevel = 1
 	},
 /turf/simulated/floor/industrial,
-/area/pod_wars/spacejunk/fstation/primary{
-	name = "Kuiper Dock One"
-	})
+/area/nations_neutral/shipwright/bay1)
 "vkT" = (
 /obj/machinery/door/airlock/pyro/glass/med{
 	dir = 4
@@ -47386,9 +46813,7 @@
 	},
 /obj/cable,
 /turf/simulated/floor/minitiles,
-/area/pod_wars/spacejunk/fstation/power{
-	name = "Kuiper Systems Station"
-	})
+/area/nations_neutral/shipwright/systems)
 "voA" = (
 /turf/simulated/floor/engine/caution/corner,
 /area/station/hangar/science)
@@ -47585,9 +47010,7 @@
 	},
 /obj/item/storage/toolbox/mechanical,
 /turf/simulated/floor/mauxite,
-/area/pod_wars/spacejunk/fstation/maintdock{
-	name = "Kuiper Dock Two"
-	})
+/area/nations_neutral/shipwright/bay2)
 "vsZ" = (
 /obj/mapping_helper/wingrille_spawn/auto/reinforced,
 /obj/machinery/door/poddoor/pyro{
@@ -47628,9 +47051,7 @@
 "vtx" = (
 /obj/machinery/light/small,
 /turf/simulated/floor/grass/leafy,
-/area/spacehabitat{
-	name = "Forster's Rock"
-	})
+/area/nations_neutral/hoot)
 "vtA" = (
 /obj/machinery/computer3/terminal/zeta{
 	setup_os_string = "ZETA_MAINFRAME"
@@ -47655,9 +47076,7 @@
 /obj/item/device/light/flashlight,
 /obj/item/crowbar,
 /turf/simulated/floor/industrial,
-/area/pod_wars/spacejunk/fstation/maintdock{
-	name = "Kuiper Dock Two"
-	})
+/area/nations_neutral/shipwright/bay2)
 "vuj" = (
 /obj/machinery/light/emergency{
 	dir = 1;
@@ -47671,9 +47090,7 @@
 	pixel_y = 21
 	},
 /turf/simulated/floor/caution/westeast,
-/area/spacehabitat{
-	name = "Forster's Rock"
-	})
+/area/nations_neutral/hoot)
 "vuG" = (
 /obj/machinery/drainage,
 /obj/machinery/sink/slim{
@@ -47689,9 +47106,7 @@
 	pixel_x = 10
 	},
 /turf/simulated/floor/shuttlebay,
-/area/pod_wars/spacejunk/fstation/primary{
-	name = "Kuiper Dock One"
-	})
+/area/nations_neutral/shipwright/bay1)
 "vuZ" = (
 /obj/decal/tile_edge/stripe/extra_big,
 /obj/random_item_spawner/junk/one_or_zero,
@@ -47699,9 +47114,7 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/mauxite,
-/area/pod_wars/spacejunk/fstation/maintdock{
-	name = "Kuiper Dock Two"
-	})
+/area/nations_neutral/shipwright/bay2)
 "vvb" = (
 /obj/machinery/atmospherics/pipe/simple/insulated{
 	dir = 6
@@ -48150,9 +47563,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/caution/north,
-/area/spacehabitat{
-	name = "Forster's Rock"
-	})
+/area/nations_neutral/hoot)
 "vEc" = (
 /obj/table/reinforced/bar/auto{
 	name = "wooden table"
@@ -48275,9 +47686,7 @@
 	pixel_x = -6
 	},
 /turf/simulated/floor/minitiles,
-/area/pod_wars/spacejunk/fstation/command{
-	name = "Kuiper Administration"
-	})
+/area/nations_neutral/shipwright/command)
 "vGq" = (
 /obj/disposalpipe/segment/bent/south,
 /turf/simulated/floor/black,
@@ -48325,9 +47734,7 @@
 	},
 /obj/random_item_spawner/junk/one_or_zero,
 /turf/simulated/floor/industrial,
-/area/pod_wars/spacejunk/fstation/primary{
-	name = "Kuiper Dock One"
-	})
+/area/nations_neutral/shipwright/bay1)
 "vIe" = (
 /obj/decal/tile_edge/line/yellow{
 	icon_state = "line1"
@@ -48485,9 +47892,7 @@
 	pixel_y = 21
 	},
 /turf/simulated/floor/grass/leafy,
-/area/spacehabitat{
-	name = "Forster's Rock"
-	})
+/area/nations_neutral/hoot)
 "vKN" = (
 /obj/mesh/catwalk,
 /turf/simulated/floor/airless/plating/catwalk{
@@ -48610,9 +48015,7 @@
 "vOQ" = (
 /turf/simulated/wall/auto/asteroid/dark,
 /turf/simulated/floor/grass/leafy,
-/area/spacehabitat{
-	name = "Forster's Rock"
-	})
+/area/nations_neutral/hoot)
 "vPk" = (
 /obj/stool/chair/comfy/yellow,
 /turf/simulated/floor/carpet/red/fancy/edge/north,
@@ -48642,9 +48045,7 @@
 	free_resources = null
 	},
 /turf/simulated/floor/mauxite,
-/area/pod_wars/spacejunk/fstation/maintdock{
-	name = "Kuiper Dock Two"
-	})
+/area/nations_neutral/shipwright/bay2)
 "vQb" = (
 /obj/cable{
 	icon_state = "1-2"
@@ -48864,9 +48265,7 @@
 	},
 /obj/machinery/light_switch/north,
 /turf/simulated/floor/industrial,
-/area/pod_wars/spacejunk/fstation/primary{
-	name = "Kuiper Dock One"
-	})
+/area/nations_neutral/shipwright/bay1)
 "vUf" = (
 /obj/machinery/computer3/terminal/zeta{
 	dir = 4
@@ -49027,9 +48426,7 @@
 "vYO" = (
 /obj/mapping_helper/wingrille_spawn/auto/reinforced,
 /turf/simulated/floor/plating,
-/area/pod_wars/spacejunk/fstation/observatory{
-	name = "Kuiper Hardware Bay"
-	})
+/area/nations_neutral/shipwright/hardware)
 "vYR" = (
 /obj/machinery/drainage,
 /turf/simulated/floor/sanitary,
@@ -49096,9 +48493,7 @@
 	},
 /obj/random_item_spawner/tools/one_or_zero,
 /turf/simulated/floor/mauxite,
-/area/pod_wars/spacejunk/fstation/primary{
-	name = "Kuiper Dock One"
-	})
+/area/nations_neutral/shipwright/bay1)
 "wac" = (
 /turf/simulated/wall/auto/supernorn/colored/cyan,
 /area/station/crew_quarters/quartersA{
@@ -49149,9 +48544,7 @@
 	pixel_y = 21
 	},
 /turf/simulated/floor/shuttlebay,
-/area/spacehabitat{
-	name = "Forster's Rock"
-	})
+/area/nations_neutral/hoot)
 "wct" = (
 /obj/cable{
 	icon_state = "4-8"
@@ -49231,9 +48624,7 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/mauxite,
-/area/pod_wars/spacejunk/fstation/maintdock{
-	name = "Kuiper Dock Two"
-	})
+/area/nations_neutral/shipwright/bay2)
 "weE" = (
 /obj/lattice{
 	dir = 1;
@@ -49255,9 +48646,7 @@
 	})
 "wft" = (
 /turf/simulated/wall/auto/jen/brown,
-/area/pod_wars/spacejunk/fstation/command{
-	name = "Kuiper Administration"
-	})
+/area/nations_neutral/shipwright/command)
 "wfx" = (
 /obj/decal/tile_edge/line/black{
 	dir = 5;
@@ -49271,9 +48660,7 @@
 /area/station/science/artifact)
 "wfL" = (
 /turf/simulated/floor/grass/leafy,
-/area/spacehabitat{
-	name = "Forster's Rock"
-	})
+/area/nations_neutral/hoot)
 "wfQ" = (
 /obj/machinery/networked/test_apparatus/xraymachine,
 /obj/decal/stripe_caution,
@@ -49392,14 +48779,6 @@
 	dir = 4
 	},
 /area/station/science/chemistry)
-"wij" = (
-/obj/item/device/radio/intercom/loudspeaker/speaker/west{
-	pixel_x = 22
-	},
-/turf/simulated/floor/minitiles/white,
-/area/pod_wars/spacejunk/fstation/mess{
-	name = "Kuiper Mess Hall"
-	})
 "wik" = (
 /obj/mapping_helper/wingrille_spawn/auto/reinforced,
 /turf/simulated/floor/plating,
@@ -49430,9 +48809,7 @@
 "wiX" = (
 /obj/storage/secure/closet/personal,
 /turf/simulated/floor/industrial,
-/area/pod_wars/spacejunk/fstation{
-	name = "Kuiper Shipwright"
-	})
+/area/nations_neutral/shipwright)
 "wjh" = (
 /obj/machinery/sink/slim{
 	dir = 8;
@@ -49483,9 +48860,7 @@
 	},
 /obj/random_item_spawner/hat/one,
 /turf/simulated/floor/industrial,
-/area/pod_wars/spacejunk/fstation{
-	name = "Kuiper Shipwright"
-	})
+/area/nations_neutral/shipwright)
 "wkx" = (
 /obj/machinery/vending/standard,
 /turf/simulated/floor/yellowblack{
@@ -49669,9 +49044,7 @@
 /turf/simulated/floor/grey/side{
 	dir = 8
 	},
-/area/spacehabitat{
-	name = "Forster's Rock"
-	})
+/area/nations_neutral/hoot)
 "woK" = (
 /obj/mapping_helper/wingrille_spawn/auto,
 /turf/simulated/floor/plating,
@@ -49749,9 +49122,7 @@
 	powerlevel = 1
 	},
 /turf/simulated/floor/industrial,
-/area/pod_wars/spacejunk/fstation/power{
-	name = "Kuiper Systems Station"
-	})
+/area/nations_neutral/shipwright/systems)
 "wqQ" = (
 /obj/mapping_helper/wingrille_spawn/auto/reinforced,
 /turf/simulated/floor/plating,
@@ -49773,14 +49144,13 @@
 /turf/simulated/floor/carpet/blue/fancy/edge/se,
 /area/station/medical/medbay)
 "wrz" = (
-/obj/item/storage/wall/medical{
-	dir = 8;
-	pixel_x = 32
+/obj/machinery/light{
+	dir = 4;
+	layer = 9.1;
+	pixel_x = 10
 	},
 /turf/simulated/floor/minitiles/white,
-/area/pod_wars/spacejunk/fstation/medbay{
-	name = "Kuiper Medical Bay"
-	})
+/area/nations_neutral/shipwright/medbooth)
 "wrZ" = (
 /obj/machinery/light/small/floor,
 /turf/simulated/floor/engine/caution/north,
@@ -50108,14 +49478,6 @@
 "wzJ" = (
 /turf/simulated/floor/engine,
 /area/station/engine/core/thermoelectric)
-"wAK" = (
-/obj/cable{
-	icon_state = "4-8"
-	},
-/turf/simulated/floor/industrial,
-/area/pod_wars/spacejunk/fstation{
-	name = "Kuiper Shipwright"
-	})
 "wBw" = (
 /obj/cable{
 	icon_state = "2-8"
@@ -50174,9 +49536,7 @@
 /obj/machinery/portable_reclaimer,
 /obj/machinery/door_control/podbay/mainpod1/new_walls/west,
 /turf/simulated/floor/mauxite,
-/area/pod_wars/spacejunk/fstation/primary{
-	name = "Kuiper Dock One"
-	})
+/area/nations_neutral/shipwright/bay1)
 "wDb" = (
 /turf/simulated/floor/sanitary,
 /area/station/crew_quarters/quarters{
@@ -50246,9 +49606,7 @@
 	pixel_x = 12
 	},
 /turf/simulated/floor/industrial,
-/area/pod_wars/spacejunk/fstation/maintdock{
-	name = "Kuiper Dock Two"
-	})
+/area/nations_neutral/shipwright/bay2)
 "wFH" = (
 /obj/machinery/portable_atmospherics/pump,
 /turf/simulated/floor/twotone,
@@ -50603,9 +49961,7 @@
 /area/station/security/interrogation)
 "wND" = (
 /turf/simulated/wall/auto/jen/green,
-/area/spacehabitat{
-	name = "Forster's Rock"
-	})
+/area/nations_neutral/hoot)
 "wNM" = (
 /obj/cable{
 	icon_state = "1-2"
@@ -50778,9 +50134,7 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/mauxite,
-/area/pod_wars/spacejunk/fstation/maintdock{
-	name = "Kuiper Dock Two"
-	})
+/area/nations_neutral/shipwright/bay2)
 "wUa" = (
 /obj/item/device/radio/beacon,
 /obj/disposalpipe/segment/vertical,
@@ -50976,9 +50330,7 @@
 	icon_state = "1-4"
 	},
 /turf/simulated/floor/black/grime,
-/area/pod_wars/spacejunk/fstation/observatory{
-	name = "Kuiper Hardware Bay"
-	})
+/area/nations_neutral/shipwright/hardware)
 "xad" = (
 /obj/machinery/vending/air_vendor,
 /turf/simulated/floor/yellowblack{
@@ -51107,9 +50459,7 @@
 "xeo" = (
 /obj/machinery/light/small,
 /turf/simulated/floor/industrial,
-/area/pod_wars/spacejunk/fstation{
-	name = "Kuiper Shipwright"
-	})
+/area/nations_neutral/shipwright)
 "xep" = (
 /obj/machinery/portable_atmospherics/canister/air,
 /obj/decal/stripe_caution,
@@ -51180,9 +50530,7 @@
 /obj/random_item_spawner/junk/one_or_zero,
 /obj/machinery/light_switch/north,
 /turf/simulated/floor/industrial,
-/area/pod_wars/spacejunk/fstation/maintdock{
-	name = "Kuiper Dock Two"
-	})
+/area/nations_neutral/shipwright/bay2)
 "xfZ" = (
 /obj/machinery/power/smes{
 	charge = 1e+006;
@@ -51383,9 +50731,7 @@
 	start_charge = 0
 	},
 /turf/simulated/floor/black/grime,
-/area/pod_wars/spacejunk/fstation/observatory{
-	name = "Kuiper Hardware Bay"
-	})
+/area/nations_neutral/shipwright/hardware)
 "xks" = (
 /obj/decal/tile_edge/stripe/corner/big2{
 	dir = 9
@@ -51439,9 +50785,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/industrial,
-/area/pod_wars/spacejunk/fstation{
-	name = "Kuiper Shipwright"
-	})
+/area/nations_neutral/shipwright)
 "xlZ" = (
 /obj/table/reinforced/auto,
 /obj/machinery/firealarm/directional/east,
@@ -51470,9 +50814,7 @@
 	},
 /obj/machinery/power/data_terminal,
 /turf/simulated/floor/minitiles,
-/area/pod_wars/spacejunk/fstation/command{
-	name = "Kuiper Administration"
-	})
+/area/nations_neutral/shipwright/command)
 "xmn" = (
 /obj/machinery/door/airlock/pyro/glass,
 /obj/mapping_helper/firedoor_spawn,
@@ -51507,9 +50849,7 @@
 /turf/simulated/floor/shuttlebay{
 	icon_state = "engine_caution_east"
 	},
-/area/pod_wars/spacejunk/fstation/power{
-	name = "Kuiper Systems Station"
-	})
+/area/nations_neutral/shipwright/systems)
 "xnL" = (
 /obj/stool/bench/auto,
 /obj/machinery/light/small{
@@ -51517,9 +50857,7 @@
 	pixel_x = -12
 	},
 /turf/simulated/floor/sanitary,
-/area/pod_wars/spacejunk/fstation/crewquarters{
-	name = "Kuiper Personnel Systems"
-	})
+/area/nations_neutral/shipwright/systems)
 "xnM" = (
 /obj/stool/chair/office/blue{
 	dir = 4
@@ -51918,9 +51256,7 @@
 /obj/reagent_dispensers/foamtank,
 /obj/machinery/light,
 /turf/simulated/floor/mauxite,
-/area/pod_wars/spacejunk/fstation/primary{
-	name = "Kuiper Dock One"
-	})
+/area/nations_neutral/shipwright/bay1)
 "xuB" = (
 /turf/simulated/floor/black,
 /area/station/science/lab)
@@ -52045,9 +51381,7 @@
 	icon_state = "4-9"
 	},
 /turf/simulated/floor/industrial,
-/area/pod_wars/spacejunk/fstation/primary{
-	name = "Kuiper Dock One"
-	})
+/area/nations_neutral/shipwright/bay1)
 "xxe" = (
 /obj/cable{
 	icon_state = "1-2"
@@ -52100,9 +51434,7 @@
 "xxx" = (
 /obj/tree,
 /turf/simulated/floor/grass/leafy,
-/area/spacehabitat{
-	name = "Forster's Rock"
-	})
+/area/nations_neutral/hoot)
 "xxy" = (
 /obj/table/reinforced/auto,
 /obj/machinery/door/airlock/pyro/glass/windoor{
@@ -52234,9 +51566,7 @@
 	icon_state = "6-8"
 	},
 /turf/simulated/floor/industrial,
-/area/pod_wars/spacejunk/fstation/maintdock{
-	name = "Kuiper Dock Two"
-	})
+/area/nations_neutral/shipwright/bay2)
 "xAx" = (
 /turf/simulated/floor/yellowblack/corner{
 	dir = 1
@@ -52482,9 +51812,7 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/industrial,
-/area/pod_wars/spacejunk/fstation/primary{
-	name = "Kuiper Dock One"
-	})
+/area/nations_neutral/shipwright/bay1)
 "xGa" = (
 /obj/cable{
 	icon_state = "1-2"
@@ -52657,9 +51985,7 @@
 	free_resources = null
 	},
 /turf/simulated/floor/black/grime,
-/area/pod_wars/spacejunk/fstation/observatory{
-	name = "Kuiper Hardware Bay"
-	})
+/area/nations_neutral/shipwright/hardware)
 "xKq" = (
 /obj/machinery/door/poddoor/blast/pyro/podbay_autoclose{
 	name = "pod bay door";
@@ -52728,9 +52054,7 @@
 "xMI" = (
 /obj/mesh/catwalk,
 /turf/simulated/floor/airless/plating/catwalk/auto,
-/area/pod_wars/spacejunk/fstation/maintdock{
-	name = "Kuiper Dock Two"
-	})
+/area/nations_neutral/shipwright/bay2)
 "xMV" = (
 /obj/machinery/door/poddoor/blast/pyro/podbay_autoclose/qm_horizontal,
 /obj/forcefield/energyshield/perma/doorlink{
@@ -52887,9 +52211,7 @@
 	dir = 8;
 	icon_state = "engine_caution_corners"
 	},
-/area/spacehabitat{
-	name = "Forster's Rock"
-	})
+/area/nations_neutral/hoot)
 "xPQ" = (
 /obj/stool/bench/blue/auto,
 /obj/machinery/shower{
@@ -53066,9 +52388,7 @@
 /obj/mapping_helper/button/area,
 /obj/mapping_helper/airlock/bolter,
 /turf/simulated/floor/caution/northsouth,
-/area/pod_wars/spacejunk/fstation/maintdock{
-	name = "Kuiper Dock Two"
-	})
+/area/nations_neutral/shipwright/bay2)
 "xTV" = (
 /obj/table/reinforced/auto,
 /obj/item/storage/box/tapebox{
@@ -53292,9 +52612,7 @@
 "xXR" = (
 /obj/machinery/drainage,
 /turf/simulated/floor/sanitary,
-/area/pod_wars/spacejunk/fstation/crewquarters{
-	name = "Kuiper Personnel Systems"
-	})
+/area/nations_neutral/shipwright/systems)
 "xXT" = (
 /obj/cable{
 	icon_state = "4-8"
@@ -53399,9 +52717,7 @@
 	icon_state = "2-8"
 	},
 /turf/simulated/floor/industrial,
-/area/pod_wars/spacejunk/fstation/primary{
-	name = "Kuiper Dock One"
-	})
+/area/nations_neutral/shipwright/bay1)
 "xZV" = (
 /obj/stool/bed,
 /obj/item/clothing/suit/bedsheet{
@@ -53444,9 +52760,7 @@
 "ybd" = (
 /obj/machinery/light/small,
 /turf/simulated/floor/black/grime,
-/area/pod_wars/spacejunk/fstation/observatory{
-	name = "Kuiper Hardware Bay"
-	})
+/area/nations_neutral/shipwright/hardware)
 "ybm" = (
 /obj/stool/chair/comfy/purple,
 /turf/simulated/floor/carpet/purple/fancy/edge/north,
@@ -53545,9 +52859,7 @@
 	icon_state = "1-8"
 	},
 /turf/simulated/floor/industrial,
-/area/pod_wars/spacejunk/fstation/maintdock{
-	name = "Kuiper Dock Two"
-	})
+/area/nations_neutral/shipwright/bay2)
 "ydM" = (
 /obj/cable{
 	icon_state = "1-2"
@@ -53730,9 +53042,7 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/mauxite,
-/area/pod_wars/spacejunk/fstation/maintdock{
-	name = "Kuiper Dock Two"
-	})
+/area/nations_neutral/shipwright/bay2)
 "yja" = (
 /obj/mesh/catwalk,
 /obj/machinery/door/airlock/pyro/external{
@@ -53758,9 +53068,7 @@
 	pixel_x = 12
 	},
 /turf/simulated/floor/sanitary,
-/area/pod_wars/spacejunk/fstation/crewquarters{
-	name = "Kuiper Personnel Systems"
-	})
+/area/nations_neutral/shipwright/systems)
 "yjN" = (
 /obj/machinery/portable_atmospherics/canister/carbon_dioxide,
 /turf/simulated/floor/plating,
@@ -53773,9 +53081,7 @@
 /obj/table/auto,
 /obj/item/paper_bin,
 /turf/simulated/floor/sanitary,
-/area/pod_wars/spacejunk/fstation/crewquarters{
-	name = "Kuiper Personnel Systems"
-	})
+/area/nations_neutral/shipwright/systems)
 "yjW" = (
 /obj/stool/chair,
 /obj/machinery/light{
@@ -53889,9 +53195,7 @@
 /area/station/hallway/primary/northwest)
 "ylG" = (
 /turf/simulated/wall/auto/jen/brown,
-/area/pod_wars/spacejunk/fstation/observatory{
-	name = "Kuiper Hardware Bay"
-	})
+/area/nations_neutral/shipwright/hardware)
 "ylI" = (
 /turf/simulated/floor/yellowblack/corner{
 	dir = 4
@@ -117884,7 +117188,7 @@ jLC
 aQS
 saZ
 hXE
-kKP
+oLi
 jAh
 gtN
 gtN
@@ -118474,14 +117778,14 @@ oTT
 dCt
 aQS
 pyF
-wij
+jKH
 bxz
 lVK
 tHa
 jPX
+mJY
+vgz
 beV
-beV
-sDf
 qQi
 teZ
 fiH
@@ -118787,13 +118091,13 @@ tvZ
 bRs
 eeq
 eeq
-huK
-huK
+rTf
+rTf
 oFG
-huK
-huK
-huK
-huK
+rTf
+rTf
+rTf
+rTf
 dCt
 dCt
 dCt
@@ -119086,16 +118390,16 @@ ylG
 fwV
 tSq
 ldJ
-wAK
+ucR
 tSq
 ahD
-huK
+rTf
 srZ
 nyq
-huK
+rTf
 xnL
 tyh
-huK
+rTf
 pAN
 bEH
 pAN
@@ -119388,16 +118692,16 @@ ylG
 liO
 liO
 ldJ
-ucR
+mAc
 liO
 liO
-huK
-huK
+rTf
+rTf
 oFG
-huK
+rTf
 iaG
 xXR
-huK
+rTf
 pAN
 pAN
 pAN
@@ -119690,16 +118994,16 @@ ylG
 agb
 tSq
 ldJ
-wAK
+ucR
 tSq
 pGS
-huK
+rTf
 yjU
 nyq
 sIC
 gFd
 yjH
-huK
+rTf
 pAN
 pAN
 pAN
@@ -119992,16 +119296,16 @@ ylG
 liO
 liO
 ldJ
-ucR
+mAc
 liO
 liO
-huK
+rTf
 ffq
 nyq
-huK
-huK
-huK
-huK
+rTf
+rTf
+rTf
+rTf
 liO
 liO
 iSr
@@ -120294,13 +119598,13 @@ ylG
 agb
 tSq
 ldJ
-wAK
+ucR
 tSq
 ahD
-huK
+rTf
 ulv
 ihH
-huK
+rTf
 rkw
 wiX
 liO
@@ -120596,13 +119900,13 @@ ylG
 liO
 liO
 jpF
-wAK
+ucR
 liO
 liO
-huK
-qHR
-huK
-huK
+rTf
+nKk
+rTf
+rTf
 jtF
 ldJ
 ggH
@@ -121191,7 +120495,7 @@ jYO
 jYO
 ksv
 liO
-opn
+ucR
 jtF
 liO
 vbu
@@ -121493,8 +120797,8 @@ jYO
 jYO
 jYO
 tSq
-wAK
-wiX
+ucR
+snL
 liO
 qCI
 qCI
@@ -121509,8 +120813,8 @@ qCI
 qCI
 qCI
 liO
-wiX
-wAK
+oOH
+ucR
 tSq
 jYO
 jYO
@@ -121796,7 +121100,7 @@ jYO
 jYO
 liO
 aZv
-qCI
+cIi
 liO
 aVP
 aVP
@@ -122397,7 +121701,7 @@ qCI
 jxT
 uDG
 heE
-psk
+heE
 rLF
 ipz
 qCI
@@ -122418,7 +121722,7 @@ dAM
 qCI
 feE
 rLF
-psk
+heE
 heE
 tkf
 qZh
