@@ -1,2 +1,2 @@
 /// Nations-specific, prevents asteroid spawns.
-/area/space/mass_driver_corridor
+/area/space/asteroid_safe_zone
