@@ -34,6 +34,8 @@ var/list/roundstart_nation_types = list(
 /datum/game_mode/nations/post_setup()
 	var/list/datum/mind/client_minds = list()
 	for (var/client/client)
+		if (!isliving(client.mob))
+			continue
 		client_minds += client?.mob.mind
 
 	for (var/nation_type in roundstart_nation_types)
