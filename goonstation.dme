@@ -442,6 +442,7 @@
 #include "code\datums\gamemodes\vampire.dm"
 #include "code\datums\gamemodes\wizard.dm"
 #include "code\datums\gamemodes\nations\area.dm"
+#include "code\datums\gamemodes\nations\control_point.dm"
 #include "code\datums\gamemodes\nations\mapconfig.dm"
 #include "code\datums\gamemodes\pod_wars\pw_control_point.dm"
 #include "code\datums\gamemodes\pod_wars\pw_manufacturing_.dm"

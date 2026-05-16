@@ -4590,7 +4590,7 @@
 	name = "Kuiper Systems Station"
 	})
 "chp" = (
-/obj/control_point_computer,
+/obj/nations_control_point_computer,
 /turf/simulated/floor/wood,
 /area/station/crew_quarters/hop)
 "chB" = (
@@ -6122,7 +6122,7 @@
 	name = "Medical Concourse West"
 	})
 "cSO" = (
-/obj/control_point_computer,
+/obj/nations_control_point_computer,
 /obj/decal/tile_edge/line/black{
 	dir = 1;
 	icon_state = "line1"
@@ -6972,7 +6972,7 @@
 	name = "Emergency Storage C"
 	})
 "dlo" = (
-/obj/control_point_computer{
+/obj/nations_control_point_computer{
 	dir = 8
 	},
 /turf/simulated/floor/grey,
@@ -14096,7 +14096,7 @@
 /turf/simulated/floor/engine/caution/east,
 /area/station/hangar/catering)
 "grS" = (
-/obj/control_point_computer{
+/obj/nations_control_point_computer{
 	dir = 4
 	},
 /obj/cable{
@@ -22985,7 +22985,7 @@
 	},
 /area/station/quartermaster/cargobay)
 "kfv" = (
-/obj/control_point_computer{
+/obj/nations_control_point_computer{
 	dir = 8
 	},
 /turf/simulated/floor/wood/two,
@@ -23620,7 +23620,7 @@
 /turf/simulated/floor/wood/two,
 /area/station/crew_quarters/fitness)
 "kvq" = (
-/obj/control_point_computer,
+/obj/nations_control_point_computer,
 /turf/simulated/floor/terrazzo,
 /area/station/quartermaster/cargooffice{
 	name = "Cargonian High Court"
@@ -35360,7 +35360,7 @@
 	},
 /area/station/medical/medbay)
 "pJX" = (
-/obj/control_point_computer{
+/obj/nations_control_point_computer{
 	dir = 8
 	},
 /turf/simulated/floor/industrial,
@@ -46675,7 +46675,7 @@
 	name = "Engineering Hallway"
 	})
 "uXg" = (
-/obj/control_point_computer,
+/obj/nations_control_point_computer,
 /obj/machinery/light/emergency{
 	dir = 8;
 	pixel_x = -10
