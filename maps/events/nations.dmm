@@ -6880,10 +6880,6 @@
 	},
 /turf/simulated/floor/caution/westeast,
 /area/station/science/lab)
-"djG" = (
-/obj/machinery/camera/directional/south,
-/turf/space,
-/area/space)
 "dkh" = (
 /obj/table/auto,
 /obj/item/storage/box/trackimp_kit{
@@ -105932,7 +105928,7 @@ sRz
 sRz
 sRz
 sRz
-djG
+sRz
 sRz
 sRz
 sRz
