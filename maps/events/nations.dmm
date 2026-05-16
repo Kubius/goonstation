@@ -2666,10 +2666,6 @@
 	pixel_x = null;
 	pixel_y = 26
 	},
-/obj/stool/chair/dining/wood{
-	dir = 4
-	},
-/obj/machinery/light_switch/west,
 /turf/simulated/floor/black,
 /area/station/chapel/sanctuary)
 "bll" = (
@@ -47639,6 +47635,7 @@
 /obj/cable{
 	icon_state = "6-8"
 	},
+/obj/machinery/light_switch/north,
 /turf/simulated/floor/black,
 /area/station/chapel/sanctuary)
 "vwa" = (
@@ -88531,7 +88528,7 @@ sRz
 sRz
 qnR
 sQX
-qnR
+mHS
 qnR
 bLA
 qnR
@@ -88834,7 +88831,7 @@ sRz
 iuG
 iuG
 iuG
-bkQ
+iuG
 vvY
 qGA
 jHv
@@ -89438,7 +89435,7 @@ sRz
 tLZ
 tLZ
 tLZ
-aSB
+bkQ
 cuL
 rrA
 fgZ
