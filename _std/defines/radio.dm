@@ -35,7 +35,7 @@
 /// Maximum "selectable" freq
 #define R_FREQ_MAXIMUM 1489
 #define R_FREQ_DEFAULT 1459
-#define R_FREQ_CLOWN 1349
+#define R_FREQ_CLOWN 1348
 #define R_FREQ_NANOTRASEN 1350
 #define R_FREQ_COMMAND 1358
 #define R_FREQ_SECURITY 1359
