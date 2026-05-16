@@ -49,6 +49,9 @@
 /obj/cable{
 	icon_state = "4-8"
 	},
+/obj/machinery/atmospherics/pipe/simple/insulated{
+	dir = 4
+	},
 /turf/simulated/floor/stairs{
 	dir = 8
 	},
@@ -306,6 +309,13 @@
 /area/station/bridge/united_command{
 	name = "UN General Assembly Chamber"
 	})
+"agI" = (
+/obj/lattice{
+	dir = 6;
+	icon_state = "lattice-dir"
+	},
+/turf/space,
+/area/space/asteroid_safe_zone)
 "ahb" = (
 /obj/machinery/light{
 	dir = 8;
@@ -2659,6 +2669,14 @@
 	dir = 1
 	},
 /area/station/engine/hotloop)
+"bkN" = (
+/obj/machinery/atmospherics/pipe/simple/heat_exchanging,
+/obj/lattice{
+	dir = 1;
+	icon_state = "lattice-dir"
+	},
+/turf/space,
+/area/space/asteroid_safe_zone)
 "bkQ" = (
 /obj/machinery/activation_button/driver_button{
 	id = "n_funeral";
@@ -4501,6 +4519,13 @@
 /area/station/crew_quarters/quarters_west{
 	name = "Medical Crew Quarters"
 	})
+"ceN" = (
+/obj/lattice{
+	dir = 8;
+	icon_state = "lattice-dir"
+	},
+/turf/space,
+/area/space/asteroid_safe_zone)
 "ceT" = (
 /obj/cable{
 	icon_state = "4-8"
@@ -5197,13 +5222,14 @@
 /turf/simulated/floor/engine,
 /area/station/science/teleporter)
 "cxH" = (
-/obj/machinery/power/furnace/thermo{
-	fuel = 100
-	},
 /obj/machinery/light{
 	dir = 1;
 	layer = 9.1;
 	pixel_y = 21
+	},
+/obj/machinery/atmospherics/unary/furnace_connector,
+/obj/machinery/power/furnace/thermo{
+	fuel = 100
 	},
 /turf/simulated/floor/engine,
 /area/station/engine/core/thermoelectric)
@@ -6601,10 +6627,8 @@
 /turf/simulated/floor/specialroom/cafeteria,
 /area/station/crew_quarters/kitchen)
 "dbS" = (
-/obj/machinery/atmospherics/pipe/quadway/overfloor,
-/obj/machinery/meter{
-	pixel_y = 11;
-	pixel_x = 10
+/obj/machinery/atmospherics/pipe/manifold/overfloor{
+	dir = 8
 	},
 /turf/simulated/floor/black,
 /area/station/engine/coldloop)
@@ -7977,7 +8001,9 @@
 	},
 /area/station/medical/medbay)
 "dJI" = (
-/obj/machinery/atmospherics/pipe/simple/insulated/cold,
+/obj/machinery/atmospherics/unary/cold_sink/freezer{
+	dir = 4
+	},
 /turf/simulated/floor/blueblack{
 	dir = 8
 	},
@@ -8369,6 +8395,13 @@
 "dUR" = (
 /obj/cable{
 	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/manifold/overfloor{
+	dir = 1
+	},
+/obj/machinery/meter{
+	pixel_x = -10;
+	pixel_y = -9
 	},
 /turf/simulated/floor/black,
 /area/station/engine/coldloop)
@@ -10029,6 +10062,13 @@
 	dir = 8
 	},
 /area/station/medical/medbay)
+"eGB" = (
+/obj/machinery/atmospherics/pipe/simple/heat_exchanging{
+	dir = 6
+	},
+/obj/lattice,
+/turf/space,
+/area/space/asteroid_safe_zone)
 "eGP" = (
 /obj/rack,
 /obj/item/extinguisher{
@@ -10110,7 +10150,12 @@
 /turf/simulated/floor/orangeblack,
 /area/station/mining/staff_room)
 "eIl" = (
-/obj/machinery/atmospherics/unary/tank,
+/obj/cable{
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/insulated/cold{
+	dir = 10
+	},
 /turf/simulated/floor/black,
 /area/station/engine/coldloop)
 "eJa" = (
@@ -11441,7 +11486,6 @@
 /turf/space,
 /area/station/turret_protected/armory_outside)
 "fpa" = (
-/obj/storage/crate/furnacefuel,
 /obj/machinery/firealarm/directional/east,
 /turf/simulated/floor/blueblack{
 	dir = 4
@@ -13873,14 +13917,12 @@
 /turf/simulated/floor/black,
 /area/station/chapel/office)
 "gno" = (
-/obj/machinery/atmospherics/unary/cold_sink/freezer{
-	dir = 4
-	},
 /obj/machinery/light{
 	dir = 8;
 	layer = 9.1;
 	pixel_x = -10
 	},
+/obj/storage/cart/mechcart/breach,
 /turf/simulated/floor/blueblack{
 	dir = 1
 	},
@@ -14428,9 +14470,6 @@
 	name = "La Balustrade"
 	})
 "gAS" = (
-/obj/machinery/atmospherics/pipe/simple/insulated/cold{
-	dir = 6
-	},
 /obj/machinery/power/data_terminal,
 /obj/machinery/power/stats_meter{
 	name = "Cold Loop Inlet Meter";
@@ -14444,6 +14483,9 @@
 	},
 /obj/cable{
 	icon_state = "0-6"
+	},
+/obj/machinery/atmospherics/pipe/manifold/overfloor{
+	dir = 8
 	},
 /turf/simulated/floor/engine,
 /area/station/engine/core/thermoelectric)
@@ -15498,8 +15540,12 @@
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
 	dir = 9
 	},
+/obj/lattice{
+	dir = 10;
+	icon_state = "lattice-dir"
+	},
 /turf/space,
-/area/space)
+/area/space/asteroid_safe_zone)
 "gYr" = (
 /obj/cable{
 	icon_state = "4-8"
@@ -16576,17 +16622,13 @@
 /turf/unsimulated/floor/circuit/vintage,
 /area/station/crewquarters/cryotron)
 "hzO" = (
-/obj/machinery/atmospherics/pipe/manifold/overfloor{
-	dir = 8
+/obj/mapping_helper/wingrille_spawn/auto/reinforced,
+/obj/machinery/atmospherics/pipe/simple/insulated{
+	can_rupture = 0;
+	dir = 4
 	},
-/obj/machinery/meter{
-	pixel_y = 11;
-	pixel_x = 10
-	},
-/turf/simulated/floor/blueblack{
-	dir = 8
-	},
-/area/station/engine/coldloop)
+/turf/simulated/floor/plating,
+/area/station/engine/core/thermoelectric)
 "hzW" = (
 /obj/machinery/light/emergency{
 	dir = 1;
@@ -16822,6 +16864,9 @@
 	},
 /obj/cable{
 	icon_state = "2-8"
+	},
+/obj/machinery/atmospherics/binary/valve{
+	name = "cold purge valve"
 	},
 /turf/simulated/floor/engine,
 /area/station/engine/core/thermoelectric)
@@ -20587,13 +20632,7 @@
 	},
 /area/station/hangar/engine)
 "jkk" = (
-/obj/machinery/atmospherics/pipe/simple/insulated/cold{
-	dir = 9
-	},
-/obj/machinery/meter{
-	pixel_y = 11;
-	pixel_x = -10
-	},
+/obj/machinery/atmospherics/pipe/simple/insulated/cold,
 /turf/simulated/floor/black,
 /area/station/engine/coldloop)
 "jko" = (
@@ -22153,6 +22192,13 @@
 /obj/item/cargotele,
 /turf/simulated/floor/green/side,
 /area/station/hydroponics/bay)
+"jQF" = (
+/obj/machinery/atmospherics/pipe/simple/heat_exchanging{
+	dir = 4
+	},
+/obj/lattice,
+/turf/space,
+/area/space/asteroid_safe_zone)
 "jQJ" = (
 /obj/cable{
 	icon_state = "4-8"
@@ -23301,6 +23347,11 @@
 /area/station/hallway/secondary/west{
 	name = "Medical Concourse West"
 	})
+"knC" = (
+/obj/mapping_helper/wingrille_spawn/auto/reinforced,
+/obj/machinery/atmospherics/pipe/simple/insulated/cold,
+/turf/simulated/floor/plating,
+/area/station/engine/core/thermoelectric)
 "knD" = (
 /obj/mapping_helper/wingrille_spawn/auto/reinforced/crystal,
 /obj/cable{
@@ -25065,10 +25116,11 @@
 	})
 "leh" = (
 /obj/cable{
-	icon_state = "1-10"
-	},
-/obj/cable{
 	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/binary/valve{
+	dir = 2;
+	name = "cold inlet valve"
 	},
 /turf/simulated/floor/black,
 /area/station/engine/coldloop)
@@ -25629,7 +25681,7 @@
 	dir = 1
 	},
 /turf/space,
-/area/space)
+/area/space/asteroid_safe_zone)
 "lpJ" = (
 /obj/shrub,
 /obj/machinery/light/small{
@@ -28422,6 +28474,13 @@
 /area/station/crew_quarters/quartersA{
 	name = "Medical Restroom"
 	})
+"mxI" = (
+/obj/machinery/atmospherics/unary/vent,
+/obj/lattice{
+	icon_state = "lattice-dir"
+	},
+/turf/space,
+/area/space/asteroid_safe_zone)
 "mxR" = (
 /obj/table/reinforced/industrial/auto,
 /obj/item/reagent_containers/food/drinks/fueltank{
@@ -28460,10 +28519,7 @@
 /turf/simulated/floor/sanitary/white,
 /area/station/crew_quarters/showers)
 "myS" = (
-/obj/machinery/atmospherics/binary/valve{
-	name = "cold radiator bypass valve";
-	dir = 4
-	},
+/obj/machinery/atmospherics/pipe/manifold/overfloor,
 /turf/simulated/floor/black,
 /area/station/engine/coldloop)
 "mzl" = (
@@ -28894,6 +28950,15 @@
 	},
 /turf/simulated/floor/black,
 /area/station/hangar/engine)
+"mJT" = (
+/obj/cable{
+	icon_state = "1-2"
+	},
+/obj/cable{
+	icon_state = "1-8"
+	},
+/turf/simulated/floor/black,
+/area/station/engine/coldloop)
 "mKF" = (
 /turf/simulated/floor/stairs/wide/other{
 	dir = 4
@@ -30080,6 +30145,14 @@
 /area/station/hallway/secondary/west{
 	name = "Medical Concourse West"
 	})
+"nkN" = (
+/obj/machinery/atmospherics/pipe/simple/heat_exchanging,
+/obj/lattice{
+	dir = 6;
+	icon_state = "lattice-dir"
+	},
+/turf/space,
+/area/space/asteroid_safe_zone)
 "nkS" = (
 /obj/rack,
 /obj/item/sponge{
@@ -30427,9 +30500,7 @@
 	name = "Kuiper Shipwright"
 	})
 "nsw" = (
-/obj/machinery/atmospherics/unary/cold_sink/freezer{
-	dir = 4
-	},
+/obj/storage/crate/furnacefuel,
 /turf/simulated/floor/black,
 /area/station/engine/coldloop)
 "nts" = (
@@ -31598,6 +31669,16 @@
 /area/station/bridge/united_command{
 	name = "UN General Assembly Chamber"
 	})
+"oab" = (
+/obj/machinery/atmospherics/pipe/simple/heat_exchanging{
+	dir = 10
+	},
+/obj/lattice{
+	dir = 1;
+	icon_state = "lattice-dir"
+	},
+/turf/space,
+/area/space/asteroid_safe_zone)
 "oam" = (
 /obj/table/reinforced/auto,
 /obj/item/robot_module{
@@ -33763,9 +33844,12 @@
 	name = "Engineering Customs"
 	})
 "pap" = (
-/obj/machinery/atmospherics/unary/portables_connector{
-	dir = 4;
-	name = "Mixing Port"
+/obj/machinery/atmospherics/pipe/manifold/overfloor{
+	dir = 8
+	},
+/obj/machinery/meter{
+	pixel_x = 10;
+	pixel_y = 11
 	},
 /turf/simulated/floor/plating,
 /area/station/science/storage)
@@ -36997,13 +37081,7 @@
 	do_not_irradiate = 1
 	})
 "qzS" = (
-/obj/machinery/atmospherics/unary/cold_sink/freezer{
-	dir = 8
-	},
-/obj/machinery/power/apc/autoname_north,
-/obj/cable{
-	icon_state = "0-4"
-	},
+/obj/machinery/atmospherics/unary/tank,
 /turf/simulated/floor/blueblack{
 	dir = 1
 	},
@@ -37118,6 +37196,10 @@
 "qCW" = (
 /obj/machinery/phone/wall{
 	pixel_y = 32
+	},
+/obj/machinery/atmospherics/binary/valve{
+	dir = 4;
+	name = "Intermix Valve"
 	},
 /turf/simulated/floor/plating,
 /area/station/science/storage)
@@ -37759,6 +37841,12 @@
 	layer = 9.1;
 	pixel_y = 21
 	},
+/obj/machinery/atmospherics/binary/pump/active{
+	frequency = 1225;
+	id = "Cold Loop Purge Pump";
+	target_pressure = 2000;
+	dir = 1
+	},
 /turf/simulated/floor/engine,
 /area/station/engine/core/thermoelectric)
 "qSy" = (
@@ -38022,6 +38110,9 @@
 "qWz" = (
 /obj/cable{
 	icon_state = "4-9"
+	},
+/obj/machinery/atmospherics/pipe/simple/overfloor{
+	dir = 5
 	},
 /turf/simulated/floor/plating,
 /area/station/science/storage)
@@ -38597,6 +38688,16 @@
 /area/station/hallway/secondary/northwest{
 	name = "Service West Hallway"
 	})
+"rof" = (
+/obj/cable{
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/binary/valve{
+	dir = 4;
+	name = "Intermix Valve"
+	},
+/turf/simulated/floor/plating,
+/area/station/science/storage)
 "rop" = (
 /obj/table/reinforced/auto,
 /obj/item/storage/firstaid/regular,
@@ -39175,9 +39276,8 @@
 	name = "Engineering Restroom"
 	})
 "rCc" = (
-/obj/machinery/atmospherics/pipe/simple/insulated/cold,
-/obj/cable{
-	icon_state = "4-8"
+/obj/machinery/atmospherics/unary/cold_sink/freezer{
+	dir = 4
 	},
 /turf/simulated/floor/blueblack/corner{
 	dir = 1
@@ -39837,10 +39937,13 @@
 	name = "Book Nook"
 	})
 "rRA" = (
-/obj/machinery/atmospherics/pipe/simple/insulated/cold{
-	dir = 10
+/obj/machinery/power/apc/autoname_north,
+/obj/cable{
+	icon_state = "0-4"
 	},
-/obj/storage/cart/mechcart/breach,
+/obj/machinery/atmospherics/pipe/simple/insulated/cold{
+	dir = 4
+	},
 /turf/simulated/floor/blueblack{
 	dir = 8
 	},
@@ -40201,6 +40304,16 @@
 /obj/machinery/light,
 /turf/simulated/floor/darkblueblack,
 /area/station/bridge)
+"rYE" = (
+/obj/machinery/atmospherics/pipe/simple/heat_exchanging{
+	dir = 4
+	},
+/obj/lattice{
+	dir = 8;
+	icon_state = "lattice-dir"
+	},
+/turf/space,
+/area/space/asteroid_safe_zone)
 "rYM" = (
 /obj/machinery/light/small{
 	dir = 1;
@@ -40647,6 +40760,13 @@
 /area/station/maintenance/outer/ne{
 	name = "Cargo Maintenance"
 	})
+"sjh" = (
+/obj/lattice{
+	dir = 1;
+	icon_state = "lattice-dir"
+	},
+/turf/space,
+/area/space/asteroid_safe_zone)
 "sjj" = (
 /turf/simulated/floor/orangeblack/side,
 /area/station/security/checkpoint/cargo{
@@ -41029,6 +41149,7 @@
 	},
 /area/station/hallway/primary/east)
 "ssT" = (
+/obj/machinery/atmospherics/unary/furnace_connector,
 /obj/machinery/power/furnace/thermo{
 	fuel = 100
 	},
@@ -41974,6 +42095,13 @@
 	},
 /turf/simulated/floor,
 /area/station/quartermaster/cargobay)
+"sLV" = (
+/obj/machinery/atmospherics/pipe/simple/junction,
+/obj/lattice{
+	icon_state = "lattice-dir"
+	},
+/turf/space,
+/area/space/asteroid_safe_zone)
 "sMh" = (
 /obj/shrub{
 	dir = 1;
@@ -42573,8 +42701,12 @@
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
 	dir = 5
 	},
+/obj/lattice{
+	dir = 9;
+	icon_state = "lattice-dir-b"
+	},
 /turf/space,
-/area/space)
+/area/space/asteroid_safe_zone)
 "tcp" = (
 /obj/table/auto,
 /obj/item/aiModule/emergency{
@@ -42937,11 +43069,7 @@
 /area/station/medical/medbay)
 "tlk" = (
 /obj/machinery/atmospherics/pipe/manifold/overfloor{
-	dir = 4
-	},
-/obj/machinery/meter{
-	pixel_y = 11;
-	pixel_x = -10
+	dir = 1
 	},
 /turf/simulated/floor/black,
 /area/station/engine/coldloop)
@@ -43097,6 +43225,16 @@
 /area/station/bridge/united_command{
 	name = "UN General Assembly Chamber"
 	})
+"toT" = (
+/obj/cable{
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/unary/portables_connector{
+	dir = 8;
+	name = "Mixing Port"
+	},
+/turf/simulated/floor/plating,
+/area/station/science/storage)
 "toU" = (
 /obj/machinery/door/airlock/pyro/command/alt{
 	dir = 4
@@ -43800,6 +43938,10 @@
 	})
 "tEf" = (
 /obj/machinery/portable_atmospherics/canister/empty,
+/obj/machinery/atmospherics/unary/portables_connector{
+	dir = 8;
+	name = "Mixing Port"
+	},
 /turf/simulated/floor/plating,
 /area/station/science/storage)
 "tEt" = (
@@ -44568,6 +44710,13 @@
 	dir = 10
 	},
 /area/station/medical/medbay)
+"tTO" = (
+/obj/machinery/atmospherics/pipe/simple/heat_exchanging{
+	dir = 5
+	},
+/obj/lattice,
+/turf/space,
+/area/space/asteroid_safe_zone)
 "tTT" = (
 /obj/cable{
 	icon_state = "1-2"
@@ -44597,6 +44746,13 @@
 	dir = 6
 	},
 /area/station/hangar/qm)
+"tUs" = (
+/obj/machinery/atmospherics/pipe/simple/heat_exchanging{
+	dir = 10
+	},
+/obj/lattice,
+/turf/space,
+/area/space/asteroid_safe_zone)
 "tUL" = (
 /obj/machinery/power/apc/autoname_west,
 /obj/cable,
@@ -45387,6 +45543,16 @@
 	dir = 8
 	},
 /area/station/crew_quarters/pool)
+"ume" = (
+/obj/machinery/atmospherics/pipe/simple/heat_exchanging{
+	dir = 9
+	},
+/obj/lattice{
+	dir = 5;
+	icon_state = "lattice-dir-b"
+	},
+/turf/space,
+/area/space/asteroid_safe_zone)
 "umn" = (
 /obj/machinery/door/airlock/pyro/maintenance,
 /obj/cable{
@@ -45461,7 +45627,7 @@
 	name = "Medical Concourse West"
 	})
 "unz" = (
-/obj/machinery/atmospherics/pipe/quadway/overfloor,
+/obj/machinery/atmospherics/pipe/simple/insulated/cold,
 /turf/simulated/floor/blueblack{
 	dir = 1
 	},
@@ -46810,6 +46976,17 @@
 /obj/disposalpipe/trunk/east,
 /turf/simulated/floor/specialroom/cafeteria,
 /area/station/crew_quarters/kitchen)
+"vaH" = (
+/obj/machinery/atmospherics/unary/vent{
+	dir = 1
+	},
+/obj/lattice{
+	dir = 10;
+	icon_state = "lattice-dir";
+	tag = "icon-lattice-dir (SOUTHWEST)"
+	},
+/turf/space,
+/area/space/asteroid_safe_zone)
 "vaW" = (
 /turf/simulated/floor/darkblueblack/corner{
 	dir = 1
@@ -47863,6 +48040,16 @@
 /obj/disposalpipe/segment/vertical,
 /turf/simulated/floor/carpet/blue/fancy/edge/sw,
 /area/station/medical/medbay)
+"vAN" = (
+/obj/machinery/atmospherics/pipe/simple/heat_exchanging{
+	dir = 5
+	},
+/obj/lattice{
+	dir = 10;
+	icon_state = "lattice-dir"
+	},
+/turf/space,
+/area/space/asteroid_safe_zone)
 "vAP" = (
 /obj/cable{
 	icon_state = "1-4"
@@ -48391,11 +48578,13 @@
 /turf/simulated/floor/black,
 /area/station/crew_quarters/cafeteria)
 "vNp" = (
-/obj/storage/crate/furnacefuel,
 /obj/machinery/light{
 	dir = 4;
 	layer = 9.1;
 	pixel_x = 10
+	},
+/obj/machinery/atmospherics/unary/cold_sink/freezer{
+	dir = 8
 	},
 /turf/simulated/floor/blueblack{
 	dir = 4
@@ -48470,8 +48659,9 @@
 	})
 "vPl" = (
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging,
+/obj/lattice,
 /turf/space,
-/area/space)
+/area/space/asteroid_safe_zone)
 "vPn" = (
 /obj/machinery/power/furnace,
 /obj/cable/orange,
@@ -50114,11 +50304,8 @@
 	},
 /area/station/medical/research)
 "wFW" = (
-/obj/machinery/atmospherics/pipe/simple/insulated/cold{
-	dir = 6
-	},
-/obj/cable{
-	icon_state = "5-8"
+/obj/machinery/atmospherics/pipe/manifold/overfloor{
+	dir = 4
 	},
 /turf/simulated/floor/black,
 /area/station/engine/coldloop)
@@ -52337,12 +52524,15 @@
 	name = "Medical Restroom"
 	})
 "xGA" = (
-/obj/machinery/atmospherics/binary/valve{
-	dir = 4;
-	name = "cold inlet valve"
+/obj/machinery/atmospherics/pipe/simple/insulated/cold{
+	dir = 10
 	},
-/turf/simulated/floor/black,
-/area/station/engine/coldloop)
+/obj/machinery/meter{
+	pixel_x = -10;
+	pixel_y = -9
+	},
+/turf/simulated/floor/engine,
+/area/station/engine/core/thermoelectric)
 "xHk" = (
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
 	dir = 9
@@ -52403,6 +52593,9 @@
 	pixel_y = 21
 	},
 /obj/landmark/pest,
+/obj/machinery/atmospherics/pipe/simple/overfloor{
+	dir = 6
+	},
 /turf/simulated/floor/plating,
 /area/station/science/storage)
 "xIg" = (
@@ -52528,10 +52721,7 @@
 /turf/simulated/floor/black,
 /area/station/chapel/office)
 "xLM" = (
-/obj/machinery/atmospherics/binary/valve{
-	desc = "cold radiator outlet valve";
-	name = "cold radiator outlet valve"
-	},
+/obj/machinery/atmospherics/pipe/simple/insulated/cold,
 /turf/simulated/floor/blueblack,
 /area/station/engine/coldloop)
 "xLO" = (
@@ -52543,12 +52733,12 @@
 	name = "UN General Assembly Chamber"
 	})
 "xMp" = (
-/obj/machinery/atmospherics/pipe/simple/insulated/cold{
-	dir = 4
+/obj/machinery/atmospherics/binary/valve{
+	dir = 2;
+	name = "cold inlet valve"
 	},
-/obj/machinery/atmospherics/pipe/simple/insulated/cold,
-/turf/simulated/floor/black,
-/area/station/engine/coldloop)
+/turf/simulated/floor/engine,
+/area/station/engine/core/thermoelectric)
 "xMI" = (
 /obj/mesh/catwalk,
 /turf/simulated/floor/airless/plating/catwalk/auto,
@@ -52609,11 +52799,15 @@
 	name = "UN General Assembly Observation Deck"
 	})
 "xNF" = (
-/obj/machinery/atmospherics/pipe/manifold/overfloor{
-	dir = 1
-	},
 /obj/cable{
 	icon_state = "1-4"
+	},
+/obj/machinery/atmospherics/pipe/manifold/overfloor{
+	dir = 8
+	},
+/obj/machinery/meter{
+	pixel_y = 11;
+	pixel_x = 10
 	},
 /turf/simulated/floor/black,
 /area/station/engine/coldloop)
@@ -93543,7 +93737,7 @@ rYX
 mYC
 fDB
 gjA
-sFL
+wwD
 sRz
 sRz
 sRz
@@ -93846,7 +94040,7 @@ chB
 xhr
 rtx
 vPl
-vPl
+nkN
 tch
 sRz
 sRz
@@ -95655,7 +95849,7 @@ eUW
 fbn
 qCW
 sdR
-nWk
+rof
 fbn
 fFF
 fFF
@@ -95957,7 +96151,7 @@ sRz
 fFF
 tEf
 tYC
-nWk
+toT
 fku
 fku
 fku
@@ -119146,7 +119340,7 @@ pBB
 pBB
 pBB
 foN
-pBB
+hzO
 gFI
 pON
 tPb
@@ -121251,8 +121445,8 @@ niy
 xsz
 dwS
 iyt
-sRz
-pBB
+mxI
+knC
 qSx
 hFl
 gAS
@@ -121263,7 +121457,7 @@ xkT
 gqv
 fkE
 tup
-lpH
+vaH
 sRz
 sRz
 sRz
@@ -122161,22 +122355,22 @@ vBa
 gFI
 emC
 wzJ
-ijP
+xGA
 wSZ
 nXt
-nXt
+xMp
 kaw
 ijP
 voR
 unz
-ivf
+jkk
 dbS
 inI
 rhX
-sRz
-sRz
-sRz
-sRz
+sLV
+nkN
+nkN
+tch
 sRz
 sRz
 sRz
@@ -122471,14 +122665,14 @@ gxW
 pBB
 gFI
 qzS
-xGA
+tlz
 myS
 mJs
 knA
 sRz
-sRz
-sRz
-sRz
+ceN
+eGB
+gYk
 sRz
 sRz
 sRz
@@ -122771,16 +122965,16 @@ mHO
 rLN
 rRA
 dJI
-hzO
+dJI
 rCc
-xMp
+aQL
 tlk
 xLM
 wdy
-sRz
-sRz
-sRz
-sRz
+sLV
+tTO
+tUs
+vAN
 sRz
 sRz
 sRz
@@ -123072,17 +123266,17 @@ mvE
 jkQ
 knA
 eIl
-tlz
-aJT
+ivf
+wFW
 wFW
 jkk
-aQL
+aJT
 reL
 knA
 sRz
-sRz
-sRz
-sRz
+rYE
+eGB
+gYk
 sRz
 sRz
 sRz
@@ -123373,7 +123567,7 @@ qYT
 igV
 nKs
 ghY
-dUR
+mJT
 dUR
 leh
 xNF
@@ -123381,10 +123575,10 @@ azR
 vSL
 ufk
 knA
-sRz
-sRz
-sRz
-sRz
+agI
+jQF
+tUs
+vAN
 sRz
 sRz
 sRz
@@ -123683,10 +123877,10 @@ mQG
 iik
 toi
 knA
-sRz
-sRz
-sRz
-sRz
+sjh
+oab
+bkN
+ume
 sRz
 sRz
 sRz
