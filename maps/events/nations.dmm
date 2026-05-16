@@ -2567,8 +2567,8 @@
 "biA" = (
 /obj/random_item_spawner/junk/one_or_zero,
 /obj/machinery/power/apc/autoname_north{
-	name = "Observation Deck APC";
-	areastring = "UN Observation Deck"
+	name = "General Assembly Observation Deck APC";
+	areastring = "UN General Assembly Observation Deck"
 	},
 /obj/cable{
 	icon_state = "0-10"
@@ -8499,7 +8499,6 @@
 	},
 /obj/mapping_helper/access/janitor,
 /obj/mapping_helper/access/chapel_office,
-/obj/mapping_helper/access/janitor,
 /turf/simulated/floor/green,
 /area/station/bridge/united_command{
 	name = "UN General Assembly Chamber"
