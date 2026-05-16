@@ -19775,15 +19775,6 @@
 /area/station/engine/gas{
 	do_not_irradiate = 1
 	})
-"iSr" = (
-/obj/machinery/light/small{
-	dir = 1;
-	pixel_y = 21
-	},
-/turf/simulated/floor/plating/airless/shuttlebay{
-	name = "landing pad plating"
-	},
-/area/nations_neutral/shipwright)
 "iSs" = (
 /obj/machinery/light{
 	dir = 8;
@@ -32241,12 +32232,6 @@
 "owl" = (
 /turf/simulated/wall/auto/reinforced/supernorn/colored/cyan,
 /area/station/medical/medbay/surgery)
-"owV" = (
-/obj/machinery/light/small,
-/turf/simulated/floor/plating/airless/shuttlebay{
-	name = "landing pad plating"
-	},
-/area/nations_neutral/shipwright)
 "oxf" = (
 /obj/machinery/networked/test_apparatus/pitching_machine{
 	dir = 8
@@ -118378,8 +118363,8 @@ dCt
 dCt
 pAN
 pAN
-bEH
 pAN
+bEH
 ylG
 gdt
 hEM
@@ -118400,8 +118385,8 @@ rTf
 xnL
 tyh
 rTf
-pAN
 bEH
+pAN
 pAN
 pAN
 dCt
@@ -118677,8 +118662,8 @@ sRz
 sRz
 sRz
 dCt
-bEH
 pAN
+bEH
 pAN
 pAN
 pAN
@@ -118705,8 +118690,8 @@ rTf
 pAN
 pAN
 pAN
-pAN
 bEH
+pAN
 dCt
 sRz
 sRz
@@ -119283,7 +119268,7 @@ pqZ
 dCt
 pAN
 pAN
-owV
+pAN
 liO
 liO
 ylG
@@ -119308,7 +119293,7 @@ rTf
 rTf
 liO
 liO
-iSr
+pAN
 pAN
 pAN
 dCt
