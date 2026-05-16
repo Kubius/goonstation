@@ -3639,16 +3639,6 @@
 	},
 /turf/space,
 /area/space)
-"bIs" = (
-/obj/cable{
-	icon_state = "4-8"
-	},
-/obj/machinery/atmospherics/unary/portables_connector{
-	dir = 8;
-	name = "Mixing Port"
-	},
-/turf/simulated/floor/plating,
-/area/station/science/storage)
 "bIR" = (
 /turf/simulated/floor/green/side{
 	dir = 4
@@ -6895,6 +6885,12 @@
 /area/station/maintenance/outer/south{
 	name = "Research Maintenance"
 	})
+"dit" = (
+/obj/cable{
+	icon_state = "1-10"
+	},
+/turf/simulated/floor/white,
+/area/station/science/lab)
 "div" = (
 /obj/landmark/start/job/roboticist,
 /turf/simulated/floor/black,
@@ -20072,6 +20068,12 @@
 	dir = 8
 	},
 /area/station/hangar/science)
+"iUE" = (
+/obj/machinery/atmospherics/binary/valve{
+	name = "Intermix Valve"
+	},
+/turf/simulated/floor/white,
+/area/station/science/lab)
 "iUQ" = (
 /obj/disposalpipe/junction/left/south,
 /turf/simulated/floor/purple/side{
@@ -30733,8 +30735,8 @@
 /obj/cable{
 	icon_state = "1-8"
 	},
-/obj/cable{
-	icon_state = "1-2"
+/obj/machinery/atmospherics/unary/portables_connector{
+	name = "Mixing Port"
 	},
 /turf/simulated/floor/white,
 /area/station/science/lab)
@@ -33867,12 +33869,9 @@
 	name = "Engineering Customs"
 	})
 "pap" = (
-/obj/machinery/atmospherics/pipe/manifold/overfloor{
-	dir = 8
-	},
-/obj/machinery/meter{
-	pixel_x = 10;
-	pixel_y = 11
+/obj/machinery/atmospherics/unary/portables_connector{
+	dir = 4;
+	name = "Mixing Port"
 	},
 /turf/simulated/floor/plating,
 /area/station/science/storage)
@@ -36720,6 +36719,15 @@
 	dir = 8
 	},
 /area/station/hangar/medical)
+"qqA" = (
+/obj/cable{
+	icon_state = "2-5"
+	},
+/obj/machinery/atmospherics/binary/valve{
+	name = "Intermix Valve"
+	},
+/turf/simulated/floor/white,
+/area/station/science/lab)
 "qqE" = (
 /obj/machinery/door/airlock/pyro{
 	dir = 4
@@ -37241,10 +37249,6 @@
 /obj/machinery/phone/wall{
 	pixel_y = 32
 	},
-/obj/machinery/atmospherics/binary/valve{
-	dir = 4;
-	name = "Intermix Valve"
-	},
 /turf/simulated/floor/plating,
 /area/station/science/storage)
 "qDg" = (
@@ -37322,6 +37326,19 @@
 	dir = 1
 	},
 /area/station/science/hall)
+"qEk" = (
+/obj/cable{
+	icon_state = "1-4"
+	},
+/obj/cable{
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/unary/portables_connector{
+	dir = 1;
+	name = "Mixing Port"
+	},
+/turf/simulated/floor/white,
+/area/station/science/lab)
 "qEr" = (
 /obj/machinery/door/unpowered/wood/pyro{
 	dir = 1
@@ -38153,9 +38170,6 @@
 "qWz" = (
 /obj/cable{
 	icon_state = "4-9"
-	},
-/obj/machinery/atmospherics/pipe/simple/overfloor{
-	dir = 5
 	},
 /turf/simulated/floor/plating,
 /area/station/science/storage)
@@ -41377,6 +41391,13 @@
 	dir = 8
 	},
 /area/station/medical/medbay)
+"sxn" = (
+/obj/machinery/atmospherics/unary/portables_connector{
+	dir = 4;
+	name = "Mixing Port"
+	},
+/turf/simulated/floor/black,
+/area/station/science/lab)
 "sxy" = (
 /obj/cable{
 	icon_state = "2-8"
@@ -42053,6 +42074,16 @@
 /area/station/quartermaster/cargooffice{
 	name = "Cargonian High Court"
 	})
+"sJJ" = (
+/obj/decal/tile_edge/stripe/big{
+	dir = 4
+	},
+/obj/machinery/atmospherics/binary/valve{
+	dir = 4;
+	name = "Intermix Valve"
+	},
+/turf/simulated/floor/black,
+/area/station/science/lab)
 "sJW" = (
 /obj/cable{
 	icon_state = "4-8"
@@ -42309,6 +42340,9 @@
 	},
 /obj/cable{
 	icon_state = "6-8"
+	},
+/obj/cable{
+	icon_state = "2-8"
 	},
 /turf/simulated/floor/white,
 /area/station/science/lab)
@@ -43948,10 +43982,6 @@
 	})
 "tEf" = (
 /obj/machinery/portable_atmospherics/canister/empty,
-/obj/machinery/atmospherics/unary/portables_connector{
-	dir = 8;
-	name = "Mixing Port"
-	},
 /turf/simulated/floor/plating,
 /area/station/science/storage)
 "tEt" = (
@@ -51585,16 +51615,6 @@
 /obj/item/reagent_containers/food/drinks/bottle/tequila,
 /turf/simulated/floor/caution/east,
 /area/station/engine/ptl)
-"xow" = (
-/obj/cable{
-	icon_state = "4-8"
-	},
-/obj/machinery/atmospherics/binary/valve{
-	dir = 4;
-	name = "Intermix Valve"
-	},
-/turf/simulated/floor/plating,
-/area/station/science/storage)
 "xoy" = (
 /turf/simulated/floor/green/side{
 	dir = 4
@@ -52423,6 +52443,16 @@
 /area/station/medical/medbay/treatment{
 	name = "Cryonics"
 	})
+"xEF" = (
+/obj/machinery/atmospherics/pipe/manifold/overfloor{
+	dir = 4
+	},
+/obj/machinery/meter{
+	pixel_y = 11;
+	pixel_x = -10
+	},
+/turf/simulated/floor/white,
+/area/station/science/lab)
 "xEL" = (
 /obj/table/reinforced/auto,
 /obj/item/reagent_containers/food/drinks/fueltank{
@@ -52576,9 +52606,6 @@
 	pixel_y = 21
 	},
 /obj/landmark/pest,
-/obj/machinery/atmospherics/pipe/simple/overfloor{
-	dir = 6
-	},
 /turf/simulated/floor/plating,
 /area/station/science/storage)
 "xIg" = (
@@ -93414,7 +93441,7 @@ xuB
 tyU
 ouw
 tyU
-xuB
+sxn
 tyU
 xRj
 qrg
@@ -93716,7 +93743,7 @@ pfV
 fAb
 nVx
 fAb
-pfV
+sJJ
 lCw
 dAt
 rYX
@@ -94017,10 +94044,10 @@ dUv
 pbX
 cmC
 nze
-eEm
-eEm
-eEm
-cmC
+iUE
+xEF
+qqA
+qEk
 eEm
 chB
 xhr
@@ -94318,9 +94345,9 @@ gjA
 gjA
 fJd
 sPK
-mYC
-mYC
-mYC
+eEm
+eEm
+dit
 jZV
 lQm
 jNh
@@ -95835,7 +95862,7 @@ eUW
 fbn
 qCW
 sdR
-xow
+nWk
 fbn
 fFF
 fFF
@@ -96137,7 +96164,7 @@ sRz
 fFF
 tEf
 tYC
-bIs
+nWk
 fku
 fku
 fku
