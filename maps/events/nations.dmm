@@ -49,9 +49,6 @@
 /obj/cable{
 	icon_state = "4-8"
 	},
-/obj/machinery/atmospherics/pipe/simple/insulated{
-	dir = 4
-	},
 /turf/simulated/floor/stairs{
 	dir = 8
 	},
@@ -309,13 +306,6 @@
 /area/station/bridge/united_command{
 	name = "UN General Assembly Chamber"
 	})
-"agI" = (
-/obj/lattice{
-	dir = 6;
-	icon_state = "lattice-dir"
-	},
-/turf/space,
-/area/space/asteroid_safe_zone)
 "ahb" = (
 /obj/machinery/light{
 	dir = 8;
@@ -2362,6 +2352,13 @@
 	dir = 4
 	},
 /area/station/science/hall)
+"bdX" = (
+/obj/lattice{
+	dir = 8;
+	icon_state = "lattice-dir"
+	},
+/turf/space,
+/area/space/asteroid_safe_zone)
 "bdY" = (
 /obj/machinery/computer/announcement/clown{
 	dir = 8
@@ -2669,14 +2666,6 @@
 	dir = 1
 	},
 /area/station/engine/hotloop)
-"bkN" = (
-/obj/machinery/atmospherics/pipe/simple/heat_exchanging,
-/obj/lattice{
-	dir = 1;
-	icon_state = "lattice-dir"
-	},
-/turf/space,
-/area/space/asteroid_safe_zone)
 "bkQ" = (
 /obj/machinery/activation_button/driver_button{
 	id = "n_funeral";
@@ -2880,6 +2869,17 @@
 	dir = 1
 	},
 /area/station/crew_quarters/fitness)
+"brI" = (
+/obj/machinery/atmospherics/unary/vent{
+	dir = 1
+	},
+/obj/lattice{
+	dir = 10;
+	icon_state = "lattice-dir";
+	tag = "icon-lattice-dir (SOUTHWEST)"
+	},
+/turf/space,
+/area/space/asteroid_safe_zone)
 "brS" = (
 /obj/table/reinforced/auto,
 /obj/machinery/door/airlock/pyro/glass/windoor{
@@ -3639,6 +3639,16 @@
 	},
 /turf/space,
 /area/space)
+"bIs" = (
+/obj/cable{
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/unary/portables_connector{
+	dir = 8;
+	name = "Mixing Port"
+	},
+/turf/simulated/floor/plating,
+/area/station/science/storage)
 "bIR" = (
 /turf/simulated/floor/green/side{
 	dir = 4
@@ -4450,9 +4460,8 @@
 	},
 /area/station/hangar/science)
 "ccP" = (
-/turf/simulated/floor/black{
-	icon_state = "un-3";
-	icon = 'icons/turf/floors/nations.dmi'
+/turf/simulated/floor/black/un{
+	icon_state = "un-3"
 	},
 /area/station/bridge/united_command{
 	name = "UN General Assembly Chamber"
@@ -4519,13 +4528,6 @@
 /area/station/crew_quarters/quarters_west{
 	name = "Medical Crew Quarters"
 	})
-"ceN" = (
-/obj/lattice{
-	dir = 8;
-	icon_state = "lattice-dir"
-	},
-/turf/space,
-/area/space/asteroid_safe_zone)
 "ceT" = (
 /obj/cable{
 	icon_state = "4-8"
@@ -4702,13 +4704,13 @@
 	layer = 9.1;
 	pixel_x = 10
 	},
+/obj/storage/crate/furnacefuel,
 /turf/simulated/floor/engine,
 /area/station/engine/core/thermoelectric)
 "cjt" = (
 /obj/landmark/observer,
-/turf/simulated/floor/black{
-	icon_state = "un-13";
-	icon = 'icons/turf/floors/nations.dmi'
+/turf/simulated/floor/black/un{
+	icon_state = "un-13"
 	},
 /area/station/bridge/united_command{
 	name = "UN General Assembly Chamber"
@@ -5860,9 +5862,8 @@
 /turf/simulated/floor/wood,
 /area/station/crew_quarters/hop)
 "cMQ" = (
-/turf/simulated/floor/black{
-	icon_state = "un-4";
-	icon = 'icons/turf/floors/nations.dmi'
+/turf/simulated/floor/black/un{
+	icon_state = "un-4"
 	},
 /area/station/bridge/united_command{
 	name = "UN General Assembly Chamber"
@@ -7334,9 +7335,8 @@
 	name = "Cargo Spareroom"
 	})
 "duC" = (
-/turf/simulated/floor/black{
-	icon_state = "un-15";
-	icon = 'icons/turf/floors/nations.dmi'
+/turf/simulated/floor/black/un{
+	icon_state = "un-15"
 	},
 /area/station/bridge/united_command{
 	name = "UN General Assembly Chamber"
@@ -7412,9 +7412,8 @@
 	})
 "dwB" = (
 /obj/machinery/light/small/floor,
-/turf/simulated/floor/black{
-	icon_state = "un-21";
-	icon = 'icons/turf/floors/nations.dmi'
+/turf/simulated/floor/black/un{
+	icon_state = "un-21"
 	},
 /area/station/bridge/united_command{
 	name = "UN General Assembly Chamber"
@@ -7778,9 +7777,8 @@
 	name = "La Balustrade"
 	})
 "dFP" = (
-/turf/simulated/floor/black{
-	icon_state = "un-6";
-	icon = 'icons/turf/floors/nations.dmi'
+/turf/simulated/floor/black/un{
+	icon_state = "un-6"
 	},
 /area/station/bridge/united_command{
 	name = "UN General Assembly Chamber"
@@ -8001,13 +7999,13 @@
 	},
 /area/station/medical/medbay)
 "dJI" = (
-/obj/machinery/atmospherics/unary/cold_sink/freezer{
-	dir = 4
+/obj/machinery/atmospherics/pipe/simple/heat_exchanging,
+/obj/lattice{
+	dir = 6;
+	icon_state = "lattice-dir"
 	},
-/turf/simulated/floor/blueblack{
-	dir = 8
-	},
-/area/station/engine/coldloop)
+/turf/space,
+/area/space/asteroid_safe_zone)
 "dJL" = (
 /obj/shrub{
 	dir = 10
@@ -8396,12 +8394,8 @@
 /obj/cable{
 	icon_state = "1-2"
 	},
-/obj/machinery/atmospherics/pipe/manifold/overfloor{
-	dir = 1
-	},
-/obj/machinery/meter{
-	pixel_x = -10;
-	pixel_y = -9
+/obj/cable{
+	icon_state = "1-8"
 	},
 /turf/simulated/floor/black,
 /area/station/engine/coldloop)
@@ -8516,8 +8510,7 @@
 /area/station/medical/crematorium)
 "dYB" = (
 /obj/machinery/door/airlock/pyro/medical/alt{
-	dir = 4;
-	id = "general_assembly"
+	dir = 4
 	},
 /obj/mapping_helper/button/area,
 /obj/mapping_helper/airlock/bolter,
@@ -8794,6 +8787,16 @@
 /area/pod_wars/spacejunk/fstation/mess{
 	name = "Kuiper Mess Hall"
 	})
+"eer" = (
+/obj/machinery/atmospherics/pipe/simple/heat_exchanging{
+	dir = 9
+	},
+/obj/lattice{
+	dir = 5;
+	icon_state = "lattice-dir-b"
+	},
+/turf/space,
+/area/space/asteroid_safe_zone)
 "eet" = (
 /obj/machinery/light/emergency{
 	dir = 8;
@@ -10025,9 +10028,8 @@
 /turf/simulated/floor/sanitary,
 /area/station/medical/head/private)
 "eFa" = (
-/turf/simulated/floor/black{
-	icon_state = "un-14";
-	icon = 'icons/turf/floors/nations.dmi'
+/turf/simulated/floor/black/un{
+	icon_state = "un-14"
 	},
 /area/station/bridge/united_command{
 	name = "UN General Assembly Chamber"
@@ -10062,13 +10064,6 @@
 	dir = 8
 	},
 /area/station/medical/medbay)
-"eGB" = (
-/obj/machinery/atmospherics/pipe/simple/heat_exchanging{
-	dir = 6
-	},
-/obj/lattice,
-/turf/space,
-/area/space/asteroid_safe_zone)
 "eGP" = (
 /obj/rack,
 /obj/item/extinguisher{
@@ -11024,9 +11019,8 @@
 /area/station/security/equipment)
 "ffi" = (
 /obj/machinery/light/small/floor,
-/turf/simulated/floor/black{
-	icon_state = "un-1";
-	icon = 'icons/turf/floors/nations.dmi'
+/turf/simulated/floor/black/un{
+	icon_state = "un-1"
 	},
 /area/station/bridge/united_command{
 	name = "UN General Assembly Chamber"
@@ -12015,9 +12009,8 @@
 /turf/simulated/floor/black/grime,
 /area/station/security/evidence)
 "fAQ" = (
-/turf/simulated/floor/black{
-	icon_state = "un-12";
-	icon = 'icons/turf/floors/nations.dmi'
+/turf/simulated/floor/black/un{
+	icon_state = "un-12"
 	},
 /area/station/bridge/united_command{
 	name = "UN General Assembly Chamber"
@@ -12530,8 +12523,7 @@
 	})
 "fJX" = (
 /obj/machinery/door/airlock/pyro/mining{
-	dir = 4;
-	id = "general_assembly"
+	dir = 4
 	},
 /obj/mapping_helper/button/area,
 /obj/mapping_helper/airlock/bolter,
@@ -15293,6 +15285,13 @@
 /area/pod_wars/spacejunk/fstation/command{
 	name = "Kuiper Administration"
 	})
+"gQg" = (
+/obj/machinery/atmospherics/unary/vent,
+/obj/lattice{
+	icon_state = "lattice-dir"
+	},
+/turf/space,
+/area/space/asteroid_safe_zone)
 "gQv" = (
 /obj/stool/bench/purple/auto,
 /obj/machinery/light{
@@ -15500,9 +15499,8 @@
 	},
 /area/station/engine/power)
 "gXD" = (
-/turf/simulated/floor/black{
-	icon_state = "un-10";
-	icon = 'icons/turf/floors/nations.dmi'
+/turf/simulated/floor/black/un{
+	icon_state = "un-10"
 	},
 /area/station/bridge/united_command{
 	name = "UN General Assembly Chamber"
@@ -15776,9 +15774,8 @@
 	name = "Cargo Customs"
 	})
 "hcH" = (
-/turf/simulated/floor/black{
-	icon_state = "un-11";
-	icon = 'icons/turf/floors/nations.dmi'
+/turf/simulated/floor/black/un{
+	icon_state = "un-11"
 	},
 /area/station/bridge/united_command{
 	name = "UN General Assembly Chamber"
@@ -16622,13 +16619,13 @@
 /turf/unsimulated/floor/circuit/vintage,
 /area/station/crewquarters/cryotron)
 "hzO" = (
-/obj/mapping_helper/wingrille_spawn/auto/reinforced,
-/obj/machinery/atmospherics/pipe/simple/insulated{
-	can_rupture = 0;
+/obj/machinery/atmospherics/unary/cold_sink/freezer{
 	dir = 4
 	},
-/turf/simulated/floor/plating,
-/area/station/engine/core/thermoelectric)
+/turf/simulated/floor/blueblack{
+	dir = 8
+	},
+/area/station/engine/coldloop)
 "hzW" = (
 /obj/machinery/light/emergency{
 	dir = 1;
@@ -17121,6 +17118,16 @@
 /area/station/maintenance/storage{
 	name = "The Fleur-de-Lys"
 	})
+"hJG" = (
+/obj/machinery/atmospherics/pipe/simple/insulated/cold{
+	dir = 10
+	},
+/obj/machinery/meter{
+	pixel_x = -10;
+	pixel_y = -9
+	},
+/turf/simulated/floor/engine,
+/area/station/engine/core/thermoelectric)
 "hJT" = (
 /obj/machinery/light,
 /turf/simulated/floor/purple/side,
@@ -18700,6 +18707,13 @@
 	},
 /turf/simulated/floor/blue/checker,
 /area/station/crew_quarters/pool)
+"irq" = (
+/obj/lattice{
+	dir = 6;
+	icon_state = "lattice-dir"
+	},
+/turf/space,
+/area/space/asteroid_safe_zone)
 "iry" = (
 /obj/table/reinforced/chemistry/auto/basicsup,
 /obj/item/storage/toolbox/emergency{
@@ -19666,11 +19680,17 @@
 /area/station/storage/northeast{
 	name = "Emergency Storage C"
 	})
+"iME" = (
+/obj/lattice{
+	dir = 1;
+	icon_state = "lattice-dir"
+	},
+/turf/space,
+/area/space/asteroid_safe_zone)
 "iMF" = (
 /obj/machinery/light/small/floor,
-/turf/simulated/floor/black{
-	icon_state = "un-5";
-	icon = 'icons/turf/floors/nations.dmi'
+/turf/simulated/floor/black/un{
+	icon_state = "un-5"
 	},
 /area/station/bridge/united_command{
 	name = "UN General Assembly Chamber"
@@ -22098,6 +22118,13 @@
 /area/station/security/checkpoint/east{
 	name = "Engineering Customs"
 	})
+"jNJ" = (
+/obj/machinery/atmospherics/binary/valve{
+	dir = 2;
+	name = "cold inlet valve"
+	},
+/turf/simulated/floor/engine,
+/area/station/engine/core/thermoelectric)
 "jNV" = (
 /turf/simulated/floor/darkpurpleblack,
 /area/station/science/teleporter)
@@ -22192,13 +22219,6 @@
 /obj/item/cargotele,
 /turf/simulated/floor/green/side,
 /area/station/hydroponics/bay)
-"jQF" = (
-/obj/machinery/atmospherics/pipe/simple/heat_exchanging{
-	dir = 4
-	},
-/obj/lattice,
-/turf/space,
-/area/space/asteroid_safe_zone)
 "jQJ" = (
 /obj/cable{
 	icon_state = "4-8"
@@ -22840,6 +22860,14 @@
 	},
 /turf/simulated/floor/engine,
 /area/station/engine/core/thermoelectric)
+"kaO" = (
+/obj/machinery/atmospherics/pipe/simple/heat_exchanging,
+/obj/lattice{
+	dir = 1;
+	icon_state = "lattice-dir"
+	},
+/turf/space,
+/area/space/asteroid_safe_zone)
 "kaV" = (
 /obj/machinery/light{
 	dir = 1;
@@ -22911,6 +22939,13 @@
 /area/station/janitor/supply{
 	name = "Janitorial Embassy"
 	})
+"kce" = (
+/obj/machinery/atmospherics/pipe/simple/heat_exchanging{
+	dir = 5
+	},
+/obj/lattice,
+/turf/space,
+/area/space/asteroid_safe_zone)
 "kcs" = (
 /turf/simulated/floor/sanitary,
 /area/station/crew_quarters/quartersB{
@@ -23347,11 +23382,6 @@
 /area/station/hallway/secondary/west{
 	name = "Medical Concourse West"
 	})
-"knC" = (
-/obj/mapping_helper/wingrille_spawn/auto/reinforced,
-/obj/machinery/atmospherics/pipe/simple/insulated/cold,
-/turf/simulated/floor/plating,
-/area/station/engine/core/thermoelectric)
 "knD" = (
 /obj/mapping_helper/wingrille_spawn/auto/reinforced/crystal,
 /obj/cable{
@@ -23573,8 +23603,7 @@
 /area/station/medical/medbay)
 "ksO" = (
 /obj/machinery/door/airlock/pyro/toxins_alt{
-	dir = 4;
-	id = "general_assembly"
+	dir = 4
 	},
 /obj/mapping_helper/button/area,
 /obj/mapping_helper/airlock/bolter,
@@ -23770,6 +23799,12 @@
 /obj/machinery/door/poddoor/blast/pyro/podbay_autoclose{
 	name = "pod bay (Forster's Rock)";
 	dir = 4
+	},
+/obj/forcefield/energyshield/perma/doorlink{
+	desc = "A door-linked force field that prevents gasses from passing through it.";
+	dir = 4;
+	name = "Door-linked Atmospheric Forcefield";
+	powerlevel = 1
 	},
 /turf/simulated/floor/shuttlebay,
 /area/spacehabitat{
@@ -25882,9 +25917,8 @@
 	name = "Research Crew Quarters"
 	})
 "ltI" = (
-/turf/simulated/floor/black{
-	icon_state = "un-19";
-	icon = 'icons/turf/floors/nations.dmi'
+/turf/simulated/floor/black/un{
+	icon_state = "un-19"
 	},
 /area/station/bridge/united_command{
 	name = "UN General Assembly Chamber"
@@ -27069,9 +27103,8 @@
 	name = "Fleur-de-Lys Bridge"
 	})
 "lUi" = (
-/turf/simulated/floor/black{
-	icon_state = "un-7";
-	icon = 'icons/turf/floors/nations.dmi'
+/turf/simulated/floor/black/un{
+	icon_state = "un-7"
 	},
 /area/station/bridge/united_command{
 	name = "UN General Assembly Chamber"
@@ -27571,6 +27604,19 @@
 /area/station/janitor/supply{
 	name = "Janitorial Embassy"
 	})
+"mfj" = (
+/obj/cable{
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/manifold/overfloor{
+	dir = 1
+	},
+/obj/machinery/meter{
+	pixel_x = -10;
+	pixel_y = -9
+	},
+/turf/simulated/floor/black,
+/area/station/engine/coldloop)
 "mfm" = (
 /obj/machinery/light/small,
 /turf/simulated/floor/sanitary/white,
@@ -28241,9 +28287,8 @@
 	name = "Janitorial Embassy"
 	})
 "mti" = (
-/turf/simulated/floor/black{
-	icon_state = "un-22";
-	icon = 'icons/turf/floors/nations.dmi'
+/turf/simulated/floor/black/un{
+	icon_state = "un-22"
 	},
 /area/station/bridge/united_command{
 	name = "UN General Assembly Chamber"
@@ -28474,13 +28519,6 @@
 /area/station/crew_quarters/quartersA{
 	name = "Medical Restroom"
 	})
-"mxI" = (
-/obj/machinery/atmospherics/unary/vent,
-/obj/lattice{
-	icon_state = "lattice-dir"
-	},
-/turf/space,
-/area/space/asteroid_safe_zone)
 "mxR" = (
 /obj/table/reinforced/industrial/auto,
 /obj/item/reagent_containers/food/drinks/fueltank{
@@ -28630,6 +28668,7 @@
 	name = "General Assembly Door Bolt Control";
 	pixel_y = 8
 	},
+/obj/mapping_helper/button/area,
 /turf/simulated/floor/carpet/red/fancy/edge/south,
 /area/station/bridge/united_command{
 	name = "UN General Assembly Chamber"
@@ -28950,15 +28989,6 @@
 	},
 /turf/simulated/floor/black,
 /area/station/hangar/engine)
-"mJT" = (
-/obj/cable{
-	icon_state = "1-2"
-	},
-/obj/cable{
-	icon_state = "1-8"
-	},
-/turf/simulated/floor/black,
-/area/station/engine/coldloop)
 "mKF" = (
 /turf/simulated/floor/stairs/wide/other{
 	dir = 4
@@ -29496,14 +29526,14 @@
 /turf/simulated/floor/engine,
 /area/station/hangar/engine)
 "mVi" = (
-/obj/decal/poster/wallsign/stencil/right/two{
-	layer = 2;
-	pixel_x = 17;
-	pixel_y = 12
-	},
 /obj/machinery/atmospherics/binary/valve{
 	dir = 1;
 	name = "combustion chamber fuel valve"
+	},
+/obj/decal/poster/wallsign/stencil/right/one{
+	layer = 2;
+	pixel_x = 15;
+	pixel_y = 12
 	},
 /turf/simulated/floor/red/redblackchecker,
 /area/station/engine/hotloop)
@@ -30145,14 +30175,6 @@
 /area/station/hallway/secondary/west{
 	name = "Medical Concourse West"
 	})
-"nkN" = (
-/obj/machinery/atmospherics/pipe/simple/heat_exchanging,
-/obj/lattice{
-	dir = 6;
-	icon_state = "lattice-dir"
-	},
-/turf/space,
-/area/space/asteroid_safe_zone)
 "nkS" = (
 /obj/rack,
 /obj/item/sponge{
@@ -30500,9 +30522,12 @@
 	name = "Kuiper Shipwright"
 	})
 "nsw" = (
-/obj/storage/crate/furnacefuel,
-/turf/simulated/floor/black,
-/area/station/engine/coldloop)
+/obj/machinery/atmospherics/pipe/simple/heat_exchanging{
+	dir = 4
+	},
+/obj/lattice,
+/turf/space,
+/area/space/asteroid_safe_zone)
 "nts" = (
 /turf/simulated/wall/auto/supernorn,
 /area/station/hallway/primary/west)
@@ -31268,6 +31293,7 @@
 /obj/cable/orange{
 	icon_state = "2-8"
 	},
+/obj/storage/crate/furnacefuel,
 /turf/simulated/floor/engine,
 /area/station/engine/core/thermoelectric)
 "nNA" = (
@@ -31390,9 +31416,8 @@
 	},
 /area/station/hallway/primary/west)
 "nQL" = (
-/turf/simulated/floor/black{
-	icon_state = "un-8";
-	icon = 'icons/turf/floors/nations.dmi'
+/turf/simulated/floor/black/un{
+	icon_state = "un-8"
 	},
 /area/station/bridge/united_command{
 	name = "UN General Assembly Chamber"
@@ -31669,16 +31694,6 @@
 /area/station/bridge/united_command{
 	name = "UN General Assembly Chamber"
 	})
-"oab" = (
-/obj/machinery/atmospherics/pipe/simple/heat_exchanging{
-	dir = 10
-	},
-/obj/lattice{
-	dir = 1;
-	icon_state = "lattice-dir"
-	},
-/turf/space,
-/area/space/asteroid_safe_zone)
 "oam" = (
 /obj/table/reinforced/auto,
 /obj/item/robot_module{
@@ -31835,6 +31850,16 @@
 	},
 /turf/simulated/wall/auto/reinforced/supernorn/colored/purple,
 /area/station/science/lab)
+"oet" = (
+/obj/machinery/atmospherics/pipe/simple/heat_exchanging{
+	dir = 4
+	},
+/obj/lattice{
+	dir = 8;
+	icon_state = "lattice-dir"
+	},
+/turf/space,
+/area/space/asteroid_safe_zone)
 "oeA" = (
 /obj/rack,
 /obj/item/clothing/suit/hazard/fire{
@@ -32329,9 +32354,8 @@
 	name = "Research Customs"
 	})
 "oqS" = (
-/turf/simulated/floor/black{
-	icon_state = "un-18";
-	icon = 'icons/turf/floors/nations.dmi'
+/turf/simulated/floor/black/un{
+	icon_state = "un-18"
 	},
 /area/station/bridge/united_command{
 	name = "UN General Assembly Chamber"
@@ -32564,9 +32588,8 @@
 /turf/simulated/wall/auto/supernorn,
 /area/station/hallway/secondary/construction)
 "ovq" = (
-/turf/simulated/floor/black{
-	icon_state = "un-9";
-	icon = 'icons/turf/floors/nations.dmi'
+/turf/simulated/floor/black/un{
+	icon_state = "un-9"
 	},
 /area/station/bridge/united_command{
 	name = "UN General Assembly Chamber"
@@ -33928,9 +33951,8 @@
 	name = "Cargo Hallway"
 	})
 "pcC" = (
-/turf/simulated/floor/black{
-	icon_state = "un-24";
-	icon = 'icons/turf/floors/nations.dmi'
+/turf/simulated/floor/black/un{
+	icon_state = "un-24"
 	},
 /area/station/bridge/united_command{
 	name = "UN General Assembly Chamber"
@@ -35928,6 +35950,14 @@
 /area/station/hallway/secondary/west{
 	name = "Medical Concourse West"
 	})
+"pWp" = (
+/obj/mapping_helper/wingrille_spawn/auto/reinforced,
+/obj/machinery/atmospherics/pipe/simple/insulated{
+	can_rupture = 0;
+	dir = 4
+	},
+/turf/simulated/floor/plating,
+/area/station/engine/core/thermoelectric)
 "pWx" = (
 /obj/cable{
 	icon_state = "1-2"
@@ -37152,6 +37182,20 @@
 /obj/machinery/drainage,
 /turf/simulated/floor/sanitary,
 /area/station/crew_quarters/bathroom)
+"qBF" = (
+/obj/machinery/door/airlock/pyro/external{
+	dir = 4
+	},
+/obj/forcefield/energyshield/perma/doorlink{
+	desc = "A door-linked force field that prevents gasses from passing through it.";
+	dir = 4;
+	name = "Door-linked Atmospheric Forcefield";
+	powerlevel = 1
+	},
+/turf/simulated/floor/grey,
+/area/spacehabitat{
+	name = "Forster's Rock"
+	})
 "qBT" = (
 /obj/cable{
 	icon_state = "1-2"
@@ -37816,9 +37860,8 @@
 	name = "Cargo Customs"
 	})
 "qSj" = (
-/turf/simulated/floor/black{
-	icon_state = "un-16";
-	icon = 'icons/turf/floors/nations.dmi'
+/turf/simulated/floor/black/un{
+	icon_state = "un-16"
 	},
 /area/station/bridge/united_command{
 	name = "UN General Assembly Chamber"
@@ -38688,16 +38731,6 @@
 /area/station/hallway/secondary/northwest{
 	name = "Service West Hallway"
 	})
-"rof" = (
-/obj/cable{
-	icon_state = "4-8"
-	},
-/obj/machinery/atmospherics/binary/valve{
-	dir = 4;
-	name = "Intermix Valve"
-	},
-/turf/simulated/floor/plating,
-/area/station/science/storage)
 "rop" = (
 /obj/table/reinforced/auto,
 /obj/item/storage/firstaid/regular,
@@ -39119,6 +39152,13 @@
 	},
 /turf/simulated/floor/purpleblack,
 /area/station/hangar/science)
+"rxy" = (
+/obj/machinery/atmospherics/pipe/simple/heat_exchanging{
+	dir = 6
+	},
+/obj/lattice,
+/turf/space,
+/area/space/asteroid_safe_zone)
 "rxB" = (
 /obj/securearea{
 	desc = "A warning sign which reads 'Fire Hazard'";
@@ -40075,6 +40115,13 @@
 /area/station/crew_quarters/quarters_south{
 	name = "Engineering Crew Quarters"
 	})
+"rUS" = (
+/obj/machinery/atmospherics/pipe/simple/heat_exchanging{
+	dir = 10
+	},
+/obj/lattice,
+/turf/space,
+/area/space/asteroid_safe_zone)
 "rUT" = (
 /turf/simulated/floor/redwhite{
 	dir = 8
@@ -40304,16 +40351,6 @@
 /obj/machinery/light,
 /turf/simulated/floor/darkblueblack,
 /area/station/bridge)
-"rYE" = (
-/obj/machinery/atmospherics/pipe/simple/heat_exchanging{
-	dir = 4
-	},
-/obj/lattice{
-	dir = 8;
-	icon_state = "lattice-dir"
-	},
-/turf/space,
-/area/space/asteroid_safe_zone)
 "rYM" = (
 /obj/machinery/light/small{
 	dir = 1;
@@ -40593,14 +40630,14 @@
 	},
 /area/station/hallway/primary/west)
 "sdC" = (
-/obj/decal/poster/wallsign/stencil/right/one{
-	layer = 2;
-	pixel_x = 15;
-	pixel_y = 12
-	},
 /obj/machinery/atmospherics/binary/valve{
 	dir = 1;
 	name = "combustion chamber fuel valve"
+	},
+/obj/decal/poster/wallsign/stencil/right/two{
+	layer = 2;
+	pixel_x = 17;
+	pixel_y = 12
 	},
 /turf/simulated/floor/red/redblackchecker,
 /area/station/engine/hotloop)
@@ -40760,13 +40797,6 @@
 /area/station/maintenance/outer/ne{
 	name = "Cargo Maintenance"
 	})
-"sjh" = (
-/obj/lattice{
-	dir = 1;
-	icon_state = "lattice-dir"
-	},
-/turf/space,
-/area/space/asteroid_safe_zone)
 "sjj" = (
 /turf/simulated/floor/orangeblack/side,
 /area/station/security/checkpoint/cargo{
@@ -42074,9 +42104,8 @@
 	name = "Service Customs"
 	})
 "sKQ" = (
-/turf/simulated/floor/black{
-	icon_state = "un-23";
-	icon = 'icons/turf/floors/nations.dmi'
+/turf/simulated/floor/black/un{
+	icon_state = "un-23"
 	},
 /area/station/bridge/united_command{
 	name = "UN General Assembly Chamber"
@@ -42095,13 +42124,6 @@
 	},
 /turf/simulated/floor,
 /area/station/quartermaster/cargobay)
-"sLV" = (
-/obj/machinery/atmospherics/pipe/simple/junction,
-/obj/lattice{
-	icon_state = "lattice-dir"
-	},
-/turf/space,
-/area/space/asteroid_safe_zone)
 "sMh" = (
 /obj/shrub{
 	dir = 1;
@@ -42949,9 +42971,8 @@
 /turf/simulated/floor/sanitary,
 /area/station/crew_quarters/hop)
 "thO" = (
-/turf/simulated/floor/black{
-	icon_state = "un-20";
-	icon = 'icons/turf/floors/nations.dmi'
+/turf/simulated/floor/black/un{
+	icon_state = "un-20"
 	},
 /area/station/bridge/united_command{
 	name = "UN General Assembly Chamber"
@@ -43225,16 +43246,6 @@
 /area/station/bridge/united_command{
 	name = "UN General Assembly Chamber"
 	})
-"toT" = (
-/obj/cable{
-	icon_state = "4-8"
-	},
-/obj/machinery/atmospherics/unary/portables_connector{
-	dir = 8;
-	name = "Mixing Port"
-	},
-/turf/simulated/floor/plating,
-/area/station/science/storage)
 "toU" = (
 /obj/machinery/door/airlock/pyro/command/alt{
 	dir = 4
@@ -43792,9 +43803,8 @@
 	},
 /area/station/hallway/primary/northwest)
 "tCa" = (
-/turf/simulated/floor/black{
-	icon_state = "un-2";
-	icon = 'icons/turf/floors/nations.dmi'
+/turf/simulated/floor/black/un{
+	icon_state = "un-2"
 	},
 /area/station/bridge/united_command{
 	name = "UN General Assembly Chamber"
@@ -44710,13 +44720,6 @@
 	dir = 10
 	},
 /area/station/medical/medbay)
-"tTO" = (
-/obj/machinery/atmospherics/pipe/simple/heat_exchanging{
-	dir = 5
-	},
-/obj/lattice,
-/turf/space,
-/area/space/asteroid_safe_zone)
 "tTT" = (
 /obj/cable{
 	icon_state = "1-2"
@@ -44746,13 +44749,6 @@
 	dir = 6
 	},
 /area/station/hangar/qm)
-"tUs" = (
-/obj/machinery/atmospherics/pipe/simple/heat_exchanging{
-	dir = 10
-	},
-/obj/lattice,
-/turf/space,
-/area/space/asteroid_safe_zone)
 "tUL" = (
 /obj/machinery/power/apc/autoname_west,
 /obj/cable,
@@ -45543,16 +45539,6 @@
 	dir = 8
 	},
 /area/station/crew_quarters/pool)
-"ume" = (
-/obj/machinery/atmospherics/pipe/simple/heat_exchanging{
-	dir = 9
-	},
-/obj/lattice{
-	dir = 5;
-	icon_state = "lattice-dir-b"
-	},
-/turf/space,
-/area/space/asteroid_safe_zone)
 "umn" = (
 /obj/machinery/door/airlock/pyro/maintenance,
 /obj/cable{
@@ -46249,9 +46235,8 @@
 /turf/simulated/floor/caution/northsouth,
 /area/station/science/artifact)
 "uFW" = (
-/turf/simulated/floor/black{
-	icon_state = "un-17";
-	icon = 'icons/turf/floors/nations.dmi'
+/turf/simulated/floor/black/un{
+	icon_state = "un-17"
 	},
 /area/station/bridge/united_command{
 	name = "UN General Assembly Chamber"
@@ -46551,8 +46536,7 @@
 /area/station/hangar/qm)
 "uPr" = (
 /obj/machinery/door/airlock/pyro/medical/alt2{
-	dir = 4;
-	id = "general_assembly"
+	dir = 4
 	},
 /obj/mapping_helper/button/area,
 /obj/mapping_helper/airlock/bolter,
@@ -46976,17 +46960,6 @@
 /obj/disposalpipe/trunk/east,
 /turf/simulated/floor/specialroom/cafeteria,
 /area/station/crew_quarters/kitchen)
-"vaH" = (
-/obj/machinery/atmospherics/unary/vent{
-	dir = 1
-	},
-/obj/lattice{
-	dir = 10;
-	icon_state = "lattice-dir";
-	tag = "icon-lattice-dir (SOUTHWEST)"
-	},
-/turf/space,
-/area/space/asteroid_safe_zone)
 "vaW" = (
 /turf/simulated/floor/darkblueblack/corner{
 	dir = 1
@@ -48040,16 +48013,6 @@
 /obj/disposalpipe/segment/vertical,
 /turf/simulated/floor/carpet/blue/fancy/edge/sw,
 /area/station/medical/medbay)
-"vAN" = (
-/obj/machinery/atmospherics/pipe/simple/heat_exchanging{
-	dir = 5
-	},
-/obj/lattice{
-	dir = 10;
-	icon_state = "lattice-dir"
-	},
-/turf/space,
-/area/space/asteroid_safe_zone)
 "vAP" = (
 /obj/cable{
 	icon_state = "1-4"
@@ -48607,9 +48570,8 @@
 /area/station/engine/core/thermoelectric)
 "vOr" = (
 /obj/machinery/light/small/floor,
-/turf/simulated/floor/black{
-	icon_state = "un-25";
-	icon = 'icons/turf/floors/nations.dmi'
+/turf/simulated/floor/black/un{
+	icon_state = "un-25"
 	},
 /area/station/bridge/united_command{
 	name = "UN General Assembly Chamber"
@@ -50095,8 +50057,7 @@
 /area/station/mining/refinery)
 "wyY" = (
 /obj/machinery/door/airlock/pyro/sci_alt{
-	dir = 4;
-	id = "general_assembly"
+	dir = 4
 	},
 /obj/mapping_helper/button/area,
 /obj/mapping_helper/airlock/bolter,
@@ -50748,6 +50709,11 @@
 /area/station/quartermaster/cargooffice{
 	name = "Cargonian High Court"
 	})
+"wRu" = (
+/obj/mapping_helper/wingrille_spawn/auto/reinforced,
+/obj/machinery/atmospherics/pipe/simple/insulated/cold,
+/turf/simulated/floor/plating,
+/area/station/engine/core/thermoelectric)
 "wRz" = (
 /obj/lattice{
 	icon_state = "lattice-dir"
@@ -51179,6 +51145,13 @@
 /area/station/bridge/united_command{
 	name = "UN General Assembly Chamber"
 	})
+"xfg" = (
+/obj/machinery/atmospherics/pipe/simple/junction,
+/obj/lattice{
+	icon_state = "lattice-dir"
+	},
+/turf/space,
+/area/space/asteroid_safe_zone)
 "xfv" = (
 /obj/machinery/plantpot,
 /turf/simulated/floor/grass,
@@ -51612,6 +51585,16 @@
 /obj/item/reagent_containers/food/drinks/bottle/tequila,
 /turf/simulated/floor/caution/east,
 /area/station/engine/ptl)
+"xow" = (
+/obj/cable{
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/binary/valve{
+	dir = 4;
+	name = "Intermix Valve"
+	},
+/turf/simulated/floor/plating,
+/area/station/science/storage)
 "xoy" = (
 /turf/simulated/floor/green/side{
 	dir = 4
@@ -52524,15 +52507,15 @@
 	name = "Medical Restroom"
 	})
 "xGA" = (
-/obj/machinery/atmospherics/pipe/simple/insulated/cold{
-	dir = 10
+/obj/machinery/atmospherics/pipe/simple/heat_exchanging{
+	dir = 5
 	},
-/obj/machinery/meter{
-	pixel_x = -10;
-	pixel_y = -9
+/obj/lattice{
+	dir = 10;
+	icon_state = "lattice-dir"
 	},
-/turf/simulated/floor/engine,
-/area/station/engine/core/thermoelectric)
+/turf/space,
+/area/space/asteroid_safe_zone)
 "xHk" = (
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
 	dir = 9
@@ -52733,12 +52716,15 @@
 	name = "UN General Assembly Chamber"
 	})
 "xMp" = (
-/obj/machinery/atmospherics/binary/valve{
-	dir = 2;
-	name = "cold inlet valve"
+/obj/machinery/atmospherics/pipe/simple/heat_exchanging{
+	dir = 10
 	},
-/turf/simulated/floor/engine,
-/area/station/engine/core/thermoelectric)
+/obj/lattice{
+	dir = 1;
+	icon_state = "lattice-dir"
+	},
+/turf/space,
+/area/space/asteroid_safe_zone)
 "xMI" = (
 /obj/mesh/catwalk,
 /turf/simulated/floor/airless/plating/catwalk/auto,
@@ -68048,8 +68034,8 @@ sRz
 oTT
 wND
 wND
-iKS
-iKS
+qBF
+qBF
 wND
 wND
 orO
@@ -94040,7 +94026,7 @@ chB
 xhr
 rtx
 vPl
-nkN
+dJI
 tch
 sRz
 sRz
@@ -95849,7 +95835,7 @@ eUW
 fbn
 qCW
 sdR
-rof
+xow
 fbn
 fFF
 fFF
@@ -96151,7 +96137,7 @@ sRz
 fFF
 tEf
 tYC
-toT
+bIs
 fku
 fku
 fku
@@ -119340,7 +119326,7 @@ pBB
 pBB
 pBB
 foN
-hzO
+pWp
 gFI
 pON
 tPb
@@ -121445,8 +121431,8 @@ niy
 xsz
 dwS
 iyt
-mxI
-knC
+gQg
+wRu
 qSx
 hFl
 gAS
@@ -121457,7 +121443,7 @@ xkT
 gqv
 fkE
 tup
-vaH
+brI
 sRz
 sRz
 sRz
@@ -122061,8 +122047,8 @@ jtj
 hpN
 pBB
 gno
-nsw
-nsw
+aQL
+aQL
 sOq
 knA
 sRz
@@ -122355,10 +122341,10 @@ vBa
 gFI
 emC
 wzJ
-xGA
+hJG
 wSZ
 nXt
-xMp
+jNJ
 kaw
 ijP
 voR
@@ -122367,9 +122353,9 @@ jkk
 dbS
 inI
 rhX
-sLV
-nkN
-nkN
+xfg
+dJI
+dJI
 tch
 sRz
 sRz
@@ -122670,8 +122656,8 @@ myS
 mJs
 knA
 sRz
-ceN
-eGB
+bdX
+rxy
 gYk
 sRz
 sRz
@@ -122964,17 +122950,17 @@ eKI
 mHO
 rLN
 rRA
-dJI
-dJI
+hzO
+hzO
 rCc
 aQL
 tlk
 xLM
 wdy
-sLV
-tTO
-tUs
-vAN
+xfg
+kce
+rUS
+xGA
 sRz
 sRz
 sRz
@@ -123274,8 +123260,8 @@ aJT
 reL
 knA
 sRz
-rYE
-eGB
+oet
+rxy
 gYk
 sRz
 sRz
@@ -123567,18 +123553,18 @@ qYT
 igV
 nKs
 ghY
-mJT
 dUR
+mfj
 leh
 xNF
 azR
 vSL
 ufk
 knA
-agI
-jQF
-tUs
-vAN
+irq
+nsw
+rUS
+xGA
 sRz
 sRz
 sRz
@@ -123877,10 +123863,10 @@ mQG
 iik
 toi
 knA
-sjh
-oab
-bkN
-ume
+iME
+xMp
+kaO
+eer
 sRz
 sRz
 sRz
