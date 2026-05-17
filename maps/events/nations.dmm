@@ -5763,11 +5763,6 @@
 "cHT" = (
 /turf/simulated/wall/auto/reinforced/supernorn/colored/green,
 /area/station/janitor/office)
-"cIi" = (
-/obj/mapping_helper/wingrille_spawn/auto/reinforced,
-/obj/random_item_spawner/junk/one_or_zero,
-/turf/simulated/floor/plating,
-/area/nations_neutral/shipwright)
 "cIu" = (
 /obj/machinery/light/small,
 /turf/simulated/floor/engine/caution/south,
@@ -122394,7 +122389,7 @@ oBF
 oBF
 ngW
 cOD
-cIi
+ddx
 ngW
 aVP
 aVP
