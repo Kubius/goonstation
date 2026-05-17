@@ -22,6 +22,8 @@
 	var/datum/nation/nation_type = null
 	var/datum/nation/nation = null
 	var/datum/mind/owner = null
+	var/minimap_type = 0
+	var/minimap_marker = null
 	var/custom_name = FALSE
 
 	var/base_name = ""
@@ -30,6 +32,9 @@
 
 /obj/item/passport/New(newLoc, datum/mind/owner_to_assign, give_antag_role = TRUE)
 	. = ..()
+
+	if (src.minimap_marker)
+		src.AddComponent(/datum/component/minimap_marker/minimap, (MAP_NATIONS_UN | src.minimap_type), src.minimap_marker, list_on_ui = FALSE)
 
 	if (src.nation_type)
 		src.nation = global.get_singleton(src.nation_type)

@@ -10940,12 +10940,6 @@
 /area/station/hallway/secondary/northeast{
 	name = "Cargo Hallway"
 	})
-"eWP" = (
-/obj/minimap/map_computer,
-/turf/simulated/floor/industrial,
-/area/station/hallway/secondary/northeast{
-	name = "Cargo Hallway"
-	})
 "eWW" = (
 /turf/simulated/wall/auto/jen/brown,
 /area/nations_neutral/shipwright/messhall)
@@ -11179,11 +11173,6 @@
 	},
 /turf/simulated/floor/caution/north,
 /area/station/maintenance/disposal)
-"fcg" = (
-/obj/pool/perspective,
-/obj/machinery/light,
-/turf/simulated/floor/white/checker,
-/area/station/crew_quarters/pool)
 "fcs" = (
 /turf/simulated/floor/purple/side,
 /area/station/security/checkpoint/research{
@@ -16134,6 +16123,12 @@
 	dir = 1
 	},
 /area/station/medical/medbay/cloner)
+"heL" = (
+/obj/minimap/map_computer/nations/service,
+/turf/simulated/floor/industrial,
+/area/station/hallway/secondary/north{
+	name = "Service East Hallway"
+	})
 "heX" = (
 /obj/machinery/power/apc/autoname_west,
 /obj/cable{
@@ -16349,6 +16344,10 @@
 /area/station/security/checkpoint/medical{
 	name = "Medical Customs"
 	})
+"hlc" = (
+/obj/pool/perspective,
+/turf/simulated/floor/white/checker,
+/area/station/crew_quarters/pool)
 "hlf" = (
 /obj/stool/chair,
 /obj/landmark/start/job/research_trainee,
@@ -17245,6 +17244,9 @@
 /area/station/hallway/secondary/east{
 	name = "Engineering Hallway"
 	})
+"hIz" = (
+/turf/simulated/floor/industrial,
+/area/station/science/hall)
 "hIB" = (
 /obj/mapping_helper/wingrille_spawn/auto/reinforced/crystal,
 /obj/cable{
@@ -20469,12 +20471,6 @@
 /obj/disposalpipe/segment/horizontal,
 /turf/simulated/floor/purple/side,
 /area/station/hallway/primary/south)
-"iXO" = (
-/obj/minimap/map_computer,
-/turf/simulated/floor/industrial,
-/area/station/hallway/secondary/east{
-	name = "Engineering Hallway"
-	})
 "iXV" = (
 /obj/table/reinforced/auto,
 /obj/item/pinpointer/category/artifacts/safe{
@@ -32439,10 +32435,6 @@
 	dir = 4
 	},
 /area/station/crew_quarters/kitchen)
-"ogD" = (
-/obj/minimap/map_computer,
-/turf/simulated/floor/industrial,
-/area/station/bridge)
 "ogP" = (
 /obj/table/reinforced/auto,
 /obj/machinery/defib_mount{
@@ -35308,6 +35300,11 @@
 /obj/machinery/light_switch/north,
 /turf/simulated/floor/white,
 /area/station/science/hall)
+"pxC" = (
+/obj/pool/perspective,
+/obj/machinery/light,
+/turf/simulated/floor/white/checker,
+/area/station/crew_quarters/pool)
 "pxG" = (
 /obj/machinery/vending/cola/blue,
 /turf/simulated/floor/wood/two,
@@ -36050,6 +36047,12 @@
 /area/radiostation{
 	name = "RS Parakeet";
 	requires_power = 1
+	})
+"pKX" = (
+/obj/minimap/map_computer/nations/engineering,
+/turf/simulated/floor/industrial,
+/area/station/hallway/secondary/east{
+	name = "Engineering Hallway"
 	})
 "pKZ" = (
 /obj/mesh/catwalk,
@@ -37426,12 +37429,6 @@
 	dir = 4
 	},
 /area/station/hangar/catering)
-"quI" = (
-/obj/minimap/map_computer,
-/turf/simulated/floor/industrial,
-/area/station/hallway/secondary/west{
-	name = "Medical Concourse West"
-	})
 "quL" = (
 /obj/storage/closet/office,
 /turf/simulated/floor/minitiles/black,
@@ -39339,6 +39336,12 @@
 	dir = 8
 	},
 /area/station/medical/medbay/surgery)
+"rot" = (
+/obj/minimap/map_computer/nations/medical,
+/turf/simulated/floor/industrial,
+/area/station/hallway/secondary/west{
+	name = "Medical Concourse West"
+	})
 "rov" = (
 /obj/cable{
 	icon_state = "1-2"
@@ -39968,6 +39971,13 @@
 	},
 /turf/simulated/floor/mauxite,
 /area/nations_neutral/shipwright/bay2)
+"rDD" = (
+/obj/pool/perspective{
+	dir = 10;
+	tag = "icon-pool (SOUTHWEST)"
+	},
+/turf/simulated/floor/white/checker,
+/area/station/crew_quarters/pool)
 "rDH" = (
 /obj/submachine/fishing_upload_terminal/portable,
 /turf/simulated/floor/plating,
@@ -42716,13 +42726,6 @@
 /obj/machinery/light/small/floor,
 /turf/simulated/floor/engine,
 /area/station/hangar/science)
-"sMl" = (
-/obj/pool/perspective{
-	dir = 10;
-	tag = "icon-pool (SOUTHWEST)"
-	},
-/turf/simulated/floor/white/checker,
-/area/station/crew_quarters/pool)
 "sMp" = (
 /obj/cable{
 	icon_state = "1-4"
@@ -43295,6 +43298,10 @@
 /obj/mapping_helper/access/medical,
 /turf/simulated/floor/red,
 /area/station/medical/medbay/surgery)
+"tcH" = (
+/obj/minimap/map_computer/nations/research,
+/turf/simulated/floor/industrial,
+/area/station/science/hall)
 "tcK" = (
 /obj/cable{
 	icon_state = "4-8"
@@ -48172,10 +48179,6 @@
 	},
 /turf/simulated/floor/yellow,
 /area/station/engine/power)
-"vsf" = (
-/obj/pool/perspective,
-/turf/simulated/floor/white/checker,
-/area/station/crew_quarters/pool)
 "vsj" = (
 /obj/table/reinforced/bar/auto{
 	name = "wooden table"
@@ -48851,10 +48854,6 @@
 /area/station/crew_quarters/quarters_east{
 	name = "Cargo Crew Quarters"
 	})
-"vGZ" = (
-/obj/minimap/map_computer,
-/turf/simulated/floor/white,
-/area/station/science/hall)
 "vHm" = (
 /obj/table/reinforced/industrial/auto,
 /obj/machinery/cell_charger,
@@ -52742,12 +52741,6 @@
 /area/station/maintenance/outer/south{
 	name = "Research Maintenance"
 	})
-"xAa" = (
-/obj/minimap/map_computer,
-/turf/simulated/floor/industrial,
-/area/station/hallway/secondary/north{
-	name = "Service East Hallway"
-	})
 "xAk" = (
 /obj/cable{
 	icon_state = "4-8"
@@ -52815,6 +52808,10 @@
 /obj/window/auto/reinforced,
 /turf/simulated/floor/engine,
 /area/station/engine/ptl)
+"xBB" = (
+/obj/minimap/map_computer/nations/un,
+/turf/simulated/floor/industrial,
+/area/station/bridge)
 "xBJ" = (
 /obj/table/auto,
 /obj/item/reagent_containers/applicator/condiment/bottle/mustard{
@@ -53624,6 +53621,12 @@
 "xSC" = (
 /turf/simulated/wall/auto/reinforced/supernorn,
 /area/station/hangar/sec)
+"xSJ" = (
+/obj/minimap/map_computer/nations/supply,
+/turf/simulated/floor/industrial,
+/area/station/hallway/secondary/northeast{
+	name = "Cargo Hallway"
+	})
 "xSM" = (
 /obj/storage/secure/closet/civilian/ranch,
 /turf/simulated/floor/wood/seven,
@@ -80637,7 +80640,7 @@ vWQ
 vWQ
 vWQ
 vWQ
-quI
+rot
 qof
 czG
 rqX
@@ -80858,7 +80861,7 @@ wSl
 wSl
 taE
 wSl
-sMl
+rDD
 kRV
 lXt
 wpZ
@@ -81160,7 +81163,7 @@ hIG
 hIG
 hIG
 hIG
-vsf
+hlc
 kRV
 mQW
 pRu
@@ -81462,7 +81465,7 @@ dZZ
 xUQ
 hIG
 hIG
-vsf
+hlc
 kRV
 grm
 pRu
@@ -81764,7 +81767,7 @@ hIG
 hIG
 hIG
 hIG
-vsf
+hlc
 kRV
 eaW
 pRu
@@ -82066,7 +82069,7 @@ dZZ
 hIG
 dZZ
 tfK
-fcg
+pxC
 yih
 hnT
 pRu
@@ -82368,7 +82371,7 @@ hIG
 hIG
 hIG
 hIG
-vsf
+hlc
 kRV
 grm
 pRu
@@ -93556,7 +93559,7 @@ cfT
 cfT
 cfT
 cfT
-xAa
+heL
 rZt
 jdr
 imt
@@ -96709,11 +96712,11 @@ iEd
 xkd
 wUt
 kTo
-acD
-acD
-acD
-acD
-vGZ
+hIz
+hIz
+hIz
+hIz
+tcH
 fkd
 fXh
 uUj
@@ -97011,11 +97014,11 @@ rXd
 bGW
 rpa
 fkd
-acD
-acD
-acD
-acD
-acD
+hIz
+hIz
+hIz
+hIz
+hIz
 fkd
 fXh
 pHn
@@ -97313,11 +97316,11 @@ hPF
 hPF
 kKQ
 fkd
-acD
-acD
-acD
-acD
-acD
+hIz
+hIz
+hIz
+hIz
+hIz
 fkd
 kKQ
 fGT
@@ -97615,11 +97618,11 @@ wfQ
 kWq
 fLD
 fkd
-acD
-acD
-acD
-acD
-acD
+hIz
+hIz
+hIz
+hIz
+hIz
 fkd
 fSs
 beb
@@ -97917,11 +97920,11 @@ kTr
 jCv
 qEi
 fkd
-acD
-acD
-acD
-acD
-acD
+hIz
+hIz
+hIz
+hIz
+hIz
 tKn
 mJD
 bTD
@@ -100552,7 +100555,7 @@ jpI
 jpI
 jpI
 jpI
-ogD
+xBB
 buj
 lzc
 yfN
@@ -108044,7 +108047,7 @@ oVY
 oVY
 oVY
 oVY
-eWP
+xSJ
 wIC
 wIC
 oBa
@@ -121408,7 +121411,7 @@ iep
 iep
 iep
 iep
-iXO
+pKX
 oKS
 dvF
 pkc
