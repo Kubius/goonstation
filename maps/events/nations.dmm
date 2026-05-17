@@ -19424,6 +19424,16 @@
 	dir = 8
 	},
 /area/station/medical/medbay)
+"izK" = (
+/obj/cable/yellow,
+/obj/machinery/power/solar,
+/turf/simulated/floor/airless{
+	icon_state = "solarbase";
+	name = "solar paneling"
+	},
+/area/station/maintenance/storage{
+	name = "The Fleur-de-Lys"
+	})
 "izV" = (
 /obj/table/reinforced/auto,
 /obj/machinery/door_control/bolter{
@@ -22805,6 +22815,9 @@
 /obj/machinery/power/solar,
 /obj/cable/yellow{
 	icon_state = "0-5"
+	},
+/obj/cable/yellow{
+	icon_state = "0-2"
 	},
 /turf/simulated/floor/airless{
 	icon_state = "solarbase";
@@ -36552,6 +36565,9 @@
 /obj/cable/yellow{
 	icon_state = "0-9"
 	},
+/obj/cable/yellow{
+	icon_state = "0-2"
+	},
 /turf/simulated/floor/airless{
 	icon_state = "solarbase";
 	name = "solar paneling"
@@ -45743,6 +45759,16 @@
 "uir" = (
 /turf/simulated/wall/auto/jen/brown,
 /area/nations_neutral/shipwright/hardware)
+"uiz" = (
+/obj/cable/yellow,
+/obj/machinery/power/tracker,
+/turf/simulated/floor/airless{
+	icon_state = "solarbase";
+	name = "solar paneling"
+	},
+/area/station/maintenance/storage{
+	name = "The Fleur-de-Lys"
+	})
 "uiC" = (
 /obj/lattice{
 	dir = 5;
@@ -125808,7 +125834,7 @@ jrv
 jrv
 jrv
 pYA
-sRz
+uiz
 sRz
 sRz
 sRz
@@ -128224,7 +128250,7 @@ ebb
 ebb
 ebb
 jWD
-sRz
+izK
 sRz
 sRz
 sRz
