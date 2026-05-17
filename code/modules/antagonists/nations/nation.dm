@@ -87,7 +87,7 @@
 	)
 
 /datum/nation/clown
-	name = "\the Circus"
+	name = "Clowntopia"
 	passport_type = /obj/item/passport/clown
 	passport_color = "#d73715"
 	citizen_jobs = list(
