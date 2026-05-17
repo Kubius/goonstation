@@ -513,6 +513,12 @@
 	},
 /turf/simulated/floor/white/checker,
 /area/station/crew_quarters/pool)
+"als" = (
+/turf/simulated/wall/auto/reinforced/supernorn/colored/blue,
+/area/radiostation/bridge{
+	name = "Parakeet Bridge";
+	requires_power = 1
+	})
 "alx" = (
 /obj/pool/perspective{
 	dir = 9;
@@ -809,6 +815,18 @@
 	name = "UN Gravitics Room";
 	do_not_irradiate = 1
 	})
+"aui" = (
+/obj/table/auto,
+/obj/machinery/recharger/wall/sticky{
+	dir = 1;
+	pixel_y = 26
+	},
+/obj/item/device/audio_log/radioship/large,
+/turf/simulated/floor/green,
+/area/radiostation/bridge{
+	name = "Parakeet Bridge";
+	requires_power = 1
+	})
 "aus" = (
 /obj/stool/chair/comfy/blue{
 	dir = 8
@@ -1031,6 +1049,16 @@
 /turf/simulated/floor/green/side,
 /area/station/hallway/secondary/north{
 	name = "Service East Hallway"
+	})
+"ayW" = (
+/obj/machinery/vehicle/pod_smooth/light{
+	dir = 8
+	},
+/obj/decal/tile_edge/stripe/extra_big,
+/turf/simulated/floor/engine,
+/area/radiostation/podbay{
+	name = "Parakeet Podbay";
+	requires_power = 1
 	})
 "ayZ" = (
 /obj/table/reinforced/auto,
@@ -1336,6 +1364,16 @@
 	},
 /turf/simulated/floor/wood,
 /area/station/crew_quarters/fitness)
+"aFZ" = (
+/obj/mapping_helper/wingrille_spawn/auto/reinforced,
+/obj/cable{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plating,
+/area/radiostation/bridge{
+	name = "Parakeet Bridge";
+	requires_power = 1
+	})
 "aGv" = (
 /obj/item/storage/toilet{
 	dir = 4
@@ -1679,6 +1717,16 @@
 /turf/simulated/floor/plating,
 /area/pod_wars/spacejunk/fstation/mess{
 	name = "Kuiper Mess Hall"
+	})
+"aQT" = (
+/obj/mesh/catwalk,
+/obj/cable/yellow{
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/airless/plating/catwalk/auto,
+/area/radiostation{
+	name = "RS Parakeet";
+	requires_power = 1
 	})
 "aQU" = (
 /obj/stool/chair/couch{
@@ -2331,6 +2379,26 @@
 /area/station/crew_quarters/quarters{
 	name = "Research Restroom"
 	})
+"bdE" = (
+/obj/mesh/catwalk{
+	dir = 8
+	},
+/obj/cable/yellow{
+	icon_state = "1-8"
+	},
+/obj/cable/yellow{
+	icon_state = "2-8"
+	},
+/obj/cable/yellow{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/airless/plating/catwalk{
+	dir = 4
+	},
+/area/radiostation{
+	name = "RS Parakeet";
+	requires_power = 1
+	})
 "bdN" = (
 /obj/table/auto,
 /obj/item/storage/toolbox/emergency,
@@ -2586,6 +2654,13 @@
 /obj/landmark/start/job/rancher,
 /turf/simulated/floor/dirt,
 /area/station/ranch)
+"bjr" = (
+/obj/machinery/printing_press,
+/turf/simulated/floor/carpet/green/fancy/edge/north,
+/area/radiostation/press{
+	name = "Parakeet Newsroom";
+	requires_power = 1
+	})
 "bjB" = (
 /obj/stool/chair/comfy/purple{
 	dir = 8
@@ -2918,6 +2993,15 @@
 /obj/rack/organized/techstorage_med,
 /turf/simulated/floor/plating,
 /area/station/storage/tech)
+"bsY" = (
+/obj/machinery/shuttle/engine/heater{
+	icon_state = "alt_heater-L"
+	},
+/turf/simulated/wall/auto/reinforced/supernorn/colored/blue,
+/area/radiostation/engineering{
+	name = "Parakeet Aft";
+	requires_power = 1
+	})
 "btd" = (
 /turf/simulated/floor/bluewhite/corner{
 	dir = 8
@@ -3612,6 +3696,16 @@
 	dir = 1
 	},
 /area/station/medical/medbay/pharmacy)
+"bIi" = (
+/obj/mapping_helper/wingrille_spawn/auto/reinforced,
+/obj/cable{
+	icon_state = "6-8"
+	},
+/turf/simulated/floor/plating,
+/area/radiostation/bridge{
+	name = "Parakeet Bridge";
+	requires_power = 1
+	})
 "bIp" = (
 /obj/table/reinforced/auto,
 /obj/item/shipcomponent/mainweapon/constructor/stocked{
@@ -3932,6 +4026,21 @@
 	dir = 4
 	},
 /area/station/medical/research)
+"bOI" = (
+/obj/machinery/light{
+	dir = 8;
+	layer = 9.1;
+	pixel_x = -10
+	},
+/obj/table/wood/auto/desk,
+/obj/machinery/computer/television/public{
+	pixel_y = 8
+	},
+/turf/simulated/floor/carpet/green/fancy/edge/west,
+/area/radiostation/press{
+	name = "Parakeet Newsroom";
+	requires_power = 1
+	})
 "bOR" = (
 /obj/cable{
 	icon_state = "4-8"
@@ -4863,6 +4972,14 @@
 	},
 /turf/simulated/floor/sanitary,
 /area/station/engine/engineering/ce/private)
+"coB" = (
+/obj/machinery/power/apc/autoname_east,
+/obj/cable,
+/turf/simulated/floor/plating,
+/area/radiostation/engineering{
+	name = "Parakeet Aft";
+	requires_power = 1
+	})
 "coP" = (
 /obj/machinery/door/airlock/pyro/glass,
 /obj/cable{
@@ -4915,6 +5032,27 @@
 /turf/simulated/floor/sanitary,
 /area/station/security/checkpoint/research{
 	name = "Research Customs"
+	})
+"cqD" = (
+/obj/forcefield/energyshield/perma/doorlink{
+	desc = "A door-linked force field that prevents gasses from passing through it.";
+	dir = 4;
+	name = "Door-linked Atmospheric Forcefield";
+	powerlevel = 1
+	},
+/obj/machinery/door/poddoor/blast/pyro/podbay_autoclose{
+	name = "pod bay (Parakeet)";
+	dir = 4
+	},
+/obj/decal/tile_edge/stripe/extra_big{
+	dir = 6;
+	icon_state = "xtra_bigstripe-corner2"
+	},
+/obj/mapping_helper/button/area,
+/turf/simulated/floor/engine,
+/area/radiostation/podbay{
+	name = "Parakeet Podbay";
+	requires_power = 1
 	})
 "cqV" = (
 /obj/item/storage/toilet{
@@ -5027,6 +5165,13 @@
 /turf/simulated/floor,
 /area/station/hallway/secondary/north{
 	name = "Service East Hallway"
+	})
+"cuj" = (
+/obj/item/storage/toilet,
+/turf/simulated/floor/sanitary/white,
+/area/radiostation/bedroom{
+	name = "Parakeet Quarters";
+	requires_power = 1
 	})
 "cul" = (
 /turf/simulated/floor/engine/caution/west,
@@ -5549,6 +5694,13 @@
 	},
 /turf/simulated/floor,
 /area/station/hallway/primary/south)
+"cFl" = (
+/obj/machinery/shower,
+/turf/simulated/floor/sanitary/white,
+/area/radiostation/bedroom{
+	name = "Parakeet Quarters";
+	requires_power = 1
+	})
 "cFT" = (
 /obj/storage/closet/welding_supply,
 /turf/simulated/floor/grey,
@@ -5995,6 +6147,15 @@
 /area/station/hallway/secondary/central{
 	name = "UN General Assembly Observation Deck"
 	})
+"cQm" = (
+/obj/machinery/shuttle/engine/heater{
+	icon_state = "alt_heater"
+	},
+/turf/simulated/wall/auto/reinforced/supernorn/colored/blue,
+/area/radiostation/engineering{
+	name = "Parakeet Aft";
+	requires_power = 1
+	})
 "cQw" = (
 /obj/table/reinforced/auto,
 /obj/machinery/door/airlock/pyro/glass/windoor{
@@ -6344,6 +6505,18 @@
 	},
 /turf/simulated/floor/wood/two,
 /area/station/medical/head)
+"cWg" = (
+/obj/machinery/power/apc/autoname_south,
+/obj/cable{
+	icon_state = "0-6"
+	},
+/turf/simulated/floor/greenblack{
+	dir = 10
+	},
+/area/radiostation/bridge{
+	name = "Parakeet Bridge";
+	requires_power = 1
+	})
 "cXe" = (
 /obj/decal/tile_edge/line/yellow{
 	dir = 4;
@@ -7000,6 +7173,16 @@
 /area/spacehabitat{
 	name = "Forster's Rock"
 	})
+"dlW" = (
+/obj/cable/yellow{
+	icon_state = "0-2"
+	},
+/obj/machinery/power/solar,
+/turf/simulated/floor/airless/solar,
+/area/radiostation{
+	name = "RS Parakeet";
+	requires_power = 1
+	})
 "dma" = (
 /obj/cable{
 	icon_state = "4-8"
@@ -7320,6 +7503,21 @@
 /turf/simulated/floor/plating,
 /area/station/engine/gas{
 	do_not_irradiate = 1
+	})
+"duy" = (
+/obj/machinery/power/apc/autoname_south,
+/obj/cable{
+	icon_state = "0-8"
+	},
+/obj/machinery/light{
+	dir = 4;
+	layer = 9.1;
+	pixel_x = 10
+	},
+/turf/simulated/floor/carpet/green/fancy/edge/se,
+/area/radiostation/press{
+	name = "Parakeet Newsroom";
+	requires_power = 1
 	})
 "duz" = (
 /obj/machinery/door/airlock/pyro/maintenance,
@@ -7758,6 +7956,16 @@
 	},
 /turf/simulated/floor/engine,
 /area/station/engine/core/thermoelectric)
+"dEL" = (
+/obj/mesh/catwalk,
+/obj/cable/yellow{
+	icon_state = "2-8"
+	},
+/turf/simulated/floor/airless/plating/catwalk/auto,
+/area/radiostation{
+	name = "RS Parakeet";
+	requires_power = 1
+	})
 "dFc" = (
 /obj/stool/chair{
 	dir = 4
@@ -8106,6 +8314,16 @@
 /area/station/crew_quarters/jazz{
 	name = "La Balustrade"
 	})
+"dNn" = (
+/obj/machinery/vending/air_vendor/plasma{
+	dir = 4;
+	pixel_x = -9
+	},
+/turf/simulated/floor/plating,
+/area/radiostation/engineering{
+	name = "Parakeet Aft";
+	requires_power = 1
+	})
 "dNy" = (
 /obj/machinery/turret,
 /obj/decal/mule/dropoff,
@@ -8186,6 +8404,19 @@
 	},
 /area/station/hallway/secondary/east{
 	name = "Engineering Hallway"
+	})
+"dOT" = (
+/obj/machinery/power/data_terminal,
+/obj/cable{
+	icon_state = "0-4"
+	},
+/obj/machinery/computer/power_monitor{
+	dir = 4
+	},
+/turf/simulated/floor/green,
+/area/radiostation/bridge{
+	name = "Parakeet Bridge";
+	requires_power = 1
 	})
 "dOY" = (
 /turf/simulated/wall/auto/reinforced/supernorn/colored/purple,
@@ -8588,6 +8819,23 @@
 /obj/machinery/light/small/floor,
 /turf/simulated/floor/white,
 /area/station/science/hall)
+"eaO" = (
+/obj/landmark/latejoin_job/journalist,
+/obj/stool/chair/comfy/shuttle{
+	desc = "Equipped with a safety buckle!";
+	dir = 8;
+	name = "samostrel seat"
+	},
+/obj/cable{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/greenblack{
+	dir = 8
+	},
+/area/radiostation/bridge{
+	name = "Parakeet Bridge";
+	requires_power = 1
+	})
 "eaW" = (
 /obj/stool/chair/couch{
 	dir = 4;
@@ -9150,6 +9398,16 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/hangar/qm)
+"elJ" = (
+/obj/machinery/door_control/podbay{
+	pixel_y = -24
+	},
+/obj/mapping_helper/button/area,
+/turf/simulated/floor/black,
+/area/radiostation/podbay{
+	name = "Parakeet Podbay";
+	requires_power = 1
+	})
 "elL" = (
 /obj/rack,
 /obj/item/sheet/steel/fullstack{
@@ -10034,6 +10292,16 @@
 /area/station/bridge/united_command{
 	name = "UN General Assembly Chamber"
 	})
+"eFh" = (
+/obj/decal/tile_edge/stripe/extra_big,
+/obj/cable{
+	icon_state = "6-9"
+	},
+/turf/simulated/floor/engine,
+/area/radiostation/podbay{
+	name = "Parakeet Podbay";
+	requires_power = 1
+	})
 "eFE" = (
 /obj/machinery/light{
 	dir = 4;
@@ -10111,6 +10379,15 @@
 	},
 /turf/simulated/floor/wood/two,
 /area/station/crew_quarters/hor/horprivate)
+"eGY" = (
+/obj/cable{
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/carpet/green/fancy,
+/area/radiostation/press{
+	name = "Parakeet Newsroom";
+	requires_power = 1
+	})
 "eGZ" = (
 /obj/lattice{
 	icon_state = "lattice-dir"
@@ -10308,6 +10585,17 @@
 /obj/disposalpipe/segment/vertical,
 /turf/simulated/floor,
 /area/station/hydroponics/bay)
+"eMX" = (
+/obj/machinery/vending/cigarette{
+	dir = 4;
+	pixel_x = -9
+	},
+/obj/machinery/light,
+/turf/simulated/floor/green,
+/area/radiostation/bridge{
+	name = "Parakeet Bridge";
+	requires_power = 1
+	})
 "eNr" = (
 /turf/simulated/wall/auto/supernorn/colored/orange,
 /area/station/maintenance/outer/ne{
@@ -10567,6 +10855,13 @@
 /turf/simulated/floor/sanitary,
 /area/station/security/checkpoint/medical{
 	name = "Medical Customs"
+	})
+"eUk" = (
+/obj/mesh/catwalk,
+/turf/simulated/floor/airless/plating/catwalk/auto,
+/area/radiostation{
+	name = "RS Parakeet";
+	requires_power = 1
 	})
 "eUm" = (
 /obj/machinery/light/small,
@@ -10870,6 +11165,13 @@
 	},
 /turf/simulated/floor/black,
 /area/station/medical/medbay/psychiatrist)
+"faM" = (
+/obj/storage/closet/dresser/random,
+/turf/simulated/floor/carpet/red/standard/edge/nw,
+/area/radiostation/bedroom{
+	name = "Parakeet Quarters";
+	requires_power = 1
+	})
 "faN" = (
 /obj/machinery/sleeper/compact{
 	dir = 4
@@ -10926,9 +11228,7 @@
 "fcg" = (
 /obj/pool/perspective,
 /obj/machinery/light,
-/turf/simulated/floor{
-	icon_state = "bluechecker"
-	},
+/turf/simulated/floor/white/checker,
 /area/station/crew_quarters/pool)
 "fcs" = (
 /turf/simulated/floor/purple/side,
@@ -12535,6 +12835,17 @@
 /area/station/bridge/united_command{
 	name = "UN General Assembly Chamber"
 	})
+"fKY" = (
+/obj/lattice{
+	dir = 4;
+	icon_state = "lattice-dir"
+	},
+/obj/machinery/light/runway_light/delay2,
+/obj/cable{
+	icon_state = "4-8"
+	},
+/turf/space,
+/area/space/asteroid_safe_zone)
 "fLj" = (
 /obj/cable{
 	icon_state = "1-2"
@@ -13090,6 +13401,14 @@
 /turf/simulated/floor/black,
 /area/station/security/main{
 	name = "UN Front Office"
+	})
+"fXw" = (
+/obj/stool/bed,
+/obj/item/clothing/suit/bedsheet/orange,
+/turf/simulated/floor/carpet/red/standard/edge/ne,
+/area/radiostation/bedroom{
+	name = "Parakeet Quarters";
+	requires_power = 1
 	})
 "fXz" = (
 /obj/storage/secure/closet/fridge/kitchen,
@@ -14162,6 +14481,12 @@
 	},
 /turf/simulated/floor/engine/vacuum,
 /area/station/science/lab)
+"gsD" = (
+/obj/machinery/shuttle/engine/propulsion{
+	icon_state = "alt_propulsion"
+	},
+/turf/space,
+/area/space)
 "gsG" = (
 /obj/cable{
 	icon_state = "2-8"
@@ -15143,6 +15468,17 @@
 /area/station/bridge/united_command{
 	name = "UN General Assembly Chamber"
 	})
+"gMG" = (
+/obj/machinery/communications_dish,
+/obj/mesh/catwalk,
+/obj/cable{
+	icon_state = "0-4"
+	},
+/turf/simulated/floor/airless/plating/catwalk/auto,
+/area/radiostation/bridge{
+	name = "Parakeet Bridge";
+	requires_power = 1
+	})
 "gML" = (
 /obj/cable{
 	icon_state = "1-10"
@@ -15223,6 +15559,20 @@
 	},
 /turf/simulated/floor/wood/two,
 /area/station/crew_quarters/hor)
+"gNP" = (
+/obj/storage/crate/wooden,
+/obj/item/paper_bin,
+/obj/item/paper_bin,
+/obj/item/press_upgrade/ink,
+/obj/item/press_upgrade/ink,
+/obj/item/press_upgrade/ink,
+/obj/item/press_upgrade/ink,
+/obj/item/press_upgrade/ink,
+/turf/simulated/floor/plating,
+/area/radiostation/engineering{
+	name = "Parakeet Aft";
+	requires_power = 1
+	})
 "gNT" = (
 /obj/table/reinforced/auto,
 /obj/machinery/computer/television/small{
@@ -15242,6 +15592,15 @@
 	dir = 4
 	},
 /area/station/science/hall)
+"gOi" = (
+/obj/cable/yellow{
+	icon_state = "5-8"
+	},
+/turf/simulated/floor/carpet/green/fancy/edge/nw,
+/area/radiostation/press{
+	name = "Parakeet Newsroom";
+	requires_power = 1
+	})
 "gOm" = (
 /obj/machinery/door/airlock/pyro/external,
 /obj/forcefield/energyshield/perma/doorlink{
@@ -15269,6 +15628,17 @@
 /obj/item/reagent_containers/food/drinks/rum_spaced,
 /turf/simulated/floor/wood/two,
 /area/station/crew_quarters/hor/horprivate)
+"gOQ" = (
+/obj/machinery/communications_dish,
+/obj/mesh/catwalk,
+/obj/cable{
+	icon_state = "0-8"
+	},
+/turf/simulated/floor/airless/plating/catwalk/auto,
+/area/radiostation/bridge{
+	name = "Parakeet Bridge";
+	requires_power = 1
+	})
 "gPd" = (
 /obj/machinery/door/airlock/pyro/external{
 	dir = 4
@@ -15825,6 +16195,15 @@
 /turf/simulated/floor/terrazzo,
 /area/station/quartermaster/cargooffice{
 	name = "Cargonian High Court"
+	})
+"hel" = (
+/obj/machinery/sink/slim{
+	dir = 1
+	},
+/turf/simulated/floor/carpet/green/fancy/edge/south,
+/area/radiostation/press{
+	name = "Parakeet Newsroom";
+	requires_power = 1
 	})
 "heB" = (
 /obj/spawner/clone_rack,
@@ -17345,6 +17724,14 @@
 /area/station/bridge/united_command{
 	name = "UN General Assembly Chamber"
 	})
+"hNP" = (
+/obj/cable/yellow,
+/obj/machinery/power/solar,
+/turf/simulated/floor/airless/solar,
+/area/radiostation{
+	name = "RS Parakeet";
+	requires_power = 1
+	})
 "hNV" = (
 /obj/cable{
 	icon_state = "4-8"
@@ -17728,6 +18115,21 @@
 /area/station/hallway/secondary/northwest{
 	name = "Service West Hallway"
 	})
+"hVM" = (
+/obj/lattice{
+	dir = 9;
+	icon_state = "lattice-dir"
+	},
+/obj/warp_beacon{
+	name = "RS Parakeet";
+	pixel_x = 2;
+	pixel_y = 8
+	},
+/obj/cable{
+	icon_state = "0-4"
+	},
+/turf/space,
+/area/space/asteroid_safe_zone)
 "hVO" = (
 /turf/simulated/floor/darkblue/side{
 	dir = 4
@@ -18032,6 +18434,13 @@
 	},
 /turf/space,
 /area/station/turret_protected/armory_outside)
+"idS" = (
+/obj/mapping_helper/wingrille_spawn/auto/reinforced,
+/turf/simulated/floor/plating,
+/area/radiostation/bridge{
+	name = "Parakeet Bridge";
+	requires_power = 1
+	})
 "iee" = (
 /obj/machinery/door/airlock/pyro/medical,
 /obj/mapping_helper/access/tox,
@@ -18422,6 +18831,14 @@
 /area/station/hallway/secondary/west{
 	name = "Medical Concourse West"
 	})
+"ilm" = (
+/obj/machinery/r_door_control/podbay,
+/obj/mapping_helper/button/area,
+/turf/simulated/wall/auto/reinforced/supernorn/colored/blue,
+/area/radiostation/podbay{
+	name = "Parakeet Podbay";
+	requires_power = 1
+	})
 "ilD" = (
 /obj/cable{
 	icon_state = "2-8"
@@ -18769,6 +19186,23 @@
 	icon_state = "respect3"
 	},
 /area/station/security/secwing)
+"isd" = (
+/obj/machinery/light{
+	dir = 1;
+	layer = 9.1;
+	pixel_y = 21
+	},
+/obj/mapping_helper/airlock/cycler/auto/rook{
+	dir = 8
+	},
+/obj/cable/yellow{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/black,
+/area/radiostation{
+	name = "RS Parakeet";
+	requires_power = 1
+	})
 "isk" = (
 /obj/cable{
 	icon_state = "1-2"
@@ -19844,6 +20278,12 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/disposal)
+"iPI" = (
+/turf/simulated/wall/auto/reinforced/supernorn/colored/blue,
+/area/radiostation{
+	name = "RS Parakeet";
+	requires_power = 1
+	})
 "iPP" = (
 /obj/rack,
 /obj/item/extinguisher{
@@ -20590,6 +21030,12 @@
 	},
 /turf/simulated/floor/black,
 /area/station/chapel/sanctuary)
+"jio" = (
+/turf/simulated/floor/carpet/green/fancy/innercorner/sw,
+/area/radiostation/press{
+	name = "Parakeet Newsroom";
+	requires_power = 1
+	})
 "jiB" = (
 /obj/stool/chair,
 /turf/simulated/floor/bluewhite{
@@ -21859,6 +22305,18 @@
 /area/station/crew_quarters/clown{
 	name = "Fleur-de-Lys Bridge"
 	})
+"jHE" = (
+/obj/machinery/door/airlock/pyro/glass{
+	dir = 4
+	},
+/obj/cable{
+	icon_state = "6-9"
+	},
+/turf/simulated/floor/black,
+/area/radiostation/podbay{
+	name = "Parakeet Podbay";
+	requires_power = 1
+	})
 "jHF" = (
 /obj/machinery/computer/card/department{
 	dir = 4
@@ -22575,6 +23033,18 @@
 	dir = 8
 	},
 /area/station/science/testchamber)
+"jVD" = (
+/obj/cable{
+	icon_state = "1-2"
+	},
+/obj/cable{
+	icon_state = "2-4"
+	},
+/turf/simulated/floor/carpet/green/fancy/edge/south,
+/area/radiostation/press{
+	name = "Parakeet Newsroom";
+	requires_power = 1
+	})
 "jVH" = (
 /obj/cable{
 	icon_state = "1-2"
@@ -23180,6 +23650,12 @@
 /area/station/crew_quarters/quarters_east{
 	name = "Cargo Crew Quarters"
 	})
+"khU" = (
+/turf/simulated/floor/carpet/green/fancy,
+/area/radiostation/press{
+	name = "Parakeet Newsroom";
+	requires_power = 1
+	})
 "kin" = (
 /turf/simulated/wall/auto/reinforced/supernorn/colored/yellow,
 /area/station/engine/gas{
@@ -23623,6 +24099,15 @@
 	},
 /turf/simulated/floor/grey/blackgrime,
 /area/station/crew_quarters/catering)
+"kte" = (
+/obj/stool/bed,
+/obj/item/clothing/suit/bedsheet/orange,
+/obj/machinery/light,
+/turf/simulated/floor/carpet/red/standard/edge/se,
+/area/radiostation/bedroom{
+	name = "Parakeet Quarters";
+	requires_power = 1
+	})
 "ktk" = (
 /turf/simulated/floor/engine/caution/corner2{
 	dir = 10
@@ -25796,6 +26281,15 @@
 /area/spacehabitat{
 	name = "Forster's Rock"
 	})
+"lsp" = (
+/obj/machinery/shuttle/engine/heater{
+	icon_state = "alt_heater-R"
+	},
+/turf/simulated/wall/auto/reinforced/supernorn/colored/blue,
+/area/radiostation/engineering{
+	name = "Parakeet Aft";
+	requires_power = 1
+	})
 "lsv" = (
 /obj/cable{
 	icon_state = "2-4"
@@ -26246,6 +26740,15 @@
 	},
 /turf/simulated/floor/black,
 /area/station/science/hall)
+"lBU" = (
+/obj/cable{
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plating,
+/area/radiostation/engineering{
+	name = "Parakeet Aft";
+	requires_power = 1
+	})
 "lCw" = (
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 8
@@ -26321,6 +26824,16 @@
 	dir = 8
 	},
 /area/station/medical/medbay)
+"lEq" = (
+/obj/machinery/door/airlock/pyro,
+/obj/cable{
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plating,
+/area/radiostation/engineering{
+	name = "Parakeet Aft";
+	requires_power = 1
+	})
 "lES" = (
 /obj/cable{
 	icon_state = "1-4"
@@ -27305,6 +27818,22 @@
 	dir = 8
 	},
 /area/station/hallway/primary/east)
+"lYT" = (
+/obj/cable{
+	icon_state = "1-2"
+	},
+/obj/cable{
+	icon_state = "2-9"
+	},
+/obj/machinery/light/small{
+	dir = 4;
+	pixel_x = 12
+	},
+/turf/simulated/floor/plating,
+/area/radiostation/engineering{
+	name = "Parakeet Aft";
+	requires_power = 1
+	})
 "lZc" = (
 /obj/stool/chair{
 	dir = 4
@@ -28027,6 +28556,24 @@
 "mnR" = (
 /turf/simulated/floor/darkblue/side,
 /area/station/hallway/primary/northeast)
+"mog" = (
+/obj/machinery/door/airlock/pyro/external{
+	dir = 4
+	},
+/obj/forcefield/energyshield/perma/doorlink{
+	desc = "A door-linked force field that prevents gasses from passing through it.";
+	dir = 4;
+	name = "Door-linked Atmospheric Forcefield";
+	powerlevel = 1
+	},
+/obj/cable/yellow{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/black,
+/area/radiostation{
+	name = "RS Parakeet";
+	requires_power = 1
+	})
 "moh" = (
 /obj/cable{
 	icon_state = "2-4"
@@ -28969,6 +29516,17 @@
 /obj/machinery/light,
 /turf/simulated/floor/blueblack,
 /area/station/engine/coldloop)
+"mJx" = (
+/obj/cable{
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/greenblack{
+	dir = 6
+	},
+/area/radiostation/bridge{
+	name = "Parakeet Bridge";
+	requires_power = 1
+	})
 "mJD" = (
 /obj/cable{
 	icon_state = "1-2"
@@ -29572,6 +30130,16 @@
 /obj/landmark/start/job/rancher,
 /turf/simulated/floor/wood/seven,
 /area/station/ranch)
+"mWf" = (
+/obj/machinery/door/airlock/pyro,
+/obj/cable{
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/black,
+/area/radiostation/bedroom{
+	name = "Parakeet Quarters";
+	requires_power = 1
+	})
 "mWl" = (
 /obj/machinery/light/small{
 	dir = 8;
@@ -29646,6 +30214,17 @@
 /obj/machinery/firealarm/directional/north,
 /turf/simulated/floor/carpet/arcade,
 /area/station/bridge/captain)
+"mXK" = (
+/obj/lattice{
+	dir = 8;
+	icon_state = "lattice-dir"
+	},
+/obj/machinery/light/runway_light,
+/obj/cable{
+	icon_state = "4-8"
+	},
+/turf/space,
+/area/space/asteroid_safe_zone)
 "mYg" = (
 /obj/stool/chair/blue{
 	dir = 8
@@ -29730,6 +30309,26 @@
 /obj/machinery/light,
 /turf/simulated/floor/darkblueblack,
 /area/station/security/secwing)
+"nai" = (
+/obj/forcefield/energyshield/perma/doorlink{
+	desc = "A door-linked force field that prevents gasses from passing through it.";
+	dir = 4;
+	name = "Door-linked Atmospheric Forcefield";
+	powerlevel = 1
+	},
+/obj/machinery/door/poddoor/blast/pyro/podbay_autoclose{
+	name = "pod bay (Parakeet)";
+	dir = 4
+	},
+/obj/cable{
+	icon_state = "4-8"
+	},
+/obj/mapping_helper/button/area,
+/turf/simulated/floor/engine,
+/area/radiostation/podbay{
+	name = "Parakeet Podbay";
+	requires_power = 1
+	})
 "nan" = (
 /obj/cable{
 	icon_state = "4-8"
@@ -29791,6 +30390,12 @@
 	},
 /area/station/hallway/secondary/north{
 	name = "Service East Hallway"
+	})
+"ncB" = (
+/turf/simulated/floor/carpet/green/fancy/innercorner/nw,
+/area/radiostation/press{
+	name = "Parakeet Newsroom";
+	requires_power = 1
 	})
 "ncG" = (
 /turf/simulated/floor/orangeblack/side{
@@ -30240,6 +30845,29 @@
 	dir = 1
 	},
 /area/station/mining/staff_room)
+"nms" = (
+/obj/cable{
+	icon_state = "1-2"
+	},
+/obj/cable{
+	icon_state = "2-8"
+	},
+/obj/cable{
+	icon_state = "2-5"
+	},
+/obj/stool/chair/comfy/shuttle{
+	desc = "Equipped with a safety buckle!";
+	dir = 1;
+	name = "samostrel seat"
+	},
+/obj/landmark/latejoin_job/journalist,
+/turf/simulated/floor/greenblack{
+	dir = 5
+	},
+/area/radiostation/bridge{
+	name = "Parakeet Bridge";
+	requires_power = 1
+	})
 "nmt" = (
 /obj/machinery/vending/cola/blue,
 /turf/simulated/floor/grey/side{
@@ -30283,6 +30911,23 @@
 	},
 /turf/simulated/floor/caution/north,
 /area/station/quartermaster/cargobay)
+"nnR" = (
+/obj/table/auto,
+/obj/machinery/cell_charger,
+/obj/item/cell/supercell/charged{
+	pixel_y = 1;
+	pixel_x = 3
+	},
+/obj/machinery/light{
+	dir = 4;
+	layer = 9.1;
+	pixel_x = 10
+	},
+/turf/simulated/floor/green,
+/area/radiostation/bridge{
+	name = "Parakeet Bridge";
+	requires_power = 1
+	})
 "nnX" = (
 /turf/simulated/floor/green/side{
 	dir = 1
@@ -30756,6 +31401,22 @@
 /area/pod_wars/spacejunk/fstation/maintdock{
 	name = "Kuiper Dock Two"
 	})
+"nzx" = (
+/obj/machinery/power/apc/autoname_south{
+	name = "Parakeet Hull APC";
+	areastring = "RS Parakeet"
+	},
+/obj/cable{
+	icon_state = "0-8"
+	},
+/obj/cable{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/carpet/green/fancy/edge/south,
+/area/radiostation/press{
+	name = "Parakeet Newsroom";
+	requires_power = 1
+	})
 "nzU" = (
 /obj/machinery/door/airlock/pyro/glass,
 /turf/simulated/floor/darkblue/side{
@@ -30779,6 +31440,16 @@
 /area/station/hallway/secondary/north{
 	name = "Service East Hallway"
 	})
+"nAc" = (
+/obj/mapping_helper/wingrille_spawn/auto/reinforced,
+/obj/cable{
+	icon_state = "4-10"
+	},
+/turf/simulated/floor/plating,
+/area/radiostation/bridge{
+	name = "Parakeet Bridge";
+	requires_power = 1
+	})
 "nBe" = (
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
 	dir = 6
@@ -30797,6 +31468,18 @@
 	},
 /turf/simulated/floor/circuit/off,
 /area/station/turret_protected/ai)
+"nBv" = (
+/obj/storage/crate,
+/obj/item/storage/toolbox/mechanical,
+/obj/item/storage/toolbox/emergency{
+	pixel_y = -6
+	},
+/obj/item/clothing/head/helmet/welding,
+/turf/simulated/floor/plating,
+/area/radiostation/engineering{
+	name = "Parakeet Aft";
+	requires_power = 1
+	})
 "nBQ" = (
 /obj/machinery/door/airlock/pyro/toxins_alt,
 /obj/mapping_helper/access/cargo,
@@ -31280,6 +31963,18 @@
 /obj/mapping_helper/wingrille_spawn/auto/reinforced,
 /turf/simulated/floor/plating,
 /area/station/hallway/primary/south)
+"nMV" = (
+/obj/cable{
+	icon_state = "1-2"
+	},
+/obj/cable{
+	icon_state = "2-8"
+	},
+/turf/simulated/floor/carpet/red/standard/edge/south,
+/area/radiostation/bedroom{
+	name = "Parakeet Quarters";
+	requires_power = 1
+	})
 "nNx" = (
 /obj/table/reinforced/bar/auto{
 	name = "wooden table"
@@ -31596,6 +32291,13 @@
 /area/station/crew_quarters/jazz{
 	name = "La Balustrade"
 	})
+"nVS" = (
+/obj/reagent_dispensers/fueltank,
+/turf/simulated/floor/plating,
+/area/radiostation/engineering{
+	name = "Parakeet Aft";
+	requires_power = 1
+	})
 "nWd" = (
 /obj/submachine/seed_vendor,
 /turf/simulated/floor/grass,
@@ -31728,6 +32430,24 @@
 	dir = 8
 	},
 /area/station/medical/medbay)
+"oaJ" = (
+/obj/landmark/latejoin_job/journalist,
+/obj/stool/chair/comfy/shuttle/pilot{
+	dir = 1
+	},
+/obj/cable{
+	icon_state = "1-4"
+	},
+/obj/cable{
+	icon_state = "4-9"
+	},
+/turf/simulated/floor/greenblack{
+	dir = 9
+	},
+/area/radiostation/bridge{
+	name = "Parakeet Bridge";
+	requires_power = 1
+	})
 "obd" = (
 /obj/cable{
 	icon_state = "2-5"
@@ -32158,6 +32878,16 @@
 	dir = 1
 	},
 /area/station/hallway/primary/south)
+"olw" = (
+/obj/mesh/catwalk,
+/obj/cable/yellow{
+	icon_state = "1-4"
+	},
+/turf/simulated/floor/airless/plating/catwalk/auto,
+/area/radiostation{
+	name = "RS Parakeet";
+	requires_power = 1
+	})
 "olA" = (
 /obj/table/reinforced/auto,
 /obj/item/storage/box/glassbox{
@@ -32891,6 +33621,16 @@
 /area/station/security/checkpoint/cargo{
 	name = "Cargo Customs"
 	})
+"oFh" = (
+/obj/landmark/latejoin_job/journalist,
+/obj/stool/chair/office/blue{
+	dir = 1
+	},
+/turf/simulated/floor/carpet/green/fancy,
+/area/radiostation/press{
+	name = "Parakeet Newsroom";
+	requires_power = 1
+	})
 "oFp" = (
 /obj/cable{
 	icon_state = "4-8"
@@ -33227,6 +33967,19 @@
 /turf/simulated/floor/minitiles/black,
 /area/station/crew_quarters/quarters_west{
 	name = "Medical Crew Quarters"
+	})
+"oOe" = (
+/obj/rack,
+/obj/item/clothing/suit/space/emerg,
+/obj/item/clothing/head/emerg,
+/obj/item/clothing/mask/breath,
+/obj/item/tank/air,
+/obj/item/device/light/flashlight,
+/obj/machinery/light,
+/turf/simulated/floor/black,
+/area/radiostation/podbay{
+	name = "Parakeet Podbay";
+	requires_power = 1
 	})
 "oOn" = (
 /obj/machinery/chem_master,
@@ -34299,6 +35052,12 @@
 	dir = 1
 	},
 /area/station/medical/medbay/pharmacy)
+"pkV" = (
+/turf/simulated/wall/auto/reinforced/supernorn/colored/blue,
+/area/radiostation/bedroom{
+	name = "Parakeet Quarters";
+	requires_power = 1
+	})
 "pla" = (
 /obj/cable{
 	icon_state = "2-4"
@@ -34411,6 +35170,22 @@
 	dir = 1
 	},
 /area/station/turret_protected/ai)
+"ppn" = (
+/obj/machinery/sink/slim{
+	dir = 4;
+	pixel_x = -4
+	},
+/obj/machinery/drainage,
+/obj/machinery/light{
+	dir = 4;
+	layer = 9.1;
+	pixel_x = 10
+	},
+/turf/simulated/floor/sanitary/white,
+/area/radiostation/bedroom{
+	name = "Parakeet Quarters";
+	requires_power = 1
+	})
 "ppu" = (
 /obj/disposalpipe/segment/horizontal,
 /turf/simulated/floor/orangeblack/side,
@@ -35066,6 +35841,16 @@
 	},
 /turf/simulated/floor/carpet/grime,
 /area/station/security/detectives_office)
+"pCN" = (
+/obj/machinery/camera/television/mobile{
+	name = "camera - Parakeet";
+	c_tag = "Parakeet"
+	},
+/turf/simulated/floor/carpet/green/fancy/edge/east,
+/area/radiostation/press{
+	name = "Parakeet Newsroom";
+	requires_power = 1
+	})
 "pCO" = (
 /obj/rack,
 /obj/item/clothing/suit/space/emerg,
@@ -35512,6 +36297,27 @@
 "pKO" = (
 /turf/simulated/floor/engine,
 /area/station/hangar/catering)
+"pKT" = (
+/obj/mesh/catwalk{
+	dir = 9
+	},
+/obj/cable/yellow{
+	icon_state = "1-4"
+	},
+/obj/cable/yellow{
+	icon_state = "2-4"
+	},
+/obj/cable/yellow{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/airless/plating/catwalk{
+	dir = 8;
+	icon_state = "catwalk_cross"
+	},
+/area/radiostation{
+	name = "RS Parakeet";
+	requires_power = 1
+	})
 "pKZ" = (
 /obj/mesh/catwalk,
 /obj/cable/yellow{
@@ -35909,6 +36715,16 @@
 /turf/simulated/floor/sanitary,
 /area/station/crew_quarters/quarters{
 	name = "Research Restroom"
+	})
+"pUm" = (
+/obj/cable{
+	icon_state = "0-4"
+	},
+/obj/machinery/power/apc/autoname_south,
+/turf/simulated/floor/carpet/red/standard/edge/sw,
+/area/radiostation/bedroom{
+	name = "Parakeet Quarters";
+	requires_power = 1
 	})
 "pUq" = (
 /obj/mesh/catwalk,
@@ -36387,6 +37203,19 @@
 /area/station/security/checkpoint/east{
 	name = "Engineering Customs"
 	})
+"qhI" = (
+/obj/mesh/catwalk,
+/obj/cable/yellow{
+	icon_state = "0-8"
+	},
+/obj/cable/yellow{
+	icon_state = "1-8"
+	},
+/turf/simulated/floor/airless/plating/catwalk/auto,
+/area/radiostation{
+	name = "RS Parakeet";
+	requires_power = 1
+	})
 "qhM" = (
 /obj/table/reinforced/auto,
 /obj/machinery/door/airlock/pyro/glass/windoor,
@@ -36494,6 +37323,18 @@
 /turf/simulated/floor/sanitary,
 /area/station/security/checkpoint/research{
 	name = "Research Customs"
+	})
+"qli" = (
+/obj/machinery/computer/solar_control{
+	dir = 8
+	},
+/obj/cable/yellow{
+	icon_state = "0-2"
+	},
+/turf/simulated/floor/green,
+/area/radiostation/bridge{
+	name = "Parakeet Bridge";
+	requires_power = 1
 	})
 "qlk" = (
 /obj/machinery/door/airlock/pyro/external,
@@ -36726,6 +37567,13 @@
 	},
 /turf/simulated/floor/sanitary,
 /area/station/medical/head/private)
+"qqM" = (
+/obj/mapping_helper/wingrille_spawn/auto/reinforced,
+/turf/simulated/floor/plating,
+/area/radiostation/podbay{
+	name = "Parakeet Podbay";
+	requires_power = 1
+	})
 "qrg" = (
 /obj/machinery/atmospherics/binary/valve{
 	dir = 4
@@ -36828,6 +37676,16 @@
 	dir = 8
 	},
 /area/station/engine/power)
+"qtX" = (
+/obj/mesh/catwalk,
+/obj/cable/yellow{
+	icon_state = "2-4"
+	},
+/turf/simulated/floor/airless/plating/catwalk/auto,
+/area/radiostation{
+	name = "RS Parakeet";
+	requires_power = 1
+	})
 "que" = (
 /obj/machinery/door/airlock/pyro/glass,
 /obj/mapping_helper/firedoor_spawn,
@@ -37236,6 +38094,12 @@
 /turf/simulated/floor/plating,
 /area/pod_wars/spacejunk/fstation{
 	name = "Kuiper Shipwright"
+	})
+"qCM" = (
+/turf/simulated/floor/plating,
+/area/radiostation/engineering{
+	name = "Parakeet Aft";
+	requires_power = 1
 	})
 "qCW" = (
 /obj/machinery/phone/wall{
@@ -38510,6 +39374,17 @@
 /obj/cable,
 /turf/simulated/floor/plating,
 /area/station/crew_quarters/hop)
+"rfx" = (
+/obj/mesh/catwalk,
+/obj/machinery/power/tracker/east,
+/obj/cable/yellow{
+	icon_state = "0-4"
+	},
+/turf/simulated/floor/airless/plating/catwalk/auto,
+/area/radiostation{
+	name = "RS Parakeet";
+	requires_power = 1
+	})
 "rfG" = (
 /obj/cable{
 	icon_state = "1-2"
@@ -38687,6 +39562,13 @@
 /turf/simulated/floor/terrazzo,
 /area/station/quartermaster/cargooffice{
 	name = "Cargonian High Court"
+	})
+"rmM" = (
+/obj/machinery/macrofab/emergency_pod,
+/turf/simulated/floor/engine,
+/area/radiostation/podbay{
+	name = "Parakeet Podbay";
+	requires_power = 1
 	})
 "rnb" = (
 /turf/simulated/floor/engine/caution/west,
@@ -38944,6 +39826,19 @@
 /turf/simulated/floor/mauxite,
 /area/pod_wars/spacejunk/fstation/primary{
 	name = "Kuiper Dock One"
+	})
+"rsf" = (
+/obj/cable{
+	icon_state = "0-6"
+	},
+/obj/machinery/power/apc/autoname_north,
+/obj/cable{
+	icon_state = "6-8"
+	},
+/turf/simulated/floor/engine,
+/area/radiostation/podbay{
+	name = "Parakeet Podbay";
+	requires_power = 1
 	})
 "rsR" = (
 /obj/disposalpipe/segment/produce{
@@ -40202,6 +41097,18 @@
 /area/station/hallway/secondary/west{
 	name = "Medical Concourse West"
 	})
+"rWC" = (
+/obj/machinery/door/airlock/pyro/external{
+	dir = 4
+	},
+/obj/cable/yellow{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/black,
+/area/radiostation{
+	name = "RS Parakeet";
+	requires_power = 1
+	})
 "rWD" = (
 /obj/cable{
 	icon_state = "1-2"
@@ -40772,6 +41679,28 @@
 /area/station/crew_quarters/jazz{
 	name = "La Balustrade"
 	})
+"siv" = (
+/obj/machinery/door/airlock/pyro/glass,
+/obj/cable{
+	icon_state = "1-2"
+	},
+/obj/cable{
+	icon_state = "2-9"
+	},
+/obj/cable/yellow{
+	icon_state = "5-10"
+	},
+/obj/cable/yellow{
+	icon_state = "0-5"
+	},
+/obj/cable{
+	icon_state = "0-2"
+	},
+/turf/simulated/floor/carpet/green/fancy,
+/area/radiostation/bridge{
+	name = "Parakeet Bridge";
+	requires_power = 1
+	})
 "siI" = (
 /obj/machinery/sink/slim{
 	dir = 4;
@@ -40872,6 +41801,17 @@
 	},
 /turf/simulated/floor/wood/seven,
 /area/station/medical/medbay/psychiatrist)
+"slR" = (
+/obj/lattice{
+	dir = 4;
+	icon_state = "lattice-dir"
+	},
+/obj/machinery/light/runway_light/delay3,
+/obj/cable{
+	icon_state = "4-8"
+	},
+/turf/space,
+/area/space/asteroid_safe_zone)
 "smc" = (
 /obj/machinery/light,
 /turf/simulated/floor/darkblue/side,
@@ -41399,6 +42339,17 @@
 /area/station/security/checkpoint/medical{
 	name = "Medical Customs"
 	})
+"syf" = (
+/obj/machinery/light{
+	dir = 1;
+	layer = 9.1;
+	pixel_y = 21
+	},
+/turf/simulated/floor/carpet/green/fancy/edge/ne,
+/area/radiostation/press{
+	name = "Parakeet Newsroom";
+	requires_power = 1
+	})
 "syi" = (
 /obj/machinery/portable_atmospherics/canister/air,
 /obj/machinery/light{
@@ -41596,6 +42547,17 @@
 	dir = 8
 	},
 /area/station/chapel/sanctuary)
+"sBj" = (
+/obj/mesh/catwalk,
+/obj/machinery/power/tracker/east,
+/obj/cable/yellow{
+	icon_state = "0-8"
+	},
+/turf/simulated/floor/airless/plating/catwalk/auto,
+/area/radiostation{
+	name = "RS Parakeet";
+	requires_power = 1
+	})
 "sBl" = (
 /obj/cable{
 	icon_state = "1-2"
@@ -42152,7 +43114,7 @@
 	dir = 10;
 	tag = "icon-pool (SOUTHWEST)"
 	},
-/turf/simulated/floor/blue/checker,
+/turf/simulated/floor/white/checker,
 /area/station/crew_quarters/pool)
 "sMp" = (
 /obj/cable{
@@ -44885,6 +45847,16 @@
 /obj/disposalpipe/segment/horizontal,
 /turf/simulated/floor/blue/checker,
 /area/station/medical/research)
+"tXi" = (
+/obj/mapping_helper/wingrille_spawn/auto/reinforced,
+/obj/cable/yellow{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plating,
+/area/radiostation/bridge{
+	name = "Parakeet Bridge";
+	requires_power = 1
+	})
 "tXk" = (
 /obj/machinery/firealarm/directional/east,
 /turf/simulated/floor/carpet/blue/fancy/edge/se,
@@ -44903,6 +45875,26 @@
 /turf/simulated/floor/plating,
 /area/station/security/checkpoint/research{
 	name = "Research Customs"
+	})
+"tXI" = (
+/obj/mesh/catwalk{
+	dir = 8
+	},
+/obj/cable/yellow{
+	icon_state = "1-4"
+	},
+/obj/cable/yellow{
+	icon_state = "2-4"
+	},
+/obj/cable/yellow{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/airless/plating/catwalk{
+	dir = 4
+	},
+/area/radiostation{
+	name = "RS Parakeet";
+	requires_power = 1
 	})
 "tYA" = (
 /turf/simulated/wall/auto/reinforced/supernorn/colored/purple,
@@ -45318,6 +46310,13 @@
 /area/station/hallway/secondary/northeast{
 	name = "Cargo Hallway"
 	})
+"uiQ" = (
+/obj/lattice{
+	dir = 9;
+	icon_state = "lattice-dir-b"
+	},
+/turf/space,
+/area/space/asteroid_safe_zone)
 "uja" = (
 /obj/machinery/door/airlock/pyro/glass{
 	dir = 4
@@ -46066,6 +47065,30 @@
 	},
 /turf/simulated/floor/engine,
 /area/station/mining/refinery)
+"uBE" = (
+/obj/table/reinforced/chemistry/auto{
+	desc = "A black countertop table for storing kitchen-y objects.";
+	name = "kitchen counter";
+	icon_state = "6"
+	},
+/obj/machinery/coffeemaker{
+	pixel_y = 7
+	},
+/obj/drink_rack/mug{
+	pixel_y = 32
+	},
+/obj/item/kitchen/food_box/sugar_box{
+	pixel_y = 0
+	},
+/obj/item/reagent_containers/food/drinks/creamer{
+	pixel_y = -6;
+	pixel_x = 7
+	},
+/turf/simulated/floor/carpet/green/fancy/edge/nw,
+/area/radiostation/press{
+	name = "Parakeet Newsroom";
+	requires_power = 1
+	})
 "uBL" = (
 /turf/simulated/floor,
 /area/station/mining/staff_room)
@@ -46172,6 +47195,21 @@
 	dir = 10
 	},
 /area/station/storage/eva)
+"uEt" = (
+/obj/stool/chair/office/blue{
+	dir = 1
+	},
+/obj/landmark/latejoin_job/radio_show_host,
+/obj/item/storage/wall/office{
+	dir = 8;
+	pixel_x = 32;
+	pixel_y = 0
+	},
+/turf/simulated/floor/carpet/green/fancy/edge/east,
+/area/radiostation/press{
+	name = "Parakeet Newsroom";
+	requires_power = 1
+	})
 "uEP" = (
 /obj/stool/chair/blue{
 	dir = 8
@@ -46597,6 +47635,25 @@
 	},
 /turf/simulated/floor/engine,
 /area/station/engine/core/thermoelectric)
+"uQr" = (
+/obj/table/reinforced/chemistry/auto{
+	desc = "A black countertop table for storing kitchen-y objects.";
+	name = "kitchen counter";
+	icon_state = "1"
+	},
+/obj/item/storage/box/cutlery{
+	pixel_x = 5;
+	pixel_y = 4
+	},
+/obj/item/storage/box/plates{
+	pixel_x = -5;
+	pixel_y = 4
+	},
+/turf/simulated/floor/carpet/green/fancy/edge/sw,
+/area/radiostation/press{
+	name = "Parakeet Newsroom";
+	requires_power = 1
+	})
 "uQK" = (
 /turf/simulated/floor/orangeblack/side,
 /area/station/quartermaster/cargobay)
@@ -46695,6 +47752,23 @@
 	dir = 1
 	},
 /area/station/science/hall)
+"uTx" = (
+/obj/table/wood/auto/desk{
+	icon_state = "8"
+	},
+/obj/item/device/radio/intercom/loudspeaker/parakeet{
+	pixel_y = 10;
+	pixel_x = -4
+	},
+/obj/item/decoration/ashtray{
+	pixel_x = 6;
+	pixel_y = -3
+	},
+/turf/simulated/floor/carpet/green/fancy/edge/east,
+/area/radiostation/press{
+	name = "Parakeet Newsroom";
+	requires_power = 1
+	})
 "uUc" = (
 /obj/machinery/computer/announcement/station/bridge,
 /obj/cable{
@@ -47046,6 +48120,21 @@
 	dir = 4
 	},
 /area/station/hallway/primary/west)
+"veb" = (
+/obj/table/reinforced/chemistry/auto{
+	desc = "A black countertop table for storing kitchen-y objects.";
+	name = "kitchen counter";
+	icon_state = "8"
+	},
+/obj/machinery/microwave{
+	pixel_x = -2;
+	pixel_y = 7
+	},
+/turf/simulated/floor/carpet/green/fancy/edge/north,
+/area/radiostation/press{
+	name = "Parakeet Newsroom";
+	requires_power = 1
+	})
 "veh" = (
 /obj/machinery/door/airlock/pyro/glass,
 /obj/mapping_helper/firedoor_spawn,
@@ -47083,6 +48172,16 @@
 /area/station/security/checkpoint/chapel{
 	name = "Service Customs"
 	})
+"vgo" = (
+/obj/mesh/catwalk,
+/obj/cable/yellow{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/airless/plating/catwalk/auto,
+/area/radiostation{
+	name = "RS Parakeet";
+	requires_power = 1
+	})
 "vgp" = (
 /obj/table/reinforced/bar/auto,
 /obj/item/reagent_containers/applicator/condiment/bottle/mustard{
@@ -47111,6 +48210,16 @@
 /turf/simulated/floor/sanitary,
 /area/station/security/checkpoint/research{
 	name = "Research Customs"
+	})
+"vgL" = (
+/obj/storage/secure/closet/fridge,
+/obj/machinery/light,
+/obj/item/storage/box/donkpocket_kit,
+/obj/item/reagent_containers/food/drinks/milk,
+/turf/simulated/floor/carpet/green/fancy/edge/sw,
+/area/radiostation/press{
+	name = "Parakeet Newsroom";
+	requires_power = 1
 	})
 "vgN" = (
 /obj/machinery/door/airlock/pyro/glass{
@@ -47372,6 +48481,21 @@
 	dir = 8
 	},
 /area/station/hangar/sec)
+"vop" = (
+/obj/machinery/computer/announcement/console_upper{
+	name = "Parakeet announcement computer";
+	computer_say_source_name = "RS Parakeet";
+	req_access = null
+	},
+/obj/cable{
+	icon_state = "0-2"
+	},
+/obj/machinery/power/data_terminal,
+/turf/simulated/floor/green,
+/area/radiostation/bridge{
+	name = "Parakeet Bridge";
+	requires_power = 1
+	})
 "voz" = (
 /obj/decal/tile_edge/line/yellow{
 	dir = 8;
@@ -47552,9 +48676,7 @@
 /area/station/engine/power)
 "vsf" = (
 /obj/pool/perspective,
-/turf/simulated/floor{
-	icon_state = "bluechecker"
-	},
+/turf/simulated/floor/white/checker,
 /area/station/crew_quarters/pool)
 "vsj" = (
 /obj/table/reinforced/bar/auto{
@@ -48138,6 +49260,12 @@
 /turf/simulated/floor/minitiles/black,
 /area/station/crew_quarters/tenebrae{
 	name = "Research Crew Quarters"
+	})
+"vDm" = (
+/turf/simulated/wall/auto/reinforced/supernorn/colored/blue,
+/area/radiostation/podbay{
+	name = "Parakeet Podbay";
+	requires_power = 1
 	})
 "vDp" = (
 /turf/simulated/floor/carpet/purple/fancy/edge/nw,
@@ -48889,6 +50017,15 @@
 	},
 /turf/simulated/floor,
 /area/station/hallway/primary/east)
+"vUw" = (
+/obj/cable{
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/carpet/red/standard/edge/north,
+/area/radiostation/bedroom{
+	name = "Parakeet Quarters";
+	requires_power = 1
+	})
 "vUN" = (
 /obj/cable{
 	icon_state = "4-8"
@@ -48983,6 +50120,19 @@
 	},
 /turf/space,
 /area/space/asteroid_safe_zone)
+"vXK" = (
+/obj/machinery/light,
+/obj/cable/yellow{
+	icon_state = "1-4"
+	},
+/obj/cable/yellow{
+	icon_state = "4-10"
+	},
+/turf/simulated/floor/green,
+/area/radiostation/bridge{
+	name = "Parakeet Bridge";
+	requires_power = 1
+	})
 "vXO" = (
 /obj/stool/chair/blue{
 	dir = 8
@@ -49936,6 +51086,27 @@
 /turf/simulated/floor/yellowblack,
 /area/station/hallway/secondary/east{
 	name = "Engineering Hallway"
+	})
+"wvG" = (
+/obj/mesh/catwalk{
+	dir = 5
+	},
+/obj/cable/yellow{
+	icon_state = "1-8"
+	},
+/obj/cable/yellow{
+	icon_state = "2-8"
+	},
+/obj/cable/yellow{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/airless/plating/catwalk{
+	dir = 4;
+	icon_state = "catwalk_cross"
+	},
+/area/radiostation{
+	name = "RS Parakeet";
+	requires_power = 1
 	})
 "wvP" = (
 /obj/table/auto,
@@ -50986,6 +52157,20 @@
 	},
 /area/station/security/checkpoint/east{
 	name = "Engineering Customs"
+	})
+"xaH" = (
+/obj/cable{
+	icon_state = "1-2"
+	},
+/obj/cable{
+	icon_state = "2-8"
+	},
+/turf/simulated/floor/greenblack{
+	dir = 4
+	},
+/area/radiostation/bridge{
+	name = "Parakeet Bridge";
+	requires_power = 1
 	})
 "xaJ" = (
 /obj/machinery/computer/atmosphere/pumpcontrol{
@@ -52384,6 +53569,12 @@
 /obj/machinery/chem_dispenser/alcohol,
 /turf/simulated/floor/wood,
 /area/station/crew_quarters/hop)
+"xDA" = (
+/turf/simulated/wall/auto/reinforced/supernorn/colored/blue,
+/area/radiostation/press{
+	name = "Parakeet Newsroom";
+	requires_power = 1
+	})
 "xDH" = (
 /obj/cable{
 	icon_state = "4-8"
@@ -52783,6 +53974,15 @@
 /turf/simulated/floor/black/side,
 /area/station/hallway/secondary/central{
 	name = "UN General Assembly Observation Deck"
+	})
+"xND" = (
+/obj/machinery/door/airlock/pyro{
+	dir = 4
+	},
+/turf/simulated/floor/sanitary/white,
+/area/radiostation/bedroom{
+	name = "Parakeet Quarters";
+	requires_power = 1
 	})
 "xNF" = (
 /obj/cable{
@@ -53383,6 +54583,12 @@
 /area/station/maintenance/storage{
 	name = "The Fleur-de-Lys"
 	})
+"xYY" = (
+/turf/simulated/wall/auto/reinforced/supernorn/colored/blue,
+/area/radiostation/engineering{
+	name = "Parakeet Aft";
+	requires_power = 1
+	})
 "xZH" = (
 /obj/decal/tile_edge/line/black{
 	dir = 4;
@@ -53558,6 +54764,15 @@
 /area/station/security/checkpoint/cargo{
 	name = "Cargo Customs"
 	})
+"yeB" = (
+/obj/cable{
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/carpet/green/fancy/edge/north,
+/area/radiostation/press{
+	name = "Parakeet Newsroom";
+	requires_power = 1
+	})
 "yeC" = (
 /obj/stool/chair/comfy{
 	dir = 4
@@ -53634,6 +54849,26 @@
 	dir = 8
 	},
 /area/station/engine/elect)
+"yfy" = (
+/obj/forcefield/energyshield/perma/doorlink{
+	desc = "A door-linked force field that prevents gasses from passing through it.";
+	dir = 4;
+	name = "Door-linked Atmospheric Forcefield";
+	powerlevel = 1
+	},
+/obj/machinery/door/poddoor/blast/pyro/podbay_autoclose{
+	name = "pod bay (Parakeet)";
+	dir = 4
+	},
+/obj/decal/tile_edge/stripe/extra_big{
+	dir = 4
+	},
+/obj/mapping_helper/button/area,
+/turf/simulated/floor/engine,
+/area/radiostation/podbay{
+	name = "Parakeet Podbay";
+	requires_power = 1
+	})
 "yfN" = (
 /obj/submachine/weapon_vendor/security,
 /turf/simulated/floor/darkblueblack{
@@ -53645,6 +54880,16 @@
 	dir = 6
 	},
 /area/station/medical/medbay/psychiatrist)
+"ygq" = (
+/obj/random_item_spawner/desk_stuff/g_clip_bin_pen,
+/obj/table/wood/auto/desk{
+	icon_state = "4"
+	},
+/turf/simulated/floor/carpet/green/fancy,
+/area/radiostation/press{
+	name = "Parakeet Newsroom";
+	requires_power = 1
+	})
 "ygE" = (
 /obj/stool/bench/blue/auto,
 /obj/machinery/shower{
@@ -53908,6 +55153,17 @@
 /area/station/bridge/reception{
 	name = "UN Secure Recess";
 	do_not_irradiate = 1
+	})
+"yma" = (
+/obj/machinery/computer/camera_viewer/console_upper,
+/obj/cable{
+	icon_state = "0-2"
+	},
+/obj/machinery/power/data_terminal,
+/turf/simulated/floor/green,
+/area/radiostation/bridge{
+	name = "Parakeet Bridge";
+	requires_power = 1
 	})
 "ymg" = (
 /obj/cable{
@@ -109681,7 +110937,7 @@ sRz
 sRz
 sRz
 sRz
-sRz
+rfx
 sRz
 sRz
 sRz
@@ -109982,9 +111238,9 @@ sRz
 sRz
 sRz
 sRz
-sRz
-sRz
-sRz
+dlW
+pKT
+hNP
 sRz
 sRz
 sRz
@@ -110284,9 +111540,9 @@ sRz
 sRz
 sRz
 sRz
-sRz
-sRz
-sRz
+dlW
+tXI
+hNP
 sRz
 sRz
 sRz
@@ -110586,15 +111842,15 @@ sRz
 sRz
 sRz
 sRz
+dlW
+tXI
+hNP
 sRz
 sRz
 sRz
 sRz
 sRz
-sRz
-sRz
-sRz
-sRz
+hVM
 sRz
 sRz
 sRz
@@ -110888,15 +112144,15 @@ sRz
 sRz
 sRz
 sRz
+dlW
+tXI
+hNP
 sRz
 sRz
 sRz
 sRz
 sRz
-sRz
-sRz
-sRz
-sRz
+slR
 sRz
 sRz
 sRz
@@ -111190,15 +112446,15 @@ sRz
 sRz
 sRz
 sRz
+dlW
+tXI
+hNP
 sRz
 sRz
 sRz
 sRz
 sRz
-sRz
-sRz
-sRz
-sRz
+fKY
 sRz
 sRz
 sRz
@@ -111489,21 +112745,21 @@ sRz
 sRz
 sRz
 sRz
+eUk
+eUk
+qtX
+aQT
+qhI
+eUk
+eUk
 sRz
 sRz
+bzm
 sRz
-sRz
-sRz
-sRz
-sRz
-sRz
-sRz
-sRz
-sRz
-sRz
-sRz
-sRz
-sRz
+mXK
+irq
+irq
+uiQ
 sRz
 sRz
 sRz
@@ -111788,24 +113044,24 @@ sRz
 sRz
 sRz
 sRz
+gMG
 sRz
 sRz
-sRz
-sRz
-sRz
-sRz
-sRz
-sRz
-sRz
-sRz
-sRz
-sRz
-sRz
-sRz
-sRz
-sRz
-sRz
-sRz
+eUk
+iPI
+mog
+iPI
+xDA
+xDA
+pkV
+pkV
+pkV
+pkV
+vDm
+nai
+cqD
+yfy
+ilm
 sRz
 sRz
 sRz
@@ -112089,29 +113345,29 @@ sRz
 sRz
 sRz
 sRz
+bzm
+aFZ
+idS
+idS
+als
+iPI
+isd
+iPI
+uBE
+uQr
+pkV
+cuj
+ppn
+cFl
+vDm
+rsf
+ayW
+oOe
+vDm
 sRz
 sRz
 sRz
-sRz
-sRz
-sRz
-sRz
-sRz
-sRz
-sRz
-sRz
-sRz
-sRz
-sRz
-sRz
-sRz
-sRz
-sRz
-sRz
-sRz
-sRz
-sRz
-sRz
+bzm
 sRz
 sRz
 sRz
@@ -112390,32 +113646,32 @@ sRz
 sRz
 sRz
 sRz
-sRz
-sRz
-sRz
-sRz
-sRz
-sRz
-sRz
-sRz
-sRz
-sRz
-sRz
-sRz
-sRz
-sRz
-sRz
-sRz
-sRz
-sRz
-sRz
-sRz
-sRz
-sRz
-sRz
-sRz
-sRz
-sRz
+pqZ
+idS
+bIi
+aui
+dOT
+eMX
+iPI
+rWC
+iPI
+veb
+hel
+pkV
+pkV
+pkV
+xND
+vDm
+rmM
+eFh
+elJ
+vDm
+xYY
+xYY
+xYY
+xYY
+cQm
+gsD
 sRz
 sRz
 sRz
@@ -112693,34 +113949,34 @@ sRz
 sRz
 sRz
 sRz
-sRz
-sRz
-sRz
-sRz
-sRz
-sRz
-sRz
-sRz
-sRz
-sRz
-sRz
-sRz
-sRz
-sRz
-sRz
-sRz
-sRz
-sRz
-sRz
-sRz
-sRz
-sRz
-sRz
-sRz
-sRz
-sRz
-sRz
-sRz
+idS
+vop
+oaJ
+eaO
+cWg
+xDA
+gOi
+bOI
+ncB
+jio
+vgL
+pkV
+faM
+pUm
+vDm
+qqM
+qqM
+jHE
+vDm
+dNn
+nVS
+gNP
+xYY
+xYY
+xYY
+xYY
+bsY
+gsD
 sRz
 sRz
 sRz
@@ -112995,34 +114251,34 @@ sRz
 sRz
 sRz
 sRz
-sRz
-sRz
-sRz
-sRz
-sRz
-sRz
-sRz
-sRz
-sRz
-sRz
-sRz
-sRz
-sRz
-sRz
-sRz
-sRz
-sRz
-sRz
-sRz
-sRz
-sRz
-sRz
-sRz
-sRz
-sRz
-sRz
-sRz
-sRz
+idS
+yma
+nms
+xaH
+mJx
+siv
+yeB
+eGY
+eGY
+eGY
+jVD
+mWf
+vUw
+nMV
+lEq
+lBU
+lBU
+lBU
+lYT
+coB
+qCM
+nBv
+xYY
+xYY
+xYY
+xYY
+lsp
+gsD
 sRz
 sRz
 sRz
@@ -113296,32 +114552,32 @@ sRz
 sRz
 sRz
 sRz
-sRz
-sRz
-sRz
-sRz
-sRz
-sRz
-sRz
-sRz
-sRz
-sRz
-sRz
-sRz
-sRz
-sRz
-sRz
-sRz
-sRz
-sRz
-sRz
-sRz
-sRz
-sRz
-sRz
-sRz
-sRz
-sRz
+pqZ
+idS
+nAc
+nnR
+qli
+vXK
+xDA
+bjr
+khU
+ygq
+oFh
+nzx
+pkV
+fXw
+kte
+xYY
+xYY
+xYY
+xYY
+xYY
+xYY
+xYY
+xYY
+xYY
+cQm
+gsD
 sRz
 sRz
 sRz
@@ -113599,29 +114855,29 @@ sRz
 sRz
 sRz
 sRz
+uiC
+aFZ
+idS
+idS
+tXi
+xDA
+syf
+pCN
+uTx
+uEt
+duy
+pkV
+pkV
+pkV
+pkV
 sRz
 sRz
 sRz
+uiC
 sRz
 sRz
 sRz
-sRz
-sRz
-sRz
-sRz
-sRz
-sRz
-sRz
-sRz
-sRz
-sRz
-sRz
-sRz
-sRz
-sRz
-sRz
-sRz
-sRz
+uiC
 sRz
 sRz
 sRz
@@ -113902,19 +115158,19 @@ sRz
 sRz
 sRz
 sRz
+gOQ
 sRz
 sRz
+vgo
+xDA
+xDA
+xDA
+xDA
+xDA
+xDA
+xDA
 sRz
-sRz
-sRz
-sRz
-sRz
-sRz
-sRz
-sRz
-sRz
-sRz
-sRz
+uiC
 sRz
 sRz
 sRz
@@ -114207,13 +115463,13 @@ sRz
 sRz
 sRz
 sRz
-sRz
-sRz
-sRz
-sRz
-sRz
-sRz
-sRz
+dEL
+aQT
+aQT
+aQT
+olw
+eUk
+eUk
 sRz
 sRz
 sRz
@@ -114512,9 +115768,9 @@ sRz
 sRz
 sRz
 sRz
-sRz
-sRz
-sRz
+dlW
+bdE
+hNP
 sRz
 sRz
 sRz
@@ -114814,9 +116070,9 @@ sRz
 sRz
 sRz
 sRz
-sRz
-sRz
-sRz
+dlW
+bdE
+hNP
 sRz
 sRz
 sRz
@@ -115116,9 +116372,9 @@ sRz
 sRz
 sRz
 sRz
-sRz
-sRz
-sRz
+dlW
+bdE
+hNP
 sRz
 sRz
 sRz
@@ -115418,9 +116674,9 @@ sRz
 sRz
 sRz
 sRz
-sRz
-sRz
-sRz
+dlW
+bdE
+hNP
 sRz
 sRz
 sRz
@@ -115720,9 +116976,9 @@ sRz
 sRz
 sRz
 sRz
-sRz
-sRz
-sRz
+dlW
+wvG
+hNP
 sRz
 sRz
 sRz
@@ -116023,7 +117279,7 @@ sRz
 sRz
 sRz
 sRz
-sRz
+sBj
 sRz
 sRz
 sRz
