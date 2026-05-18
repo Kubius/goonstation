@@ -1,19 +1,37 @@
-/obj/item/paper/var/datum/mind/passport_recipient = null
-/obj/item/paper/var/alist/stamp_mode = alist(
-	"Captain"			= /datum/nation/un,
-	"Head of Security"	= /datum/nation/un,
-	"Chief Engineer"	= /datum/nation/engineering,
-	"Medical Director"	= /datum/nation/medical,
-	"Research Director"	= /datum/nation/research,
-	"Head of Personnel"	= /datum/nation/service,
-	"Quartermaster"		= /datum/nation/supply,
-)
+/obj/item/paper/passport_slip
+	name = "application for citizenship"
+	info = {"\
+<pre>
+│.│......UN Space Station Geneva.......|..Deep.Space..│
+│.│...................................................│
+│.│............APPLICATION FOR CITIZENSHIP............│
+│.│...................................................│
+│.│..APPLICANT STAMP: ...........OFFICIAL STAMP: .....│
+│.│..┌───────────────────────┐..┌──────────────────┐..│
+│.│..│                       │..│                  │..│
+│.│..│                       │..│                  │..│
+│.│..│                       │..│                  │..│
+│.│..└───────────────────────┘..└──────────────────┘..│
+│.│...................................................│
+</pre>\
+"}
+	sizey = 220
+	var/datum/mind/passport_recipient = null
+	var/alist/stamp_mode = alist(
+		"Captain"			= /datum/nation/un,
+		"Head of Security"	= /datum/nation/un,
+		"Chief Engineer"	= /datum/nation/engineering,
+		"Medical Director"	= /datum/nation/medical,
+		"Research Director"	= /datum/nation/research,
+		"Head of Personnel"	= /datum/nation/service,
+		"Quartermaster"		= /datum/nation/supply,
+	)
 
-/obj/item/paper/disposing()
+/obj/item/paper/passport_slip/disposing()
 	src.passport_recipient = null
 	. = ..()
 
-/obj/item/paper/proc/on_stamp(mob/user, datum/tgui/ui, obj/item/stamp/stamp)
+/obj/item/paper/passport_slip/on_stamp(mob/user, datum/tgui/ui, obj/item/stamp/stamp)
 	if (user.mind && (stamp.current_mode == "Your Name"))
 		ON_COOLDOWN(src, "passport_stampable", 60 SECONDS)
 		src.passport_recipient = user.mind
@@ -21,7 +39,7 @@
 	else
 		src.attempt_passportify(user, ui, src.stamp_mode[stamp.current_mode])
 
-/obj/item/paper/proc/attempt_passportify(mob/user, datum/tgui/ui, datum/nation/nation_type)
+/obj/item/paper/passport_slip/proc/attempt_passportify(mob/user, datum/tgui/ui, datum/nation/nation_type)
 	if (!ispath(nation_type) || QDELETED(src.passport_recipient))
 		return
 
@@ -56,24 +74,3 @@
 
 		ui?.close()
 		qdel(src)
-
-
-// Not necessary to create a passport, but fun and thematic.
-/obj/item/paper/passport_slip
-	name = "application for citizenship"
-	sizey = 220
-	info = {"\
-<pre>
-│.│....UN Dept For Peace Operations....|..Deep.Space..│
-│.│...................................................│
-│.│............APPLICATION FOR CITIZENSHIP............│
-│.│...................................................│
-│.│..APPLICANT STAMP: ...........OFFICIAL STAMP: .....│
-│.│..┌────────────────────────┐..┌─────────────────┐..│
-│.│..│                        │..│                 │..│
-│.│..│                        │..│                 │..│
-│.│..│                        │..│                 │..│
-│.│..└────────────────────────┘..└─────────────────┘..│
-│.│...................................................│
-</pre>\
-"}

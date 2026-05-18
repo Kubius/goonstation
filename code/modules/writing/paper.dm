@@ -149,6 +149,9 @@
 		stamp_overlay.transform = stamp_matrix
 		src.UpdateOverlays(stamp_overlay, "stamps_[length(stamps) % PAPER_MAX_STAMPS_OVERLAYS]")
 
+/obj/item/paper/proc/on_stamp(mob/user, datum/tgui/ui, obj/item/stamp/stamp)
+	return
+
 /obj/item/paper/ui_interact(mob/user, datum/tgui/ui)
 	ui = tgui_process.try_update_ui(user, src, ui)
 	if(!ui)
