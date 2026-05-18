@@ -582,7 +582,7 @@
 /turf/simulated/floor/engine/caution/south,
 /area/station/hangar/science)
 "aqm" = (
-/obj/storage/closet/welding_supply,
+/obj/machinery/manufacturer/mining,
 /turf/simulated/floor/orangeblack/side{
 	dir = 1
 	},
@@ -14491,6 +14491,12 @@
 /area/station/security/checkpoint/medical{
 	name = "Medical Customs"
 	})
+"guW" = (
+/obj/mesh/catwalk,
+/obj/cable,
+/obj/machinery/power/apc/autoname_west,
+/turf/simulated/floor/airless/plating/catwalk/auto,
+/area/station/mining/magnet)
 "gvl" = (
 /obj/machinery/light/emergency{
 	dir = 4;
@@ -17906,6 +17912,9 @@
 /turf/simulated/floor/specialroom/gym/alt,
 /area/station/crew_quarters/fitness)
 "hUo" = (
+/obj/cable{
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/orangeblack/side{
 	dir = 8
 	},
@@ -19480,6 +19489,20 @@
 /area/station/security/checkpoint/cargo{
 	name = "Cargo Customs"
 	})
+"iAb" = (
+/obj/machinery/door/airlock/pyro/external,
+/obj/mapping_helper/access/mining,
+/obj/mapping_helper/access/cargo,
+/obj/forcefield/energyshield/perma/doorlink{
+	desc = "A door-linked force field that prevents gasses from passing through it.";
+	name = "Door-linked Atmospheric Forcefield";
+	powerlevel = 1
+	},
+/obj/cable{
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/orangeblack,
+/area/station/hangar/qm)
 "iAT" = (
 /obj/machinery/atmospherics/pipe/simple/insulated{
 	dir = 10
@@ -23122,6 +23145,14 @@
 /obj/machinery/light_switch/east,
 /turf/simulated/floor/black,
 /area/station/medical/medbay/psychiatrist)
+"kbF" = (
+/obj/mesh/catwalk,
+/obj/machinery/light/small{
+	dir = 1;
+	pixel_y = 21
+	},
+/turf/simulated/floor/airless/plating/catwalk/auto,
+/area/station/mining/magnet)
 "kbL" = (
 /obj/machinery/manufacturer/general{
 	free_resources = null
@@ -25954,6 +25985,11 @@
 	},
 /turf/simulated/floor/minitiles,
 /area/nations_neutral/shipwright/systems)
+"lso" = (
+/obj/mesh/catwalk,
+/obj/machinery/light/small,
+/turf/simulated/floor/airless/plating/catwalk/auto,
+/area/station/mining/magnet)
 "lsp" = (
 /obj/machinery/shuttle/engine/heater{
 	icon_state = "alt_heater-R"
@@ -28815,6 +28851,13 @@
 /area/station/security/checkpoint/medical{
 	name = "Medical Customs"
 	})
+"mAp" = (
+/obj/mesh/catwalk,
+/obj/machinery/computer/magnet{
+	dir = 8
+	},
+/turf/simulated/floor/airless/plating/catwalk/auto,
+/area/station/mining/magnet)
 "mAu" = (
 /obj/mesh/catwalk,
 /obj/cable{
@@ -51293,6 +51336,7 @@
 	layer = 9.1;
 	pixel_y = 21
 	},
+/obj/storage/closet/welding_supply,
 /turf/simulated/floor/orangeblack/side{
 	dir = 1
 	},
@@ -53123,6 +53167,11 @@
 	dir = 1
 	},
 /area/station/turret_protected/Zeta)
+"xHv" = (
+/obj/mesh/catwalk,
+/obj/machinery/oreaccumulator,
+/turf/simulated/floor/airless/plating/catwalk/auto,
+/area/station/mining/magnet)
 "xHz" = (
 /obj/stool/chair/comfy/blue,
 /obj/machinery/light/emergency{
@@ -112894,8 +112943,8 @@ woQ
 flN
 iZN
 hUo
-cfn
-dTa
+iAb
+guW
 dTa
 dTa
 dTa
@@ -114411,8 +114460,8 @@ eUW
 jDM
 dTa
 dTa
-dTa
-dTa
+mAp
+xHv
 dTa
 jDM
 wwD
@@ -114712,10 +114761,10 @@ sRz
 sRz
 oTT
 dTa
-dTa
+lso
 xtw
 xtw
-dTa
+kbF
 jDM
 wwD
 sRz
