@@ -8829,6 +8829,13 @@
 	},
 /turf/simulated/floor/black,
 /area/station/engine/coldloop)
+"dVb" = (
+/obj/disposalpipe/segment/horizontal,
+/obj/item/device/radio/intercom,
+/turf/simulated/floor/black/side,
+/area/station/hallway/secondary/central{
+	name = "UN General Assembly Observation Deck"
+	})
 "dVy" = (
 /obj/machinery/light/small,
 /turf/simulated/floor/plating,
@@ -39715,6 +39722,9 @@
 /obj/item/rods/steel{
 	amount = 50
 	},
+/obj/item/device/radio/intercom{
+	dir = 4
+	},
 /turf/simulated/floor/darkblueblack{
 	dir = 10
 	},
@@ -48288,6 +48298,12 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/outer/south{
 	name = "Research Maintenance"
+	})
+"uLw" = (
+/obj/item/device/radio/intercom,
+/turf/simulated/floor/black/side,
+/area/station/hallway/secondary/central{
+	name = "UN General Assembly Observation Deck"
 	})
 "uLy" = (
 /obj/cable{
@@ -100119,7 +100135,7 @@ qjC
 gyC
 jCt
 cXT
-hbP
+uLw
 tJH
 dxn
 xuI
@@ -105555,7 +105571,7 @@ pjn
 gKd
 ikU
 cXT
-xmB
+dVb
 tJH
 dxn
 xuI
