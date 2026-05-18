@@ -332,7 +332,7 @@
 /obj/item/tool/omnitool/knockoff{
 	pixel_x = -6
 	},
-/obj/item/device/radio/intercom{
+/obj/item/device/radio/intercom/security{
 	dir = 8
 	},
 /turf/simulated/floor/darkblue,
@@ -2700,6 +2700,14 @@
 /obj/machinery/power/data_terminal,
 /turf/simulated/floor/minitiles,
 /area/nations_neutral/shipwright/command)
+"biw" = (
+/obj/stool,
+/obj/disposalpipe/segment/brig,
+/obj/item/device/radio/intercom{
+	dir = 4
+	},
+/turf/simulated/floor/black/grime,
+/area/station/security/evidence)
 "biA" = (
 /obj/random_item_spawner/junk/one_or_zero,
 /obj/machinery/power/apc/autoname_north{
@@ -2865,6 +2873,7 @@
 	icon_state = "0-10"
 	},
 /obj/machinery/power/data_terminal,
+/obj/item/device/radio/intercom/security,
 /turf/simulated/floor/black,
 /area/station/security/hos)
 "bnp" = (
@@ -4286,6 +4295,9 @@
 	pixel_y = 9;
 	pixel_x = -15
 	},
+/obj/item/device/radio/intercom/security{
+	dir = 8
+	},
 /turf/simulated/floor/darkblueblack{
 	dir = 6
 	},
@@ -4445,6 +4457,9 @@
 /obj/item/clothing/suit/bedsheet{
 	bcolor = "red";
 	icon_state = "bedsheet-red"
+	},
+/obj/item/device/radio/intercom/security{
+	dir = 4
 	},
 /turf/simulated/floor/carpet/grime,
 /area/station/security/detectives_office)
@@ -11527,6 +11542,7 @@
 /area/station/hallway/primary/northwest)
 "feY" = (
 /obj/machinery/vending/cigarette,
+/obj/item/device/radio/intercom/security,
 /turf/simulated/floor/darkblueblack{
 	dir = 1
 	},
@@ -15312,6 +15328,9 @@
 /obj/cable{
 	icon_state = "0-8"
 	},
+/obj/item/device/radio/intercom/security{
+	dir = 8
+	},
 /turf/simulated/floor/engine,
 /area/station/engine/gravity{
 	name = "UN Gravitics Room";
@@ -17954,6 +17973,9 @@
 /area/station/crew_quarters/hop)
 "hMt" = (
 /obj/reagent_dispensers/foamtank,
+/obj/item/device/radio/intercom/security{
+	dir = 4
+	},
 /turf/simulated/floor/darkblueblack{
 	dir = 8
 	},
@@ -21109,6 +21131,9 @@
 	},
 /obj/machinery/power/data_terminal,
 /obj/machinery/camera/directional/east,
+/obj/item/device/radio/intercom/AI{
+	dir = 4
+	},
 /turf/simulated/floor/blueblack{
 	dir = 1
 	},
@@ -22624,6 +22649,9 @@
 	},
 /obj/machinery/power/data_terminal,
 /obj/machinery/camera/directional/east,
+/obj/item/device/radio/intercom/AI{
+	dir = 4
+	},
 /turf/simulated/floor/blueblack{
 	dir = 1
 	},
@@ -25298,6 +25326,9 @@
 /obj/cable{
 	icon_state = "0-2"
 	},
+/obj/item/device/radio/intercom/AI{
+	dir = 4
+	},
 /turf/simulated/floor/circuit,
 /area/station/turret_protected/ai)
 "kMw" = (
@@ -26739,6 +26770,7 @@
 	dir = 4;
 	pixel_x = 10
 	},
+/obj/item/device/radio/intercom/security,
 /turf/simulated/floor/darkblue,
 /area/station/bridge/united_command{
 	name = "UN General Assembly Chamber"
@@ -31067,6 +31099,15 @@
 /area/station/maintenance/outer/south{
 	name = "Research Maintenance"
 	})
+"nfo" = (
+/obj/disposalpipe/segment/brig{
+	icon_state = "pipe-c"
+	},
+/obj/item/device/radio/intercom{
+	dir = 8
+	},
+/turf/simulated/floor/black/grime,
+/area/station/security/evidence)
 "nfR" = (
 /obj/stool/chair{
 	dir = 1
@@ -38517,6 +38558,9 @@
 /obj/item/storage/box/diskbox{
 	pixel_y = 6;
 	pixel_x = -2
+	},
+/obj/item/device/radio/intercom/AI{
+	dir = 4
 	},
 /turf/simulated/floor/darkblueblack{
 	dir = 1
@@ -104874,7 +104918,7 @@ xRT
 wze
 mnR
 sOs
-fjq
+nfo
 ebf
 qYL
 jQe
@@ -105479,7 +105523,7 @@ wze
 mnR
 sOs
 vZP
-ebf
+biw
 qYL
 gxC
 fjq
