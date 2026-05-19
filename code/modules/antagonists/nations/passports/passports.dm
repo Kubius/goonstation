@@ -36,8 +36,3 @@
 	nation_type = /datum/nation/supply
 	minimap_type = MAP_NATIONS_SUP
 	minimap_marker = "dot_orange"
-
-/obj/item/passport/stateless
-	name = "passport (STATELESS)"
-	icon_state = "passport-stateless"
-	custom_name = TRUE

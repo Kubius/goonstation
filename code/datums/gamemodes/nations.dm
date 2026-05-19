@@ -1,8 +1,3 @@
-/*
-	TO DO:
-	* issue passports to everybody, including non-antags
- */
-
 /// Initially populated with the default nation types.
 var/list/roundstart_nation_types = list(
 	/datum/nation/engineering,
