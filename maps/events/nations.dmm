@@ -1971,7 +1971,8 @@
 "aVi" = (
 /obj/railing/orange/reinforced,
 /obj/item/device/radio/intercom/catering{
-	dir = 4
+	dir = 4;
+	name = "Civilian Intercom"
 	},
 /turf/simulated/floor/grasstodirt,
 /area/station/ranch)
@@ -16068,7 +16069,8 @@
 	},
 /obj/item/reagent_containers/food/drinks/creamer,
 /obj/item/device/radio/intercom/catering{
-	dir = 4
+	dir = 4;
+	name = "Civilian Intercom"
 	},
 /turf/simulated/floor/darkblueblack{
 	dir = 8
@@ -22476,7 +22478,9 @@
 	pixel_x = -2;
 	pixel_y = 11
 	},
-/obj/item/device/radio/intercom/catering,
+/obj/item/device/radio/intercom/catering{
+	name = "Civilian Intercom"
+	},
 /turf/simulated/floor/black/side,
 /area/station/crew_quarters/kitchen)
 "jCG" = (
@@ -32164,7 +32168,9 @@
 /obj/item/pen/crayon/golden{
 	pixel_x = -4
 	},
-/obj/item/device/radio/intercom/catering,
+/obj/item/device/radio/intercom/catering{
+	name = "Civilian Intercom"
+	},
 /turf/simulated/floor/wood/two,
 /area/station/crew_quarters/hop)
 "nCT" = (
@@ -35131,7 +35137,9 @@
 	pixel_y = 11;
 	pixel_x = 8
 	},
-/obj/item/device/radio/intercom/catering,
+/obj/item/device/radio/intercom/catering{
+	name = "Civilian Intercom"
+	},
 /obj/machinery/light/small{
 	dir = 1;
 	pixel_y = 21
@@ -42480,7 +42488,9 @@
 	name = "ratty blue couch"
 	},
 /obj/landmark/start/job/botanist,
-/obj/item/device/radio/intercom/catering,
+/obj/item/device/radio/intercom/catering{
+	name = "Civilian Intercom"
+	},
 /turf/simulated/floor/green/side{
 	dir = 1
 	},
@@ -43886,7 +43896,9 @@
 	layer = 9.1;
 	pixel_x = -10
 	},
-/obj/item/device/radio/intercom/catering,
+/obj/item/device/radio/intercom/catering{
+	name = "Civilian Intercom"
+	},
 /turf/simulated/floor/wood/eight,
 /area/station/crew_quarters/hop)
 "sJh" = (
