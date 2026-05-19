@@ -149,6 +149,9 @@
 		stamp_overlay.transform = stamp_matrix
 		src.UpdateOverlays(stamp_overlay, "stamps_[length(stamps) % PAPER_MAX_STAMPS_OVERLAYS]")
 
+/obj/item/paper/proc/on_stamp(mob/user, datum/tgui/ui, obj/item/stamp/stamp)
+	return
+
 /obj/item/paper/ui_interact(mob/user, datum/tgui/ui)
 	ui = tgui_process.try_update_ui(user, src, ui)
 	if(!ui)
@@ -191,6 +194,7 @@
 
 			if(length(stamps) < PAPER_MAX_STAMPS)
 				stamp(stamp_x, stamp_y, stamp_r, stamp.current_state, stamp.icon_state)
+				src.on_stamp(usr, ui, stamp)
 				update_static_data(usr, ui)
 				boutput(usr, SPAN_NOTICE("[ui.user] stamps [src] with \the [stamp.name]!"))
 				playsound(usr.loc, 'sound/misc/stamp_paper.ogg', 50, 0.5)
