@@ -1,3 +1,4 @@
+ABSTRACT_TYPE(/datum/nation)
 /datum/nation
 	var/name = ""
 	/// For displaying the short-form on Passports.
@@ -8,34 +9,52 @@
 	/// For custom-generated passports as well as the UI.
 	var/passport_color = "#1a378d"
 
-	var/citizen_role = null
+	/// The leader jobs of this nation, associated with the antagonist role that they are assigned.
+	var/alist/leader_jobs = alist()
 
-	/// List of jobs which provide the highest priority candidates for the nation's leader at roundstart.
-	var/list/leader_jobs = list()
+	/// The antagonist role that all citizens of the nation are assigned.
+	var/citizen_role = null
 	/// List of jobs which are assigned regular citizenship to this nation at roundstart. Checked FIRST. As /datum/job types.
 	var/list/citizen_jobs = list()
 	/// List of jobs categories which are assigned regular citizenship to this nation at roundstart. Checked SECOND. See `_std/defines/job.dm`.
 	var/list/citizen_job_categories = list()
 
-	var/datum/mind/leader = null
+	var/alist/leaders = alist()
 	var/list/datum/mind/citizens = list()
 
-/datum/nation/proc/add_leader(datum/mind/new_leader)
-	if (src.leader == new_leader)
-		return
-	if (src.leader)
-		var/datum/mind/old_leader = src.leader
-		logTheThing(LOG_GAMEMODE, src, "removed [key_name(old_leader)] as leader of [src.name]!")
-	src.leader = new_leader
-	src.add_citizen(new_leader)
-	logTheThing(LOG_GAMEMODE, src, "installed [key_name(new_leader)] as leader of [src.name]!")
+/datum/nation/New()
+	. = ..()
 
-/datum/nation/proc/remove_leader(datum/mind/leader)
-	src.remove_citizen(leader)
-	if (src.leader != leader)
+	for (var/job as anything in src.leader_jobs)
+		src.leaders += src.leader_jobs[job]
+
+/datum/nation/proc/add_leader(datum/mind/new_leader, role_id)
+	var/datum/mind/current_leader = src.leaders[role_id]
+	if (current_leader == new_leader)
 		return
-	src.leader = null
-	logTheThing(LOG_GAMEMODE, src, "removed [key_name(leader)] as leader of [src.name]!")
+
+	if (current_leader)
+		current_leader.add_antagonist(src.citizen_role, respect_mutual_exclusives = FALSE)
+		logTheThing(LOG_GAMEMODE, src, "removed [key_name(current_leader)] as leader ([role_id]) of [src.name]!")
+
+	src.leaders[role_id] = new_leader
+	src.add_citizen(new_leader)
+	logTheThing(LOG_GAMEMODE, src, "installed [key_name(new_leader)] as leader ([role_id]) of [src.name]!")
+
+/datum/nation/proc/remove_leader(datum/mind/leader, role_id)
+	src.remove_citizen(leader)
+	if (src.leaders[role_id] != leader)
+		return
+
+	src.leaders[role_id] = null
+	logTheThing(LOG_GAMEMODE, src, "removed [key_name(leader)] as leader ([role_id]) of [src.name]!")
+
+/datum/nation/proc/is_leader(datum/mind/mind)
+	for (var/role_id as anything in src.leaders)
+		if (src.leaders[role_id] == mind)
+			return TRUE
+
+	return FALSE
 
 /datum/nation/proc/add_citizen(datum/mind/new_citizen)
 	if (new_citizen in src.citizens)
@@ -53,12 +72,14 @@
 	name = "United Nations"
 	passport_type = /obj/item/passport/un
 	passport_color = "#24639a"
+	leader_jobs = alist(
+		/datum/job/command/captain = ROLE_UN_SECGEN,
+		/datum/job/command/head_of_security = ROLE_UN_UNDSEC,
+	)
 	citizen_role = ROLE_UN
-	leader_jobs = list(/datum/job/command/captain)
 	citizen_jobs = list(
 		/datum/job/civilian/AI,
 		/datum/job/civilian/cyborg,
-		/datum/job/command/head_of_security,
 	)
 	citizen_job_categories = list(JOB_SECURITY)
 
@@ -66,32 +87,32 @@
 	name = "Engistan"
 	passport_type = /obj/item/passport/engineering
 	passport_color = "#d37610"
+	leader_jobs = alist(/datum/job/command/chief_engineer = ROLE_NATION_ENG_LEADER)
 	citizen_role = ROLE_NATION_ENG
-	leader_jobs = list(/datum/job/command/chief_engineer)
 	citizen_job_categories = list(JOB_ENGINEERING)
 
 /datum/nation/medical
 	name = "Asclepius"
 	passport_type = /obj/item/passport/medical
 	passport_color = "#c9294e"
+	leader_jobs = alist(/datum/job/command/medical_director = ROLE_NATION_MED_LEADER)
 	citizen_role = ROLE_NATION_MED
-	leader_jobs = list(/datum/job/command/medical_director)
 	citizen_job_categories = list(JOB_MEDICAL)
 
 /datum/nation/research
 	name = "Erudite"
 	passport_type = /obj/item/passport/research
 	passport_color = "#5a1d8a"
+	leader_jobs = alist(/datum/job/command/research_director = ROLE_NATION_SCI_LEADER)
 	citizen_role = ROLE_NATION_SCI
-	leader_jobs = list(/datum/job/command/research_director)
 	citizen_job_categories = list(JOB_RESEARCH)
 
 /datum/nation/service
 	name = "\the Grey Horde"
 	passport_type = /obj/item/passport/service
 	passport_color = "#167935"
+	leader_jobs = alist(/datum/job/command/head_of_personnel = ROLE_NATION_SER_LEADER)
 	citizen_role = ROLE_NATION_SER
-	leader_jobs = list(/datum/job/command/head_of_personnel)
 	citizen_job_categories = list(
 		JOB_CIVILIAN,
 		JOB_CLOWN,
@@ -102,6 +123,7 @@
 	short_name = "Cargonia"
 	passport_type = /obj/item/passport/supply
 	passport_color = "#4a301b"
+	leader_jobs = alist(/datum/job/engineering/quartermaster = ROLE_NATION_SUP_LEADER)
 	citizen_role = ROLE_NATION_SUP
 	citizen_jobs = list(
 		/datum/job/engineering/miner,
