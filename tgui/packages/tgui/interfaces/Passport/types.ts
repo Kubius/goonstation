@@ -8,6 +8,7 @@
 import { BooleanLike } from 'common/react';
 
 export interface PassportData {
+  documentType: string;
   isLeader: BooleanLike;
   isOwner: BooleanLike;
   name: string;

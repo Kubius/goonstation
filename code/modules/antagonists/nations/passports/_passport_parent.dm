@@ -24,11 +24,14 @@ ABSTRACT_TYPE(/obj/item/passport)
 	var/datum/nation/nation_type = null
 	var/datum/nation/nation = null
 	var/datum/mind/owner = null
+
 	var/minimap_type = 0
 	var/minimap_marker = null
-	var/custom_name = FALSE
 
+	var/custom_name = FALSE
+	var/document_type = "Passport"
 	var/base_name = ""
+
 	var/owner_name = ""
 	var/icon/owner_icon = null
 
@@ -88,17 +91,19 @@ ABSTRACT_TYPE(/obj/item/passport)
     ui.open()
 
 /obj/item/passport/ui_data(mob/user)
+
 	. = list(
 		"isLeader" = src.nation.is_leader(user.mind),
 		"isOwner" = (src.owner == user.mind),
 		"nationColor" = src.nation.passport_color,
 		"nationName" = src.nation.name,
 		"nationShortName" = src.nation.short_name,
-		"ownerRoleType" = src.get_owner_role_type(),
+		"ownerRoleType" = src.nation.is_leader(owner) ? "Leader" : "Citizen",
 	)
 
 /obj/item/passport/ui_static_data(mob/user)
 	. = list(
+		"documentType" = src.document_type,
 		"name" = src.name,
 		"ownerName" = src.owner_name,
 		"ownerIcon" = icon2base64(src.owner_icon),
@@ -121,7 +126,3 @@ ABSTRACT_TYPE(/obj/item/passport)
 /obj/item/passport/proc/set_owner_name()
 	src.owner_name = src.owner.current?.real_name
 	src.name = "[src.owner_name]’s [src.base_name]"
-
-// todo: extract the role type from /datum/antagonist/nation/var/role_type
-/obj/item/passport/proc/get_owner_role_type()
-	. = ""

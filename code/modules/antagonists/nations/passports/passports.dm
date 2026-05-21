@@ -6,6 +6,7 @@
 	minimap_type = MAP_NATIONS_UN
 	minimap_marker = "dot_blue"
 	custom_name = TRUE
+	document_type = "Laissez-Passer"
 
 /obj/item/passport/engineering
 	icon_state = "passport-engineering"

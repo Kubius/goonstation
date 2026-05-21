@@ -6,7 +6,7 @@
  */
 
 import { Color } from 'tgui-core/color';
-import { Button, Stack } from 'tgui-core/components';
+import { Stack } from 'tgui-core/components';
 
 import { useBackend } from '../../backend';
 import { Image } from '../../components';
@@ -16,7 +16,14 @@ import { PassportData } from './types';
 
 export const Passport = () => {
   const { data } = useBackend<PassportData>();
-  const { name, nationColor, nationName, nationShortName, ownerIcon } = data;
+  const {
+    documentType,
+    name,
+    nationColor,
+    nationName,
+    nationShortName,
+    ownerIcon,
+  } = data;
 
   const nationColorRGBA = Color.fromHex(nationColor);
   const nationColorLighten = Color.fromHex(nationColor);
@@ -38,7 +45,9 @@ export const Passport = () => {
         <Stack fill vertical>
           <Stack.Item bold fontSize="large">
             <Stack justify="space-between">
-              <Stack.Item>PASSPORT</Stack.Item>
+              <Stack.Item>
+                {documentType ? documentType.toUpperCase() : 'PASSPORT'}
+              </Stack.Item>
               <Stack.Item nowrap>
                 {nationShortName ? nationShortName : nationName}
               </Stack.Item>
@@ -76,7 +85,6 @@ const PassportInfobox = () => {
         <PassportInfo header="Name" info={ownerName} />
         <PassportInfo header="Nationality" info={nationName} />
         <PassportInfo header="Role" info={ownerRoleType} />
-        <PassportInfoButtons />
       </Stack>
     </Stack.Item>
   );
@@ -96,30 +104,6 @@ const PassportInfo = (props: PassportInfoProps) => {
         <Stack.Item bold>{header}</Stack.Item>
         <Stack.Item>{info ? info.toUpperCase() : 'N/A'}</Stack.Item>
       </Stack>
-    </Stack.Item>
-  );
-};
-
-const PassportInfoButtons = () => {
-  const { data } = useBackend<PassportData>();
-  const { isLeader, isOwner } = data;
-
-  return (
-    <Stack.Item align="center">
-      {isOwner ? (
-        <Button color="bad">Renounce Citizenship</Button>
-      ) : (
-        !!isLeader && (
-          <Stack>
-            <Stack.Item>
-              <Button color="bad">Expel Citizen</Button>
-            </Stack.Item>
-            <Stack.Item>
-              <Button color="good">Promote to Leader</Button>
-            </Stack.Item>
-          </Stack>
-        )
-      )}
     </Stack.Item>
   );
 };
