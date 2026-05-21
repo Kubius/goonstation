@@ -109,6 +109,19 @@ ABSTRACT_TYPE(/datum/nation)
 		JOB_NANOTRASEN,
 	)
 
+/datum/nation/clown
+	name = "Clowntopia"
+	passport_type = /obj/item/passport/clown
+	nation_color = "#d73715"
+	control_point_icon_state = "clown"
+	leader_jobs = alist(/datum/job/civilian/clown/ringmaster = ROLE_NATION_CLN_LEADER)
+	citizen_role = ROLE_NATION_CLN
+	citizen_jobs = list(
+		/datum/job/civilian/clown,
+		/datum/job/special/clown,
+	)
+	citizen_job_categories = list(JOB_CLOWN)
+
 /datum/nation/engineering
 	name = "Engistan"
 	passport_type = /obj/item/passport/engineering
@@ -143,9 +156,7 @@ ABSTRACT_TYPE(/datum/nation)
 	control_point_icon_state = "service"
 	leader_jobs = alist(/datum/job/command/head_of_personnel = ROLE_NATION_SER_LEADER)
 	citizen_role = ROLE_NATION_SER
-	citizen_job_categories = list(
-		JOB_CIVILIAN,
-	)
+	citizen_job_categories = list(JOB_CIVILIAN)
 
 /datum/nation/supply
 	name = "\the Independent Station-state of Cargonia"
@@ -153,21 +164,9 @@ ABSTRACT_TYPE(/datum/nation)
 	passport_type = /obj/item/passport/supply
 	nation_color = "#4a301b"
 	control_point_icon_state = "supply"
-	leader_jobs = alist(/datum/job/engineering/quartermaster = ROLE_NATION_SUP_LEADER)
+	leader_jobs = alist(/datum/job/engineering/quartermaster/head = ROLE_NATION_SUP_LEADER)
 	citizen_role = ROLE_NATION_SUP
 	citizen_jobs = list(
 		/datum/job/engineering/miner,
 		/datum/job/engineering/quartermaster,
-	)
-
-/datum/nation/clown
-	name = "Clowntopia"
-	passport_type = /obj/item/passport/clown
-	nation_color = "#d73715"
-	control_point_icon_state = "clown"
-	citizen_jobs = list(
-		/datum/job/civilian/clown,
-	)
-	citizen_job_categories = list(
-		JOB_CLOWN,
 	)
