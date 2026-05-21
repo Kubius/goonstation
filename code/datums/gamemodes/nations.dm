@@ -21,8 +21,9 @@
 /datum/game_mode/nations/pre_setup()
 	. = TRUE
 	if (global.map_setting != "NATIONS")
-		logTheThing(LOG_DEBUG, src, "Nations gamemode is being started without the Nations map! Careful!")
-		message_admins("Nations gamemode is being started without the Nations map! Careful!")
+		logTheThing(LOG_DEBUG, src, "Nations gamemode is being started without the Nations map! Aborting!")
+		message_admins("Nations gamemode is being started without the Nations map! Aborting!")
+		return FALSE
 
 	for (var/nation_type as anything in global.concrete_typesof(/datum/nation))
 		var/datum/nation/nation = global.get_singleton(nation_type)
