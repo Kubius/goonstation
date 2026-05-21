@@ -425,7 +425,11 @@ TYPEINFO(/obj/item/device/radio/headset/clown)
 	icon_state = "clown headset"
 	icon_override = "clown"
 	icon_tooltip = "Clown"
+#ifdef MAP_OVERRIDE_NATIONS
+	secure_frequencies = list("w" = R_FREQ_CLOWN)
+#else
 	secure_frequencies = list("c" = R_FREQ_CIVILIAN)
+#endif
 
 /obj/item/device/radio/headset/clown/blue
 	name = "blue clown's headset"
