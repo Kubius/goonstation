@@ -57,8 +57,8 @@ ABSTRACT_TYPE(/datum/antagonist/nation/leader)
 
 /datum/antagonist/nation/leader/give_equipment()
 	. = ..()
-	src.passport.nation.add_leader(src.owner)
+	src.passport.nation.add_leader(src.owner, src.id)
 
 /datum/antagonist/nation/leader/remove_equipment()
-	src.passport.nation.remove_leader(src.owner)
+	src.passport.nation.remove_leader(src.owner, src.id)
 	. = ..()
