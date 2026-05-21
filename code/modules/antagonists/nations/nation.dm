@@ -23,6 +23,11 @@ ABSTRACT_TYPE(/datum/nation)
 	var/alist/leaders = alist()
 	var/list/datum/mind/citizens = list()
 
+	var/can_capture = TRUE
+	var/list/datum/nations_control_point/control_points = list()
+	/// See `icons/obj/nations_control_point_computer.dmi`.
+	var/control_point_icon_state = ""
+
 /datum/nation/New()
 	. = ..()
 
@@ -87,6 +92,7 @@ ABSTRACT_TYPE(/datum/nation)
 
 /datum/nation/un
 	name = "United Nations"
+	can_capture = FALSE
 	passport_type = /obj/item/passport/un
 	nation_color = "#24639a"
 	leader_jobs = alist(
@@ -107,6 +113,7 @@ ABSTRACT_TYPE(/datum/nation)
 	name = "Engistan"
 	passport_type = /obj/item/passport/engineering
 	nation_color = "#d37610"
+	control_point_icon_state = "engineering"
 	leader_jobs = alist(/datum/job/command/chief_engineer = ROLE_NATION_ENG_LEADER)
 	citizen_role = ROLE_NATION_ENG
 	citizen_job_categories = list(JOB_ENGINEERING)
@@ -115,6 +122,7 @@ ABSTRACT_TYPE(/datum/nation)
 	name = "Asclepius"
 	passport_type = /obj/item/passport/medical
 	nation_color = "#c9294e"
+	control_point_icon_state = "medical"
 	leader_jobs = alist(/datum/job/command/medical_director = ROLE_NATION_MED_LEADER)
 	citizen_role = ROLE_NATION_MED
 	citizen_job_categories = list(JOB_MEDICAL)
@@ -123,6 +131,7 @@ ABSTRACT_TYPE(/datum/nation)
 	name = "Erudite"
 	passport_type = /obj/item/passport/research
 	nation_color = "#5a1d8a"
+	control_point_icon_state = "research"
 	leader_jobs = alist(/datum/job/command/research_director = ROLE_NATION_SCI_LEADER)
 	citizen_role = ROLE_NATION_SCI
 	citizen_job_categories = list(JOB_RESEARCH)
@@ -131,6 +140,7 @@ ABSTRACT_TYPE(/datum/nation)
 	name = "\the Grey Horde"
 	passport_type = /obj/item/passport/service
 	nation_color = "#167935"
+	control_point_icon_state = "service"
 	leader_jobs = alist(/datum/job/command/head_of_personnel = ROLE_NATION_SER_LEADER)
 	citizen_role = ROLE_NATION_SER
 	citizen_job_categories = list(
@@ -142,6 +152,7 @@ ABSTRACT_TYPE(/datum/nation)
 	short_name = "Cargonia"
 	passport_type = /obj/item/passport/supply
 	nation_color = "#4a301b"
+	control_point_icon_state = "supply"
 	leader_jobs = alist(/datum/job/engineering/quartermaster = ROLE_NATION_SUP_LEADER)
 	citizen_role = ROLE_NATION_SUP
 	citizen_jobs = list(
@@ -153,6 +164,7 @@ ABSTRACT_TYPE(/datum/nation)
 	name = "Clowntopia"
 	passport_type = /obj/item/passport/clown
 	nation_color = "#d73715"
+	control_point_icon_state = "clown"
 	citizen_jobs = list(
 		/datum/job/civilian/clown,
 	)
