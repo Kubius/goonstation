@@ -4,10 +4,11 @@ ABSTRACT_TYPE(/datum/nation)
 	/// For displaying the short-form on Passports.
 	var/short_name = ""
 
+	/// For passport UIs and minimap territory colours.
+	var/nation_color = "#1a378d"
+
 	/// The passport type that this nation should use.
 	var/passport_type = /obj/item/passport
-	/// For custom-generated passports as well as the UI.
-	var/passport_color = "#1a378d"
 
 	/// The leader jobs of this nation, associated with the antagonist role that they are assigned.
 	var/alist/leader_jobs = alist()
@@ -68,10 +69,15 @@ ABSTRACT_TYPE(/datum/nation)
 	src.citizens -= citizen
 	logTheThing(LOG_GAMEMODE, src, "removed [key_name(citizen)] from the nation of [src.name]!")
 
+/datum/nation/proc/get_short_name()
+	if (length(src.short_name))
+		return src.short_name
+	return src.name
+
 /datum/nation/un
 	name = "United Nations"
 	passport_type = /obj/item/passport/un
-	passport_color = "#24639a"
+	nation_color = "#24639a"
 	leader_jobs = alist(
 		/datum/job/command/captain = ROLE_UN_SECGEN,
 		/datum/job/command/head_of_security = ROLE_UN_UNDSEC,
@@ -89,7 +95,7 @@ ABSTRACT_TYPE(/datum/nation)
 /datum/nation/engineering
 	name = "Engistan"
 	passport_type = /obj/item/passport/engineering
-	passport_color = "#d37610"
+	nation_color = "#d37610"
 	leader_jobs = alist(/datum/job/command/chief_engineer = ROLE_NATION_ENG_LEADER)
 	citizen_role = ROLE_NATION_ENG
 	citizen_job_categories = list(JOB_ENGINEERING)
@@ -97,7 +103,7 @@ ABSTRACT_TYPE(/datum/nation)
 /datum/nation/medical
 	name = "Asclepius"
 	passport_type = /obj/item/passport/medical
-	passport_color = "#c9294e"
+	nation_color = "#c9294e"
 	leader_jobs = alist(/datum/job/command/medical_director = ROLE_NATION_MED_LEADER)
 	citizen_role = ROLE_NATION_MED
 	citizen_job_categories = list(JOB_MEDICAL)
@@ -105,7 +111,7 @@ ABSTRACT_TYPE(/datum/nation)
 /datum/nation/research
 	name = "Erudite"
 	passport_type = /obj/item/passport/research
-	passport_color = "#5a1d8a"
+	nation_color = "#5a1d8a"
 	leader_jobs = alist(/datum/job/command/research_director = ROLE_NATION_SCI_LEADER)
 	citizen_role = ROLE_NATION_SCI
 	citizen_job_categories = list(JOB_RESEARCH)
@@ -113,7 +119,7 @@ ABSTRACT_TYPE(/datum/nation)
 /datum/nation/service
 	name = "\the Grey Horde"
 	passport_type = /obj/item/passport/service
-	passport_color = "#167935"
+	nation_color = "#167935"
 	leader_jobs = alist(/datum/job/command/head_of_personnel = ROLE_NATION_SER_LEADER)
 	citizen_role = ROLE_NATION_SER
 	citizen_job_categories = list(
@@ -124,7 +130,7 @@ ABSTRACT_TYPE(/datum/nation)
 	name = "\the Independent Station-state of Cargonia"
 	short_name = "Cargonia"
 	passport_type = /obj/item/passport/supply
-	passport_color = "#4a301b"
+	nation_color = "#4a301b"
 	leader_jobs = alist(/datum/job/engineering/quartermaster = ROLE_NATION_SUP_LEADER)
 	citizen_role = ROLE_NATION_SUP
 	citizen_jobs = list(
@@ -135,7 +141,7 @@ ABSTRACT_TYPE(/datum/nation)
 /datum/nation/clown
 	name = "Clowntopia"
 	passport_type = /obj/item/passport/clown
-	passport_color = "#d73715"
+	nation_color = "#d73715"
 	citizen_jobs = list(
 		/datum/job/civilian/clown,
 	)

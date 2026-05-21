@@ -10,7 +10,7 @@
 ABSTRACT_TYPE(/obj/item/passport)
 /obj/item/passport
 	name = "passport"
-	desc = "An identity document confirming its owner's citizenship or lack thereof."
+	desc = "An identity document confirming its owner's citizenship."
 	icon = 'icons/obj/items/passport.dmi'
 	icon_state = "passport-base"
 	inhand_image_icon = 'icons/mob/inhand/hand_books.dmi'
@@ -91,14 +91,13 @@ ABSTRACT_TYPE(/obj/item/passport)
     ui.open()
 
 /obj/item/passport/ui_data(mob/user)
-
 	. = list(
 		"isLeader" = src.nation.is_leader(user.mind),
 		"isOwner" = (src.owner == user.mind),
-		"nationColor" = src.nation.passport_color,
+		"nationColor" = src.nation.nation_color,
 		"nationName" = src.nation.name,
-		"nationShortName" = src.nation.short_name,
-		"ownerRoleType" = src.nation.is_leader(owner) ? "Leader" : "Citizen",
+		"nationShortName" = src.nation.get_short_name(),
+		"ownerRoleType" = src.nation.get_role_type(owner),
 	)
 
 /obj/item/passport/ui_static_data(mob/user)
