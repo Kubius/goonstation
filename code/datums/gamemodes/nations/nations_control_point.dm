@@ -1,7 +1,7 @@
 /// Cargo cult from Pod Wars for now.
 /obj/nations_control_point_computer
 	name = "computer"
-	icon = 'icons/obj/control_point_computer.dmi'
+	icon = 'icons/obj/nations_control_point_computer.dmi'
 	icon_state = "control_point_computer"
 	density = 1
 	anchored = ANCHORED
