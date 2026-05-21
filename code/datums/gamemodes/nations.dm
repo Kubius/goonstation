@@ -52,6 +52,11 @@
 	for (var/datum/mind/mind as anything in client_minds)
 		src.assign_role(mind, global.find_job_in_controller_by_string(mind.assigned_role))
 
+/datum/game_mode/nations/on_human_death(mob/M)
+	var/datum/nation/deceaseds_nation = src.get_nation(M.mind)
+	if (!istype(deceaseds_nation, /datum/nation))
+		return
+
 /datum/game_mode/nations/send_intercept(badguy_list)
 	return
 
@@ -96,3 +101,10 @@
 
 	logTheThing(LOG_GAMEMODE, mind.current, "attempted to latejoin and was not assigned to the UN or any nation!")
 	message_admins("Nations: [key_name(mind)] attempted to latejoin and was not assigned to the UN or any nation!")
+
+/datum/game_mode/nations/proc/get_nation(datum/mind/mind)
+	RETURN_TYPE(/datum/nation)
+	. = null
+	for (var/datum/nation/nation as anything in src.nations)
+		if (mind in nation.citizens)
+			return nation
