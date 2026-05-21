@@ -1,4 +1,25 @@
 
+(t)thu may 21 26
+(u)JORJ949
+(p)26528
+(e)🗺🎨🧛💡|A-Mapping, C-Sprites, A-Gamemodes, A-Station-Systems
+(*)Added a 4TC deployable hideout to traitor and spy thief uplinks. These can be used on any disposal unit to hide a small secret base inside, anything flushed into the chute will end up in the hideout, anything flushed from the hideout's special chute will end up back in the original chute.
+(u)LorrMaster
+(p)26580
+(e)🎨📦|C-Sprites, A-Game-Objects
+(*)Added some new fish types.
+(t)wed may 20 26
+(u)LorrMaster
+(p)26644
+(e)🆕🔬|C-Feature, A-Science
+(*)Eldritch and Wizard artifacts no longer work inside the chapel.
+(u)glowbold
+(p)26641
+(e)⚖⚗|C-Balance, A-Chemistry
+(*)Craft Glue is a weaker version of Space Glue that is always temporary.
+(*)Space Glue and Craft Glue only apply to un-anchored items.
+(*)Super Glue is a stronger version of space glue that applies to everything. It has a secret recipe.
+(+)Josh has a chance to sell you Craft Glue instead of Super Glue.
 (t)mon may 18 26
 (u)Bonnedav
 (p)26596
