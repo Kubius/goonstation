@@ -178,6 +178,24 @@ ABSTRACT_TYPE(/datum/job/command)
 				return
 			M.show_text("<b>Something has gone terribly wrong here! Search for survivors and escape together.</b>", "blue")
 
+/datum/job/command/supply_coordinator
+	name = "Supply Coordinator"
+	limit = 1
+	wages = PAY_IMPORTANT
+	trait_list = list("training_miner", "training_quartermaster")
+	access_string = "Supply Coordinator"
+	wiki_link = "https://wiki.ss13.co/Quartermaster"
+
+	slot_back = list(/obj/item/storage/backpack/brown)
+	slot_glov = list(/obj/item/clothing/gloves/black)
+	slot_foot = list(/obj/item/clothing/shoes/brown)
+	slot_jump = list(/obj/item/clothing/under/rank/supply_coordinator)
+	slot_belt = list(/obj/item/device/pda2/supply_coordinator)
+	slot_ears = list(/obj/item/device/radio/headset/command/sc)
+	slot_poc1 = list(/obj/item/oreprospector)
+	slot_poc2 = list(/obj/item/device/appraisal)
+	items_in_backpack = list(/obj/item/device/flash)
+
 /datum/job/command/research_director
 	name = "Research Director"
 	limit = 1
@@ -221,3 +239,4 @@ ABSTRACT_TYPE(/datum/job/command)
 	slot_eyes = list(/obj/item/clothing/glasses/healthgoggles/upgraded)
 	slot_poc1 = list(/obj/item/device/pda2/medical_director)
 	items_in_backpack = list(/obj/item/device/flash)
+

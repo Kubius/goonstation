@@ -148,6 +148,9 @@ TYPEINFO(/obj/item/card/emag)
 /obj/item/card/id/engineering
 	icon_state = "id_eng"
 
+/obj/item/card/id/supply
+	icon_state = "id_sup"
+
 /obj/item/card/id/civilian
 	icon_state = "id_civ"
 

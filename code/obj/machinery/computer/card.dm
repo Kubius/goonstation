@@ -1,7 +1,9 @@
 #define ID_COMPUTER_DEPARTMENT_ENGINEERING 1
-#define ID_COMPUTER_DEPARTMENT_MEDICAL 2
-#define ID_COMPUTER_DEPARTMENT_RESEARCH 3
-#define ID_COMPUTER_DEPARTMENT_SECURITY 4
+#define ID_COMPUTER_DEPARTMENT_SUPPLY 2
+#define ID_COMPUTER_DEPARTMENT_MEDICAL 3
+#define ID_COMPUTER_DEPARTMENT_RESEARCH 4
+#define ID_COMPUTER_DEPARTMENT_SECURITY 5
+#define ID_COMPUTER_DEPARTMENT_CIVILIAN 6
 
 /obj/machinery/computer/card
 	name = "identification computer"
@@ -13,7 +15,7 @@
 	var/printing = null
 	var/list/custom_names = list("Custom 1", "Custom 2", "Custom 3")
 	var/custom_access_list = list(list(),list(),list())
-	var/list/civilian_access_list = list(access_morgue, access_maint_tunnels, access_chapel_office, access_tech_storage, access_bar, access_janitor, access_crematorium, access_kitchen, access_hydro, access_ranch)
+	var/list/civilian_access_list = list(access_maint_tunnels, access_chapel_office, access_tech_storage, access_bar, access_janitor, access_crematorium, access_kitchen, access_hydro, access_ranch)
 	var/list/engineering_access_list = list(access_engineering, access_engineering_storage, access_engineering_power, access_engineering_engine, access_engineering_mechanic, access_engineering_atmos, access_engineering_control)
 	var/list/supply_access_list = list(access_cargo, access_supply_console, access_mining, access_mining_outpost)
 	var/list/research_access_list = list(access_tox, access_tox_storage, access_research, access_chemistry, access_researchfoyer, access_artlab, access_telesci, access_robotdepot)
@@ -139,6 +141,7 @@
 
 		var/list/civilian_jobs = list()
 		var/list/engineering_jobs = list()
+		var/list/supply_jobs = list()
 		var/list/research_jobs = list()
 		var/list/medical_jobs = list()
 		var/list/security_jobs = list()
@@ -150,6 +153,9 @@
 		for (var/datum/job/job as anything in concrete_typesof(/datum/job/engineering))
 			if (initial(job.name) && job.show_in_id_comp)
 				engineering_jobs.Add(initial(job.name))
+		for (var/datum/job/job as anything in concrete_typesof(/datum/job/supply))
+			if (initial(job.name) && job.show_in_id_comp)
+				supply_jobs.Add(initial(job.name))
 		for (var/datum/job/job as anything in concrete_typesof(/datum/job/research))
 			if (initial(job.name) && job.show_in_id_comp)
 				research_jobs.Add(initial(job.name))
@@ -192,6 +198,15 @@
 				if (ID_COMPUTER_DEPARTMENT_ENGINEERING) // eng
 					civilian_jobs = list("Staff Assistant")
 					//stock engineering_jobs are good
+					supply_jobs = null
+					medical_jobs = null
+					research_jobs = null
+					security_jobs = null
+					command_jobs = null
+				if (ID_COMPUTER_DEPARTMENT_SUPPLY) // supply
+					civilian_jobs = list("Staff Assistant")
+					engineering_jobs = null
+					//stock engineering_jobs are good
 					medical_jobs = null
 					research_jobs = null
 					security_jobs = null
@@ -199,6 +214,7 @@
 				if (ID_COMPUTER_DEPARTMENT_MEDICAL) // med
 					civilian_jobs = list("Staff Assistant")
 					engineering_jobs = null
+					supply_jobs = null
 					// stock medical_jobs are good
 					research_jobs = null
 					security_jobs = null
@@ -206,6 +222,7 @@
 				if (ID_COMPUTER_DEPARTMENT_RESEARCH) // research
 					civilian_jobs = list("Staff Assistant")
 					engineering_jobs = null
+					supply_jobs = null
 					medical_jobs = null
 					// stock research_jobs are good
 					security_jobs = null
@@ -213,9 +230,18 @@
 				if (ID_COMPUTER_DEPARTMENT_SECURITY) // sec
 					civilian_jobs = list("Staff Assistant", "Clown")
 					engineering_jobs = null
+					supply_jobs = null
 					medical_jobs = null
 					research_jobs = null
 					//stock security_jobs are good
+					command_jobs = null
+				if (ID_COMPUTER_DEPARTMENT_CIVILIAN)
+					// stockcivilian_jobs are good
+					engineering_jobs = null
+					supply_jobs = null
+					medical_jobs = null
+					research_jobs = null
+					security_jobs = null
 					command_jobs = null
 
 		.["standard_jobs"] = list(
@@ -223,7 +249,8 @@
 			list(name = "Security", color = /datum/job/security::ui_colour, jobs = security_jobs, style="security"),
 			list(name = "Research", color = /datum/job/research::ui_colour, jobs = research_jobs, style="research"),
 			list(name = "Medical", color = /datum/job/medical::ui_colour, jobs = medical_jobs, style="medical"),
-			list(name = "Engineering and Supply", color = /datum/job/engineering::ui_colour, jobs = engineering_jobs, style="engineering"),
+			list(name = "Engineering", color = /datum/job/engineering::ui_colour, jobs = engineering_jobs, style="engineering"),
+			list(name = "Supply", color = /datum/job/supply::ui_colour, jobs = supply_jobs, style="supply"),
 			list(name = "Civilian", color = /datum/job/civilian::ui_colour, jobs = civilian_jobs, style="civilian"),
 		)
 
@@ -233,7 +260,7 @@
 			list(name = "Science", color = /datum/job/research::ui_colour, accesses = research_access),
 			list(name = "Medical", color = /datum/job/medical::ui_colour, accesses = medical_access),
 			list(name = "Engineering", color = /datum/job/engineering::ui_colour, accesses = engineering_access),
-			list(name = "Supply", color = /datum/job/engineering::ui_colour, accesses = supply_access),
+			list(name = "Supply", color = /datum/job/supply::ui_colour, accesses = supply_access),
 			list(name = "Civilian", color = /datum/job/civilian::ui_colour, accesses = civilian_access),
 		)
 
@@ -241,6 +268,7 @@
 			list(style = "none", name = "Plain", card_look = "id", icon = getCardBase64Img("id_basic")),
 			list(style = "civilian", name = "Civilian", card_look = "id_civ", icon = getCardBase64Img("id_civ")),
 			list(style = "engineering", name = "Engineering", card_look = "id_eng", icon = getCardBase64Img("id_eng")),
+			list(style = "supply", name = "Supply", card_look = "id_sup", icon = getCardBase64Img("id_sup")),
 			list(style = "research", name = "Research", card_look = "id_res", icon = getCardBase64Img("id_res")),
 			list(style = "medical", name = "Medical", card_look = "id_med", icon = getCardBase64Img("id_med")),
 			list(style = "security", name = "Security", card_look = "id_sec", icon = getCardBase64Img("id_sec")),
@@ -494,6 +522,8 @@
 				src.modify.icon_state = "id_med"
 			if (band_color == "security")
 				src.modify.icon_state = "id_sec"
+			if (band_color == "supply")
+				src.modify.icon_state = "id_sup"
 			if (band_color == "command")
 				src.modify.icon_state = "id_com"
 
@@ -567,18 +597,34 @@
 	departmentcomp = TRUE
 
 /obj/machinery/computer/card/department/engineering
-	color = "#ffffcc" // look there's a lot of icons to edit just to add a single stripe of color to these computers
+	color = "#ffff99" // look there's a lot of icons to edit just to add a single stripe of color to these computers
 	department = ID_COMPUTER_DEPARTMENT_ENGINEERING
 	req_access = list(access_engineering_chief)
 	circuit_type = /obj/item/circuitboard/card/engineering
 
 	civilian_access_list = list(access_maint_tunnels, access_tech_storage)
 	// stock engineering_access_list
+	supply_access_list = null
+	medical_access_list = null
+	research_access_list = null
+	security_access_list = null
+	command_access_list = list(access_eva) //allow heads to give out eva access in emergencies
+
+
+/obj/machinery/computer/card/department/supply
+	color = "#cccc99"
+	department = ID_COMPUTER_DEPARTMENT_SUPPLY
+	req_access = list(access_supply_head)
+	circuit_type = /obj/item/circuitboard/card/supply
+
+	civilian_access_list = list(access_maint_tunnels, access_tech_storage)
+	engineering_access_list = null
 	// stock supply_access_list
 	medical_access_list = null
 	research_access_list = null
 	security_access_list = null
 	command_access_list = list(access_eva) //allow heads to give out eva access in emergencies
+
 
 /obj/machinery/computer/card/department/medical
 	color = "#99ccff"
@@ -624,7 +670,24 @@
 	security_access_list = list(access_security, access_brig, access_forensics_lockers, access_securitylockers, access_carrypermit, access_contrabandpermit, access_ticket, access_fine_small, access_fine_large)
 	command_access_list = list(access_eva)
 
+
+/obj/machinery/computer/card/department/civilian
+	color = "#99ff99"
+	department = ID_COMPUTER_DEPARTMENT_CIVILIAN
+	req_access = list(access_head_of_personnel)
+	circuit_type = /obj/item/circuitboard/card/civilian
+
+	// stock civilian_access list
+	engineering_access_list = null
+	supply_access_list = null
+	medical_access_list = null
+	research_access_list = null
+	security_access_list = null
+	command_access_list = list(access_eva)
+
 #undef ID_COMPUTER_DEPARTMENT_ENGINEERING
+#undef ID_COMPUTER_DEPARTMENT_SUPPLY
 #undef ID_COMPUTER_DEPARTMENT_MEDICAL
 #undef ID_COMPUTER_DEPARTMENT_RESEARCH
 #undef ID_COMPUTER_DEPARTMENT_SECURITY
+#undef ID_COMPUTER_DEPARTMENT_CIVILIAN

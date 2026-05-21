@@ -469,6 +469,12 @@ ABSTRACT_TYPE(/obj/item/clothing/under/rank)
 	icon_state = "comm_officer"
 	item_state = "comm_officer"
 
+/obj/item/clothing/under/rank/supply_coordinator
+	name = "\improper Supply Coordinator's suit"
+	desc = "All the other heads pitched in to buy you this, what savings!"
+	icon_state = "comm_officer" // TODO: unique sprite?
+	item_state = "comm_officer"
+
 // Security
 
 /obj/item/clothing/under/rank/security

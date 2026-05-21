@@ -32,7 +32,9 @@ var/datum/job_controller/job_controls
 			for (var/A in concrete_typesof(/datum/job/research)) src.staple_jobs += new A(src)
 			for (var/A in concrete_typesof(/datum/job/medical)) src.staple_jobs += new A(src)
 			for (var/A in concrete_typesof(/datum/job/engineering)) src.staple_jobs += new A(src)
+			for (var/A in concrete_typesof(/datum/job/supply)) src.staple_jobs += new A(src)
 			for (var/A in concrete_typesof(/datum/job/civilian)) src.staple_jobs += new A(src)
+			for (var/A in concrete_typesof(/datum/job/neutral)) src.staple_jobs += new A(src)
 			for (var/A in concrete_typesof(/datum/job/special)) src.special_jobs += new A(src)
 		job_creator = new /datum/job/created(src)
 		//Add special daily variety job

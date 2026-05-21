@@ -216,9 +216,11 @@
 	var/list/Command = list()
 	var/list/Security = list()
 	var/list/Engineering = list()
+	var/list/Supply = list()
 	var/list/Research = list()
 	var/list/Medical = list()
 	var/list/Service = list()
+	var/list/Neutral = list()
 	var/list/Unassigned = list()
 	for(var/datum/db_record/staff_record as anything in data_core.general.records)
 		if (staff_record["p_stat"] == "In Cryogenic Storage")
@@ -252,6 +254,15 @@
 				Engineering.Add(entry)
 			continue
 
+		if((rank in supply_jobs) || (rank in supply_gimmicks))
+			if(rank in command_jobs)
+				Supply.Insert(1, "<b>[entry]</b>")
+			else if(rank in command_gimmicks)
+				Supply.Insert(2, "<b>[entry]</b>")
+			else
+				Supply.Add(entry)
+			continue
+
 		if((rank in science_jobs) || (rank in science_gimmicks))
 			if (rank in command_jobs)
 				Research.Insert(1, "<b>[entry]</b>")
@@ -278,6 +289,16 @@
 			else
 				Service.Add(entry)
 			continue
+
+		if((rank in neutral_jobs) || (rank in neutral_gimmicks))
+			if(rank in command_jobs)
+				Neutral.Insert(1, "<b>[entry]</b>")
+			else if(rank in command_gimmicks)
+				Neutral.Insert(2, "<b>[entry]</b>") //Future proofing, just in case
+			else
+				Neutral.Add(entry)
+			continue
+
 #ifdef MAP_OVERRIDE_OSHAN // Radio host is on Oshan
 		if(rank == "Radio Show Host" || rank == "Talk Show Host")
 			Service.Add(entry)
@@ -294,8 +315,12 @@
 		for(var/crew in Security)
 			sorted_manifest += crew
 	if(length(Engineering))
-		sorted_manifest += "<b><u>Engineering and Supply:</u></b><br>"
+		sorted_manifest += "<b><u>Engineering:</u></b><br>"
 		for(var/crew in Engineering)
+			sorted_manifest += crew
+	if(length(Supply))
+		sorted_manifest += "<b><u>Supply:</u></b><br>"
+		for(var/crew in Supply)
 			sorted_manifest += crew
 	if(length(Research))
 		sorted_manifest += "<b><u>Research:</u></b><br>"

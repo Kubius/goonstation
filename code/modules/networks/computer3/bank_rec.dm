@@ -121,15 +121,15 @@
 		"Stationwide" = list(),
 		"Genetics" = list(/datum/job/medical/geneticist),
 		"Robotics" = list(/datum/job/medical/roboticist),
-		"Cargo" = list(/datum/job/engineering/quartermaster, /datum/job/civilian/mail_courier),
-		"Mining" = list(/datum/job/engineering/miner),
+		"Cargo" = list(/datum/job/supply/quartermaster, /datum/job/neutral/mail_courier),
+		"Mining" = list(/datum/job/supply/miner),
 		"Engineering" = list(/datum/job/engineering/engineer, /datum/job/engineering/technical_assistant, /datum/job/command/chief_engineer),
 		"Research" = list(/datum/job/research/scientist, /datum/job/research/research_assistant, /datum/job/command/research_director),
 		"Catering" = list(/datum/job/civilian/chef, /datum/job/civilian/bartender, /datum/job/special/random/souschef, /datum/job/daily/waiter),
 		"Hydroponics" = list(/datum/job/civilian/botanist, /datum/job/civilian/rancher),
 		"Security" = list(/datum/job/security, /datum/job/command/head_of_security),
 		"Medical" = list(/datum/job/medical/medical_doctor, /datum/job/medical/medical_assistant, /datum/job/command/medical_director),
-		"Civilian" = list(/datum/job/civilian/janitor, /datum/job/civilian/chaplain, /datum/job/civilian/staff_assistant, /datum/job/civilian/clown,\
+		"Civilian" = list(/datum/job/civilian/janitor, /datum/job/civilian/chaplain, /datum/job/civilian/staff_assistant, /datum/job/neutral/clown,\
 		/datum/job/special), //Who really makes the world go round? At least one of these guys
 							//I can live with the sous chef getting paid in two categories
 							//If you have a special role and you're on the manifest everything is probably normal

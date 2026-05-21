@@ -263,6 +263,12 @@
 		area_name = "Engineering"
 		circuit_type = /obj/item/circuitboard/announcement/engineering
 
+	supply
+		req_access = list(access_supply_head)
+		name = "Supply Announcement Computer"
+		area_name = "Supply"
+		circuit_type = /obj/item/circuitboard/announcement/supply
+
 	ai
 		req_access = list(access_ai_upload)
 		name = "AI Announcement Computer"

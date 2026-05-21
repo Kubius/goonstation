@@ -99,6 +99,10 @@ var/global/list/job_start_locations = list()
 	name = "Chief Engineer"
 	icon_state = "chief_engineer"
 
+/obj/landmark/start/job/supply_coordinator
+	name = "Supply Coordinator"
+	icon_state = "supply_coordinator"
+
 // Civillian
 
 /obj/landmark/start/job/assistant

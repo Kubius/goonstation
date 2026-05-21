@@ -305,7 +305,7 @@
 	proc/generate_mail()
 		var/alive_players = 0
 		var/target_percentage = 0.375
-		for(var/datum/job/civilian/mail_courier/J in job_controls.staple_jobs)
+		for(var/datum/job/neutral/mail_courier/J in job_controls.staple_jobs)
 			if (J.assigned)
 				target_percentage = 0.5
 		for(var/client/C)
@@ -342,7 +342,10 @@
 					payout.set_loc(mail_crate)
 
 				logTheThing(LOG_STATION, null, "Mail: Created [created_mail.len] packages, shipping now.")
-				shippingmarket.receive_crate(mail_crate)
+				for_by_tcl(trans, /obj/machinery/transception_pad)
+					mail_crate.set_loc(get_turf(trans))
+					showswirl(trans)
+					break
 
 	/// update the buy price of items based on market fluctuations
 	/// remove in demand goods from traders; they're all out!

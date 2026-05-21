@@ -34,7 +34,6 @@ TYPEINFO(/obj/item/disk/data/cartridge/syndicate)
 		file_amount = 128
 		New()
 			..()
-			src.root.add_file( new /datum/computer/file/pda_program/manifest(src))
 			src.root.add_file( new /datum/computer/file/pda_program/status_display(src))
 			src.root.add_file( new /datum/computer/file/pda_program/signaler(src))
 			src.root.add_file( new /datum/computer/file/pda_program/fileshare(src))
@@ -57,7 +56,6 @@ TYPEINFO(/obj/item/disk/data/cartridge/syndicate)
 
 		New()
 			..()
-			src.root.add_file( new /datum/computer/file/pda_program/manifest(src))
 			src.root.add_file( new /datum/computer/file/pda_program/security_ticket(src))
 			src.root.add_file( new /datum/computer/file/pda_program/status_display(src))
 			src.root.add_file( new /datum/computer/file/pda_program/qm_records(src))
@@ -77,7 +75,6 @@ TYPEINFO(/obj/item/disk/data/cartridge/syndicate)
 		file_amount = 64
 		New()
 			..()
-			src.root.add_file( new /datum/computer/file/pda_program/manifest(src))
 			src.root.add_file( new /datum/computer/file/pda_program/status_display(src))
 			src.root.add_file( new /datum/computer/file/pda_program/qm_records(src))
 			src.root.add_file( new /datum/computer/file/pda_program/fileshare(src))
@@ -93,7 +90,6 @@ TYPEINFO(/obj/item/disk/data/cartridge/syndicate)
 		file_amount = 1024
 		New()
 			..()
-			src.root.add_file( new /datum/computer/file/pda_program/manifest(src))
 			src.root.add_file( new /datum/computer/file/pda_program/atmos_alerts(src))
 			src.root.add_file( new /datum/computer/file/pda_program/power_checker(src))
 			src.root.add_file( new /datum/computer/file/pda_program/status_display(src))
@@ -123,7 +119,6 @@ TYPEINFO(/obj/item/disk/data/cartridge/syndicate)
 		file_amount = 1024
 		New()
 			..()
-			src.root.add_file( new /datum/computer/file/pda_program/manifest(src))
 			src.root.add_file( new /datum/computer/file/pda_program/atmos_alerts(src))
 			src.root.add_file( new /datum/computer/file/pda_program/signaler(src))
 			src.root.add_file( new /datum/computer/file/pda_program/qm_records(src))
@@ -150,7 +145,6 @@ TYPEINFO(/obj/item/disk/data/cartridge/syndicate)
 		file_amount = 64
 		New()
 			..()
-			src.root.add_file( new /datum/computer/file/pda_program/manifest(src))
 			src.root.add_file( new /datum/computer/file/pda_program/status_display(src))
 			src.root.add_file( new /datum/computer/file/pda_program/scan/health_scan(src))
 			src.root.add_file( new /datum/computer/file/pda_program/scan/reagent_scan(src))
@@ -167,7 +161,6 @@ TYPEINFO(/obj/item/disk/data/cartridge/syndicate)
 		file_amount = 64
 		New()
 			..()
-			src.root.add_file( new /datum/computer/file/pda_program/manifest(src))
 			src.root.add_file( new /datum/computer/file/pda_program/status_display(src))
 			src.root.add_file( new /datum/computer/file/pda_program/scan/health_scan(src))
 			src.root.add_file( new /datum/computer/file/pda_program/scan/medrecord_scan(src))
@@ -235,7 +228,6 @@ TYPEINFO(/obj/item/disk/data/cartridge/syndicate)
 		file_amount = 128
 		New()
 			..()
-			src.root.add_file( new /datum/computer/file/pda_program/manifest(src))
 			src.root.add_file( new /datum/computer/file/pda_program/status_display(src))
 			src.root.add_file( new /datum/computer/file/pda_program/bot_control/secbot/pro(src))
 			src.root.add_file( new /datum/computer/file/pda_program/portable_machinery_control/portabrig(src))
@@ -329,9 +321,7 @@ TYPEINFO(/obj/item/disk/data/cartridge/syndicate)
 		New()
 			..()
 			//Command stuff
-			src.root.add_file( new /datum/computer/file/pda_program/manifest(src))
 			src.root.add_file( new /datum/computer/file/pda_program/fileshare(src))
-			src.root.add_file( new /datum/computer/file/pda_program/security_ticket(src))
 			//Engineer stuff
 			src.root.add_file( new /datum/computer/file/pda_program/scan/electronics(src))
 			src.root.add_file( new /datum/computer/file/pda_program/scan/health_scan(src))
@@ -342,10 +332,17 @@ TYPEINFO(/obj/item/disk/data/cartridge/syndicate)
 			src.root.add_file( new /datum/computer/file/pda_program/pingtool(src))
 			src.root.add_file( new /datum/computer/file/pda_program/packet_sniffer(src))
 			src.root.add_file( new /datum/computer/file/pda_program/packet_sender(src))
-			//QM stuff
+			src.read_only = 1
+
+	supply_coordinator
+		name = "\improper Logicistcs Plus"
+		desc = "A fancy cartridge for only the most coordinated of connoisseurs."
+		icon_state = "cart-sc"
+		New()
+			..()
+			src.root.add_file( new /datum/computer/file/pda_program/fileshare(src))
 			src.root.add_file( new /datum/computer/file/pda_program/qm_records(src))
 			src.root.add_file( new /datum/computer/file/pda_program/bot_control/mulebot(src))
-			//Miner stuff
 			src.root.add_file( new /datum/computer/file/pda_program/rockbox(src))
 			src.root.add_file( new /datum/computer/file/pda_program/scan/material_scan(src))
 			src.read_only = 1
@@ -429,7 +426,6 @@ TYPEINFO(/obj/item/disk/data/cartridge/syndicate)
 
 		New()
 			..()
-			src.root.add_file( new /datum/computer/file/pda_program/manifest(src))
 			src.root.add_file( new /datum/computer/file/pda_program/bomb(src))
 			var/datum/computer/file/pda_program/missile/detofile = new /datum/computer/file/pda_program/missile(src)
 			detofile.charges = 4

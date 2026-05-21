@@ -46,10 +46,20 @@ var/datum/latejoin_menu/latejoin_menu = new()
 	engineering_department["colour"] = /datum/job/engineering::ui_colour
 	engineering_department["jobs"] = GET_JOBS(user, /datum/job/engineering)
 
+	var/list/supply_department = list()
+	supply_department["name"] = "Supply"
+	supply_department["colour"] = /datum/job/supply::ui_colour
+	supply_department["jobs"] = GET_JOBS(user, /datum/job/supply)
+
 	var/list/civilian_department = list()
 	civilian_department["name"] = "Civilian"
 	civilian_department["colour"] = /datum/job/civilian::ui_colour
 	civilian_department["jobs"] = GET_JOBS(user, /datum/job/civilian, /datum/job/daily)
+
+	var/list/neutral_department = list()
+	neutral_department["name"] = "Neutral"
+	neutral_department["colour"] = /datum/job/neutral::ui_colour
+	neutral_department["jobs"] = GET_JOBS(user, /datum/job/neutral)
 
 	var/list/silicon_department = list()
 	silicon_department["name"] = "Silicon"
@@ -67,7 +77,9 @@ var/datum/latejoin_menu/latejoin_menu = new()
 		research_department,
 		medical_department,
 		engineering_department,
+		supply_department,
 		civilian_department,
+		neutral_department,
 		silicon_department,
 		special_jobs,
 	)
