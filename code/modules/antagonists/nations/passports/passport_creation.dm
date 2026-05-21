@@ -44,7 +44,7 @@
 		return
 
 	var/datum/nation/nation = global.get_singleton(nation_type)
-	if (user.mind != nation.leader)
+	if (!nation.is_leader(user.mind))
 		boutput(user, SPAN_ALERT("You aren't the leader of that nation!"))
 		return
 
@@ -52,7 +52,7 @@
 		boutput(user, SPAN_ALERT("Passport VOID: This paper was stamped too long ago by the applicant!"))
 		return
 
-	if ((user.mind != src.passport_recipient) && (src.passport_recipient.passport?.nation?.leader == src.passport_recipient))
+	if ((user.mind != src.passport_recipient) && src.passport_recipient.passport?.nation.is_leader(src.passport_recipient))
 		boutput(user, SPAN_ALERT("You can't grant citizenship to rival leaders!"))
 		return
 
