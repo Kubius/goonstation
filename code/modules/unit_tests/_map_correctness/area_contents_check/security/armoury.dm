@@ -31,5 +31,7 @@
 		CONTENTS_GT(/obj/machinery/recharger, 0),
 		CONTENTS_GT(/obj/machinery/portable_atmospherics/canister/sleeping_agent, 0),
 		CONTENTS_GT(/obj/machinery/vending/security_ammo, 0),
+#ifndef MAP_OVERRIDE_NATIONS
 		CONTENTS_GT(/obj/machinery/computer3/generic/communications, 0),
+#endif
 	)

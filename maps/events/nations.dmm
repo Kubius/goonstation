@@ -912,9 +912,7 @@
 	dir = 4
 	},
 /turf/unsimulated/floor/sanitary,
-/area/station/crew_quarters/quartersC{
-	name = "Cargo Restroom"
-	})
+/area/station/crewquarters/cryotron/cargo)
 "awq" = (
 /obj/table/reinforced/auto,
 /obj/item/sheet/steel{
@@ -1573,9 +1571,7 @@
 /area/station/ai_monitored/armory)
 "aMc" = (
 /turf/simulated/wall/auto/reinforced/supernorn/colored/cyan,
-/area/station/crew_quarters/quartersA{
-	name = "Medical Restroom"
-	})
+/area/station/crewquarters/cryotron/med)
 "aMg" = (
 /turf/simulated/floor/yellow/side{
 	dir = 4
@@ -1706,10 +1702,11 @@
 /obj/landmark/gps_waypoint{
 	name = "Engineering Cryo"
 	},
+/obj/cable{
+	icon_state = "2-4"
+	},
 /turf/unsimulated/floor/sanitary,
-/area/station/crew_quarters/quartersB{
-	name = "Engineering Restroom"
-	})
+/area/station/crewquarters/cryotron/eng)
 "aQk" = (
 /obj/stool/bench/yellow/auto,
 /obj/machinery/light,
@@ -2381,6 +2378,9 @@
 /area/station/crew_quarters/quartersC{
 	name = "Cargo Restroom"
 	})
+"bdh" = (
+/turf/unsimulated/floor/sanitary,
+/area/station/crewquarters/cryotron/med)
 "bdt" = (
 /obj/table/reinforced/auto,
 /obj/item/paper_bin,
@@ -4057,6 +4057,10 @@
 	pixel_y = 5;
 	print_id = "Hydroponics"
 	},
+/obj/machinery/power/data_terminal,
+/obj/cable{
+	icon_state = "0-2"
+	},
 /turf/simulated/floor/green/side{
 	dir = 1
 	},
@@ -4617,9 +4621,7 @@
 "cdg" = (
 /obj/machinery/camera/directional/south,
 /turf/unsimulated/floor/sanitary,
-/area/station/crew_quarters/quartersC{
-	name = "Cargo Restroom"
-	})
+/area/station/crewquarters/cryotron/cargo)
 "cdq" = (
 /obj/cable{
 	icon_state = "4-8"
@@ -5739,9 +5741,7 @@
 /area/space/asteroid_safe_zone)
 "cBY" = (
 /turf/simulated/wall/auto/reinforced/supernorn/colored/yellow,
-/area/station/crew_quarters/quartersB{
-	name = "Engineering Restroom"
-	})
+/area/station/crewquarters/cryotron/eng)
 "cCl" = (
 /obj/stool/chair/comfy{
 	dir = 4
@@ -5812,7 +5812,6 @@
 	name = "Service Restroom"
 	})
 "cEt" = (
-/obj/table/reinforced/auto,
 /obj/table/reinforced/auto,
 /obj/item/device/reagentscanner{
 	pixel_x = -3;
@@ -6649,12 +6648,15 @@
 	name = "Transmission Laser Confinement";
 	pixel_x = -23;
 	dir = 8;
-	pixel_y = 1
+	pixel_y = 7
 	},
 /obj/machinery/light{
 	dir = 1;
 	layer = 9.1;
 	pixel_y = 21
+	},
+/obj/machinery/light_switch/west{
+	pixel_y = -6
 	},
 /turf/simulated/floor/black,
 /area/station/engine/ptl)
@@ -6754,9 +6756,7 @@
 /area/station/engine/engineering/ce/private)
 "cYw" = (
 /turf/unsimulated/floor/sanitary,
-/area/station/crew_quarters/quartersC{
-	name = "Cargo Restroom"
-	})
+/area/station/crewquarters/cryotron/cargo)
 "cYx" = (
 /obj/machinery/light,
 /obj/cable{
@@ -8380,9 +8380,7 @@
 	dir = 8
 	},
 /turf/unsimulated/floor/sanitary,
-/area/station/crew_quarters/quarters{
-	name = "Research Restroom"
-	})
+/area/station/crewquarters/cryotron/sci)
 "dJI" = (
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging,
 /obj/lattice{
@@ -8620,9 +8618,7 @@
 "dPe" = (
 /obj/machinery/camera/directional/south,
 /turf/unsimulated/floor/sanitary,
-/area/station/crew_quarters/toilets{
-	name = "Service Restroom"
-	})
+/area/station/crewquarters/cryotron/civ)
 "dPE" = (
 /obj/cable{
 	icon_state = "1-2"
@@ -8801,10 +8797,12 @@
 	icon_state = "line1";
 	dir = 4
 	},
+/obj/machinery/power/apc/autoname_east,
+/obj/cable{
+	icon_state = "0-2"
+	},
 /turf/unsimulated/floor/sanitary,
-/area/station/crew_quarters/quarters{
-	name = "Research Restroom"
-	})
+/area/station/crewquarters/cryotron/sci)
 "dTR" = (
 /obj/cable{
 	icon_state = "4-8"
@@ -9160,10 +9158,11 @@
 "ecF" = (
 /obj/machinery/door/airlock/pyro/weapons,
 /obj/mapping_helper/access/medical,
-/turf/simulated/floor/sanitary,
-/area/station/crew_quarters/quartersA{
-	name = "Medical Restroom"
-	})
+/obj/cable{
+	icon_state = "1-2"
+	},
+/turf/unsimulated/floor/sanitary,
+/area/station/crewquarters/cryotron/med)
 "ede" = (
 /obj/machinery/light_switch/west,
 /obj/cable{
@@ -9330,8 +9329,13 @@
 /obj/machinery/networked/printer{
 	pixel_x = 1;
 	pixel_y = 3;
-	print_id = "AI"
+	print_id = "AI";
+	name = "Printer - AI"
 	},
+/obj/cable{
+	icon_state = "0-4"
+	},
+/obj/machinery/power/data_terminal,
 /turf/simulated/floor/circuit,
 /area/station/turret_protected/ai_upload)
 "efE" = (
@@ -9481,9 +9485,7 @@
 	dir = 9
 	},
 /turf/unsimulated/floor/sanitary,
-/area/station/crew_quarters/quarters{
-	name = "Research Restroom"
-	})
+/area/station/crewquarters/cryotron/sci)
 "ehH" = (
 /obj/stool/chair/office/blue{
 	dir = 4
@@ -9723,7 +9725,13 @@
 /obj/cable/orange{
 	icon_state = "4-8"
 	},
-/obj/machinery/firealarm/directional/north,
+/obj/machinery/firealarm/directional/north{
+	pixel_x = 7;
+	pixel_y = 27
+	},
+/obj/machinery/light_switch/north{
+	pixel_x = -7
+	},
 /turf/simulated/floor/engine,
 /area/station/engine/core/thermoelectric)
 "emQ" = (
@@ -10698,9 +10706,7 @@
 /obj/machinery/light/small/floor,
 /obj/machinery/camera/directional/west,
 /turf/unsimulated/floor/sanitary,
-/area/station/crew_quarters/quartersA{
-	name = "Medical Restroom"
-	})
+/area/station/crewquarters/cryotron/med)
 "eHw" = (
 /obj/mapping_helper/wingrille_spawn/auto/reinforced/crystal,
 /turf/simulated/floor/plating,
@@ -11011,6 +11017,9 @@
 /obj/cable{
 	icon_state = "1-8"
 	},
+/obj/cable{
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/sanitary,
 /area/station/crew_quarters/quarters{
 	name = "Research Restroom"
@@ -11205,6 +11214,10 @@
 	},
 /turf/simulated/floor/grass,
 /area/station/medical/dome)
+"eVz" = (
+/obj/machinery/light_switch/west,
+/turf/simulated/floor/grass/leafy,
+/area/station/ranch)
 "eVD" = (
 /obj/cable{
 	icon_state = "0-2"
@@ -11289,9 +11302,7 @@
 	},
 /obj/machinery/door_control/east,
 /turf/unsimulated/floor/sanitary,
-/area/station/crew_quarters/quartersA{
-	name = "Medical Restroom"
-	})
+/area/station/crewquarters/cryotron/med)
 "eWr" = (
 /turf/simulated/floor/purplewhite{
 	dir = 5
@@ -11408,6 +11419,9 @@
 "eYQ" = (
 /obj/cable{
 	icon_state = "2-8"
+	},
+/obj/cable{
+	icon_state = "1-2"
 	},
 /turf/simulated/floor/sanitary,
 /area/station/crew_quarters/quartersB{
@@ -12859,6 +12873,9 @@
 	pixel_y = 21
 	},
 /obj/machinery/vending/air_vendor,
+/obj/machinery/light_switch/north{
+	pixel_y = 22
+	},
 /turf/simulated/floor/grey/side{
 	dir = 8
 	},
@@ -13616,10 +13633,12 @@
 	dir = 4;
 	icon_state = "line1"
 	},
+/obj/cable{
+	icon_state = "0-2"
+	},
+/obj/machinery/power/apc/autoname_east,
 /turf/unsimulated/floor/sanitary,
-/area/station/crew_quarters/toilets{
-	name = "Service Restroom"
-	})
+/area/station/crewquarters/cryotron/civ)
 "fUb" = (
 /obj/decal/tile_edge/stripe/extra_big{
 	dir = 5;
@@ -14758,10 +14777,11 @@
 /turf/simulated/floor/industrial,
 /area/nations_neutral/shipwright)
 "gpG" = (
+/obj/cable{
+	icon_state = "1-2"
+	},
 /turf/unsimulated/floor/sanitary,
-/area/station/crew_quarters/quartersA{
-	name = "Medical Restroom"
-	})
+/area/station/crewquarters/cryotron/med)
 "gpR" = (
 /obj/submachine/ATM{
 	pixel_y = 32
@@ -14818,9 +14838,7 @@
 /area/station/science/storage)
 "grd" = (
 /turf/unsimulated/floor/sanitary,
-/area/station/crew_quarters/quarters{
-	name = "Research Restroom"
-	})
+/area/station/crewquarters/cryotron/sci)
 "grm" = (
 /obj/stool/chair/couch{
 	dir = 8;
@@ -17330,9 +17348,7 @@
 	name = "Cargo Cryo"
 	},
 /turf/unsimulated/floor/sanitary,
-/area/station/crew_quarters/quartersC{
-	name = "Cargo Restroom"
-	})
+/area/station/crewquarters/cryotron/cargo)
 "huA" = (
 /obj/machinery/light{
 	dir = 4;
@@ -17791,6 +17807,9 @@
 "hHK" = (
 /obj/cable{
 	icon_state = "2-4"
+	},
+/obj/cable{
+	icon_state = "4-8"
 	},
 /turf/simulated/floor/sanitary,
 /area/station/crew_quarters/quartersC{
@@ -18890,10 +18909,11 @@
 /obj/landmark/gps_waypoint{
 	name = "Service Cryo"
 	},
+/obj/cable{
+	icon_state = "4-8"
+	},
 /turf/unsimulated/floor/sanitary,
-/area/station/crew_quarters/toilets{
-	name = "Service Restroom"
-	})
+/area/station/crewquarters/cryotron/civ)
 "iep" = (
 /turf/simulated/floor/industrial,
 /area/station/hallway/secondary/east{
@@ -18994,10 +19014,11 @@
 /obj/mapping_helper/access/hydro,
 /obj/mapping_helper/access/chapel_office,
 /obj/mapping_helper/access/janitor,
-/turf/simulated/floor/sanitary,
-/area/station/crew_quarters/toilets{
-	name = "Service Restroom"
-	})
+/obj/cable{
+	icon_state = "4-8"
+	},
+/turf/unsimulated/floor/sanitary,
+/area/station/crewquarters/cryotron/civ)
 "igF" = (
 /obj/table/round/auto,
 /obj/machinery/camera/directional/south,
@@ -19439,9 +19460,7 @@
 	},
 /obj/cryotron,
 /turf/unsimulated/floor/sanitary,
-/area/station/crew_quarters/quarters{
-	name = "Research Restroom"
-	})
+/area/station/crewquarters/cryotron/sci)
 "inr" = (
 /obj/mapping_helper/wingrille_spawn/auto/reinforced,
 /turf/simulated/floor/plating,
@@ -19531,16 +19550,20 @@
 	},
 /obj/machinery/light/small/floor,
 /obj/machinery/light_switch/east,
+/obj/cable{
+	icon_state = "1-8"
+	},
 /turf/unsimulated/floor/sanitary,
-/area/station/crew_quarters/toilets{
-	name = "Service Restroom"
-	})
+/area/station/crewquarters/cryotron/civ)
 "ipE" = (
 /obj/cable{
 	icon_state = "1-2"
 	},
 /obj/disposalpipe/segment/vertical,
 /obj/machinery/light/small/floor,
+/obj/cable{
+	icon_state = "1-8"
+	},
 /turf/simulated/floor/white,
 /area/station/science/hall)
 "ipF" = (
@@ -20350,10 +20373,11 @@
 /obj/landmark/gps_waypoint{
 	name = "Research Cryo"
 	},
+/obj/cable{
+	icon_state = "4-8"
+	},
 /turf/unsimulated/floor/sanitary,
-/area/station/crew_quarters/quarters{
-	name = "Research Restroom"
-	})
+/area/station/crewquarters/cryotron/sci)
 "iEF" = (
 /obj/cable{
 	icon_state = "1-2"
@@ -22780,6 +22804,9 @@
 /obj/item/device/radio/intercom/AI{
 	dir = 4
 	},
+/obj/cable{
+	icon_state = "0-2"
+	},
 /turf/simulated/floor/blueblack{
 	dir = 1
 	},
@@ -23073,9 +23100,7 @@
 	dir = 5
 	},
 /turf/unsimulated/floor/sanitary,
-/area/station/crew_quarters/quartersC{
-	name = "Cargo Restroom"
-	})
+/area/station/crewquarters/cryotron/cargo)
 "jMQ" = (
 /obj/cable{
 	icon_state = "1-2"
@@ -23115,6 +23140,7 @@
 /obj/machinery/sleeper/compact{
 	dir = 8
 	},
+/obj/machinery/light_switch/east,
 /turf/unsimulated/floor/sanitary,
 /area/station/crewquarters/cryotron)
 "jNE" = (
@@ -23286,6 +23312,9 @@
 /obj/disposalpipe/junction/right/east,
 /obj/cable{
 	icon_state = "4-8"
+	},
+/obj/cable{
+	icon_state = "2-4"
 	},
 /turf/simulated/floor/black,
 /area/station/chapel/sanctuary)
@@ -23632,6 +23661,10 @@
 	pixel_y = 5;
 	print_id = "Research"
 	},
+/obj/cable{
+	icon_state = "0-6"
+	},
+/obj/machinery/power/data_terminal,
 /turf/simulated/floor/black,
 /area/station/science/hall)
 "jXl" = (
@@ -24028,10 +24061,11 @@
 "kdC" = (
 /obj/machinery/door/airlock/pyro/weapons,
 /obj/mapping_helper/access/engineering,
-/turf/simulated/floor/sanitary,
-/area/station/crew_quarters/quartersB{
-	name = "Engineering Restroom"
-	})
+/obj/cable{
+	icon_state = "1-2"
+	},
+/turf/unsimulated/floor/sanitary,
+/area/station/crewquarters/cryotron/eng)
 "kdT" = (
 /obj/machinery/camera/directional/north,
 /turf/simulated/floor/blueblack{
@@ -25009,9 +25043,7 @@
 	dir = 9
 	},
 /turf/unsimulated/floor/sanitary,
-/area/station/crew_quarters/toilets{
-	name = "Service Restroom"
-	})
+/area/station/crewquarters/cryotron/civ)
 "kBT" = (
 /obj/machinery/conveyor/SN{
 	id = "qmout"
@@ -25474,6 +25506,7 @@
 /obj/item/device/radio/intercom/AI{
 	dir = 4
 	},
+/obj/machinery/power/data_terminal,
 /turf/simulated/floor/circuit,
 /area/station/turret_protected/ai)
 "kMw" = (
@@ -26001,10 +26034,11 @@
 	},
 /obj/machinery/light/small/floor,
 /obj/machinery/light_switch/east,
+/obj/cable{
+	icon_state = "1-8"
+	},
 /turf/unsimulated/floor/sanitary,
-/area/station/crew_quarters/quartersA{
-	name = "Medical Restroom"
-	})
+/area/station/crewquarters/cryotron/med)
 "kYE" = (
 /turf/simulated/wall/auto/reinforced/supernorn/colored/yellow,
 /area/station/engine/combustion_chamber)
@@ -26204,10 +26238,11 @@
 	},
 /obj/machinery/light/small/floor,
 /obj/machinery/camera/directional/east,
+/obj/cable{
+	icon_state = "1-8"
+	},
 /turf/unsimulated/floor/sanitary,
-/area/station/crew_quarters/quartersB{
-	name = "Engineering Restroom"
-	})
+/area/station/crewquarters/cryotron/eng)
 "lds" = (
 /obj/machinery/launcher_loader/south,
 /turf/simulated/floor/caution/westeast,
@@ -26522,6 +26557,9 @@
 	pixel_y = 21
 	},
 /obj/disposalpipe/trunk/south,
+/obj/machinery/light_switch/north{
+	pixel_x = -7
+	},
 /turf/simulated/floor/specialroom/arcade,
 /area/station/janitor/supply{
 	name = "Janitorial Embassy"
@@ -26634,9 +26672,7 @@
 	dir = 4
 	},
 /turf/unsimulated/floor/sanitary,
-/area/station/crew_quarters/quartersA{
-	name = "Medical Restroom"
-	})
+/area/station/crewquarters/cryotron/med)
 "lmD" = (
 /obj/machinery/door/airlock/pyro/alt{
 	dir = 4
@@ -26906,6 +26942,12 @@
 	},
 /turf/simulated/floor/minitiles,
 /area/nations_neutral/shipwright/systems)
+"lsf" = (
+/obj/machinery/light_switch/west,
+/turf/simulated/floor/sanitary,
+/area/station/crew_quarters/quartersC{
+	name = "Cargo Restroom"
+	})
 "lso" = (
 /obj/mesh/catwalk,
 /obj/machinery/light/small,
@@ -27020,10 +27062,11 @@
 	},
 /obj/mapping_helper/access/cargo,
 /obj/mapping_helper/access/mining,
-/turf/simulated/floor/sanitary,
-/area/station/crew_quarters/quartersC{
-	name = "Cargo Restroom"
-	})
+/obj/cable{
+	icon_state = "4-8"
+	},
+/turf/unsimulated/floor/sanitary,
+/area/station/crewquarters/cryotron/cargo)
 "ltr" = (
 /turf/simulated/floor/grey/side{
 	dir = 1
@@ -27073,10 +27116,12 @@
 	icon_state = "line1";
 	dir = 4
 	},
+/obj/machinery/power/apc/autoname_east,
+/obj/cable{
+	icon_state = "0-2"
+	},
 /turf/unsimulated/floor/sanitary,
-/area/station/crew_quarters/quartersA{
-	name = "Medical Restroom"
-	})
+/area/station/crewquarters/cryotron/med)
 "luL" = (
 /obj/table/reinforced/auto,
 /obj/machinery/door_control/bolter{
@@ -27114,9 +27159,7 @@
 	},
 /obj/cryotron,
 /turf/unsimulated/floor/sanitary,
-/area/station/crew_quarters/quartersB{
-	name = "Engineering Restroom"
-	})
+/area/station/crewquarters/cryotron/eng)
 "lww" = (
 /obj/table/reinforced/auto,
 /obj/machinery/computer/television/small{
@@ -28237,6 +28280,8 @@
 	bank_id = "Research";
 	name = "Databank - Research"
 	},
+/obj/cable,
+/obj/machinery/power/data_terminal,
 /turf/simulated/floor/purplewhite{
 	dir = 8
 	},
@@ -28746,10 +28791,12 @@
 	dir = 4;
 	icon_state = "line1"
 	},
+/obj/machinery/power/apc/autoname_east,
+/obj/cable{
+	icon_state = "0-2"
+	},
 /turf/unsimulated/floor/sanitary,
-/area/station/crew_quarters/quartersB{
-	name = "Engineering Restroom"
-	})
+/area/station/crewquarters/cryotron/eng)
 "mds" = (
 /obj/storage/secure/closet/engineering/welding,
 /obj/machinery/firealarm/directional/north,
@@ -29053,9 +29100,7 @@
 	},
 /obj/cryotron,
 /turf/unsimulated/floor/sanitary,
-/area/station/crew_quarters/toilets{
-	name = "Service Restroom"
-	})
+/area/station/crewquarters/cryotron/civ)
 "mkM" = (
 /obj/machinery/light,
 /turf/simulated/floor/engine,
@@ -29312,6 +29357,9 @@
 	icon_state = "0-2"
 	},
 /obj/machinery/power/data_terminal,
+/obj/cable{
+	icon_state = "0-8"
+	},
 /turf/simulated/floor/circuit,
 /area/station/turret_protected/ai_upload)
 "moI" = (
@@ -29521,6 +29569,10 @@
 	bank_id = "research";
 	pixel_y = 4
 	},
+/obj/cable{
+	icon_state = "0-5"
+	},
+/obj/machinery/power/data_terminal,
 /turf/simulated/floor/black,
 /area/station/science/hall)
 "msi" = (
@@ -29635,6 +29687,12 @@
 	},
 /turf/simulated/floor/black,
 /area/station/engine/engineering/ce/private)
+"mvp" = (
+/obj/machinery/light_switch/east,
+/turf/simulated/floor/sanitary,
+/area/station/crew_quarters/toilets{
+	name = "Service Restroom"
+	})
 "mvE" = (
 /obj/cable/orange{
 	icon_state = "4-8"
@@ -29791,6 +29849,9 @@
 /obj/cable{
 	icon_state = "2-4"
 	},
+/obj/cable{
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/sanitary,
 /area/station/crew_quarters/quartersA{
 	name = "Medical Restroom"
@@ -29879,6 +29940,7 @@
 /obj/machinery/computer/magnet{
 	dir = 8
 	},
+/obj/machinery/light_switch/east,
 /turf/simulated/floor/airless/plating/catwalk/auto,
 /area/station/mining/magnet)
 "mAu" = (
@@ -31397,6 +31459,7 @@
 	icon_state = "0-4"
 	},
 /obj/machinery/power/apc/autoname_west,
+/obj/machinery/light_switch/north,
 /turf/simulated/floor/engine,
 /area/station/mining/refinery)
 "nhV" = (
@@ -31969,6 +32032,10 @@
 /area/station/turret_protected/armory_outside)
 "ntv" = (
 /obj/machinery/computer3/terminal/zeta,
+/obj/cable{
+	icon_state = "0-2"
+	},
+/obj/machinery/power/data_terminal,
 /turf/simulated/floor/purplewhite{
 	dir = 8
 	},
@@ -32203,9 +32270,7 @@
 "nzL" = (
 /obj/machinery/camera/directional/south,
 /turf/unsimulated/floor/sanitary,
-/area/station/crew_quarters/quarters{
-	name = "Research Restroom"
-	})
+/area/station/crewquarters/cryotron/sci)
 "nzU" = (
 /obj/machinery/door/airlock/pyro/glass,
 /turf/simulated/floor/darkblue/side{
@@ -32599,6 +32664,7 @@
 	dir = 1;
 	pixel_y = 21
 	},
+/obj/machinery/light_switch/west,
 /turf/simulated/floor/sanitary,
 /area/station/crew_quarters/quartersB{
 	name = "Engineering Restroom"
@@ -33441,7 +33507,6 @@
 	name = "Research Maintenance"
 	})
 "ocI" = (
-/obj/stool/bench/wooden,
 /obj/cable{
 	icon_state = "2-5"
 	},
@@ -33666,9 +33731,7 @@
 /obj/machinery/light/small/floor,
 /obj/machinery/light_switch/west,
 /turf/unsimulated/floor/sanitary,
-/area/station/crew_quarters/quartersC{
-	name = "Cargo Restroom"
-	})
+/area/station/crewquarters/cryotron/cargo)
 "ohT" = (
 /obj/machinery/traymachine/morgue{
 	dir = 2
@@ -33741,6 +33804,18 @@
 	dir = 8
 	},
 /obj/machinery/light/small/floor,
+/obj/cable{
+	icon_state = "2-4"
+	},
+/obj/cable{
+	icon_state = "1-4"
+	},
+/obj/cable{
+	icon_state = "4-10"
+	},
+/obj/cable{
+	icon_state = "4-9"
+	},
 /turf/simulated/floor/purplewhite{
 	dir = 8
 	},
@@ -34041,9 +34116,7 @@
 	},
 /obj/cryotron,
 /turf/unsimulated/floor/sanitary,
-/area/station/crew_quarters/quartersC{
-	name = "Cargo Restroom"
-	})
+/area/station/crewquarters/cryotron/cargo)
 "orn" = (
 /obj/disposalpipe/segment/horizontal,
 /turf/simulated/floor/yellow,
@@ -34212,9 +34285,7 @@
 	})
 "oue" = (
 /turf/simulated/wall/auto/reinforced/supernorn/colored/orange,
-/area/station/crew_quarters/quartersC{
-	name = "Cargo Restroom"
-	})
+/area/station/crewquarters/cryotron/cargo)
 "oui" = (
 /obj/machinery/door/poddoor/blast/pyro/podbay_autoclose/arrivals_horizontal/single_horizontal,
 /obj/forcefield/energyshield/perma/doorlink{
@@ -34366,10 +34437,11 @@
 	icon_state = "line1"
 	},
 /obj/machinery/light/small/floor,
+/obj/cable{
+	icon_state = "1-4"
+	},
 /turf/unsimulated/floor/sanitary,
-/area/station/crew_quarters/quartersC{
-	name = "Cargo Restroom"
-	})
+/area/station/crewquarters/cryotron/cargo)
 "ozg" = (
 /obj/machinery/light/small/floor,
 /turf/simulated/floor,
@@ -36305,6 +36377,7 @@
 /obj/storage/crate,
 /obj/item/reagent_containers/dropper,
 /obj/decal/cleanable/dirt,
+/obj/machinery/light_switch/east,
 /turf/simulated/floor/plating/scorched,
 /area/station/storage/hydroponics{
 	do_not_irradiate = 1
@@ -37430,6 +37503,7 @@
 /area/nations_neutral/shipwright/bay1)
 "pNJ" = (
 /obj/machinery/firealarm/directional/east,
+/obj/stool/bench/wooden,
 /turf/simulated/floor/black,
 /area/station/chapel/office)
 "pNK" = (
@@ -38423,6 +38497,8 @@
 	pixel_y = 5;
 	print_id = "Chapel"
 	},
+/obj/cable,
+/obj/machinery/power/data_terminal,
 /turf/simulated/floor/black,
 /area/station/chapel/sanctuary)
 "qmQ" = (
@@ -38803,6 +38879,7 @@
 	dir = 1;
 	pixel_y = 21
 	},
+/obj/machinery/light_switch/east,
 /turf/simulated/floor/sanitary,
 /area/station/crew_quarters/quartersA{
 	name = "Medical Restroom"
@@ -39374,10 +39451,11 @@
 	dir = 4
 	},
 /obj/mapping_helper/access/research,
-/turf/simulated/floor/sanitary,
-/area/station/crew_quarters/quarters{
-	name = "Research Restroom"
-	})
+/obj/cable{
+	icon_state = "4-8"
+	},
+/turf/unsimulated/floor/sanitary,
+/area/station/crewquarters/cryotron/sci)
 "qKu" = (
 /obj/machinery/door/airlock/pyro/glass{
 	dir = 4
@@ -39468,9 +39546,7 @@
 	},
 /obj/cryotron,
 /turf/unsimulated/floor/sanitary,
-/area/station/crew_quarters/quartersA{
-	name = "Medical Restroom"
-	})
+/area/station/crewquarters/cryotron/med)
 "qMU" = (
 /obj/machinery/camera/directional/south,
 /turf/simulated/floor/engine/caution/corner,
@@ -39886,9 +39962,7 @@
 	})
 "qUu" = (
 /turf/simulated/wall/auto/reinforced/supernorn/colored/green,
-/area/station/crew_quarters/toilets{
-	name = "Service Restroom"
-	})
+/area/station/crewquarters/cryotron/civ)
 "qUx" = (
 /obj/table/auto,
 /obj/item/aiModule/notHuman{
@@ -40024,6 +40098,9 @@
 	icon_state = "4-8"
 	},
 /obj/landmark/gps_waypoint,
+/obj/cable{
+	icon_state = "1-4"
+	},
 /turf/simulated/floor/black,
 /area/station/turret_protected/ai)
 "qWG" = (
@@ -40895,10 +40972,11 @@
 /turf/simulated/floor/darkblueblack,
 /area/station/security/interrogation)
 "rtS" = (
+/obj/cable{
+	icon_state = "1-2"
+	},
 /turf/unsimulated/floor/sanitary,
-/area/station/crew_quarters/quartersB{
-	name = "Engineering Restroom"
-	})
+/area/station/crewquarters/cryotron/eng)
 "rul" = (
 /obj/table/reinforced/auto,
 /obj/item/reagent_containers/food/drinks/fueltank{
@@ -41450,10 +41528,11 @@
 	icon_state = "line1"
 	},
 /obj/machinery/light/small/floor,
+/obj/cable{
+	icon_state = "4-8"
+	},
 /turf/unsimulated/floor/sanitary,
-/area/station/crew_quarters/toilets{
-	name = "Service Restroom"
-	})
+/area/station/crewquarters/cryotron/civ)
 "rHy" = (
 /obj/mapping_helper/wingrille_spawn/auto/reinforced,
 /turf/simulated/floor/plating,
@@ -43062,9 +43141,7 @@
 	},
 /obj/machinery/door_control/west,
 /turf/unsimulated/floor/sanitary,
-/area/station/crew_quarters/quartersB{
-	name = "Engineering Restroom"
-	})
+/area/station/crewquarters/cryotron/eng)
 "srg" = (
 /turf/simulated/floor/purpleblack{
 	dir = 10
@@ -43313,9 +43390,7 @@
 	dir = 8
 	},
 /turf/unsimulated/floor/sanitary,
-/area/station/crew_quarters/toilets{
-	name = "Service Restroom"
-	})
+/area/station/crewquarters/cryotron/civ)
 "swH" = (
 /obj/disposalpipe/segment/bent/east,
 /turf/simulated/floor,
@@ -44342,6 +44417,7 @@
 /obj/cable{
 	icon_state = "0-10"
 	},
+/obj/blind_switch/area/east,
 /turf/simulated/floor/black,
 /area/station/chapel/office)
 "sQY" = (
@@ -44690,6 +44766,9 @@
 "tbS" = (
 /obj/cable{
 	icon_state = "2-8"
+	},
+/obj/cable{
+	icon_state = "4-8"
 	},
 /turf/simulated/floor/sanitary,
 /area/station/crew_quarters/toilets{
@@ -46170,10 +46249,12 @@
 	dir = 4;
 	icon_state = "line1"
 	},
+/obj/cable{
+	icon_state = "0-2"
+	},
+/obj/machinery/power/apc/autoname_east,
 /turf/unsimulated/floor/sanitary,
-/area/station/crew_quarters/quartersC{
-	name = "Cargo Restroom"
-	})
+/area/station/crewquarters/cryotron/cargo)
 "tJH" = (
 /turf/simulated/floor,
 /area/station/hallway/secondary/central{
@@ -47918,10 +47999,11 @@
 	dir = 8
 	},
 /obj/machinery/light/small/floor,
+/obj/cable{
+	icon_state = "4-8"
+	},
 /turf/unsimulated/floor/sanitary,
-/area/station/crew_quarters/quarters{
-	name = "Research Restroom"
-	})
+/area/station/crewquarters/cryotron/sci)
 "uxq" = (
 /obj/table/reinforced/bar/auto{
 	name = "wooden table"
@@ -48298,9 +48380,7 @@
 	dir = 8
 	},
 /turf/unsimulated/floor/sanitary,
-/area/station/crew_quarters/quartersB{
-	name = "Engineering Restroom"
-	})
+/area/station/crewquarters/cryotron/eng)
 "uGW" = (
 /obj/machinery/door/airlock/pyro/external,
 /obj/disposalpipe/segment/vertical,
@@ -48334,6 +48414,12 @@
 	},
 /turf/simulated/floor,
 /area/station/hangar/qm)
+"uHH" = (
+/obj/machinery/light_switch/north,
+/turf/simulated/floor/sanitary,
+/area/station/crew_quarters/quarters{
+	name = "Research Restroom"
+	})
 "uHZ" = (
 /turf/simulated/floor/green/side{
 	dir = 1
@@ -48686,6 +48772,9 @@
 	dir = 8
 	},
 /obj/mapping_helper/access/hydro,
+/obj/cable{
+	icon_state = "4-8"
+	},
 /turf/simulated/floor,
 /area/station/hangar/catering)
 "uRq" = (
@@ -48965,9 +49054,16 @@
 /area/station/bridge/united_command{
 	name = "UN General Assembly Chamber"
 	})
+"uXt" = (
+/obj/machinery/light_switch/west,
+/turf/simulated/floor/carpet/darkcarpet,
+/area/station/hallway/secondary/construction)
 "uXJ" = (
 /obj/cable{
 	icon_state = "1-4"
+	},
+/obj/cable{
+	icon_state = "1-8"
 	},
 /turf/simulated/floor,
 /area/station/hangar/catering)
@@ -50674,10 +50770,11 @@
 	},
 /obj/machinery/light/small/floor,
 /obj/machinery/light_switch/east,
+/obj/cable{
+	icon_state = "1-8"
+	},
 /turf/unsimulated/floor/sanitary,
-/area/station/crew_quarters/quarters{
-	name = "Research Restroom"
-	})
+/area/station/crewquarters/cryotron/sci)
 "vMG" = (
 /turf/simulated/floor/stairs/dark/wide{
 	dir = 8
@@ -50961,9 +51058,7 @@
 /area/station/engine/core/thermoelectric)
 "vSn" = (
 /turf/unsimulated/floor/sanitary,
-/area/station/crew_quarters/toilets{
-	name = "Service Restroom"
-	})
+/area/station/crewquarters/cryotron/civ)
 "vSo" = (
 /obj/rack,
 /obj/item/clothing/suit/space/engineer,
@@ -52581,9 +52676,7 @@
 /obj/machinery/light/small/floor,
 /obj/machinery/light_switch/west,
 /turf/unsimulated/floor/sanitary,
-/area/station/crew_quarters/quartersB{
-	name = "Engineering Restroom"
-	})
+/area/station/crewquarters/cryotron/eng)
 "wIb" = (
 /obj/stool/chair{
 	dir = 4
@@ -53181,6 +53274,9 @@
 /area/station/hallway/secondary/northwest{
 	name = "Service West Hallway"
 	})
+"wXt" = (
+/turf/unsimulated/floor/sanitary,
+/area/station/crewquarters/cryotron/eng)
 "wXK" = (
 /obj/stool/chair{
 	dir = 1
@@ -53810,6 +53906,13 @@
 	},
 /turf/simulated/floor/grass/leafy,
 /area/station/ranch)
+"xnj" = (
+/obj/landmark/halloween,
+/obj/cable{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/white,
+/area/station/science/hall)
 "xnM" = (
 /obj/stool/chair/office/blue{
 	dir = 4
@@ -54283,10 +54386,11 @@
 /obj/landmark/gps_waypoint{
 	name = "Medical Cryo"
 	},
+/obj/cable{
+	icon_state = "2-4"
+	},
 /turf/unsimulated/floor/sanitary,
-/area/station/crew_quarters/quartersA{
-	name = "Medical Restroom"
-	})
+/area/station/crewquarters/cryotron/med)
 "xvZ" = (
 /obj/table/reinforced/auto,
 /obj/item/paper_bin,
@@ -54382,6 +54486,7 @@
 /obj/item/mining_tool,
 /obj/item/storage/belt/utility,
 /obj/item/wrapping_paper,
+/obj/machinery/light_switch/east,
 /turf/simulated/floor/plating,
 /area/station/storage/warehouse{
 	do_not_irradiate = 1;
@@ -55026,7 +55131,6 @@
 	name = "Cargo Customs"
 	})
 "xLi" = (
-/obj/stool/bench/wooden,
 /obj/machinery/light_switch/east,
 /obj/cable{
 	icon_state = "1-2"
@@ -55576,9 +55680,7 @@
 /area/station/ranch)
 "xWN" = (
 /turf/simulated/wall/auto/reinforced/supernorn/colored/purple,
-/area/station/crew_quarters/quarters{
-	name = "Research Restroom"
-	})
+/area/station/crewquarters/cryotron/sci)
 "xWU" = (
 /obj/cable{
 	icon_state = "4-8"
@@ -80256,7 +80358,7 @@ cwK
 cwK
 cwK
 aMc
-gpG
+bdh
 xvK
 gpG
 ecF
@@ -85649,7 +85751,7 @@ hpn
 gkC
 mox
 kDd
-kTB
+eVz
 qaX
 aVi
 sKK
@@ -86846,7 +86948,7 @@ hSM
 fvu
 pXz
 xpg
-xpg
+uXt
 xpg
 hKE
 hNb
@@ -92291,7 +92393,7 @@ pLA
 iUc
 vtE
 bOA
-mMH
+vYA
 khF
 cys
 fVY
@@ -92895,7 +92997,7 @@ pLA
 jdr
 imt
 xoA
-mOT
+baW
 mOT
 mOT
 wua
@@ -93197,7 +93299,7 @@ pLA
 iUc
 jMo
 hbS
-mOT
+baW
 uUS
 wGy
 wua
@@ -97706,7 +97808,7 @@ wkN
 qxn
 geE
 cHk
-dct
+mvp
 mgM
 hLb
 wZQ
@@ -100575,7 +100677,7 @@ dCj
 tPf
 acD
 pCS
-tsM
+xnj
 lhK
 acD
 tPf
@@ -103903,7 +104005,7 @@ hAg
 vjA
 hNW
 fQR
-wDb
+uHH
 akM
 iiW
 cea
@@ -107974,7 +108076,7 @@ pSG
 isp
 cZC
 uKA
-lJg
+lsf
 hTQ
 dgt
 sSH
@@ -125556,7 +125658,7 @@ cwK
 cwK
 cwK
 cBY
-rtS
+wXt
 aQf
 rtS
 kdC
