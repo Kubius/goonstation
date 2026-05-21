@@ -81,7 +81,10 @@ ABSTRACT_TYPE(/datum/nation)
 		/datum/job/civilian/AI,
 		/datum/job/civilian/cyborg,
 	)
-	citizen_job_categories = list(JOB_SECURITY)
+	citizen_job_categories = list(
+		JOB_SECURITY,
+		JOB_NANOTRASEN,
+	)
 
 /datum/nation/engineering
 	name = "Engistan"
