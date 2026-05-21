@@ -140,7 +140,11 @@ ABSTRACT_TYPE(/datum/job/civilian)
 
 /datum/job/civilian/clown
 	name = "Clown"
+#ifdef MAP_OVERRIDE_NATIONS
+	limit = 5
+#else
 	limit = 1
+#endif
 	wages = PAY_DUMBCLOWN
 	request_limit = 3 //this is definitely a bad idea
 	request_cost = PAY_TRADESMAN*4

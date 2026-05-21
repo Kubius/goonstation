@@ -152,9 +152,13 @@ TYPEINFO(/obj/item/card/emag)
 	icon_state = "id_civ"
 
 /obj/item/card/id/clown
+	name = "clown access card"
 	icon_state = "id_clown"
 	desc = "Wait, this isn't even an ID Card. It's a piece of a Chips Ahoy wrapper with crayon scribbles on it. What the fuck?"
 	keep_icon = TRUE
+	New()
+		..()
+		src.access = get_access("Clown")
 
 /obj/item/card/id/gold
 	name = "gold identification card"

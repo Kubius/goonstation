@@ -35,6 +35,7 @@
 /// Maximum "selectable" freq
 #define R_FREQ_MAXIMUM 1489
 #define R_FREQ_DEFAULT 1459
+#define R_FREQ_CLOWN 1348
 #define R_FREQ_NANOTRASEN 1350
 #define R_FREQ_COMMAND 1358
 #define R_FREQ_SECURITY 1359
@@ -81,6 +82,8 @@ proc/default_frequency_color(freq)
 			return RADIOC_STANDARD
 		if(R_FREQ_NANOTRASEN)
 			return RADIOC_NANOTRASEN
+		if(R_FREQ_CLOWN)
+			return RADIOC_OTHER
 		if(R_FREQ_COMMAND)
 			return RADIOC_COMMAND
 		if(R_FREQ_SECURITY)
@@ -136,6 +139,7 @@ proc/default_frequency_color(freq)
 		R_FREQ_MEDICAL = RADIOCL_MEDICAL,
 		R_FREQ_CIVILIAN = RADIOCL_CIVILIAN,
 		R_FREQ_NANOTRASEN = RADIOCL_NANOTRASEN,
+		R_FREQ_CLOWN = RADIOCL_OTHER,
 		R_FREQ_INTERCOM_AI = RADIOCL_INTERCOM_AI,
 		//Antagonist frequencies
 		R_FREQ_SYNDICATE = RADIOCL_SYNDICATE,

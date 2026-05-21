@@ -36,3 +36,7 @@
 	nation_type = /datum/nation/supply
 	minimap_type = MAP_NATIONS_SUP
 	minimap_marker = "dot_orange"
+
+/obj/item/passport/clown
+	icon_state = "passport-clown"
+	nation_type = /datum/nation/clown
