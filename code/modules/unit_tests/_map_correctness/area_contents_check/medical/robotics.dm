@@ -13,7 +13,9 @@
 		CONTENTS_GT(/obj/machinery/computer/robot_module_rewriter, 0),
 		CONTENTS_GT(/obj/machinery/manufacturer/robotics, 0),
 		CONTENTS_GT(/obj/machinery/portable_reclaimer, 0),
+#ifndef MAP_OVERRIDE_NATIONS
 		CONTENTS_EQ(/obj/submachine/cargopad/robotics, 1),
+#endif
 		CONTENTS_GT(/obj/machinery/recharge_station, 1),
 		CONTENTS_GT(/obj/machinery/cell_charger, 0),
 		CONTENTS_GT(/obj/item/device/multitool, 0),

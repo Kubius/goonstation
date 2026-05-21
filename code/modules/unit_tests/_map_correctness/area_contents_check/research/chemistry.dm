@@ -19,8 +19,10 @@
 		// Utility
 		CONTENTS_GT(/obj/machinery/glass_recycler/chemistry, 0),
 		CONTENTS_GT(/obj/machinery/drainage, 0),
+#ifndef MAP_OVERRIDE_NATIONS
 		CONTENTS_EQ(/obj/machinery/computer/chem_request_receiver, 1),
 		CONTENTS_EQ(/obj/machinery/disposal/chemlink, 1),
+#endif
 		// Supplies
 		CONTENTS_OR(
 			list(CONTENTS_GT(/obj/storage/secure/closet/research/chemical, 0)),

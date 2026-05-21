@@ -2770,9 +2770,25 @@ ABSTRACT_TYPE(/area/station/crew_quarters/radio)
 	icon_state = "fuq3"
 
 /area/station/crewquarters/cryotron
-	name ="Cryogenic Crew Storage"
+	name = "Cryogenic Crew Storage"
 	icon_state = "blue"
 	do_not_irradiate = TRUE
+
+//nations
+/area/station/crewquarters/cryotron/cargo
+	name = "Logistics Personnel Cryo"
+
+/area/station/crewquarters/cryotron/civ
+	name = "Service Personnel Cryo"
+
+/area/station/crewquarters/cryotron/eng
+	name = "Engineering Personnel Cryo"
+
+/area/station/crewquarters/cryotron/med
+	name = "Medical Personnel Cryo"
+
+/area/station/crewquarters/cryotron/sci
+	name = "Research Personnel Cryo"
 
 ABSTRACT_TYPE(/area/station/com_dish)
 /area/station/com_dish

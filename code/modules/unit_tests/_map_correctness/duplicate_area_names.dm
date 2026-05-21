@@ -4,7 +4,7 @@
 /datum/map_correctness_check/duplicate_area_names/run_check()
 	var/list/area_names = list()
 	for_by_tcl(A, /area)
-		if (istype(A, /area/shuttle/merchant_shuttle))
+		if (istype(A, /area/shuttle/merchant_shuttle) || A.name == "Space")
 			continue
 
 		area_names[A.name] ||= list()
