@@ -4,6 +4,9 @@
 	regular = FALSE
 	do_antag_random_spawns = 0
 	latejoin_antag_compatible = 0
+	crew_shortage_enabled = 0
+
+	shuttle_available = SHUTTLE_AVAILABLE_DISABLED
 
 	/// A list of nation datums to assign minds to.
 	var/list/datum/nation/nations = list()
