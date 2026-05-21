@@ -1596,7 +1596,7 @@ datum/commodity/drugs/sell/poppies
 	comname = "Pink Clown Equipment"
 	comtype = /obj/item/storage/box/costume/clown/pink
 
-/datum/commodity/costume/clown/blue
+/datum/commodity/costume/clown/yellow
 	comname = "Yellow Clown Equipment"
 	comtype = /obj/item/storage/box/costume/clown/yellow
 
