@@ -3698,6 +3698,9 @@
 /area/station/storage/eva)
 "bGn" = (
 /obj/machinery/firealarm/directional/east,
+/obj/stool/chair/comfy/purple{
+	dir = 8
+	},
 /turf/simulated/floor/wood/two,
 /area/station/crew_quarters/hor)
 "bGs" = (
@@ -14696,13 +14699,10 @@
 /turf/simulated/floor/engine/caution/east,
 /area/station/hangar/catering)
 "grS" = (
-/obj/nations_control_point_computer{
-	dir = 4
-	},
 /obj/cable{
 	icon_state = "0-4"
 	},
-/obj/machinery/alarm/directional/west,
+/obj/machinery/power/apc/autoname_west,
 /turf/simulated/floor/yellowblack{
 	dir = 4
 	},
@@ -16527,7 +16527,6 @@
 	name = "Service East Hallway"
 	})
 "heX" = (
-/obj/machinery/power/apc/autoname_west,
 /obj/cable{
 	icon_state = "0-4"
 	},
@@ -16536,6 +16535,10 @@
 	layer = 9.1;
 	pixel_y = 21
 	},
+/obj/nations_control_point_computer{
+	dir = 4
+	},
+/obj/machinery/alarm/directional/west,
 /turf/simulated/floor/yellowblack{
 	dir = 4
 	},
@@ -24655,11 +24658,8 @@
 /turf/simulated/floor/wood/two,
 /area/station/crew_quarters/fitness)
 "kvq" = (
-/obj/nations_control_point_computer,
-/turf/simulated/floor/terrazzo,
-/area/station/quartermaster/cargooffice{
-	name = "Cargonian High Court"
-	})
+/turf/simulated/floor/wood/two,
+/area/station/crew_quarters/hor)
 "kvz" = (
 /obj/disposalpipe/segment/vertical,
 /turf/simulated/floor/orangeblack/side{
@@ -37490,7 +37490,14 @@
 /turf/simulated/floor/carpet/purple/fancy/edge/sw,
 /area/station/crew_quarters/hor/horprivate)
 "pSd" = (
-/turf/simulated/floor/caution/westeast,
+/obj/decal/tile_edge/stripe/extra_big{
+	dir = 10
+	},
+/obj/decal/tile_edge/stripe/extra_big{
+	dir = 5;
+	icon_state = "xtra_bigstripe-corner2"
+	},
+/turf/simulated/floor,
 /area/nations_neutral/hoot)
 "pSq" = (
 /obj/machinery/light{
@@ -43447,11 +43454,12 @@
 /turf/simulated/floor/blueblack,
 /area/station/turret_protected/ai_upload)
 "sAd" = (
-/obj/stool/chair{
-	dir = 4
+/obj/decal/tile_edge/stripe/extra_big{
+	dir = 1
 	},
-/turf/simulated/floor/industrial,
-/area/nations_neutral/shipwright)
+/obj/decal/tile_edge/stripe/extra_big,
+/turf/simulated/floor,
+/area/nations_neutral/hoot)
 "sAh" = (
 /obj/machinery/door/airlock/pyro/glass/botany{
 	dir = 8
@@ -45873,9 +45881,11 @@
 	name = "Service Crew Quarters"
 	})
 "tFy" = (
-/obj/stool/chair/comfy/purple,
-/turf/simulated/floor/wood/two,
-/area/station/crew_quarters/hor)
+/obj/stool/chair{
+	dir = 1
+	},
+/turf/simulated/floor/industrial,
+/area/nations_neutral/shipwright)
 "tFA" = (
 /obj/machinery/vending/air_vendor,
 /turf/simulated/floor/orangeblack/side{
@@ -47826,6 +47836,17 @@
 "uwq" = (
 /turf/simulated/floor/black,
 /area/station/medical/staff)
+"uwZ" = (
+/obj/machinery/light{
+	dir = 1;
+	layer = 9.1;
+	pixel_y = 21
+	},
+/obj/nations_control_point_computer,
+/turf/simulated/floor/terrazzo,
+/area/station/quartermaster/cargooffice{
+	name = "Cargonian High Court"
+	})
 "uxb" = (
 /obj/machinery/door/airlock/pyro/glass{
 	dir = 4
@@ -48858,7 +48879,13 @@
 	dir = 1;
 	pixel_y = 21
 	},
-/turf/simulated/floor/caution/westeast,
+/obj/decal/tile_edge/stripe/extra_big{
+	dir = 4
+	},
+/obj/decal/tile_edge/stripe/extra_big{
+	dir = 8
+	},
+/turf/simulated/floor,
 /area/nations_neutral/hoot)
 "uXg" = (
 /obj/nations_control_point_computer,
@@ -75742,8 +75769,8 @@ iJh
 iJh
 iJh
 nbI
-iov
 itm
+sAd
 nbI
 lZK
 iJh
@@ -98384,7 +98411,7 @@ sRz
 bzm
 cwK
 jHq
-tFy
+kfv
 vQd
 xtu
 wBw
@@ -98689,7 +98716,7 @@ hPF
 itL
 duf
 bGn
-kfv
+kvq
 rXd
 bGW
 rpa
@@ -115772,7 +115799,7 @@ tHb
 gBP
 gBU
 bFn
-kvq
+nfW
 nfW
 nfW
 nfW
@@ -116074,7 +116101,7 @@ pht
 pht
 pht
 bFn
-hee
+uwZ
 nfW
 hpM
 nfW
@@ -123475,8 +123502,8 @@ byR
 dGB
 ngW
 uOv
-sAd
-sAd
+mul
+mul
 vDZ
 ngW
 ske
@@ -123777,8 +123804,8 @@ ddx
 ddx
 ngW
 rau
-mul
 wCh
+tFy
 mVS
 ngW
 ddx
