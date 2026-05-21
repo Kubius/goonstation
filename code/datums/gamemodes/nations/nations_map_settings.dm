@@ -39,3 +39,18 @@
 	merchant_right_station = null
 
 	valid_nuke_targets = list()
+
+/datum/map_settings/nations/init()
+	job_controls.allow_special_jobs = FALSE
+
+	for (var/datum/job/J in job_controls.staple_jobs)
+		// Cull daily jobs.
+		if (J.job_category == JOB_DAILY)
+			J.limit = 0
+			continue
+		if (J.type in src.job_limits_override)
+			J.limit = src.job_limits_override[J.type]
+			J.upper_limit = J.limit
+
+	SPAWN(5 SECONDS)
+		src.set_cargo_shipping_method()
