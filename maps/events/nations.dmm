@@ -28678,7 +28678,7 @@
 /area/station/security/hos)
 "lZu" = (
 /obj/machinery/door/airlock/pyro,
-/turf/simulated/wall/auto/supernorn,
+/turf/simulated/floor/sanitary,
 /area/station/crew_quarters/showers)
 "mab" = (
 /obj/storage/closet/emergency,
@@ -32975,7 +32975,9 @@
 /obj/machinery/computer/operating/small{
 	id = "robotics"
 	},
-/obj/machinery/firealarm/directional/north,
+/obj/machinery/sink/slim{
+	pixel_y = 16
+	},
 /turf/simulated/floor/sanitary/white,
 /area/station/medical/robotics)
 "nMv" = (
@@ -42053,6 +42055,7 @@
 	pixel_y = -12
 	},
 /obj/item/scalpel,
+/obj/machinery/firealarm/directional/north,
 /turf/simulated/floor/sanitary/white,
 /area/station/medical/robotics)
 "rOT" = (
@@ -50208,6 +50211,7 @@
 	icon_state = "0-2"
 	},
 /obj/item/device/radio/intercom/medical,
+/obj/machinery/power/data_terminal,
 /turf/simulated/floor/black,
 /area/station/medical/robotics)
 "vtE" = (
@@ -52135,6 +52139,7 @@
 	},
 /obj/mapping_helper/access/robotics,
 /obj/mapping_helper/firedoor_spawn,
+/obj/machinery/power/data_terminal,
 /turf/simulated/floor/black,
 /area/station/medical/robotics)
 "wmx" = (
