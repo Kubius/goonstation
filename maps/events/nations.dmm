@@ -28538,10 +28538,6 @@
 /obj/machinery/door/airlock/pyro,
 /turf/simulated/wall/auto/supernorn,
 /area/station/crew_quarters/showers)
-"lZK" = (
-/turf/simulated/floor/grass/leafy,
-/turf/simulated/wall/auto/asteroid/dark,
-/area/nations_neutral/hoot)
 "mab" = (
 /obj/storage/closet/emergency,
 /turf/simulated/floor/plating,
@@ -31580,10 +31576,6 @@
 /area/station/crew_quarters/tenebrae{
 	name = "Research Crew Quarters"
 	})
-"nlC" = (
-/turf/simulated/wall/auto/asteroid/dark,
-/turf/simulated/floor/grass/leafy,
-/area/nations_neutral/hoot)
 "nlW" = (
 /obj/cable{
 	icon_state = "1-2"
@@ -75804,7 +75796,7 @@ nbI
 itm
 kEG
 nbI
-lZK
+iJh
 iJh
 cBK
 qAi
@@ -76406,9 +76398,9 @@ iJh
 iJh
 iJh
 iJh
-nlC
-nlC
-nlC
+iJh
+iJh
+iJh
 qAi
 qAi
 qAi
@@ -76709,7 +76701,7 @@ iJh
 iJh
 nbI
 nbI
-nlC
+iJh
 qcZ
 qAi
 qAi
