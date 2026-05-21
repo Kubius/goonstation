@@ -69,6 +69,14 @@ ABSTRACT_TYPE(/datum/nation)
 	src.citizens -= citizen
 	logTheThing(LOG_GAMEMODE, src, "removed [key_name(citizen)] from the nation of [src.name]!")
 
+/datum/nation/proc/get_role_type(datum/mind/citizen)
+	if (!(citizen in src.citizens))
+		return
+	for (var/role_id as anything in src.leaders)
+		if (src.leaders[role_id] == citizen)
+			return role_id
+	return citizen_role
+
 /datum/nation/proc/get_short_name()
 	if (length(src.short_name))
 		return src.short_name
