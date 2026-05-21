@@ -24,18 +24,11 @@
 
 	src.update_screen("screen")
 
-	if (src.dir == NORTH || src.dir == SOUTH)
-		src.bound_width = 64
-		src.bound_height = 32
-	else if (src.dir == EAST || src.dir == WEST)
-		src.bound_width = 32
-		src.bound_height = 64
-
 /obj/nations_control_point_computer/proc/update_screen(var/icon_state)
-	src.screen = image('icons/obj/control_point_computer.dmi', icon_state)
+	src.screen = image(src.icon, icon_state)
 	src.UpdateOverlays(src.screen, "screen")
 
-	src.screen_light = image('icons/obj/control_point_computer.dmi', icon_state)
+	src.screen_light = image(src.icon, icon_state)
 	src.screen_light.plane = PLANE_LIGHTING
 	src.screen_light.blend_mode = BLEND_ADD
 	src.screen_light.layer = LIGHTING_LAYER_BASE
@@ -43,7 +36,7 @@
 	src.UpdateOverlays(src.screen_light, "screen_light")
 
 /obj/nations_control_point_computer/proc/update_name_overlay(var/icon_state)
-	src.name_overlay = image('icons/obj/control_point_computer.dmi', icon_state)
+	src.name_overlay = image(src.icon, icon_state)
 	src.UpdateOverlays(src.name_overlay, "name_overlay")
 
 /obj/nations_control_point_computer/ex_act()
