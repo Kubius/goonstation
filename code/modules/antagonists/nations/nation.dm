@@ -114,10 +114,10 @@ ABSTRACT_TYPE(/datum/nation)
 	passport_type = /obj/item/passport/clown
 	nation_color = "#d73715"
 	control_point_icon_state = "clown"
-	leader_jobs = alist(/datum/job/civilian/clown/ringmaster = ROLE_NATION_CLN_LEADER)
+	leader_jobs = alist(/datum/job/neutral/clown/ringmaster = ROLE_NATION_CLN_LEADER)
 	citizen_role = ROLE_NATION_CLN
 	citizen_jobs = list(
-		/datum/job/civilian/clown,
+		/datum/job/neutral/clown,
 		/datum/job/special/clown,
 	)
 	citizen_job_categories = list(JOB_CLOWN)
@@ -164,10 +164,6 @@ ABSTRACT_TYPE(/datum/nation)
 	passport_type = /obj/item/passport/supply
 	nation_color = "#4a301b"
 	control_point_icon_state = "supply"
-	leader_jobs = alist(/datum/job/engineering/quartermaster/head = ROLE_NATION_SUP_LEADER)
+	leader_jobs = alist(/datum/job/command/supply_coordinator = ROLE_NATION_SUP_LEADER)
 	citizen_role = ROLE_NATION_SUP
-	leader_jobs = list(/datum/job/command/supply_coordinator)
-	citizen_jobs = list(
-		/datum/job/supply/miner,
-		/datum/job/supply/quartermaster,
-	)
+	citizen_jobs = list(JOB_SUPPLY)
