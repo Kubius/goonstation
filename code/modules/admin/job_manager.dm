@@ -19,7 +19,7 @@
 	var/list/special_job_data = list()
 	var/list/categorised_special_job_data = list()
 	var/list/hidden_job_data = list()
-	var/list/staple_job_categories = list(JOB_COMMAND, JOB_SECURITY, JOB_RESEARCH, JOB_MEDICAL, JOB_ENGINEERING, JOB_CIVILIAN)
+	var/list/staple_job_categories = list(JOB_COMMAND, JOB_SECURITY, JOB_RESEARCH, JOB_MEDICAL, JOB_ENGINEERING, JOB_SUPPLY, JOB_CIVILIAN, JOB_NEUTRAL)
 	// If adding more, make sure to add the category in JobManager.tsx
 	var/list/special_job_categories = list(JOB_NANOTRASEN, JOB_SYNDICATE, JOB_HALLOWEEN, JOB_CLOWN, JOB_RANDOM, JOB_DAILY)
 	for (var/datum/job/job in job_controls.staple_jobs)

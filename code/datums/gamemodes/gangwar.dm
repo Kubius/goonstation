@@ -504,9 +504,9 @@
 			src.gang_tag = rand(0, 22)
 		src.used_tags += src.gang_tag
 
-		src.gang_frequency = rand(1360, 1420)
+		src.gang_frequency = rand(1361, 1420)
 		while(src.gang_frequency in src.used_frequencies)
-			src.gang_frequency = rand(1360, 1420)
+			src.gang_frequency = rand(1361, 1420)
 		src.used_frequencies += src.gang_frequency
 		protected_frequencies += gang_frequency
 

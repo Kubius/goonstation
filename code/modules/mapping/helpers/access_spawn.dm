@@ -19,7 +19,7 @@
 #define TOXINS "#a3f73d"
 #define RESEARCH "#b23df7"
 #define ENGINEERING "#f7af3d"
-#define CARGO "#f7e43d"
+#define SUPPLY "#c4a85c"
 #define MAINTENANCE "#e5ff32"
 #define COMMAND "#00783c"
 
@@ -81,10 +81,6 @@
 	color = MEDICAL
 
 //////////// Engineering ////
-/obj/mapping_helper/access/cargo
-	name = "cargo access spawn"
-	req_access = list(access_cargo)
-	color = CARGO
 
 /obj/mapping_helper/access/engineering
 	name = "engineering access spawn"
@@ -121,15 +117,27 @@
 	req_access = list(access_engineering_control)
 	color = ENGINEERING
 
+//////////// Supply ////
+
+/obj/mapping_helper/access/supply_head
+	name = "supply head access spawn"
+	req_access = list(access_supply_head)
+	color = SUPPLY
+
+/obj/mapping_helper/access/cargo
+	name = "cargo access spawn"
+	req_access = list(access_cargo)
+	color = SUPPLY
+
 /obj/mapping_helper/access/mining
 	name = "mining EVA access spawn"
 	req_access = list(access_mining)
-	color = CARGO
+	color = SUPPLY
 
 /obj/mapping_helper/access/mining_outpost
 	name = "mining_outpost access spawn"
 	req_access = list(access_mining_outpost)
-	color = CARGO
+	color = SUPPLY
 
 //////////// Research ////
 /obj/mapping_helper/access/tox
@@ -341,12 +349,12 @@
 /obj/mapping_helper/access/polariscargo
 	name = "polaris cargo access spawn"
 	req_access = list(access_polariscargo)
-	color = CARGO
+	color = SUPPLY
 
 /obj/mapping_helper/access/polarisimportant
 	name = "polaris important access spawn"
 	req_access = list(access_polarisimportant)
-	color = CARGO
+	color = SUPPLY
 
 /obj/mapping_helper/access/impossible
 	name = "impossible access spawn"
@@ -369,6 +377,6 @@
 #undef TOXINS
 #undef RESEARCH
 #undef ENGINEERING
-#undef CARGO
+#undef SUPPLY
 #undef MAINTENANCE
 #undef COMMAND

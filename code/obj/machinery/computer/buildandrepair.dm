@@ -91,6 +91,11 @@ TYPEINFO(/obj/item/circuitboard)
 	computertype = /obj/machinery/computer/card/department/engineering
 	icon_state = "circuit_engineering"
 
+/obj/item/circuitboard/card/supply
+	name = "circuit board (supply ID computer)"
+	computertype = /obj/machinery/computer/card/department/supply
+	icon_state = "circuit_engineering"
+
 /obj/item/circuitboard/card/medical
 	name = "circuit board (medical ID computer)"
 	computertype = /obj/machinery/computer/card/department/medical
@@ -106,6 +111,10 @@ TYPEINFO(/obj/item/circuitboard)
 	computertype = /obj/machinery/computer/card/department/security
 	icon_state = "circuit_security"
 
+/obj/item/circuitboard/card/civilian
+	name = "circuit board (civilian ID computer)"
+	computertype = /obj/machinery/computer/card/department/civilian
+	icon_state = "circuit_civilian"
 
 /obj/item/circuitboard/teleporter
 	name = "circuit board (teleporter)"
@@ -257,6 +266,11 @@ TYPEINFO(/obj/item/circuitboard/announcement/bridge)
 /obj/item/circuitboard/announcement/engineering
 	name = "circuit board (engineering announcement computer)"
 	computertype = /obj/machinery/computer/announcement/station/engineering
+	icon_state = "circuit_engineering"
+
+/obj/item/circuitboard/announcement/supply
+	name = "circuit board (supply announcement computer)"
+	computertype = /obj/machinery/computer/announcement/station/supply
 	icon_state = "circuit_engineering"
 
 /obj/item/circuitboard/announcement/cargo

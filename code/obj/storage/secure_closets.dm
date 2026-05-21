@@ -364,6 +364,25 @@
 		/obj/item/device/pda2/chiefengineer
 	)
 
+/obj/storage/secure/closet/command/supply_coordinator
+	name = "\improper Supply Coordinator's locker"
+	req_access = list(access_supply_head)
+	spawn_contents = list(
+		/obj/item/disk/data/floppy/manudrive/law_rack,
+		/obj/item/disk/data/floppy/manudrive/gravity_tether/singleuse,
+		/obj/item/storage/box/clothing/supply_coordinator,
+		/obj/item/device/radio/headset/command/sc,
+		/obj/item/stamp/qm,
+		/obj/item/device/flash,
+		/obj/item/clothing/shoes/brown,
+		/obj/item/clothing/gloves/black,
+		/obj/item/storage/box/misctools_supply,
+		/obj/item/pet_carrier,
+		/obj/item/device/pda2/supply_coordinator,
+		/obj/item/circuitboard/card/supply,
+		/obj/item/circuitboard/announcement/supply,
+	)
+
 /* ==================== */
 /* ----- Security ----- */
 /* ==================== */

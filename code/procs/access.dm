@@ -131,8 +131,9 @@
 		if("Captain")
 			return get_all_accesses() + list(access_maxsec)
 		if("Head of Personnel")
-			return get_all_accesses() - list(access_captain, access_engineering_chief, access_medical_director, access_research_director,
-											access_securitylockers, access_brig, access_forensics_lockers, access_medical_lockers, access_engineering_power)
+			return list(access_heads, access_sysadmin, access_maint_tunnels,
+						access_chapel_office, access_crematorium, access_kitchen, access_bar, access_janitor, access_hydro, access_ranch,
+			)
 		if("Head of Security")
 			return list(access_security, access_carrypermit, access_contrabandpermit, access_maxsec, access_brig, access_securitylockers,
 						access_forensics_lockers, access_armory, access_ticket, access_tox, access_tox_storage, access_chemistry, access_medical,
@@ -158,8 +159,12 @@
 			return list(access_engineering, access_maint_tunnels,
 						access_tech_storage, access_sysadmin, access_engineering_storage, access_engineering_atmos,
 						access_engineering_power, access_engineering_engine,
-						access_engineering_control, access_engineering_mechanic, access_engineering_chief, access_mining, access_mining_outpost,
-						access_heads, access_ai_upload, access_eva, access_cargo, access_supply_console, access_teleporter)
+						access_engineering_control, access_engineering_mechanic, access_engineering_chief,
+						access_heads, access_ai_upload, access_eva, access_teleporter)
+		if("Supply Coordinator")
+			return list(access_maint_tunnels, access_sysadmin, access_tech_storage,
+						access_supply_head, access_mining, access_mining_outpost, access_cargo, access_supply_console,
+						access_heads, access_ai_upload, access_eva, access_teleporter)
 		if("Head of Mining", "Mining Supervisor")
 			return list(access_engineering, access_maint_tunnels, access_mining,
 						access_mining_outpost, access_heads, access_ai_upload, access_eva)
@@ -284,8 +289,8 @@
 				access_bar, access_janitor, access_crematorium, access_robotics, access_cargo, access_supply_console, access_hydro, access_ranch,
 				access_engineering, access_maint_tunnels,
 				access_tech_storage, access_engineering_storage,
-				access_engineering_power, access_engineering_engine,
-				access_engineering_control, access_engineering_mechanic, access_engineering_chief, access_mining, access_mining_outpost,
+				access_engineering_power, access_engineering_engine, access_engineering_control, access_engineering_mechanic,
+				access_engineering_chief, access_mining, access_mining_outpost, access_supply_head,
 				access_research, access_research_director, access_sysadmin, access_engineering_atmos, access_medical_director,
 				access_researchfoyer, access_telesci, access_artlab, access_robotdepot, access_money, access_pharmacy)
 #endif

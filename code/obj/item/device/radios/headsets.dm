@@ -199,6 +199,7 @@
 		"h" = R_FREQ_COMMAND,
 		"g" = R_FREQ_SECURITY,
 		"e" = R_FREQ_ENGINEERING,
+		"q" = R_FREQ_SUPPLY,
 		"r" = R_FREQ_RESEARCH,
 		"m" = R_FREQ_MEDICAL,
 		"c" = R_FREQ_CIVILIAN,
@@ -212,6 +213,7 @@
 	icon_state = "radio"
 	secure_frequencies = list(
 		"e" = R_FREQ_ENGINEERING,
+		"q" = R_FREQ_SUPPLY,
 		"r" = R_FREQ_RESEARCH,
 		"m" = R_FREQ_MEDICAL,
 		"c" = R_FREQ_CIVILIAN,
@@ -230,6 +232,7 @@
 		"h" = R_FREQ_COMMAND,
 		"g" = R_FREQ_SECURITY,
 		"e" = R_FREQ_ENGINEERING,
+		"q" = R_FREQ_SUPPLY,
 		"r" = R_FREQ_RESEARCH,
 		"m" = R_FREQ_MEDICAL,
 		"c" = R_FREQ_CIVILIAN,
@@ -252,9 +255,6 @@
 	desc = "The HoP cannot listen or speak on the security frequency anymore, not since the incident."
 	secure_frequencies = list(
 		"h" = R_FREQ_COMMAND,
-		"e" = R_FREQ_ENGINEERING,
-		"r" = R_FREQ_RESEARCH,
-		"m" = R_FREQ_MEDICAL,
 		"c" = R_FREQ_CIVILIAN,
 		)
 	icon_override = "hop"
@@ -266,7 +266,6 @@
 	secure_frequencies = list(
 		"h" = R_FREQ_COMMAND,
 		"r" = R_FREQ_RESEARCH,
-		"m" = R_FREQ_MEDICAL,
 		)
 	icon_override = "rd"
 	icon_tooltip = "Research Director"
@@ -276,7 +275,6 @@
 	desc = "This headset can receive on the Research channel in addition to other secure frequencies. The 'med' part of 'medsci'."
 	secure_frequencies = list(
 		"h" = R_FREQ_COMMAND,
-		"r" = R_FREQ_RESEARCH,
 		"m" = R_FREQ_MEDICAL,
 		)
 	icon_override = "md"
@@ -291,6 +289,16 @@
 		)
 	icon_override = "ce"
 	icon_tooltip = "Chief Engineer"
+
+/obj/item/device/radio/headset/command/sc
+	name = "supply coordinator's headset"
+	desc = "For logicstics, market value, and rocks."
+	secure_frequencies = list(
+		"h" = R_FREQ_COMMAND,
+		"q" = R_FREQ_SUPPLY,
+	)
+	icon_override = "sc"
+	icon_tooltip = "Supply Coordinator"
 
 /obj/item/device/radio/headset/security
 	name = "security headset"
@@ -339,7 +347,7 @@
 	desc = "One of the most commonly produced headsets by Nanotrasen, despite the comparably low hire rates of pharmacists."
 	icon_state = "pharmacist headset"
 	wear_state = "med headset"
-	secure_frequencies = list("m" = R_FREQ_MEDICAL, "r" = R_FREQ_RESEARCH)
+	secure_frequencies = list("m" = R_FREQ_MEDICAL)
 	icon_override = "pharmacist"
 	icon_tooltip = "Pharmacist"
 
@@ -392,8 +400,7 @@
 	desc = "Used by the station's quartermasters, who move freight and master the art of watching numbers go up and down."
 	icon_state = "shipping headset"
 	secure_frequencies = list(
-	"e" = R_FREQ_ENGINEERING,
-	"c" = R_FREQ_CIVILIAN)
+		"q" = R_FREQ_SUPPLY)
 	icon_override = "qm"
 	icon_tooltip = "Quartermaster"
 
@@ -402,7 +409,7 @@
 	desc = "Rumor has it that these grow naturally in space, typically alongside discarded breath masks or space suits drenched in human blood. Nature is beautiful."
 	icon_state = "shipping headset"
 	secure_frequencies = list(
-	"e" = R_FREQ_ENGINEERING)
+		"q" = R_FREQ_SUPPLY)
 	icon_override = "Min"
 	icon_tooltip = "Miner"
 
@@ -411,8 +418,7 @@
 	desc = "In a land of belt hells, the pit fiend is king."
 	icon_state = "command headset"
 	secure_frequencies = list(
-	"h" = R_FREQ_COMMAND,
-	"c" = R_FREQ_CIVILIAN)
+	"h" = R_FREQ_COMMAND)
 	icon_override = "mail"
 	icon_tooltip = "Mail Courier"
 
@@ -470,6 +476,7 @@ TYPEINFO(/obj/item/device/radio/headset/clown)
 		"h" = R_FREQ_COMMAND,
 		"g" = R_FREQ_SECURITY,
 		"e" = R_FREQ_ENGINEERING,
+		"q" = R_FREQ_SUPPLY,
 		"r" = R_FREQ_RESEARCH,
 		"m" = R_FREQ_MEDICAL,
 		"c" = R_FREQ_CIVILIAN,
@@ -510,6 +517,7 @@ TYPEINFO(/obj/item/device/radio/headset/clown)
 	secure_frequencies = list(
 		"g" = R_FREQ_SECURITY,
 		"e" = R_FREQ_ENGINEERING,
+		"q" = R_FREQ_SUPPLY,
 		"r" = R_FREQ_RESEARCH,
 		"m" = R_FREQ_MEDICAL,
 		"c" = R_FREQ_CIVILIAN,

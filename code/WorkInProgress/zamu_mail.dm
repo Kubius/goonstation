@@ -504,7 +504,7 @@ var/global/mail_types_by_job = list(
 		/obj/item/tile/steel/fullstack = 2,
 		),
 
-	/datum/job/engineering/quartermaster = list(
+	/datum/job/supply/quartermaster = list(
 		/obj/item/currency/spacecash/hundred = 10,
 		/obj/item/currency/spacecash/fivehundred = 7,
 		/obj/item/currency/spacecash/tourist = 3,
@@ -513,7 +513,7 @@ var/global/mail_types_by_job = list(
 		/obj/item/device/appraisal = 4,
 		),
 
-	/datum/job/engineering/miner = list(
+	/datum/job/supply/miner = list(
 		/obj/item/device/gps = 3,
 		/obj/item/satchel/mining = 3,
 		/obj/item/satchel/mining/large = 2,
@@ -603,7 +603,7 @@ var/global/mail_types_by_job = list(
 		/obj/item/reagent_containers/glass/bottle/holywater = 3,
 		),
 
-	/datum/job/civilian/clown = list(
+	/datum/job/neutral/clown = list(
 		/obj/item/reagent_containers/food/snacks/plant/banana = 15,
 		/obj/item/storage/box/balloonbox = 5,
 		/obj/item/canned_laughter = 15,
@@ -616,7 +616,7 @@ var/global/mail_types_by_job = list(
 		/obj/item/storage/goodybag = 3,
 		),
 
-	/datum/job/civilian/mail_courier = list(
+	/datum/job/neutral/mail_courier = list(
 		/obj/item/clothing/suit/pigeon = 3,
 		/obj/item/satchel/mail/large = 5,
 		),

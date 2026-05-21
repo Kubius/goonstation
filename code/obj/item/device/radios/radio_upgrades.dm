@@ -19,6 +19,7 @@ TYPEINFO(/obj/item/device/radio_upgrade)
 			"h" = R_FREQ_COMMAND,
 			"g" = R_FREQ_SECURITY,
 			"e" = R_FREQ_ENGINEERING,
+			"q" = R_FREQ_SUPPLY,
 			"r" = R_FREQ_RESEARCH,
 			"m" = R_FREQ_MEDICAL,
 			"c" = R_FREQ_CIVILIAN,
@@ -92,6 +93,13 @@ ABSTRACT_TYPE(/obj/item/device/radio_upgrade/station)
 	desc = "A device capable of upgrading a headset to allow access over the Engineering radio channel. Can be installed in a radio headset."
 	icon_state = "engineering"
 	secure_frequencies = list("e" = R_FREQ_ENGINEERING)
+
+/obj/item/device/radio_upgrade/station/engineering
+	name = "supply radio upgrade"
+	desc = "A device capable of upgrading a headset to allow access over the Supply radio channel. Can be installed in a radio headset."
+	icon_state = "supply"
+	secure_frequencies = list("q" = R_FREQ_SUPPLY)
+
 
 /obj/item/device/radio_upgrade/station/research
 	name = "research radio upgrade"

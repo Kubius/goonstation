@@ -61,10 +61,11 @@ var/list/page_teams = list(
 	all_jobs += command_jobs
 	all_jobs += security_jobs
 	all_jobs += engineering_jobs
+	all_jobs += supply_jobs
 	all_jobs += science_jobs
 	all_jobs += medical_jobs
 	all_jobs += service_jobs
-	all_jobs += "Staff Assistant"
+	all_jobs += neutral_jobs
 	return all_jobs
 
 var/list/command_jobs = list(
@@ -74,6 +75,7 @@ var/list/command_jobs = list(
 	"Head of Personnel",
 	"Head of Security",
 	"Chief Engineer",
+	"Supply Coordinator",
 	/*"Clown"*/
 )
 var/list/security_jobs = list(
@@ -87,10 +89,15 @@ var/list/security_jobs = list(
 var/list/engineering_jobs = list(
 	"Chief Engineer",
 	"Engineer",
-	"Miner",
-	"Quartermaster",
 	"Technical Trainee",
 )
+
+var/list/supply_jobs = list(
+	"Supply Coordinator",
+	"Miner",
+	"Quartermaster",
+)
+
 var/list/medical_jobs = list(
 	"Medical Director",
 	"Medical Doctor",
@@ -111,9 +118,13 @@ var/list/service_jobs = list(
 	"Botanist",
 	"Rancher",
 	"Angler",
-	"Clown",
 	"Chaplain",
 	"Janitor",
+	"Staff Assistant",
+)
+
+var/list/neutral_jobs = list(
+	"Clown",
 	"Mail Courier",
 	"Head of Deliverying",
 	"Mail Bringer",
@@ -130,10 +141,14 @@ var/list/security_gimmicks = list(
 	"Forensic Technician"
 )
 var/list/engineering_gimmicks = list(
-	"Head of Mining",
 	"Station Builder",
 	"Atmospherish Technician",
 )
+
+var/list/supply_gimmicks = list(
+	"Head of Mining",
+)
+
 var/list/medical_gimmicks = list(
 	"Acupuncturist",
 	"Anesthesiologist",
@@ -170,7 +185,6 @@ var/list/service_gimmicks = list(
 	"Attorney",
 	"Barber",
 	"Hairdresser",
-	"Mime",
 	"Musician",
 	"Apiculturist",
 	"Apiarist",
@@ -181,3 +195,6 @@ var/list/service_gimmicks = list(
 	"Hall Monitor",
 )
 
+var/list/neutral_gimmicks = list(
+	"Mime",
+)

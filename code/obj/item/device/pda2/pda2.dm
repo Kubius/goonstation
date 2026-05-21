@@ -172,8 +172,15 @@
 		icon_state = "pda-ce"
 		setup_default_cartridge = /obj/item/disk/data/cartridge/chiefengineer
 		setup_default_module = /obj/item/device/pda_module/tray
-		mailgroups = list(MGD_ENGINEER,MGD_SUPPLY,MGT_MINING,MGT_CARGO,MGD_COMMAND,MGD_PARTY)
-		alertgroups = list(MGA_MAIL, MGA_RADIO, MGA_ENGINE, MGA_CRISIS, MGA_SALES, MGA_CARGOREQUEST, MGA_SHIPPING, MGA_RKIT)
+		mailgroups = list(MGD_ENGINEER,MGD_COMMAND,MGD_PARTY)
+		alertgroups = list(MGA_MAIL, MGA_RADIO, MGA_ENGINE, MGA_CRISIS, MGA_RKIT)
+
+	supply_coordinator
+		icon_state = "pda-sc"
+		setup_default_pen = /obj/item/pen/fancy
+		setup_default_cartridge = /obj/item/disk/data/cartridge/supply_coordinator
+		mailgroups = list(MGD_SUPPLY,MGT_MINING,MGT_CARGO,MGD_COMMAND,MGD_PARTY)
+		alertgroups = list(MGA_MAIL, MGA_RADIO, MGA_SALES, MGA_CARGOREQUEST, MGA_SHIPPING)
 
 	heads // generic heads PDA
 		icon_state = "pda-h"

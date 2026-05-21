@@ -115,15 +115,25 @@
 	/obj/item/reagent_containers/glass/bottle/holywater)
 
 /obj/item/storage/box/misctools //used in CE locker
-	name = "miscellaneous tools"
+	name = "miscellaneous engineering tools"
 	desc = "A box full of tools, but distinctly seperate from a toolbox."
 	icon_state = "box"
 	spawn_contents = list(
 		/obj/item/electronics/scanner,
 		/obj/item/device/analyzer/atmospheric/upgraded,
 		/obj/item/electronics/soldering,
-		/obj/item/cargotele,
 		/obj/item/lamp_manufacturer/organic,
 		/obj/item/pinpointer/category/apcs/station,
-		/obj/item/ore_scoop/prepared
+	)
+
+/obj/item/storage/box/misctools_supply //used in SC locker
+	name = "miscellaneous supply tools"
+	desc = "A box full of tools, but distinctly seperate from a toolbox."
+	icon_state = "box"
+	spawn_contents = list(
+		/obj/item/cargotele,
+		/obj/item/ore_scoop/prepared,
+		/obj/item/oreprospector,
+		/obj/item/device/gps,
+		/obj/item/device/appraisal,
 	)

@@ -62,6 +62,14 @@
 	/obj/item/clothing/under/rank/chief_engineer/scarf,
 	/obj/item/clothing/suit/wintercoat/command)
 
+/obj/item/storage/box/clothing/supply_coordinator
+	name = "\improper Supply Coordinator's clothing"
+	spawn_contents = list(/obj/item/clothing/under/rank/chief_engineer,
+	/obj/item/clothing/under/rank/supply_coordinator,
+	/obj/item/clothing/head/fancy/rank,
+	/obj/item/clothing/suit/wintercoat/command)
+
+
 // Civilian Equipment
 
 /obj/item/storage/box/clothing/janitor
