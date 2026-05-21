@@ -15,7 +15,7 @@
 	src.name = name
 	src.mode = mode
 
-/datum/nations_control_point/proc/capture(datum/nation/capturing_nation)
+/datum/nations_control_point/proc/capture(datum/nation/capturing_nation, mob/capturer, silent = FALSE)
 	if (!istype(capturing_nation, /datum/nation))
 		return
 
@@ -30,9 +30,30 @@
 	if (length(src.capture_area.dynamic_map_colour_group))
 		global.minimap_renderer.recolor_area(src.capture_area.dynamic_map_colour_group, src.owner_nation.nation_color)
 
+	if (silent || !ismob(capturer))
+		return
+
+	message_ghosts("<b>[capturer]</b> successfully captured [src] for [capturing_nation.get_short_name()] [log_loc(src.computer, ghostjump=TRUE)].")
+
+	var/capture_announcement = "[capturing_nation.get_short_name()] has captured [src][former_nation ? " from [former_nation.get_short_name()]" : ""]!"
+	command_alert(capture_announcement, title = "Territory Captured!", sound_to_play = 'sound/machines/proximity_alarm.ogg', alert_origin = ALERT_UNITED_NATIONS)
+
+/datum/nations_control_point/proc/neutralize(mob/neutralizer, silent = FALSE)
+	if (src.owner_nation)
+		src.owner_nation.control_points -= src
+	src.owner_nation = null
+
+	if (silent || !ismob(neutralizer))
+		return
+
+	message_ghosts("<b>[neutralizer]</b> successfully neutralized [src] [log_loc(src.computer, ghostjump=TRUE)].")
+
+	var/neutralization_announcement = "[src] has been restored as a neutral territory!"
+	command_alert(neutralization_announcement, title = "Territory Neutralized!", sound_to_play = 'sound/machines/proximity_alarm.ogg', alert_origin = ALERT_UNITED_NATIONS)
 
 /obj/nations_control_point_computer
 	name = "control point"
+	desc = "A computer terminal; control of which determines the owner of this territory."
 	icon = 'icons/obj/nations_control_point_computer.dmi'
 	icon_state = "control_point_computer"
 	density = 1
@@ -61,6 +82,10 @@
 
 	. = ..()
 
+/obj/nations_control_point_computer/get_desc(dist, mob/user)
+	. = ..()
+	. += " It [src.control_point.owner_nation ? "is controlled by [src.control_point.owner_nation.get_short_name()]" : "is neutral territory"]."
+
 /obj/nations_control_point_computer/ex_act()
 	return
 
@@ -68,9 +93,12 @@
 	return
 
 /obj/nations_control_point_computer/proc/update_name()
-	var/owner_short_name = src.control_point?.owner_nation.get_short_name()
-	var/control_point_name = src.control_point?.name
-	src.name = "[length(owner_short_name) ? "[owner_short_name] " : ""]control point"
+	if (!src.control_point)
+		return
+
+	var/owner_short_name = src.control_point.owner_nation?.get_short_name()
+	var/control_point_name = src.control_point.name
+	src.name = "[length(owner_short_name) ? "[owner_short_name] " : ""]control point[length(control_point_name) ? " ([control_point_name])" : ""]"
 
 /obj/nations_control_point_computer/proc/update_screen()
 	var/screen_image_icon_state = ""
@@ -98,18 +126,12 @@
 	src.UpdateOverlays(src.screen_image_light, "screen_image_light")
 
 /obj/nations_control_point_computer/proc/capture(datum/nation/capturing_nation, mob/user, silent = FALSE)
-	var/datum/nation/former_nation = src.control_point.owner_nation
-	src.control_point.capture(capturing_nation)
-
+	if (!capturing_nation || !capturing_nation.can_capture)
+		src.control_point.neutralize(user, silent)
+	else
+		src.control_point.capture(capturing_nation, user, silent)
+	src.update_name()
 	src.update_screen()
-
-	if (silent)
-		return
-
-	message_ghosts("<b>[user]</b> successfully captured [src] for [capturing_nation.get_short_name()] [log_loc(src, ghostjump=TRUE)].")
-
-	var/capture_announcement = "[capturing_nation.get_short_name()] has captured [src.control_point][former_nation ? " from [former_nation.get_short_name()]" : ""]!"
-	command_alert(capture_announcement, title = "Territory Captured!", sound_to_play = 'sound/machines/proximity_alarm.ogg', alert_origin = ALERT_UNITED_NATIONS)
 
 /obj/nations_control_point_computer/attack_hand(mob/user)
 	var/datum/nation/user_nation = src.control_point.mode.get_nation(user.mind)
@@ -118,7 +140,7 @@
 		boutput(user, SPAN_ALERT("You can't think of anything else to do on this console..."))
 		return
 
-	if (!user_nation.can_capture)
+	if (!user_nation.can_capture && !src.control_point.owner_nation)
 		boutput(user, SPAN_ALERT("You are above such petty territorial squabbles!"))
 		return
 
@@ -130,7 +152,7 @@
 	playsound(get_turf(src), 'sound/machines/warning-buzzer.ogg', 150, 1, flags = SOUND_IGNORE_SPACE)
 
 	if (!ON_COOLDOWN(src, "ghostalert", 10 SECONDS))
-		message_ghosts("<b>[user]</b> is trying to capture <b>[src]</b>! [log_loc(src, ghostjump=TRUE)].")
+		message_ghosts("<b>[user]</b> is trying to [user_nation.can_capture ? "capture" : "neutralize"] <b>[src]</b> [log_loc(src, ghostjump=TRUE)]!")
 
 	SETUP_GENERIC_ACTIONBAR(user, src, duration, /obj/nations_control_point_computer/proc/capture, list(user_nation, user),\
 		null, null, "[user] successfully enters [his_or_her(user)] command code into \the [src]!", null)
@@ -158,4 +180,3 @@
 /obj/nations_control_point_computer/supply
 	control_point_name = "Supply"
 	roundstart_owner = /datum/nation/supply
-
