@@ -72,10 +72,13 @@ ABSTRACT_TYPE(/datum/nation)
 /datum/nation/proc/get_role_type(datum/mind/citizen)
 	if (!(citizen in src.citizens))
 		return
-	for (var/role_id as anything in src.leaders)
-		if (src.leaders[role_id] == citizen)
-			return role_id
-	return citizen_role
+	var/role_id = src.citizen_role
+	for (var/leader_id as anything in src.leaders)
+		if (src.leaders[leader_id] == citizen)
+			role_id = leader_id
+			break
+	var/datum/antagonist/nation/nation_antagonist_datum = citizen.get_antagonist(role_id)
+	return nation_antagonist_datum::role_type
 
 /datum/nation/proc/get_short_name()
 	if (length(src.short_name))
