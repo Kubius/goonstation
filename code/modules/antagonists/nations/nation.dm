@@ -83,7 +83,7 @@ ABSTRACT_TYPE(/datum/nation)
 			role_id = leader_id
 			break
 	var/datum/antagonist/nation/nation_antagonist_datum = citizen.get_antagonist(role_id)
-	return nation_antagonist_datum::role_type
+	return nation_antagonist_datum?.role_type
 
 /datum/nation/proc/get_short_name()
 	if (length(src.short_name))
