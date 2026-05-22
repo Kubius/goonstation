@@ -9710,6 +9710,7 @@
 	icon_state = "0-2"
 	},
 /obj/machinery/power/data_terminal,
+/obj/item_dispenser/idcarddispenser,
 /turf/simulated/floor/darkblueblack{
 	dir = 4
 	},
