@@ -34107,6 +34107,9 @@
 /obj/stool/chair{
 	dir = 4
 	},
+/obj/item/storage/wall/medical{
+	pixel_y = 32
+	},
 /turf/simulated/floor/yellowblack{
 	dir = 1
 	},
@@ -48390,6 +48393,9 @@
 /area/station/hangar/qm)
 "uvt" = (
 /obj/disposalpipe/segment/bent/east,
+/obj/item/storage/wall/medical{
+	pixel_y = 32
+	},
 /turf/simulated/floor/orangeblack/corner{
 	dir = 4
 	},
@@ -49309,6 +49315,9 @@
 	dir = 4
 	},
 /obj/landmark/start/job/scientist,
+/obj/item/storage/wall/medical{
+	pixel_y = 32
+	},
 /turf/simulated/floor/purplewhite{
 	dir = 1
 	},
@@ -55132,6 +55141,9 @@
 	},
 /obj/cable{
 	icon_state = "2-4"
+	},
+/obj/item/storage/wall/medical{
+	pixel_y = 32
 	},
 /turf/simulated/floor/green/side{
 	dir = 1
