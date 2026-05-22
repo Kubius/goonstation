@@ -560,11 +560,11 @@
 /turf/simulated/floor/sanitary/white,
 /area/station/medical/crematorium)
 "ane" = (
-/obj/table/reinforced/bar/auto{
-	name = "wooden table"
-	},
 /obj/cable{
 	icon_state = "5-10"
+	},
+/obj/stool/chair/comfy/blue{
+	dir = 4
 	},
 /turf/simulated/floor/carpet/blue/fancy/edge/ne,
 /area/station/bridge/united_command{
@@ -2377,11 +2377,11 @@
 	name = "Cargo Warehouse"
 	})
 "bbz" = (
-/obj/table/reinforced/bar/auto{
-	name = "wooden table"
-	},
 /obj/decal/tile_edge/carpet{
 	icon_state = "rug2";
+	dir = 8
+	},
+/obj/stool/chair/comfy{
 	dir = 8
 	},
 /turf/simulated/floor/carpet/regalcarpet,
@@ -10842,8 +10842,8 @@
 	icon_state = "rug2";
 	dir = 4
 	},
-/obj/stool/chair/comfy{
-	dir = 8
+/obj/table/reinforced/bar/auto{
+	name = "wooden table"
 	},
 /turf/simulated/floor/carpet/regalcarpet,
 /area/station/bridge/united_command{
@@ -11393,8 +11393,13 @@
 	icon_state = "rug2";
 	dir = 8
 	},
-/obj/stool/chair/comfy{
-	dir = 4
+/obj/table/reinforced/bar/auto{
+	name = "wooden table"
+	},
+/obj/item/paper{
+	icon_state = "index_card";
+	name = "For Guest Speakers";
+	pixel_y = 5
 	},
 /turf/simulated/floor/carpet/office/other,
 /area/station/bridge/united_command{
@@ -12179,13 +12184,8 @@
 	icon_state = "rug2";
 	dir = 4
 	},
-/obj/table/reinforced/bar/auto{
-	name = "wooden table"
-	},
-/obj/item/paper{
-	icon_state = "index_card";
-	name = "For Guest Speakers";
-	pixel_y = 5
+/obj/stool/chair/comfy{
+	dir = 4
 	},
 /turf/simulated/floor/carpet/office/other,
 /area/station/bridge/united_command{
@@ -13901,9 +13901,6 @@
 /obj/decal/tile_edge/carpet{
 	icon_state = "rug2";
 	dir = 6
-	},
-/obj/stool/chair/comfy/yellow{
-	dir = 8
 	},
 /turf/simulated/floor/carpet/grime,
 /area/station/bridge/united_command{
@@ -18591,8 +18588,8 @@
 /turf/simulated/floor/sanitary,
 /area/station/crew_quarters/bathroom)
 "hRq" = (
-/obj/table/reinforced/bar/auto{
-	name = "wooden table"
+/obj/stool/chair/comfy/green{
+	dir = 4
 	},
 /turf/simulated/floor/carpet/green/fancy/edge/ne,
 /area/station/bridge/united_command{
@@ -19802,9 +19799,6 @@
 	name = "Cargo Restroom"
 	})
 "iqr" = (
-/obj/stool/chair/comfy/purple{
-	dir = 8
-	},
 /turf/simulated/floor/carpet/purple/fancy/edge/ne,
 /area/station/bridge/united_command{
 	name = "UN General Assembly Chamber"
@@ -21593,8 +21587,8 @@
 	},
 /area/station/hangar/qm)
 "iZZ" = (
-/obj/table/reinforced/bar/auto{
-	name = "wooden table"
+/obj/stool/chair/comfy/blue{
+	dir = 4
 	},
 /turf/simulated/floor/carpet/blue/fancy/edge/se,
 /area/station/bridge/united_command{
@@ -22837,9 +22831,6 @@
 	},
 /area/station/ai_monitored/armory)
 "jAZ" = (
-/obj/stool/chair/comfy/green{
-	dir = 4
-	},
 /turf/simulated/floor/carpet/green/fancy/edge/sw,
 /area/station/bridge/united_command{
 	name = "UN General Assembly Chamber"
@@ -28087,11 +28078,11 @@
 	},
 /area/station/science/testchamber)
 "lLM" = (
-/obj/table/reinforced/bar/auto{
-	name = "wooden table"
-	},
 /obj/cable{
 	icon_state = "6-9"
+	},
+/obj/stool/chair/comfy/purple{
+	dir = 8
 	},
 /turf/simulated/floor/carpet/purple/fancy/edge/nw,
 /area/station/bridge/united_command{
@@ -32356,8 +32347,8 @@
 	icon_state = "rug2";
 	dir = 9
 	},
-/obj/table/reinforced/bar/auto{
-	name = "wooden table"
+/obj/stool/chair/comfy/yellow{
+	dir = 8
 	},
 /turf/simulated/floor/carpet/grime,
 /area/station/bridge/united_command{
@@ -35549,6 +35540,12 @@
 /obj/machinery/light/small,
 /obj/stool/chair{
 	dir = 4
+	},
+/obj/item/storage/wall{
+	dir = 4;
+	name = "dining cabinet";
+	pixel_x = -32;
+	spawn_contents = list(/obj/item/kitchen/food_box/donut_box,/obj/item/reagent_containers/food/snacks/cheesewheel,/obj/item/kitchen/utensil/knife,/obj/item/reagent_containers/food/snacks/breadloaf,/obj/item/reagent_containers/food/snacks/plant/melon)
 	},
 /turf/simulated/floor/darkblueblack{
 	dir = 8
@@ -39276,11 +39273,11 @@
 	name = "Cargo Customs"
 	})
 "qwy" = (
-/obj/stool/chair/comfy/blue{
-	dir = 4
-	},
 /obj/cable{
 	icon_state = "5-10"
+	},
+/obj/table/reinforced/bar/auto{
+	name = "wooden table"
 	},
 /turf/simulated/floor/carpet/blue/fancy/edge/sw,
 /area/station/bridge/united_command{
@@ -39321,11 +39318,11 @@
 	name = "Cargonian High Court"
 	})
 "qxA" = (
-/obj/stool/chair/comfy/purple{
-	dir = 8
-	},
 /obj/cable{
 	icon_state = "6-9"
+	},
+/obj/table/reinforced/bar/auto{
+	name = "wooden table"
 	},
 /turf/simulated/floor/carpet/purple/fancy/edge/se,
 /area/station/bridge/united_command{
@@ -44312,6 +44309,12 @@
 	},
 /obj/item/reagent_containers/food/drinks/bottle/wine{
 	pixel_x = -7
+	},
+/obj/item/storage/wall{
+	dir = 4;
+	name = "libation cellar";
+	pixel_x = -32;
+	spawn_contents = list(/obj/item/reagent_containers/food/drinks/bottle/wine,/obj/item/reagent_containers/food/drinks/bottle/tequila,/obj/item/reagent_containers/food/drinks/bottle/mead,/obj/item/reagent_containers/food/drinks/bottle/rum)
 	},
 /turf/simulated/floor/darkblueblack{
 	dir = 8
@@ -49568,9 +49571,6 @@
 /turf/simulated/floor/caution/north,
 /area/station/maintenance/disposal)
 "uZj" = (
-/obj/stool/chair/comfy/blue{
-	dir = 4
-	},
 /turf/simulated/floor/carpet/blue/fancy/edge/nw,
 /area/station/bridge/united_command{
 	name = "UN General Assembly Chamber"
@@ -50391,8 +50391,8 @@
 	name = "Medical Customs"
 	})
 "vtl" = (
-/obj/table/reinforced/bar/auto{
-	name = "wooden table"
+/obj/stool/chair/comfy/purple{
+	dir = 8
 	},
 /turf/simulated/floor/carpet/purple/fancy/edge/sw,
 /area/station/bridge/united_command{
@@ -51464,8 +51464,8 @@
 	icon_state = "rug2";
 	dir = 10
 	},
-/obj/table/reinforced/bar/auto{
-	name = "wooden table"
+/obj/stool/chair/comfy/yellow{
+	dir = 8
 	},
 /turf/simulated/floor/carpet/grime,
 /area/station/bridge/united_command{
@@ -54833,8 +54833,8 @@
 	icon_state = "rug2";
 	dir = 5
 	},
-/obj/stool/chair/comfy/yellow{
-	dir = 8
+/obj/table/reinforced/bar/auto{
+	name = "wooden table"
 	},
 /turf/simulated/floor/carpet/grime,
 /area/station/bridge/united_command{
@@ -55985,8 +55985,8 @@
 	name = "Janitorial Embassy"
 	})
 "xSv" = (
-/obj/stool/chair/comfy/green{
-	dir = 4
+/obj/table/reinforced/bar/auto{
+	name = "wooden table"
 	},
 /turf/simulated/floor/carpet/green/fancy/edge/nw,
 /area/station/bridge/united_command{
@@ -56779,8 +56779,8 @@
 /turf/simulated/floor/wood/two,
 /area/station/crew_quarters/hop)
 "ykc" = (
-/obj/table/reinforced/bar/auto{
-	name = "wooden table"
+/obj/stool/chair/comfy/green{
+	dir = 4
 	},
 /turf/simulated/floor/carpet/green/fancy/edge/se,
 /area/station/bridge/united_command{
