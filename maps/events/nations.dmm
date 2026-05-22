@@ -35978,6 +35978,7 @@
 /obj/mapping_helper/access/mining,
 /obj/mapping_helper/button/area,
 /obj/mapping_helper/firedoor_spawn,
+/obj/mapping_helper/access/supply_head,
 /turf/simulated/floor/terrazzo,
 /area/station/quartermaster/cargooffice{
 	name = "Cargonian High Court"
