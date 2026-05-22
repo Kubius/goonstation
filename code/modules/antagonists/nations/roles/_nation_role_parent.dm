@@ -47,6 +47,7 @@ ABSTRACT_TYPE(/datum/antagonist/nation)
 
 ABSTRACT_TYPE(/datum/antagonist/nation/citizen)
 /datum/antagonist/nation/citizen
+	popup_name_override = "nation_citizen"
 	succinct_end_of_round_antagonist_entry = TRUE
 	role_type = "Citizen"
 	article = "a"
@@ -62,6 +63,7 @@ ABSTRACT_TYPE(/datum/antagonist/nation/citizen)
 
 ABSTRACT_TYPE(/datum/antagonist/nation/leader)
 /datum/antagonist/nation/leader
+	popup_name_override = "nation_leader"
 	role_type = "Leader"
 	article = "the"
 

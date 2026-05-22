@@ -2,6 +2,7 @@
 	id = ROLE_UN
 	display_name = "UN Agent"
 	antagonist_icon = "un"
+	popup_name_override = ROLE_UN
 	nation_type = /datum/nation/un
 	generate_name = FALSE
 
@@ -9,6 +10,7 @@
 	id = ROLE_UN_UNDSEC
 	display_name = "UN Under-Secretary for Peace Operations"
 	antagonist_icon = "un-undsec"
+	popup_name_override = ROLE_UN_UNDSEC
 	nation_type = /datum/nation/un
 	generate_name = FALSE
 
@@ -16,6 +18,7 @@
 	id = ROLE_UN_SECGEN
 	display_name = "UN Secretary-General"
 	antagonist_icon = "un-secgen"
+	popup_name_override = ROLE_UN_SECGEN
 	nation_type = /datum/nation/un
 	generate_name = FALSE
 
