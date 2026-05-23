@@ -557,8 +557,6 @@
 	var/wincheck = winexists(user, "pda2_\ref[src]")
 	//boutput(world, wincheck)
 	if(wincheck != "MAIN")
-		if (src.host_program)
-			src.host_program.get_other_pdas()
 		winclone(user, "pda2", "pda2_\ref[src]")
 	winset(user, "pda2_\ref[src]", "title=\"[src.window_title]\"")
 
