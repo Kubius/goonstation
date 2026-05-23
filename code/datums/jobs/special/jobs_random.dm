@@ -144,82 +144,6 @@ ABSTRACT_TYPE(/datum/job/special/random)
 
 		return
 
-/datum/job/special/random/inspector
-	name = "Inspector"
-	wages = PAY_IMPORTANT
-	ui_colour = /datum/job/special/nt::ui_colour
-	request_cost = PAY_EXECUTIVE * 4
-	access_string = "Inspector"
-	receives_miranda = TRUE
-	invalid_antagonist_roles = list(ROLE_HEAD_REVOLUTIONARY)
-	badge = /obj/item/clothing/suit/security_badge/nanotrasen
-	slot_card = /obj/item/card/id/nanotrasen
-	slot_back = list(/obj/item/storage/backpack)
-	slot_belt = list(/obj/item/device/pda2/ntofficial)
-	slot_jump = list(/obj/item/clothing/under/misc/lawyer/black) // so they can slam tables
-	slot_foot = list(/obj/item/clothing/shoes/brown)
-	slot_ears = list(/obj/item/device/radio/headset/command/inspector)
-	slot_head = list(/obj/item/clothing/head/NTberet)
-	slot_suit = list(/obj/item/clothing/suit/armor/NT)
-	slot_eyes = list(/obj/item/clothing/glasses/regular)
-	slot_lhan = list(/obj/item/storage/briefcase)
-	slot_rhan = list(/obj/item/device/ticket_writer)
-	items_in_backpack = list(/obj/item/device/flash)
-	wiki_link = "https://wiki.ss13.co/Inspector"
-	email_group = MGD_COMMAND
-
-	get_default_miranda()
-		return "You have been found to be in breach of Nanotrasen corporate regulation [rand(1,100)][pick(uppercase_letters)]. You are allowed a grace period of 5 minutes to correct this infringement before you may be subjected to disciplinary action including but not limited to: strongly worded tickets, reduction in pay, and being buried in paperwork for the next [rand(10,20)] standard shifts."
-
-	special_setup(var/mob/living/carbon/human/M)
-		..()
-		if (!M)
-			return
-
-		var/obj/item/storage/briefcase/B = M.find_type_in_hand(/obj/item/storage/briefcase)
-		if (B && istype(B))
-			B.storage.add_contents(new /obj/item/instrument/whistle(B))
-			var/obj/item/clipboard/with_pen/inspector/clipboard = new /obj/item/clipboard/with_pen/inspector(B)
-			B.storage.add_contents(clipboard)
-			clipboard.set_owner(M)
-		return
-
-/datum/job/special/random/diplomat
-	name = "Diplomat"
-	wages = PAY_TRADESMAN
-	access_string = "Diplomat"
-	request_limit = 0 // you don't request them, they come to you
-	slot_lhan = list(/obj/item/storage/briefcase)
-	slot_jump = list(/obj/item/clothing/under/misc/lawyer)
-	slot_foot = list(/obj/item/clothing/shoes/brown)
-	alt_names = list("Diplomat", "Ambassador")
-	invalid_antagonist_roles = list(ROLE_HEAD_REVOLUTIONARY)
-	change_name_on_spawn = TRUE
-
-	special_setup(var/mob/living/carbon/human/M)
-		..()
-		if (!M)
-			return
-		SPAWN(0)
-			var/selection = null
-			var/list/options = list(/datum/mutantrace/lizard::name = /datum/mutantrace/lizard,
-									/datum/mutantrace/skeleton::name  = /datum/mutantrace/skeleton,
-									/datum/mutantrace/ithillid::name = /datum/mutantrace/ithillid,
-									/datum/mutantrace/martian::name = /datum/mutantrace/martian,
-									/datum/mutantrace/amphibian::name = /datum/mutantrace/amphibian,
-									/datum/mutantrace/blob::name  = /datum/mutantrace/blob,
-									/datum/mutantrace/cow::name = /datum/mutantrace/cow)
-
-			selection = tgui_input_list(M,"Pick a Mutantrace. Cancel to be Human.","Pick a Mutantrace. Cancel to be Human.",options)
-			var/datum/mutantrace/morph = options[selection]
-			M.set_mutantrace(morph)
-			if (istype(M.mutantrace, /datum/mutantrace/martian) || istype(M.mutantrace, /datum/mutantrace/blob))
-				M.equip_if_possible(new /obj/item/device/speech_pro(src), SLOT_IN_BACKPACK)
-			else
-				if (M.l_store)
-					M.stow_in_available(M.l_store)
-				M.equip_if_possible(new /obj/item/device/speech_pro(src), SLOT_L_STORE)
-
 /datum/job/special/random/testsubject
 	name = "Test Subject"
 	wages = PAY_DUMBCLOWN
@@ -291,32 +215,6 @@ ABSTRACT_TYPE(/datum/job/special/random)
 	slot_glov = list(/obj/item/clothing/gloves/boxing)
 	items_in_backpack = list(/obj/item/football,/obj/item/football,/obj/item/basketball,/obj/item/basketball)
 	// missing wiki link, parent fallback to https://wiki.ss13.co/Jobs#Gimmick_Jobs
-
-/datum/job/special/random/journalist
-	name = "Journalist"
-	wages = PAY_UNTRAINED
-	slot_jump = list(/obj/item/clothing/under/suit/red)
-	slot_head = list(/obj/item/clothing/head/fedora)
-	slot_lhan = list(/obj/item/storage/briefcase)
-	slot_poc1 = list(/obj/item/camera)
-	slot_foot = list(/obj/item/clothing/shoes/brown)
-	items_in_backpack = list(/obj/item/camera_film/large)
-	special_spawn_location = LANDMARK_JOURNALIST_SPAWN
-	// missing wiki link, parent fallback to https://wiki.ss13.co/Jobs#Gimmick_Jobs
-
-	special_setup(var/mob/living/carbon/human/M)
-		..()
-		if (!M)
-			return
-
-		var/obj/item/storage/briefcase/B = M.find_type_in_hand(/obj/item/storage/briefcase)
-		if (B && istype(B))
-			B.storage.add_contents(new /obj/item/device/camera_viewer/public(B))
-			B.storage.add_contents(new /obj/item/clothing/head/helmet/camera(B))
-			B.storage.add_contents(new /obj/item/device/audio_log(B))
-			B.storage.add_contents(new /obj/item/clipboard/with_pen(B))
-
-		return
 
 /datum/job/special/random/beekeeper
 	name = "Apiculturist"

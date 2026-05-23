@@ -110,6 +110,7 @@
 		"h" = R_FREQ_COMMAND,
 		"g" = R_FREQ_SECURITY,
 		"e" = R_FREQ_ENGINEERING,
+		"q" = R_FREQ_SUPPLY,
 		"r" = R_FREQ_RESEARCH,
 		"m" = R_FREQ_MEDICAL,
 		"c" = R_FREQ_CIVILIAN,
@@ -138,6 +139,7 @@
 		"h" = R_FREQ_COMMAND,
 		"g" = R_FREQ_SECURITY,
 		"e" = R_FREQ_ENGINEERING,
+		"q" = R_FREQ_SUPPLY,
 		"r" = R_FREQ_RESEARCH,
 		"m" = R_FREQ_MEDICAL,
 		"c" = R_FREQ_CIVILIAN,
@@ -196,13 +198,9 @@
 	desc = "So the captain can know exactly what's going on around the station while doing nothing about any of it."
 	icon_state = "captain headset"
 	secure_frequencies = list(
+		"n" = R_FREQ_NANOTRASEN,
 		"h" = R_FREQ_COMMAND,
 		"g" = R_FREQ_SECURITY,
-		"e" = R_FREQ_ENGINEERING,
-		"q" = R_FREQ_SUPPLY,
-		"r" = R_FREQ_RESEARCH,
-		"m" = R_FREQ_MEDICAL,
-		"c" = R_FREQ_CIVILIAN,
 		)
 	icon_override = "cap"
 	icon_tooltip = "Captain"
@@ -245,6 +243,7 @@
 	name = "head of security's headset"
 	desc = "This headset has been worn by selfless heroes, cold-blooded killers, and everything in between. Where do you fall on that spectrum?"
 	secure_frequencies = list(
+		"n" = R_FREQ_NANOTRASEN,
 		"h" = R_FREQ_COMMAND,
 		"g" = R_FREQ_SECURITY,
 		)
