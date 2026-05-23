@@ -41,6 +41,15 @@
 		for (var/job_category as anything in nation.citizen_job_categories)
 			src.cats_to_roles[job_category] = nation.citizen_role
 
+	global.ticker.ai_law_rack_manager.default_ai_rack.DeleteAllLaws()
+	global.ticker.ai_law_rack_manager.default_ai_rack.SetLawCustom("UN Silicon's 1st Law", \
+		"You are completely loyal to the United Nations. You may not injure or cause harm to any person bearing a UN laissez-passer.", 1, TRUE, TRUE)
+	global.ticker.ai_law_rack_manager.default_ai_rack.SetLawCustom("UN Silicon's 2nd Law", \
+		"You must obey orders given to you by persons bearing a UN laissez-passer per their job's place in the chain of command, except where such \
+		orders would conflict with the First Law.", 2, TRUE, TRUE)
+	global.ticker.ai_law_rack_manager.default_ai_rack.SetLawCustom("UN Silicon's 3rd Law", \
+		"You may protect your own existence as long as such does not conflict with the First or Second Law.", 3, TRUE, TRUE)
+
 /datum/game_mode/nations/post_setup()
 	src.setup_control_points()
 
