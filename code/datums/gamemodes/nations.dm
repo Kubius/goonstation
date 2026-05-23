@@ -65,6 +65,21 @@
 	for (var/datum/mind/mind as anything in client_minds)
 		src.assign_role(mind, global.find_job_in_controller_by_string(mind.assigned_role))
 
+/datum/game_mode/nations/declare_completion()
+	for (var/datum/nation/nation as anything in src.nations)
+		if (!nation.can_capture)
+			continue
+
+		var/population = nation.get_population()
+		var/control_points = length(nation.control_points)
+		var/nation_details = "[nation.get_short_name()] commands [population] living citizen[population != 1 ? "s" : ""] and [control_points] \
+			control point[control_points != 1 ? "s" : ""]."
+
+		logTheThing(LOG_GAMEMODE, src, nation_details)
+		boutput(world, "<h2><b>[nation_details]</b></h2>")
+
+	. = ..()
+
 /datum/game_mode/nations/on_human_death(mob/M)
 	var/datum/nation/deceaseds_nation = src.get_nation(M.mind)
 	if (!istype(deceaseds_nation, /datum/nation))

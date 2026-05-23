@@ -91,6 +91,14 @@ ABSTRACT_TYPE(/datum/nation)
 		return src.short_name
 	return src.name
 
+/datum/nation/proc/get_population()
+	var/list/datum/mind/living_citizens = list()
+	for (var/datum/mind/citizen as anything in src.citizens)
+		if (!isalive(citizen.current) || !citizen.current?.client)
+			continue
+		living_citizens += citizen
+	return length(living_citizens)
+
 /datum/nation/un
 	name = "United Nations"
 	can_capture = FALSE
