@@ -1,12 +1,38 @@
+var/un_resolution_tally = 1
+
 /obj/item/paper/un_resolution
 	name = "UN Resolution"
+
+	var/page_width = 55
+
+	var/line_length = 43
+	var/line_prefix = "│.│..│ "
+	var/line_suffix = " │..│"
+	var/resolution_text = "Lorem ipsum dolor sit amet."
+
+	var/stamp_granted = FALSE
+	var/stamp_captain = FALSE
+	var/stamp_un = FALSE
+	var/stamp_void = FALSE
+	var/approved = FALSE
+	var/voided = FALSE
+
+/obj/item/paper/un_resolution/New(newLoc, resolution_text)
+	. = ..()
+
 	info = {"\
 <pre>
-│.│......UN Space Station Geneva.......|..Deep.Space..│
+│.│......Orbital Platform Geneva.......|..Deep.Space..│
 │.│...................................................│
+│.│..........UNITED NATIONS GENERAL ASSEMBLY..........│
+$RESOLUTION_TALLY
 │.│..┌─────────────────────────────────────────────┐..│
 $RESOLUTION_TEXT
 │.│..└─────────────────────────────────────────────┘..│
+│.│...................................................│
+│.│.....................VOTE TALLY....................│
+│.│..................AYE..ABSENT..NAY.................│
+│.│..............[src.build_fields(2)]..[src.build_fields(2)]..[src.build_fields(2)]..............│
 │.│...................................................│
 │.│..APPROVAL: ...............UNITED NATIONS: ........│
 │.│..┌──────────────────┐.....┌────────────────────┐..│
@@ -23,20 +49,9 @@ $RESOLUTION_TEXT
 │.│...................................................│
 </pre>\
 "}
-	var/line_length = 43
-	var/line_prefix = "│.│..│ "
-	var/line_suffix = " │..│"
-	var/resolution_text = "Lorem ipsum dolor sit amet."
 
-	var/stamp_granted = FALSE
-	var/stamp_captain = FALSE
-	var/stamp_un = FALSE
-	var/stamp_void = FALSE
-	var/approved = FALSE
-	var/voided = FALSE
-
-/obj/item/paper/un_resolution/New(newLoc, resolution_text)
-	. = ..()
+	src.name = "UN Resolution [un_resolution_tally]"
+	src.info = replacetext(src.info, "$RESOLUTION_TALLY", src.make_resolution_title())
 
 	if (resolution_text)
 		src.resolution_text = resolution_text
@@ -48,6 +63,8 @@ $RESOLUTION_TEXT
 		replacement_text += src.line_prefix + line + src.line_suffix
 
 	src.info = replacetext(src.info, "$RESOLUTION_TEXT", replacement_text.Join("\n"))
+
+	un_resolution_tally++
 
 /obj/item/paper/un_resolution/disposing()
 	src.void_resolution(null)
@@ -99,6 +116,12 @@ $RESOLUTION_TEXT
 	logTheThing(LOG_GAMEMODE, user, "voided UN resolution with content: \"[src.resolution_text]\"")
 	SPAWN(0.5 SECONDS)
 		command_alert(src.resolution_text, title = "Resolution VOIDED", sound_to_play = 'sound/misc/announcement_1.ogg', alert_origin = ALERT_UNITED_NATIONS)
+
+/obj/item/paper/un_resolution/proc/make_resolution_title()
+	. = ""
+	var/line = "|.|....................RESOLUTION [un_resolution_tally]"
+	line = "[pad_trailing(line, (src.page_width - 1), ".")]|"
+	. = line
 
 /obj/item/paper/un_resolution/proc/format_resolution_text()
 	var/list/lines = list()

@@ -2,7 +2,7 @@
 	name = "application for citizenship"
 	info = {"\
 <pre>
-│.│......UN Space Station Geneva.......|..Deep.Space..│
+│.│......Orbital Platform Geneva.......|..Deep.Space..│
 │.│...................................................│
 │.│............APPLICATION FOR CITIZENSHIP............│
 │.│...................................................│
