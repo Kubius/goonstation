@@ -217,6 +217,7 @@
 		"r" = R_FREQ_RESEARCH,
 		"m" = R_FREQ_MEDICAL,
 		"c" = R_FREQ_CIVILIAN,
+		"w" = R_FREQ_CLOWN,
 		)
 	icon_override = "rh"
 	icon_tooltip = "Radio Show Host"

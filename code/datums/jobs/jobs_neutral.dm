@@ -50,4 +50,5 @@ ABSTRACT_TYPE(/datum/job/neutral)
 /datum/job/neutral/clown/ringmaster
 	name = "THE RINGMASTER"
 	limit = 1
+	slot_head = list(/obj/item/clothing/head/that/gold)
 	items_in_belt = list(/obj/item/cloth/towel/clown, /obj/item/stamp/clown)

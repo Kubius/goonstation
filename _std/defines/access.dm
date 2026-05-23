@@ -52,7 +52,7 @@
 #define access_carrypermit 39 // Are allowed to carry sidearms as far as guardbuddies and secbots are concerned. Contraband permit defined at 75.
 #define access_engineering 40 // General engineering area and substations.
 #define access_engineering_storage 41 // Main metal/tool storage things.
-// Access 42 Unused
+#define access_supply_general 42
 #define access_engineering_power 43 // APCs and related supplies.
 #define access_engineering_engine 44 // Engine room.
 #define access_engineering_mechanic 45 // Electronics lab.

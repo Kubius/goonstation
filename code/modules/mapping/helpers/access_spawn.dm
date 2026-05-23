@@ -124,6 +124,11 @@
 	req_access = list(access_supply_head)
 	color = SUPPLY
 
+/obj/mapping_helper/access/supply_general
+	name = "supply general access spawn"
+	req_access = list(access_supply_general)
+	color = SUPPLY
+
 /obj/mapping_helper/access/cargo
 	name = "cargo access spawn"
 	req_access = list(access_cargo)

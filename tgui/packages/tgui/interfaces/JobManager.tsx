@@ -119,9 +119,19 @@ export const JobManager = () => {
       jobs: stapleJobs.filter((job) => job.type === 'engineering'),
     },
     {
+      name: 'Supply Jobs',
+      color: 'brown',
+      jobs: stapleJobs.filter((job) => job.type === 'supply'),
+    },
+    {
       name: 'Civilian Jobs',
       color: 'blue',
       jobs: stapleJobs.filter((job) => job.type === 'civilian'),
+    },
+    {
+      name: 'Neutral Jobs',
+      color: 'olive',
+      jobs: stapleJobs.filter((job) => job.type === 'neutral'),
     },
   ];
 

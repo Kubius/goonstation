@@ -61,6 +61,7 @@
 
 	/// Override area-based naming for the control point.
 	var/control_point_name = ""
+	var/list/control_area_typepaths
 
 	/// As type path.
 	var/datum/nation/roundstart_owner
@@ -157,17 +158,32 @@
 		return
 
 	var/duration = user_nation.is_leader(user.mind) ? 10 SECONDS : 20 SECONDS
-	playsound(get_turf(src), 'sound/machines/warning-buzzer.ogg', 150, 1, flags = SOUND_IGNORE_SPACE)
 
 	if (!ON_COOLDOWN(src, "ghostalert", 10 SECONDS))
 		message_ghosts("<b>[user]</b> is trying to [user_nation.can_capture ? "capture" : "neutralize"] <b>[src]</b> [log_loc(src, ghostjump=TRUE)]!")
 
-	SETUP_GENERIC_ACTIONBAR(user, src, duration, /obj/nations_control_point_computer/proc/capture, list(user_nation, user),\
-		null, null, "[user] successfully enters [his_or_her(user)] command code into \the [src]!", null)
+	var/datum/action/bar/icon/callback/nation_control/capture_actionbar = new /datum/action/bar/icon/callback/nation_control(
+		user, src, duration, /obj/nations_control_point_computer/proc/capture, list(user_nation, user),\
+		null, null, "[user] successfully enters [his_or_her(user)] command code into \the [src]!", null
+	)
+	actions.start(capture_actionbar, user)
+
+/obj/nations_control_point_computer/proc/set_emergency_lights(is_on)
+	for(var/obj/machinery/light/emergency/light in by_cat[TR_CAT_STATION_EMERGENCY_LIGHTS])
+		var/area/A = get_area(light)
+		if (A.type in src.control_area_typepaths)
+			light.seton(is_on)
+		LAGCHECK(LAG_LOW)
+
+/obj/nations_control_point_computer/proc/emergency_lights_on()
+	src.set_emergency_lights(TRUE)
+
+/obj/nations_control_point_computer/proc/emergency_lights_off()
+	src.set_emergency_lights(FALSE)
 
 /obj/nations_control_point_computer/proc/print_passport_slip(mob/user, message)
 	playsound(src, 'sound/machines/keyboard3.ogg', 30, TRUE)
-	if (!global.tgui_alert(user, "[message] Print a passport slip?", "Confirmation", list("Yes", "No")) == "Yes")
+	if (global.tgui_alert(user, "[message] Print a passport slip?", "Confirmation", list("Yes", "No")) != "Yes")
 		return
 
 	playsound(src, 'sound/machines/printer_thermal.ogg', 50, TRUE)
@@ -177,23 +193,129 @@
 
 /obj/nations_control_point_computer/clown
 	roundstart_owner = /datum/nation/clown
+	control_area_typepaths = list(
+		/area/station/crew_quarters/clown,
+		/area/station/maintenance/storage,
+	)
 
 /obj/nations_control_point_computer/engineering
 	control_point_name = "Engineering"
 	roundstart_owner = /datum/nation/engineering
+	control_area_typepaths = list(
+		/area/station/engine,
+		/area/station/storage/tech,
+		/area/station/maintenance/outer/east,
+		/area/station/crewquarters/cryotron/eng,
+		/area/station/security/checkpoint/east,
+		/area/station/hangar/engine,
+		/area/station/hallway/secondary/east,
+		/area/station/crew_quarters/quarters_south,
+		/area/station/crew_quarters/quartersB,
+		/area/station/storage/emergencyinternals,
+	)
 
 /obj/nations_control_point_computer/medical
 	control_point_name = "Medical"
 	roundstart_owner = /datum/nation/medical
+	control_area_typepaths = list(
+		/area/station/medical,
+		/area/station/security/checkpoint/medical,
+		/area/station/hangar/medical,
+		/area/station/storage/emergency,
+		/area/station/crew_quarters/quartersA,
+		/area/station/crew_quarters/quarters_west,
+		/area/station/hallway/secondary/southwest,
+		/area/station/hallway/secondary/west,
+		/area/station/medical/head,
+		/area/station/medical/head/private,
+		/area/station/crewquarters/cryotron/med,
+		/area/station/maintenance/outer/west,
+	)
 
 /obj/nations_control_point_computer/research
 	control_point_name = "Research"
 	roundstart_owner = /datum/nation/research
+	control_area_typepaths = list(
+		/area/station/science,
+		/area/station/crew_quarters/hor/horprivate,
+		/area/station/crew_quarters/hor,
+		/area/station/hangar/science,
+		/area/station/security/checkpoint/research,
+		/area/station/maintenance/outer/south,
+		/area/station/crew_quarters/tenebrae,
+		/area/station/crew_quarters/quarters,
+		/area/station/crewquarters/cryotron/sci,
+		/area/station/storage/auxillary,
+	)
 
 /obj/nations_control_point_computer/service
 	control_point_name = "Service"
 	roundstart_owner = /datum/nation/service
+	control_area_typepaths = list(
+		/area/station/crew_quarters/pool,
+		/area/station/crew_quarters/showers,
+		/area/station/maintenance/north,
+		/area/station/chapel,
+		/area/station/storage/emergency2,
+		/area/station/maintenance/north,
+		/area/station/crew_quarters/baroffice,
+		/area/station/crew_quarters/catering,
+		/area/station/crew_quarters/kitchen/freezer,
+		/area/station/crew_quarters/fitness,
+		/area/station/hallway/secondary/construction,
+		/area/station/crew_quarters/toilets,
+		/area/station/crewquarters/cryotron/civ,
+		/area/station/maintenance/outer/north,
+		/area/station/security/checkpoint/chapel,
+		/area/station/hangar/catering,
+		/area/station/hydroponics,
+		/area/station/storage/hydroponics,
+		/area/station/ranch,
+		/area/station/crew_quarters/hop,
+		/area/station/janitor/office,
+		/area/station/crew_quarters/quarters_north,
+		/area/station/hallway/secondary/north,
+		/area/station/hallway/secondary/northwest,
+	)
 
 /obj/nations_control_point_computer/supply
 	control_point_name = "Supply"
 	roundstart_owner = /datum/nation/supply
+	control_area_typepaths = list(
+		/area/station/quartermaster,
+		/area/station/mining,
+		/area/station/storage/northeast,
+		/area/station/crew_quarters/quartersC,
+		/area/station/crewquarters/cryotron/cargo,
+		/area/station/hallway/secondary/northeast,
+		/area/station/storage/warehouse,
+		/area/station/hangar/qm,
+		/area/station/maintenance/northeast,
+		/area/station/security/checkpoint/cargo,
+		/area/station/crew_quarters/quarters_east,
+		/area/station/maintenance/outer/ne,
+	)
+
+/datum/action/bar/icon/callback/nation_control
+	var/obj/nations_control_point_computer/my_computer
+
+	New(owner, target, duration, proc_path, proc_args, icon, icon_state, end_message, interrupt_flags, call_proc_on)
+		. = ..()
+		src.my_computer = target
+
+	onUpdate()
+		. = ..()
+		if (!ON_COOLDOWN(src.my_computer, "capture_alarm", 4 SECONDS))
+			playsound(src.my_computer, 'sound/machines/warning-buzzer.ogg', 150, FALSE, flags = SOUND_IGNORE_SPACE)
+
+	onStart()
+		. = ..()
+		src.my_computer.emergency_lights_on()
+
+	onInterrupt(flag)
+		. = ..()
+		src.my_computer.emergency_lights_off()
+
+	onEnd()
+		. = ..()
+		src.my_computer.emergency_lights_off()

@@ -166,4 +166,4 @@ ABSTRACT_TYPE(/datum/nation)
 	control_point_icon_state = "supply"
 	leader_jobs = alist(/datum/job/command/supply_coordinator = ROLE_NATION_SUP_LEADER)
 	citizen_role = ROLE_NATION_SUP
-	citizen_jobs = list(JOB_SUPPLY)
+	citizen_job_categories = list(JOB_SUPPLY)
