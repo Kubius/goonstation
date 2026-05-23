@@ -46,6 +46,7 @@ var/list/admin_verbs = list(
 		/datum/admins/proc/toggleAI,
 		/datum/admins/proc/delay_start,
 		/datum/admins/proc/delay_end,
+		/datum/admins/proc/end_round,
 		/datum/admins/proc/togglepowerdebug,
 
 		/client/proc/cmd_admin_subtle_message,
@@ -115,6 +116,7 @@ var/list/admin_verbs = list(
 		/client/proc/fix_powernets,
 		/datum/admins/proc/delay_start,
 		/datum/admins/proc/delay_end,
+		/datum/admins/proc/end_round,
 		/client/proc/cmd_admin_command_report_panel,
 		/client/proc/warn,
 		/client/proc/cmd_admin_playeropt,

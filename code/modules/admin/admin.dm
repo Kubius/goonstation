@@ -3982,6 +3982,26 @@ var/global/noir = 0
 		boutput(usr,"Game is already started.")
 		return 0
 
+/datum/admins/proc/end_round()
+	SET_ADMIN_CAT(ADMIN_CAT_SERVER)
+	set name = "End Round"
+	set desc = "Forces the round to finish."
+	USR_ADMIN_ONLY
+	SHOW_VERB_DESC
+
+	if (current_state <= GAME_STATE_SETTING_UP)
+		return
+	if (!ticker?.mode)
+		return
+	if (tgui_alert(usr, "Immediately force the round to end?", "Confirmation", list("End Round", "Cancel")) != "End Round")
+		return
+
+	ticker.mode.force_round_finished = TRUE
+
+	logTheThing(LOG_ADMIN, usr, "forced the round to end!")
+	logTheThing(LOG_DIARY, usr, "forced the round to end!", "admin")
+	message_admins(SPAN_INTERNAL("[usr.key] has forced the round to end!"))
+
 /datum/admins/proc/delay_start()
 	SET_ADMIN_CAT(ADMIN_CAT_SERVER)
 	set desc="Delay the game start"
