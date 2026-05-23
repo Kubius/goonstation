@@ -4174,8 +4174,13 @@
 	pixel_x = -10
 	},
 /obj/table/wood/auto/desk,
-/obj/machinery/computer/television/public{
-	pixel_y = 8
+/obj/item/paper/un_charter{
+	pixel_x = 5;
+	pixel_y = -4
+	},
+/obj/machinery/computer/television/small{
+	pixel_y = 13;
+	pixel_x = -4
 	},
 /turf/simulated/floor/carpet/green/fancy/edge/west,
 /area/radiostation/press{
@@ -10892,6 +10897,7 @@
 /obj/table/reinforced/bar/auto{
 	name = "wooden table"
 	},
+/obj/item/paper/un_charter,
 /turf/simulated/floor/carpet/regalcarpet,
 /area/station/bridge/united_command{
 	name = "UN General Assembly Chamber"
@@ -39398,6 +39404,7 @@
 /obj/table/reinforced/bar/auto{
 	name = "wooden table"
 	},
+/obj/item/paper/un_charter,
 /turf/simulated/floor/carpet/blue/fancy/edge/sw,
 /area/station/bridge/united_command{
 	name = "UN General Assembly Chamber"
@@ -39443,6 +39450,7 @@
 /obj/table/reinforced/bar/auto{
 	name = "wooden table"
 	},
+/obj/item/paper/un_charter,
 /turf/simulated/floor/carpet/purple/fancy/edge/se,
 /area/station/bridge/united_command{
 	name = "UN General Assembly Chamber"
@@ -55080,6 +55088,7 @@
 /obj/table/reinforced/bar/auto{
 	name = "wooden table"
 	},
+/obj/item/paper/un_charter,
 /turf/simulated/floor/carpet/grime,
 /area/station/bridge/united_command{
 	name = "UN General Assembly Chamber"
@@ -56250,6 +56259,7 @@
 /obj/table/reinforced/bar/auto{
 	name = "wooden table"
 	},
+/obj/item/paper/un_charter,
 /turf/simulated/floor/carpet/green/fancy/edge/nw,
 /area/station/bridge/united_command{
 	name = "UN General Assembly Chamber"

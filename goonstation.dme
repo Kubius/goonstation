@@ -2420,6 +2420,7 @@
 #include "code\modules\writing\paper.dm"
 #include "code\modules\writing\papers.dm"
 #include "code\modules\writing\pens_writing_etc.dm"
+#include "code\modules\writing\nations\un_charter.dm"
 #include "code\modules\writing\nations\un_resolution.dm"
 #include "code\obj\airbridge.dm"
 #include "code\obj\blob.dm"
