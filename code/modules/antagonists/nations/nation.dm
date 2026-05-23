@@ -6,6 +6,7 @@ ABSTRACT_TYPE(/datum/nation)
 
 	/// For passport UIs and minimap territory colours.
 	var/nation_color = "#1a378d"
+	var/control_point_marker = "point_neutral"
 
 	/// The passport type that this nation should use.
 	var/passport_type = /obj/item/passport
@@ -113,6 +114,7 @@ ABSTRACT_TYPE(/datum/nation)
 	name = "Clowntopia"
 	passport_type = /obj/item/passport/clown
 	nation_color = "#d73715"
+	control_point_marker = "point_clown"
 	control_point_icon_state = "clown"
 	leader_jobs = alist(/datum/job/neutral/clown/ringmaster = ROLE_NATION_CLN_LEADER)
 	citizen_role = ROLE_NATION_CLN
@@ -126,6 +128,7 @@ ABSTRACT_TYPE(/datum/nation)
 	name = "Engistan"
 	passport_type = /obj/item/passport/engineering
 	nation_color = "#d37610"
+	control_point_marker = "point_eng"
 	control_point_icon_state = "engineering"
 	leader_jobs = alist(/datum/job/command/chief_engineer = ROLE_NATION_ENG_LEADER)
 	citizen_role = ROLE_NATION_ENG
@@ -135,6 +138,7 @@ ABSTRACT_TYPE(/datum/nation)
 	name = "Asclepius"
 	passport_type = /obj/item/passport/medical
 	nation_color = "#c9294e"
+	control_point_marker = "point_med"
 	control_point_icon_state = "medical"
 	leader_jobs = alist(/datum/job/command/medical_director = ROLE_NATION_MED_LEADER)
 	citizen_role = ROLE_NATION_MED
@@ -144,6 +148,7 @@ ABSTRACT_TYPE(/datum/nation)
 	name = "Erudite"
 	passport_type = /obj/item/passport/research
 	nation_color = "#5a1d8a"
+	control_point_marker = "point_sci"
 	control_point_icon_state = "research"
 	leader_jobs = alist(/datum/job/command/research_director = ROLE_NATION_SCI_LEADER)
 	citizen_role = ROLE_NATION_SCI
@@ -153,6 +158,7 @@ ABSTRACT_TYPE(/datum/nation)
 	name = "\the Grey Horde"
 	passport_type = /obj/item/passport/service
 	nation_color = "#167935"
+	control_point_marker = "point_ser"
 	control_point_icon_state = "service"
 	leader_jobs = alist(/datum/job/command/head_of_personnel = ROLE_NATION_SER_LEADER)
 	citizen_role = ROLE_NATION_SER
@@ -163,6 +169,7 @@ ABSTRACT_TYPE(/datum/nation)
 	short_name = "Cargonia"
 	passport_type = /obj/item/passport/supply
 	nation_color = "#4a301b"
+	control_point_marker = "point_sup"
 	control_point_icon_state = "supply"
 	leader_jobs = alist(/datum/job/command/supply_coordinator = ROLE_NATION_SUP_LEADER)
 	citizen_role = ROLE_NATION_SUP

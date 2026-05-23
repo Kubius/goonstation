@@ -14,6 +14,7 @@
 	src.capture_area = capture_area
 	src.name = name
 	src.mode = mode
+	src.computer.update_minimap_marker()
 
 /datum/nations_control_point/proc/capture(datum/nation/capturing_nation, mob/capturer, silent = FALSE)
 	if (!istype(capturing_nation, /datum/nation))
@@ -27,8 +28,7 @@
 	src.owner_nation = capturing_nation
 	capturing_nation.control_points |= src
 
-	if (length(src.capture_area.dynamic_map_colour_group))
-		global.minimap_renderer.recolor_area(src.capture_area.dynamic_map_colour_group, src.owner_nation.nation_color)
+	src.computer.update_minimap_marker()
 
 	if (silent || !ismob(capturer))
 		return
@@ -42,6 +42,8 @@
 	if (src.owner_nation)
 		src.owner_nation.control_points -= src
 	src.owner_nation = null
+
+	src.computer.update_minimap_marker()
 
 	if (silent || !ismob(neutralizer))
 		return
@@ -133,6 +135,11 @@
 		src.control_point.capture(capturing_nation, user, silent)
 	src.update_name()
 	src.update_screen()
+
+/obj/nations_control_point_computer/proc/update_minimap_marker()
+	if (src.GetComponent(/datum/component/minimap_marker/minimap))
+		src.RemoveComponentsOfType(/datum/component/minimap_marker/minimap)
+	src.AddComponent(/datum/component/minimap_marker/minimap, MAP_ALL, src.control_point.owner_nation?.control_point_marker || "point_neutral", list_on_ui = FALSE)
 
 /obj/nations_control_point_computer/attack_hand(mob/user)
 	var/datum/nation/user_nation = src.control_point.mode.get_nation(user.mind)
