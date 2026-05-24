@@ -17338,7 +17338,10 @@
 /turf/simulated/floor/white/checker,
 /area/station/crew_quarters/pool)
 "hlq" = (
-/obj/stool/bench/auto,
+/obj/decal/tile_edge/floorguide/hop{
+	dir = 4;
+	name = "ATM Navigation Guide"
+	},
 /turf/simulated/floor/darkblue,
 /area/station/hallway/primary/northeast)
 "hlB" = (
@@ -35236,10 +35239,6 @@
 	},
 /turf/simulated/floor/wood/two,
 /area/station/crew_quarters/hor)
-"ozf" = (
-/obj/mapping_helper/wingrille_spawn/auto/reinforced,
-/turf/space,
-/area/station/hallway/primary/south)
 "ozg" = (
 /obj/machinery/light/small/floor,
 /turf/simulated/floor,
@@ -105297,7 +105296,7 @@ ajt
 ajt
 ajt
 gUc
-ozf
+nMC
 goF
 myH
 tRu
