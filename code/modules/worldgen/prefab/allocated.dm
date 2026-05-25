@@ -88,6 +88,11 @@ ABSTRACT_TYPE(/datum/mapPrefab/allocated)
 	prefabSizeY = 33
 	prefabPath = "assets/maps/allocated/salvager_local.dmm"
 
+/datum/mapPrefab/allocated/syndicate_hideout
+	prefabSizeX = 13
+	prefabSizeY = 12
+	prefabPath = "assets/maps/allocated/syndicate_hideout.dmm"
+
 /datum/mapPrefab/allocated/menhir_room_medical
 	name = "menhir_room_medical"
 	prefabSizeX = 20
