@@ -14,7 +14,7 @@
 
 	examine(mob/user)
 		. = ..()
-		if(ishuman(user))
+		if(ishuman(user) && src.loc == user)
 			. += "<br>For some reason, you feel a strange urge to slide it onto your finger."
 
 	New()
