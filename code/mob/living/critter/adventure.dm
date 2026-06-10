@@ -97,7 +97,6 @@ TYPEINFO(/mob/living/critter/crunched)
 	var/action = "grab"
 
 	help(mob/target, var/mob/living/user)
-		..()
 		harm(target, user, 0)
 
 	harm(mob/target, var/mob/living/user)
