@@ -1612,6 +1612,3 @@ Only trained personnel should operate station systems. Follow all procedures car
 	it understands you<br>
 	don't let it go<br>
 	"}
-
-#undef IMAGE_OFFSET_X
-#undef IMAGE_OFFSET_Y

@@ -34,7 +34,7 @@
 /turf/simulated/floor/black/grime,
 /area/station/engine/power)
 "aK" = (
-/obj/machinery/light_switch/north,
+/obj/machinery/light_switch/directional/north,
 /turf/simulated/floor/stairs{
 	dir = 4
 	},
@@ -311,7 +311,7 @@
 /obj/item/clothing/head/helmet/welding{
 	pixel_x = -1
 	},
-/obj/machinery/light_switch/north,
+/obj/machinery/light_switch/directional/north,
 /turf/simulated/floor/yellowblack{
 	dir = 1
 	},
@@ -452,7 +452,7 @@
 /obj/item/device/light/flashlight{
 	pixel_x = 5
 	},
-/obj/machinery/light_switch/east,
+/obj/machinery/light_switch/directional/east,
 /obj/machinery/camera/directional/north,
 /turf/simulated/floor/yellowblack{
 	dir = 1
@@ -470,7 +470,7 @@
 	icon_state = "tile1"
 	},
 /obj/machinery/firealarm/directional/east,
-/obj/machinery/light_switch/north,
+/obj/machinery/light_switch/directional/north,
 /obj/machinery/nanofab/nuclear,
 /turf/simulated/floor/black,
 /area/station/engine/coldloop{
@@ -877,7 +877,7 @@
 /obj/machinery/camera/directional/west{
 	pixel_y = 10
 	},
-/obj/machinery/light_switch/west,
+/obj/machinery/light_switch/directional/west,
 /turf/simulated/floor/black/grime,
 /area/station/engine/power)
 "AA" = (
@@ -1285,7 +1285,7 @@
 /obj/cable{
 	icon_state = "1-2"
 	},
-/obj/machinery/light_switch/east,
+/obj/machinery/light_switch/directional/east,
 /turf/simulated/floor/black/grime,
 /area/station/engine/monitoring)
 "NF" = (

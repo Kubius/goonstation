@@ -118,7 +118,7 @@
 	pixel_x = -4;
 	pixel_y = -4
 	},
-/obj/machinery/light_switch/west,
+/obj/machinery/light_switch/directional/west,
 /obj/machinery/camera/directional/west{
 	pixel_y = 10
 	},
@@ -356,7 +356,7 @@
 /obj/item/clothing/head/helmet/welding{
 	pixel_x = -1
 	},
-/obj/machinery/light_switch/north,
+/obj/machinery/light_switch/directional/north,
 /turf/simulated/floor/yellowblack{
 	dir = 1
 	},
@@ -385,7 +385,7 @@
 	target_pressure = 2000;
 	dir = 8
 	},
-/obj/machinery/light_switch/west{
+/obj/machinery/light_switch/directional/west{
 	pixel_y = 8
 	},
 /turf/simulated/floor/redblack{
@@ -1388,7 +1388,7 @@
 	icon_state = "tile1"
 	},
 /obj/machinery/firealarm/directional/east,
-/obj/machinery/light_switch/north,
+/obj/machinery/light_switch/directional/north,
 /turf/simulated/floor/black,
 /area/station/engine/coldloop)
 "FH" = (
@@ -1571,7 +1571,7 @@
 /obj/cable{
 	icon_state = "1-2"
 	},
-/obj/machinery/light_switch/east,
+/obj/machinery/light_switch/directional/east,
 /turf/simulated/floor/black/grime,
 /area/station/engine/monitoring)
 "JX" = (
@@ -1763,7 +1763,7 @@
 /obj/machinery/atmospherics/binary/volume_pump/active{
 	transfer_rate = 1000
 	},
-/obj/machinery/light_switch/east{
+/obj/machinery/light_switch/directional/east{
 	pixel_y = -5
 	},
 /obj/machinery/firealarm/directional/east{
@@ -2124,7 +2124,7 @@
 /obj/item/device/light/flashlight{
 	pixel_x = 5
 	},
-/obj/machinery/light_switch/east,
+/obj/machinery/light_switch/directional/east,
 /obj/machinery/camera/directional/north,
 /turf/simulated/floor/yellowblack{
 	dir = 1
@@ -2238,7 +2238,7 @@
 /obj/cable/orange{
 	icon_state = "0-8"
 	},
-/obj/machinery/light_switch/east,
+/obj/machinery/light_switch/directional/east,
 /turf/simulated/floor/engine/caution/south,
 /area/station/engine/core)
 "Xv" = (
