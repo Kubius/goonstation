@@ -32580,6 +32580,7 @@
 /turf/simulated/floor/black,
 /area/station/hallway/primary/central)
 "syc" = (
+/obj/decal/poster/wallsign/menhere_sign,
 /turf/simulated/wall/auto/reinforced/supernorn,
 /area/station/crew_quarters/courtroom)
 "syh" = (

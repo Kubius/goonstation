@@ -258,3 +258,49 @@ TYPEINFO_NEW(/obj/effects/menhir_fog)
 	boutput(usr, SPAN_NOTICE("<b>Vision [activated ? "altered." : "restored to default."]</b>"))
 #endif
 
+/obj/decal/poster/wallsign/menhere_sign
+	name = "pun hazard tracking sign"
+	icon = 'icons/obj/decals/countdown_sign.dmi'
+	icon_state = "base"
+	desc = "It has been X shifts since the last 'men here'."
+	var/shift_count = 0
+
+	New()
+		..()
+		src.RegisterSignal(GLOBAL_SIGNAL, COMSIG_GLOBAL_MEN_HERE, PROC_REF(funny_phrase_handler))
+		src.shift_count = min(world.load_intra_round_value("men_here_count_[map_settings.name]") || 0, 99)
+		world.save_intra_round_value("men_here_count_[map_settings.name]", src.shift_count+1)
+		src.update_da_sign()
+
+	attack_hand(mob/user)
+		interact_particle(user, src)
+		user.examine_verb(src)
+
+	disposing()
+		src.UnregisterSignal(GLOBAL_SIGNAL, COMSIG_GLOBAL_MEN_HERE)
+		. = ..()
+
+	proc/update_da_sign()
+		src.UpdateOverlays(image(src.icon, "[round(shift_count/10)]_"), "number10s")
+		src.UpdateOverlays(image(src.icon, "_[round(shift_count%10)]"), "number1s")
+		src.desc = "It has been [shift_count] shift\s since the last 'men here'."
+		switch(src.shift_count)
+			if(0)
+				src.desc += " The men are here."
+			if(1 to 10)
+				src.desc += " The men were here not long ago."
+			if(11 to 20)
+				src.desc += " The men were here fairly recently."
+			if(21 to 40)
+				src.desc += " It's been a while since the men were here."
+			if(41 to 80)
+				src.desc += " Men may, in fact, not be here."
+			if(81 to 98)
+				src.desc += " Humor is in its waning days."
+			if(99 to INFINITY)
+				src.desc += " The pun lies dormant, at long last."
+
+	proc/funny_phrase_handler()
+		world.save_intra_round_value("men_here_count_[map_settings.name]", 0)
+		src.shift_count = 0
+		src.update_da_sign()
