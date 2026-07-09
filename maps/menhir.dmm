@@ -19044,15 +19044,19 @@
 	pixel_y = 5;
 	pixel_x = 12
 	},
-/obj/item/staple_gun{
-	pixel_y = 3;
-	pixel_x = -5
+/obj/machinery/phone/wall{
+	pixel_y = 32
+	},
+/obj/item/surgical_spoon{
+	pixel_y = 9;
+	pixel_x = -13
 	},
 /obj/item/scissors/surgical_scissors{
 	pixel_x = 5
 	},
-/obj/machinery/phone/wall{
-	pixel_y = 32
+/obj/item/staple_gun{
+	pixel_y = 3;
+	pixel_x = -5
 	},
 /turf/simulated/floor/redwhite{
 	dir = 1
@@ -22799,6 +22803,10 @@
 	},
 /obj/disposalpipe/segment/mail{
 	dir = 4
+	},
+/obj/item/robodefibrillator{
+	pixel_y = 3;
+	pixel_x = 4
 	},
 /turf/simulated/floor/bluewhite,
 /area/station/medical/medbay)
@@ -31919,13 +31927,10 @@
 	pixel_y = 21
 	},
 /obj/machinery/light_switch/directional/east,
-/obj/machinery/disposal/morgue{
-	desc = "A pneumatic delivery chute for sending things directly to the crematorium.";
-	name = "crematorium chute"
-	},
 /obj/disposalpipe/trunk/morgue{
 	dir = 4
 	},
+/obj/disposaloutlet/south,
 /turf/simulated/floor/sanitary/white,
 /area/station/medical/morgue)
 "sfI" = (
@@ -33484,7 +33489,7 @@
 /obj/table/auto,
 /obj/item/paper_bin,
 /obj/item/pen/marker/red,
-/obj/item/storage/box/evidence,
+/obj/item/storage/box/biohazard_bags,
 /obj/item/storage/box/evidence,
 /obj/item/storage/box/evidence,
 /obj/item/storage/box/evidence,
@@ -35561,8 +35566,9 @@
 /area/station/maintenance/east)
 "ugs" = (
 /obj/table/auto,
-/obj/machinery/recharger/defibrillator,
-/obj/item/robodefibrillator,
+/obj/machinery/defib_mount{
+	pixel_y = -4
+	},
 /turf/simulated/floor/redwhite{
 	dir = 4
 	},
@@ -43207,8 +43213,21 @@
 /obj/item/hand_labeler{
 	pixel_y = 5
 	},
-/obj/item/reagent_containers/glass/bottle/formaldehyde,
+/obj/item/reagent_containers/glass/bottle/formaldehyde{
+	pixel_x = -6
+	},
 /obj/item/reagent_containers/syringe,
+/obj/item/staple_gun{
+	pixel_x = 20;
+	pixel_y = 7
+	},
+/obj/item/surgical_spoon{
+	pixel_x = 10;
+	pixel_y = -4
+	},
+/obj/item/scissors/surgical_scissors{
+	pixel_x = 11
+	},
 /turf/simulated/floor/sanitary/white,
 /area/station/medical/morgue)
 "ycr" = (
