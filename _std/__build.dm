@@ -152,13 +152,13 @@ o+`        `-` ``..-:yooos-..----------..`
 //#define MAP_OVERRIDE_OSHAN        // Oshan Laboratory, Abzu, by committee
 //#define MAP_OVERRIDE_NADIR        // Nadir Extraction Site by Kubius
 //#define MAP_OVERRIDE_NEON					// Neon by Sord
+//#define MAP_OVERRIDE_MENHIR       // The one with the big artifact in it
 
 //-------Discontinued or gimmick maps:
 //#define MAP_OVERRIDE_ATLAS        // NCS Atlas, by Gannets (and Kubius)
 //#define MAP_OVERRIDE_CRASH        // Stupid Crash Gimmick Map
 //#define MAP_OVERRIDE_MUSHROOM     // Updated Mushroom
 //#define MAP_OVERRIDE_DENSITY2     // Density2 (second smallest map), by Emily
-//#define MAP_OVERRIDE_MENHIR       // The one with the big artifact in it
 //#define MAP_OVERRIDE_PROBSTATION  // Randomly generated map
 
 //#define GENERATE_GOONHUB_MAP // Generate map screenshots for goonhub map viewer (NOT USED NORMALLY). Use with a map override.
