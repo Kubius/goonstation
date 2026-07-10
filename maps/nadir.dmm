@@ -27839,6 +27839,7 @@
 	pixel_y = 10
 	},
 /obj/machinery/door_control/bolter/new_walls/west,
+/obj/mapping_helper/button/area,
 /turf/simulated/floor/black,
 /area/station/science/research_director)
 "mfN" = (
@@ -50623,6 +50624,7 @@
 	icon_state = "4-8"
 	},
 /obj/mapping_helper/firedoor_spawn,
+/obj/mapping_helper/button/area,
 /turf/simulated/floor/black,
 /area/station/science/research_director)
 "wOn" = (
