@@ -3643,6 +3643,9 @@
 /obj/disposalpipe/segment/transport{
 	dir = 4
 	},
+/obj/forcefield/energyshield/perma/doorlink{
+	dir = 8
+	},
 /turf/simulated/floor/industrial,
 /area/station/engine/substation/pylon{
 	name = "South Catalytic Substation"
@@ -12359,6 +12362,9 @@
 	icon_state = "4-8"
 	},
 /obj/mapping_helper/access/engineering_engine,
+/obj/forcefield/energyshield/perma/doorlink{
+	dir = 8
+	},
 /turf/simulated/floor/industrial,
 /area/station/engine/substation/pylon{
 	name = "South Catalytic Substation"
