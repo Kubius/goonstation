@@ -1100,12 +1100,6 @@
 /obj/item/clothing/under/misc/vice,
 /obj/item/clothing/glasses/sunglasses,
 /obj/item/reagent_containers/food/drinks/bottle/fancy_beer,
-/obj/machinery/door_control/bolter/new_walls/south{
-	id = "eastcc_room1";
-	dir = 1;
-	pixel_x = -1;
-	pixel_y = -21
-	},
 /turf/simulated/floor/carpet/red/fancy/edge/south,
 /area/station/crew_quarters/quarters_east)
 "ayD" = (
@@ -2075,8 +2069,9 @@
 	},
 /obj/machinery/light/small,
 /obj/landmark/start/job/assistant,
-/obj/item/storage/secure/ssafe{
-	pixel_x = 26
+/obj/machinery/door_control/bolter/new_walls/east,
+/obj/mapping_helper/button/pair{
+	dir = 10
 	},
 /turf/simulated/floor/carpet/red/fancy/edge/se,
 /area/station/crew_quarters/quarters_east)
@@ -2564,8 +2559,9 @@
 /obj/cable{
 	icon_state = "5-6"
 	},
-/obj/machinery/door_control/bolter/new_walls/west{
-	id = "maint_crimeroom1"
+/obj/machinery/door_control/bolter/new_walls/west,
+/obj/mapping_helper/button/pair{
+	dir = 5
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/west)
@@ -3398,18 +3394,6 @@
 /obj/machinery/light_switch/directional/east,
 /turf/simulated/floor/black,
 /area/station/security/secwing)
-"bxL" = (
-/obj/decal/cleanable/dirt,
-/obj/machinery/door_control/bolter/new_walls/south{
-	id = "maint_crimeroom1";
-	dir = 1;
-	pixel_x = -1;
-	pixel_y = -21
-	},
-/turf/simulated/floor/industrial,
-/area/station/hallway/secondary/construction{
-	name = "The Warrens"
-	})
 "bye" = (
 /obj/storage/secure/crate/weapon/armory/tranquilizer,
 /obj/machinery/recharger/wall/sticky,
@@ -3734,8 +3718,10 @@
 "bFf" = (
 /obj/decal/cleanable/dirt,
 /obj/machinery/door_control/bolter/new_walls/north{
-	id = "maint_shower1";
 	dir = 2
+	},
+/obj/mapping_helper/button/pair{
+	dir = 9
 	},
 /turf/simulated/floor/sanitary,
 /area/station/maintenance/storage{
@@ -4009,8 +3995,7 @@
 /area/station/storage/emergency2)
 "bLW" = (
 /obj/machinery/door/airlock/pyro/alt{
-	dir = 4;
-	id = "eastcc_stall1"
+	dir = 4
 	},
 /turf/simulated/floor/sanitary,
 /area/station/crew_quarters/quarters_east)
@@ -7709,9 +7694,6 @@
 	pixel_y = 26
 	},
 /obj/linen_bin/bedsheet,
-/obj/machinery/door_control/bolter/new_walls/east{
-	id = "eastcc_room3"
-	},
 /turf/simulated/floor/carpet/red/fancy/edge/ne,
 /area/station/crew_quarters/quarters_east)
 "dzt" = (
@@ -9852,12 +9834,6 @@
 	})
 "eAk" = (
 /obj/reagent_dispensers/still,
-/obj/machinery/door_control/bolter/new_walls/south{
-	id = "maint_crimeroom2";
-	dir = 1;
-	pixel_x = -1;
-	pixel_y = -21
-	},
 /turf/simulated/floor/grime,
 /area/station/hallway/secondary/construction{
 	name = "The Warrens"
@@ -10455,9 +10431,7 @@
 /turf/simulated/floor/black,
 /area/station/hallway/primary/northeast)
 "eOu" = (
-/obj/machinery/door/airlock/pyro/alt{
-	id = "eastcc_room1"
-	},
+/obj/machinery/door/airlock/pyro/alt,
 /obj/mapping_helper/firedoor_spawn,
 /obj/forcefield/energyshield/perma/doorlink,
 /turf/simulated/floor/black,
@@ -13293,9 +13267,8 @@
 	pixel_y = 0
 	},
 /obj/landmark/bill_spawn,
-/obj/machinery/door_control/bolter/new_walls/west{
-	id = "maint_cc4"
-	},
+/obj/machinery/door_control/bolter/new_walls/west,
+/obj/mapping_helper/button/pair,
 /turf/simulated/floor/black,
 /area/station/maintenance/storage{
 	icon_state = "crewquarters";
@@ -14030,6 +14003,7 @@
 	icon_state = "0-2"
 	},
 /obj/machinery/power/apc/autoname_north,
+/obj/machinery/light_switch/directional/east,
 /turf/simulated/floor/blueblack{
 	dir = 4
 	},
@@ -14948,9 +14922,7 @@
 	name = "Science Lounge"
 	})
 "gHB" = (
-/obj/machinery/door/airlock/pyro/external{
-	id = "nadir_disposalock"
-	},
+/obj/machinery/door/airlock/pyro/external,
 /obj/forcefield/energyshield/perma/doorlink,
 /obj/mapping_helper/access/maint,
 /turf/simulated/floor/black,
@@ -15592,11 +15564,13 @@
 /area/station/crew_quarters/baroffice)
 "gVZ" = (
 /obj/machinery/door_control{
-	id = "nadir_bhull_sw";
 	name = "Emergency Re-Entry";
 	pixel_x = 23;
 	dir = 4;
 	pixel_y = 1
+	},
+/obj/mapping_helper/button/pair{
+	dir = 6
 	},
 /turf/space/fluid/acid,
 /area/space)
@@ -16261,9 +16235,11 @@
 	icon_state = "lattice-dir"
 	},
 /obj/machinery/door_control{
-	id = "nadir_ejectorlock";
 	name = "Emergency Re-Entry";
 	pixel_y = 24
+	},
+/obj/mapping_helper/button/pair{
+	dir = 9
 	},
 /turf/space/fluid/acid/clear,
 /area/space)
@@ -16897,14 +16873,14 @@
 /area/station/hallway/primary/northwest)
 "hwv" = (
 /obj/machinery/door/airlock/pyro/command/alt{
-	dir = 4;
-	id = "quarters_ce"
+	dir = 4
 	},
 /obj/cable{
 	icon_state = "4-8"
 	},
 /obj/mapping_helper/access/engineering_chief,
 /obj/mapping_helper/firedoor_spawn,
+/obj/mapping_helper/button/area,
 /turf/simulated/floor/yellowblack{
 	dir = 8
 	},
@@ -17487,8 +17463,7 @@
 /area/station/medical/crematorium)
 "hIM" = (
 /obj/machinery/door/airlock/pyro/security/alt{
-	dir = 4;
-	id = "quarters_hos"
+	dir = 4
 	},
 /obj/mapping_helper/access/hos,
 /obj/cable{
@@ -17496,6 +17471,7 @@
 	},
 /obj/disposalpipe/segment/horizontal,
 /obj/mapping_helper/firedoor_spawn,
+/obj/mapping_helper/button/area,
 /turf/simulated/floor/black,
 /area/station/security/hos)
 "hJD" = (
@@ -18183,12 +18159,13 @@
 	},
 /area/station/hallway/primary/southwest)
 "hXx" = (
-/obj/item/storage/wall{
-	name = "bath cabinet";
-	pixel_y = 32;
-	spawn_contents = list(/obj/item/clothing/under/towel,/obj/item/clothing/under/towel)
-	},
 /obj/stool/bench/blue/auto,
+/obj/machinery/door_control/bolter/new_walls/north{
+	dir = 2
+	},
+/obj/mapping_helper/button/pair{
+	dir = 4
+	},
 /turf/simulated/floor/sanitary,
 /area/station/crew_quarters/quarters_east)
 "hXN" = (
@@ -18232,9 +18209,6 @@
 	icon_state = "bedsheet-black"
 	},
 /obj/machinery/light/small,
-/obj/item/storage/secure/ssafe{
-	pixel_x = -28
-	},
 /obj/landmark/start/job/assistant,
 /turf/simulated/floor/carpet/red/fancy/edge/sw,
 /area/station/crew_quarters/quarters_east)
@@ -19329,12 +19303,11 @@
 	},
 /area/station/hallway/secondary/exit)
 "iwp" = (
-/obj/machinery/door/airlock/pyro/security/alt{
-	id = "quarters_hos"
-	},
+/obj/machinery/door/airlock/pyro/security/alt,
 /obj/mapping_helper/access/hos,
 /obj/disposalpipe/segment/vertical,
 /obj/mapping_helper/firedoor_spawn,
+/obj/mapping_helper/button/area,
 /turf/simulated/floor/black,
 /area/station/security/hos)
 "iws" = (
@@ -19543,13 +19516,6 @@
 /area/station/quartermaster/cargobay{
 	name = "Cargo Primary Endpoint"
 	})
-"izy" = (
-/obj/machinery/door/airlock/pyro/alt{
-	dir = 4;
-	id = "eastcc_stall2"
-	},
-/turf/simulated/floor/sanitary,
-/area/station/crew_quarters/quarters_east)
 "izA" = (
 /obj/machinery/door/airlock/pyro/glass{
 	dir = 4
@@ -19872,8 +19838,7 @@
 	})
 "iIv" = (
 /obj/machinery/door/airlock/pyro/external{
-	dir = 4;
-	id = "nadir_bhull_ne"
+	dir = 4
 	},
 /obj/forcefield/energyshield/perma/doorlink{
 	dir = 8
@@ -21760,11 +21725,8 @@
 /area/station/maintenance/north)
 "jBb" = (
 /obj/storage/secure/closet/command/hos,
-/obj/machinery/door_control/bolter/new_walls/west{
-	id = "quarters_hos";
-	pixel_x = -23;
-	pixel_y = 1
-	},
+/obj/machinery/door_control/bolter/new_walls/west,
+/obj/mapping_helper/button/area,
 /turf/simulated/floor/black,
 /area/station/security/hos)
 "jBm" = (
@@ -22203,11 +22165,8 @@
 	icon_state = "bedsheet-black"
 	},
 /obj/landmark/start/job/assistant,
-/obj/machinery/door_control/bolter/new_walls/west{
-	id = "eastcc_room2";
-	pixel_x = -23;
-	pixel_y = 0
-	},
+/obj/machinery/door_control/bolter/new_walls/west,
+/obj/mapping_helper/button/area,
 /turf/simulated/floor/carpet/red/fancy/edge/west,
 /area/station/crew_quarters/quarters_east)
 "jOy" = (
@@ -23478,8 +23437,7 @@
 /area/station/crew_quarters/quarters_west)
 "kpm" = (
 /obj/machinery/door/airlock/pyro/external{
-	dir = 4;
-	id = "nadir_bhull_sw"
+	dir = 4
 	},
 /obj/forcefield/energyshield/perma/doorlink{
 	dir = 8
@@ -25191,14 +25149,6 @@
 /obj/decal/tile_edge/stripe/big,
 /turf/simulated/floor/black/grime,
 /area/station/maintenance/disposal)
-"kZq" = (
-/obj/machinery/door/airlock/pyro/external{
-	id = "nadir_ejectorlock"
-	},
-/turf/simulated/floor/industrial,
-/area/station/maintenance/outer/sw{
-	name = "Southwest Breach Hull"
-	})
 "kZC" = (
 /obj/machinery/portable_atmospherics/canister/nitrogen,
 /turf/simulated/floor/engine/caution/north,
@@ -25993,9 +25943,7 @@
 	name = "Drop Capsule"
 	})
 "ltE" = (
-/obj/machinery/door/airlock/pyro/external{
-	id = "nadir_ejectorlock"
-	},
+/obj/machinery/door/airlock/pyro/external,
 /obj/forcefield/energyshield/perma/doorlink,
 /obj/mapping_helper/access/research,
 /obj/mapping_helper/access/maint,
@@ -27058,14 +27006,13 @@
 	name = "Arrival Shuttle Hallway"
 	})
 "lNL" = (
-/obj/machinery/door/airlock/pyro/command/alt{
-	id = "quarters_mdir"
-	},
+/obj/machinery/door/airlock/pyro/command/alt,
 /obj/mapping_helper/access/medical_director,
 /obj/cable{
 	icon_state = "1-2"
 	},
 /obj/mapping_helper/firedoor_spawn,
+/obj/mapping_helper/button/area,
 /turf/simulated/floor/black,
 /area/station/medical/head)
 "lNP" = (
@@ -27388,11 +27335,10 @@
 	},
 /area/station/hallway/primary/northwest)
 "lUU" = (
-/obj/machinery/door/airlock/pyro/alt{
-	id = "eastcc_room2"
-	},
+/obj/machinery/door/airlock/pyro/alt,
 /obj/mapping_helper/firedoor_spawn,
 /obj/forcefield/energyshield/perma/doorlink,
+/obj/mapping_helper/button/area,
 /turf/simulated/floor/black,
 /area/station/crew_quarters/quarters_east)
 "lUX" = (
@@ -27892,11 +27838,7 @@
 /obj/machinery/camera/directional/west{
 	pixel_y = 10
 	},
-/obj/machinery/door_control/bolter/new_walls/west{
-	id = "quarters_rd";
-	pixel_x = -23;
-	pixel_y = 0
-	},
+/obj/machinery/door_control/bolter/new_walls/west,
 /turf/simulated/floor/black,
 /area/station/science/research_director)
 "mfN" = (
@@ -28258,14 +28200,13 @@
 /turf/simulated/floor/industrial,
 /area/ghostdrone_factory)
 "mnu" = (
-/obj/machinery/door/airlock/pyro/command/alt{
-	id = "quarters_cap"
-	},
+/obj/machinery/door/airlock/pyro/command/alt,
 /obj/cable{
 	icon_state = "1-2"
 	},
 /obj/mapping_helper/access/captain,
 /obj/mapping_helper/firedoor_spawn,
+/obj/mapping_helper/button/area,
 /turf/simulated/floor/blueblack{
 	dir = 1
 	},
@@ -28423,9 +28364,7 @@
 /turf/simulated/floor/dirt,
 /area/station/ranch)
 "mqR" = (
-/obj/machinery/door/airlock/pyro/classic{
-	id = "maint_crimeroom1"
-	},
+/obj/machinery/door/airlock/pyro/classic,
 /turf/simulated/floor/industrial,
 /area/station/hallway/secondary/construction{
 	name = "The Warrens"
@@ -33088,9 +33027,8 @@
 /turf/simulated/floor/grey/side,
 /area/station/quartermaster/refinery)
 "oyM" = (
-/obj/machinery/door/airlock/pyro/classic{
-	id = "maint_crimeroom2"
-	},
+/obj/machinery/door/airlock/pyro/classic,
+/obj/mapping_helper/button/area,
 /turf/simulated/floor/industrial,
 /area/station/hallway/secondary/construction{
 	name = "The Warrens"
@@ -34484,8 +34422,7 @@
 	})
 "pds" = (
 /obj/machinery/door/airlock/pyro/external{
-	dir = 4;
-	id = "nadir_bhull_se"
+	dir = 4
 	},
 /obj/forcefield/energyshield/perma/doorlink{
 	dir = 8
@@ -34662,9 +34599,7 @@
 	},
 /area/shuttle/arrival/station)
 "pje" = (
-/obj/machinery/door/airlock/pyro/classic{
-	id = "maint_cc4"
-	},
+/obj/machinery/door/airlock/pyro/classic,
 /turf/simulated/floor/black,
 /area/station/maintenance/storage{
 	icon_state = "crewquarters";
@@ -35114,7 +35049,6 @@
 /obj/cable{
 	icon_state = "1-8"
 	},
-/obj/machinery/light_switch/directional/east,
 /obj/item/remote/porter/port_a_nanomed{
 	pixel_x = -3;
 	pixel_y = 3
@@ -35123,6 +35057,8 @@
 	pixel_x = 3;
 	pixel_y = 6
 	},
+/obj/machinery/door_control/bolter/new_walls/east,
+/obj/mapping_helper/button/area,
 /turf/simulated/floor/blueblack{
 	dir = 4
 	},
@@ -35503,11 +35439,11 @@
 	pixel_y = 32
 	},
 /obj/landmark/start/job/assistant,
-/obj/machinery/door_control/bolter/new_walls/south{
-	id = "maint_cc2";
-	dir = 1;
-	pixel_x = -1;
-	pixel_y = -21
+/obj/machinery/door_control/bolter/new_walls/east{
+	pixel_y = 12
+	},
+/obj/mapping_helper/button/pair{
+	dir = 8
 	},
 /turf/simulated/floor/black,
 /area/station/maintenance/storage{
@@ -35530,6 +35466,10 @@
 /obj/item/coin{
 	desc = "It's a small golden coin, oddly cool to the touch. It bears a symbol you don't recognize.";
 	pixel_y = 12
+	},
+/obj/machinery/door_control/bolter/new_walls/east,
+/obj/mapping_helper/button/pair{
+	dir = 10
 	},
 /turf/simulated/floor/industrial,
 /area/station/hallway/secondary/construction{
@@ -36263,9 +36203,10 @@
 	dir = 8;
 	pixel_x = -12
 	},
-/obj/machinery/door_control/bolter/new_walls/north{
-	id = "eastcc_stall1";
-	dir = 2
+/obj/item/storage/wall{
+	name = "bath cabinet";
+	pixel_y = 32;
+	spawn_contents = list(/obj/item/clothing/under/towel,/obj/item/clothing/under/towel)
 	},
 /turf/simulated/floor/sanitary,
 /area/station/crew_quarters/quarters_east)
@@ -36322,16 +36263,6 @@
 	},
 /area/station/quartermaster/cargobay{
 	name = "Cargo Primary Endpoint"
-	})
-"pXa" = (
-/obj/machinery/door/airlock/pyro/classic{
-	dir = 4;
-	id = "maint_cc1"
-	},
-/turf/simulated/floor/black,
-/area/station/maintenance/storage{
-	icon_state = "crewquarters";
-	name = "Warrens Hall"
 	})
 "pXd" = (
 /obj/table/reinforced/auto,
@@ -39077,11 +39008,8 @@
 /area/ghostdrone_factory)
 "rrj" = (
 /obj/machinery/computer/arcade,
-/obj/machinery/door_control/bolter/new_walls/east{
-	id = "quarters_cap";
-	pixel_x = 23;
-	pixel_y = 1
-	},
+/obj/machinery/door_control/bolter/new_walls/east,
+/obj/mapping_helper/button/area,
 /turf/simulated/floor/black,
 /area/station/bridge/captain)
 "rrk" = (
@@ -40206,9 +40134,7 @@
 /turf/simulated/floor/grass,
 /area/station/hydroponics/bay)
 "rUp" = (
-/obj/machinery/door/airlock/pyro/alt{
-	id = "eastcc_room3"
-	},
+/obj/machinery/door/airlock/pyro/alt,
 /obj/mapping_helper/firedoor_spawn,
 /turf/simulated/floor,
 /area/station/crew_quarters/quarters_east)
@@ -40432,27 +40358,6 @@
 /obj/disposalpipe/segment/vertical,
 /turf/simulated/floor/plating,
 /area/station/maintenance/northwest)
-"sao" = (
-/obj/machinery/atmospherics/pipe/simple/insulated{
-	can_rupture = 0;
-	level = 1
-	},
-/obj/machinery/drainage,
-/obj/machinery/shower{
-	dir = 8;
-	pixel_x = -8;
-	pixel_y = 8
-	},
-/obj/machinery/light/small{
-	dir = 8;
-	pixel_x = -12
-	},
-/obj/machinery/door_control/bolter/new_walls/north{
-	id = "eastcc_stall2";
-	dir = 2
-	},
-/turf/simulated/floor/sanitary,
-/area/station/crew_quarters/quarters_east)
 "sap" = (
 /obj/decal/tile_edge/line/black{
 	icon_state = "line1"
@@ -40826,9 +40731,7 @@
 /area/station/crew_quarters/sauna)
 "slr" = (
 /obj/disposalpipe/segment/transport,
-/obj/machinery/door/airlock/pyro/classic{
-	id = "maint_cc3"
-	},
+/obj/machinery/door/airlock/pyro/classic,
 /turf/simulated/floor/black,
 /area/station/maintenance/storage{
 	icon_state = "crewquarters";
@@ -41742,18 +41645,6 @@
 	},
 /turf/simulated/floor/black,
 /area/station/storage/tools)
-"sHQ" = (
-/obj/cable{
-	icon_state = "4-8"
-	},
-/obj/machinery/door_control/bolter/new_walls/south{
-	id = "quarters_mdir";
-	dir = 1;
-	pixel_x = -1;
-	pixel_y = -21
-	},
-/turf/simulated/floor/black,
-/area/station/medical/head)
 "sHZ" = (
 /obj/machinery/light,
 /obj/decal/tile_edge/line/black{
@@ -46235,8 +46126,7 @@
 /area/station/security/secwing)
 "uJB" = (
 /obj/machinery/door/airlock/pyro/classic{
-	dir = 4;
-	id = "maint_cc2"
+	dir = 4
 	},
 /turf/simulated/floor/black,
 /area/station/maintenance/storage{
@@ -46880,11 +46770,11 @@
 /obj/item/clothing/suit/bedsheet,
 /obj/item/storage/wall/random,
 /obj/landmark/start/job/assistant,
-/obj/machinery/door_control/bolter/new_walls/south{
-	id = "maint_cc1";
-	dir = 1;
-	pixel_x = -1;
-	pixel_y = -21
+/obj/machinery/door_control/bolter/new_walls/east{
+	pixel_y = 12
+	},
+/obj/mapping_helper/button/pair{
+	dir = 8
 	},
 /turf/simulated/floor/black,
 /area/station/maintenance/storage{
@@ -48285,11 +48175,11 @@
 	icon_state = "4-8"
 	},
 /obj/machinery/door_control/bolter/new_walls/north{
-	pixel_x = 8;
-	id = "quarters_hop";
+	pixel_x = 6;
 	dir = 2;
 	pixel_y = 25
 	},
+/obj/mapping_helper/button/area,
 /turf/simulated/floor/carpet/green/fancy/edge{
 	dir = 1
 	},
@@ -49687,8 +49577,7 @@
 /area/station/quartermaster/cargooffice)
 "wmj" = (
 /obj/machinery/door/airlock/pyro/external{
-	dir = 4;
-	id = "nadir_bhull_nw"
+	dir = 4
 	},
 /obj/forcefield/energyshield/perma/doorlink{
 	dir = 8
@@ -50151,9 +50040,8 @@
 	},
 /obj/landmark/start/job/assistant,
 /obj/disposalpipe/segment/transport,
-/obj/machinery/door_control/bolter/new_walls/east{
-	id = "maint_cc3"
-	},
+/obj/machinery/door_control/bolter/new_walls/east,
+/obj/mapping_helper/button/pair,
 /turf/simulated/floor/black,
 /area/station/maintenance/storage{
 	icon_state = "crewquarters";
@@ -50728,8 +50616,7 @@
 /area/pasiphae/survey)
 "wOm" = (
 /obj/machinery/door/airlock/pyro/command/alt{
-	dir = 4;
-	id = "quarters_rd"
+	dir = 4
 	},
 /obj/mapping_helper/access/research_director,
 /obj/cable{
@@ -50759,14 +50646,14 @@
 	})
 "wOR" = (
 /obj/machinery/door/airlock/pyro/command/alt{
-	dir = 4;
-	id = "quarters_hop"
+	dir = 4
 	},
 /obj/cable{
 	icon_state = "4-8"
 	},
 /obj/mapping_helper/access/head_of_personnel,
 /obj/mapping_helper/firedoor_spawn,
+/obj/mapping_helper/button/area,
 /turf/simulated/floor/blueblack{
 	dir = 4
 	},
@@ -51491,11 +51378,13 @@
 	})
 "xeB" = (
 /obj/machinery/door_control{
-	id = "nadir_bhull_se";
 	name = "Emergency Re-Entry";
 	pixel_x = -23;
 	dir = 8;
 	pixel_y = 1
+	},
+/obj/mapping_helper/button/pair{
+	dir = 10
 	},
 /turf/space/fluid/acid,
 /area/space)
@@ -52177,6 +52066,10 @@
 	},
 /obj/item/camera{
 	pixel_y = 11
+	},
+/obj/machinery/door_control/bolter/new_walls/east,
+/obj/mapping_helper/button/pair{
+	dir = 9
 	},
 /turf/simulated/floor/carpet/red/fancy/edge/ne,
 /area/station/crew_quarters/quarters_east)
@@ -52914,11 +52807,11 @@
 	icon_state = "bedsheet-yellow"
 	},
 /obj/machinery/door_control/bolter/new_walls/south{
-	id = "quarters_ce";
 	pixel_x = -1;
 	dir = 1;
 	pixel_y = -21
 	},
+/obj/mapping_helper/button/area,
 /turf/simulated/floor/yellowblack,
 /area/station/engine/engineering/ce)
 "xOm" = (
@@ -53593,6 +53486,8 @@
 /obj/item/device/light/lava_lamp{
 	pixel_y = 8
 	},
+/obj/machinery/door_control/bolter/new_walls/west,
+/obj/mapping_helper/button/area,
 /turf/simulated/floor/grime,
 /area/station/hallway/secondary/construction{
 	name = "The Warrens"
@@ -93089,7 +92984,7 @@ mjh
 tZa
 izE
 voR
-kZq
+fbn
 uqC
 uqC
 wuT
@@ -96625,7 +96520,7 @@ tCS
 tsK
 uOe
 whM
-sHQ
+hYU
 oGv
 fBO
 tpW
@@ -104263,7 +104158,7 @@ bSC
 hQo
 erp
 eRD
-pXa
+uJB
 eRD
 uJB
 eRD
@@ -108176,7 +108071,7 @@ hZq
 kRh
 dxN
 cuw
-bxL
+jNc
 kRh
 qgE
 wjO
@@ -109345,7 +109240,7 @@ kuV
 cHd
 qrh
 pDQ
-sao
+pVr
 pDQ
 pVr
 oMR
@@ -109949,7 +109844,7 @@ cHd
 cHd
 eIK
 oZp
-izy
+bLW
 oZp
 bLW
 ibV
