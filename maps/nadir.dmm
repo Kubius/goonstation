@@ -10469,6 +10469,7 @@
 	id = "eastcc_room1"
 	},
 /obj/mapping_helper/firedoor_spawn,
+/obj/forcefield/energyshield/perma/doorlink,
 /turf/simulated/floor/black,
 /area/station/crew_quarters/quarters_east)
 "eOx" = (
@@ -16355,6 +16356,7 @@
 "hkC" = (
 /obj/machinery/door/airlock/pyro/alt,
 /obj/mapping_helper/firedoor_spawn,
+/obj/forcefield/energyshield/perma/doorlink,
 /turf/simulated/floor/sanitary,
 /area/station/crew_quarters/quarters_east)
 "hkF" = (
@@ -27414,6 +27416,7 @@
 	id = "eastcc_room2"
 	},
 /obj/mapping_helper/firedoor_spawn,
+/obj/forcefield/energyshield/perma/doorlink,
 /turf/simulated/floor/black,
 /area/station/crew_quarters/quarters_east)
 "lUX" = (
@@ -33654,6 +33657,9 @@
 	},
 /obj/disposalpipe/segment/horizontal,
 /obj/mapping_helper/firedoor_spawn,
+/obj/forcefield/energyshield/perma/doorlink{
+	dir = 8
+	},
 /turf/simulated/floor/neutral/side{
 	dir = 4
 	},
@@ -41540,6 +41546,9 @@
 	icon_state = "4-8"
 	},
 /obj/mapping_helper/firedoor_spawn,
+/obj/forcefield/energyshield/perma/doorlink{
+	dir = 8
+	},
 /turf/simulated/floor/black,
 /area/station/crew_quarters/quarters_east)
 "sCv" = (
