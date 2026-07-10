@@ -1010,11 +1010,13 @@
 /area/station/maintenance/disposal)
 "avt" = (
 /obj/machinery/door_control{
-	id = "nadir_bhull_ne";
 	name = "Emergency Re-Entry";
 	pixel_x = -23;
 	dir = 8;
 	pixel_y = 1
+	},
+/obj/mapping_helper/button/pair{
+	dir = 9
 	},
 /turf/space/fluid/acid,
 /area/space)
@@ -1970,10 +1972,9 @@
 	bcolor = "pink";
 	icon_state = "bedsheet-pink"
 	},
-/obj/machinery/door_control/bolter/new_walls/east{
-	id = "cc_bdr2";
-	pixel_x = 23;
-	pixel_y = 0
+/obj/machinery/door_control/bolter/new_walls/east,
+/obj/mapping_helper/button/pair{
+	dir = 1
 	},
 /turf/simulated/floor/carpet/red/standard/narrow/south,
 /area/station/crew_quarters/quarters_west)
@@ -2512,11 +2513,8 @@
 	dir = 4;
 	pixel_x = -32
 	},
-/obj/machinery/door_control/bolter/new_walls/east{
-	id = "eastcc_stall3";
-	pixel_x = 23;
-	pixel_y = 0
-	},
+/obj/machinery/door_control/bolter/new_walls/east,
+/obj/mapping_helper/button/pair,
 /turf/simulated/floor/sanitary,
 /area/station/crew_quarters/quarters_east)
 "bhB" = (
@@ -6690,10 +6688,9 @@
 	bcolor = "blue";
 	icon_state = "bedsheet-blue"
 	},
-/obj/machinery/door_control/bolter/new_walls/east{
-	id = "cc_bdr1";
-	pixel_x = 23;
-	pixel_y = 0
+/obj/machinery/door_control/bolter/new_walls/east,
+/obj/mapping_helper/button/pair{
+	dir = 1
 	},
 /turf/simulated/floor/carpet/blue/standard/narrow/south,
 /area/station/crew_quarters/quarters_west)
@@ -7253,12 +7250,6 @@
 	},
 /turf/simulated/floor/black,
 /area/station/hallway/secondary/exit)
-"dpI" = (
-/obj/machinery/door/airlock/pyro/alt{
-	id = "eastcc_stall5"
-	},
-/turf/simulated/floor/sanitary,
-/area/station/crew_quarters/quarters_east)
 "dqn" = (
 /turf/simulated/floor/plating,
 /area/station/maintenance/outer/se{
@@ -8331,11 +8322,13 @@
 /area/abandonedmedicalship/robot_trader)
 "dOb" = (
 /obj/machinery/door_control{
-	id = "nadir_bhull_nw";
 	name = "Emergency Re-Entry";
 	pixel_x = 23;
 	dir = 4;
 	pixel_y = 1
+	},
+/obj/mapping_helper/button/pair{
+	dir = 5
 	},
 /turf/space/fluid/acid,
 /area/space)
@@ -9525,11 +9518,11 @@
 /turf/simulated/floor/white,
 /area/station/medical/medbay)
 "esW" = (
-/obj/machinery/door_control/bolter/new_walls/south{
-	id = "decon1";
-	dir = 1;
-	pixel_x = -1;
-	pixel_y = -21
+/obj/mapping_helper/button/pair{
+	dir = 8
+	},
+/obj/machinery/door_control/bolter/new_walls/north{
+	dir = 2
 	},
 /turf/simulated/floor/sanitary/white,
 /area/station/science/lobby{
@@ -9615,11 +9608,8 @@
 	dir = 4;
 	pixel_x = -32
 	},
-/obj/machinery/door_control/bolter/new_walls/east{
-	id = "cc_stall1";
-	pixel_x = 23;
-	pixel_y = 0
-	},
+/obj/machinery/door_control/bolter/new_walls/east,
+/obj/mapping_helper/button/pair,
 /turf/simulated/floor/sanitary,
 /area/station/crew_quarters/showers)
 "euK" = (
@@ -13553,10 +13543,9 @@
 	pixel_x = -32
 	},
 /obj/item/clothing/suit/bedsheet,
-/obj/machinery/door_control/bolter/new_walls/east{
-	id = "cc_bdr3";
-	pixel_x = 23;
-	pixel_y = 0
+/obj/machinery/door_control/bolter/new_walls/east,
+/obj/mapping_helper/button/pair{
+	dir = 1
 	},
 /turf/simulated/floor/carpet/green/standard/narrow/south,
 /area/station/crew_quarters/quarters_west)
@@ -13980,10 +13969,10 @@
 	},
 /obj/stool/bench/blue/auto,
 /obj/machinery/door_control/bolter/new_walls/north{
-	id = "cc_stall3";
-	dir = 2;
-	pixel_x = 0;
-	pixel_y = 25
+	dir = 2
+	},
+/obj/mapping_helper/button/pair{
+	dir = 10
 	},
 /turf/simulated/floor/sanitary,
 /area/station/crew_quarters/showers)
@@ -14219,9 +14208,7 @@
 	},
 /area/pasiphae)
 "guF" = (
-/obj/machinery/door/airlock/pyro/alt{
-	id = "cc_stall1"
-	},
+/obj/machinery/door/airlock/pyro/alt,
 /turf/simulated/floor/sanitary,
 /area/station/crew_quarters/showers)
 "guH" = (
@@ -15815,9 +15802,7 @@
 	},
 /area/station/mining/staff_room)
 "haf" = (
-/obj/machinery/door/airlock/pyro/alt{
-	id = "cc_bdr2"
-	},
+/obj/machinery/door/airlock/pyro/alt,
 /turf/simulated/floor/carpet/red/standard/narrow/north,
 /area/station/crew_quarters/quarters_west)
 "haj" = (
@@ -16153,8 +16138,7 @@
 "hgP" = (
 /obj/machinery/door/airlock/pyro/alt{
 	dir = 4;
-	name = "Decontamination 1";
-	id = "decon1"
+	name = "Decontamination 1"
 	},
 /turf/simulated/floor/sanitary/white,
 /area/station/science/lobby{
@@ -16400,6 +16384,9 @@
 /obj/machinery/door/airlock/pyro/external{
 	dir = 4
 	},
+/obj/mapping_helper/airlock/cycler/auto/knight{
+	dir = 1
+	},
 /turf/simulated/floor/black/grime,
 /area/station/maintenance/disposal)
 "hlh" = (
@@ -16494,9 +16481,7 @@
 /turf/simulated/floor/black,
 /area/station/security/checkpoint/escape)
 "hmF" = (
-/obj/machinery/door/airlock/pyro/alt{
-	id = "cc_bdr3"
-	},
+/obj/machinery/door/airlock/pyro/alt,
 /turf/simulated/floor/carpet/green/standard/narrow/north,
 /area/station/crew_quarters/quarters_west)
 "hmK" = (
@@ -16859,11 +16844,8 @@
 	dir = 4;
 	pixel_x = -32
 	},
-/obj/machinery/door_control/bolter/new_walls/east{
-	id = "eastcc_stall4";
-	pixel_x = 23;
-	pixel_y = 0
-	},
+/obj/machinery/door_control/bolter/new_walls/east,
+/obj/mapping_helper/button/pair,
 /turf/simulated/floor/sanitary,
 /area/station/crew_quarters/quarters_east)
 "hvw" = (
@@ -17646,11 +17628,8 @@
 	dir = 4;
 	pixel_x = -32
 	},
-/obj/machinery/door_control/bolter/new_walls/east{
-	id = "eastcc_stall5";
-	pixel_x = 23;
-	pixel_y = 0
-	},
+/obj/machinery/door_control/bolter/new_walls/east,
+/obj/mapping_helper/button/pair,
 /turf/simulated/floor/sanitary,
 /area/station/crew_quarters/quarters_east)
 "hMP" = (
@@ -18370,8 +18349,7 @@
 "iaS" = (
 /obj/machinery/door/airlock/pyro/alt{
 	dir = 4;
-	name = "Decontamination 2";
-	id = "decon2"
+	name = "Decontamination 2"
 	},
 /turf/simulated/floor/sanitary/white,
 /area/station/science/lobby{
@@ -19105,9 +19083,7 @@
 	name = "The Warrens"
 	})
 "irk" = (
-/obj/machinery/door/airlock/pyro/alt{
-	id = "eastcc_stall3"
-	},
+/obj/machinery/door/airlock/pyro/alt,
 /turf/simulated/floor/sanitary,
 /area/station/crew_quarters/quarters_east)
 "irn" = (
@@ -30445,12 +30421,6 @@
 	dir = 1
 	},
 /area/station/engine/elect)
-"nmt" = (
-/obj/machinery/door/airlock/pyro/alt{
-	id = "cc_stall3"
-	},
-/turf/simulated/floor/sanitary,
-/area/station/crew_quarters/showers)
 "nmv" = (
 /obj/cable{
 	icon_state = "4-8"
@@ -31988,12 +31958,6 @@
 	dir = 1
 	},
 /area/station/science/teleporter)
-"nTI" = (
-/obj/machinery/door/airlock/pyro/alt{
-	id = "cc_stall2"
-	},
-/turf/simulated/floor/sanitary,
-/area/station/crew_quarters/showers)
 "nUk" = (
 /obj/table/wood/auto/desk,
 /obj/item/cigpacket{
@@ -34029,23 +33993,6 @@
 	icon_state = "respect2"
 	},
 /area/station/security/secwing)
-"oTg" = (
-/obj/machinery/light/small{
-	dir = 1;
-	pixel_y = 21
-	},
-/obj/item/storage/toilet,
-/obj/decoration/toiletholder{
-	dir = 4;
-	pixel_x = -32
-	},
-/obj/machinery/door_control/bolter/new_walls/east{
-	id = "cc_stall2";
-	pixel_x = 23;
-	pixel_y = 0
-	},
-/turf/simulated/floor/sanitary,
-/area/station/crew_quarters/showers)
 "oTA" = (
 /obj/disposalpipe/segment/vertical,
 /turf/simulated/floor/blue,
@@ -36793,10 +36740,9 @@
 	pixel_y = 8
 	},
 /obj/machinery/drainage,
-/obj/machinery/door_control/bolter/new_walls/west{
-	id = "decon2";
-	pixel_x = -23;
-	pixel_y = 0
+/obj/machinery/door_control/bolter/new_walls/west,
+/obj/mapping_helper/button/pair{
+	dir = 9
 	},
 /turf/simulated/floor/sanitary/white,
 /area/station/science/lobby{
@@ -37532,9 +37478,7 @@
 /turf/simulated/floor/black,
 /area/station/security/main)
 "qyR" = (
-/obj/machinery/door/airlock/pyro/alt{
-	id = "cc_bdr1"
-	},
+/obj/machinery/door/airlock/pyro/alt,
 /turf/simulated/floor/carpet/blue/standard/narrow/north,
 /area/station/crew_quarters/quarters_west)
 "qyX" = (
@@ -40424,12 +40368,6 @@
 	dir = 4
 	},
 /area/station/hydroponics/bay)
-"rXN" = (
-/obj/machinery/door/airlock/pyro/alt{
-	id = "eastcc_stall4"
-	},
-/turf/simulated/floor/sanitary,
-/area/station/crew_quarters/quarters_east)
 "rXX" = (
 /turf/simulated/floor/redblack{
 	dir = 8
@@ -52555,12 +52493,12 @@
 /area/station/security/main)
 "xCu" = (
 /obj/machinery/door_control{
-	id = "nadir_disposalock";
 	name = "Emergency Re-Entry";
 	pixel_x = -23;
 	dir = 8;
 	pixel_y = 1
 	},
+/obj/mapping_helper/button/pair,
 /turf/space/fluid/acid/clear,
 /area/space)
 "xCD" = (
@@ -88238,8 +88176,8 @@ kUe
 hUC
 nVL
 nwr
-oTg
-nTI
+euI
+guF
 hgG
 ngL
 wQo
@@ -89145,7 +89083,7 @@ cqP
 rkw
 nwr
 goy
-nmt
+guF
 hgG
 vZO
 gKe
@@ -111824,7 +111762,7 @@ fmc
 eIK
 oZp
 hvm
-rXN
+irk
 xPc
 qlL
 wMJ
@@ -112428,7 +112366,7 @@ uCs
 eIK
 oZp
 hMv
-dpI
+irk
 gfT
 oZp
 oZp
