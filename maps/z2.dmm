@@ -54974,16 +54974,6 @@
 /area/centcom/offices{
 	icon_state = "blue"
 	})
-"eLE" = (
-/obj/precursor_puzzle/innervator{
-	pixel_y = -3;
-	pixel_x = -22;
-	vision_description = "An arc of blued silver, whispering the names of places. It calls from the south."
-	},
-/turf/unsimulated/floor/setpieces/bluefloor{
-	dir = 1
-	},
-/area/precursor/menhir)
 "eMD" = (
 /obj/table/auto,
 /obj/machinery/light/small{
@@ -167590,7 +167580,7 @@ hyO
 jkW
 hyO
 lkr
-eLE
+lkr
 vfG
 hyO
 nuu
