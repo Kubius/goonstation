@@ -32919,6 +32919,10 @@
 	dir = 1
 	},
 /obj/mapping_helper/access/pharmacy,
+/obj/item/kitchen/food_box/lollipop{
+	pixel_y = 6;
+	pixel_x = 5
+	},
 /turf/simulated/floor/blueblack,
 /area/station/medical/medbay/pharmacy)
 "sHa" = (
