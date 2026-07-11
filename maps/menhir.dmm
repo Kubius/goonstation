@@ -5103,6 +5103,12 @@
 	id = "trashgun";
 	name = "Waste Processing Hatch"
 	},
+/obj/forcefield/energyshield/perma/doorlink{
+	desc = "A door-linked force field that prevents gasses from passing through it.";
+	dir = 4;
+	name = "Door-linked Atmospheric Forcefield";
+	powerlevel = 1
+	},
 /turf/simulated/floor/black/grime,
 /area/station/maintenance/disposal)
 "cVH" = (
@@ -6233,7 +6239,9 @@
 "dIu" = (
 /obj/table/reinforced/auto,
 /obj/machinery/coffeemaker/medbay,
-/obj/item/device/radio/intercom/medical,
+/obj/drink_rack/mug{
+	pixel_y = 32
+	},
 /turf/simulated/floor/specialroom/medbay,
 /area/station/medical/staff)
 "dIC" = (
@@ -9528,17 +9536,20 @@
 "fIA" = (
 /obj/table/reinforced/auto,
 /obj/item/storage/box/gl_kit{
-	pixel_x = 3;
-	pixel_y = 11
-	},
-/obj/item/spraybottle/cleaner{
-	pixel_y = 1;
-	pixel_x = 7
+	pixel_x = -2;
+	pixel_y = 14
 	},
 /obj/machinery/light{
 	dir = 4;
 	layer = 9.1;
 	pixel_x = 10
+	},
+/obj/item/storage/box/lglo_kit{
+	pixel_y = 7;
+	pixel_x = 6
+	},
+/obj/item/spraybottle/cleaner{
+	pixel_x = -6
 	},
 /turf/simulated/floor/white,
 /area/station/medical/medbay)
@@ -18295,6 +18306,7 @@
 /area/station/science/storage)
 "kEk" = (
 /obj/storage/cart/medcart/crash,
+/obj/item/storage/toolbox/emergency,
 /turf/simulated/floor/specialroom/medbay,
 /area/station/medical/staff)
 "kEo" = (
@@ -23659,10 +23671,6 @@
 	pixel_y = 11;
 	pixel_x = -7
 	},
-/obj/item/remote/porter/port_a_medbay{
-	pixel_x = 10;
-	pixel_y = 4
-	},
 /obj/item/reagent_containers/glass/bottle/epinephrine{
 	pixel_x = -5
 	},
@@ -23671,7 +23679,17 @@
 	layer = 9.1;
 	pixel_x = -10
 	},
-/obj/machinery/light_switch/directional/north,
+/obj/item/remote/porter/port_a_nanomed{
+	pixel_y = 3;
+	pixel_x = 10
+	},
+/obj/machinery/firealarm/directional/north{
+	pixel_x = -7
+	},
+/obj/machinery/light_switch/directional/north{
+	pixel_y = 26;
+	pixel_x = 4
+	},
 /turf/simulated/floor/specialroom/medbay,
 /area/station/medical/staff)
 "nGp" = (
@@ -26480,17 +26498,24 @@
 	pixel_y = 19;
 	pixel_x = 9
 	},
-/obj/blind_switch/directional/west,
-/obj/item/reagent_containers/syringe/haloperidol{
-	pixel_x = -5;
-	pixel_y = 4
+/obj/blind_switch/directional/west{
+	pixel_y = -10
+	},
+/obj/item/device/radio/intercom/medical{
+	dir = 4;
+	pixel_y = 7;
+	pixel_x = -21
 	},
 /obj/item/reagent_containers/syringe/haloperidol{
 	pixel_x = 3;
 	pixel_y = 5
 	},
-/obj/item/storage/toolbox/emergency{
-	pixel_y = -2
+/obj/item/reagent_containers/syringe/haloperidol{
+	pixel_x = -5;
+	pixel_y = 4
+	},
+/obj/machinery/recharger/defibrillator{
+	pixel_y = -4
 	},
 /turf/simulated/floor/specialroom/medbay,
 /area/station/medical/staff)
@@ -34513,7 +34538,7 @@
 /turf/simulated/floor/blue/side{
 	dir = 1
 	},
-/area/station/hallway/primary/west)
+/area/station/medical/medbay)
 "tAK" = (
 /obj/cable{
 	icon_state = "1-2"
@@ -38147,9 +38172,14 @@
 	pixel_x = -4;
 	pixel_y = 3
 	},
-/obj/machinery/firealarm/directional/north,
 /obj/machinery/camera/directional/west{
 	pixel_y = 10
+	},
+/obj/item_dispenser/latex_gloves{
+	pixel_x = -6
+	},
+/obj/item_dispenser/medical_mask{
+	pixel_x = 6
 	},
 /turf/simulated/floor/specialroom/medbay,
 /area/station/medical/staff)
