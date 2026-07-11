@@ -39,12 +39,7 @@
 	dir = 1;
 	density = 1
 	},
-/turf/unsimulated/floor/setpieces/bluefloor{
-	icon = 'icons/turf/outdoors.dmi';
-	icon_state = "cenote";
-	name = "cenote";
-	desc = "Upon closer inspection, there's an odd faint shimmer. Something is holding the water back."
-	},
+/turf/unsimulated/floor/setpieces/menhir_cavepool,
 /area/unspace/poolroom/reservoir)
 "m" = (
 /obj/landmark/menhir/room{
@@ -71,24 +66,14 @@
 	dir = 1;
 	density = 1
 	},
-/turf/unsimulated/floor/setpieces/bluefloor{
-	icon = 'icons/turf/outdoors.dmi';
-	icon_state = "cenote";
-	name = "cenote";
-	desc = "Upon closer inspection, there's an odd faint shimmer. Something is holding the water back."
-	},
+/turf/unsimulated/floor/setpieces/menhir_cavepool,
 /area/unspace/poolroom/reservoir)
 "r" = (
 /obj/decal/cliff/shore{
 	dir = 8;
 	density = 1
 	},
-/turf/unsimulated/floor/setpieces/bluefloor{
-	icon = 'icons/turf/outdoors.dmi';
-	icon_state = "cenote";
-	name = "cenote";
-	desc = "Upon closer inspection, there's an odd faint shimmer. Something is holding the water back."
-	},
+/turf/unsimulated/floor/setpieces/menhir_cavepool,
 /area/unspace/poolroom/reservoir)
 "t" = (
 /turf/unsimulated/floor/void/timewarp,
@@ -97,12 +82,7 @@
 /obj/map/light/graveyard{
 	brightness = 6
 	},
-/turf/unsimulated/floor/setpieces/bluefloor{
-	icon = 'icons/turf/outdoors.dmi';
-	icon_state = "cenote";
-	name = "cenote";
-	desc = "Upon closer inspection, there's an odd faint shimmer. Something is holding the water back."
-	},
+/turf/unsimulated/floor/setpieces/menhir_cavepool,
 /area/unspace/poolroom/reservoir)
 "z" = (
 /obj/decal/cleanable/dirt,
@@ -142,12 +122,7 @@
 /turf/unsimulated/floor/cave,
 /area/unspace/poolroom/reservoir)
 "N" = (
-/turf/unsimulated/floor/setpieces/bluefloor{
-	icon = 'icons/turf/outdoors.dmi';
-	icon_state = "cenote";
-	name = "cenote";
-	desc = "Upon closer inspection, there's an odd faint shimmer. Something is holding the water back."
-	},
+/turf/unsimulated/floor/setpieces/menhir_cavepool,
 /area/unspace/poolroom/reservoir)
 "Q" = (
 /turf/unsimulated/floor/void,
@@ -169,12 +144,7 @@
 /obj/map/light/graveyard{
 	brightness = 3
 	},
-/turf/unsimulated/floor/setpieces/bluefloor{
-	icon = 'icons/turf/outdoors.dmi';
-	icon_state = "cenote";
-	name = "cenote";
-	desc = "Upon closer inspection, there's an odd faint shimmer. Something is holding the water back."
-	},
+/turf/unsimulated/floor/setpieces/menhir_cavepool,
 /area/unspace/poolroom/reservoir)
 "W" = (
 /obj/map/light/cyan/menhir,
@@ -189,12 +159,7 @@
 	name = "mist";
 	opacity = 0
 	},
-/turf/unsimulated/floor/setpieces/bluefloor{
-	icon = 'icons/turf/outdoors.dmi';
-	icon_state = "cenote";
-	name = "cenote";
-	desc = "Upon closer inspection, there's an odd faint shimmer. Something is holding the water back."
-	},
+/turf/unsimulated/floor/setpieces/menhir_cavepool,
 /area/unspace/poolroom/reservoir)
 "Z" = (
 /turf/unsimulated/floor/void,

@@ -53,6 +53,15 @@ TYPEINFO_NEW(/obj/effects/menhir_fog)
 	icon_state = "bluefloor"
 #endif
 
+/turf/unsimulated/floor/setpieces/menhir_cavepool
+	name = "cenote"
+	desc = "A faint shimmer coats the surface."
+	icon = 'icons/turf/outdoors.dmi'
+	icon_state = "cenote"
+
+/datum/fishing_spot/biodome_lake/menhir
+	fishing_atom_type = /turf/unsimulated/floor/setpieces/menhir_cavepool
+
 /area/station/crown // stole this code from the void definition
 	name = "The Crown"
 	icon_state = "purple"
