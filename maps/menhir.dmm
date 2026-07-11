@@ -8909,13 +8909,17 @@
 	pixel_y = 7
 	},
 /obj/item/reagent_containers/glass/beaker/cryoxadone{
-	pixel_x = 6;
+	pixel_x = 9;
+	pixel_y = 9
+	},
+/obj/machinery/alarm/directional/east,
+/obj/item/reagent_containers/glass/beaker/cryoxadone{
+	pixel_x = 8;
 	pixel_y = 5
 	},
 /obj/item/reagent_containers/glass/beaker/cryoxadone{
 	pixel_x = 6
 	},
-/obj/machinery/alarm/directional/east,
 /turf/simulated/floor/bluewhite{
 	dir = 4
 	},
