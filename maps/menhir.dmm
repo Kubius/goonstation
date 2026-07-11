@@ -8321,9 +8321,8 @@
 /obj/forcefield/energyshield/perma/doorlink{
 	dir = 8
 	},
-/obj/machinery/door/airlock/pyro/glass{
-	dir = 4;
-	hardened = 1
+/obj/machinery/door/airlock/pyro/reinforced/arrivals{
+	dir = 4
 	},
 /turf/unsimulated/floor/circuit/vintage,
 /area/station/crewquarters/cryotron)
@@ -31171,15 +31170,14 @@
 /turf/simulated/floor/engine,
 /area/station/science/testchamber)
 "rJQ" = (
-/obj/machinery/door/airlock/pyro/classic{
-	dir = 4;
-	hardened = 1
-	},
 /obj/forcefield/energyshield/perma/doorlink{
 	dir = 8
 	},
 /obj/cable{
 	icon_state = "4-8"
+	},
+/obj/machinery/door/airlock/pyro/reinforced/arrivals{
+	dir = 4
 	},
 /turf/unsimulated/floor/circuit/vintage,
 /area/station/crewquarters/cryotron)
