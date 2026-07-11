@@ -460,7 +460,9 @@
 /obj/decal/tile_edge/stripe/big{
 	dir = 8
 	},
-/obj/disposalpipe/segment/vertical,
+/obj/cable{
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/grey,
 /area/station/medical/robotics)
 "aov" = (
@@ -4934,11 +4936,12 @@
 /turf/simulated/floor/plating,
 /area/station/turret_protected/incursion)
 "cQI" = (
-/obj/table/reinforced/auto,
-/obj/item/storage/box/cablesbox{
-	pixel_y = 5
-	},
 /obj/blind_switch/directional/north,
+/obj/machinery/computer/robotics/lab,
+/obj/machinery/power/data_terminal,
+/obj/cable{
+	icon_state = "0-8"
+	},
 /turf/simulated/floor/black,
 /area/station/medical/robotics)
 "cQK" = (
@@ -8815,9 +8818,6 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/southeast)
 "fnx" = (
-/obj/machinery/computer3/terminal/zeta{
-	setup_os_string = "ZETA_MAINFRAME"
-	},
 /obj/item/storage/wall{
 	icon_state = "miniorange";
 	name = "tool cabinet";
@@ -8825,12 +8825,10 @@
 	spawn_contents = list(/obj/item/reagent_containers/glass/oilcan,/obj/item/storage/toolbox/mechanical,/obj/item/storage/belt/utility,/obj/item/circular_saw,/obj/item/scalpel)
 	},
 /obj/cable{
-	icon_state = "0-4"
-	},
-/obj/cable{
 	icon_state = "0-8"
 	},
 /obj/machinery/power/data_terminal,
+/obj/machinery/computer/robot_module_rewriter,
 /turf/simulated/floor/black,
 /area/station/medical/robotics)
 "fny" = (
@@ -9566,7 +9564,10 @@
 /obj/decal/tile_edge/stripe/corner/big2{
 	dir = 10
 	},
-/obj/disposalpipe/segment/bent/south,
+/obj/disposalpipe/segment/horizontal,
+/obj/cable{
+	icon_state = "2-9"
+	},
 /turf/simulated/floor/grey,
 /area/station/medical/robotics)
 "fJR" = (
@@ -13559,8 +13560,16 @@
 	},
 /area/station/security/secwing)
 "hVf" = (
-/obj/machinery/disposal,
-/obj/disposalpipe/trunk/west,
+/obj/machinery/computer3/terminal/zeta{
+	setup_os_string = "ZETA_MAINFRAME"
+	},
+/obj/machinery/power/data_terminal,
+/obj/cable{
+	icon_state = "0-8"
+	},
+/obj/cable{
+	icon_state = "0-4"
+	},
 /turf/simulated/floor/grey,
 /area/station/medical/robotics)
 "hVh" = (
@@ -15267,12 +15276,15 @@
 	name = "Logistics Dock"
 	})
 "iSK" = (
-/obj/machinery/computer/robot_module_rewriter,
-/obj/cable{
-	icon_state = "0-8"
+/obj/table/reinforced/auto,
+/obj/machinery/disposal/small/north{
+	pixel_y = 32
 	},
-/obj/machinery/power/data_terminal,
-/obj/machinery/firealarm/directional/north,
+/obj/disposalpipe/trunk/south,
+/obj/item/robot_module,
+/obj/item/robot_module,
+/obj/item/robot_module,
+/obj/item/robot_module,
 /turf/simulated/floor/black,
 /area/station/medical/robotics)
 "iSX" = (
@@ -22315,6 +22327,9 @@
 	icon_state = "4-8"
 	},
 /obj/disposalpipe/segment/bent/south,
+/obj/cable{
+	icon_state = "6-8"
+	},
 /turf/simulated/floor/black,
 /area/station/medical/robotics)
 "mSv" = (
@@ -22575,7 +22590,9 @@
 /obj/decal/tile_edge/stripe/big{
 	dir = 8
 	},
-/obj/disposalpipe/segment/bent/north,
+/obj/cable{
+	icon_state = "1-4"
+	},
 /turf/simulated/floor/grey,
 /area/station/medical/robotics)
 "mZt" = (
@@ -25020,6 +25037,7 @@
 	dir = 8
 	},
 /obj/landmark/start/job/roboticist,
+/obj/disposalpipe/segment/bent/west,
 /turf/simulated/floor/grey,
 /area/station/medical/robotics)
 "orr" = (
@@ -30379,7 +30397,9 @@
 /turf/simulated/floor/plating,
 /area/station/science/lab)
 "rpO" = (
-/obj/disposalpipe/segment/horizontal,
+/obj/cable{
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/grey,
 /area/station/medical/robotics)
 "rqd" = (
@@ -36735,8 +36755,10 @@
 /turf/simulated/floor/grass/leafy,
 /area/station/garden/owlery)
 "uNi" = (
-/obj/disposalpipe/segment/horizontal,
 /obj/disposalpipe/segment/mail,
+/obj/cable{
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/grey,
 /area/station/medical/robotics)
 "uNu" = (
@@ -40926,10 +40948,9 @@
 	})
 "wRP" = (
 /obj/table/reinforced/auto,
-/obj/item/robot_module,
-/obj/item/robot_module,
-/obj/item/robot_module,
-/obj/item/robot_module,
+/obj/item/storage/box/cablesbox{
+	pixel_y = 5
+	},
 /turf/simulated/floor/black,
 /area/station/medical/robotics)
 "wRX" = (
