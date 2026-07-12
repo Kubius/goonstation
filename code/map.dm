@@ -641,6 +641,7 @@ var/global/list/mapNames = list(
 
 /datum/map_settings/menhir
 	name = "MENHIR"
+	display_name = "Menhir Research Enclave"
 	goonhub_map = "/maps/menhir"
 	walls = /turf/simulated/wall/auto/supernorn
 	rwalls = /turf/simulated/wall/auto/reinforced/supernorn
