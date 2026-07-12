@@ -22,10 +22,9 @@
 		CONTENTS_GT(/obj/item/device/radio/intercom/cargo, 0),
 		CONTENTS_GT(/obj/machinery/cashreg, 0),
 		CONTENTS_GT(/obj/machinery/cell_charger, 0),
-		// Shipping (differs for Nadir)
 		CONTENTS_GT(/obj/machinery/computer/barcode, 0),
+		// Shipping controls (differs for Nadir)
 		CONTENTS_GT(/obj/machinery/conveyor_switch, 1),
-		CONTENTS_GT(/obj/machinery/door_control, 1),
 		// Supplies
 		CONTENTS_GT(/obj/storage/secure/closet/engineering/cargo, 0),
 		CONTENTS_GT(/obj/item/cargotele, 0),
@@ -59,8 +58,8 @@
 		CONTENTS_GT(/obj/item/device/radio/intercom/cargo, 0),
 		CONTENTS_GT(/obj/machinery/cashreg, 0),
 		CONTENTS_GT(/obj/machinery/cell_charger, 0),
-		// Shipping (differs for Nadir)
 		CONTENTS_GT(/obj/machinery/computer/barcode, 0),
+		// Shipping controls (differs for Nadir)
 		CONTENTS_GT(/obj/machinery/computer/transception, 1),
 		CONTENTS_GT(/obj/machinery/transception_pad, 1),
 		// Supplies
