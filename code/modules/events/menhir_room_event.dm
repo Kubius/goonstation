@@ -376,6 +376,7 @@ ABSTRACT_TYPE(/datum/menhir_room_roll)
 		if(plinth)
 			for (var/obj/O in get_turf(plinth))
 				if(istype(O,/obj/item/basketball))
+					playsound(plinth.loc, 'sound/musical_instruments/artifact/Artifact_Precursor_4.ogg', 55, 0)
 					. = TRUE
 					return
 
@@ -394,6 +395,7 @@ ABSTRACT_TYPE(/datum/menhir_room_roll)
 		if(plinth)
 			for (var/obj/O in get_turf(plinth))
 				if(istype(O,/obj/item/chilly_orb))
+					playsound(plinth.loc, 'sound/musical_instruments/artifact/Artifact_Precursor_4.ogg', 55, 0)
 					. = TRUE
 					return
 
