@@ -278,7 +278,8 @@ TYPEINFO_NEW(/obj/effects/menhir_fog)
 		..()
 		src.RegisterSignal(GLOBAL_SIGNAL, COMSIG_GLOBAL_MEN_HERE, PROC_REF(funny_phrase_handler))
 		src.shift_count = min(world.load_intra_round_value("men_here_count_[map_settings.name]") || 0, 99)
-		world.save_intra_round_value("men_here_count_[map_settings.name]", src.shift_count+1)
+		src.shift_count++
+		world.save_intra_round_value("men_here_count_[map_settings.name]", src.shift_count)
 		src.update_da_sign()
 
 	attack_hand(mob/user)
