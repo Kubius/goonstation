@@ -2079,6 +2079,17 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/hangar/science)
+"bkh" = (
+/obj/effects/menhir_fog,
+/obj/precursor_puzzle/innervator{
+	vision_description = "The culmination of long-dead artifice, cold and unforgiving, kin to that wrought beneath your feet.";
+	pixel_y = -3;
+	pixel_x = 22
+	},
+/turf/unsimulated/floor/setpieces/bluefloor{
+	dir = 1
+	},
+/area/station/crown)
 "bks" = (
 /obj/cable{
 	icon_state = "1-8"
@@ -3264,6 +3275,17 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/crew_quarters/quartersB)
+"bTJ" = (
+/obj/effects/menhir_fog,
+/obj/precursor_puzzle/innervator{
+	vision_description = "A polished sphere of pale cold, graceful as the moon of your ancestors' home.";
+	pixel_x = -22;
+	pixel_y = -3
+	},
+/turf/unsimulated/floor/setpieces/bluefloor{
+	dir = 1
+	},
+/area/station/crown)
 "bTN" = (
 /obj/machinery/light{
 	dir = 1;
@@ -7695,15 +7717,6 @@
 	},
 /turf/simulated/floor/black,
 /area/station/science/storage)
-"exO" = (
-/obj/effects/menhir_fog,
-/obj/precursor_puzzle/innervator{
-	vision_description = "The crux of long-dead artifice, cold and unforgiving, kin to the ground beneath your feet."
-	},
-/turf/unsimulated/floor/setpieces/bluefloor{
-	dir = 1
-	},
-/area/station/crown)
 "eyp" = (
 /obj/disposalpipe/segment/mail/horizontal,
 /obj/disposalpipe/segment/vertical,
@@ -7951,6 +7964,14 @@
 /obj/machinery/light_switch/directional/west,
 /turf/simulated/floor/white,
 /area/research_outpost/limpet/personnel)
+"eIa" = (
+/obj/effects/menhir_fog,
+/obj/precursor_puzzle/innervator,
+/obj/random_item_spawner/menhir/one,
+/turf/unsimulated/floor/setpieces/bluefloor{
+	dir = 1
+	},
+/area/station/crown)
 "eIf" = (
 /obj/machinery/conveyor_switch{
 	id = "qmsend";
@@ -10353,15 +10374,6 @@
 /obj/disposalpipe/segment/vertical,
 /turf/simulated/floor/black,
 /area/station/security/secwing)
-"gdz" = (
-/obj/effects/menhir_fog,
-/obj/precursor_puzzle/innervator{
-	vision_description = "A polished sphere of pale cold, graceful as the moon of your ancestors' home."
-	},
-/turf/unsimulated/floor/setpieces/bluefloor{
-	dir = 1
-	},
-/area/station/crown)
 "gdL" = (
 /obj/machinery/conveyor/EW{
 	id = "qmsend"
@@ -90882,7 +90894,7 @@ aGr
 aGr
 fxO
 lhN
-law
+eIa
 lhN
 uId
 lhN
@@ -91188,8 +91200,8 @@ lhN
 lhN
 lhN
 lhN
-gdz
 osZ
+bTJ
 lhN
 yej
 lhN
@@ -91792,8 +91804,8 @@ lhN
 lhN
 lhN
 lhN
-exO
 osZ
+bkh
 lhN
 yej
 lhN
