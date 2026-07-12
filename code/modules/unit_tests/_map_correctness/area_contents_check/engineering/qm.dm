@@ -17,7 +17,7 @@
 		CONTENTS_EQ(/obj/machinery/computer/chem_requester/science, 1),
 		CONTENTS_EQ(/obj/submachine/cargopad/qm, 1),
 		CONTENTS_EQ(/obj/machinery/disposal/mail/qm, 1),
-		CONTENTS_GT(/obj/machinery/navbeacon/mule, 1),
+		CONTENTS_GT(/obj/machinery/navbeacon/mule, 0),
 		CONTENTS_GT(/obj/machinery/phone, 0),
 		CONTENTS_GT(/obj/item/device/radio/intercom/cargo, 0),
 		CONTENTS_GT(/obj/machinery/cashreg, 0),
