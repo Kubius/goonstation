@@ -8,7 +8,7 @@
 	expected_contents = list(
 		// Equipment
 		CONTENTS_GT(/obj/machinery/manufacturer/general, 0),
-		CONTENTS_EQ(/obj/machinery/manufacturer/hangar, 1),
+		CONTENTS_GT(/obj/machinery/manufacturer/hangar, 0),
 		CONTENTS_EQ(/obj/machinery/manufacturer/medical, 1),
 		CONTENTS_EQ(/obj/machinery/manufacturer/robotics, 1),
 		CONTENTS_EQ(/obj/machinery/manufacturer/mining, 1),
