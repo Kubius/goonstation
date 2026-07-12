@@ -148,9 +148,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/plating,
-/area/station/crew_quarters/lounge/port{
-	name = "Book Nook"
-	})
+/area/station/medical/medbay/psychiatrist)
 "aeY" = (
 /obj/machinery/flasher/portable,
 /obj/cable{
@@ -2180,11 +2178,11 @@
 /turf/simulated/floor/grey,
 /area/station/crew_quarters/catering)
 "bmu" = (
-/obj/machinery/vending/book,
-/turf/simulated/floor/wood/two,
-/area/station/crew_quarters/lounge/port{
-	name = "Book Nook"
-	})
+/obj/reagent_dispensers/watertank/fountain,
+/turf/simulated/floor/darkblueblack{
+	dir = 8
+	},
+/area/station/medical/medbay/psychiatrist)
 "bmS" = (
 /obj/storage/secure/closet/brig,
 /turf/simulated/floor/redblack{
@@ -3654,9 +3652,7 @@
 /obj/mapping_helper/wingrille_spawn/auto/reinforced,
 /obj/window_blinds/cog2,
 /turf/simulated/floor/plating,
-/area/station/crew_quarters/lounge/port{
-	name = "Book Nook"
-	})
+/area/station/medical/medbay/psychiatrist)
 "ccu" = (
 /obj/machinery/door/airlock/pyro{
 	dir = 4
@@ -5139,9 +5135,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/plating,
-/area/station/crew_quarters/lounge/port{
-	name = "Book Nook"
-	})
+/area/station/medical/medbay/psychiatrist)
 "cVz" = (
 /obj/machinery/camera/directional/north,
 /turf/simulated/floor/shuttlebay{
@@ -5236,6 +5230,15 @@
 /area/station/maintenance/inner/se{
 	name = "Southeast Auxiliary Conduit"
 	})
+"cXX" = (
+/obj/stool/chair/comfy{
+	dir = 8
+	},
+/obj/blind_switch/directional/east,
+/turf/simulated/floor/carpet/blue/fancy/edge{
+	dir = 4
+	},
+/area/station/medical/medbay/psychiatrist)
 "cYx" = (
 /obj/machinery/navbeacon/guardbotsecbot_circularpatrol/beacon12,
 /turf/simulated/floor,
@@ -5922,9 +5925,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/plating,
-/area/station/crew_quarters/lounge/port{
-	name = "Book Nook"
-	})
+/area/station/medical/medbay/psychiatrist)
 "dwm" = (
 /obj/cable{
 	icon_state = "4-8"
@@ -7528,10 +7529,9 @@
 /turf/space,
 /area/space)
 "erV" = (
-/turf/simulated/floor/wood/two,
-/area/station/crew_quarters/lounge/port{
-	name = "Book Nook"
-	})
+/obj/disposalpipe/segment/vertical,
+/turf/simulated/floor/black,
+/area/station/medical/medbay/psychiatrist)
 "esw" = (
 /turf/simulated/floor/black/grime,
 /area/station/storage/hydroponics{
@@ -8060,9 +8060,7 @@
 /area/station/crew_quarters/courtroom)
 "eNJ" = (
 /turf/simulated/wall/auto/supernorn,
-/area/station/crew_quarters/lounge/port{
-	name = "Book Nook"
-	})
+/area/station/medical/medbay/psychiatrist)
 "eNZ" = (
 /obj/decal/tile_edge/stripe/extra_big{
 	dir = 1
@@ -10062,6 +10060,11 @@
 "fUm" = (
 /turf/simulated/floor/engine,
 /area/station/engine/ptl)
+"fUO" = (
+/turf/simulated/floor/carpet/blue/fancy/edge{
+	dir = 1
+	},
+/area/station/medical/medbay/psychiatrist)
 "fVd" = (
 /obj/stool/chair{
 	dir = 1
@@ -10454,6 +10457,25 @@
 /obj/machinery/light,
 /turf/simulated/floor/black,
 /area/station/medical/robotics)
+"gfx" = (
+/obj/table/wood/auto,
+/obj/decal/cleanable/desk_clutter{
+	pixel_y = -9
+	},
+/obj/item/reagent_containers/food/drinks/tea{
+	pixel_y = 14;
+	pixel_x = 4
+	},
+/obj/item/kitchen/food_box/lollipop{
+	pixel_y = -5;
+	pixel_x = 4
+	},
+/obj/item/storage/pill_bottle/mannitol{
+	pixel_x = -6;
+	pixel_y = -2
+	},
+/turf/simulated/floor/carpet/blue/fancy,
+/area/station/medical/medbay/psychiatrist)
 "gfO" = (
 /obj/machinery/light/small{
 	dir = 1;
@@ -13321,14 +13343,19 @@
 /turf/simulated/floor/wood,
 /area/station/crew_quarters/barber_shop)
 "hLS" = (
+/obj/shrub{
+	dir = 1;
+	icon = 'icons/obj/stationobjs.dmi';
+	icon_state = "plant"
+	},
 /obj/machinery/light/small{
 	dir = 4;
 	pixel_x = 12
 	},
-/turf/simulated/floor/wood/two,
-/area/station/crew_quarters/lounge/port{
-	name = "Book Nook"
-	})
+/turf/simulated/floor/darkblueblack{
+	dir = 4
+	},
+/area/station/medical/medbay/psychiatrist)
 "hMw" = (
 /obj/machinery/computer/stockexchange{
 	dir = 8
@@ -13795,9 +13822,7 @@
 	})
 "hXu" = (
 /turf/simulated/wall/auto/reinforced/supernorn,
-/area/station/crew_quarters/lounge/port{
-	name = "Book Nook"
-	})
+/area/station/medical/medbay/psychiatrist)
 "hXE" = (
 /obj/machinery/light{
 	dir = 1;
@@ -15266,12 +15291,12 @@
 	},
 /area/station/bridge)
 "iPh" = (
-/obj/machinery/door/airlock/pyro,
+/obj/machinery/door/airlock/pyro/medical,
 /obj/mapping_helper/firedoor_spawn,
+/obj/disposalpipe/segment/vertical,
+/obj/mapping_helper/access/medical,
 /turf/simulated/floor/wood/two,
-/area/station/crew_quarters/lounge/port{
-	name = "Book Nook"
-	})
+/area/station/medical/medbay/psychiatrist)
 "iPD" = (
 /turf/simulated/shuttle/wall/cockpit/window{
 	icon_state = "wall_trans";
@@ -17787,6 +17812,14 @@
 /obj/machinery/vending/monkey/kitchen,
 /turf/simulated/floor/specialroom/freezer,
 /area/station/crew_quarters/catering)
+"kjW" = (
+/obj/machinery/vending/book,
+/turf/simulated/floor/grey/side{
+	dir = 4
+	},
+/area/station/hallway/secondary/west{
+	name = "West Shuttle Concourse"
+	})
 "kjX" = (
 /obj/machinery/plantpot{
 	anchored = 1
@@ -18089,14 +18122,9 @@
 /obj/stool/chair/couch{
 	dir = 8
 	},
-/obj/machinery/light/small{
-	dir = 1;
-	pixel_y = 21
-	},
-/turf/simulated/floor/wood/two,
-/area/station/crew_quarters/lounge/port{
-	name = "Book Nook"
-	})
+/obj/item/device/radio/intercom/medical,
+/turf/simulated/floor/black,
+/area/station/medical/medbay/psychiatrist)
 "ktX" = (
 /obj/mapping_helper/wingrille_spawn/auto/reinforced,
 /obj/window_blinds/cog2/middle,
@@ -20496,6 +20524,24 @@
 /obj/storage/cart/hotdog,
 /turf/simulated/floor/plating,
 /area/station/maintenance/northwest)
+"lJU" = (
+/obj/table/wood/auto,
+/obj/item/clipboard{
+	pixel_y = 4;
+	pixel_x = 4
+	},
+/obj/item/paper_bin{
+	pixel_y = 4;
+	pixel_x = -3
+	},
+/obj/item/pen{
+	pixel_y = 7
+	},
+/obj/item/pen/fancy{
+	pixel_y = 2
+	},
+/turf/simulated/floor/carpet/blue/fancy/edge,
+/area/station/medical/medbay/psychiatrist)
 "lKA" = (
 /obj/disposalpipe/segment/vertical,
 /turf/simulated/floor/shuttlebay{
@@ -21506,6 +21552,12 @@
 /area/station/maintenance/outer/sw{
 	name = "Arrivals Auxiliary Arm"
 	})
+"mnZ" = (
+/obj/disposalpipe/junction/right/east,
+/turf/simulated/floor/grey/side{
+	dir = 1
+	},
+/area/station/hallway/primary/west)
 "moq" = (
 /obj/mapping_helper/wingrille_spawn/auto/reinforced,
 /obj/disposalpipe/segment/horizontal,
@@ -21999,16 +22051,15 @@
 /turf/simulated/floor/white,
 /area/station/science/hall)
 "mEo" = (
-/obj/table/wood/round/auto,
-/obj/machinery/light/lamp/black{
-	pixel_y = 9;
-	pixel_x = -2
+/obj/cabinet/psychiatry,
+/obj/machinery/light/small{
+	dir = 4;
+	pixel_x = 12
 	},
-/obj/machinery/firealarm/directional/east,
-/turf/simulated/floor/wood/two,
-/area/station/crew_quarters/lounge/port{
-	name = "Book Nook"
-	})
+/turf/simulated/floor/darkblueblack{
+	dir = 4
+	},
+/area/station/medical/medbay/psychiatrist)
 "mEr" = (
 /obj/stool/chair{
 	dir = 4
@@ -22435,11 +22486,8 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/west)
 "mOy" = (
-/obj/machinery/printing_press,
-/turf/simulated/floor/wood/two,
-/area/station/crew_quarters/lounge/port{
-	name = "Book Nook"
-	})
+/turf/simulated/floor/black,
+/area/station/medical/medbay/psychiatrist)
 "mOA" = (
 /obj/mesh/catwalk,
 /obj/disposalpipe/segment/brig{
@@ -22621,11 +22669,10 @@
 /obj/stool/chair/couch{
 	dir = 4
 	},
-/obj/blind_switch/directional/north,
-/turf/simulated/floor/wood/two,
-/area/station/crew_quarters/lounge/port{
-	name = "Book Nook"
-	})
+/obj/item/toy/plush/small/bee,
+/obj/machinery/firealarm/directional/north,
+/turf/simulated/floor/black,
+/area/station/medical/medbay/psychiatrist)
 "mTX" = (
 /obj/disposalpipe/segment/bent/south,
 /obj/cable{
@@ -24149,6 +24196,12 @@
 	},
 /turf/simulated/floor/white,
 /area/station/medical/medbay/surgery)
+"nKM" = (
+/obj/disposalpipe/segment/vertical,
+/turf/simulated/floor/carpet/blue/fancy/edge{
+	dir = 10
+	},
+/area/station/medical/medbay/psychiatrist)
 "nKR" = (
 /obj/storage/secure/closet/civilian/hydro,
 /turf/simulated/floor/black/grime,
@@ -24991,7 +25044,7 @@
 /turf/simulated/floor/darkblue,
 /area/station/hallway/primary/east)
 "oiv" = (
-/obj/machinery/vending/capsule,
+/obj/machinery/vending/paint/broken,
 /turf/simulated/floor/grey/side{
 	dir = 4
 	},
@@ -26849,13 +26902,14 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/west)
 "pbW" = (
-/obj/stool/chair/comfy{
-	dir = 1
+/obj/machinery/light/small{
+	dir = 8;
+	pixel_x = -12
 	},
-/turf/simulated/floor/wood/two,
-/area/station/crew_quarters/lounge/port{
-	name = "Book Nook"
-	})
+/turf/simulated/floor/darkblueblack{
+	dir = 8
+	},
+/area/station/medical/medbay/psychiatrist)
 "pcx" = (
 /obj/cable{
 	icon_state = "4-8"
@@ -29971,15 +30025,10 @@
 /turf/simulated/floor/white,
 /area/research_outpost/limpet/personnel)
 "qTR" = (
-/obj/table/wood/round/auto,
-/obj/item/reagent_containers/food/drinks/tea{
-	pixel_y = 12;
-	pixel_x = 4
+/turf/simulated/floor/darkblueblack{
+	dir = 8
 	},
-/turf/simulated/floor/wood/two,
-/area/station/crew_quarters/lounge/port{
-	name = "Book Nook"
-	})
+/area/station/medical/medbay/psychiatrist)
 "qUo" = (
 /obj/cable{
 	icon_state = "1-8"
@@ -31710,9 +31759,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/plating,
-/area/station/crew_quarters/lounge/port{
-	name = "Book Nook"
-	})
+/area/station/medical/medbay/psychiatrist)
 "rQg" = (
 /turf/simulated/floor/black/side{
 	dir = 1
@@ -32642,11 +32689,11 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/northwest)
 "soU" = (
-/obj/landmark/gps_waypoint,
-/turf/simulated/floor/wood/two,
-/area/station/crew_quarters/lounge/port{
-	name = "Book Nook"
-	})
+/obj/disposalpipe/segment/vertical,
+/turf/simulated/floor/carpet/blue/fancy/edge{
+	dir = 8
+	},
+/area/station/medical/medbay/psychiatrist)
 "soV" = (
 /obj/cable{
 	icon_state = "4-8"
@@ -32715,8 +32762,11 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/south)
 "srI" = (
-/obj/shrub,
 /obj/disposalpipe/segment/vertical,
+/obj/bookshelf/persistent{
+	density = 0;
+	pixel_y = 19
+	},
 /turf/simulated/floor/grey/side{
 	dir = 1
 	},
@@ -33659,15 +33709,12 @@
 	},
 /area/station/hallway/primary/north)
 "sSk" = (
-/obj/bookshelf/persistent{
-	density = 0;
-	pixel_y = 19
-	},
 /obj/machinery/light_switch/directional/east,
-/turf/simulated/floor/wood/two,
-/area/station/crew_quarters/lounge/port{
-	name = "Book Nook"
-	})
+/obj/filing_cabinet,
+/turf/simulated/floor/carpet/blue/fancy/edge{
+	dir = 6
+	},
+/area/station/medical/medbay/psychiatrist)
 "sSl" = (
 /obj/machinery/light{
 	dir = 4;
@@ -35860,8 +35907,8 @@
 	icon_state = "0-4"
 	},
 /obj/machinery/power/apc/autoname_west{
-	name = "Book Nook APC";
-	areastring = "Book Nook"
+	name = "Psychiatrist's Office APC";
+	areastring = "Psychiatrist's Office"
 	},
 /obj/landmark/menhir/outreach,
 /turf/simulated/floor/plating,
@@ -36409,12 +36456,21 @@
 /turf/simulated/floor/engine/vacuum,
 /area/station/science/lab)
 "uqB" = (
-/obj/table/wood/round/auto,
-/obj/random_item_spawner/desk_stuff/g_clip_bin_pen,
-/turf/simulated/floor/wood/two,
-/area/station/crew_quarters/lounge/port{
-	name = "Book Nook"
-	})
+/obj/table/wood/auto,
+/obj/machinery/light/lamp/black{
+	pixel_y = 11
+	},
+/obj/item/storage/firstaid/mental{
+	pixel_x = 4
+	},
+/obj/machinery/light/small{
+	dir = 8;
+	pixel_x = -12
+	},
+/turf/simulated/floor/darkblueblack{
+	dir = 8
+	},
+/area/station/medical/medbay/psychiatrist)
 "urd" = (
 /obj/mesh/catwalk,
 /obj/disposalpipe/segment/transport{
@@ -38263,9 +38319,7 @@
 /obj/mapping_helper/wingrille_spawn/auto/reinforced,
 /obj/window_blinds/cog2/left,
 /turf/simulated/floor/plating,
-/area/station/crew_quarters/lounge/port{
-	name = "Book Nook"
-	})
+/area/station/medical/medbay/psychiatrist)
 "vsn" = (
 /obj/mesh/catwalk,
 /obj/machinery/camera/directional/south,
@@ -38437,9 +38491,7 @@
 /obj/mapping_helper/wingrille_spawn/auto/reinforced,
 /obj/window_blinds/cog2/right,
 /turf/simulated/floor/plating,
-/area/station/crew_quarters/lounge/port{
-	name = "Book Nook"
-	})
+/area/station/medical/medbay/psychiatrist)
 "vxs" = (
 /obj/machinery/light/small{
 	dir = 1;
@@ -38683,6 +38735,12 @@
 /obj/machinery/light_switch/directional/west,
 /turf/simulated/floor/purpleblack,
 /area/station/science/artifact)
+"vCS" = (
+/obj/disposalpipe/segment/bent/south,
+/turf/simulated/floor/carpet/blue/fancy/edge{
+	dir = 9
+	},
+/area/station/medical/medbay/psychiatrist)
 "vCT" = (
 /obj/landmark/gps_waypoint,
 /turf/simulated/floor/wood,
@@ -40075,15 +40133,19 @@
 	},
 /area/station/hydroponics)
 "wjZ" = (
-/obj/stool/chair/comfy,
-/obj/machinery/light/small{
-	dir = 8;
-	pixel_x = -12
+/obj/shrub{
+	dir = 1;
+	icon = 'icons/obj/stationobjs.dmi';
+	icon_state = "plant"
 	},
-/turf/simulated/floor/wood/two,
-/area/station/crew_quarters/lounge/port{
-	name = "Book Nook"
-	})
+/obj/machinery/disposal/small/east{
+	pixel_x = -9
+	},
+/obj/disposalpipe/trunk/east,
+/turf/simulated/floor/darkblueblack{
+	dir = 8
+	},
+/area/station/medical/medbay/psychiatrist)
 "wkc" = (
 /obj/machinery/camera/directional/west,
 /obj/disposalpipe/segment/transport{
@@ -40423,14 +40485,6 @@
 /obj/mapping_helper/firedoor_spawn,
 /turf/simulated/floor/black/grime,
 /area/station/engine/monitoring)
-"wqn" = (
-/obj/machinery/vending/paint/broken,
-/turf/simulated/floor/grey/side{
-	dir = 4
-	},
-/area/station/hallway/secondary/west{
-	name = "West Shuttle Concourse"
-	})
 "wrD" = (
 /obj/landmark/menhir/extrusion{
 	data = "WEST"
@@ -41099,18 +41153,13 @@
 /turf/simulated/floor/black,
 /area/station/security/secwing)
 "wJx" = (
-/obj/stool/chair/comfy{
-	dir = 8
+/obj/machinery/phone/wall{
+	pixel_x = 24
 	},
-/obj/machinery/light/small{
-	dir = 4;
-	pixel_x = 12
+/turf/simulated/floor/carpet/blue/fancy/edge{
+	dir = 5
 	},
-/obj/landmark/kudzu,
-/turf/simulated/floor/wood/two,
-/area/station/crew_quarters/lounge/port{
-	name = "Book Nook"
-	})
+/area/station/medical/medbay/psychiatrist)
 "wJK" = (
 /obj/cable{
 	icon_state = "4-8"
@@ -76688,8 +76737,8 @@ sEf
 gxh
 sEf
 deF
-wqn
 snx
+kjW
 caJ
 mZt
 saj
@@ -76987,7 +77036,7 @@ wAu
 wAu
 wAu
 wAu
-wAu
+hXu
 cVo
 hXu
 rPR
@@ -77289,7 +77338,7 @@ gZU
 rEx
 rEx
 sYr
-wAu
+hXu
 uqB
 wjZ
 qTR
@@ -77591,14 +77640,14 @@ qwW
 lkU
 rqk
 pZk
-wAu
+hXu
 ktT
-erV
+vCS
 soU
-erV
+nKM
 erV
 iPh
-lnH
+mnZ
 vna
 sKF
 iKA
@@ -77893,11 +77942,11 @@ fDz
 soV
 rqk
 inK
-wAu
+hXu
 mTT
-erV
-erV
-erV
+fUO
+gfx
+lJU
 mOy
 vrO
 lnH
@@ -78195,10 +78244,10 @@ mJU
 uQb
 fIR
 ycc
-wAu
+hXu
 mEo
 wJx
-eNJ
+cXX
 sSk
 hLS
 vxq
@@ -78497,7 +78546,7 @@ sfF
 iMa
 tUR
 pZj
-wAu
+hXu
 eNJ
 eNJ
 eNJ
