@@ -2,6 +2,8 @@
 	check_name = "Quartermasters Contents Check"
 	target_areas = list(
 		/area/station/quartermaster,
+		/area/station/hangar/qm,
+		/area/station/crew_quarters/supplylobby
 	)
 	expected_contents = list(
 		// Equipment
