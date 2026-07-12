@@ -131,6 +131,7 @@ ABSTRACT_TYPE(/datum/random_event/menhir)
 	name = "A Gift from the Crown"
 	message_delay = 3 MINUTES
 	weight = 200
+	unannounced = TRUE
 
 	event_effect()
 		///Site the gift artifact spawns at; will sometimes be in a "node" (outer ball) if it can, adding a door to it and disqualifying node from further events
