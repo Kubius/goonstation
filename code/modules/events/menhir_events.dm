@@ -216,11 +216,7 @@ ABSTRACT_TYPE(/datum/random_event/menhir)
 				. = FALSE //or into a room where they can just walk out
 
 	event_effect()
-		///Center of a node (artifact peripheral ball); event's "guest" is moved here and then moved back out. This does NOT disqualify the node from future events
-		var/turf/nodelandmark = pick_landmark(LANDMARK_MENHIR_NODE)
-		///Tag for the node the event is occurring in
-		var/node_tag = landmarks[LANDMARK_MENHIR_NODE][nodelandmark]
-
+		//First see who we can yoink
 		var/list/eligible_examinees = get_menhir_event_candidates(EVFILTER_HUMAN | EVFILTER_ONTURF | EVFILTER_NO_MOON)
 		var/candidate_num = length(eligible_examinees)
 
@@ -229,16 +225,37 @@ ABSTRACT_TYPE(/datum/random_event/menhir)
 			message_admins("Menhir analysis event has inadequate candidates ([candidate_num]/[src.required_candidates]); skipping event.")
 			return
 
-		src.required_candidates = min(src.required_candidates + 2, 15)
+		//Then see where we can put them
+		var/landmark_count = length(landmarks[LANDMARK_MENHIR_NODE])
 
-		var/mob/congratulations_you_won = pick(eligible_examinees)
-		SPAWN(0)
-			src.visit_scheduling(congratulations_you_won,nodelandmark)
+		//And consider how many people will be absconded with
+		var/yoinkcount = floor(min(candidate_num/2,landmark_count))
+		if (yoinkcount < 1) //always at least 1
+			yoinkcount = 1
+
+		//Now, we do the thing
+
+		///String for recording who got sent where
+		var/return_string = ""
+		var/list/eligible_nodes = landmarks[LANDMARK_MENHIR_NODE]
+		for(var/i in 1 to yoinkcount)
+			var/turf/nodelandmark = pick(eligible_nodes)
+			var/node_tag = landmarks[LANDMARK_MENHIR_NODE][nodelandmark]
+			var/mob/yoinked_one = pick(eligible_examinees)
+			eligible_examinees -= yoinked_one
+			eligible_nodes -= nodelandmark
+
+			return_string += "[key_name(yoinked_one)] at [node_tag] arm"
+			if(i < yoinkcount) return_string += " | "
+
+			SPAWN(0)
+				src.visit_scheduling(yoinked_one,nodelandmark)
 
 		..()
 
-		logTheThing(LOG_STATION, null, "Menhir analysis event at [node_tag] arm - [log_loc(nodelandmark)]")
-		message_admins("Menhir analysis event triggered at [node_tag] arm - [log_loc(nodelandmark)]")
+		src.required_candidates = min(src.required_candidates + 2, 15)
+		logTheThing(LOG_STATION, null, "Menhir analysis event: [return_string]")
+		message_admins("Menhir analysis event: [return_string]")
 
 	proc/visit_scheduling(var/mob/living/carbon/human/our_guest,var/turf/selected_node)
 		var/hold_attempts = 0
