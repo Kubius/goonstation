@@ -13,7 +13,8 @@ ABSTRACT_TYPE(/datum/storyteller)
 	var/minor_time_range = list(400 SECONDS, 800 SECONDS)
 
 #ifdef MAP_OVERRIDE_MENHIR
-	var/menhir_event_start = 8 MINUTES
+	///Randomized later to reduce predictability
+	var/menhir_event_start = 6 MINUTES
 	var/menhir_time_range = list(7 MINUTES, 10 MINUTES)
 #endif
 
@@ -38,6 +39,7 @@ ABSTRACT_TYPE(/datum/storyteller)
 		random_events.time_between_minor_events_upper = src.minor_time_range[2]
 
 #ifdef MAP_OVERRIDE_MENHIR
+		src.menhir_event_start = rand(5 MINUTES, 9 MINUTES)
 		random_events.menhir_events_begin = src.menhir_event_start
 		random_events.time_between_menhir_events_lower = src.menhir_time_range[1]
 		random_events.time_between_menhir_events_upper = src.menhir_time_range[2]
