@@ -55524,6 +55524,14 @@
 	dir = 4
 	},
 /area/owlery/office)
+"fge" = (
+/obj/precursor_puzzle/innervator{
+	vision_description = "Again and again, light passes over a sundial. Once and once, light passes over an orb. The orb is remembered. The door is remembered."
+	},
+/turf/unsimulated/floor/setpieces/bluefloor{
+	dir = 8
+	},
+/area/precursor/menhir)
 "fgg" = (
 /obj/indestructible/shuttle_corner{
 	dir = 4;
@@ -159109,7 +159117,7 @@ cnw
 cnw
 aaa
 jQt
-eli
+fge
 vfG
 eli
 jQt
