@@ -8693,6 +8693,7 @@
 /area/station/hangar/main)
 "fhm" = (
 /obj/storage/secure/closet/personal/empty,
+/obj/item/device/radio/intercom/security,
 /turf/simulated/floor/redblack{
 	dir = 1
 	},
@@ -26263,9 +26264,7 @@
 /area/station/maintenance/solar/east)
 "oPf" = (
 /obj/machinery/vending/air_vendor/plasma,
-/obj/item/device/radio/intercom/security{
-	dir = 4
-	},
+/obj/machinery/door_control/podbay/security/new_walls/west,
 /turf/simulated/floor/redblack{
 	dir = 8
 	},
@@ -36449,7 +36448,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/northeast)
 "usn" = (
-/obj/machinery/door_control/podbay/engineering/new_walls/west,
+/obj/machinery/door_control/podbay/research/new_walls/west,
 /obj/table/auto,
 /obj/item/storage/belt/utility{
 	pixel_y = -1;
@@ -97864,7 +97863,7 @@ jGr
 tYw
 wZD
 unr
-aQT
+dSc
 vRc
 sEf
 sEf
@@ -98166,7 +98165,7 @@ jGr
 qpm
 kgp
 fOo
-dSc
+uIV
 jzJ
 yje
 nwV
