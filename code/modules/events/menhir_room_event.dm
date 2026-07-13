@@ -401,7 +401,6 @@ ABSTRACT_TYPE(/datum/menhir_room_roll)
 
 /datum/random_event/menhir/room
 	name = "The Crown Holds Court"
-	centcom_message = "An unusually broad-spectrum spike in electromagnetic activity from TOREADOR-7I-22408 was recently recorded. Prompt inspection of artifact structure, including all secondary lobes, is heavily advised."
 	message_delay = 1 MINUTE
 	weight = 20
 	customization_available = 1
@@ -529,6 +528,8 @@ ABSTRACT_TYPE(/datum/menhir_room_roll)
 			playsound(nodelandmark, 'sound/effects/ring_happi.ogg', 65, 0, pitch = 0.45, extrarange = 24)
 		else
 			playsound(nodelandmark, 'sound/musical_instruments/artifact/Artifact_Precursor_2.ogg', 65, 0, extrarange = 24)
+
+		src.localize_reading(nodelandmark)
 
 		message_delay = rand(20 SECONDS, 50 SECONDS)
 		..()

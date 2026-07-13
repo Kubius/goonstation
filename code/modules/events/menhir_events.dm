@@ -45,6 +45,8 @@ var/global/menhir_candidates_last_built = 0
 	return
 
 #define MENHIR_STANDARD_ALERT_VOLUME 50
+#define MENHIR_CORE_X 158
+#define MENHIR_CORE_Y 169
 
 ABSTRACT_TYPE(/datum/random_event/menhir)
 /datum/random_event/menhir
@@ -70,6 +72,51 @@ ABSTRACT_TYPE(/datum/random_event/menhir)
 				eligible_sites += T
 		if(length(eligible_sites))
 			. = pick(eligible_sites)
+
+	///For events localized to a particular site, update the message to direct people towards the site, more or less.
+	proc/localize_reading(var/atom/target)
+		///Text given to orientate the announcement.
+		var/sumtext = "spinal"
+		///X-axis report text (may remain null).
+		var/x_string = null
+		///Y-axis report text (may remain null).
+		var/y_string = null
+		///X-axis distance (east-west) between the center of the Crown and the incidence site.
+		var/x_main = clamp(target.x - MENHIR_CORE_X, -50, 50)
+		///Y-axis distance (north-south) between the center of the Crown and the incidence site.
+		var/y_main = clamp(target.y - MENHIR_CORE_Y, -50, 50)
+
+		//Tie odds of successful directional indication to the axial distance, with 100% base certainty of the localization at 50+ tiles from center.
+		//This sometimes will fail despite that, but never explicitly direct people in the opposite direction.
+		var/x_positive_clamped = max(0,x_main) * 2
+		var/x_negative_clamped = max(0,-x_main) * 2
+		var/y_positive_clamped = max(0,y_main) * 2
+		var/y_negative_clamped = max(0,-y_main) * 2
+
+		//Y string first (directional convention)
+		if(prob(10)) //10% chance for localization on the axis to fail
+			y_string = null
+		else if(prob(y_positive_clamped))
+			y_string = "north"
+		else if(prob(y_negative_clamped))
+			y_string = "south"
+
+		//X string after
+		if(prob(10)) //10% chance for localization on the axis to fail
+			x_string = null
+		else if(prob(x_positive_clamped))
+			x_string = "east"
+		else if(prob(x_negative_clamped))
+			x_string = "west"
+
+		//pull them all together
+		if (x_string || y_string)
+			sumtext = ""
+			if(x_string) sumtext += x_string
+			if(y_string) sumtext += y_string
+
+		src.centcom_message = "A spike in electromagnetic activity from TOREADOR-7I-22408 was recently recorded, with notable chirality on the [sumtext] axis."
+		src.centcom_message += " Personnel on site are advised to monitor artifact for changes in structure or activity."
 
 //some little fellas!
 /datum/random_event/menhir/probes
@@ -181,6 +228,7 @@ ABSTRACT_TYPE(/datum/random_event/menhir)
 		else
 			showswirl(nodelandmark)
 		Artifact_Spawn(nodelandmark,"precursor")
+		src.localize_reading(nodelandmark)
 
 		message_delay = rand(2 MINUTES, 3 MINUTES)
 		..() //don't send out the message until we have confirmed we can do the event
@@ -552,6 +600,8 @@ ABSTRACT_TYPE(/datum/random_event/menhir)
 		else
 			playsound(extlandmark, 'sound/musical_instruments/artifact/Artifact_Precursor_2.ogg', 65, 0, extrarange = 24)
 
+		src.localize_reading(extlandmark)
+
 		message_delay = rand(1 MINUTE, 3 MINUTES)
 		..()
 		if (random_events.announce_events)
@@ -749,6 +799,8 @@ ABSTRACT_TYPE(/datum/random_event/menhir)
 			if (save_dir == "interior-3") //vertical wall detection
 				newdoor.dir = 4
 
+		src.localize_reading(nodelandmark)
+
 		message_delay = rand(2 MINUTES, 3 MINUTES)
 		..() //don't send out the message until we have confirmed we can do the event
 
@@ -790,6 +842,8 @@ ABSTRACT_TYPE(/datum/random_event/menhir)
 			sinkyboye.anchored = ANCHORED //give it a sec
 			SPAWN(1 SECOND)
 				sinkyboye.ArtifactActivated()
+
+		//reading is deliberately not localized
 
 		message_delay = rand(12 SECONDS,16 SECONDS)
 		..()
