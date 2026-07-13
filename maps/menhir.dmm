@@ -1625,11 +1625,17 @@
 /area/station/hallway/primary/north)
 "aZx" = (
 /obj/machinery/computer/camera_viewer,
-/obj/machinery/firealarm/directional/north,
+/obj/machinery/firealarm/directional/north{
+	pixel_x = 6
+	},
 /obj/cable{
 	icon_state = "0-10"
 	},
 /obj/machinery/power/data_terminal,
+/obj/machinery/light_switch/directional/north{
+	pixel_y = 26;
+	pixel_x = -6
+	},
 /turf/simulated/floor/black/grime,
 /area/station/security/hos)
 "aZH" = (
@@ -2880,9 +2886,6 @@
 /area/station/security/evidence)
 "bGu" = (
 /obj/mapping_helper/wingrille_spawn/auto/reinforced/crystal,
-/obj/window_blinds/cog2/middle{
-	dir = 6
-	},
 /obj/cable{
 	icon_state = "0-4"
 	},
@@ -2892,6 +2895,11 @@
 /obj/cable{
 	icon_state = "0-2"
 	},
+/obj/machinery/door/poddoor/pyro{
+	dir = 9;
+	name = "Window Shutters"
+	},
+/obj/mapping_helper/button/area,
 /turf/simulated/floor/plating,
 /area/station/security/hos)
 "bGE" = (
@@ -4336,13 +4344,15 @@
 /area/station/science/hall)
 "cxJ" = (
 /obj/mapping_helper/wingrille_spawn/auto/reinforced/crystal,
-/obj/window_blinds/cog2/middle{
-	dir = 5
-	},
 /obj/cable{
 	icon_state = "0-8"
 	},
 /obj/cable,
+/obj/machinery/door/poddoor/pyro{
+	dir = 6;
+	name = "Window Shutters"
+	},
+/obj/mapping_helper/button/area,
 /turf/simulated/floor/plating,
 /area/station/security/hos)
 "cxT" = (
@@ -10315,16 +10325,13 @@
 	},
 /area/station/maintenance/southeast)
 "gbr" = (
-/obj/machinery/light/small{
-	dir = 4;
-	pixel_x = 12
-	},
 /mob/living/critter/small_animal/turtle/sylvester/HoS{
 	dir = 8
 	},
 /obj/cable{
 	icon_state = "4-8"
 	},
+/obj/machinery/light/small/floor,
 /turf/simulated/floor/black/grime,
 /area/station/security/hos)
 "gbF" = (
@@ -11433,12 +11440,14 @@
 /area/station/turret_protected/Zeta)
 "gFN" = (
 /obj/mapping_helper/wingrille_spawn/auto/reinforced/crystal,
-/obj/window_blinds/cog2/right{
-	dir = 4
-	},
 /obj/cable{
 	icon_state = "0-2"
 	},
+/obj/machinery/door/poddoor/pyro{
+	dir = 4;
+	name = "Window Shutters"
+	},
+/obj/mapping_helper/button/area,
 /turf/simulated/floor/plating,
 /area/station/security/hos)
 "gFV" = (
@@ -15975,11 +15984,11 @@
 /obj/machinery/phone{
 	pixel_y = 6
 	},
-/obj/machinery/light_switch/directional/north,
 /obj/item/paper/menhir_toreador_extra{
 	pixel_y = -5;
 	pixel_x = 7
 	},
+/obj/item/device/radio/intercom/security,
 /turf/simulated/floor/carpet/red/fancy/edge/north,
 /area/station/security/hos)
 "jiy" = (
@@ -17589,12 +17598,14 @@
 /area/station/science/research_director)
 "kbx" = (
 /obj/mapping_helper/wingrille_spawn/auto/reinforced/crystal,
-/obj/window_blinds/cog2/middle{
-	dir = 6
-	},
 /obj/cable{
 	icon_state = "0-4"
 	},
+/obj/machinery/door/poddoor/pyro{
+	dir = 9;
+	name = "Window Shutters"
+	},
+/obj/mapping_helper/button/area,
 /turf/simulated/floor/plating,
 /area/station/security/hos)
 "kby" = (
@@ -23858,10 +23869,12 @@
 	bcolor = "red";
 	icon_state = "bedsheet-red"
 	},
-/obj/item/device/radio/intercom/security{
-	dir = 8
+/obj/machinery/door_control{
+	dir = 1;
+	pixel_y = -19;
+	name = "Window Shutter Control"
 	},
-/obj/blind_switch/directional/south,
+/obj/mapping_helper/button/area,
 /turf/simulated/floor/carpet/red/fancy/narrow/se,
 /area/station/security/hos)
 "nCx" = (
