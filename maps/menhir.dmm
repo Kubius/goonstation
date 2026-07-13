@@ -8017,14 +8017,6 @@
 /obj/machinery/light_switch/directional/west,
 /turf/simulated/floor/white,
 /area/research_outpost/limpet/personnel)
-"eIa" = (
-/obj/effects/menhir_fog,
-/obj/precursor_puzzle/innervator,
-/obj/random_item_spawner/menhir/one,
-/turf/unsimulated/floor/setpieces/bluefloor{
-	dir = 1
-	},
-/area/station/crown)
 "eIf" = (
 /obj/machinery/conveyor_switch{
 	id = "qmsend";
@@ -15846,14 +15838,6 @@
 	},
 /turf/simulated/floor/black/grime,
 /area/station/maintenance/disposal)
-"jdU" = (
-/obj/effects/menhir_fog,
-/obj/landmark/menhir/dark,
-/obj/random_item_spawner/menhir/one,
-/turf/unsimulated/floor/setpieces/bluefloor{
-	dir = 1
-	},
-/area/station/crown)
 "jdY" = (
 /obj/decal/tile_edge/line/yellow{
 	dir = 1;
@@ -90507,7 +90491,7 @@ uId
 lhN
 uId
 lhN
-jdU
+uId
 lhN
 yej
 lhN
@@ -91109,7 +91093,7 @@ aGr
 aGr
 fxO
 lhN
-eIa
+law
 lhN
 uId
 lhN
