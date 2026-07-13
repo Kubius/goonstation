@@ -594,6 +594,38 @@ ABSTRACT_TYPE(/datum/menhir_puzzle)
 		"In a quiet alcove, a hooded figure peruses a row of deep black slates. The figure's selection, grasped tightly, begins to spin and sing."
 	)
 
+/datum/menhir_puzzle/blight
+	target_path = /obj/item/light/tube/blacklight
+	desc_strings = list(
+		"A slender construct of glass casts an unearthly light. Some things shy from it, and others glow in kind.",
+		"You gaze upon a pillar clasped at each end, bathing its surrounds in the shortest of hues."
+	)
+
+/datum/menhir_puzzle/alienseed
+	target_path = /obj/item/seed/alien
+	desc_strings = list(
+		"A knotted mass of peculiar hue falls into a solitary puddle. A strange growth sprouts from the depths.",
+		"You stretch out your hand, and it is not yours. You sow a beautiful gift in the earth, and await its blooming."
+	)
+
+/datum/menhir_puzzle/figurine
+	target_path = /obj/item/toy/figure
+	desc_strings = list(
+		"A token in your brethren's visage lies still and silent among its kin, suspended in a sea of cages."
+	)
+
+/datum/menhir_puzzle/snackcake
+	target_path = /obj/item/reagent_containers/food/snacks/snack_cake
+	desc_strings = list(
+		"A figure in familiar garb stares ambivalently at a small confection bearing monochrome stripes, resting on a wooden table."
+	)
+
+/datum/menhir_puzzle/frame
+	target_path = /obj/item/electronics/frame
+	desc_strings = list(
+		"Disparate parts lay strewn before you. As your perspective recedes, they gather into a single vessel, awaiting an end to its formlessness."
+	)
+
 /obj/precursor_puzzle/innervator
 	name = "peculiar panel"
 	desc = "You can't explain why, but it feels like it's watching you."
