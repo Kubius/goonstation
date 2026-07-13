@@ -17386,6 +17386,11 @@
 	icon_state = "engine_caution_north"
 	},
 /area/station/hangar/medical)
+"jXE" = (
+/obj/decal/cleanable/dirt,
+/obj/machinery/portable_atmospherics/canister/air,
+/turf/simulated/floor/plating,
+/area/station/maintenance/southwest)
 "jXH" = (
 /obj/mapping_helper/wingrille_spawn/auto/reinforced,
 /obj/cable,
@@ -23658,7 +23663,7 @@
 	layer = 9.1;
 	pixel_x = 10
 	},
-/obj/machinery/portable_atmospherics/canister/air/large,
+/obj/machinery/portable_atmospherics/canister/oxygen,
 /turf/simulated/floor/caution/side{
 	dir = 4
 	},
@@ -81000,7 +81005,7 @@ llo
 wdP
 bcb
 pMR
-jlF
+jXE
 mxH
 tVJ
 vlo
