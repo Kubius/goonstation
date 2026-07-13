@@ -302,7 +302,8 @@ TYPEINFO(/mob/living/critter/shade)
 
 		death()
 			var/obj/item/chilly_orb/okfine = new /obj/item/chilly_orb(src.loc)
-			okfine.color = "#f7c0c0"
+			okfine.color = "#f78080"
+			okfine.name = "foreboding orb"
 			okfine.desc = "The cold seems to bite at the air around it. This should have been left undisturbed."
 			okfine.id = "SORROW"
 			. = ..()
