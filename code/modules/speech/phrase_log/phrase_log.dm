@@ -189,7 +189,7 @@ var/global/datum/phrase_log/phrase_log = new
 			SEND_GLOBAL_SIGNAL(COMSIG_GLOBAL_SUSSY_PHRASE, SPAN_ADMIN("Low RP word - [key_name(user)] [category]: \"[phrase]\""))
 		#endif
 		#ifdef MAP_OVERRIDE_MENHIR
-		if(!src.menhir_pun_found && possible_menhir_pun(phrase))
+		if(!src.menhir_pun_found && category != "ooc" && category != "looc" && !(category == "deadsay" || (user && inafterlife(user))) && possible_menhir_pun(phrase))
 			src.menhir_pun_found = TRUE //the men are already here stop checking
 			SEND_GLOBAL_SIGNAL(COMSIG_GLOBAL_MEN_HERE)
 		#endif
@@ -236,7 +236,7 @@ var/global/datum/phrase_log/phrase_log = new
 		return !!(findtext(phrase, src.ic_sussy_words))
 
 	proc/possible_menhir_pun(phrase)
-		if(isnull(src.menhir_pun_regex))
+		if (isnull(src.menhir_pun_regex))
 			return FALSE
 		return (findtext(phrase, src.menhir_pun_regex))
 
