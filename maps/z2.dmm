@@ -55679,7 +55679,6 @@
 /turf/unsimulated/floor/black/side,
 /area/iomoon/base)
 "fkk" = (
-/obj/rack/precursor,
 /obj/random_item_spawner/menhir/a_bunch,
 /turf/unsimulated/floor/setpieces/bluefloor{
 	dir = 1
@@ -74334,6 +74333,10 @@
 /obj/decal/poster/wallsign/stencil/right/one,
 /turf/unsimulated/floor/setpieces/gauntlet,
 /area/sim/racing_track)
+"tmP" = (
+/obj/random_item_spawner/menhir/one,
+/turf/unsimulated/floor/setpieces/bluefloor,
+/area/precursor/menhir)
 "tnk" = (
 /obj/machinery/chem_dispenser/chemical,
 /obj/decal/stripe_delivery,
@@ -157306,7 +157309,7 @@ cnw
 aaa
 wTV
 jQt
-vzY
+tmP
 jQt
 jQt
 gHj
@@ -157912,7 +157915,7 @@ jQt
 jQt
 ikq
 lmA
-vzY
+tmP
 jQt
 lkr
 xmo
@@ -160328,7 +160331,7 @@ jQt
 jQt
 ikq
 lmA
-vzY
+tmP
 jQt
 lkr
 xmo
@@ -160930,7 +160933,7 @@ cnw
 aaa
 wTV
 jQt
-vzY
+tmP
 jQt
 jQt
 gHj
