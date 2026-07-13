@@ -573,6 +573,9 @@
 "aqW" = (
 /obj/disposalpipe/segment/transport,
 /obj/disposalpipe/segment/horizontal,
+/obj/cable{
+	icon_state = "1-2"
+	},
 /turf/simulated/floor,
 /area/station/hallway/primary/west)
 "arb" = (
@@ -603,6 +606,9 @@
 "arG" = (
 /obj/disposalpipe/segment/produce{
 	dir = 4
+	},
+/obj/cable{
+	icon_state = "4-8"
 	},
 /turf/simulated/floor/wood/seven,
 /area/station/ranch)
@@ -1733,6 +1739,9 @@
 	icon_state = "1-4"
 	},
 /obj/disposalpipe/junction/left/west,
+/obj/cable{
+	icon_state = "1-8"
+	},
 /turf/simulated/floor/wood/seven,
 /area/station/ranch)
 "bbY" = (
@@ -1944,6 +1953,9 @@
 	icon_state = "line1"
 	},
 /obj/landmark/gps_waypoint,
+/obj/cable{
+	icon_state = "2-8"
+	},
 /turf/simulated/floor,
 /area/station/engine/storage)
 "bfN" = (
@@ -3241,6 +3253,13 @@
 	dir = 8
 	},
 /area/station/science/chemistry)
+"bSn" = (
+/obj/disposalpipe/segment/transport,
+/obj/cable{
+	icon_state = "2-4"
+	},
+/turf/simulated/floor,
+/area/station/hallway/primary/west)
 "bSJ" = (
 /obj/decal/cleanable/dirt/jen,
 /obj/fluid_pipe/straight/supply{
@@ -4838,9 +4857,6 @@
 	},
 /obj/cable{
 	icon_state = "0-5"
-	},
-/obj/disposalpipe/segment/transport{
-	dir = 4
 	},
 /turf/simulated/floor/engine,
 /area/station/science/teleporter)
@@ -6878,6 +6894,9 @@
 /area/station/crown)
 "dZm" = (
 /obj/disposalpipe/segment/transport,
+/obj/cable{
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/white,
 /area/station/medical/medbay)
 "dZu" = (
@@ -6953,6 +6972,10 @@
 /area/station/crew_quarters/cafeteria)
 "eaY" = (
 /obj/storage/closet/fire,
+/obj/disposalpipe/segment/transport{
+	dir = 1;
+	icon_state = "pipe-c"
+	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/south)
 "ebl" = (
@@ -7198,6 +7221,9 @@
 /area/space)
 "egD" = (
 /obj/machinery/firealarm/directional/west,
+/obj/disposalpipe/segment/transport{
+	dir = 4
+	},
 /turf/simulated/floor/purplewhite{
 	dir = 8
 	},
@@ -7563,6 +7589,9 @@
 "etj" = (
 /obj/disposalpipe/segment/transport,
 /obj/disposalpipe/segment/mail/horizontal,
+/obj/cable{
+	icon_state = "1-2"
+	},
 /turf/simulated/floor,
 /area/station/hallway/primary/west)
 "etx" = (
@@ -7572,6 +7601,9 @@
 "etE" = (
 /obj/disposalpipe/segment/transport,
 /obj/machinery/navbeacon/guardbotsecbot_circularpatrol/beacon16,
+/obj/cable{
+	icon_state = "1-2"
+	},
 /turf/simulated/floor,
 /area/station/hallway/primary/west)
 "etS" = (
@@ -8041,6 +8073,9 @@
 "eLb" = (
 /obj/disposalpipe/segment/mail{
 	dir = 4
+	},
+/obj/cable{
+	icon_state = "1-2"
 	},
 /turf/simulated/floor/bluewhite,
 /area/station/medical/medbay)
@@ -10254,6 +10289,9 @@
 /obj/cable{
 	icon_state = "0-6"
 	},
+/obj/disposalpipe/segment/transport{
+	dir = 4
+	},
 /turf/simulated/floor/engine,
 /area/station/science/teleporter)
 "fZY" = (
@@ -10419,6 +10457,9 @@
 	icon_state = "1-8"
 	},
 /obj/landmark/start/job/medical_doctor,
+/obj/cable{
+	icon_state = "1-4"
+	},
 /turf/simulated/floor/white,
 /area/station/medical/medbay)
 "gea" = (
@@ -10758,6 +10799,9 @@
 "goT" = (
 /obj/cable{
 	icon_state = "1-2"
+	},
+/obj/disposalpipe/segment/transport{
+	dir = 4
 	},
 /turf/simulated/floor/engine,
 /area/station/science/teleporter)
@@ -13108,6 +13152,9 @@
 /obj/disposalpipe/segment/brig{
 	dir = 4
 	},
+/obj/cable{
+	icon_state = "5-10"
+	},
 /turf/simulated/floor/green/corner,
 /area/station/hallway/primary/north)
 "hEn" = (
@@ -13784,6 +13831,9 @@
 /area/station/hallway/primary/east)
 "hVJ" = (
 /obj/disposalpipe/segment/mail/horizontal,
+/obj/cable{
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/yellow/side{
 	dir = 8
 	},
@@ -14266,6 +14316,13 @@
 	dir = 1
 	},
 /area/station/science/lab)
+"ihB" = (
+/obj/disposalpipe/segment/mail/horizontal,
+/obj/cable{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor,
+/area/station/engine/storage)
 "ihX" = (
 /obj/landmark/gps_waypoint,
 /turf/simulated/floor/arrival/corner{
@@ -15161,7 +15218,9 @@
 	name = "Arrival Concourse"
 	})
 "iKe" = (
-/obj/disposalpipe/segment/transport,
+/obj/disposalpipe/segment/transport{
+	icon_state = "pipe-c"
+	},
 /turf/simulated/floor/white,
 /area/station/science/hall)
 "iKh" = (
@@ -15967,6 +16026,12 @@
 	},
 /turf/simulated/floor/blue,
 /area/station/science/lab)
+"jhz" = (
+/obj/cable{
+	icon_state = "2-9"
+	},
+/turf/simulated/floor/white,
+/area/station/medical/medbay)
 "jhC" = (
 /obj/machinery/door/airlock/pyro/medical{
 	dir = 4
@@ -19463,6 +19528,9 @@
 	dir = 8
 	},
 /obj/disposalpipe/segment/transport,
+/obj/cable{
+	icon_state = "1-2"
+	},
 /turf/simulated/floor,
 /area/station/hallway/primary/west)
 "ldT" = (
@@ -22582,6 +22650,9 @@
 /obj/cable{
 	icon_state = "2-8"
 	},
+/obj/cable{
+	icon_state = "1-2"
+	},
 /turf/simulated/floor,
 /area/station/quartermaster/office)
 "mQe" = (
@@ -22850,6 +22921,9 @@
 "mXb" = (
 /obj/disposalpipe/segment/transport,
 /obj/machinery/navbeacon/guardbotsecbot_circularpatrol/beacon14,
+/obj/cable{
+	icon_state = "1-2"
+	},
 /turf/simulated/floor,
 /area/station/hallway/primary/west)
 "mXj" = (
@@ -23226,9 +23300,6 @@
 /area/station/hangar/main)
 "nhI" = (
 /obj/machinery/light_switch/directional/west,
-/obj/disposalpipe/segment/transport{
-	icon_state = "pipe-c"
-	},
 /turf/simulated/floor/purplewhite{
 	dir = 9
 	},
@@ -24010,6 +24081,16 @@
 	},
 /turf/space,
 /area/space)
+"nFi" = (
+/obj/disposalpipe/segment/transport,
+/obj/cable{
+	icon_state = "1-4"
+	},
+/obj/cable{
+	icon_state = "1-2"
+	},
+/turf/simulated/floor,
+/area/station/hallway/primary/west)
 "nFk" = (
 /obj/disposalpipe/segment/horizontal,
 /turf/simulated/floor/plating,
@@ -24933,9 +25014,6 @@
 /turf/simulated/floor/yellow/side,
 /area/station/hallway/primary/southwest)
 "ocK" = (
-/obj/disposalpipe/segment/transport{
-	dir = 4
-	},
 /turf/simulated/floor/engine,
 /area/station/science/teleporter)
 "odd" = (
@@ -27371,6 +27449,9 @@
 	})
 "ppI" = (
 /obj/disposalpipe/segment/transport,
+/obj/cable{
+	icon_state = "1-2"
+	},
 /turf/simulated/floor,
 /area/station/hallway/primary/west)
 "ppS" = (
@@ -29411,6 +29492,12 @@
 	dir = 1
 	},
 /area/station/medical/medbay)
+"qxt" = (
+/obj/cable{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor,
+/area/station/hallway/primary/west)
 "qxJ" = (
 /obj/machinery/guardbot_dock,
 /obj/machinery/bot/guardbot,
@@ -30119,6 +30206,9 @@
 /obj/item/device/radio/intercom/science{
 	dir = 4
 	},
+/obj/disposalpipe/segment/transport{
+	dir = 4
+	},
 /turf/simulated/floor/engine,
 /area/station/science/teleporter)
 "qVp" = (
@@ -30547,6 +30637,9 @@
 /obj/mapping_helper/firedoor_spawn,
 /obj/disposalpipe/segment/mail/horizontal,
 /obj/mapping_helper/access/engineering_storage,
+/obj/cable{
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/yellow,
 /area/station/engine/storage)
 "rif" = (
@@ -31012,6 +31105,9 @@
 /obj/disposalpipe/segment/produce{
 	dir = 1;
 	icon_state = "pipe-c"
+	},
+/obj/cable{
+	icon_state = "4-10"
 	},
 /turf/simulated/floor/green/side{
 	dir = 1
@@ -34046,6 +34142,14 @@
 	dir = 9
 	},
 /area/station/crew_quarters/cafeteria)
+"tbl" = (
+/obj/cable{
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/blue/side{
+	dir = 1
+	},
+/area/station/hallway/primary/west)
 "tbm" = (
 /obj/lattice{
 	dir = 10;
@@ -36708,6 +36812,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/south)
 "uxz" = (
+/obj/disposalpipe/segment/transport,
 /turf/simulated/wall/auto/reinforced/supernorn,
 /area/station/hallway/primary/southwest)
 "uya" = (
@@ -37126,6 +37231,9 @@
 "uJG" = (
 /obj/machinery/door/airlock/pyro/glass,
 /obj/disposalpipe/segment/transport,
+/obj/cable{
+	icon_state = "1-2"
+	},
 /turf/simulated/floor,
 /area/station/quartermaster/office)
 "uJH" = (
@@ -37984,6 +38092,9 @@
 /obj/mapping_helper/mailtag/public/market,
 /obj/cable{
 	icon_state = "4-8"
+	},
+/obj/cable{
+	icon_state = "5-8"
 	},
 /turf/simulated/floor/grey/side{
 	dir = 8
@@ -39036,6 +39147,14 @@
 /obj/precursor_puzzle/innervator,
 /turf/unsimulated/floor/setpieces/bluefloor,
 /area/station/crown)
+"vKZ" = (
+/obj/cable{
+	icon_state = "1-8"
+	},
+/turf/simulated/floor/black/side{
+	dir = 1
+	},
+/area/station/hallway/primary/west)
 "vLb" = (
 /obj/cable{
 	icon_state = "1-6"
@@ -39634,9 +39753,6 @@
 	dir = 4
 	},
 /obj/landmark/start/job/scientist,
-/obj/disposalpipe/segment/transport{
-	icon_state = "pipe-c"
-	},
 /turf/simulated/floor/white,
 /area/station/science/hall)
 "vXV" = (
@@ -40034,6 +40150,9 @@
 	dir = 4
 	},
 /obj/mapping_helper/access/rancher,
+/obj/cable{
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/wood/seven,
 /area/station/ranch)
 "wgL" = (
@@ -40201,10 +40320,6 @@
 /area/station/medical/medbay/psychiatrist)
 "wkc" = (
 /obj/machinery/camera/directional/west,
-/obj/disposalpipe/segment/transport{
-	dir = 1;
-	icon_state = "pipe-c"
-	},
 /turf/simulated/floor/purplewhite{
 	dir = 8
 	},
@@ -40478,6 +40593,9 @@
 	})
 "wov" = (
 /obj/decal/stripe_delivery,
+/obj/cable{
+	icon_state = "6-8"
+	},
 /turf/simulated/floor/bluewhite{
 	dir = 1
 	},
@@ -41086,6 +41204,13 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/east)
+"wFO" = (
+/obj/disposalpipe/segment/mail,
+/obj/cable{
+	icon_state = "5-10"
+	},
+/turf/simulated/floor,
+/area/station/hallway/primary/north)
 "wFU" = (
 /obj/machinery/bot/medbot,
 /obj/item/device/radio/intercom{
@@ -41526,6 +41651,9 @@
 /obj/disposalpipe/segment/mail{
 	dir = 4
 	},
+/obj/cable{
+	icon_state = "1-2"
+	},
 /turf/simulated/floor,
 /area/station/hallway/primary/west)
 "wTr" = (
@@ -41892,6 +42020,9 @@
 "xeh" = (
 /obj/disposalpipe/switch_junction/left/north,
 /obj/mapping_helper/mailtag/engineering,
+/obj/cable{
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/yellow/side{
 	dir = 4
 	},
@@ -43141,6 +43272,9 @@
 /obj/machinery/door/airlock/pyro/glass,
 /obj/mapping_helper/firedoor_spawn,
 /obj/mapping_helper/access/medical,
+/obj/cable{
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/blue,
 /area/station/medical/medbay)
 "xKB" = (
@@ -43508,9 +43642,7 @@
 /obj/machinery/disposal/transport{
 	name = "primary hallway shunt unit"
 	},
-/obj/disposalpipe/trunk/transport{
-	dir = 4
-	},
+/obj/disposalpipe/trunk/transport,
 /obj/machinery/light/small,
 /obj/landmark/pest,
 /turf/simulated/floor/black,
@@ -43672,9 +43804,6 @@
 	icon_state = "0-9"
 	},
 /mob/living/carbon/human/npc/monkey/albert,
-/obj/disposalpipe/segment/transport{
-	dir = 4
-	},
 /turf/simulated/floor/engine,
 /area/station/science/teleporter)
 "xZs" = (
@@ -83135,7 +83264,7 @@ ngP
 nsi
 tAe
 ieX
-ppI
+bSn
 ppI
 mXb
 wTe
@@ -83152,7 +83281,7 @@ ppI
 ppI
 ppI
 etj
-ppI
+nFi
 ppI
 uJG
 mPQ
@@ -83437,7 +83566,7 @@ qzL
 thc
 fPZ
 iIB
-vna
+qxt
 ijU
 fOF
 lTz
@@ -83734,12 +83863,12 @@ pIH
 xgM
 tzz
 pvo
-nvx
+jhz
 eLb
 xJR
-rBz
-vna
-rQg
+tbl
+xpK
+vKZ
 wYf
 lhN
 lhN
@@ -84360,7 +84489,7 @@ fiu
 gpQ
 rjT
 rtO
-sBC
+ihB
 tEZ
 bZe
 jWE
@@ -87989,9 +88118,9 @@ xFh
 xFh
 vsn
 ujP
+ujP
+ujP
 onB
-ujP
-ujP
 ujP
 ujP
 ujP
@@ -89197,9 +89326,9 @@ aBi
 kPb
 hJh
 ujP
+ujP
+ujP
 onB
-ujP
-ujP
 ujP
 jAy
 cFi
@@ -91569,7 +91698,7 @@ mGm
 jAW
 mIZ
 rrI
-mIZ
+wFO
 hFs
 ucn
 exc
