@@ -7530,6 +7530,7 @@
 /area/space)
 "erV" = (
 /obj/disposalpipe/segment/vertical,
+/obj/landmark/gps_waypoint,
 /turf/simulated/floor/black,
 /area/station/medical/medbay/psychiatrist)
 "esw" = (
@@ -15295,7 +15296,7 @@
 /obj/mapping_helper/firedoor_spawn,
 /obj/disposalpipe/segment/vertical,
 /obj/mapping_helper/access/medical,
-/turf/simulated/floor/wood/two,
+/turf/simulated/floor/black,
 /area/station/medical/medbay/psychiatrist)
 "iPD" = (
 /turf/simulated/shuttle/wall/cockpit/window{
