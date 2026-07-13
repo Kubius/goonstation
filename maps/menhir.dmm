@@ -5656,6 +5656,7 @@
 /turf/simulated/floor/engine/vacuum,
 /area/station/science/lab)
 "dnA" = (
+/obj/disposalpipe/segment/mail/horizontal,
 /turf/simulated/floor/caution/side{
 	dir = 4
 	},
@@ -6640,6 +6641,10 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/northeast)
+"dTS" = (
+/obj/disposalpipe/segment/mail/horizontal,
+/turf/simulated/floor,
+/area/station/mining/staff_room)
 "dUt" = (
 /obj/machinery/disposal/mail/small/autoname/engineering/west{
 	pixel_x = 9
@@ -7544,6 +7549,11 @@
 /turf/simulated/floor/blue/side{
 	dir = 1
 	},
+/area/station/hallway/primary/west)
+"etj" = (
+/obj/disposalpipe/segment/transport,
+/obj/disposalpipe/segment/mail/horizontal,
+/turf/simulated/floor,
 /area/station/hallway/primary/west)
 "etx" = (
 /obj/mapping_helper/wingrille_spawn/auto/reinforced,
@@ -9477,6 +9487,7 @@
 /obj/machinery/disposal/mail/small/autoname/mining/east{
 	pixel_x = -9
 	},
+/obj/disposalpipe/trunk/mail/east,
 /turf/simulated/floor/caution/side{
 	dir = 8
 	},
@@ -11055,6 +11066,7 @@
 	},
 /obj/mapping_helper/firedoor_spawn,
 /obj/mapping_helper/access/mining,
+/obj/disposalpipe/segment/mail/horizontal,
 /turf/simulated/floor/caution,
 /area/station/mining/staff_room)
 "gvX" = (
@@ -20024,6 +20036,18 @@
 /area/station/crew_quarters/clown{
 	name = "Honkington's Abode"
 	})
+"ltp" = (
+/obj/machinery/light{
+	dir = 4;
+	layer = 9.1;
+	pixel_x = 10
+	},
+/obj/disposalpipe/switch_junction/right/north,
+/obj/mapping_helper/mailtag/mining,
+/turf/simulated/floor/yellow/side{
+	dir = 4
+	},
+/area/station/hallway/primary/west)
 "ltJ" = (
 /obj/machinery/conveyor/EW{
 	id = "ghostdrone_cuba";
@@ -20115,6 +20139,7 @@
 	dir = 10;
 	icon_state = "line1"
 	},
+/obj/disposalpipe/segment/mail/bent/south,
 /turf/simulated/floor,
 /area/station/mining/staff_room)
 "lxu" = (
@@ -21323,6 +21348,12 @@
 /obj/machinery/light_switch/directional/east,
 /turf/simulated/floor/engine,
 /area/station/mining/refinery)
+"mfJ" = (
+/obj/disposalpipe/segment/mail/horizontal,
+/turf/simulated/floor/caution/side{
+	dir = 8
+	},
+/area/station/hallway/primary/west)
 "mgj" = (
 /obj/mapping_helper/wingrille_spawn/auto/reinforced,
 /turf/simulated/floor/plating,
@@ -33342,6 +33373,7 @@
 /obj/decal/tile_edge/line/black{
 	icon_state = "line1"
 	},
+/obj/disposalpipe/segment/mail/horizontal,
 /turf/simulated/floor,
 /area/station/mining/staff_room)
 "sIg" = (
@@ -34761,6 +34793,7 @@
 	dir = 8;
 	icon_state = "line1"
 	},
+/obj/disposalpipe/segment/mail/bent/north,
 /turf/simulated/floor,
 /area/station/mining/staff_room)
 "tvx" = (
@@ -36286,6 +36319,7 @@
 	dir = 6;
 	icon_state = "line1"
 	},
+/obj/disposalpipe/segment/mail/horizontal,
 /turf/simulated/floor,
 /area/station/mining/staff_room)
 "umk" = (
@@ -81896,7 +81930,7 @@ ngE
 enS
 vCu
 iqW
-wdj
+dTS
 fen
 iqW
 wdj
@@ -82802,7 +82836,7 @@ sMw
 evZ
 evZ
 evZ
-evZ
+mfJ
 evZ
 aDC
 rSq
@@ -83104,7 +83138,7 @@ ppI
 ppI
 ppI
 ppI
-ppI
+etj
 ppI
 ppI
 uJG
@@ -83406,7 +83440,7 @@ aXg
 upM
 aXg
 aXg
-nYR
+ltp
 xeh
 qbI
 oaj
