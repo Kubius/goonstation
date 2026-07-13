@@ -11335,13 +11335,6 @@
 "gBo" = (
 /turf/simulated/floor/redblack,
 /area/station/security/checkpoint/arrivals)
-"gBy" = (
-/obj/machinery/sink/slim{
-	dir = 1
-	},
-/obj/machinery/drainage,
-/turf/simulated/floor/grass/leafy,
-/area/station/ranch)
 "gBG" = (
 /turf/simulated/floor/wood,
 /area/station/crew_quarters/fitness)
@@ -12166,13 +12159,6 @@
 /area/station/hallway/secondary/east{
 	name = "East Shuttle Concourse"
 	})
-"hcE" = (
-/obj/cable{
-	icon_state = "4-8"
-	},
-/mob/living/critter/small_animal/ranch_base/sheep/white/dolly/ai_controlled,
-/turf/simulated/floor/grass/leafy,
-/area/station/ranch)
 "hcJ" = (
 /turf/simulated/wall/auto/supernorn,
 /area/station/crew_quarters/baroffice)
@@ -13379,13 +13365,15 @@
 	name = "Arrival Concourse"
 	})
 "hKP" = (
-/obj/submachine/seed_vendor,
 /obj/machinery/disposal/small/east{
 	pixel_x = -9
 	},
 /obj/disposalpipe/trunk/north,
 /obj/machinery/light_switch/directional/west{
 	pixel_y = 18
+	},
+/obj/machinery/plantpot{
+	anchored = 1
 	},
 /turf/simulated/floor/wood/seven,
 /area/station/ranch)
@@ -14682,16 +14670,6 @@
 	dir = 4
 	},
 /area/station/solar/east)
-"itK" = (
-/obj/railing/orange/reinforced,
-/obj/disposalpipe/segment/brig{
-	dir = 4
-	},
-/obj/shrub{
-	dir = 5
-	},
-/turf/simulated/floor/grass/leafy,
-/area/station/ranch)
 "itZ" = (
 /obj/decal/cleanable/dirt/jen,
 /turf/simulated/floor/darkpurple,
@@ -18705,9 +18683,6 @@
 /turf/simulated/floor/engine/glow/blue,
 /area/station/turret_protected/ai)
 "kJg" = (
-/obj/railing/orange/reinforced{
-	dir = 4
-	},
 /obj/decal/tile_edge/line/black{
 	dir = 8;
 	icon_state = "line1"
@@ -20226,6 +20201,10 @@
 /area/station/storage/hydroponics{
 	do_not_irradiate = 1
 	})
+"lxA" = (
+/mob/living/critter/small_animal/ranch_base/sheep/white/dolly/ai_controlled,
+/turf/simulated/floor/grass/leafy,
+/area/station/ranch)
 "lxU" = (
 /obj/machinery/atmospherics/unary/portables_connector,
 /obj/decal/poster/wallsign/space{
@@ -20827,7 +20806,10 @@
 /obj/disposalpipe/segment/brig{
 	dir = 4
 	},
-/turf/simulated/floor/grass/leafy,
+/obj/railing/orange/reinforced{
+	dir = 1
+	},
+/turf/simulated/floor/dirt,
 /area/station/ranch)
 "lNG" = (
 /obj/decoration/toiletholder{
@@ -21138,9 +21120,10 @@
 	},
 /area/station/bridge)
 "lXD" = (
-/obj/machinery/plantpot{
-	anchored = 1
+/obj/machinery/sink/slim{
+	pixel_y = 16
 	},
+/obj/machinery/drainage,
 /turf/simulated/floor/wood/seven,
 /area/station/ranch)
 "lXJ" = (
@@ -36075,7 +36058,10 @@
 /obj/disposalpipe/segment/brig{
 	dir = 4
 	},
-/turf/simulated/floor/grass/leafy,
+/obj/railing/orange/reinforced{
+	dir = 1
+	},
+/turf/simulated/floor/dirt,
 /area/station/ranch)
 "uds" = (
 /obj/disposalpipe/segment/bent/west,
@@ -94413,10 +94399,10 @@ xZR
 kks
 huE
 wZQ
-itK
+ucR
 huE
 huE
-gBy
+huE
 jFz
 pQu
 uyV
@@ -94714,9 +94700,9 @@ kjX
 xZR
 kks
 huE
-hcE
+wZQ
 ucR
-huE
+lxA
 huE
 iGp
 jFz
