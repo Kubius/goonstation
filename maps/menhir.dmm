@@ -14476,11 +14476,11 @@
 /turf/unsimulated/floor/shuttle,
 /area/shuttle/arrival/station)
 "iqm" = (
-/obj/machinery/vending/cigarette,
 /obj/machinery/power/apc/autoname_north,
 /obj/cable{
 	icon_state = "0-10"
 	},
+/obj/machinery/vending/capsule,
 /turf/simulated/floor/grey/side{
 	dir = 4
 	},
@@ -40393,8 +40393,8 @@
 /turf/simulated/floor/neutral,
 /area/station/storage/eva)
 "wnW" = (
-/obj/machinery/vending/capsule,
 /obj/mesh/catwalk,
+/obj/machinery/vending/cigarette,
 /turf/simulated/floor/black,
 /area/station/hallway/primary/central)
 "wom" = (
