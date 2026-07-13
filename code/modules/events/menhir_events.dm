@@ -281,7 +281,16 @@ ABSTRACT_TYPE(/datum/random_event/menhir)
 				var/area/A = get_area(our_guest)
 				if(istype(A,/area/station/crown)) //make sure the guest is still here
 					var/noise_odds = min((4 - assertiveness) * 20, 10)
-					if(prob(noise_odds)) //sing them a little sound; less likely to do this if our guest has been rambunctious
+					if(prob(40) && assertiveness == 1) //let's see what's poking around in that genome - not more than once per visit, though.
+						var/datum/bioHolder/B = our_guest.bioHolder
+						var/bioEffectId = pick(B.effectPool)
+						var/datum/bioEffect/E = B.effectPool[bioEffectId]
+						var/manipulation_sound = pick('sound/items/mesonactivate.ogg','sound/items/med_scanner.ogg','sound/effects/crackle3.ogg')
+						our_guest.playsound_local_not_inworld(manipulation_sound, 40, 0, 0.7)
+						boutput(our_guest,SPAN_ALERT("A strange [pick("pulse","wave","swell")] of energy washes over you.[pick(" You feel different."," What the hell?","")]"))
+						SPAWN(rand(8,12))
+							B.ActivatePoolEffect(E, 1, 0)
+					else if(prob(noise_odds)) //sing them a little sound; less likely to do this if our guest has been rambunctious
 						var/response_tester_sound = pick('sound/effects/explosionfar.ogg','sound/effects/explosionfar.ogg','sound/musical_instruments/Gong_Rumbling.ogg')
 						our_guest.playsound_local_not_inworld(response_tester_sound, 80, 0)
 					else //test chemical reaction
