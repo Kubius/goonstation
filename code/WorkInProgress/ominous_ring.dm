@@ -226,8 +226,21 @@
 							showswirl(nearby_spot)
 							SPAWN(2)
 								Artifact_Spawn(nearby_spot,"precursor")
-					if(8 to 9) //all is well, probably.
-						return
+					if(8 to 9) //all is well, probably. unless you're in hell.
+						var/area/target_area = get_area(our_spot)
+						if(our_mob && istype(target_area,/area/precursor/pit))
+							var/turf/yonder = pick_landmark(LANDMARK_MENHIR_PENANCE)
+							showswirl_out(our_spot)
+							our_mob.set_loc(yonder)
+							showswirl(yonder)
+							SPAWN(2 SECOND)
+								playsound(yonder, 'sound/musical_instruments/artifact/Artifact_Precursor_3.ogg', 60, 0)
+								boutput(our_mob,SPAN_DISARM("« 86 67 96 37 78 23 97 48 23 38 28 37 96 27 48 23 48 97 87 23 96 76 87 56 87 96 08 «"))
+							SPAWN(18 SECONDS)
+								var/turf/andback = pick_landmark(LANDMARK_MENHIR_OUTREACH)
+								showswirl_out(yonder)
+								our_mob.set_loc(andback)
+								showswirl(andback)
 
 
 /datum/bioEffect/regenerator/unnatural
