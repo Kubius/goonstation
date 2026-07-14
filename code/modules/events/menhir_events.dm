@@ -953,6 +953,7 @@ ABSTRACT_TYPE(/datum/random_event/menhir)
 			SPAWN(message_delay + 30)
 				playsound_global(world, 'sound/misc/announcement_ominous.ogg', 60, pitch = 1.3)
 
+		landmarks[LANDMARK_MENHIR_DARK] = null
 		logTheThing(LOG_STATION, null, "Menhir shadow event triggered.")
 		message_admins("Menhir shadow event triggered.")
 
