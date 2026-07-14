@@ -511,7 +511,7 @@
 	pixel_y = 32
 	},
 /turf/simulated/floor/plating,
-/area/station/maintenance/southwest)
+/area/station/mining/magnet)
 "apl" = (
 /obj/cable{
 	icon_state = "1-4"
@@ -548,6 +548,13 @@
 /obj/machinery/power/data_terminal,
 /turf/simulated/floor/darkpurple,
 /area/research_outpost/limpet/personnel)
+"apG" = (
+/obj/mesh/catwalk,
+/obj/cable{
+	icon_state = "2-4"
+	},
+/turf/simulated/floor/airless/plating/catwalk,
+/area/station/mining/magnet)
 "apN" = (
 /obj/disposalpipe/segment/vertical,
 /obj/cable{
@@ -5215,6 +5222,10 @@
 /obj/landmark/gps_waypoint,
 /turf/simulated/floor/black,
 /area/station/teleporter)
+"cWc" = (
+/obj/submachine/cargopad/magnet,
+/turf/space,
+/area/station/mining/magnet)
 "cWm" = (
 /obj/machinery/door/airlock/pyro/classic{
 	dir = 4
@@ -6446,13 +6457,6 @@
 	name = "test chamber plating"
 	},
 /area/station/science/testchamber)
-"dMm" = (
-/obj/mesh/catwalk,
-/turf/simulated/floor/airless/plating/catwalk{
-	dir = 4;
-	icon_state = "catwalk_cross"
-	},
-/area/station/mining/magnet)
 "dMS" = (
 /obj/disposalpipe/segment/mail{
 	dir = 2;
@@ -11992,6 +11996,10 @@
 	dir = 6
 	},
 /area/station/engine/gravity)
+"gWL" = (
+/obj/decal/tile_edge/stripe/extra_big,
+/turf/simulated/floor/grime,
+/area/station/mining/magnet)
 "gXj" = (
 /obj/cable{
 	icon_state = "4-8"
@@ -12546,6 +12554,16 @@
 /obj/storage/closet/biohazard,
 /turf/simulated/floor/black,
 /area/station/science/testchamber)
+"hoY" = (
+/obj/mesh/catwalk,
+/obj/machinery/light/small{
+	dir = 1;
+	pixel_y = 21
+	},
+/turf/simulated/floor/airless/plating/catwalk{
+	icon_state = "catwalk_cross"
+	},
+/area/station/mining/magnet)
 "hpb" = (
 /obj/decal/cleanable/dirt/jen,
 /obj/shrub{
@@ -13053,6 +13071,19 @@
 	},
 /turf/simulated/floor/black,
 /area/station/science/testchamber)
+"hCU" = (
+/obj/machinery/door/airlock/pyro/external,
+/obj/mapping_helper/access/mining,
+/obj/forcefield/energyshield/perma/doorlink{
+	desc = "A door-linked force field that prevents gasses from passing through it.";
+	name = "Door-linked Atmospheric Forcefield";
+	powerlevel = 1
+	},
+/obj/cable{
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/industrial,
+/area/station/mining/magnet)
 "hCX" = (
 /obj/stool/chair/pew/fancy/left{
 	dir = 4
@@ -16820,6 +16851,10 @@
 /area/station/hallway/secondary/entry{
 	name = "Arrival Concourse"
 	})
+"jEf" = (
+/obj/mapping_helper/wingrille_spawn/auto/reinforced,
+/turf/simulated/floor/plating,
+/area/station/mining/magnet)
 "jEs" = (
 /obj/landmark/gps_waypoint,
 /turf/simulated/floor,
@@ -18946,6 +18981,16 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/southeast)
+"kPW" = (
+/obj/machinery/door/airlock/pyro/external,
+/obj/mapping_helper/access/mining,
+/obj/forcefield/energyshield/perma/doorlink{
+	desc = "A door-linked force field that prevents gasses from passing through it.";
+	name = "Door-linked Atmospheric Forcefield";
+	powerlevel = 1
+	},
+/turf/simulated/floor/industrial,
+/area/station/mining/magnet)
 "kQL" = (
 /obj/cable{
 	icon_state = "4-8"
@@ -21555,16 +21600,6 @@
 	dir = 1
 	},
 /area/station/engine/elect)
-"mlX" = (
-/obj/mesh/catwalk,
-/obj/machinery/power/apc/autoname_north,
-/obj/cable{
-	icon_state = "0-4"
-	},
-/turf/simulated/floor/airless/plating/catwalk{
-	dir = 4
-	},
-/area/station/mining/magnet)
 "mmj" = (
 /obj/mesh/catwalk,
 /obj/machinery/light,
@@ -25201,6 +25236,9 @@
 	})
 "ojY" = (
 /obj/mesh/catwalk,
+/obj/cable{
+	icon_state = "2-4"
+	},
 /turf/simulated/floor/airless/plating/catwalk{
 	dir = 4
 	},
@@ -26986,6 +27024,14 @@
 	name = "very reinforced wall"
 	},
 /area/station/science/testchamber)
+"pbn" = (
+/obj/decal/tile_edge/stripe/extra_big,
+/obj/item/device/radio/intercom/mining{
+	dir = 8
+	},
+/obj/machinery/ore_cloud_storage_container,
+/turf/simulated/floor/grime,
+/area/station/mining/magnet)
 "pbB" = (
 /obj/reagent_dispensers/fueltank,
 /turf/simulated/floor/plating,
@@ -27425,6 +27471,13 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/janitor/office)
+"ppX" = (
+/obj/decal/tile_edge/stripe/extra_big{
+	dir = 1
+	},
+/obj/stool,
+/turf/simulated/floor/grime,
+/area/station/mining/magnet)
 "pqj" = (
 /obj/cable{
 	icon_state = "4-8"
@@ -27802,6 +27855,15 @@
 	},
 /turf/simulated/floor/black/grime,
 /area/station/security/brig/genpop)
+"pEs" = (
+/obj/mesh/catwalk,
+/obj/cable{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/airless/plating/catwalk{
+	dir = 4
+	},
+/area/station/mining/magnet)
 "pES" = (
 /obj/cable{
 	icon_state = "1-4"
@@ -31074,14 +31136,11 @@
 	},
 /area/station/hallway/primary/north)
 "rtG" = (
-/obj/mesh/catwalk,
-/obj/machinery/light_switch/directional/west{
-	pixel_y = 13
+/obj/machinery/computer/magnet{
+	dir = 4
 	},
-/turf/simulated/floor/airless/plating/catwalk{
-	dir = 4;
-	icon_state = "catwalk_cross"
-	},
+/obj/decal/tile_edge/stripe/extra_big,
+/turf/simulated/floor/grime,
 /area/station/mining/magnet)
 "rtO" = (
 /obj/machinery/light{
@@ -31254,6 +31313,14 @@
 /obj/disposalpipe/segment/horizontal,
 /turf/simulated/floor/purplewhite,
 /area/station/science/hall)
+"rzz" = (
+/obj/mesh/catwalk,
+/obj/machinery/light/small,
+/obj/cable{
+	icon_state = "1-8"
+	},
+/turf/simulated/floor/airless/plating/catwalk,
+/area/station/mining/magnet)
 "rAe" = (
 /obj/machinery/door/airlock/pyro/glass{
 	dir = 4
@@ -31468,27 +31535,13 @@
 	},
 /area/mining/magnet)
 "rEC" = (
-/obj/mesh/catwalk,
-/obj/item/device/radio/intercom/cargo{
-	dir = 4
-	},
-/turf/simulated/floor/airless/plating/catwalk{
-	dir = 4;
-	icon_state = "catwalk_cross"
-	},
-/area/station/mining/magnet)
-"rEV" = (
-/obj/mesh/catwalk,
 /obj/machinery/computer/telescope{
 	dir = 4
 	},
-/obj/machinery/light/small{
-	dir = 1;
-	pixel_y = 21
+/obj/decal/tile_edge/stripe/extra_big{
+	dir = 1
 	},
-/turf/simulated/floor/airless/plating/catwalk{
-	icon_state = "catwalk_cross"
-	},
+/turf/simulated/floor/grime,
 /area/station/mining/magnet)
 "rEW" = (
 /obj/table/reinforced/auto,
@@ -34418,17 +34471,6 @@
 "tid" = (
 /turf/simulated/wall/auto/supernorn,
 /area/station/crew_quarters/catering)
-"tin" = (
-/obj/mesh/catwalk,
-/obj/machinery/computer/magnet{
-	dir = 4
-	},
-/obj/machinery/light/small,
-/turf/simulated/floor/airless/plating/catwalk{
-	dir = 1;
-	icon_state = "catwalk_cross"
-	},
-/area/station/mining/magnet)
 "tip" = (
 /obj/machinery/door/airlock/pyro/medical{
 	dir = 4
@@ -37354,6 +37396,14 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/turret_protected/incursion)
+"uNN" = (
+/obj/mesh/catwalk,
+/obj/machinery/light/small,
+/turf/simulated/floor/airless/plating/catwalk{
+	dir = 1;
+	icon_state = "catwalk_cross"
+	},
+/area/station/mining/magnet)
 "uPq" = (
 /obj/lattice{
 	icon_state = "lattice-dir-b"
@@ -40332,6 +40382,21 @@
 /area/station/hallway/secondary/exit{
 	name = "Primary Docking Wing"
 	})
+"wlc" = (
+/obj/decal/tile_edge/stripe/extra_big{
+	dir = 1
+	},
+/obj/machinery/power/apc/autoname_east,
+/obj/cable{
+	icon_state = "0-8"
+	},
+/obj/machinery/oreaccumulator,
+/obj/machinery/light_switch/directional/east{
+	pixel_y = 17
+	},
+/obj/machinery/recharger/wall/sticky,
+/turf/simulated/floor/grime,
+/area/station/mining/magnet)
 "wld" = (
 /obj/decal/stripe_delivery,
 /obj/machinery/firealarm/directional/east,
@@ -42265,6 +42330,15 @@
 	},
 /turf/simulated/floor/black/grime,
 /area/station/security/hos)
+"xma" = (
+/obj/decal/tile_edge/stripe/extra_big{
+	dir = 1
+	},
+/obj/cable{
+	icon_state = "1-4"
+	},
+/turf/simulated/floor/grime,
+/area/station/mining/magnet)
 "xmo" = (
 /obj/table/reinforced/auto,
 /obj/item/reagent_containers/food/drinks/drinkingglass/icing{
@@ -44020,6 +44094,13 @@
 /area/station/maintenance/inner/se{
 	name = "Southeast Auxiliary Conduit"
 	})
+"yfe" = (
+/obj/mesh/catwalk,
+/obj/cable{
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/airless/plating/catwalk,
+/area/station/mining/magnet)
 "yfV" = (
 /obj/stool/chair/office/red{
 	dir = 8
@@ -76320,9 +76401,9 @@ sEf
 sEf
 tvx
 sEf
+gxh
+sEf
 lzH
-qHc
-qHc
 jbc
 jbc
 erv
@@ -76622,15 +76703,15 @@ sEf
 sEf
 sEf
 sEf
+gxh
+sEf
 lzH
-qHc
-qHc
-jbc
-tin
+uNN
 tsR
+jEf
+jEf
 tsR
-rEV
-vsC
+hoY
 qHc
 xqm
 sEf
@@ -76925,15 +77006,15 @@ sEf
 sEf
 sEf
 lzH
-ojY
+nFe
+qHc
 erv
-erv
-dMm
+jEf
 rEC
 rtG
+jEf
 vsC
-vsC
-sbV
+qHc
 xqm
 sEf
 sEf
@@ -77226,17 +77307,17 @@ sEf
 sEf
 sEf
 sEf
-lzH
-ojY
-xqm
-sEf
-sEf
-sEf
-sEf
-sEf
-sEf
-sEf
 gxh
+erv
+erv
+erv
+kPW
+ppX
+gWL
+kPW
+vsC
+qHc
+xqm
 sEf
 sEf
 sEf
@@ -77529,16 +77610,16 @@ uan
 uan
 uan
 qHc
-ojY
+erv
+cWc
+apG
+hCU
+xma
+gWL
+kPW
+vsC
+qHc
 xqm
-sEf
-sEf
-sEf
-sEf
-sEf
-sEf
-sEf
-gxh
 sEf
 sEf
 sEf
@@ -77832,15 +77913,15 @@ sEf
 sEf
 lzH
 ojY
+yfe
+rzz
+tsR
+wlc
+pbn
+tsR
+hoY
+qHc
 xqm
-sEf
-sEf
-sEf
-sEf
-sEf
-sEf
-sEf
-gxh
 sEf
 sEf
 sEf
@@ -78133,16 +78214,16 @@ sEf
 sEf
 sEf
 lzH
-ojY
+pEs
+qHc
+vsC
+tsR
+tsR
+tsR
+tsR
+vsC
+qHc
 xqm
-sEf
-sEf
-sEf
-sEf
-sEf
-sEf
-sEf
-gxh
 sEf
 sEf
 sEf
@@ -78435,16 +78516,16 @@ sEf
 sEf
 sEf
 lzH
-ojY
+pEs
+qHc
+vsC
+vsC
+vsC
+vsC
+vsC
+vsC
+qHc
 xqm
-sEf
-sEf
-sEf
-sEf
-sEf
-sEf
-sEf
-gxh
 sEf
 sEf
 sEf
@@ -78737,15 +78818,15 @@ uan
 uan
 uan
 qHc
-ojY
+pEs
 qHc
-uan
-uan
-uan
-uan
-uan
-uan
-uan
+sbV
+sbV
+sbV
+sbV
+sbV
+sbV
+sbV
 xqm
 sEf
 sEf
@@ -79039,7 +79120,7 @@ sEf
 sEf
 sEf
 lzH
-ojY
+pEs
 xqm
 sEf
 sEf
@@ -79341,7 +79422,7 @@ kTj
 sEf
 sEf
 lzH
-ojY
+pEs
 xqm
 sEf
 sEf
@@ -79643,7 +79724,7 @@ hbo
 sEf
 sEf
 lzH
-ojY
+pEs
 xqm
 sEf
 sEf
@@ -79945,7 +80026,7 @@ hbo
 nFe
 nFe
 qHc
-ojY
+pEs
 xqm
 sEf
 sEf
@@ -80247,7 +80328,7 @@ cpl
 hov
 hov
 qHc
-ojY
+pEs
 xqm
 sEf
 sEf
@@ -80549,7 +80630,7 @@ owR
 tVJ
 hov
 hov
-ojY
+pEs
 xqm
 sEf
 sEf
@@ -80851,7 +80932,7 @@ tVJ
 rAC
 geZ
 vlo
-mlX
+pEs
 xqm
 sEf
 kHv
