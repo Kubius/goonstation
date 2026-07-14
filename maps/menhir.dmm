@@ -22405,7 +22405,6 @@
 	name = "Primary Docking Wing"
 	})
 "mIv" = (
-/obj/machinery/ore_cloud_storage_container,
 /obj/machinery/light{
 	dir = 8;
 	layer = 9.1;
