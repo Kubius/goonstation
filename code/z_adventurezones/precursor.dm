@@ -736,8 +736,8 @@ ABSTRACT_TYPE(/datum/menhir_puzzle)
 			other.invisibility = 0
 			other.density = 1
 
+		src.ready = 0 // disable momentarily to prevent spamming
 		SPAWN(1 DECI SECOND)
-			src.ready = 0 // disable momentarily to prevent spamming
 			if(src.safeish && (prob(95) || target.stat))
 				target.visible_message("<b>[target] is [pick("whisked away","taken somewhere","sent somewhere")] by [src]!</b>")
 				var/otherside = get_turf(other)
@@ -754,7 +754,7 @@ ABSTRACT_TYPE(/datum/menhir_puzzle)
 				if(ishuman(target))
 					var/mob/living/carbon/human/H = target
 					H:update_burning(5) // this isn't a safe way to travel at all!!!
-			sleep(5 SECONDS)
+		SPAWN(5 SECONDS)
 			src.ready = 1
 
 	attackby(obj/item/W, mob/user)
