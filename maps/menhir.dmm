@@ -4213,6 +4213,7 @@
 	})
 "cqb" = (
 /obj/decal/stripe_caution,
+/obj/machinery/portable_atmospherics/canister/air/large,
 /turf/simulated/floor/black/grime,
 /area/station/maintenance/inner/sw{
 	name = "Southwest Auxiliary Conduit"
@@ -7706,6 +7707,7 @@
 	pixel_y = 21
 	},
 /obj/decal/stripe_caution,
+/obj/machinery/portable_atmospherics/canister/air/large,
 /turf/simulated/floor/black/grime,
 /area/station/maintenance/inner/sw{
 	name = "Southwest Auxiliary Conduit"
@@ -17463,11 +17465,6 @@
 	icon_state = "engine_caution_north"
 	},
 /area/station/hangar/medical)
-"jXE" = (
-/obj/decal/cleanable/dirt,
-/obj/machinery/portable_atmospherics/canister/air,
-/turf/simulated/floor/plating,
-/area/station/maintenance/southwest)
 "jXH" = (
 /obj/mapping_helper/wingrille_spawn/auto/reinforced,
 /obj/cable,
@@ -25348,6 +25345,18 @@
 	dir = 8
 	},
 /area/station/hydroponics)
+"omY" = (
+/obj/machinery/door/poddoor/pyro/shutters{
+	id = "dwaine_core";
+	name = "DWAINE Core Shield";
+	dir = 4
+	},
+/obj/cable{
+	icon_state = "4-8"
+	},
+/obj/machinery/shieldgenerator/meteorshield,
+/turf/simulated/floor/circuit/green,
+/area/station/turret_protected/Zeta)
 "onj" = (
 /obj/rack,
 /obj/item/clothing/suit/hazard/fire,
@@ -43219,7 +43228,7 @@
 /turf/simulated/floor/minitiles/black,
 /area/station/bridge)
 "xHB" = (
-/obj/machinery/portable_atmospherics/canister/air/large,
+/obj/machinery/shieldgenerator/meteorshield,
 /turf/simulated/floor/yellowblack{
 	dir = 4
 	},
@@ -81230,7 +81239,7 @@ llo
 wdP
 bcb
 pMR
-jXE
+jlF
 mxH
 tVJ
 vlo
@@ -88785,7 +88794,7 @@ oUB
 vne
 sNg
 sNg
-drc
+omY
 drc
 drc
 sNg
