@@ -25046,7 +25046,9 @@
 	},
 /area/station/quartermaster/office)
 "ofY" = (
-/obj/machinery/networked/radio,
+/obj/machinery/networked/radio{
+	tag = "lrad_bouncepoint"
+	},
 /obj/machinery/power/data_terminal,
 /obj/cable{
 	icon_state = "0-4"
