@@ -536,7 +536,7 @@ ABSTRACT_TYPE(/datum/menhir_room_roll)
 
 		if (random_events.announce_events)
 			SPAWN(message_delay)
-				playsound_global(world, 'sound/misc/announcement_ominous.ogg', 60)
+				playsound_global(world, 'sound/misc/announcement_curious.ogg', 40)
 			if(room_data.stole_from && prob(60)) //if prob is 100 this is debug
 				SPAWN(message_delay + rand(2 MINUTES, 3 MINUTES))
 					var/who = generate_random_station_name()
