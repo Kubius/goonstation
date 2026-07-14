@@ -479,6 +479,8 @@ ABSTRACT_TYPE(/datum/random_event/menhir)
 /datum/random_event/menhir/apc_off
 	name = "Quiet is the Chorus"
 	message_delay = 1 MINUTE
+	announcement_style = MENHIR_EVENT_NOTIFY_GLOBAL
+
 	var/list/ineligible_areas = list(
 		/area/station/maintenance,
 		/area/station/engine/core,
@@ -529,6 +531,9 @@ ABSTRACT_TYPE(/datum/random_event/menhir)
 
 		message_delay = rand(9 SECONDS,15 SECONDS)
 		..()
+		if (random_events.announce_events)
+			SPAWN(message_delay)
+				playsound_global(world, 'sound/misc/announcement_curious.ogg', MENHIR_STANDARD_ALERT_VOLUME)
 
 #define RAND_3_BY_3 1
 #define RAND_3_BY_5 2
