@@ -2171,7 +2171,7 @@
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
 	dir = 10
 	},
-/obj/machinery/atmospherics/unary/outlet_injector/active{
+/obj/machinery/atmospherics/unary/outlet_injector/overfloor/active{
 	dir = 1
 	},
 /turf/simulated/floor/engine/vacuum,
