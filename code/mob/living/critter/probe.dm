@@ -234,7 +234,7 @@
 				beepity.visible_message(SPAN_ALERT("<b>[beepity]<b> makes an irritated sound. It doesn't seem to like being shoved around."))
 				playsound(beepity.loc, 'sound/effects/elec_bzzz.ogg', 40, 0, pitch = 0.5)
 				beepity.disturbed = TRUE
-		else
+		else if(!ON_COOLDOWN(beepity, "grouch_when_we_leave", 8 SECONDS))
 			beepity.visible_message(SPAN_ALERT("<b>[beepity] emits a searing flash[returning ? " as it teleports away" : null]!<b>"))
 			for (var/mob/living/L in orange(3,beepity))
 				random_burn_damage(L, rand(4,10))
