@@ -115,7 +115,7 @@ ABSTRACT_TYPE(/datum/random_event/menhir)
 			if(y_string) sumtext += y_string
 			if(x_string) sumtext += x_string
 
-		src.centcom_message = "A spike in electromagnetic activity from TOREADOR-7I-22408 was recently recorded, with notable chirality on the [sumtext] axis."
+		src.centcom_message = "A spike in electromagnetic activity from TOREADOR-7I-22408 was recently recorded, with notable projection on the [sumtext] axis."
 		src.centcom_message += " Personnel on site are advised to monitor artifact for changes in structure or activity."
 
 //some little fellas!
