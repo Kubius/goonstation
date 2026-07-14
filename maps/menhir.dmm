@@ -27030,6 +27030,7 @@
 	dir = 8
 	},
 /obj/machinery/ore_cloud_storage_container,
+/obj/machinery/light/small,
 /turf/simulated/floor/grime,
 /area/station/mining/magnet)
 "pbB" = (
