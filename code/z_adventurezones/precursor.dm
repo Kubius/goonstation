@@ -324,10 +324,14 @@
 							user.set_loc(goawaynow)
 							explosion(src,user.loc,-1,-1,1,2)
 							explosion(src,goawaynow,-1,-1,1,2)
+				if("NOW")
+					boutput(user,SPAN_NOTICE("» 79 85 82 32 83 79 78 71 83 32 67 76 65 83 72 32 73 78 32 84 72 69 32 68 65 82 75 »<br>"))
+				if("KINSHIP")
+					boutput(user,SPAN_NOTICE("» 87 69 32 82 69 65 67 72 32 70 79 82 32 77 69 77 79 82 89 32 86 69 83 84 73 71 69 »<br>"))
 				if("SURFACE")
 					boutput(user,SPAN_NOTICE("» 76 79 78 71 32 72 65 86 69 32 87 69 32 77 73 83 83 69 68 32 73 84 83 32 83 79 78 71 »<br>"))
 				else
-					boutput(user,SPAN_NOTICE("» 87 69 32 83 73 78 71 44 32 87 69 32 83 73 78 71 44 32 87 69 32 83 73 78 71 »<br>"))
+					boutput(user,SPAN_NOTICE("» 73 78 32 82 69 68 83 72 73 70 84 32 77 69 76 79 68 89 32 83 67 72 73 83 77 83 »<br>"))
 		..()
 
 // event reward edition: duplicates certain whitelisted items
