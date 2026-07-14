@@ -534,14 +534,11 @@ ABSTRACT_TYPE(/datum/menhir_room_roll)
 		message_delay = rand(20 SECONDS, 50 SECONDS)
 		..()
 
-		if (random_events.announce_events)
-			SPAWN(message_delay)
-				playsound_global(world, 'sound/misc/announcement_curious.ogg', 40)
-			if(room_data.stole_from && prob(60)) //if prob is 100 this is debug
-				SPAWN(message_delay + rand(2 MINUTES, 3 MINUTES))
-					var/who = generate_random_station_name()
-					command_alert(get_admonishment(room_data.stole_from), alert_origin = "Communication from [who]")
-					playsound_global(world, 'sound/misc/announcement_1.ogg', 60)
+		if(room_data.stole_from && prob(60)) //if prob is 100 this is debug
+			SPAWN(message_delay + rand(2 MINUTES, 3 MINUTES))
+				var/who = generate_random_station_name()
+				command_alert(get_admonishment(room_data.stole_from), alert_origin = "Communication from [who]")
+				playsound_global(world, 'sound/misc/announcement_1.ogg', 60)
 
 		logTheThing(LOG_STATION, null, "Menhir room '[room_data.name]' entrance created at [node_tag] arm - [log_loc(nodelandmark)]")
 		message_admins("Menhir room '[room_data.name]' entrance created at [node_tag] arm - [log_loc(nodelandmark)]")

@@ -47,21 +47,30 @@ var/global/menhir_candidates_last_built = 0
 #define MENHIR_STANDARD_ALERT_VOLUME 40
 #define MENHIR_CORE_X 158
 #define MENHIR_CORE_Y 169
+#define MENHIR_EVENT_NOTIFY_NONE 0
+#define MENHIR_EVENT_NOTIFY_PDA 1
+#define MENHIR_EVENT_NOTIFY_GLOBAL 2
 
 ABSTRACT_TYPE(/datum/random_event/menhir)
 /datum/random_event/menhir
 	centcom_headline = "Artifact Condition Advisory"
 	centcom_message = "A spike in electromagnetic activity from TOREADOR-7I-22408 was recently recorded. Personnel on site are advised to monitor artifact for changes in structure or activity."
 	centcom_origin = ALERT_ANOMALY
-	///Some events may not want to have an announcement on account of being minor and/or self-evident.
-	var/unannounced = FALSE
+	///Events may be entirely unannounced, directed only to the science team by PDA, or broadcast stationwide.
+	var/announcement_style = MENHIR_EVENT_NOTIFY_PDA
 
 	New()
 		. = ..()
-		if(src.unannounced)
-			src.centcom_headline = null
-			src.centcom_message = null
-			src.centcom_origin = null
+		if(src.announcement_style != MENHIR_EVENT_NOTIFY_GLOBAL)
+			src.centcom_headline = null //deactivates announcement
+
+	event_effect()
+		if(src.announcement_style == MENHIR_EVENT_NOTIFY_PDA)
+			SPAWN(src.message_delay)
+				var/datum/signal/pdaSignal = get_free_signal()
+				pdaSignal.data = list("address_1"="00000000", "command"="text_message", "sender_name"="LRAD-TOREADOR", "group"=list(MGD_RESEARCH), "sender"="00000000", "message"="[src.centcom_message]")
+				radio_controller.get_frequency(FREQ_PDA).post_packet_without_source(pdaSignal)
+		. = ..()
 
 	///Outreach turfs are locations that start open and are suitable for an event to occur at. Events should pick and check one blindly at first, and fall back to this if necessary.
 	proc/get_open_outreach()
@@ -116,14 +125,12 @@ ABSTRACT_TYPE(/datum/random_event/menhir)
 			if(x_string) sumtext += x_string
 
 		src.centcom_message = "A spike in electromagnetic activity from TOREADOR-7I-22408 was recently recorded, with notable projection on the [sumtext] axis."
-		src.centcom_message += " Personnel on site are advised to monitor artifact for changes in structure or activity."
+		src.centcom_message += " Structural alteration is probable, and may not be confined to the artifact itself."
 
 //some little fellas!
 /datum/random_event/menhir/probes
 	name = "Emissaries of the Crown"
-	message_delay = 1 MINUTE
 	weight = 300
-	unannounced = TRUE
 	var/list/deployed_probes = list()
 
 	is_event_available(ignore_time_lock)
@@ -171,6 +178,7 @@ ABSTRACT_TYPE(/datum/random_event/menhir)
 		logTheThing(LOG_STATION, null, "Menhir probes event deployed [probe_deployments] probes.")
 		message_admins("Menhir probes event deployed [probe_deployments] probes.")
 
+		message_delay = rand(2 SECONDS, 4 SECONDS)
 		..()
 
 //pulled one out of cold storage for ya
@@ -230,12 +238,8 @@ ABSTRACT_TYPE(/datum/random_event/menhir)
 		Artifact_Spawn(nodelandmark,"precursor")
 		src.localize_reading(nodelandmark)
 
-		message_delay = rand(2 MINUTES, 3 MINUTES)
+		message_delay = rand(2 SECONDS, 4 SECONDS)
 		..() //don't send out the message until we have confirmed we can do the event
-
-		if (random_events.announce_events)
-			SPAWN(message_delay)
-				playsound_global(world, 'sound/misc/announcement_curious.ogg', MENHIR_STANDARD_ALERT_VOLUME)
 
 		if(node_tag)
 			logTheThing(LOG_STATION, null, "Menhir gift event at [node_tag] arm - [log_loc(nodelandmark)]")
@@ -247,9 +251,7 @@ ABSTRACT_TYPE(/datum/random_event/menhir)
 //pick somebody out and see how they respond
 /datum/random_event/menhir/analysis
 	name = "The Crown Inquires"
-	message_delay = 2 MINUTES
 	weight = 150
-	unannounced = TRUE
 	///Increase the minimum required candidates each time the event goes off, to a cap.
 	var/required_candidates = 1
 
@@ -299,6 +301,7 @@ ABSTRACT_TYPE(/datum/random_event/menhir)
 			SPAWN(0)
 				src.visit_scheduling(yoinked_one,nodelandmark)
 
+		message_delay = rand(18 SECONDS, 24 SECONDS)
 		..()
 
 		src.required_candidates = min(src.required_candidates + 2, 15)
@@ -433,15 +436,12 @@ ABSTRACT_TYPE(/datum/random_event/menhir)
 
 		message_delay = rand(6 SECONDS,9 SECONDS)
 		..()
-		if (random_events.announce_events)
-			SPAWN(message_delay)
-				playsound_global(world, 'sound/misc/announcement_curious.ogg', MENHIR_STANDARD_ALERT_VOLUME)
 
 //the crown could just use a minute ok
 /datum/random_event/menhir/closure
 	name = "The Crown Reclusive"
 	message_delay = 1 MINUTE
-	unannounced = TRUE
+	announcement_style = MENHIR_EVENT_NOTIFY_NONE
 
 	is_event_available(ignore_time_lock)
 		. = ..()
@@ -527,9 +527,6 @@ ABSTRACT_TYPE(/datum/random_event/menhir)
 
 		message_delay = rand(9 SECONDS,15 SECONDS)
 		..()
-		if (random_events.announce_events)
-			SPAWN(message_delay)
-				playsound_global(world, 'sound/misc/announcement_curious.ogg', MENHIR_STANDARD_ALERT_VOLUME)
 
 #define RAND_3_BY_3 1
 #define RAND_3_BY_5 2
@@ -602,11 +599,8 @@ ABSTRACT_TYPE(/datum/random_event/menhir)
 
 		src.localize_reading(extlandmark)
 
-		message_delay = rand(1 MINUTE, 3 MINUTES)
+		message_delay = rand(90 SECONDS, 140 SECONDS)
 		..()
-		if (random_events.announce_events)
-			SPAWN(message_delay)
-				playsound_global(world, 'sound/misc/announcement_curious.ogg', MENHIR_STANDARD_ALERT_VOLUME)
 
 		landmarks[LANDMARK_MENHIR_EXTRUSION].Remove(extlandmark)
 
@@ -671,6 +665,7 @@ ABSTRACT_TYPE(/datum/random_event/menhir)
 /datum/random_event/menhir/gravity
 	name = "A Shift in the Sands"
 	message_delay = 1 MINUTE
+	announcement_style = MENHIR_EVENT_NOTIFY_GLOBAL
 
 	event_effect()
 		var/list/candidate_landmarks = list()
@@ -804,10 +799,6 @@ ABSTRACT_TYPE(/datum/random_event/menhir)
 		message_delay = rand(2 MINUTES, 3 MINUTES)
 		..() //don't send out the message until we have confirmed we can do the event
 
-		if (random_events.announce_events)
-			SPAWN(message_delay)
-				playsound_global(world, 'sound/misc/announcement_curious.ogg', MENHIR_STANDARD_ALERT_VOLUME)
-
 		logTheThing(LOG_STATION, null, "Menhir knot event at [node_tag] arm - [log_loc(nodelandmark)]")
 		message_admins("Menhir knot event triggered at [node_tag] arm - [log_loc(nodelandmark)]")
 
@@ -816,6 +807,7 @@ ABSTRACT_TYPE(/datum/random_event/menhir)
 	name = "A Spire of Synthesis"
 	message_delay = 1 MINUTE
 	weight = 40
+	announcement_style = MENHIR_EVENT_NOTIFY_GLOBAL
 	centcom_message = "A sustained period of elevated electromagnetic activity from TOREADOR-7I-22408 is currently underway. Personnel are advised to monitor station power grid and deactivate supply if anomalous behavior is detected."
 
 	is_event_available(ignore_time_lock)
@@ -849,9 +841,9 @@ ABSTRACT_TYPE(/datum/random_event/menhir)
 		..()
 		if (random_events.announce_events)
 			SPAWN(message_delay)
-				playsound_global(world, 'sound/misc/announcement_ominous.ogg', 60)
+				playsound_global(world, 'sound/misc/announcement_ominous.ogg', MENHIR_STANDARD_ALERT_VOLUME)
 			SPAWN(message_delay + 20)
-				playsound_global(world, 'sound/misc/announcement_ominous.ogg', 60)
+				playsound_global(world, 'sound/misc/announcement_ominous.ogg', MENHIR_STANDARD_ALERT_VOLUME)
 
 		logTheThing(LOG_STATION, null, "Menhir powersink event at [log_loc(eventlandmark)]")
 		message_admins("Menhir powersink event triggered at [log_loc(eventlandmark)]")
@@ -865,6 +857,7 @@ ABSTRACT_TYPE(/datum/random_event/menhir)
 	name = "For Parted Are The Gates"
 	message_delay = 30 SECONDS
 	weight = 10
+	announcement_style = MENHIR_EVENT_NOTIFY_GLOBAL
 
 	is_event_available(ignore_time_lock)
 		. = ..()
@@ -900,6 +893,7 @@ ABSTRACT_TYPE(/datum/random_event/menhir)
 	name = "Of Memory Is Borne Lament"
 	message_delay = 30 SECONDS
 	required_elapsed_round_time = 22 MINUTES
+	announcement_style = MENHIR_EVENT_NOTIFY_GLOBAL
 	centcom_headline = "ARTIFACT CONDITION ALERT"
 	centcom_message = "A massive spike in electromagnetic activity that does not match prior readings has been detected from TOREADOR-7I-22408. All personnel should immediately make ready for hazardous conditions."
 	weight = 10
