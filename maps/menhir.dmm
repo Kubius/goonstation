@@ -32442,7 +32442,10 @@
 /obj/disposalpipe/trunk/morgue{
 	dir = 4
 	},
-/obj/disposaloutlet/south,
+/obj/machinery/disposal/morgue{
+	desc = "A pneumatic delivery chute for sending things directly to the crematorium.";
+	name = "crematorium chute"
+	},
 /turf/simulated/floor/sanitary/white,
 /area/station/medical/morgue)
 "sfI" = (
