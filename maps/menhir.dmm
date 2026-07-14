@@ -9680,20 +9680,13 @@
 "fIA" = (
 /obj/table/reinforced/auto,
 /obj/item/storage/box/gl_kit{
-	pixel_x = -2;
+	pixel_x = 3;
 	pixel_y = 14
 	},
 /obj/machinery/light{
 	dir = 4;
 	layer = 9.1;
 	pixel_x = 10
-	},
-/obj/item/storage/box/lglo_kit{
-	pixel_y = 7;
-	pixel_x = 6
-	},
-/obj/item/spraybottle/cleaner{
-	pixel_x = -6
 	},
 /turf/simulated/floor/white,
 /area/station/medical/medbay)
@@ -31894,16 +31887,20 @@
 "rRP" = (
 /obj/table/auto,
 /obj/item/storage/box/stma_kit{
-	pixel_y = 9
+	pixel_y = 9;
+	pixel_x = 3
 	},
 /obj/machinery/light{
 	dir = 4;
 	layer = 9.1;
 	pixel_x = 10
 	},
-/obj/item/bandage{
-	pixel_y = -9;
-	pixel_x = 4
+/obj/blind_switch/directional/east{
+	pixel_y = 16
+	},
+/obj/item/storage/box/lglo_kit{
+	pixel_y = 9;
+	pixel_x = -3
 	},
 /obj/item/bandage{
 	pixel_y = -9;
@@ -31920,9 +31917,6 @@
 /obj/item/spraybottle/cleaner{
 	pixel_y = -11;
 	pixel_x = -9
-	},
-/obj/blind_switch/directional/east{
-	pixel_y = 16
 	},
 /turf/simulated/floor/red,
 /area/station/medical/medbay/surgery)
