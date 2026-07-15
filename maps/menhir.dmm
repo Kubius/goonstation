@@ -2309,6 +2309,15 @@
 /area/station/maintenance/outer/east{
 	name = "Escape Auxiliary Arm"
 	})
+"boC" = (
+/obj/machinery/conveyor/NE{
+	id = "qmin"
+	},
+/obj/machinery/light,
+/turf/simulated/floor/caution/south,
+/area/station/quartermaster/cargobay{
+	name = "Cargo Import Export"
+	})
 "boW" = (
 /obj/disposalpipe/segment/mail,
 /obj/machinery/light/small/floor,
@@ -2444,6 +2453,11 @@
 	dir = 4
 	},
 /area/station/turret_protected/incursion)
+"bsC" = (
+/turf/simulated/floor/grey/side{
+	dir = 1
+	},
+/area/space)
 "bsI" = (
 /obj/machinery/conveyor/EN{
 	id = "disposals";
@@ -3695,6 +3709,19 @@
 	icon_state = "catwalk_cross"
 	},
 /area/station/solar/west)
+"cbR" = (
+/obj/storage/crate{
+	desc = "Whoa! What will they think of next?";
+	name = "Boxes in a Box"
+	},
+/obj/item/storage/box,
+/obj/item/storage/box,
+/obj/item/storage/box,
+/obj/item/storage/box,
+/turf/simulated/floor/grey/side,
+/area/station/quartermaster/cargobay{
+	name = "Cargo Import Export"
+	})
 "ccp" = (
 /obj/mapping_helper/wingrille_spawn/auto/reinforced,
 /obj/window_blinds/cog2,
@@ -5741,10 +5768,10 @@
 /turf/simulated/floor/engine/glow/blue,
 /area/station/turret_protected/ai)
 "dpz" = (
-/obj/machinery/conveyor/WE{
+/obj/machinery/conveyor/NE{
 	id = "qmin"
 	},
-/turf/simulated/floor/caution/northsouth,
+/turf/simulated/floor/caution/south,
 /area/station/quartermaster/cargobay{
 	name = "Cargo Import Export"
 	})
@@ -9197,6 +9224,11 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/east)
+"fui" = (
+/turf/simulated/floor/grey/side{
+	dir = 5
+	},
+/area/space)
 "fuA" = (
 /obj/machinery/computer3/generic/secure_data{
 	name = "Security Records"
@@ -12787,6 +12819,25 @@
 /obj/item/reagent_containers/glass/beaker/egg,
 /turf/simulated/floor/airless,
 /area/space)
+"huA" = (
+/obj/machinery/conveyor/WE{
+	id = "qmin"
+	},
+/obj/machinery/door/poddoor/pyro{
+	id = "qm_dock";
+	name = "Import Hatch";
+	dir = 8
+	},
+/obj/forcefield/energyshield/perma/doorlink{
+	desc = "A door-linked force field that prevents gasses from passing through it.";
+	dir = 4;
+	name = "Door-linked Atmospheric Forcefield";
+	powerlevel = 1
+	},
+/turf/simulated/floor/caution/corner/sw,
+/area/station/quartermaster/cargobay{
+	name = "Cargo Import Export"
+	})
 "huE" = (
 /turf/simulated/floor/grass/leafy,
 /area/station/ranch)
@@ -13807,6 +13858,11 @@
 	},
 /turf/simulated/floor/black,
 /area/station/crew_quarters/cafeteria)
+"hTm" = (
+/turf/simulated/floor/grey/corner{
+	dir = 1
+	},
+/area/space)
 "hTK" = (
 /obj/lattice{
 	dir = 9;
@@ -14091,6 +14147,11 @@
 	},
 /turf/simulated/floor/carpet/blue/fancy/edge/north,
 /area/station/maintenance/northeast)
+"hZx" = (
+/turf/simulated/floor/grey/side{
+	dir = 4
+	},
+/area/space)
 "hZM" = (
 /obj/railing/orange/reinforced{
 	dir = 4
@@ -15094,27 +15155,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/southeast)
-"iET" = (
-/obj/machinery/conveyor/WE{
-	id = "qmin"
-	},
-/obj/machinery/door/poddoor/pyro{
-	id = "qm_dock";
-	name = "Import Hatch";
-	dir = 8
-	},
-/obj/forcefield/energyshield/perma/doorlink{
-	desc = "A door-linked force field that prevents gasses from passing through it.";
-	dir = 4;
-	name = "Door-linked Atmospheric Forcefield";
-	powerlevel = 1
-	},
-/turf/simulated/floor/caution/misc{
-	dir = 8
-	},
-/area/station/quartermaster/cargobay{
-	name = "Cargo Import Export"
-	})
 "iFg" = (
 /turf/simulated/floor/caution/side{
 	dir = 1
@@ -15756,10 +15796,10 @@
 /turf/simulated/floor/plating,
 /area/station/science/gen_storage)
 "iYf" = (
-/obj/machinery/conveyor/WS{
+/obj/machinery/conveyor/SE{
 	id = "qmin"
 	},
-/turf/simulated/floor/caution/corner/ne,
+/turf/simulated/floor/caution/north,
 /area/station/quartermaster/cargobay{
 	name = "Cargo Import Export"
 	})
@@ -16025,6 +16065,9 @@
 	id = "qmsend"
 	},
 /obj/machinery/camera/directional/north,
+/obj/machinery/light_switch/directional/north{
+	pixel_x = 12
+	},
 /turf/simulated/floor/caution/northsouth,
 /area/station/quartermaster/cargobay{
 	name = "Cargo Import Export"
@@ -17090,10 +17133,11 @@
 /turf/simulated/floor/airless/plating/catwalk,
 /area/station/solar/east)
 "jKZ" = (
-/obj/machinery/conveyor/NE{
+/obj/machinery/conveyor/WN{
 	id = "qmin"
 	},
-/turf/simulated/floor/caution/corner/sw,
+/obj/machinery/light/emergency,
+/turf/simulated/floor/caution/south,
 /area/station/quartermaster/cargobay{
 	name = "Cargo Import Export"
 	})
@@ -17790,8 +17834,9 @@
 	icon_state = "0-4"
 	},
 /obj/machinery/power/data_terminal,
-/obj/machinery/light/emergency{
+/obj/machinery/light{
 	dir = 8;
+	layer = 9.1;
 	pixel_x = -10
 	},
 /turf/simulated/floor,
@@ -18094,6 +18139,10 @@
 /obj/machinery/conveyor/SW{
 	id = "qmsend"
 	},
+/obj/machinery/light/emergency{
+	dir = 1;
+	pixel_y = 16
+	},
 /turf/simulated/floor/caution/corner/ne,
 /area/station/quartermaster/cargobay{
 	name = "Cargo Import Export"
@@ -18104,6 +18153,20 @@
 	},
 /turf/simulated/floor/sanitary/white,
 /area/station/crew_quarters/bathroom)
+"koo" = (
+/obj/machinery/conveyor/SE{
+	id = "qmin"
+	},
+/obj/machinery/door_control{
+	id = "qm_dock";
+	name = "Import Hatch Override";
+	pixel_x = -24;
+	dir = 8
+	},
+/turf/simulated/floor/caution/north,
+/area/station/quartermaster/cargobay{
+	name = "Cargo Import Export"
+	})
 "koG" = (
 /obj/decal/tile_edge/line/black{
 	dir = 4;
@@ -20873,11 +20936,6 @@
 /obj/landmark/start/job/assistant,
 /turf/simulated/floor/carpet/red/fancy/edge/se,
 /area/station/crew_quarters/quartersA)
-"lMG" = (
-/turf/simulated/floor/grey,
-/area/station/quartermaster/cargobay{
-	name = "Cargo Import Export"
-	})
 "lMN" = (
 /obj/reagent_dispensers/still,
 /turf/simulated/floor/plating,
@@ -21404,6 +21462,11 @@
 	},
 /turf/simulated/floor/engine/vacuum,
 /area/station/science/lab)
+"mcO" = (
+/turf/simulated/floor/grey/corner{
+	dir = 8
+	},
+/area/space)
 "mcT" = (
 /obj/machinery/door/poddoor/blast/single{
 	id = "ghostboye";
@@ -22229,6 +22292,14 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/southwest)
+"mCz" = (
+/obj/machinery/conveyor/WN{
+	id = "qmin"
+	},
+/turf/simulated/floor/caution/south,
+/area/station/quartermaster/cargobay{
+	name = "Cargo Import Export"
+	})
 "mCR" = (
 /obj/mapping_helper/wingrille_spawn/auto/reinforced,
 /obj/window_blinds/cog2/right,
@@ -22865,6 +22936,9 @@
 	dir = 8
 	},
 /area/station/storage/eva)
+"mSQ" = (
+/turf/simulated/floor,
+/area/space)
 "mSR" = (
 /turf/simulated/floor/black,
 /area/station/crew_quarters/ce)
@@ -23081,11 +23155,6 @@
 	icon_state = "0-6"
 	},
 /obj/machinery/power/data_terminal,
-/obj/machinery/light{
-	dir = 8;
-	layer = 9.1;
-	pixel_x = -10
-	},
 /turf/simulated/floor/grey/side{
 	dir = 1
 	},
@@ -28748,6 +28817,14 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/northwest)
+"pZY" = (
+/obj/machinery/conveyor/WS{
+	id = "qmin"
+	},
+/turf/simulated/floor/caution/north,
+/area/station/quartermaster/cargobay{
+	name = "Cargo Import Export"
+	})
 "qaE" = (
 /obj/stool/chair{
 	dir = 4
@@ -32610,6 +32687,11 @@
 	dir = 1
 	},
 /area/research_outpost/limpet/personnel)
+"sef" = (
+/turf/simulated/floor/grey/side{
+	dir = 9
+	},
+/area/space)
 "sei" = (
 /obj/rack,
 /obj/item/clothing/suit/hazard/fire,
@@ -33819,6 +33901,11 @@
 /obj/machinery/light_switch/directional/east,
 /turf/simulated/floor/black,
 /area/station/hallway/primary/central)
+"sLZ" = (
+/turf/simulated/floor/grey/side{
+	dir = 10
+	},
+/area/space)
 "sMk" = (
 /obj/decal/stripe_caution,
 /obj/storage/secure/crate/gear/armory/grenades,
@@ -35292,8 +35379,6 @@
 "tCR" = (
 /obj/storage/crate,
 /obj/item/clothing/head/merchant_hat,
-/obj/machinery/light_switch/directional/east,
-/obj/machinery/light,
 /turf/simulated/floor/grey,
 /area/station/quartermaster/cargobay{
 	name = "Cargo Import Export"
@@ -36744,6 +36829,11 @@
 	dir = 4
 	},
 /area/station/hallway/primary/west)
+"upN" = (
+/turf/simulated/floor/grey/corner{
+	dir = 4
+	},
+/area/space)
 "upP" = (
 /turf/simulated/floor/grey/corner{
 	dir = 1
@@ -37710,6 +37800,11 @@
 	},
 /turf/simulated/floor/sanitary/white,
 /area/research_outpost/limpet/personnel)
+"uRw" = (
+/turf/simulated/floor/grey/side{
+	dir = 8
+	},
+/area/space)
 "uRy" = (
 /obj/table/reinforced/auto,
 /obj/machinery/door/airlock/pyro/glass/windoor{
@@ -38982,7 +39077,7 @@
 /obj/machinery/conveyor/WE{
 	id = "qmin"
 	},
-/turf/simulated/floor/caution/northsouth,
+/turf/simulated/floor/caution/corner/se,
 /area/station/quartermaster/cargobay{
 	name = "Cargo Import Export"
 	})
@@ -44873,9 +44968,9 @@ pon
 pon
 sEf
 sEf
+sEf
+sEf
 bDF
-sEf
-sEf
 sEf
 sEf
 sEf
@@ -71756,6 +71851,8 @@ sEf
 sEf
 sEf
 sEf
+sEf
+sEf
 lYo
 sEf
 sEf
@@ -71771,8 +71868,6 @@ sEf
 sEf
 sEf
 lYo
-sEf
-sEf
 sEf
 sEf
 sEf
@@ -72057,6 +72152,8 @@ sEf
 sEf
 sEf
 sEf
+sEf
+sEf
 vtP
 xhy
 irw
@@ -72074,8 +72171,6 @@ irw
 irw
 mfy
 vVB
-sEf
-sEf
 sEf
 sEf
 sEf
@@ -72360,6 +72455,8 @@ sEf
 sEf
 sEf
 sEf
+sEf
+sEf
 lTI
 kUe
 kUe
@@ -72375,8 +72472,6 @@ kUe
 kUe
 kUe
 rEB
-sEf
-sEf
 sEf
 sEf
 sEf
@@ -72662,6 +72757,8 @@ sEf
 sEf
 sEf
 sEf
+sEf
+sEf
 lTI
 kUe
 kUe
@@ -72677,8 +72774,6 @@ kUe
 kUe
 kUe
 rEB
-sEf
-sEf
 sEf
 sEf
 sEf
@@ -72964,6 +73059,8 @@ sEf
 sEf
 sEf
 sEf
+sEf
+sEf
 lTI
 kUe
 kUe
@@ -72979,8 +73076,6 @@ kUe
 kUe
 kUe
 rEB
-sEf
-sEf
 sEf
 sEf
 sEf
@@ -73265,6 +73360,8 @@ sEf
 sEf
 sEf
 sEf
+sEf
+sEf
 vtP
 lTI
 kUe
@@ -73282,8 +73379,6 @@ kUe
 kUe
 rEB
 vVB
-sEf
-sEf
 sEf
 sEf
 sEf
@@ -73568,6 +73663,8 @@ sEf
 sEf
 sEf
 sEf
+sEf
+sEf
 lTI
 kUe
 kUe
@@ -73583,8 +73680,6 @@ kUe
 kUe
 kUe
 rEB
-sEf
-sEf
 sEf
 sEf
 sEf
@@ -73870,6 +73965,8 @@ sEf
 sEf
 sEf
 sEf
+sEf
+sEf
 lTI
 kUe
 kUe
@@ -73885,8 +73982,6 @@ kUe
 kUe
 kUe
 rEB
-sEf
-sEf
 sEf
 sEf
 sEf
@@ -74172,6 +74267,8 @@ sEf
 sEf
 sEf
 sEf
+sEf
+sEf
 lTI
 kUe
 kUe
@@ -74187,8 +74284,6 @@ kUe
 kUe
 kUe
 rEB
-sEf
-sEf
 sEf
 sEf
 sEf
@@ -74474,6 +74569,8 @@ sEf
 sEf
 sEf
 sEf
+sEf
+sEf
 lTI
 kUe
 kUe
@@ -74489,8 +74586,6 @@ kUe
 kUe
 kUe
 rEB
-sEf
-sEf
 sEf
 sEf
 sEf
@@ -74776,6 +74871,8 @@ sEf
 sEf
 sEf
 sEf
+sEf
+sEf
 lTI
 kUe
 kUe
@@ -74791,8 +74888,6 @@ kUe
 kUe
 kUe
 rEB
-sEf
-sEf
 sEf
 sEf
 sEf
@@ -75077,6 +75172,8 @@ sEf
 sEf
 sEf
 sEf
+sEf
+sEf
 vtP
 lTI
 kUe
@@ -75094,8 +75191,6 @@ kUe
 kUe
 rEB
 vVB
-sEf
-sEf
 sEf
 sEf
 sEf
@@ -75380,6 +75475,8 @@ sEf
 sEf
 sEf
 sEf
+sEf
+sEf
 lTI
 kUe
 kUe
@@ -75395,8 +75492,6 @@ kUe
 kUe
 kUe
 rEB
-sEf
-sEf
 sEf
 sEf
 sEf
@@ -75682,6 +75777,8 @@ sEf
 sEf
 sEf
 sEf
+sEf
+sEf
 lTI
 kUe
 kUe
@@ -75697,8 +75794,6 @@ kUe
 kUe
 kUe
 rEB
-sEf
-sEf
 sEf
 sEf
 sEf
@@ -75984,6 +76079,8 @@ sEf
 sEf
 sEf
 sEf
+sEf
+sEf
 lTI
 kUe
 kUe
@@ -75999,8 +76096,6 @@ kUe
 kUe
 kUe
 rEB
-sEf
-sEf
 sEf
 sEf
 sEf
@@ -76285,6 +76380,8 @@ sEf
 sEf
 sEf
 sEf
+sEf
+sEf
 vtP
 oSE
 xEQ
@@ -76302,8 +76399,6 @@ vqj
 xEQ
 aHv
 vVB
-sEf
-sEf
 sEf
 sEf
 sEf
@@ -76588,7 +76683,7 @@ sEf
 sEf
 sEf
 sEf
-tvx
+sEf
 sEf
 gxh
 sEf
@@ -76599,12 +76694,12 @@ erv
 jqx
 vsC
 vsC
-qHc
-xqm
+sEf
+gxh
+sEf
+gxh
 sEf
 tvx
-sEf
-sEf
 sEf
 sEf
 sEf
@@ -76901,10 +76996,10 @@ jEf
 jEf
 tsR
 hoY
-qHc
+sEf
+gxh
+htJ
 xqm
-sEf
-sEf
 sEf
 sEf
 sEf
@@ -77203,10 +77298,10 @@ rEC
 rtG
 jEf
 vsC
+nFe
 qHc
 xqm
-sEf
-sEf
+tvx
 sEf
 sEf
 sEf
@@ -77489,7 +77584,7 @@ gxh
 sEf
 sEf
 sEf
-gGJ
+sEf
 sEf
 sEf
 sEf
@@ -77507,7 +77602,7 @@ kPW
 vsC
 qHc
 xqm
-sEf
+tvx
 sEf
 sEf
 sEf
@@ -77791,10 +77886,10 @@ lzH
 uan
 uan
 nFe
+nFe
+nFe
 gGJ
 nFe
-uan
-uan
 uan
 uan
 uan
@@ -78092,11 +78187,11 @@ sEf
 gxh
 sEf
 sEf
+sEf
+sEf
 lzH
 gGJ
 xqm
-sEf
-sEf
 sEf
 sEf
 sEf
@@ -78109,7 +78204,7 @@ wlc
 pbn
 tsR
 hoY
-qHc
+sbV
 xqm
 sEf
 sEf
@@ -78394,11 +78489,11 @@ nFe
 xqm
 sEf
 sEf
+sEf
+sEf
 lzH
-njx
+gGJ
 xqm
-sEf
-sEf
 sEf
 sEf
 sEf
@@ -78411,8 +78506,8 @@ tsR
 tsR
 tsR
 vsC
-qHc
-xqm
+sEf
+gxh
 sEf
 sEf
 sEf
@@ -78697,10 +78792,10 @@ saJ
 hbo
 hbo
 saJ
-iET
-saJ
-sEf
-sEf
+hbo
+hbo
+njx
+xqm
 sEf
 sEf
 sEf
@@ -78713,8 +78808,8 @@ vsC
 vsC
 vsC
 vsC
-qHc
-xqm
+sEf
+gxh
 sEf
 sEf
 sEf
@@ -78999,10 +79094,10 @@ hbo
 lLb
 mYN
 kcU
-dpz
-hbo
-nFe
-uan
+cbR
+saJ
+huA
+saJ
 uan
 uan
 uan
@@ -79015,7 +79110,7 @@ sbV
 sbV
 sbV
 sbV
-sbV
+uan
 xqm
 sEf
 sEf
@@ -79301,10 +79396,10 @@ hbo
 wnM
 rOy
 vuX
-dpz
+tGt
+koo
+mCz
 hbo
-hbo
-kTj
 sEf
 sEf
 sEf
@@ -79603,9 +79698,9 @@ rGA
 kYU
 jPR
 gLX
-iYf
-jKZ
-hbo
+tGt
+pZY
+boC
 hbo
 kTj
 sEf
@@ -80208,7 +80303,7 @@ cpl
 jgb
 wDe
 oJH
-lMG
+pZY
 dpz
 tCR
 hbo
@@ -80513,7 +80608,7 @@ wiQ
 hbo
 vAJ
 cpl
-cpl
+saJ
 hov
 hov
 qHc
@@ -85962,11 +86057,11 @@ lkq
 fxk
 oWo
 wuo
-sEf
-sEf
-sEf
-sEf
-sEf
+rkO
+rkO
+rkO
+rkO
+rkO
 sEf
 sEf
 sEf
@@ -86264,11 +86359,11 @@ lkq
 fxk
 pGY
 xTl
-sEf
-sEf
-sEf
-sEf
-sEf
+mSQ
+hZx
+hZx
+upN
+rkO
 sEf
 sEf
 sEf
@@ -86566,11 +86661,11 @@ gqH
 cpK
 udO
 beI
-sEf
-sEf
-sEf
-sEf
-sEf
+mSQ
+bsC
+bsC
+bsC
+rkO
 sEf
 sEf
 sEf
@@ -86868,11 +86963,11 @@ lkq
 fxk
 wrH
 wLU
-sEf
-sEf
-sEf
-sEf
-sEf
+mSQ
+hZx
+hZx
+upN
+rkO
 sEf
 sEf
 sEf
@@ -87170,11 +87265,11 @@ uhM
 mno
 sty
 wuo
-sEf
-sEf
-sEf
-sEf
-sEf
+mSQ
+mcO
+upN
+mSQ
+rkO
 sEf
 sEf
 sEf
@@ -87472,11 +87567,11 @@ uzR
 fXI
 gHt
 wuo
-sEf
-sEf
-sEf
-sEf
-sEf
+mSQ
+uRw
+uRw
+hTm
+rkO
 sEf
 sEf
 sEf
@@ -87774,11 +87869,11 @@ oHk
 uYj
 uxq
 wuo
-sEf
-sEf
-sEf
-sEf
-sEf
+mSQ
+sef
+uRw
+bsC
+rkO
 sEf
 sEf
 sEf
@@ -88076,11 +88171,11 @@ uxq
 mBK
 cXR
 wuo
-sEf
-sEf
-sEf
-sEf
-sEf
+mSQ
+hTm
+uRw
+hTm
+rkO
 sEf
 sEf
 sEf
@@ -88378,11 +88473,11 @@ sNg
 uAE
 nDQ
 wuo
-sEf
-sEf
-sEf
-sEf
-sEf
+mSQ
+fui
+hZx
+bsC
+rkO
 sEf
 sEf
 sEf
@@ -88680,11 +88775,11 @@ sNg
 tTc
 nDQ
 wuo
-sEf
-sEf
-sEf
-sEf
-sEf
+mSQ
+hTm
+mSQ
+hTm
+rkO
 sEf
 sEf
 sEf
@@ -88982,11 +89077,11 @@ sNg
 dqD
 nDQ
 wuo
-sEf
-sEf
-sEf
-sEf
-sEf
+mSQ
+sLZ
+uRw
+hTm
+rkO
 sEf
 sEf
 sEf
@@ -89285,10 +89380,10 @@ tTc
 nDQ
 wuo
 rkO
-sEf
-sEf
-sEf
-sEf
+hZx
+fui
+upN
+rkO
 sEf
 sEf
 sEf
@@ -89587,10 +89682,10 @@ jbL
 qhA
 cXR
 rkO
-sEf
-sEf
-sEf
-sEf
+hZx
+hZx
+upN
+rkO
 sEf
 sEf
 sEf
@@ -89889,10 +89984,10 @@ lzA
 jCd
 nDQ
 rkO
-sEf
-sEf
-sEf
-sEf
+bsC
+bsC
+bsC
+rkO
 sEf
 sEf
 sEf
@@ -90191,10 +90286,10 @@ mFj
 tTc
 nDQ
 rkO
-sEf
-sEf
-sEf
-sEf
+mSQ
+mSQ
+mSQ
+rkO
 sEf
 sEf
 sEf
