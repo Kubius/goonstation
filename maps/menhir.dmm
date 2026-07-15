@@ -1582,6 +1582,13 @@
 	allows_vehicles = 0
 	},
 /area/station/ai_monitored/armory)
+"aXN" = (
+/obj/effects/menhir_fog,
+/obj/landmark/menhir/coalesce{
+	data = 22
+	},
+/turf/unsimulated/wall/auto/adventure/icemooninterior,
+/area/station/crown)
 "aXX" = (
 /obj/machinery/power/apc/autoname_north,
 /obj/cable{
@@ -2125,6 +2132,12 @@
 	dir = 8
 	},
 /area/station/mining/staff_room)
+"bku" = (
+/obj/landmark/menhir/beyond{
+	data = "southwest"
+	},
+/turf/space,
+/area/space)
 "bkD" = (
 /obj/cable{
 	icon_state = "1-2"
@@ -6485,6 +6498,13 @@
 	},
 /turf/simulated/floor/grey,
 /area/station/hallway/primary/east)
+"dNs" = (
+/obj/effects/menhir_fog,
+/obj/landmark/menhir/coalesce{
+	data = 18
+	},
+/turf/unsimulated/wall/auto/adventure/icemooninterior,
+/area/station/crown)
 "dNE" = (
 /turf/simulated/floor/shuttlebay{
 	icon_state = "engine_caution_south"
@@ -7284,6 +7304,13 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/security/beepsky)
+"eja" = (
+/obj/effects/menhir_fog,
+/obj/landmark/menhir/coalesce{
+	data = 10
+	},
+/turf/unsimulated/wall/auto/adventure/icemooninterior,
+/area/station/crown)
 "ejd" = (
 /obj/machinery/computer3/generic/bank_data,
 /obj/machinery/power/data_terminal,
@@ -7826,6 +7853,13 @@
 	dir = 8
 	},
 /area/station/security/secwing)
+"eAg" = (
+/obj/effects/menhir_fog,
+/obj/landmark/menhir/coalesce{
+	data = 12
+	},
+/turf/unsimulated/wall/auto/adventure/icemooninterior,
+/area/station/crown)
 "eAu" = (
 /obj/decal/poster/wallsign/escape_right,
 /turf/simulated/wall/auto/reinforced/supernorn,
@@ -7911,6 +7945,13 @@
 /obj/machinery/firealarm/directional/north,
 /turf/simulated/floor/carpet/grime,
 /area/station/crew_quarters/baroffice)
+"eDq" = (
+/obj/effects/menhir_fog,
+/obj/landmark/menhir/coalesce{
+	data = 19
+	},
+/turf/unsimulated/wall/auto/adventure/icemooninterior,
+/area/station/crown)
 "eDL" = (
 /obj/mapping_helper/wingrille_spawn/auto/reinforced/crystal,
 /obj/cable{
@@ -7987,6 +8028,13 @@
 	dir = 8
 	},
 /area/station/hangar/main)
+"eGy" = (
+/obj/effects/menhir_fog,
+/obj/landmark/menhir/coalesce{
+	data = 5
+	},
+/turf/unsimulated/wall/auto/adventure/icemooninterior,
+/area/station/crown)
 "eGH" = (
 /turf/simulated/floor,
 /area/station/security/checkpoint/arrivals)
@@ -11640,6 +11688,13 @@
 /area/station/security/checkpoint/sec_foyer{
 	name = "Secure Release Foyer"
 	})
+"gLq" = (
+/obj/effects/menhir_fog,
+/obj/landmark/menhir/coalesce{
+	data = 17
+	},
+/turf/unsimulated/wall/auto/adventure/icemooninterior,
+/area/station/crown)
 "gLw" = (
 /obj/submachine/cargopad/artlab,
 /turf/simulated/floor/black,
@@ -13304,6 +13359,13 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/west)
+"hIh" = (
+/obj/effects/menhir_fog,
+/obj/landmark/menhir/coalesce{
+	data = 14
+	},
+/turf/unsimulated/wall/auto/adventure/icemooninterior,
+/area/station/crown)
 "hIx" = (
 /obj/mesh/catwalk,
 /obj/disposalpipe/junction/left/north,
@@ -14263,6 +14325,13 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/solar/west)
+"ifA" = (
+/obj/effects/menhir_fog,
+/obj/landmark/menhir/coalesce{
+	data = 15
+	},
+/turf/unsimulated/wall/auto/adventure/icemooninterior,
+/area/station/crown)
 "igh" = (
 /obj/mesh/catwalk,
 /obj/cable/yellow{
@@ -15871,6 +15940,13 @@
 	},
 /turf/simulated/floor/yellow/side,
 /area/station/engine/storage)
+"jdZ" = (
+/obj/effects/menhir_fog,
+/obj/landmark/menhir/coalesce{
+	data = 4
+	},
+/turf/unsimulated/wall/auto/adventure/icemooninterior,
+/area/station/crown)
 "jel" = (
 /obj/decal/cleanable/dirt/jen,
 /obj/machinery/power/furnace,
@@ -16833,6 +16909,12 @@
 	},
 /turf/simulated/floor/purpleblack,
 /area/station/science/artifact)
+"jDQ" = (
+/obj/landmark/menhir/beyond{
+	data = "northeast"
+	},
+/turf/space,
+/area/space)
 "jDS" = (
 /obj/machinery/conveyor/SW{
 	id = "qmsend"
@@ -17189,6 +17271,13 @@
 	},
 /turf/simulated/floor/black,
 /area/station/science/lab)
+"jQy" = (
+/obj/effects/menhir_fog,
+/obj/landmark/menhir/coalesce{
+	data = 13
+	},
+/turf/unsimulated/wall/auto/adventure/icemooninterior,
+/area/station/crown)
 "jQM" = (
 /obj/machinery/door/airlock/pyro/medical,
 /obj/mapping_helper/firedoor_spawn,
@@ -17227,6 +17316,13 @@
 /obj/landmark/menhir/outreach,
 /turf/simulated/floor/dirt,
 /area/station/ranch)
+"jRr" = (
+/obj/effects/menhir_fog,
+/obj/landmark/menhir/coalesce{
+	data = 7
+	},
+/turf/unsimulated/wall/auto/adventure/icemooninterior,
+/area/station/crown)
 "jRs" = (
 /obj/disposalpipe/segment/horizontal,
 /obj/decal/cleanable/dirt,
@@ -17704,6 +17800,13 @@
 /area/station/quartermaster/cargobay{
 	name = "Cargo Import Export"
 	})
+"kdq" = (
+/obj/effects/menhir_fog,
+/obj/landmark/menhir/coalesce{
+	data = 6
+	},
+/turf/unsimulated/wall/auto/adventure/icemooninterior,
+/area/station/crown)
 "kdN" = (
 /obj/cable{
 	icon_state = "4-9"
@@ -18384,6 +18487,20 @@
 /obj/disposalpipe/segment/horizontal,
 /turf/simulated/floor/white,
 /area/station/science/hall)
+"kyw" = (
+/obj/effects/menhir_fog,
+/obj/landmark/menhir/coalesce{
+	data = 23
+	},
+/turf/unsimulated/wall/auto/adventure/icemooninterior,
+/area/station/crown)
+"kyR" = (
+/obj/effects/menhir_fog,
+/obj/landmark/menhir/coalesce{
+	data = 9
+	},
+/turf/unsimulated/wall/auto/adventure/icemooninterior,
+/area/station/crown)
 "kzt" = (
 /obj/machinery/light/small{
 	dir = 4;
@@ -23380,6 +23497,13 @@
 /area/station/hallway/secondary/exit{
 	name = "Primary Docking Wing"
 	})
+"nlL" = (
+/obj/effects/menhir_fog,
+/obj/landmark/menhir/coalesce{
+	data = 20
+	},
+/turf/unsimulated/wall/auto/adventure/icemooninterior,
+/area/station/crown)
 "nmd" = (
 /obj/stool/chair{
 	dir = 4
@@ -25846,6 +25970,13 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/science/gen_storage)
+"oyG" = (
+/obj/effects/menhir_fog,
+/obj/landmark/menhir/coalesce{
+	data = 3
+	},
+/turf/unsimulated/wall/auto/adventure/icemooninterior,
+/area/station/crown)
 "oyP" = (
 /obj/stool/chair/office/yellow{
 	dir = 4
@@ -28503,6 +28634,13 @@
 "pWi" = (
 /turf/simulated/floor,
 /area/station/quartermaster/office)
+"pWm" = (
+/obj/effects/menhir_fog,
+/obj/landmark/menhir/coalesce{
+	data = 2
+	},
+/turf/unsimulated/wall/auto/adventure/icemooninterior,
+/area/station/crown)
 "pWr" = (
 /turf/simulated/wall/auto/supernorn,
 /area/station/hydroponics)
@@ -28640,6 +28778,13 @@
 /obj/item/device/radio/headset/multifreq,
 /turf/simulated/floor/purplewhite,
 /area/station/science/teleporter)
+"qbt" = (
+/obj/effects/menhir_fog,
+/obj/landmark/menhir/coalesce{
+	data = 21
+	},
+/turf/unsimulated/wall/auto/adventure/icemooninterior,
+/area/station/crown)
 "qbI" = (
 /obj/disposalpipe/segment/mail,
 /obj/machinery/camera/directional/east,
@@ -30326,6 +30471,12 @@
 	},
 /turf/simulated/floor/engine/vacuum,
 /area/station/science/lab)
+"qXN" = (
+/obj/landmark/menhir/beyond{
+	data = "south"
+	},
+/turf/space,
+/area/space)
 "qXV" = (
 /turf/simulated/floor/grey/side{
 	dir = 8
@@ -31201,6 +31352,13 @@
 /obj/mapping_helper/wingrille_spawn/auto/reinforced,
 /turf/unsimulated/floor/plating,
 /area/shuttle/arrival/station)
+"ruM" = (
+/obj/effects/menhir_fog,
+/obj/landmark/menhir/coalesce{
+	data = 8
+	},
+/turf/unsimulated/wall/auto/adventure/icemooninterior,
+/area/station/crown)
 "ruO" = (
 /obj/cable{
 	icon_state = "4-8"
@@ -35983,6 +36141,13 @@
 /obj/disposalpipe/junction/left/west,
 /turf/simulated/floor/grey/side,
 /area/station/hallway/primary/north)
+"tZi" = (
+/obj/effects/menhir_fog,
+/obj/landmark/menhir/coalesce{
+	data = 16
+	},
+/turf/unsimulated/wall/auto/adventure/icemooninterior,
+/area/station/crown)
 "uan" = (
 /obj/lattice{
 	icon_state = "lattice-dir"
@@ -37598,6 +37763,13 @@
 	},
 /turf/simulated/floor/red,
 /area/station/science/lab)
+"uSs" = (
+/obj/effects/menhir_fog,
+/obj/landmark/menhir/coalesce{
+	data = 24
+	},
+/turf/unsimulated/wall/auto/adventure/icemooninterior,
+/area/station/crown)
 "uSx" = (
 /obj/machinery/hydro_growlamp,
 /turf/simulated/floor/black/grime,
@@ -40043,6 +40215,12 @@
 	dir = 8
 	},
 /area/station/security/checkpoint/arrivals)
+"wdK" = (
+/obj/landmark/menhir/beyond{
+	data = "northwest"
+	},
+/turf/space,
+/area/space)
 "wdN" = (
 /obj/table/reinforced/auto,
 /obj/machinery/light{
@@ -41938,6 +42116,13 @@
 /area/station/maintenance/inner/se{
 	name = "Southeast Auxiliary Conduit"
 	})
+"wZI" = (
+/obj/effects/menhir_fog,
+/obj/landmark/menhir/coalesce{
+	data = 11
+	},
+/turf/unsimulated/wall/auto/adventure/icemooninterior,
+/area/station/crown)
 "wZQ" = (
 /obj/cable{
 	icon_state = "4-8"
@@ -43327,6 +43512,13 @@
 	},
 /turf/simulated/floor/blue,
 /area/station/medical/medbay)
+"xKx" = (
+/obj/effects/menhir_fog,
+/obj/landmark/menhir/coalesce{
+	data = 1
+	},
+/turf/unsimulated/wall/auto/adventure/icemooninterior,
+/area/station/crown)
 "xKB" = (
 /obj/cable{
 	icon_state = "2-8"
@@ -48971,7 +49163,7 @@ sEf
 sEf
 sEf
 sEf
-hQd
+sEf
 sEf
 sEf
 sEf
@@ -55903,7 +56095,7 @@ sEf
 sEf
 sEf
 sEf
-sEf
+bku
 sEf
 sEf
 sEf
@@ -69048,7 +69240,7 @@ sEf
 sEf
 sEf
 sEf
-sEf
+wdK
 sEf
 sEf
 sEf
@@ -85436,13 +85628,13 @@ fyg
 xwU
 blC
 req
-lhN
+jdZ
 lhN
 osZ
 osZ
 osZ
 lhN
-lhN
+oyG
 lZV
 qjX
 qlC
@@ -86632,7 +86824,7 @@ aGr
 fxO
 aGr
 qBA
-lhN
+eGy
 eOe
 xZM
 xZM
@@ -86662,7 +86854,7 @@ piu
 wyQ
 jWE
 vtM
-lhN
+pWm
 qBA
 aGr
 fxO
@@ -87234,7 +87426,7 @@ tjo
 lhN
 lhN
 wWW
-lhN
+kdq
 lhN
 blY
 blY
@@ -87268,7 +87460,7 @@ xFh
 xFh
 xFh
 lhN
-lhN
+xKx
 oau
 lhN
 lhN
@@ -88452,7 +88644,7 @@ dfb
 blY
 lhN
 lhN
-lhN
+gLq
 aGr
 aGr
 lhN
@@ -88466,7 +88658,7 @@ lhN
 lhN
 aGr
 bhf
-lhN
+hIh
 lhN
 lhN
 kRI
@@ -89656,7 +89848,7 @@ wqb
 xGP
 ahX
 lhN
-lhN
+dNs
 lhN
 aGr
 qBA
@@ -89678,7 +89870,7 @@ aGr
 lhN
 lhN
 lhN
-lhN
+jQy
 lhN
 oHo
 ewZ
@@ -90267,7 +90459,7 @@ lhN
 lhN
 lhN
 lhN
-lhN
+tZi
 lhN
 lhN
 aGr
@@ -90275,7 +90467,7 @@ lhN
 lhN
 lhN
 lhN
-lhN
+ifA
 lhN
 lhN
 lhN
@@ -92805,7 +92997,7 @@ sEf
 sEf
 sEf
 sEf
-sEf
+qXN
 sEf
 sEf
 sEf
@@ -93287,7 +93479,7 @@ lhN
 lhN
 lhN
 lhN
-lhN
+qbt
 lhN
 lhN
 aGr
@@ -93295,7 +93487,7 @@ lhN
 lhN
 lhN
 lhN
-lhN
+aXN
 lhN
 lhN
 lhN
@@ -93884,7 +94076,7 @@ wqb
 xGP
 ahX
 lhN
-lhN
+eDq
 lhN
 aGr
 qBA
@@ -93906,7 +94098,7 @@ aGr
 lhN
 lhN
 lhN
-lhN
+uSs
 lhN
 ryJ
 iFN
@@ -95096,7 +95288,7 @@ dfb
 blY
 lhN
 lhN
-lhN
+nlL
 aGr
 aGr
 lhN
@@ -95110,7 +95302,7 @@ lhN
 lhN
 aGr
 bhf
-lhN
+kyw
 lhN
 lhN
 bQm
@@ -96294,7 +96486,7 @@ vCx
 lhN
 lhN
 meT
-lhN
+jRr
 lhN
 blY
 blY
@@ -96328,7 +96520,7 @@ aSL
 aSL
 aSL
 lhN
-lhN
+eAg
 qWp
 lhN
 lhN
@@ -96900,7 +97092,7 @@ aGr
 fxO
 aGr
 qBA
-lhN
+ruM
 ieZ
 vXV
 eIi
@@ -96930,7 +97122,7 @@ jXH
 oSI
 wgx
 eTD
-lhN
+wZI
 qBA
 aGr
 fxO
@@ -98120,13 +98312,13 @@ xnn
 eIi
 rhh
 wKs
-lhN
+kyR
 lhN
 osZ
 osZ
 osZ
 lhN
-lhN
+eja
 gTQ
 txT
 oSI
@@ -119469,7 +119661,7 @@ sEf
 sEf
 sEf
 sEf
-sEf
+jDQ
 sEf
 sEf
 sEf

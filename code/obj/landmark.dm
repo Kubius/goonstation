@@ -377,6 +377,12 @@ var/global/list/job_start_locations = list()
 /obj/landmark/menhir/penance
 	name = LANDMARK_MENHIR_PENANCE
 
+/obj/landmark/menhir/coalesce
+	name = LANDMARK_MENHIR_COALESCE
+
+/obj/landmark/menhir/beyond
+	name = LANDMARK_MENHIR_BEYOND
+
 /obj/landmark/menhir/passage
 	name = LANDMARK_MENHIR_PASSAGE
 	icon_state = "x3"
