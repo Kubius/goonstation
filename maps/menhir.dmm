@@ -17357,6 +17357,7 @@
 	layer = 9.1;
 	pixel_x = -10
 	},
+/obj/landmark/bill_spawn,
 /turf/simulated/floor/grey/side{
 	dir = 8
 	},
@@ -20517,9 +20518,8 @@
 	},
 /area/station/crew_quarters/market)
 "lBP" = (
-/obj/submachine/chef_oven,
 /obj/machinery/camera/directional/north,
-/obj/landmark/bill_spawn,
+/obj/machinery/vending/kitchen,
 /turf/simulated/floor/specialroom/cafeteria,
 /area/station/crew_quarters/kitchen)
 "lCr" = (
@@ -28305,9 +28305,8 @@
 /turf/simulated/floor/wood/seven,
 /area/station/ranch)
 "pNS" = (
-/obj/submachine/chef_oven,
 /obj/noticeboard/persistent/kitchen/directional/north,
-/obj/landmark/bill_spawn,
+/obj/machinery/deep_fryer,
 /turf/simulated/floor/specialroom/cafeteria,
 /area/station/crew_quarters/kitchen)
 "pNU" = (
@@ -35158,12 +35157,13 @@
 /turf/simulated/floor/black,
 /area/station/hallway/primary/southeast)
 "txA" = (
-/obj/machinery/deep_fryer,
 /obj/machinery/light{
 	dir = 1;
 	layer = 9.1;
 	pixel_y = 21
 	},
+/obj/submachine/chef_oven,
+/obj/landmark/bill_spawn,
 /turf/simulated/floor/specialroom/cafeteria,
 /area/station/crew_quarters/kitchen)
 "txJ" = (
@@ -35196,10 +35196,10 @@
 /turf/simulated/floor/carpet/grime,
 /area/station/security/detectives_office)
 "tza" = (
-/obj/machinery/vending/kitchen,
 /obj/item/device/radio/intercom/catering{
 	dir = 4
 	},
+/obj/submachine/chef_oven,
 /turf/simulated/floor/specialroom/cafeteria,
 /area/station/crew_quarters/kitchen)
 "tzv" = (
