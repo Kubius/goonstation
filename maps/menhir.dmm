@@ -17351,9 +17351,6 @@
 /turf/simulated/floor/caution/corner/sw,
 /area/station/turret_protected/incursion)
 "jSp" = (
-/obj/cable{
-	icon_state = "1-2"
-	},
 /obj/shrub,
 /obj/machinery/light{
 	dir = 8;
@@ -19399,9 +19396,6 @@
 "kXu" = (
 /obj/cable{
 	icon_state = "4-8"
-	},
-/obj/cable{
-	icon_state = "2-8"
 	},
 /turf/simulated/floor/grey/corner{
 	dir = 8
@@ -21617,9 +21611,7 @@
 /turf/simulated/floor/wood/two,
 /area/station/crew_quarters/hop)
 "mhB" = (
-/obj/machinery/computer/general_alert,
-/obj/cable,
-/obj/machinery/power/data_terminal,
+/obj/machinery/computer/arcade,
 /turf/simulated/floor/grey/side{
 	dir = 8
 	},
@@ -24497,9 +24489,7 @@
 /turf/space,
 /area/shuttle/merchant_shuttle/left_station/cogmap2)
 "nMO" = (
-/obj/machinery/computer/arcade{
-	desc = "The VR representation of a popular computer game."
-	},
+/obj/submachine/claw_machine,
 /turf/simulated/floor/carpet/arcade,
 /area/station/hallway/primary/north)
 "nMS" = (
@@ -38201,13 +38191,11 @@
 /turf/simulated/floor/sanitary/white,
 /area/station/medical/crematorium)
 "veg" = (
-/obj/machinery/computer/arcade{
-	desc = "The VR representation of a popular computer game."
-	},
 /obj/machinery/light/emergency{
 	dir = 8;
 	pixel_x = -10
 	},
+/obj/machinery/computer/arcade,
 /turf/simulated/floor/carpet/arcade,
 /area/station/hallway/primary/north)
 "vei" = (
