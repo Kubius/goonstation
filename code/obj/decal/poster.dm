@@ -1012,7 +1012,7 @@
 
 				horn // M029
 					name = "mandatory sound horn sign"
-					icon_state = "mandatory-horn"
+					icon_state = "mandatory_horn"
 
 				buckle // M020
 					name = "mandatory safety belt sign"
@@ -1058,7 +1058,7 @@
 
 				quicksand // W061
 					name = "quicksand warning sign"
-					icon_state = "quicksand"
+					icon_state = "warning_quicksand"
 
 				cliff // W053
 					name = "unstable cliff warning sign"
@@ -1116,7 +1116,7 @@
 
 				evac // E007
 					name = "evacuation assembly point sign"
-					icon_state = "safe evac"
+					icon_state = "safe_evac"
 
 			fire
 				name = "fire protection sign"

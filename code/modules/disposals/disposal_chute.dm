@@ -24,6 +24,7 @@ ADMIN_INTERACT_PROCS(/obj/machinery/disposal, proc/flush, proc/eject)
 	anchored = ANCHORED
 	density = 1
 	flags = NOSPLASH | TGUI_INTERACTIVE
+	object_flags = NO_GHOSTCRITTER | GHOSTDRONE_ALLOWED
 	provides_grip = TRUE
 	var/datum/gas_mixture/air_contents	// internal reservoir
 	var/mode = DISPOSAL_CHUTE_CHARGING	// item mode 0=off 1=charging 2=charged
@@ -190,7 +191,7 @@ ADMIN_INTERACT_PROCS(/obj/machinery/disposal, proc/flush, proc/eject)
 			src.bash(I, user)
 			update()
 			return
-		if (istype(I, /obj/item/handheld_vacuum))
+		if (istype(I, /obj/item/handheld_vacuum) || istype(I, /obj/item/device/disposals_hijacker))
 			return
 		// Mousedropping storage items will dump the contents during MouseDrop_T instead
 		if (istype(I, /obj/item/storage/mechanics) || (islist(params) && params["dragged"]))
@@ -520,31 +521,26 @@ ADMIN_INTERACT_PROCS(/obj/machinery/disposal, proc/flush, proc/eject)
 		if(flush && MIXTURE_PRESSURE(air_contents) >= 2*ONE_ATMOSPHERE)	// flush can happen even without power
 			SPAWN(0) //Quit holding up the process you fucker
 				flush()
+		src.absorb_gas()
+		return
 
-		if(status & NOPOWER)			// won't charge if no power
-			return
+	proc/absorb_gas(var/datum/gas_mixture/env)
+		if(!src.loc) return // Nullspaced, no point in trying.
+		if(src.status & NOPOWER) return // Won't charge without power
+		if(src.mode != DISPOSAL_CHUTE_CHARGING)	return // if off or ready, no need to charge
 
-		if (!loc) return
-
-		if(mode != DISPOSAL_CHUTE_CHARGING)		// if off or ready, no need to charge
-			return
-
-		var/atom/L = loc						// recharging from loc turf
-		var/datum/gas_mixture/env = L.return_air()
-		if (!air_contents)
-			air_contents = new /datum/gas_mixture
+		env ||= src.loc.return_air()
+		src.air_contents ||= new /datum/gas_mixture
 		var/pressure_delta = (3.5 * ONE_ATMOSPHERE) - MIXTURE_PRESSURE(air_contents) // purposefully trying to overshoot the target of 2 atmospheres to make it faster
 
 		if(env.temperature > 0)
 			var/transfer_moles = src.repressure_speed * pressure_delta*air_contents.volume/(env.temperature * R_IDEAL_GAS_EQUATION)
-
 			//Actually transfer the gas
 			var/datum/gas_mixture/removed = env.remove(transfer_moles)
 			air_contents.merge(removed)
 
-
 		// if full enough, switch to ready mode
-		if(MIXTURE_PRESSURE(air_contents) >= 2*ONE_ATMOSPHERE)
+		if(MIXTURE_PRESSURE(air_contents) >= 2.5*ONE_ATMOSPHERE)
 			mode = DISPOSAL_CHUTE_CHARGED
 			power_usage = 100
 			update()

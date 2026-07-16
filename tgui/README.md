@@ -32,10 +32,10 @@ This project uses React. Take your time to read the guide:
 
 You will need these programs to start developing in tgui:
 
-- [Node v**22**.11+](https://nodejs.org/en/download/)
+- [Node LTS v**24**.14+](https://nodejs.org/en/download/)
   - Using either the prebuilt installer or a package manager works.
   - If you're confused, click the green 'Windows Installer' button.
-  - **LTS v22** release is recommended instead of latest, as well as the x64 arch.
+  - **LTS** release is recommended instead of latest, as well as the x64 arch.
   - **DO NOT install Chocolatey if Node installer asks you to!**
 - [Yarn v4.9.2+](https://yarnpkg.com/getting-started/install) (optional)
   - Yarn is normally installed with corepack.
@@ -143,8 +143,7 @@ logs and time spent on rendering. Use this information to optimize your
 code, and try to keep re-renders below 16ms.
 
 **Kitchen Sink.**
-Press `F12` or click the green bug to open the KitchenSink interface. This interface is a
-playground to test various tgui components.
+Press `F12` or click the green bug to open the KitchenSink interface - this lets you debug the data flow.
 
 **Layout Debugger.**
 Press `F11` to toggle the _layout debugger_. It will show outlines of
@@ -171,6 +170,9 @@ You can then <kbd>F12</kbd> to open the standard chrome dev tools.
 - `/packages/tgui/styles/interfaces` - Custom stylesheets for your interfaces. Add stylesheets here if you really need a fine control over your UI styles.
 - `/packages/tgui/styles/layouts` - Layout-related styles.
 - `/packages/tgui/styles/themes` - Contains themes that you can use in tgui. Each theme must be registered in `/packages/tgui/index.ts` file.
+
+## Unit Tests
+To test tgui interfaces, we use [React Testing Library](https://testing-library.com/docs/react-testing-library/intro/)
 
 ## Component Reference
 

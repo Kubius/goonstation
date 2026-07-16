@@ -17,6 +17,7 @@ var/global/list/mapNames = list(
 	"Event" =				list("id" = "EVENT",		"settings" = "clarion",			"playerPickable" = FALSE),
 	// "1 pamgoC" =			list("id" = "PAMGOC",		"settings" = "pamgoc",			"playerPickable" = FALSE),
 	"Wrestlemap" =			list("id" = "WRESTLEMAP",	"settings" = "wrestlemap",		"playerPickable" = FALSE),
+	"Probstation" =			list("id" = "PROBSTATION",	"settings" = "probstation",		"playerPickable" = FALSE),
 
 #ifdef RP_MODE
 	"Cogmap 1" =			list("id" = "COGMAP",		"settings" = "cogmap",			"playerPickable" = TRUE,	"MinPlayersAllowed" = 14),
@@ -134,7 +135,8 @@ var/global/list/mapNames = list(
 	var/ext_airlocks = /obj/machinery/door/airlock/pyro/external
 	var/airlock_style = "pyro"
 
-	/// The Syndicate Listening Post prefab datum, used to dynamically insert the listening post at runtime
+	/// The Syndicate Listening Post prefab datum, used to dynamically insert the listening post at runtime.
+	/// May be a list of listening post prefabs to randomly select from
 	var/listening_post_prefab = /datum/mapPrefab/listening_post/standard
 
 	var/escape_centcom = /area/shuttle/escape/centcom
@@ -153,8 +155,9 @@ var/global/list/mapNames = list(
 	var/merchant_left_station = /area/shuttle/merchant_shuttle/left_station
 	var/merchant_right_centcom = /area/shuttle/merchant_shuttle/right_centcom
 	var/merchant_right_station = /area/shuttle/merchant_shuttle/right_station
-	var/list/shipping_destinations = list("Airbridge", "Cafeteria", "EVA", "Engine", "Disposals", "QM", "Catering", "MedSci", "Security") //These have to match the ones on the cargo routers for the routers to work.
+	var/cargo_shipping_method = SHIPPING_METHOD_EDGE_FLING //! How does cargo arrive to the station?
 	/// default shipping destinations
+	var/list/shipping_destinations = list("Airbridge", "Cafeteria", "EVA", "Engine", "Disposals", "QM", "Catering", "MedSci", "Security") //These have to match the ones on the cargo routers for the routers to work.
 
 	var/list/valid_nuke_targets = list("the main security room" = list(/area/station/security/main),
 		"the central research sector hub" = list(/area/station/science/lobby),
@@ -207,6 +210,7 @@ var/global/list/mapNames = list(
 
 		SPAWN(5 SECONDS)
 			src.load_shuttle()
+			src.set_cargo_shipping_method()
 
 	proc/load_shuttle(path=null, transit_path=null, load_loc_override=null)
 		if(isnull(path))
@@ -242,6 +246,9 @@ var/global/list/mapNames = list(
 		var/area/shuttle/escape/transit/transit_area = locate(/area/shuttle/escape/transit)
 		transit_area.warp_dir = escape_dir
 		return TRUE
+
+	proc/set_cargo_shipping_method()
+		global.shippingmarket.cargo_shipping_method = src.cargo_shipping_method
 
 /datum/map_settings/pod_wars
 	name = "POD_WARS"
@@ -856,6 +863,8 @@ var/global/list/mapNames = list(
 	default_shuttle = "oshan"
 	shuttle_map_turf = /turf/space/fluid/acid
 
+	cargo_shipping_method = SHIPPING_METHOD_TRANSCEPTION
+
 	merchant_left_centcom = /area/shuttle/merchant_shuttle/left_centcom/cogmap
 	merchant_left_station = /area/shuttle/merchant_shuttle/left_station/cogmap
 	merchant_right_centcom = /area/shuttle/merchant_shuttle/right_centcom/cogmap
@@ -970,23 +979,12 @@ var/global/list/mapNames = list(
 		"the cargo bay (QM)" = list(/area/station/quartermaster/office),
 		"the station's cafeteria" = list(/area/station/crew_quarters/cafeteria))
 
-/datum/map_settings/fleet2
-	name = "FLEET2"
-	display_name = "Phaethon Fleet"
-	style = "fleet"
-	goonhub_map = "/maps"
-	walls = /turf/simulated/wall/auto/jen
-	rwalls = /turf/simulated/wall/auto/reinforced/jen
-
-	Z_LEVEL_PARALLAX_RENDER_SOURCES(1) = list(
-		/atom/movable/screen/parallax_render_source/space_1,
-		/atom/movable/screen/parallax_render_source/space_2,
-		/atom/movable/screen/parallax_render_source/typhon/kondaru,
-		/atom/movable/screen/parallax_render_source/asteroids_far/kondaru,
-		)
-
+/datum/map_settings/probstation
+	name = "probstation"
+	goonhub_map = "/maps/probstation" //good fucking luck
 	arrivals_type = MAP_SPAWN_CRYO
-	dir_fore = WEST
+	walls = /turf/simulated/wall/auto/supernorn/colored
+	rwalls = /turf/simulated/wall/auto/reinforced/supernorn/colored
 
 	windows = /obj/window/auto
 	windows_thin = /obj/window/pyro
@@ -999,22 +997,35 @@ var/global/list/mapNames = list(
 	window_layer_south = FLY_LAYER+1
 	auto_windows = TRUE
 
-	ext_airlocks = /obj/machinery/door/airlock/pyro/external
-
-	listening_post_prefab = /datum/mapPrefab/listening_post/atlas
-
 	escape_dir = EAST
+
+	listening_post_prefab = list(
+		/datum/mapPrefab/listening_post/standard,
+		/datum/mapPrefab/listening_post/atlas,
+		/datum/mapPrefab/listening_post/donut3,
+		/datum/mapPrefab/listening_post/kondaru,
+	)
+
+	cargo_shipping_method = SHIPPING_METHOD_TRANSCEPTION
 
 	merchant_left_centcom = /area/shuttle/merchant_shuttle/left_centcom/cogmap
 	merchant_left_station = /area/shuttle/merchant_shuttle/left_station/cogmap
 	merchant_right_centcom = /area/shuttle/merchant_shuttle/right_centcom/cogmap
 	merchant_right_station = /area/shuttle/merchant_shuttle/right_station/cogmap
 
-	valid_nuke_targets = list("the Hammer's auxiliary generation wing" = list(/area/station/engine/substation/hammer),
-		"the Tenebrae port hallway" = list(/area/station/hallway/primary/south/tenebrae),
-		"the Asclepius emergency storage" = list(/area/station/storage/emergency/asclepius),
-		"the Dionysus recreational area" = list(/area/station/crew_quarters/fitness),
-		"the Maru quartermaster's office" = list(/area/station/quartermaster/office))
+	valid_nuke_targets = list("the shrub hallway" = list(/area/station/crew_quarters/garden/shrub_hall),
+		"the luxury seating area" = list(/area/station/crew_quarters/lounge/luxury_seating),
+		"the observatory" = list(/area/station/crew_quarters/observatory),
+		"the waste disposal room" = list(/area/station/maintenance/disposal),
+		"the central mapping atrium" = list(/area/station/crew_quarters/map_atrium),
+		"the entrance to the clown hole" = list(/area/station/crew_quarters/clown/entryway),
+		"the genetics lab" = list(/area/station/medical/research),)
+
+	station_tether_ignore_area_types = list(
+		/area/station/medical/asylum,
+		/area/station/engine/proto,
+		/area/station/engine/proto_gangway,
+	)
 
 /datum/map_settings/devtest
 	name = "DEVTEST"

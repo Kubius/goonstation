@@ -10,8 +10,8 @@ TYPEINFO(/obj/item/device/microphone)
 	item_state = "mic"
 	HELP_MESSAGE_OVERRIDE("Turn on or off by <b>using in-hand</b>.<br>Only picks up sound in your <b>active hand</b>.")
 
-	var/max_font = 8
-	var/font_amp = 4
+	var/max_font = 4
+	var/font_amp = 1
 	var/on = 0
 
 	get_desc()
@@ -38,6 +38,7 @@ TYPEINFO(/obj/item/device/microphone)
 
 
 TYPEINFO(/obj/mic_stand)
+	analyser_flags = parent_type::analyser_flags | ANALYSER_ELECTRONIC
 	mats = 10
 
 /obj/mic_stand

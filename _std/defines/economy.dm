@@ -29,7 +29,14 @@
 // % of both extra pay and % to the union budget
 #define UNIONIZED_PAY_MULT 0.20
 
-#define BUDGET_CAT_STATION "station"
-#define BUDGET_CAT_SHIPPING "shipping"
+#define BUDGET_CAT_PAYROLL "payroll"
 #define BUDGET_CAT_DEPT_MEDICAL "medical"
+// #define BUDGET_CAT_DEPT_RESEARCH "research"
+#define BUDGET_CAT_DEPT_SUPPLY "supply"
+// #define BUDGET_CAT_DEPT_SERVICE "service"
 #define BUDGET_CAT_UNION "union"
+
+/// Cargo recieves orders via flinging from the map edge to a supply target landmark
+#define SHIPPING_METHOD_EDGE_FLING 0
+/// Cargo recieves crates via a transception array
+#define SHIPPING_METHOD_TRANSCEPTION 1
