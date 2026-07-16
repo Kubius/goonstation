@@ -11509,16 +11509,6 @@
 /obj/landmark/halloween,
 /turf/simulated/floor,
 /area/station/hallway/primary/west)
-"guH" = (
-/obj/decal/tile_edge/line/purple{
-	dir = 1;
-	icon_state = "line1"
-	},
-/obj/disposalpipe/segment/transport{
-	dir = 4
-	},
-/turf/simulated/floor/white,
-/area/space)
 "guI" = (
 /obj/machinery/door/airlock/pyro/command{
 	dir = 4
@@ -32507,12 +32497,6 @@
 	dir = 1
 	},
 /area/station/engine/storage)
-"rtR" = (
-/obj/landmark/menhir/extrusion{
-	data = "WEST"
-	},
-/turf/simulated/wall/auto/reinforced/supernorn,
-/area/station/medical/morgue)
 "rtV" = (
 /obj/table/reinforced/bar/auto,
 /obj/disposalpipe/segment/vertical,
@@ -77816,7 +77800,7 @@ wzT
 irP
 wAu
 wAu
-rtR
+wAu
 wAu
 hXu
 cVo
@@ -93855,7 +93839,7 @@ sBU
 lei
 qFl
 jbT
-guH
+mEk
 pOW
 pmq
 kxW
