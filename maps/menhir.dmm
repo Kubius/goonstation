@@ -1685,6 +1685,15 @@
 /area/station/hallway/secondary/exit{
 	name = "Primary Docking Wing"
 	})
+"aYm" = (
+/obj/cable{
+	icon_state = "4-8"
+	},
+/obj/cable{
+	icon_state = "1-4"
+	},
+/turf/simulated/floor/grey/side,
+/area/station/hallway/primary/west)
 "aYF" = (
 /obj/machinery/floorflusher/solitary2,
 /obj/disposalpipe/trunk/brig{
@@ -7911,6 +7920,9 @@
 "erV" = (
 /obj/disposalpipe/segment/vertical,
 /obj/landmark/gps_waypoint,
+/obj/cable{
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/black,
 /area/station/medical/medbay/psychiatrist)
 "esw" = (
@@ -9404,6 +9416,9 @@
 /obj/cable{
 	icon_state = "1-2"
 	},
+/obj/cable{
+	icon_state = "1-8"
+	},
 /turf/simulated/floor/grey/side{
 	dir = 10
 	},
@@ -9913,6 +9928,15 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/south)
+"fDK" = (
+/obj/machinery/conveyor/EW{
+	id = "qmsend"
+	},
+/obj/machinery/light_switch/directional/north,
+/turf/simulated/floor/caution/northsouth,
+/area/station/quartermaster/cargobay{
+	name = "Cargo Import Export"
+	})
 "fDN" = (
 /obj/stool/chair/couch{
 	dir = 8
@@ -13307,7 +13331,7 @@
 "hty" = (
 /obj/machinery/power/apc/autoname_north{
 	name = "SW Inner Maintenance APC";
-	areastring = "Southwest Inner Maintenance APC"
+	areastring = "Southwest Inner Maintenance"
 	},
 /obj/cable{
 	icon_state = "0-2"
@@ -14210,6 +14234,15 @@
 	dir = 1
 	},
 /area/station/medical/crematorium)
+"hOb" = (
+/obj/machinery/conveyor/WE{
+	id = "qmin"
+	},
+/obj/machinery/camera/directional/south,
+/turf/simulated/floor/caution/northsouth,
+/area/station/quartermaster/cargobay{
+	name = "Cargo Import Export"
+	})
 "hOt" = (
 /obj/machinery/light/emergency,
 /turf/simulated/floor,
@@ -16095,6 +16128,9 @@
 /obj/mapping_helper/firedoor_spawn,
 /obj/disposalpipe/segment/vertical,
 /obj/mapping_helper/access/medical,
+/obj/cable{
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/black,
 /area/station/medical/medbay/psychiatrist)
 "iPD" = (
@@ -18476,15 +18512,6 @@
 	dir = 1
 	},
 /area/station/bridge)
-"kcU" = (
-/obj/machinery/conveyor/EW{
-	id = "qmsend"
-	},
-/obj/machinery/camera/directional/north,
-/turf/simulated/floor/caution/northsouth,
-/area/station/quartermaster/cargobay{
-	name = "Cargo Import Export"
-	})
 "kdq" = (
 /obj/effects/menhir_fog,
 /obj/landmark/menhir/coalesce{
@@ -22656,6 +22683,9 @@
 	})
 "mnZ" = (
 /obj/disposalpipe/junction/right/east,
+/obj/cable{
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/grey/side{
 	dir = 1
 	},
@@ -23869,7 +23899,10 @@
 	dir = 4
 	},
 /obj/item/toy/plush/small/bee,
-/obj/machinery/firealarm/directional/north,
+/obj/machinery/power/apc/autoname_north,
+/obj/cable{
+	icon_state = "0-10"
+	},
 /turf/simulated/floor/black,
 /area/station/medical/medbay/psychiatrist)
 "mTX" = (
@@ -25374,6 +25407,9 @@
 /area/station/medical/medbay/surgery)
 "nKM" = (
 /obj/disposalpipe/segment/vertical,
+/obj/cable{
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/carpet/blue/fancy/edge{
 	dir = 10
 	},
@@ -37667,6 +37703,9 @@
 /obj/stool/chair{
 	dir = 4
 	},
+/obj/cable{
+	icon_state = "0-4"
+	},
 /turf/simulated/floor/grey,
 /area/station/hallway/primary/west)
 "ugj" = (
@@ -38120,6 +38159,7 @@
 	dir = 8;
 	pixel_x = -12
 	},
+/obj/machinery/firealarm/directional/north,
 /turf/simulated/floor/darkblueblack{
 	dir = 8
 	},
@@ -40454,6 +40494,9 @@
 /area/station/science/artifact)
 "vCS" = (
 /obj/disposalpipe/segment/bent/south,
+/obj/cable{
+	icon_state = "2-5"
+	},
 /turf/simulated/floor/carpet/blue/fancy/edge{
 	dir = 9
 	},
@@ -43166,9 +43209,8 @@
 /area/station/crew_quarters/fitness)
 "wQL" = (
 /obj/disposalpipe/segment/vertical,
-/obj/machinery/power/apc/autoname_west{
-	name = "Psychiatrist's Office APC";
-	areastring = "Psychiatrist's Office"
+/obj/cable{
+	icon_state = "1-2"
 	},
 /turf/simulated/floor/carpet/blue/fancy/edge{
 	dir = 8
@@ -78406,8 +78448,8 @@ nKM
 erV
 iPh
 mnZ
-vna
-sKF
+xpK
+aYm
 iKA
 wnP
 gBG
@@ -80545,7 +80587,7 @@ tVJ
 tVJ
 tVJ
 cpl
-kcU
+vuX
 cbR
 saJ
 oFc
@@ -80847,10 +80889,10 @@ vlo
 bvw
 cpl
 cpl
-vuX
+fDK
 jEI
 tGt
-oFc
+hOb
 cpl
 tVJ
 tVJ
