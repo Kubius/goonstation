@@ -46384,8 +46384,7 @@
 "trC" = (
 /obj/machinery/computer/announcement{
 	dir = 8;
-	name = "Executive Announcement Computer";
-	req_access_txt = "19"
+	name = "Executive Announcement Computer"
 	},
 /obj/machinery/light/small{
 	dir = 4;
@@ -53546,8 +53545,7 @@
 "wmD" = (
 /obj/machinery/door/airlock/pyro/glass{
 	dir = 4;
-	name = "Teleporter Pad";
-	req_access_txt = "24"
+	name = "Teleporter Pad"
 	},
 /obj/machinery/door/poddoor/pyro/shutters{
 	dir = 4;
@@ -53696,8 +53694,7 @@
 /obj/item/old_grenade/oxygen,
 /obj/storage/cart/mechcart{
 	desc = "A big rolling supply cart equipped for handling hull breaches.";
-	name = "breach repair cart";
-	req_access_txt = "40"
+	name = "breach repair cart"
 	},
 /obj/machinery/light{
 	dir = 1;
@@ -55066,8 +55063,7 @@
 	icon_state = "glass_locked";
 	id_tag = "tox_airlock_exterior";
 	locked = 1;
-	name = "Toxins Research Access";
-	req_access_txt = null
+	name = "Toxins Research Access"
 	},
 /obj/mapping_helper/access/tox,
 /obj/machinery/atmospherics/pipe/simple/insulated/cold,
@@ -55788,9 +55784,7 @@
 	},
 /area/station/storage/emergency/hammer)
 "xie" = (
-/obj/storage/secure/closet/research/chemical{
-	req_access_txt = "5"
-	},
+/obj/storage/secure/closet/research/chemical/pharmacy,
 /turf/simulated/floor/blueblack,
 /area/station/medical/medbay/pharmacy)
 "xip" = (
@@ -56988,9 +56982,7 @@
 /obj/item/body_bag,
 /obj/item/body_bag,
 /obj/item/body_bag,
-/obj/storage/cart/forensic{
-	req_access_txt = "1"
-	},
+/obj/storage/cart/forensic,
 /obj/machinery/light_switch/directional/west,
 /turf/simulated/floor/redblack{
 	dir = 5
