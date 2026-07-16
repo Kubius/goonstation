@@ -7075,10 +7075,6 @@
 /obj/machinery/light,
 /turf/simulated/floor/grey/side,
 /area/station/hangar/main)
-"dVU" = (
-/obj/random_item_spawner/gross_with_junk/one_or_zero,
-/turf/simulated/floor/plating,
-/area/space)
 "dWd" = (
 /obj/cable{
 	icon_state = "1-2"
@@ -12080,7 +12076,7 @@
 	icon_state = "line1"
 	},
 /turf/simulated/floor/carpet/grime,
-/area/space)
+/area/station/maintenance/east)
 "gIQ" = (
 /obj/machinery/door/airlock/pyro/command,
 /obj/cable{
@@ -28588,10 +28584,6 @@
 /area/station/maintenance/inner/se{
 	name = "Southeast Auxiliary Conduit"
 	})
-"pnC" = (
-/obj/mesh/grille/steel,
-/turf/simulated/floor/plating,
-/area/space)
 "pnK" = (
 /obj/landmark/menhir/extrusion{
 	data = "EAST"
@@ -39453,10 +39445,6 @@
 	},
 /turf/simulated/floor/carpet/red/fancy/narrow/sw,
 /area/station/security/hos)
-"uZo" = (
-/obj/decal/cleanable/dirt,
-/turf/simulated/floor/plating,
-/area/space)
 "uZO" = (
 /obj/storage/secure/crate/plasma/hazard,
 /obj/machinery/light/small{
@@ -92861,7 +92849,7 @@ thx
 wPy
 gjI
 bCu
-iBj
+rny
 rny
 bCu
 gjI
@@ -106498,9 +106486,9 @@ gQC
 liq
 hMw
 iVT
-pnC
-dVU
-uZo
+ugj
+tnU
+cNh
 qfP
 lGd
 qNh
