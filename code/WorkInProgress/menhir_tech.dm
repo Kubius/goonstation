@@ -248,7 +248,7 @@ TYPEINFO_NEW(/obj/effects/menhir_fog)
 
 /client/proc/cmd_admin_vislayer()
 	SET_ADMIN_CAT(ADMIN_CAT_SELF)
-	set name = "Menhir Visibility Toggle"
+	set name = "Toggle Menhir Fogsight"
 	set desc = "Alters your see_invisible layer to allow slipping below Menhir's \"fog of war\"."
 	set popup_menu = 0
 	ADMIN_ONLY

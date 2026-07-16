@@ -364,6 +364,13 @@
 	},
 /turf/simulated/floor/plating,
 /area/research_outpost/limpet/maint)
+"ais" = (
+/obj/storage/closet/mauxite,
+/obj/random_item_spawner/dressup/one,
+/obj/random_item_spawner/hat/one,
+/obj/item/device/pda_module/tray,
+/turf/simulated/floor/plating,
+/area/station/maintenance/outer/se)
 "aiN" = (
 /obj/mesh/catwalk,
 /obj/cable{
@@ -879,6 +886,7 @@
 /obj/stool/chair/red{
 	dir = 8
 	},
+/obj/landmark/start/job/security_assistant,
 /turf/simulated/floor,
 /area/station/hallway/primary/east)
 "awJ" = (
@@ -3724,6 +3732,10 @@
 /obj/stool/bed,
 /obj/item/clothing/suit/bedsheet,
 /obj/landmark/pest,
+/obj/machinery/light/small{
+	dir = 1;
+	pixel_y = 21
+	},
 /turf/simulated/floor/grime,
 /area/station/maintenance/south)
 "bYj" = (
@@ -4360,6 +4372,21 @@
 	},
 /turf/space,
 /area/shuttle/arrival/station)
+"cov" = (
+/obj/machinery/conveyor/WE{
+	id = "qmin"
+	},
+/obj/machinery/door_control{
+	id = "qm_dock";
+	name = "Import Hatch Override";
+	pixel_x = -1;
+	pixel_y = -21;
+	dir = 1
+	},
+/turf/simulated/floor/caution/northsouth,
+/area/station/quartermaster/cargobay{
+	name = "Cargo Import Export"
+	})
 "coF" = (
 /obj/machinery/door/airlock/pyro/maintenance,
 /turf/simulated/floor/plating,
@@ -5578,6 +5605,7 @@
 /obj/stool/chair{
 	dir = 8
 	},
+/obj/landmark/start/job/janitor,
 /turf/simulated/floor/specialroom/arcade,
 /area/station/maintenance/southwest)
 "dbZ" = (
@@ -6031,6 +6059,7 @@
 	icon_state = "0-2"
 	},
 /obj/machinery/power/data_terminal,
+/obj/landmark/antagonist/blob,
 /turf/simulated/floor/plating,
 /area/station/maintenance/south)
 "dqE" = (
@@ -9938,6 +9967,12 @@
 	id = "qmsend"
 	},
 /obj/machinery/light_switch/directional/north,
+/obj/machinery/door_control{
+	id = "qm_dock_out";
+	name = "Export Hatch Override";
+	pixel_x = -13;
+	pixel_y = 25
+	},
 /turf/simulated/floor/caution/northsouth,
 /area/station/quartermaster/cargobay{
 	name = "Cargo Import Export"
@@ -11509,16 +11544,6 @@
 /obj/landmark/halloween,
 /turf/simulated/floor,
 /area/station/hallway/primary/west)
-"guH" = (
-/obj/decal/tile_edge/line/purple{
-	dir = 1;
-	icon_state = "line1"
-	},
-/obj/disposalpipe/segment/transport{
-	dir = 4
-	},
-/turf/simulated/floor/white,
-/area/space)
 "guI" = (
 /obj/machinery/door/airlock/pyro/command{
 	dir = 4
@@ -12163,6 +12188,15 @@
 /obj/machinery/door/airlock/pyro/classic,
 /turf/simulated/floor/black,
 /area/station/maintenance/northwest)
+"gLd" = (
+/obj/machinery/door/airlock/pyro/external,
+/obj/forcefield/energyshield/perma/doorlink{
+	desc = "A door-linked force field that prevents gasses from passing through it.";
+	name = "Door-linked Atmospheric Forcefield";
+	powerlevel = 1
+	},
+/turf/simulated/floor/industrial,
+/area/station/maintenance/southwest)
 "gLl" = (
 /obj/disposalpipe/segment/bent/north,
 /turf/simulated/wall/auto/reinforced/supernorn,
@@ -13934,6 +13968,7 @@
 /obj/stool/chair/red{
 	dir = 4
 	},
+/obj/landmark/start/job/security_assistant,
 /turf/simulated/floor,
 /area/station/hallway/primary/east)
 "hFs" = (
@@ -14486,7 +14521,6 @@
 /turf/space,
 /area/space)
 "hTL" = (
-/obj/landmark/antagonist/blob,
 /turf/simulated/floor/shuttlebay{
 	icon_state = "engine_caution_corners";
 	dir = 1
@@ -14861,6 +14895,7 @@
 	dir = 1;
 	icon_state = "pipe-c"
 	},
+/obj/landmark/start/job/botanist,
 /turf/simulated/floor/black/grime,
 /area/station/storage/hydroponics{
 	do_not_irradiate = 1
@@ -16523,10 +16558,6 @@
 	},
 /obj/item/reagent_containers/food/drinks/cola/random{
 	pixel_y = 5
-	},
-/obj/machinery/light/small{
-	dir = 1;
-	pixel_y = 21
 	},
 /turf/simulated/floor/grime,
 /area/station/maintenance/south)
@@ -26877,10 +26908,6 @@
 "ovF" = (
 /turf/simulated/wall/auto/reinforced/supernorn,
 /area/station/engine/ptl)
-"ovT" = (
-/obj/landmark/kudzu,
-/turf/simulated/floor/plating,
-/area/station/maintenance/outer/se)
 "owh" = (
 /obj/item/slag_shovel,
 /turf/simulated/floor/caution/corner/nw,
@@ -27573,6 +27600,7 @@
 /obj/stool/chair/red{
 	dir = 8
 	},
+/obj/landmark/start/job/security_assistant,
 /turf/simulated/floor/red/side,
 /area/station/hallway/primary/east)
 "oMj" = (
@@ -28856,6 +28884,7 @@
 	dir = 4
 	},
 /obj/machinery/light,
+/obj/landmark/start/job/security_assistant,
 /turf/simulated/floor/red/side,
 /area/station/hallway/primary/east)
 "pwH" = (
@@ -32507,12 +32536,6 @@
 	dir = 1
 	},
 /area/station/engine/storage)
-"rtR" = (
-/obj/landmark/menhir/extrusion{
-	data = "WEST"
-	},
-/turf/simulated/wall/auto/reinforced/supernorn,
-/area/station/medical/morgue)
 "rtV" = (
 /obj/table/reinforced/bar/auto,
 /obj/disposalpipe/segment/vertical,
@@ -34929,6 +34952,7 @@
 	icon_state = "line1"
 	},
 /obj/disposalpipe/segment/mail/horizontal,
+/obj/landmark/start/job/miner,
 /turf/simulated/floor,
 /area/station/mining/staff_room)
 "sIg" = (
@@ -36914,6 +36938,7 @@
 	dir = 4
 	},
 /obj/disposalpipe/segment/vertical,
+/obj/landmark/kudzu,
 /turf/simulated/floor/black/grime,
 /area/station/maintenance/inner/se{
 	name = "Southeast Auxiliary Conduit"
@@ -37358,6 +37383,10 @@
 /obj/machinery/drainage,
 /turf/simulated/floor/sanitary/white,
 /area/station/medical/morgue)
+"tVs" = (
+/obj/landmark/antagonist/blob,
+/turf/simulated/floor/plating,
+/area/station/maintenance/outer/se)
 "tVx" = (
 /obj/machinery/computer3/generic/radio,
 /obj/machinery/power/data_terminal,
@@ -39389,6 +39418,7 @@
 /obj/item/storage/toilet{
 	dir = 4
 	},
+/obj/landmark/start/job/janitor,
 /turf/simulated/floor/industrial,
 /area/station/maintenance/inner/sw)
 "uXQ" = (
@@ -45801,6 +45831,18 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/south)
+"yez" = (
+/obj/machinery/door/airlock/pyro/external,
+/obj/cable{
+	icon_state = "1-2"
+	},
+/obj/forcefield/energyshield/perma/doorlink{
+	desc = "A door-linked force field that prevents gasses from passing through it.";
+	name = "Door-linked Atmospheric Forcefield";
+	powerlevel = 1
+	},
+/turf/simulated/floor/industrial,
+/area/station/maintenance/southwest)
 "yeK" = (
 /obj/machinery/door/airlock/pyro/maintenance,
 /obj/cable{
@@ -77816,7 +77858,7 @@ wzT
 irP
 wAu
 wAu
-rtR
+wAu
 wAu
 hXu
 cVo
@@ -79058,7 +79100,7 @@ jZq
 vlo
 hov
 vlo
-nFe
+vlo
 nFe
 nFe
 qHc
@@ -80572,7 +80614,7 @@ cpl
 vuX
 cbR
 saJ
-oFc
+cov
 cpl
 vlo
 vlo
@@ -82090,7 +82132,7 @@ eWS
 mpV
 vEu
 kUd
-mpV
+gLd
 erv
 qrA
 xqm
@@ -82392,7 +82434,7 @@ cAl
 jdl
 tOS
 ows
-jdl
+yez
 yfe
 dOH
 xqm
@@ -83883,7 +83925,7 @@ iqW
 dTS
 fen
 iqW
-wdj
+iqW
 wdj
 xiS
 eRf
@@ -93855,7 +93897,7 @@ sBU
 lei
 qFl
 jbT
-guH
+mEk
 pOW
 pmq
 kxW
@@ -99011,8 +99053,8 @@ nvs
 dSc
 pOx
 eyk
-sEf
-sEf
+qHc
+qHc
 pHh
 sbe
 sbe
@@ -101117,7 +101159,7 @@ wsh
 sKA
 hqz
 aUx
-ovT
+qHF
 kGH
 wZD
 wZD
@@ -102026,7 +102068,7 @@ fWP
 mZw
 qHF
 qHF
-qHF
+tVs
 xfu
 myn
 oHc
@@ -103829,9 +103871,9 @@ nxW
 nxW
 nJh
 gGy
+xqm
 sEf
-sEf
-sEf
+lzH
 vNn
 wXS
 fWP
@@ -104131,7 +104173,7 @@ ulr
 ktv
 htf
 gGy
-sEf
+xqm
 sEf
 vNn
 vNn
@@ -105927,7 +105969,7 @@ roI
 hbf
 kGH
 vDV
-qHF
+ais
 kGH
 tQe
 nHf
