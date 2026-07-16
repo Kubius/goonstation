@@ -8661,6 +8661,15 @@
 	dir = 8
 	},
 /area/station/security/secwing)
+"eRx" = (
+/obj/machinery/door/airlock/pyro/maintenance,
+/obj/cable{
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/black/grime,
+/area/station/maintenance/inner/se{
+	name = "Southeast Auxiliary Conduit"
+	})
 "eRQ" = (
 /obj/disposalpipe/segment/mail{
 	dir = 2;
@@ -42014,7 +42023,6 @@
 	pixel_x = -5
 	},
 /obj/item/tank/air,
-/obj/machinery/light/small/floor,
 /obj/item/device/light/glowstick{
 	pixel_y = -5;
 	pixel_x = 6
@@ -42026,6 +42034,7 @@
 /obj/item/crowbar/orange{
 	pixel_y = 2
 	},
+/obj/machinery/light/small,
 /turf/simulated/floor/plating,
 /area/station/maintenance/south)
 "wlV" = (
@@ -46102,14 +46111,14 @@ sEf
 sEf
 sEf
 sEf
-pon
-pon
-pon
-pon
-pon
 sEf
 sEf
 sEf
+pon
+pon
+pon
+pon
+pon
 sEf
 sEf
 sEf
@@ -46404,14 +46413,14 @@ sEf
 sEf
 sEf
 sEf
-pon
-pon
-pon
-pon
-pon
 sEf
 sEf
 sEf
+pon
+pon
+pon
+pon
+pon
 sEf
 bDF
 sEf
@@ -46706,14 +46715,14 @@ sEf
 sEf
 sEf
 sEf
-pon
-pon
-pon
-pon
-pon
 sEf
 sEf
 sEf
+pon
+pon
+pon
+pon
+pon
 sEf
 sEf
 sEf
@@ -80841,7 +80850,7 @@ cpl
 vuX
 jEI
 tGt
-mCz
+oFc
 cpl
 tVJ
 tVJ
@@ -81143,7 +81152,7 @@ jPR
 mOp
 gLX
 tGt
-oFc
+mCz
 cpl
 tVJ
 tVJ
@@ -97765,7 +97774,7 @@ pFm
 pFm
 pFm
 pFm
-yeK
+eRx
 bUi
 dSc
 fUg
