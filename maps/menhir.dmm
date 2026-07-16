@@ -1031,6 +1031,15 @@
 /obj/item/device/light/lantern,
 /turf/simulated/floor/plating,
 /area/station/maintenance/east)
+"aDr" = (
+/obj/cable{
+	icon_state = "4-8"
+	},
+/obj/cable{
+	icon_state = "1-4"
+	},
+/turf/simulated/floor,
+/area/station/quartermaster/office)
 "aDC" = (
 /obj/disposaloutlet/south{
 	dir = 1;
@@ -83879,7 +83888,7 @@ wdj
 xiS
 eRf
 juJ
-xTq
+aDr
 pWi
 krt
 ucA
