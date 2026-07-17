@@ -9254,10 +9254,6 @@
 	dir = 8
 	},
 /area/station/hallway/primary/west)
-"fgr" = (
-/obj/landmark/observer,
-/turf/unsimulated/floor/shuttle,
-/area/shuttle/arrival/station)
 "fgQ" = (
 /obj/machinery/light/small/floor,
 /turf/simulated/floor/shuttlebay,
@@ -44742,6 +44738,10 @@
 	},
 /turf/simulated/floor/sanitary,
 /area/station/hallway/primary/east)
+"xCb" = (
+/obj/landmark/observer,
+/turf/simulated/floor,
+/area/station/hallway/primary/central)
 "xCj" = (
 /obj/submachine/fishing_upload_terminal/portable,
 /turf/simulated/floor/black/grime,
@@ -89991,7 +89991,7 @@ cfj
 cfj
 wgF
 owd
-fgr
+cfj
 cfj
 cfj
 rux
@@ -93664,7 +93664,7 @@ exc
 mnJ
 nUO
 obv
-opl
+xCb
 rnT
 jjd
 eQx
