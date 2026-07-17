@@ -16698,6 +16698,7 @@
 /obj/window/cubicle/railing{
 	dir = 2
 	},
+/obj/landmark/disposals_endpoint,
 /turf/simulated/floor/black/grime,
 /area/station/maintenance/disposal)
 "jdY" = (
