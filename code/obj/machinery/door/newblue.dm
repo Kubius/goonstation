@@ -24,6 +24,7 @@ ADMIN_INTERACT_PROCS(/obj/machinery/door/unpowered/blue, proc/revoke_door)
 
 	New()
 		. = ..()
+		src.RemoveComponentsOfType(/datum/component/mechanics_holder)
 		if(src.friendly_object || src.needs_precursor)
 			src.locked = TRUE
 
