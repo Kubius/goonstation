@@ -122,7 +122,7 @@ ADMIN_INTERACT_PROCS(/obj/whitehole, proc/admin_activate)
 	var/grow_duration = 0
 	var/active_duration = 0
 	var/activity_modifier = 1.0 // multiplies how many objects spawn each "tick"
-	var/interdiction_hp = 100 // it's possible to fully suppress them - but not easy
+	var/interdiction_hp = 50 // it's possible to fully suppress them - but not easy
 	var/datum/light/light = null
 
 	var/static/list/spawn_probs = list(
@@ -966,11 +966,14 @@ ADMIN_INTERACT_PROCS(/obj/whitehole, proc/admin_activate)
 			qdel(src)
 
 		if(triggered_by_event)
-			//spatial interdictor: attempt to suppress white hole uncollapse, with great difficulty. consumes 500 units of charge per cycle
-			//100 cycles (50,000 cell units, just over 3 full supercells worth) will entirely inhibit uncollapse
+			//spatial interdictor: attempt to suppress white hole uncollapse, with great difficulty.
+			//50 operational cycles will entirely inhibit uncollapse; base cost of 100 cell units a cycle, +20 per stabilization (up to 1100 at max)
+			//approx 30k cell units consumed overall
+			var/interdict_cost = 100
 			for_by_tcl(IX, /obj/machinery/interdictor)
-				if (IX.expend_interdict(500, src))
-					if(src.interdiction_hp >= 100)
+				interdict_cost = 100 + ((50 - interdiction_hp) * 20)
+				if (IX.expend_interdict(interdict_cost, src))
+					if(src.interdiction_hp >= 50)
 						playsound(IX,'sound/machines/alarm_a.ogg',20,FALSE,5,-1.5)
 						IX.visible_message(SPAN_ALERT("<b>[IX] emits an anti-gravitational anomaly warning!</b>"))
 					if(state != "active")
@@ -1012,28 +1015,29 @@ ADMIN_INTERACT_PROCS(/obj/whitehole, proc/admin_activate)
 			state = "dying"
 			playsound(src, 'sound/machines/singulo_start.ogg', 90, FALSE, 5, -2)
 
-		// push or throw things away from the white hole
-		for (var/atom/movable/X in range(7,src))
-			if (istype(X, /obj/structure/girder) && prob(40)) //mess up girders too
-				X.ex_act(3)
-			if (X.event_handler_flags & IMMUNE_SINGULARITY || X.anchored)
-				continue
+		if(state != "dying")
+			// push or throw things away from the white hole
+			for (var/atom/movable/X in range(7,src))
+				if (istype(X, /obj/structure/girder) && prob(40)) //mess up girders too
+					X.ex_act(3)
+				if (X.event_handler_flags & IMMUNE_SINGULARITY || X.anchored)
+					continue
 
-			if(prob(30))
-				continue
-			else if(prob(50))
-				step_away(X, src)
-			else
-				X.throw_at( \
-					locate_throw_target(X), \
-					rand(1, 6), \
-					randfloat(1, 3), \
-					bonus_throwforce = 50 / (1 + GET_DIST(X, src)) \
-				)
+				if(prob(30))
+					continue
+				else if(prob(50))
+					step_away(X, src)
+				else
+					X.throw_at( \
+						locate_throw_target(X), \
+						rand(1, 6), \
+						randfloat(1, 3), \
+						bonus_throwforce = 50 / (1 + GET_DIST(X, src)) \
+					)
 
-		for (var/turf/simulated/wall/wall in range(1, src)) //make it a little harder to wall them off
-			wall.ex_act(3)
-			break //just smack one wall at a time
+			for (var/turf/simulated/wall/wall in range(1, src)) //make it a little harder to wall them off
+				wall.ex_act(3)
+				break //just smack one wall at a time
 
 		var/time_interval = 3 SECONDS
 		var/spew_count = round(randfloat(1, 15 * src.activity_modifier))
