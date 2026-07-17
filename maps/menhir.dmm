@@ -33153,12 +33153,6 @@
 /obj/machinery/light,
 /turf/simulated/floor/black,
 /area/station/crew_quarters/cafeteria)
-"rLX" = (
-/obj/landmark/halloween,
-/turf/simulated/floor/black/side{
-	dir = 1
-	},
-/area/station/hallway/primary/southwest)
 "rMf" = (
 /obj/machinery/light/small{
 	dir = 1;
@@ -40363,6 +40357,10 @@
 	},
 /turf/simulated/floor/grime,
 /area/station/maintenance/disposal)
+"vzP" = (
+/obj/landmark/halloween,
+/turf/simulated/floor,
+/area/station/hallway/primary/southwest)
 "vzU" = (
 /obj/machinery/turretid/ai_chamber{
 	pixel_x = -24
@@ -42506,10 +42504,6 @@
 /area/station/maintenance/inner/se{
 	name = "Southeast Auxiliary Conduit"
 	})
-"wyx" = (
-/obj/landmark/halloween,
-/turf/simulated/floor/black/side,
-/area/station/hallway/primary/southwest)
 "wyQ" = (
 /obj/table/reinforced/auto,
 /obj/machinery/door/airlock/pyro/glass/windoor{
@@ -88738,7 +88732,7 @@ fYS
 kvF
 wAs
 vsT
-rLX
+req
 qra
 xFh
 rrD
@@ -88746,7 +88740,7 @@ rrD
 rrD
 xFh
 qra
-wyx
+lZV
 sgn
 ezW
 mTZ
@@ -89039,7 +89033,7 @@ mPk
 opl
 vDE
 ncY
-ncY
+vzP
 bOZ
 bOZ
 xFh
@@ -89049,7 +89043,7 @@ xFh
 xFh
 bOZ
 bOZ
-ncY
+vzP
 ncY
 lvF
 ncY
@@ -98101,13 +98095,13 @@ bui
 ucI
 bZx
 cCb
+cCb
 aSL
 aSL
 aSL
 aSL
 aSL
-aSL
-aSL
+cCb
 cCb
 bZx
 ucI
@@ -98402,7 +98396,7 @@ oME
 sRB
 vqB
 ubN
-cCb
+wKs
 ffH
 aSL
 aSL
@@ -98410,7 +98404,7 @@ aSL
 aSL
 aSL
 ffH
-cCb
+gTQ
 wTu
 myC
 byA
