@@ -63,7 +63,10 @@
 			for_by_tcl(IX, /obj/machinery/interdictor)
 				if (IX.expend_interdict(150,T))
 					interdicted = TRUE
-					if(prob(20)) IX.stop_interdicting() //interdictor may sometimes "trip" from the pulse
+					if(prob(40)) //interdictor may sometimes "trip" from the pulse
+						playsound(get_turf(IX), 'sound/effects/electric_shock.ogg', 25, TRUE)
+						IX.visible_message(SPAN_ALERT("<B>[IX]</B> shorts out and shuts down!"))
+						IX.stop_interdicting()
 					return
 
 			playsound(T, pick(sound_list), 25, TRUE)
