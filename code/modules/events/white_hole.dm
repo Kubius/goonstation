@@ -967,11 +967,11 @@ ADMIN_INTERACT_PROCS(/obj/whitehole, proc/admin_activate)
 
 		if(triggered_by_event)
 			//spatial interdictor: attempt to suppress white hole uncollapse, with great difficulty.
-			//50 operational cycles will entirely inhibit uncollapse; base cost of 200 cell units a cycle, +20 per stabilization (up to ~1200 at max)
-			//approx 35k cell units consumed overall
+			//50 operational cycles will entirely inhibit uncollapse; base cost of 200 cell units a cycle, +25 per stabilization (up to ~1400 at max)
+			//approx 41k cell units consumed overall
 			var/interdict_cost = 200
 			for_by_tcl(IX, /obj/machinery/interdictor)
-				interdict_cost = 200 + ((50 - interdiction_hp) * 20)
+				interdict_cost = 200 + ((50 - interdiction_hp) * 25)
 				if (IX.expend_interdict(interdict_cost, src))
 					if(src.interdiction_hp >= 50)
 						playsound(IX,'sound/machines/alarm_a.ogg',20,FALSE,5,-1.5)
