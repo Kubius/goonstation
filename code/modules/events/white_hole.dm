@@ -122,6 +122,7 @@ ADMIN_INTERACT_PROCS(/obj/whitehole, proc/admin_activate)
 	var/grow_duration = 0
 	var/active_duration = 0
 	var/activity_modifier = 1.0 // multiplies how many objects spawn each "tick"
+	var/interdiction_hp = 100 // it's possible to fully suppress them - but not easy
 	var/datum/light/light = null
 
 	var/static/list/spawn_probs = list(
@@ -965,15 +966,20 @@ ADMIN_INTERACT_PROCS(/obj/whitehole, proc/admin_activate)
 			qdel(src)
 
 		if(triggered_by_event)
-			//spatial interdictor: can't stop the white hole, but it can mitigate it
-			//consumes 500 units of charge (250,000 joules) to reduce white hole duration
+			//spatial interdictor: attempt to suppress white hole uncollapse, with great difficulty. consumes 500 units of charge per cycle
+			//100 cycles (50,000 cell units, just over 3 full supercells worth) will entirely inhibit uncollapse
 			for_by_tcl(IX, /obj/machinery/interdictor)
 				if (IX.expend_interdict(500, src))
-					if(prob(20))
+					if(src.interdiction_hp >= 100)
 						playsound(IX,'sound/machines/alarm_a.ogg',20,FALSE,5,-1.5)
 						IX.visible_message(SPAN_ALERT("<b>[IX] emits an anti-gravitational anomaly warning!</b>"))
 					if(state != "active")
 						grow_duration += 4 SECOND
+						interdiction_hp -= 1
+						if(interdiction_hp <= 0)
+							time_since_start = (grow_duration + active_duration) * 2
+							state = "dying"
+							break
 					else
 						active_duration -= 1 SECOND
 
