@@ -200,15 +200,15 @@ ABSTRACT_TYPE(/datum/random_event/menhir)
 		var/turf/nodelandmark
 		///Tag for the node the event is occurring in, when a node is selected
 		var/node_tag = null
-		///A door landmark turf is selected to have a door into the node
-		var/turf/doorlandmark = null
-		///List of eligible walls in node mode
-		var/list/eligible_walls = list()
+		///List of eligible walls in node mode; divided by relative position.
+		var/list/eligible_walls = list("S" = list(), "N" = list(), "E" = list(), "W" = list())
+		///When we've populated a direction with at least one wall from each facing, we're good to go
+		var/list/eligibility_flags = 0
 
 		var/can_node = TRUE
 		if(!landmarks[LANDMARK_MENHIR_NODE] || length(landmarks[LANDMARK_MENHIR_NODE]) < 1) can_node = FALSE
 
-		if(!can_node || prob(60)) //outreach mode: drop it somewhere on the station
+		if(!can_node || prob(50)) //outreach mode: drop it somewhere on the station
 			nodelandmark = pick_landmark(LANDMARK_MENHIR_OUTREACH)
 			if (!istype(nodelandmark,/turf/simulated/floor) || is_blocked_turf(nodelandmark))
 				nodelandmark = get_open_outreach()
@@ -222,11 +222,24 @@ ABSTRACT_TYPE(/datum/random_event/menhir)
 
 			for (var/turf/T in landmarks[LANDMARK_MENHIR_DOOR])
 				if (landmarks[LANDMARK_MENHIR_DOOR][T] == node_tag)
-					eligible_walls += T
+					//categorize nodes based on positional block (set up this way to allow east/west entrance sides to be more than 1 door)
+					if(T.x > nodelandmark.x)
+						eligible_walls["E"] += T
+						eligibility_flags |= EAST
+					else if(T.x < nodelandmark.x)
+						eligible_walls["W"] += T
+						eligibility_flags |= WEST
+					else
+						if(T.y > nodelandmark.y)
+							eligible_walls["N"] += T
+							eligibility_flags |= NORTH
+						else
+							eligible_walls["S"] += T
+							eligibility_flags |= SOUTH
 
-			if (!length(eligible_walls))
-				logTheThing(LOG_DEBUG, null, "Menhir gift event couldn't find a wall for the selected door! This shouldn't happen.")
-				message_admins("Menhir gift event couldn't find a node wall selected door! This shouldn't happen. Aborting event")
+			if (eligibility_flags < (NORTH|SOUTH|EAST|WEST))
+				logTheThing(LOG_DEBUG, null, "Menhir gift event didn't find all directions for the [node_tag] node! This shouldn't happen.")
+				message_admins("Menhir gift event didn't find all directions for the [node_tag] node! This shouldn't happen. Aborting event")
 				return
 
 		if(prob(60))
@@ -235,11 +248,14 @@ ABSTRACT_TYPE(/datum/random_event/menhir)
 			playsound(nodelandmark, 'sound/musical_instruments/artifact/Artifact_Precursor_2.ogg', 65, 0, extrarange = 24)
 
 		if(node_tag)
-			doorlandmark = pick(eligible_walls)
-			var/save_dir = doorlandmark.icon_state
-			var/obj/newdoor = new /obj/machinery/door/unpowered/blue(doorlandmark)
-			if (save_dir == "interior-3") //vertical wall detection
-				newdoor.dir = 4
+			var/facing_dir = pick("S","N","E","W")
+
+			for(var/turf/wallturf in eligible_walls[facing_dir])
+				var/save_dir = wallturf.icon_state
+				var/obj/newdoor = new /obj/machinery/door/unpowered/blue(wallturf)
+				if (save_dir == "interior-3") //vertical wall detection
+					newdoor.dir = 4
+
 			landmarks[LANDMARK_MENHIR_NODE].Remove(nodelandmark) //"expend" the node in node spawns, so future events won't select it again
 		else
 			showswirl(nodelandmark)
