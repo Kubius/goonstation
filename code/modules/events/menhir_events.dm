@@ -311,19 +311,32 @@ ABSTRACT_TYPE(/datum/random_event/menhir)
 
 		///String for recording who got sent where
 		var/return_string = ""
+		var/block_count = 0
 		var/list/eligible_nodes = landmarks[LANDMARK_MENHIR_NODE]
 		for(var/i in 1 to yoinkcount)
 			var/turf/nodelandmark = pick(eligible_nodes)
 			var/node_tag = landmarks[LANDMARK_MENHIR_NODE][nodelandmark]
 			var/mob/yoinked_one = pick(eligible_examinees)
 			eligible_examinees -= yoinked_one
-			eligible_nodes -= nodelandmark
+			if(yoinked_one.hasStatus("spatial_protection")) //get parried idiot
+				block_count++
+				for_by_tcl(IX, /obj/machinery/interdictor)
+					if(IX.notify_interdictor(yoinked_one))
+						break
+				var/turf/parryzone = get_turf(yoinked_one)
+				playsound(parryzone, 'sound/weapons/lasersound.ogg', 55, 0, pitch = 0.45)
+				SPAWN(2)
+					new /obj/effects/energy_bolt_aoe_burst(parryzone)
+			else
+				eligible_nodes -= nodelandmark
 
-			return_string += "[key_name(yoinked_one)] at [node_tag] arm"
-			if(i < yoinkcount) return_string += " | "
+				return_string += "[key_name(yoinked_one)] at [node_tag] arm "
+				if(i < yoinkcount) return_string += "| "
 
-			SPAWN(0)
-				src.visit_scheduling(yoinked_one,nodelandmark)
+				SPAWN(0)
+					src.visit_scheduling(yoinked_one,nodelandmark)
+		if(block_count)
+			return_string += "([block_count] target(s) blocked by spatial protection)"
 
 		message_delay = rand(18 SECONDS, 24 SECONDS)
 		..()
