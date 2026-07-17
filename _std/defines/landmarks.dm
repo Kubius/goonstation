@@ -182,3 +182,6 @@
 #define LANDMARK_MENHIR_BEYOND "menhir_beyond"
 #define LANDMARK_MENHIR_PASSAGE "menhir_passage"
 #define LANDMARK_MENHIR_DARK "menhir_dark"
+
+// Map Correctness
+#define LANDMARK_DISPOSALS_ENDPOINT "disposals endpoint"
