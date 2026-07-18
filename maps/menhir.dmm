@@ -6176,9 +6176,7 @@
 /turf/simulated/floor/black/side,
 /area/station/hallway/primary/southwest)
 "dth" = (
-/obj/machinery/disposal{
-	name = "Test Chamber Chute"
-	},
+/obj/machinery/disposal/sci/test_chamber,
 /obj/disposalpipe/trunk/south,
 /turf/simulated/floor/black,
 /area/station/science/testchamber)
@@ -41339,8 +41337,9 @@
 	})
 "vVp" = (
 /obj/decal/cleanable/dirt/jen,
-/obj/machinery/disposal/small/north{
-	pixel_y = 28
+/obj/machinery/disposal/ejection/small/north{
+	pixel_y = 32;
+	name = "disposal chute"
 	},
 /obj/disposalpipe/trunk/south,
 /obj/fluid_pipe/straight/supply{
