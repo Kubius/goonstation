@@ -37477,6 +37477,11 @@
 "tVJ" = (
 /turf/simulated/floor/plating,
 /area/station/maintenance/southwest)
+"tVP" = (
+/obj/lattice,
+/obj/warp_beacon/security,
+/turf/space,
+/area/space)
 "tWE" = (
 /obj/cable{
 	icon_state = "1-2"
@@ -110928,7 +110933,7 @@ qHc
 uan
 uan
 uan
-vTx
+tVP
 ukf
 sEf
 sEf
