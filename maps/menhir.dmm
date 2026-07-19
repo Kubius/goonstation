@@ -16457,7 +16457,7 @@
 /area/station/hangar/main)
 "iXB" = (
 /obj/random_item_spawner/armory_goggle_supplies,
-/obj/machinery/power/apc/autoname_west,
+/obj/machinery/power/apc/autoname_west/noaicontrol,
 /obj/cable{
 	icon_state = "0-4"
 	},
