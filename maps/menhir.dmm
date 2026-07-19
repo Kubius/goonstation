@@ -9373,6 +9373,9 @@
 /obj/cable{
 	icon_state = "1-2"
 	},
+/obj/landmark/gps_waypoint{
+	name = "Engine"
+	},
 /turf/simulated/floor/black/grime,
 /area/station/engine/engineering{
 	name = "Engineering Auxiliary Conduit";
