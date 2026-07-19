@@ -5404,7 +5404,7 @@
 /area/ghostdrone_factory)
 "cUe" = (
 /obj/decal/cleanable/dirt,
-/obj/random_item_spawner/junk/one_or_zero,
+/obj/reagent_dispensers/fueltank,
 /turf/simulated/floor/plating,
 /area/station/maintenance/southwest)
 "cUj" = (
@@ -20282,7 +20282,7 @@
 /area/station/security/detectives_office)
 "kXr" = (
 /obj/machinery/camera/directional/north,
-/obj/reagent_dispensers/fueltank,
+/obj/machinery/portable_atmospherics/canister/oxygen,
 /turf/simulated/floor/caution/side{
 	dir = 1
 	},
@@ -24992,7 +24992,6 @@
 	layer = 9.1;
 	pixel_x = 10
 	},
-/obj/machinery/portable_atmospherics/canister/oxygen,
 /turf/simulated/floor/caution/side{
 	dir = 4
 	},
