@@ -2247,7 +2247,7 @@
 "bkh" = (
 /obj/effects/menhir_fog,
 /obj/precursor_puzzle/innervator{
-	vision_description = "The culmination of long-dead artifice, cold and unforgiving, kin to that wrought beneath your feet.";
+	vision_description = "A beautiful mechanism, kin to the artifice beneath your feet, waits quietly for its destined purpose.";
 	pixel_y = -3;
 	pixel_x = 22
 	},
