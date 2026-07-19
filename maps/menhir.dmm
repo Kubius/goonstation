@@ -1438,6 +1438,7 @@
 "aNV" = (
 /obj/decal/stripe_caution,
 /obj/disposalpipe/segment/horizontal,
+/obj/machinery/camera/directional/north,
 /turf/simulated/floor/caution/side{
 	dir = 1
 	},
@@ -14499,6 +14500,7 @@
 /area/station/maintenance/east)
 "hSv" = (
 /obj/mesh/catwalk,
+/obj/machinery/camera/directional/north,
 /turf/simulated/floor/blackwhite{
 	dir = 1
 	},
@@ -19307,6 +19309,11 @@
 	},
 /turf/simulated/floor/specialroom/cafeteria,
 /area/station/crew_quarters/kitchen)
+"kxc" = (
+/obj/machinery/vehicle/miniputt/armed,
+/obj/machinery/camera/directional/north,
+/turf/simulated/floor/shuttlebay,
+/area/station/hangar/main)
 "kxh" = (
 /obj/disposalpipe/segment/mail,
 /turf/simulated/floor/grey,
@@ -28499,12 +28506,6 @@
 	},
 /turf/simulated/floor/white,
 /area/station/science/lab)
-"pjj" = (
-/obj/machinery/camera/directional/south,
-/turf/simulated/floor/shuttlebay{
-	icon_state = "engine_caution_south"
-	},
-/area/station/hangar/medical)
 "pjx" = (
 /obj/mapping_helper/wingrille_spawn/auto/reinforced,
 /obj/cable,
@@ -45508,7 +45509,6 @@
 	pixel_x = -3
 	},
 /obj/machinery/light_switch/directional/west,
-/obj/machinery/camera/directional/north,
 /turf/simulated/floor/caution/side{
 	dir = 9
 	},
@@ -78589,7 +78589,7 @@ irP
 jXD
 cey
 cey
-pjj
+dNE
 irP
 qwW
 lkU
@@ -108484,7 +108484,7 @@ sEf
 sEf
 sEf
 bxP
-sHn
+kxc
 mWN
 mWN
 fgQ
