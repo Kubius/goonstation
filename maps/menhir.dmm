@@ -27527,7 +27527,7 @@
 /area/station/bridge)
 "oIg" = (
 /obj/disposalpipe/switch_junction/right/east,
-/obj/mapping_helper/mailtag/bar,
+/obj/mapping_helper/mailtag/kitchen,
 /obj/cable{
 	icon_state = "4-8"
 	},
