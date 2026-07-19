@@ -3516,12 +3516,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/medical/medbay/pharmacy)
-"bTG" = (
-/obj/machinery/camera/directional/west,
-/turf/simulated/floor/blueblack{
-	dir = 1
-	},
-/area/station/maintenance/east)
 "bTI" = (
 /obj/mapping_helper/wingrille_spawn/auto/reinforced,
 /obj/window_blinds/cog2/left{
@@ -9476,9 +9470,6 @@
 /obj/disposalpipe/segment/vertical,
 /obj/cable{
 	icon_state = "1-2"
-	},
-/obj/cable{
-	icon_state = "1-8"
 	},
 /turf/simulated/floor/grey/side{
 	dir = 10
@@ -24001,6 +23992,16 @@
 "mTf" = (
 /turf/simulated/floor/carpet/green/fancy/edge/west,
 /area/station/crew_quarters/hop)
+"mTw" = (
+/obj/cable{
+	icon_state = "1-2"
+	},
+/obj/disposalpipe/segment/vertical,
+/obj/cable{
+	icon_state = "1-4"
+	},
+/turf/simulated/floor/wood,
+/area/station/crew_quarters/fitness)
 "mTA" = (
 /obj/mapping_helper/wingrille_spawn/auto/reinforced/crystal,
 /obj/cable{
@@ -27228,7 +27229,6 @@
 	},
 /obj/machinery/recharge_station,
 /mob/living/silicon/hivebot/eyebot,
-/mob/living/silicon/hivebot/eyebot,
 /obj/decal/tile_edge/line/blue{
 	dir = 8;
 	icon_state = "line1"
@@ -27518,6 +27518,9 @@
 /obj/disposalpipe/segment/vertical,
 /obj/cable{
 	icon_state = "1-2"
+	},
+/obj/cable{
+	icon_state = "1-4"
 	},
 /turf/simulated/floor/industrial,
 /area/station/maintenance/southwest)
@@ -34948,6 +34951,13 @@
 /area/station/hallway/secondary/entry{
 	name = "Arrival Concourse"
 	})
+"sFM" = (
+/obj/machinery/power/apc/autoname_east,
+/obj/cable{
+	icon_state = "0-8"
+	},
+/turf/simulated/floor/wood/two,
+/area/station/crew_quarters/fitness)
 "sFS" = (
 /obj/lattice{
 	dir = 4;
@@ -37191,14 +37201,17 @@
 /obj/machinery/door/airlock/pyro/maintenance{
 	dir = 4
 	},
-/obj/cable{
-	icon_state = "4-8"
-	},
 /obj/mapping_helper/firedoor_spawn,
 /obj/mapping_helper/access/mining,
 /obj/decal/tile_edge/stripe/extra_big{
 	dir = 9;
 	icon_state = "xtra_bigstripe-corner2"
+	},
+/obj/cable{
+	icon_state = "4-10"
+	},
+/obj/decal/tile_edge/line/yellow{
+	icon_state = "line3"
 	},
 /turf/simulated/floor/caution,
 /area/station/mining/staff_room)
@@ -37810,15 +37823,8 @@
 /turf/simulated/floor/grey,
 /area/station/hallway/primary/east)
 "ufR" = (
-/obj/machinery/power/apc/autoname_west{
-	name = "Fitness Room APC";
-	areastring = "Fitness Room"
-	},
 /obj/stool/chair{
 	dir = 4
-	},
-/obj/cable{
-	icon_state = "0-4"
 	},
 /turf/simulated/floor/grey,
 /area/station/hallway/primary/west)
@@ -44995,6 +45001,13 @@
 "xHh" = (
 /turf/simulated/floor/shuttlebay,
 /area/research_outpost/limpet/hangar)
+"xHk" = (
+/obj/machinery/light/small/floor,
+/obj/cable{
+	icon_state = "5-8"
+	},
+/turf/simulated/floor/industrial,
+/area/station/maintenance/southwest)
 "xHs" = (
 /obj/disposalpipe/segment/produce,
 /turf/simulated/floor/grey,
@@ -81027,7 +81040,7 @@ vKE
 qCN
 gAB
 pIi
-omy
+mTw
 omy
 ozL
 cwU
@@ -81329,7 +81342,7 @@ iKA
 lKJ
 mrD
 uqf
-mrD
+sFM
 ejj
 gGB
 wQB
@@ -81940,7 +81953,7 @@ vlo
 jlF
 wiF
 kUv
-voV
+wiQ
 jNp
 jgt
 xxo
@@ -82242,7 +82255,7 @@ yeb
 tVJ
 pXx
 pqk
-vWj
+xHk
 haw
 jJq
 vlo
@@ -99411,7 +99424,7 @@ hGD
 dfC
 dtA
 hZc
-bTG
+jdq
 ijq
 kCr
 qEa
