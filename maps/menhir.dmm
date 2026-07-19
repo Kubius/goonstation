@@ -712,6 +712,7 @@
 /obj/cable/orange{
 	icon_state = "6-9"
 	},
+/obj/landmark/gps_waypoint,
 /turf/simulated/floor,
 /area/station/engine/ptl)
 "asR" = (
