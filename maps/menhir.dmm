@@ -3801,9 +3801,6 @@
 /turf/simulated/floor/blueblack,
 /area/station/bridge)
 "bYQ" = (
-/obj/cable{
-	icon_state = "1-2"
-	},
 /obj/disposalpipe/segment/mail,
 /turf/simulated/wall/auto/supernorn,
 /area/station/medical/staff)
@@ -4152,9 +4149,6 @@
 "cgS" = (
 /obj/cable{
 	icon_state = "4-8"
-	},
-/obj/cable{
-	icon_state = "2-4"
 	},
 /obj/disposalpipe/segment/horizontal,
 /obj/disposalpipe/segment/mail,
@@ -15336,6 +15330,13 @@
 	},
 /turf/unsimulated/floor/shuttle,
 /area/shuttle/arrival/station)
+"ipZ" = (
+/obj/disposalpipe/segment/mail,
+/obj/cable{
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/white,
+/area/station/medical/medbay/surgery)
 "iqm" = (
 /obj/machinery/power/apc/autoname_north,
 /obj/cable{
@@ -18095,6 +18096,9 @@
 /obj/mapping_helper/firedoor_spawn,
 /obj/disposalpipe/segment/mail,
 /obj/mapping_helper/access/medical,
+/obj/cable{
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/specialroom/medbay,
 /area/station/medical/staff)
 "jQN" = (
@@ -37778,6 +37782,9 @@
 	dir = 4
 	},
 /obj/disposalpipe/segment/mail,
+/obj/cable{
+	icon_state = "1-8"
+	},
 /turf/simulated/floor/white,
 /area/station/medical/medbay/surgery)
 "ufH" = (
@@ -39743,10 +39750,10 @@
 /turf/simulated/floor/engine/glow/blue,
 /area/station/turret_protected/ai)
 "veI" = (
-/obj/cable{
-	icon_state = "1-4"
-	},
 /obj/disposalpipe/segment/mail,
+/obj/cable{
+	icon_state = "2-4"
+	},
 /turf/simulated/floor/specialroom/medbay,
 /area/station/medical/staff)
 "veM" = (
@@ -40267,6 +40274,9 @@
 /area/station/maintenance/disposal)
 "vuC" = (
 /obj/disposalpipe/segment/mail,
+/obj/cable{
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/redwhite{
 	dir = 1
 	},
@@ -42338,6 +42348,9 @@
 /area/station/crew_quarters/cafeteria)
 "woF" = (
 /obj/disposalpipe/segment/mail,
+/obj/cable{
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/specialroom/medbay,
 /area/station/medical/staff)
 "wpc" = (
@@ -83704,8 +83717,8 @@ woF
 woF
 jQM
 vuC
-wct
-wct
+ipZ
+ipZ
 uft
 wct
 vOY
