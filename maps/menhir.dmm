@@ -5728,7 +5728,6 @@
 /obj/item/satchel/hydro,
 /obj/item/satchel/hydro,
 /obj/disposalpipe/segment/vertical,
-/obj/table/reinforced/auto,
 /turf/simulated/floor,
 /area/station/hydroponics)
 "deU" = (
