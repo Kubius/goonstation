@@ -3038,9 +3038,10 @@
 /turf/simulated/floor/black,
 /area/station/hallway/primary/central)
 "bFd" = (
-/obj/random_item_spawner/gross_with_junk/one_or_zero,
-/mob/living/critter/small_animal/cockroach,
 /obj/decal/cleanable/dirt,
+/obj/rack,
+/obj/item/furniture_parts/table,
+/obj/item/furniture_parts/table,
 /turf/simulated/floor/plating,
 /area/station/maintenance/northwest)
 "bFw" = (
@@ -5725,6 +5726,7 @@
 /obj/item/satchel/hydro,
 /obj/item/satchel/hydro,
 /obj/disposalpipe/segment/vertical,
+/obj/table/reinforced/auto,
 /turf/simulated/floor,
 /area/station/hydroponics)
 "deU" = (
@@ -10377,10 +10379,10 @@
 	layer = 9.1;
 	pixel_y = 21
 	},
-/obj/machinery/disposal/small/west{
-	pixel_x = 9
+/obj/machinery/sink/slim{
+	dir = 8;
+	pixel_x = 8
 	},
-/obj/disposalpipe/trunk/south,
 /turf/simulated/floor/specialroom/cafeteria,
 /area/station/crew_quarters/kitchen)
 "fLx" = (
@@ -15216,7 +15218,6 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/outer/nw)
 "ilU" = (
-/obj/disposalpipe/segment/bent/east,
 /obj/landmark/gps_waypoint,
 /turf/simulated/floor/specialroom/cafeteria,
 /area/station/crew_quarters/kitchen)
@@ -17518,7 +17519,7 @@
 /turf/simulated/floor/darkblue,
 /area/station/janitor/office)
 "jzC" = (
-/obj/disposalpipe/junction/right/west,
+/obj/disposalpipe/segment/bent/south,
 /turf/simulated/floor/specialroom/cafeteria,
 /area/station/crew_quarters/kitchen)
 "jzH" = (
@@ -20086,15 +20087,7 @@
 /turf/simulated/floor/plating,
 /area/station/security/checkpoint/arrivals)
 "kSQ" = (
-/obj/stove,
-/obj/item/soup_pot{
-	pixel_x = 4;
-	pixel_y = 10
-	},
-/obj/item/ladle{
-	pixel_x = -2;
-	pixel_y = 11
-	},
+/obj/table/reinforced/auto,
 /turf/simulated/floor/specialroom/cafeteria,
 /area/station/crew_quarters/kitchen)
 "kTg" = (
@@ -20510,6 +20503,8 @@
 /obj/cable{
 	icon_state = "1-6"
 	},
+/obj/random_item_spawner/gross_with_junk/one_or_zero,
+/mob/living/critter/small_animal/cockroach,
 /turf/simulated/floor/plating,
 /area/station/maintenance/northwest)
 "lcs" = (
@@ -20767,24 +20762,6 @@
 /obj/landmark/gps_waypoint,
 /turf/simulated/floor/black,
 /area/station/turret_protected/ai)
-"lkA" = (
-/obj/table/reinforced/auto,
-/obj/machinery/door/airlock/pyro/glass/windoor{
-	autoclose = 0
-	},
-/obj/machinery/cashreg,
-/obj/machinery/door/poddoor/pyro/shutters{
-	density = 0;
-	icon_state = "pdoor0";
-	id = "kitchen";
-	layer = 4;
-	name = "Kitchen Shutter";
-	opacity = 0;
-	panel_open = 1
-	},
-/obj/mapping_helper/access/kitchen,
-/turf/simulated/floor/specialroom/cafeteria,
-/area/station/crew_quarters/kitchen)
 "lkG" = (
 /obj/table/auto,
 /obj/item/storage/toolbox/emergency,
@@ -31720,10 +31697,6 @@
 	dir = 8
 	},
 /area/station/hangar/main)
-"qWd" = (
-/obj/disposalpipe/segment/bent/west,
-/turf/simulated/floor/specialroom/cafeteria,
-/area/station/crew_quarters/kitchen)
 "qWi" = (
 /obj/stool/chair/office{
 	dir = 4
@@ -34164,7 +34137,7 @@
 /turf/simulated/floor/black,
 /area/station/crew_quarters/cafeteria)
 "sjv" = (
-/obj/disposalpipe/segment/horizontal,
+/obj/disposalpipe/junction/left/west,
 /turf/simulated/floor/specialroom/cafeteria,
 /area/station/crew_quarters/kitchen)
 "sjC" = (
@@ -36000,9 +35973,19 @@
 /turf/simulated/floor/blue,
 /area/station/medical/medbay)
 "thi" = (
-/obj/machinery/sink{
-	dir = 4
+/obj/stove,
+/obj/item/soup_pot{
+	pixel_x = 4;
+	pixel_y = 10
 	},
+/obj/item/ladle{
+	pixel_x = -2;
+	pixel_y = 11
+	},
+/obj/machinery/disposal/small/east{
+	pixel_x = -9
+	},
+/obj/disposalpipe/trunk/south,
 /turf/simulated/floor/specialroom/cafeteria,
 /area/station/crew_quarters/kitchen)
 "thj" = (
@@ -91876,7 +91859,7 @@ lVd
 avI
 lBP
 msS
-sjv
+msS
 txJ
 xbu
 pJY
@@ -92178,7 +92161,7 @@ rWk
 avI
 pNS
 msS
-sjv
+msS
 txJ
 kSQ
 kJk
@@ -92480,7 +92463,7 @@ lVd
 avI
 kWC
 ilU
-qWd
+msS
 kvN
 msS
 kJk
@@ -92781,11 +92764,11 @@ eVw
 eVw
 avI
 fLh
-qWd
+msS
 vqm
 ivV
 xmo
-lkA
+kJk
 woA
 phi
 dym
