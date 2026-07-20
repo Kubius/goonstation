@@ -67,7 +67,7 @@
 						playsound(get_turf(IX), 'sound/effects/electric_shock.ogg', 25, TRUE)
 						IX.visible_message(SPAN_ALERT("<B>[IX]</B> shorts out and shuts down!"))
 						IX.stop_interdicting()
-					return
+					break
 
 			playsound(T, pick(sound_list), 25, TRUE)
 
