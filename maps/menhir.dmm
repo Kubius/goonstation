@@ -36646,6 +36646,12 @@
 	dir = 4
 	},
 /obj/submachine/chef_oven,
+/obj/machinery/door_control{
+	id = "kitchen";
+	name = "Kitchen Shutter Control";
+	pixel_x = 0;
+	pixel_y = 24
+	},
 /turf/simulated/floor/specialroom/cafeteria,
 /area/station/crew_quarters/kitchen)
 "tzv" = (
