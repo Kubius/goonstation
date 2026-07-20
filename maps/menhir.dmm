@@ -4315,9 +4315,10 @@
 /turf/simulated/floor/carpet/grime,
 /area/station/security/detectives_office)
 "cma" = (
-/obj/disposalpipe/segment/horizontal,
+/obj/disposalpipe/segment/bent/west,
+/obj/random_item_spawner/gross_with_junk/one_or_zero,
 /obj/cable{
-	icon_state = "5-8"
+	icon_state = "1-8"
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/northwest)
@@ -4926,6 +4927,7 @@
 /turf/simulated/floor/purple,
 /area/station/science/teleporter)
 "cFm" = (
+/obj/machinery/light/small/floor,
 /turf/simulated/floor/grey,
 /area/station/crew_quarters/catering)
 "cFK" = (
@@ -7349,6 +7351,21 @@
 	},
 /turf/simulated/floor/black,
 /area/station/crew_quarters/cafeteria)
+"eaN" = (
+/obj/storage/crate,
+/obj/item/reagent_containers/food/snacks/ingredient/flour,
+/obj/item/reagent_containers/food/snacks/ingredient/flour,
+/obj/item/reagent_containers/food/snacks/ingredient/sugar,
+/obj/item/reagent_containers/food/snacks/ingredient/pancake_batter,
+/obj/item/reagent_containers/food/snacks/ingredient/oatmeal,
+/obj/machinery/disposal/mail/small/autoname/kitchen/east{
+	pixel_x = -9
+	},
+/obj/disposalpipe/trunk/mail/east,
+/obj/item/reagent_containers/food/snacks/condiment/chocchips,
+/obj/item/storage/box/popsicle_sticks,
+/turf/simulated/floor/black,
+/area/station/crew_quarters/catering)
 "eaY" = (
 /obj/disposalpipe/segment/transport{
 	dir = 1;
@@ -10655,11 +10672,6 @@
 /area/station/crew_quarters/clown{
 	name = "Honkington's Abode"
 	})
-"fTp" = (
-/obj/disposalpipe/segment/bent/west,
-/obj/random_item_spawner/gross_with_junk/one_or_zero,
-/turf/simulated/floor/plating,
-/area/station/maintenance/northwest)
 "fTC" = (
 /obj/cable{
 	icon_state = "1-10"
@@ -16092,6 +16104,10 @@
 	dir = 4
 	},
 /obj/item/kitchen/egg_box,
+/obj/item/reagent_containers/food/drinks/eggnog{
+	pixel_y = 17;
+	pixel_x = -8
+	},
 /turf/simulated/floor/specialroom/freezer,
 /area/station/crew_quarters/catering)
 "iMa" = (
@@ -17675,10 +17691,6 @@
 	},
 /turf/simulated/floor,
 /area/station/hallway/primary/east)
-"jDl" = (
-/obj/reagent_dispensers/still,
-/turf/simulated/floor/plating,
-/area/station/maintenance/northwest)
 "jDF" = (
 /obj/mapping_helper/wingrille_spawn/auto/reinforced,
 /obj/window_blinds/cog2{
@@ -19068,18 +19080,10 @@
 /area/research_outpost/limpet)
 "kqZ" = (
 /obj/table/auto,
-/obj/item/reagent_containers/applicator/condiment/bottle/mustard{
-	pixel_x = -6
+/obj/machinery/light/small{
+	dir = 4;
+	pixel_x = 12
 	},
-/obj/item/reagent_containers/applicator/condiment/shaker/salt,
-/obj/item/reagent_containers/applicator/condiment/shaker/pepper{
-	pixel_x = 3
-	},
-/obj/item/reagent_containers/applicator/condiment/bottle/ketchup{
-	pixel_x = 6
-	},
-/obj/machinery/light/small,
-/obj/machinery/firealarm/directional/east,
 /turf/simulated/floor/black,
 /area/station/crew_quarters/catering)
 "kri" = (
@@ -20500,9 +20504,6 @@
 	},
 /area/station/maintenance/south)
 "lcj" = (
-/obj/cable{
-	icon_state = "1-6"
-	},
 /obj/random_item_spawner/gross_with_junk/one_or_zero,
 /mob/living/critter/small_animal/cockroach,
 /turf/simulated/floor/plating,
@@ -21666,7 +21667,7 @@
 /obj/machinery/atmospherics/pipe/manifold{
 	dir = 8
 	},
-/obj/storage/cart/hotdog,
+/obj/reagent_dispensers/still,
 /turf/simulated/floor/plating,
 /area/station/maintenance/northwest)
 "lJU" = (
@@ -21985,6 +21986,33 @@
 	dir = 8
 	},
 /area/station/crew_quarters/cafeteria)
+"lRW" = (
+/obj/table/auto,
+/obj/item/device/reagentscanner{
+	pixel_x = -9
+	},
+/obj/item/storage/box/donkpocket_kit{
+	pixel_x = -10;
+	pixel_y = 9
+	},
+/obj/item/reagent_containers/applicator/condiment/bottle/mustard{
+	pixel_y = 11;
+	pixel_x = 3
+	},
+/obj/item/reagent_containers/applicator/condiment/bottle/ketchup{
+	pixel_y = 10;
+	pixel_x = 8
+	},
+/obj/item/reagent_containers/applicator/condiment/shaker/salt{
+	pixel_y = 2;
+	pixel_x = 3
+	},
+/obj/item/reagent_containers/applicator/condiment/shaker/pepper{
+	pixel_x = 7
+	},
+/obj/machinery/firealarm/directional/north,
+/turf/simulated/floor/black,
+/area/station/crew_quarters/catering)
 "lSe" = (
 /obj/disposalpipe/segment/mail{
 	dir = 4
@@ -22824,6 +22852,10 @@
 /obj/mapping_helper/access/research,
 /turf/simulated/floor/plating,
 /area/station/science/gen_storage)
+"mpg" = (
+/obj/storage/cart/hotdog,
+/turf/simulated/floor/black,
+/area/station/crew_quarters/catering)
 "mpC" = (
 /obj/decal/tile_edge/line/blue{
 	dir = 6;
@@ -23538,17 +23570,11 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/solar/east)
 "mHz" = (
-/obj/machinery/door/airlock/pyro{
-	dir = 4
-	},
+/obj/disposalpipe/segment/horizontal,
 /obj/cable{
 	icon_state = "4-8"
 	},
-/obj/disposalpipe/segment/horizontal,
-/obj/mapping_helper/firedoor_spawn,
-/obj/mapping_helper/access/bar,
-/obj/mapping_helper/access/kitchen,
-/turf/simulated/floor/grey,
+/turf/simulated/floor/black,
 /area/station/crew_quarters/catering)
 "mHB" = (
 /obj/disposalpipe/block_sensing_outlet/west,
@@ -25563,9 +25589,6 @@
 "nMd" = (
 /turf/simulated/wall/auto/reinforced/supernorn,
 /area/station/mining/refinery)
-"nMn" = (
-/turf/simulated/wall/auto/reinforced/supernorn,
-/area/station/maintenance/northwest)
 "nMJ" = (
 /turf/space,
 /area/shuttle/merchant_shuttle/left_station/cogmap2)
@@ -26948,8 +26971,8 @@
 /turf/simulated/floor,
 /area/station/quartermaster/office)
 "ouO" = (
-/obj/machinery/vending/pizza,
 /obj/machinery/camera/directional/south,
+/obj/table/auto,
 /turf/simulated/floor/black,
 /area/station/crew_quarters/catering)
 "ovs" = (
@@ -28572,13 +28595,6 @@
 /obj/mapping_helper/wingrille_spawn/auto/reinforced,
 /turf/simulated/floor/plating,
 /area/station/maintenance/northeast)
-"plH" = (
-/obj/disposalpipe/segment/vertical,
-/obj/cable{
-	icon_state = "2-9"
-	},
-/turf/simulated/floor/plating,
-/area/station/maintenance/northwest)
 "pml" = (
 /obj/storage/crate/freezer{
 	anchored = 1
@@ -32856,7 +32872,8 @@
 	dir = 8;
 	name = "reagent gear cabinet";
 	pixel_x = 32;
-	spawn_contents = list(/obj/item/storage/box/beakerbox,/obj/item/device/reagentscanner,/obj/item/device/reagentscanner,/obj/item/reagent_containers/syringe)
+	spawn_contents = list(/obj/item/storage/box/beakerbox,/obj/item/device/reagentscanner,/obj/item/device/reagentscanner,/obj/item/reagent_containers/syringe);
+	icon_state = "minipurple"
 	},
 /obj/disposalpipe/segment/produce{
 	dir = 4
@@ -34384,7 +34401,6 @@
 /obj/machinery/atmospherics/pipe/manifold{
 	dir = 4
 	},
-/obj/machinery/space_heater,
 /turf/simulated/floor/plating,
 /area/station/maintenance/northwest)
 "sqH" = (
@@ -34813,22 +34829,7 @@
 /turf/simulated/floor/specialroom/cafeteria,
 /area/station/crew_quarters/kitchen)
 "sDL" = (
-/obj/table/auto,
-/obj/item/reagent_containers/food/drinks/eggnog{
-	pixel_y = 16;
-	pixel_x = 5
-	},
-/obj/item/reagent_containers/food/snacks/condiment/chocchips{
-	pixel_y = 4;
-	pixel_x = 7
-	},
-/obj/item/device/reagentscanner{
-	pixel_x = -9
-	},
-/obj/item/storage/box/donkpocket_kit{
-	pixel_x = -10;
-	pixel_y = 9
-	},
+/obj/machinery/vending/pizza,
 /turf/simulated/floor/black,
 /area/station/crew_quarters/catering)
 "sDW" = (
@@ -41384,6 +41385,19 @@
 	dir = 1
 	},
 /area/station/hydroponics)
+"vVT" = (
+/obj/machinery/door/airlock/pyro{
+	dir = 4
+	},
+/obj/cable{
+	icon_state = "4-8"
+	},
+/obj/disposalpipe/segment/horizontal,
+/obj/mapping_helper/firedoor_spawn,
+/obj/mapping_helper/access/bar,
+/obj/mapping_helper/access/kitchen,
+/turf/simulated/floor/black,
+/area/station/crew_quarters/catering)
 "vVU" = (
 /obj/disposalpipe/segment/brig{
 	dir = 1
@@ -42852,6 +42866,14 @@
 "wCh" = (
 /turf/simulated/floor/sanitary/white,
 /area/station/medical/robotics)
+"wCl" = (
+/obj/decal/cleanable/dirt,
+/obj/cable{
+	icon_state = "1-2"
+	},
+/obj/disposalpipe/segment/bent/east,
+/turf/simulated/floor/plating,
+/area/station/maintenance/northwest)
 "wCp" = (
 /obj/reagent_dispensers/watertank/big,
 /obj/machinery/light/small{
@@ -43898,18 +43920,10 @@
 /turf/simulated/floor/grass,
 /area/station/hydroponics)
 "xfU" = (
-/obj/storage/crate,
-/obj/item/reagent_containers/food/snacks/ingredient/flour,
-/obj/item/reagent_containers/food/snacks/ingredient/flour,
-/obj/item/reagent_containers/food/snacks/ingredient/sugar,
-/obj/item/reagent_containers/food/snacks/ingredient/pancake_batter,
-/obj/item/reagent_containers/food/snacks/ingredient/oatmeal,
-/obj/item/storage/box/popsicle_sticks,
-/obj/machinery/disposal/mail/small/autoname/kitchen/east{
-	pixel_x = -9
+/obj/disposalpipe/segment/mail{
+	dir = 4
 	},
-/obj/disposalpipe/trunk/mail/east,
-/turf/simulated/floor/black,
+/turf/simulated/floor/grey,
 /area/station/crew_quarters/catering)
 "xgb" = (
 /obj/lattice{
@@ -44908,9 +44922,6 @@
 	},
 /turf/simulated/floor/black,
 /area/station/science/lab)
-"xFJ" = (
-/turf/simulated/wall/auto/supernorn,
-/area/station/maintenance/northwest)
 "xFQ" = (
 /obj/random_item_spawner/gross_with_junk/one_or_zero,
 /obj/item/reagent_containers/glass/wateringcan{
@@ -87334,7 +87345,7 @@ oYR
 bRn
 pEk
 uVu
-imK
+bFd
 wls
 qUA
 ozV
@@ -88534,13 +88545,13 @@ tpF
 sHG
 tpF
 lcj
-bFd
-nMn
-jDl
-hPa
-rEk
+wCl
+pZV
+pZV
+vPm
+pZV
 cma
-xFJ
+hcJ
 hcJ
 hcJ
 xLM
@@ -88836,12 +88847,12 @@ isC
 isC
 oOB
 oOB
-plH
-pZV
-pZV
-vPm
-kri
-fTp
+aHO
+tid
+tid
+vVT
+tid
+tid
 hcJ
 inv
 qQK
@@ -89140,10 +89151,10 @@ soK
 iXF
 kag
 tid
-tid
+xzc
 mHz
-tid
-tid
+eaN
+rqV
 hcJ
 eDn
 eSJ
@@ -89442,10 +89453,10 @@ sqD
 lJE
 alu
 tid
-xzc
+lRW
 kFK
 xfU
-rqV
+oUD
 hcJ
 uYY
 dtQ
@@ -90049,7 +90060,7 @@ tid
 ucx
 iXG
 cFm
-oUD
+mpg
 hcJ
 hcJ
 uVP
