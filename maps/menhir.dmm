@@ -24800,6 +24800,9 @@
 /obj/cable/orange{
 	icon_state = "0-9"
 	},
+/obj/cable/orange{
+	icon_state = "0-2"
+	},
 /turf/simulated/floor/caution/east,
 /area/station/engine/ptl)
 "npo" = (
@@ -31857,6 +31860,8 @@
 	dir = 8;
 	name = "Engine Output Monitoring"
 	},
+/obj/cable/orange,
+/obj/machinery/power/data_terminal,
 /turf/simulated/floor/caution/corner/se,
 /area/station/engine/ptl)
 "raU" = (
