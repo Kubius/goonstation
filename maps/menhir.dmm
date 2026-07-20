@@ -19084,6 +19084,9 @@
 	dir = 4;
 	pixel_x = 12
 	},
+/obj/item/device/reagentscanner{
+	pixel_x = 3
+	},
 /turf/simulated/floor/black,
 /area/station/crew_quarters/catering)
 "kri" = (
@@ -21988,9 +21991,6 @@
 /area/station/crew_quarters/cafeteria)
 "lRW" = (
 /obj/table/auto,
-/obj/item/device/reagentscanner{
-	pixel_x = -9
-	},
 /obj/item/storage/box/donkpocket_kit{
 	pixel_x = -10;
 	pixel_y = 9
@@ -26973,6 +26973,7 @@
 "ouO" = (
 /obj/machinery/camera/directional/south,
 /obj/table/auto,
+/obj/random_item_spawner/snacks/one,
 /turf/simulated/floor/black,
 /area/station/crew_quarters/catering)
 "ovs" = (
