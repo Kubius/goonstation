@@ -10,6 +10,7 @@
 	speech_verb_ask = "inquires"
 	speech_verb_gasp = "screeches"
 	speech_verb_stammer = "stutters"
+	death_text = "%src% violently shatters!"
 	//may want gib handler?
 	mat_changename = FALSE
 	mat_changedesc = FALSE
@@ -18,14 +19,17 @@
 	flags = TABLEPASS
 	hand_count = 1
 
-	health_brute = 100
-	health_burn = 100
+	health_brute = 50
+	health_brute_vuln = 0.45
+	health_burn = 50
+	health_burn_vuln = 0.05
 	use_stamina = FALSE
 	can_lie = FALSE
 	can_burn = FALSE
 	isFlying = 1
 	base_move_delay = 1.5
 	base_walk_delay = 3.5
+	var/emissary = FALSE //only distribute gifts if we're here on emissary duty
 	var/disturbed = FALSE //we'd like to probe quietly. you get one oops.
 	var/bonked = FALSE //being bonked is frustrating.
 	var/obj/item/implant/access/data_interface //probes can learn to access things; doesn't come with access by default
@@ -60,6 +64,7 @@
 	New()
 		. = ..()
 		APPLY_ATOM_PROPERTY(src, PROP_ATOM_GRAVITY_IMMUNE, src)
+		APPLY_ATOM_PROPERTY(src, PROP_MOB_NO_SELF_HARM, src)
 		src.remove_lifeprocess("gravity")
 		src.deployment_turf = get_turf(src)
 		src.name = "[pick("peculiar","quirky","strange","cold","intricate","odd","curious")] [pick("visage","proxy","interface","attendant")]"
@@ -71,7 +76,7 @@
 		. = ..()
 
 	proc/exit_procedure()
-		if(!src.oldmob && !src.disturbed && prob(42)) //drones which complete their probing without being disturbed may leave a gift
+		if(src.emissary && !src.oldmob && !src.disturbed && prob(42)) //drones which complete their probing without being disturbed may leave a gift
 			playsound(src.loc, 'sound/effects/ring_happi.ogg', 35, 0, extrarange = 16, pitch = 0.6)
 			var/list/gifts = list(/obj/item/reagent_containers/food/snacks/cube = 20, /obj/item/raw_material/cobryl = 12,\
 				/obj/item/raw_material/miracle = 2, "artifact" = 1)
@@ -80,6 +85,27 @@
 				new thing2make(src.loc)
 			else
 				Artifact_Spawn(src.loc,forceartiorigin = "precursor")
+
+	death(var/gibbed)
+		. = ..()
+		var/turf/T = get_turf(src.loc)
+		for (var/mob/living/L in orange(3,src))
+			random_burn_damage(L, rand(4,10))
+			if (istype(L))
+				L.flash(3 SECONDS)
+				L.apply_flash(60, 0, misstep = 35, stamina_damage = 200)
+		playsound(src.loc, 'sound/weapons/flashbang.ogg', 30, 1, pitch = 0.7)
+		var/obj/shard
+		for(var/i = 1 to 3)
+			shard = new /obj/item/raw_material/scrap_metal
+			shard.setMaterial(getMaterial("cobryl"))
+			shard.set_loc(T)
+		elecflash(T,2)
+		ghostize()
+		qdel(src)
+
+	check_attack_resistance(var/obj/item/I, var/mob/attacker)
+		return null
 
 /datum/projectile/laser/precursor/probe
 	damage = 6
@@ -94,11 +120,13 @@
 	cooldown = 1 SECOND
 	reload_time = 1 SECOND
 
-///Bigger, more capable probe powered by what may or may not be a pocket singularity
+///Bigger, exceptionally capable probe powered by what may or may not be a pocket singularity
 /mob/living/critter/robotic/probe/arbitor
 	name = "cold proxy"
 	desc = "A faint shimmer continually courses over its surface."
 	icon_state = "arbitor"
+	health_burn_vuln = 0
+	health_brute_vuln = 0
 	hand_count = 2
 	ai_retaliates = TRUE
 	add_abilities = list(/datum/targetable/critter/probe_access,/datum/targetable/critter/fadeout/probe,/datum/targetable/critter/probe_slip)
@@ -234,7 +262,7 @@
 				beepity.visible_message(SPAN_ALERT("<b>[beepity]<b> makes an irritated sound. It doesn't seem to like being shoved around."))
 				playsound(beepity.loc, 'sound/effects/elec_bzzz.ogg', 40, 0, pitch = 0.5)
 				beepity.disturbed = TRUE
-		else if(!ON_COOLDOWN(beepity, "grouch_when_we_leave", 8 SECONDS))
+		else if(!ON_COOLDOWN(beepity, "grouch_when_we_leave", 6 SECONDS))
 			beepity.visible_message(SPAN_ALERT("<b>[beepity] emits a searing flash[returning ? " as it teleports away" : null]!<b>"))
 			for (var/mob/living/L in orange(3,beepity))
 				random_burn_damage(L, rand(4,10))

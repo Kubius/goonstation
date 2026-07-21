@@ -157,11 +157,12 @@ ABSTRACT_TYPE(/datum/random_event/menhir)
 				rolling_target = pick(candidate_landmarks)
 				candidate_landmarks -= rolling_target
 				showswirl(rolling_target)
-				var/mob/deployed_probe
+				var/mob/living/critter/robotic/probe/deployed_probe
 				if(have_deployed < 2)
 					deployed_probe = new /mob/living/critter/robotic/probe/arbitor(rolling_target)
 				else
 					deployed_probe = new /mob/living/critter/robotic/probe(rolling_target)
+				deployed_probe.emissary = TRUE
 				src.deployed_probes += deployed_probe
 				have_deployed++
 				sleep(1)
@@ -174,6 +175,7 @@ ABSTRACT_TYPE(/datum/random_event/menhir)
 					deployed_probes -= M
 					qdel(M)
 					sleep(1)
+			deployed_probes = list()
 			logTheThing(LOG_STATION, null, "Menhir probes event concluded.")
 			message_admins("Menhir probes event concluded.")
 
