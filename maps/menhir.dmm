@@ -5797,7 +5797,8 @@
 /area/station/hallway/primary/southeast)
 "dhD" = (
 /obj/machinery/door/unpowered/blue{
-	tag = "menhir_entrance_bluedoor"
+	tag = "menhir_entrance_bluedoor";
+	locks_on_open = 1
 	},
 /obj/effects/menhir_fog,
 /turf/unsimulated/floor/setpieces/bluefloor{

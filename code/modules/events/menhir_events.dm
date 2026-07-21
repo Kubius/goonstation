@@ -493,6 +493,9 @@ ABSTRACT_TYPE(/datum/random_event/menhir)
 		if(.)
 			if (!locate("menhir_entrance_bluedoor")) //don't do this more than once a round
 				. = FALSE
+			var/obj/machinery/door/unpowered/blue/entrance = locate("menhir_entrance_bluedoor")
+			if(entrance.density) //no ingress has been made
+				. = FALSE
 
 	event_effect()
 		var/obj/machinery/door/unpowered/blue/entrance = locate("menhir_entrance_bluedoor")
@@ -501,10 +504,11 @@ ABSTRACT_TYPE(/datum/random_event/menhir)
 			message_admins("Menhir closure event couldn't find the Crown's entrance door; aborting event.")
 			return
 		var/turf/eventlandmark = get_turf(entrance)
-		entrance.locked = TRUE
+		entrance.locks_on_open = FALSE
 		var/delay = rand(2,12)
 		SPAWN(delay)
 			entrance.close()
+			entrance.locked = TRUE
 		SPAWN(delay+38)
 			entrance.revoke_door()
 		SPAWN(rand(2 MINUTES, 3 MINUTES))
