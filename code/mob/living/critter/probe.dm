@@ -1,3 +1,6 @@
+TYPEINFO(/mob/living/critter/robotic/probe)
+	start_listen_languages = list(LANGUAGE_ALL)
+
 ///Precursor probe for Menhir random events
 /mob/living/critter/robotic/probe
 	name = "curious visage"
@@ -11,11 +14,10 @@
 	speech_verb_gasp = "screeches"
 	speech_verb_stammer = "stutters"
 	death_text = "%src% violently shatters!"
-	//may want gib handler?
 	mat_changename = FALSE
 	mat_changedesc = FALSE
 	see_invisible = INVIS_CLOAK
-	say_language = LANGUAGE_CUBIC //if you're piloting one of these for gimmicks you don't want to ruin the bit by accident
+	say_language = LANGUAGE_CUBIC
 	flags = TABLEPASS
 	hand_count = 1
 
