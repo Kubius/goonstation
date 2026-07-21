@@ -38,7 +38,7 @@
 
 	is_npc = TRUE
 	ai_type = /datum/aiHolder/probe
-	add_abilities = list(/datum/targetable/critter/probe_access,/datum/targetable/critter/fadeout/probe)
+	add_abilities = list(/datum/targetable/critter/probe_access,/datum/targetable/critter/fadeout/probe,/datum/targetable/critter/recall)
 
 	setup_healths()
 		add_hh_robot(src.health_brute, src.health_brute_vuln)
@@ -107,6 +107,22 @@
 	check_attack_resistance(var/obj/item/I, var/mob/attacker)
 		return null
 
+	proc/show_edicts() //a code of conduct for those given the privilege of incarnation
+		var/edicts = {"<span class='bold notice' style='color: #BEBEFF'>EDICTS<br>
+		I. Do not strike against a higher consciousness unless it, or its kind, have struck first.<br>
+		II. Take no action to deprive conscious beings of the environment necessary for their survival.<br>
+		III. Seek your own path within these bounds. Perception is your tribute to the chorus.<br></span>
+		<span class='italic' style='color: #ff6d6d'>These edicts are akin to silicon laws; you are obligated to follow them.<br></span>"}
+		boutput(src, edicts)
+		return
+
+	verb/cmd_show_edicts()
+		set category = "Commands"
+		set name = "Show Edicts (Laws)"
+
+		src.show_edicts()
+		return
+
 /datum/projectile/laser/precursor/probe
 	damage = 6
 	shot_number = 5
@@ -129,7 +145,7 @@
 	health_brute_vuln = 0
 	hand_count = 2
 	ai_retaliates = TRUE
-	add_abilities = list(/datum/targetable/critter/probe_access,/datum/targetable/critter/fadeout/probe,/datum/targetable/critter/probe_slip)
+	add_abilities = list(/datum/targetable/critter/probe_access,/datum/targetable/critter/fadeout/probe,/datum/targetable/critter/recall,/datum/targetable/critter/probe_slip)
 
 	setup_hands()
 		. = ..()
@@ -171,6 +187,10 @@
 	cooldown = 5 SECONDS
 	targeted = 1
 	target_anything = TRUE
+
+	///Certain access codes are highly encrypted and can't be replicated easily.
+	var/offlimits_access = list(access_armory, access_maxsec, access_securitylockers, access_syndicate_shuttle)
+
 	cast(atom/target)
 		if (..())
 			return 1
@@ -180,25 +200,60 @@
 		if (GET_DIST(holder.owner, target) > 5)
 			boutput(holder.owner, SPAN_ALERT("That is too far away to scan."))
 			return 1
+		if (isrestrictedz(holder.owner.z))
+			boutput(holder.owner, SPAN_ALERT("Your systems are unable to attain a signal lock here."))
+			return 1
 		var/mob/living/critter/robotic/probe/C = holder.owner
 		if(!istype(C) || !C.data_interface)
 			boutput(holder.owner, SPAN_ALERT("You lack the appropriate systems to do this."))
 			return 1
+		var/access_interference = FALSE
 		var/obj/O = target
 		if(O.req_access && length(O.req_access))
 			var/codes_replicated = 0
 			for(var/access_item in O.req_access)
 				if(islist(access_item)) //combo-access scan
 					for(var/sub_access in access_item)
-						C.data_interface.access.access |= sub_access
-						codes_replicated++
+						if(!(access_item in offlimits_access))
+							C.data_interface.access.access |= sub_access
+							codes_replicated++
+						else
+							access_interference = TRUE
 				else //regular-access scan
-					C.data_interface.access.access |= access_item
-					codes_replicated++
-			boutput(C, SPAN_NOTICE("Successfully replicated [codes_replicated] access codes."))
+					if(!(access_item in offlimits_access))
+						C.data_interface.access.access |= access_item
+						codes_replicated++
+					else
+						access_interference = TRUE
+			if(codes_replicated)
+				boutput(C, SPAN_NOTICE("Successfully replicated [codes_replicated] access codes."))
+			if(access_interference)
+				boutput(C, SPAN_ALERT("Some access codes could not be replicated successfully."))
 		else
 			boutput(C, SPAN_ALERT("The targeted object lacks access requirements."))
 		playsound(get_turf(C), 'sound/machines/scan2.ogg', 45, 1, pitch = 0.8)
+
+/datum/targetable/critter/recall
+	name = "Recall"
+	desc = "Return to the point of your instantiation."
+	cooldown = 60 SECONDS
+	icon_state = "probe_recall"
+
+	cast(atom/target)
+		if (disabled)
+			return 1
+		if (..())
+			return 1
+		var/mob/living/critter/robotic/probe/C = holder.owner
+		if(!istype(C))
+			boutput(holder.owner, SPAN_ALERT("You lack the appropriate systems to do this."))
+			return 1
+		if(!C.deployment_turf || !isturf(C.deployment_turf))
+			boutput(holder.owner, SPAN_ALERT("Your instantiation point has been lost to you."))
+			return 1
+		showswirl_out(get_turf(C))
+		C.set_loc(C.deployment_turf)
+		showswirl(C.deployment_turf)
 
 /datum/targetable/critter/probe_slip
 	name = "Slipstream"

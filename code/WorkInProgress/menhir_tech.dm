@@ -244,6 +244,112 @@ TYPEINFO_NEW(/obj/effects/menhir_fog)
 #undef ARC_ACTIVE
 #undef ARC_CONCLUDE
 
+/obj/dreamcatcher
+	name = "hypnotizing mechanism"
+	desc = "A near-imperceptible noise suffuses your senses. It sings."
+	anchored = ANCHORED
+	density = 1
+	icon = 'icons/obj/artifacts/artifacts.dmi'
+	icon_state = "precursor-4"
+	var/expended = FALSE
+	//replicate artifact vfx
+	var/obj/effect/artifact_glowie/fx_image = null
+	var/obj/effect/artifact_glowie/fx_fallback = null
+
+	New()
+		. = ..()
+		src.fx_image = new
+		src.fx_image.icon = src.icon
+		src.fx_image.icon_state = src.icon_state + "fx"
+		src.fx_image.color = "#BEBEFF"
+		src.fx_image.alpha = 200
+		src.fx_image.layer = 5
+		src.fx_image.blend_mode = BLEND_ADD
+		src.fx_image.plane = PLANE_LIGHTING
+
+		src.fx_fallback = new
+		src.fx_fallback.icon = src.icon
+		src.fx_fallback.icon_state = src.icon_state + "fx"
+		src.fx_fallback.color = src.fx_image.color
+		src.fx_fallback.alpha = src.fx_image.alpha
+		src.fx_fallback.vis_flags |= VIS_INHERIT_LAYER
+		src.fx_fallback.vis_flags |= VIS_INHERIT_PLANE
+
+	disposing()
+		qdel(src.fx_image)
+		qdel(src.fx_fallback)
+		. = ..()
+
+	Crossed(atom/movable/O)
+		if (src.expended || !istype(O, /mob/dead/observer))
+			return ..()
+		var/mob/dead/observer/ghost = O
+		var/datum/mind/M = ghost.mind
+
+		if(!istype(M))
+			return ..()
+
+		if (!assess_ghostdrone_eligibility(M))
+			boutput(ghost, "<span class='alert'>A whisper washes over you, then quiets. The mechanism seeks another.</span>")
+			return ..()
+
+		. = ..()
+		SPAWN(0)
+			if (tgui_alert(ghost, "The machine offers you a physical form.", "Inquiry", list("Yes", "No"), timeout = 20 SECONDS) != "Yes")
+				return
+			if (!src.expended)
+				src.catch_dream(ghost,M)
+
+	proc/catch_dream(var/mob/form,var/datum/mind/soul)
+		if (!form || !soul || src.expended)
+			return
+		if (form.transforming)
+			return
+
+		var/turf/ourturf = get_turf(src)
+		if (!ourturf)
+			return
+
+		src.expended = TRUE
+		ourturf.visible_message("<b>[src] lights up with an unearthly glow!</b>")
+		playsound(ourturf,'sound/machines/ArtifactPre1.ogg', 100, TRUE)
+		src.vis_contents += src.fx_image
+		src.vis_contents += src.fx_fallback
+
+		var/mob/living/critter/robotic/probe/P = new /mob/living/critter/robotic/probe(src)
+
+		form.transforming = 1
+		form.canmove = 0
+		form.icon = null
+		APPLY_ATOM_PROPERTY(form, PROP_MOB_INVISIBILITY, "transform", INVIS_ALWAYS)
+
+		if (isobserver(form) && form:corpse)
+			P.oldmob = form:corpse
+
+		if (form?.real_name)
+			P.oldname = form.real_name
+
+		soul.transfer_to(P)
+
+		P.job = "Proxy"
+		soul.assigned_role = "Proxy"
+
+		SPAWN(5 SECONDS)
+			P.playsound_local_not_inworld('sound/ambience/industrial/Precursor_Drone3.ogg', 40, 0, pitch = 2)
+		SPAWN(9 SECONDS)
+			boutput(P, "<span class='bold' style='color: #BEBEFF'>The chorus sings for you now.<br>You are offered a new mortality.</span>")
+		SPAWN(15 SECONDS)
+			P.show_edicts()
+		SPAWN(20 SECONDS)
+			ourturf = get_turf(src)
+			P.set_loc(ourturf)
+			showswirl(ourturf)
+			src.vis_contents -= src.fx_image
+			src.vis_contents -= src.fx_fallback
+			ourturf.visible_message("<b>[src] releases a probe.</b>")
+			src.color = "#DDDDDD"
+			src.desc = "Its sheen has dulled. Whatever purpose it was built to serve, it has fulfilled it."
+
 #ifdef MAP_OVERRIDE_MENHIR
 
 /client/proc/cmd_admin_vislayer()
