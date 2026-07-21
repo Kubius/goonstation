@@ -527,7 +527,7 @@ TYPEINFO_NEW(/obj/mesh/catwalk)
 		src.loc.Attackby(user.equipped(), user)
 		return
 	if (istype(I,/obj/item/mop))
-		I:afterattack(get_turf(src), user)
+		I.AfterAttack(get_turf(src), user)
 		return
 	if(user.a_intent != "harm") // Don't do anything if you're not on harm intent, act like a normal floor.
 		return
