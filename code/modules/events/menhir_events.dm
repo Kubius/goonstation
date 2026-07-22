@@ -491,10 +491,8 @@ ABSTRACT_TYPE(/datum/random_event/menhir)
 	is_event_available(ignore_time_lock)
 		. = ..()
 		if(.)
-			if (!locate("menhir_entrance_bluedoor")) //don't do this more than once a round
-				. = FALSE
 			var/obj/machinery/door/unpowered/blue/entrance = locate("menhir_entrance_bluedoor")
-			if(entrance.density) //no ingress has been made
+			if(entrance && entrance.density) //event hasn't triggered & no entrance has been made
 				. = FALSE
 
 	event_effect()
