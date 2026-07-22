@@ -196,9 +196,10 @@ ABSTRACT_TYPE(/datum/random_event/menhir)
 	name = "A Gift from the Crown"
 	message_delay = 3 MINUTES
 	weight = 150
+	var/has_noded = FALSE
 
 	event_effect()
-		///Site the gift artifact spawns at; will sometimes be in a "node" (outer ball) if it can, adding a door to it and disqualifying node from further events
+		///Site the gift artifact spawns at; will be in a "node" (outer ball) one time if it can, adding a door to it and disqualifying node from further events
 		var/turf/nodelandmark
 		///Tag for the node the event is occurring in, when a node is selected
 		var/node_tag = null
@@ -208,9 +209,10 @@ ABSTRACT_TYPE(/datum/random_event/menhir)
 		var/list/eligibility_flags = 0
 
 		var/can_node = TRUE
-		if(!landmarks[LANDMARK_MENHIR_NODE] || length(landmarks[LANDMARK_MENHIR_NODE]) < 1) can_node = FALSE
+		if(src.has_noded) can_node = FALSE
+		else if(!landmarks[LANDMARK_MENHIR_NODE] || length(landmarks[LANDMARK_MENHIR_NODE]) < 1) can_node = FALSE
 
-		if(!can_node || prob(50)) //outreach mode: drop it somewhere on the station
+		if(!can_node) //outreach mode: drop it somewhere on the station
 			nodelandmark = pick_landmark(LANDMARK_MENHIR_OUTREACH)
 			if (!istype(nodelandmark,/turf/simulated/floor) || is_blocked_turf(nodelandmark))
 				nodelandmark = get_open_outreach()
@@ -273,6 +275,9 @@ ABSTRACT_TYPE(/datum/random_event/menhir)
 		else
 			logTheThing(LOG_STATION, null, "Menhir gift event (out-of-node) at [log_loc(nodelandmark)]")
 			message_admins("Menhir gift event triggered (out-of-node) - [log_loc(nodelandmark)]")
+
+		src.weight = 50 //After we've had one artifact, weight it down
+		src.has_noded = TRUE //and avoid using up scarce nodes
 
 //pick somebody out and see how they respond
 /datum/random_event/menhir/analysis
