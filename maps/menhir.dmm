@@ -24582,6 +24582,14 @@
 	},
 /turf/simulated/floor/black,
 /area/station/science/lab)
+"nkQ" = (
+/obj/machinery/r_door_control{
+	id = "unlode";
+	name = "Unloading Door Control";
+	pixel_x = -25
+	},
+/turf/simulated/floor/industrial,
+/area/station/maintenance/southwest)
 "nkW" = (
 /turf/simulated/floor/minitiles/black,
 /area/station/bridge/captain)
@@ -45011,6 +45019,11 @@
 /obj/machinery/light/small/floor,
 /obj/cable{
 	icon_state = "5-8"
+	},
+/obj/machinery/r_door_control{
+	id = "unlode";
+	name = "Unloading Door Control";
+	pixel_x = 25
 	},
 /turf/simulated/floor/industrial,
 /area/station/maintenance/southwest)
@@ -80751,7 +80764,7 @@ wQB
 cUe
 mzv
 jld
-kUd
+nkQ
 haw
 jJq
 rvW

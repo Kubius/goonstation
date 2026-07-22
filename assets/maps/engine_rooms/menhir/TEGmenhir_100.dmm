@@ -100,6 +100,11 @@
 /obj/machinery/atmospherics/binary/circulatorTemp,
 /turf/simulated/floor/engine,
 /area/station/engine/core)
+"dG" = (
+/obj/machinery/door/airlock/pyro/external,
+/obj/mapping_helper/access/engineering_engine,
+/turf/simulated/floor/engine/vacuum,
+/area/station/engine/hotloop)
 "dH" = (
 /obj/rack,
 /obj/item/clothing/suit/hazard/fire{
@@ -945,6 +950,20 @@
 	},
 /turf/simulated/floor/engine,
 /area/station/engine/core)
+"uP" = (
+/obj/machinery/atmospherics/pipe/simple/heat_exchanging{
+	dir = 5
+	},
+/obj/machinery/door_control{
+	dir = 1;
+	pixel_y = -18;
+	name = "Emergency Exit Control"
+	},
+/obj/mapping_helper/button/pair{
+	dir = 6
+	},
+/turf/simulated/floor/engine/vacuum,
+/area/station/engine/combustion_chamber)
 "uU" = (
 /turf/simulated/floor/blueblack,
 /area/station/engine/coldloop)
@@ -2452,7 +2471,7 @@ oF
 rh
 qP
 Xj
-qP
+uP
 oF
 Br
 Br
@@ -2481,7 +2500,7 @@ Gi
 TK
 fa
 fa
-oF
+dG
 Br
 Br
 Br
