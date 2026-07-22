@@ -66362,7 +66362,7 @@
 	rand_pos = 0
 	},
 /obj/precursor_puzzle/innervator{
-	vision_description = "A vast eye of shining silver fixes itself on the pedestal before you. A familiar orb rests upon it.";
+	vision_description = "A vast eye of shining silver fixes its gaze, incandescent as the noon sun, on the pedestal before you. A familiar orb rests upon it.";
 	pixel_y = -15
 	},
 /turf/unsimulated/floor/setpieces/bluefloor,
