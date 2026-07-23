@@ -108,6 +108,8 @@ ABSTRACT_TYPE(/datum/storyteller)
 #ifdef MAP_OVERRIDE_MENHIR
 	proc/menhir_event_cycle()
 		random_events.menhir_event_cycle_count++
+		SPAWN(1)
+			unstuck_pass()
 		if (random_events.menhir_events_enabled)
 			//build the special room list if we need to
 			if(!random_events.special_room_list_built)
@@ -132,11 +134,76 @@ ABSTRACT_TYPE(/datum/storyteller)
 						random_events.the_room_event.event_effect()
 
 			if(!did_specific)
-				SPAWN(rand(8 SECONDS,2 MINUTES)) //slight additional variance so things don't always drop exactly on cue
-					random_events.do_random_event(random_events.menhir_events)
+				random_events.do_random_event(random_events.menhir_events)
 
 		random_events.menhir_event_timer = rand(random_events.time_between_menhir_events_lower, random_events.time_between_menhir_events_upper)
 		random_events.next_menhir_event = ticker.round_elapsed_ticks + random_events.menhir_event_timer
+
+	///When we do an event cycle, also check intelligently for players stuck somewhere they should not be, and shunt them out.
+	proc/unstuck_pass()
+		var/atoms_moved = 0
+		var/minded = 0
+		//Central-lobe pass; directly scans for mobs in as-of-yet unopened areas and ejects them
+		var/list/outmobs = list()
+		for (var/turf/T in landmarks[LANDMARK_MENHIR_STUCKSCAN])
+			var/checktag = landmarks[LANDMARK_MENHIR_STUCKSCAN][T]
+			switch(checktag)
+				if(LANDMARK_MENHIR_DARK) //stuck if the invasion event hasn't happened
+					if(!landmarks[LANDMARK_MENHIR_DARK] || !length(landmarks[LANDMARK_MENHIR_DARK]))
+						continue
+					for(var/mob/M in range(1,T))
+						if(!isintangible(M) && isliving(M))
+							outmobs += M
+							if(M.mind) minded++
+				if(LANDMARK_MENHIR_PASSAGE) //stuck if the passage event hasn't happened
+					if(!landmarks[LANDMARK_MENHIR_PASSAGE] || !length(landmarks[LANDMARK_MENHIR_PASSAGE]))
+						continue
+					for(var/mob/M in range(1,T))
+						if(!isintangible(M) && isliving(M))
+							outmobs += M
+							if(M.mind) minded++
+				else //always stuck
+					for(var/mob/M in range(1,T))
+						if(!isintangible(M) && isliving(M))
+							outmobs += M
+							if(M.mind) minded++
+		LAGCHECK(LAG_LOW)
+		var/turf/outbound
+		for (var/mob/M in outmobs)
+			outbound = pick_landmark(LANDMARK_MENHIR_OUTREACH)
+			showswirl_out(get_turf(M))
+			showswirl(outbound)
+			M.set_loc(outbound)
+			atoms_moved++
+		LAGCHECK(LAG_LOW)
+		//Node pass; catalogues occupied nodes and then sweeps them out fully
+		var/list/outnodes = list()
+		if(landmarks[LANDMARK_MENHIR_NODE] && length(landmarks[LANDMARK_MENHIR_NODE]))
+			for (var/turf/T in landmarks[LANDMARK_MENHIR_NODE])
+				for(var/mob/M in range(2,T))
+					if(!isintangible(M) && isliving(M))
+						outnodes |= T
+						break
+		LAGCHECK(LAG_LOW)
+		for (var/turf/T in outnodes)
+			for(var/atom/movable/AM in range(2,T))
+				if(ismob(AM))
+					var/mob/M = AM
+					if(M.mind) minded++
+				if(!AM.anchored)
+					var/turf/dumpspot = pick(landmarks[LANDMARK_MENHIR_OUTREACH])
+					showswirl_out(get_turf(AM))
+					AM.set_loc(dumpspot)
+					showswirl(dumpspot)
+					atoms_moved++
+					sleep(1)
+				else if(istype(AM,/obj/item/mechanics)) //cease
+					showswirl_out(get_turf(AM))
+					qdel(AM)
+		if(atoms_moved)
+			logTheThing(LOG_STATION, null, "Menhir unstuck pass: [atoms_moved] atoms ([minded] with mind data) relocated out of inaccessible areas.")
+			message_admins("Menhir unstuck pass: [atoms_moved] atoms ([minded] with mind data) relocated out of inaccessible areas.")
+
 #endif
 
 	proc/spawn_event(var/type = "player")

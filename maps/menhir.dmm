@@ -1314,6 +1314,13 @@
 	},
 /turf/simulated/floor,
 /area/station/hallway/primary/east)
+"aKo" = (
+/obj/effects/menhir_fog,
+/obj/landmark/menhir/stuckscan{
+	data = "menhir_dark"
+	},
+/turf/unsimulated/floor/setpieces/bluefloor,
+/area/station/crown)
 "aKs" = (
 /obj/mesh/catwalk,
 /obj/cable{
@@ -7300,6 +7307,14 @@
 	icon_state = "fred2"
 	},
 /area/station/crew_quarters/market)
+"dZJ" = (
+/obj/map/light/cyan/menhir,
+/obj/effects/menhir_fog,
+/obj/landmark/menhir/stuckscan{
+	data = "menhir_dark"
+	},
+/turf/unsimulated/floor/setpieces/bluefloor,
+/area/station/crown)
 "dZP" = (
 /obj/disposalpipe/segment/mail{
 	dir = 4
@@ -8310,6 +8325,14 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/engine/elect)
+"eBz" = (
+/obj/map/light/cyan/menhir,
+/obj/effects/menhir_fog,
+/obj/landmark/menhir/stuckscan{
+	data = "menhir_passage"
+	},
+/turf/unsimulated/floor/setpieces/bluefloor,
+/area/station/crown)
 "eBP" = (
 /obj/disposalpipe/segment/horizontal,
 /obj/cable{
@@ -28957,6 +28980,13 @@
 /obj/decal/stripe_caution,
 /turf/simulated/floor/white,
 /area/station/medical/medbay)
+"pww" = (
+/obj/effects/menhir_fog,
+/obj/landmark/menhir/stuckscan{
+	data = "menhir_passage"
+	},
+/turf/unsimulated/floor/setpieces/bluefloor,
+/area/station/crown)
 "pwx" = (
 /obj/machinery/light/small{
 	dir = 8;
@@ -30107,6 +30137,13 @@
 /obj/landmark/menhir/outreach,
 /turf/simulated/floor,
 /area/station/engine/elect)
+"qdu" = (
+/obj/effects/menhir_fog,
+/obj/landmark/menhir/stuckscan{
+	data = "menhir_dark"
+	},
+/turf/unsimulated/wall/auto/adventure/icemooninterior,
+/area/station/crown)
 "qdv" = (
 /obj/mapping_helper/wingrille_spawn/auto/reinforced/crystal,
 /obj/window_blinds/cog2/middle{
@@ -33972,6 +34009,14 @@
 /obj/random_item_spawner/junk/one_or_zero,
 /turf/simulated/floor/plating,
 /area/station/maintenance/outer/se)
+"sfo" = (
+/obj/effects/menhir_fog,
+/obj/landmark/menhir/dark,
+/obj/landmark/menhir/stuckscan{
+	data = "menhir_dark"
+	},
+/turf/unsimulated/floor/setpieces/bluefloor,
+/area/station/crown)
 "sfq" = (
 /obj/machinery/drainage,
 /turf/simulated/floor/industrial,
@@ -42992,6 +43037,13 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/east)
+"wFr" = (
+/obj/effects/menhir_fog,
+/obj/landmark/menhir/stuckscan{
+	data = "always"
+	},
+/turf/unsimulated/floor/setpieces/bluefloor,
+/area/station/crown)
 "wFO" = (
 /obj/disposalpipe/segment/mail,
 /obj/cable{
@@ -90110,13 +90162,13 @@ lhN
 lhN
 lhN
 lhN
-dYD
+eBz
 aGr
 aGr
+pww
 aGr
 aGr
-aGr
-dYD
+eBz
 lhN
 yej
 lhN
@@ -90409,7 +90461,7 @@ blY
 lhN
 lhN
 gLq
-aGr
+wFr
 aGr
 lhN
 wYp
@@ -90723,7 +90775,7 @@ qBA
 qBA
 lhN
 aGr
-lhN
+qdu
 lhN
 dYD
 lhN
@@ -91028,7 +91080,7 @@ aGr
 bhf
 lhN
 aGr
-aGr
+aKo
 lhN
 lhN
 bel
@@ -91934,9 +91986,9 @@ dFy
 lhN
 dFy
 lhN
-bhf
+sfo
 lhN
-aGr
+aKo
 lhN
 qFl
 qFl
@@ -92217,7 +92269,7 @@ wHq
 wnW
 lhN
 aGr
-aGr
+wFr
 lhN
 lhN
 lhN
@@ -92819,9 +92871,9 @@ lkQ
 opl
 wHq
 lhN
-dYD
+dZJ
 lhN
-aGr
+wFr
 lhN
 lhN
 aGr
@@ -92843,7 +92895,7 @@ mWl
 aGr
 bhf
 lhN
-bhf
+sfo
 lhN
 xwV
 wee
@@ -93423,7 +93475,7 @@ sUp
 krT
 kFq
 lhN
-aGr
+aKo
 lhN
 qBA
 aGr
@@ -93743,7 +93795,7 @@ osZ
 osZ
 gfo
 aGr
-aGr
+pww
 gfo
 mhb
 aGr
@@ -94027,7 +94079,7 @@ fay
 xZB
 acl
 lhN
-aGr
+aKo
 lhN
 qBA
 aGr
@@ -94631,9 +94683,9 @@ lkQ
 opl
 wHq
 lhN
-dYD
+dZJ
 lhN
-aGr
+wFr
 lhN
 lhN
 aGr
@@ -94655,7 +94707,7 @@ mWl
 aGr
 bhf
 lhN
-bhf
+sfo
 lhN
 qtt
 lKH
@@ -95237,7 +95289,7 @@ wHq
 oJl
 lhN
 aGr
-aGr
+wFr
 lhN
 lhN
 lhN
@@ -95558,9 +95610,9 @@ dFy
 lhN
 dFy
 lhN
-bhf
+sfo
 lhN
-aGr
+aKo
 lhN
 qFl
 qFl
@@ -96464,7 +96516,7 @@ aGr
 bhf
 lhN
 aGr
-aGr
+aKo
 lhN
 lhN
 dGY
@@ -96763,7 +96815,7 @@ qBA
 qBA
 lhN
 aGr
-lhN
+qdu
 lhN
 dYD
 lhN
@@ -97053,7 +97105,7 @@ blY
 lhN
 lhN
 nlL
-aGr
+wFr
 aGr
 lhN
 wYp
@@ -97358,13 +97410,13 @@ lhN
 lhN
 lhN
 lhN
-dYD
+eBz
 aGr
 aGr
+pww
 aGr
 aGr
-aGr
-dYD
+eBz
 lhN
 yej
 lhN

@@ -1156,6 +1156,7 @@ ABSTRACT_TYPE(/datum/random_event/menhir)
 				Artifact_Spawn(T,"precursor")
 
 		playsound_global(world, 'sound/musical_instruments/artifact/Artifact_Precursor_5.ogg', 45, 0, 0.45)
+		landmarks[LANDMARK_MENHIR_PASSAGE] = null
 
 		message_delay = rand(5 SECONDS, 8 SECONDS)
 		..()

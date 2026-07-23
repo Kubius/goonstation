@@ -391,6 +391,10 @@ var/global/list/job_start_locations = list()
 	name = LANDMARK_MENHIR_DARK
 	icon_state = "x"
 
+/obj/landmark/menhir/stuckscan
+	name = LANDMARK_MENHIR_STUCKSCAN
+	icon_state = "x4"
+
 /obj/landmark/menhir/room
 	name = "room vismirror landmark (tag me)"
 	deleted_on_start = FALSE
