@@ -29,5 +29,4 @@
 		CONTENTS_GT(/obj/storage/secure/closet/engineering/cargo, 0),
 		CONTENTS_GT(/obj/item/cargotele, 0),
 		CONTENTS_GT(/obj/item/hand_labeler, 0),
-		CONTENTS_GT(/obj/item/stamp/qm, 0),
 	)
